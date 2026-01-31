@@ -1,5 +1,5 @@
 {
-    "name": "dykyi/awesome-claude-code",
+    "name": "dykyi-roman/awesome-claude-code",
     "description": "A collection of awesome Claude Code resources: commands, skills, agents, hooks, and more",
     "type": "composer-plugin",
     "license": "MIT",

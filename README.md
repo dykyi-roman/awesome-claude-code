@@ -1,8 +1,8 @@
 # Awesome Claude Code
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dykyi/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi/awesome-claude-code)
-[![Total Downloads](https://img.shields.io/packagist/dt/dykyi/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi/awesome-claude-code)
-[![License](https://img.shields.io/packagist/l/dykyi/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi/awesome-claude-code)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
+[![Total Downloads](https://img.shields.io/packagist/dt/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
+[![License](https://img.shields.io/packagist/l/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
 
 A collection of awesome Claude Code resources: commands, skills, agents, hooks, and more.
 
@@ -11,7 +11,7 @@ A collection of awesome Claude Code resources: commands, skills, agents, hooks, 
 Install via Composer:
 
 ```bash
-composer require dykyi/awesome-claude-code
+composer require dykyi-roman/awesome-claude-code
 ```
 
 Components are **automatically copied** to your project's `.claude/` directory:
