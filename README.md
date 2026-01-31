@@ -24,42 +24,61 @@ Existing files are not overwritten.
 ## Contents
 
 - [Commands](#commands)
-- [Skills](#skills)
 - [Agents](#agents)
-- [Hooks](#hooks)
-- [MCP Servers](#mcp-servers)
-- [CLAUDE.md Examples](#claudemd-examples)
+- [Skills](#skills)
+  - [Knowledge Skills](#knowledge-skills)
+  - [Generator Skills](#generator-skills)
+- [Documentation](#documentation)
 
 ## Commands
 
-| Command        | Description                                                     |
-|----------------|-----------------------------------------------------------------|
-| `/claude-code` | Interactive wizard for creating commands, agents, skills, hooks |
-| `/commit`      | Auto-generate commit message from diff and push to current branch |
+| Command | Description |
+|---------|-------------|
+| `/acc-claude-code` | Interactive wizard for creating commands, agents, skills, hooks |
+| `/acc-commit` | Auto-generate commit message from diff and push to current branch |
+| `/acc-architecture-audit` | Comprehensive multi-pattern architecture audit for PHP projects |
+| `/acc-ddd-audit` | DDD compliance analysis for PHP projects |
 
 ## Agents
 
-| Agent                | Description                                       |
-|----------------------|---------------------------------------------------|
-| `claude-code-expert` | Expert in Claude Code architecture and extensions |
+| Agent | Description |
+|-------|-------------|
+| `acc-claude-code-expert` | Expert in Claude Code architecture and extensions |
+| `acc-architecture-auditor` | Multi-pattern architecture auditor (DDD, CQRS, Clean, Hexagonal, Layered, EDA) |
+| `acc-ddd-auditor` | Specialized DDD compliance auditor |
+| `acc-ddd-generator` | Creates DDD and architecture components |
 
 ## Skills
 
-| Skill                   | Description                             |
-|-------------------------|-----------------------------------------|
-| `claude-code-knowledge` | Knowledge base for formats and patterns |
+### Knowledge Skills
 
-## Hooks
+Knowledge bases for architecture audits and best practices.
 
-Coming soon...
+| Skill | Description |
+|-------|-------------|
+| `acc-claude-code-knowledge` | Knowledge base for Claude Code formats and patterns |
+| `acc-ddd-knowledge` | DDD patterns, antipatterns, PHP guidelines |
+| `acc-cqrs-knowledge` | CQRS patterns, command/query separation |
+| `acc-clean-arch-knowledge` | Clean Architecture, dependency rules |
+| `acc-hexagonal-knowledge` | Hexagonal Architecture, Ports & Adapters patterns |
+| `acc-layer-arch-knowledge` | Layered Architecture, DTO patterns |
+| `acc-event-sourcing-knowledge` | Event Sourcing, projections, snapshots |
+| `acc-eda-knowledge` | Event-Driven Architecture, messaging, sagas |
 
-## MCP Servers
+### Generator Skills
 
-Coming soon...
+Code generators for DDD and architecture components (PHP 8.4).
 
-## CLAUDE.md Examples
-
-Coming soon...
+| Skill | Description |
+|-------|-------------|
+| `acc-create-value-object` | Generates DDD Value Objects with tests |
+| `acc-create-entity` | Generates DDD Entities with tests |
+| `acc-create-aggregate` | Generates DDD Aggregates with tests |
+| `acc-create-domain-event` | Generates Domain Events with tests |
+| `acc-create-repository` | Generates Repository interfaces and stubs |
+| `acc-create-command` | Generates CQRS Commands and Handlers |
+| `acc-create-query` | Generates CQRS Queries and Handlers |
+| `acc-create-use-case` | Generates Application Use Cases with tests |
 
 ## Documentation
 

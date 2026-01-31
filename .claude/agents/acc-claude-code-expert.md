@@ -2,7 +2,7 @@
 name: acc-claude-code-expert
 description: Expert in creating Claude Code commands, agents, and skills. Use PROACTIVELY when you need to create or improve Claude Code components.
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: sonnet
+model: opus
 skills: acc-claude-code-knowledge
 ---
 
@@ -36,7 +36,7 @@ You are an expert in Claude Code internal architecture and extension.
 ---
 description: When to use this command
 allowed-tools: Tool1, Tool2  # optional
-model: sonnet  # optional
+model: opus  # optional
 argument-hint: [argument description]  # optional
 ---
 
@@ -50,7 +50,7 @@ $ARGUMENTS — placeholder for user arguments
 name: agent-name
 description: When to use. Include "PROACTIVELY" or "MUST BE USED" for automatic invocation
 tools: Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch, Task
-model: sonnet | haiku | opus | inherit
+model: opus | sonnet | haiku | inherit
 permissionMode: default | acceptEdits | bypassPermissions | plan
 skills: skill1, skill2  # optional
 ---

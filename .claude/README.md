@@ -7,6 +7,8 @@ Detailed documentation for commands, agents, and skills.
 - [Commands](#commands)
 - [Agents](#agents)
 - [Skills](#skills)
+  - [Knowledge Skills](#knowledge-skills)
+  - [Generator Skills](#generator-skills)
 - [File Structure](#file-structure)
 - [Quick Reference](#quick-reference)
 
@@ -32,25 +34,52 @@ Interactive wizard for creating Claude Code components.
 4. Creates component with proper structure
 5. Validates and shows result
 
-**Example:**
+---
+
+### `/acc-commit`
+
+**Path:** `commands/acc-commit.md`
+
+Auto-generate commit message from diff and push to current branch.
+
+**Usage:**
 ```
-> /acc-claude-code
+/acc-commit
+```
 
-What would you like to create?
-1. command — slash command
-2. agent — subagent
-3. skill — skill
-4. hook — hook
+---
 
-> 1
+### `/acc-architecture-audit`
 
-Command name?
-> review
+**Path:** `commands/acc-architecture-audit.md`
 
-What should it do?
-> Code review for file
+Comprehensive multi-pattern architecture audit for PHP projects.
 
-Created: .claude/commands/review.md
+**Usage:**
+```
+/acc-architecture-audit <path-to-project>
+```
+
+**Analyzes:**
+- DDD compliance
+- CQRS patterns
+- Clean Architecture
+- Hexagonal Architecture
+- Layered Architecture
+- Event Sourcing
+- Event-Driven Architecture
+
+---
+
+### `/acc-ddd-audit`
+
+**Path:** `commands/acc-ddd-audit.md`
+
+DDD compliance analysis for PHP projects.
+
+**Usage:**
+```
+/acc-ddd-audit <path-to-project>
 ```
 
 ---
@@ -67,52 +96,95 @@ Expert in creating Claude Code commands, agents, and skills.
 ```yaml
 name: acc-claude-code-expert
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: sonnet
+model: opus
 skills: acc-claude-code-knowledge
 ```
 
-**Capabilities:**
-- Knows Claude Code file structure and formats
-- Follows best practices for component creation
-- Auto-loads knowledge base skill
+---
 
-**Invocation:**
-- Automatic: "PROACTIVELY" in description
-- Manual: "Use acc-claude-code-expert agent for..."
+### `acc-architecture-auditor`
+
+**Path:** `agents/acc-architecture-auditor.md`
+
+Multi-pattern architecture auditor.
+
+**Configuration:**
+```yaml
+name: acc-architecture-auditor
+tools: Read, Grep, Glob, Bash
+model: sonnet
+skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge,
+        acc-hexagonal-knowledge, acc-layer-arch-knowledge,
+        acc-event-sourcing-knowledge, acc-eda-knowledge
+```
+
+---
+
+### `acc-ddd-auditor`
+
+**Path:** `agents/acc-ddd-auditor.md`
+
+Specialized DDD compliance auditor.
+
+**Configuration:**
+```yaml
+name: acc-ddd-auditor
+tools: Read, Grep, Glob, Bash
+model: sonnet
+skills: acc-ddd-knowledge
+```
+
+---
+
+### `acc-ddd-generator`
+
+**Path:** `agents/acc-ddd-generator.md`
+
+Creates DDD and architecture components.
+
+**Configuration:**
+```yaml
+name: acc-ddd-generator
+tools: Read, Write, Glob, Grep
+model: sonnet
+skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity,
+        acc-create-aggregate, acc-create-domain-event, acc-create-repository,
+        acc-create-command, acc-create-query, acc-create-use-case
+```
 
 ---
 
 ## Skills
 
-### `acc-claude-code-knowledge`
+### Knowledge Skills
 
-**Path:** `skills/acc-claude-code-knowledge/SKILL.md`
+Knowledge bases for architecture audits and best practices.
 
-Knowledge base for Claude Code formats and patterns.
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-claude-code-knowledge` | `skills/acc-claude-code-knowledge/` | Claude Code formats and patterns |
+| `acc-ddd-knowledge` | `skills/acc-ddd-knowledge/` | DDD patterns, antipatterns |
+| `acc-cqrs-knowledge` | `skills/acc-cqrs-knowledge/` | CQRS command/query patterns |
+| `acc-clean-arch-knowledge` | `skills/acc-clean-arch-knowledge/` | Clean Architecture patterns |
+| `acc-hexagonal-knowledge` | `skills/acc-hexagonal-knowledge/` | Hexagonal/Ports & Adapters |
+| `acc-layer-arch-knowledge` | `skills/acc-layer-arch-knowledge/` | Layered Architecture patterns |
+| `acc-event-sourcing-knowledge` | `skills/acc-event-sourcing-knowledge/` | Event Sourcing patterns |
+| `acc-eda-knowledge` | `skills/acc-eda-knowledge/` | Event-Driven Architecture |
 
-**Contents:**
+### Generator Skills
 
-1. **Format Reference**
-   - Commands format
-   - Agents format
-   - Skills format
-   - Hooks format
+Code generators for DDD and architecture components (PHP 8.4).
 
-2. **Examples**
-   - Good command examples
-   - Good agent examples
-   - Skill with resources
-
-3. **Patterns**
-   - Parallel Agents
-   - Progressive Disclosure
-   - Chained Agents
-
-4. **Validation Checklists**
-   - Commands checklist
-   - Agents checklist
-   - Skills checklist
-   - Hooks checklist
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-create-value-object` | `skills/acc-create-value-object/` | DDD Value Objects |
+| `acc-create-entity` | `skills/acc-create-entity/` | DDD Entities |
+| `acc-create-aggregate` | `skills/acc-create-aggregate/` | DDD Aggregates |
+| `acc-create-domain-event` | `skills/acc-create-domain-event/` | Domain Events |
+| `acc-create-repository` | `skills/acc-create-repository/` | Repository interfaces |
+| `acc-create-command` | `skills/acc-create-command/` | CQRS Commands |
+| `acc-create-query` | `skills/acc-create-query/` | CQRS Queries |
+| `acc-create-use-case` | `skills/acc-create-use-case/` | Application Use Cases |
 
 ---
 
@@ -121,13 +193,33 @@ Knowledge base for Claude Code formats and patterns.
 ```
 .claude/
 ├── commands/
-│   └── acc-claude-code.md          # /acc-claude-code wizard
+│   ├── acc-claude-code.md
+│   ├── acc-commit.md
+│   ├── acc-architecture-audit.md
+│   └── acc-ddd-audit.md
 ├── agents/
-│   └── acc-claude-code-expert.md       # Expert agent
+│   ├── acc-claude-code-expert.md
+│   ├── acc-architecture-auditor.md
+│   ├── acc-ddd-auditor.md
+│   └── acc-ddd-generator.md
 ├── skills/
-│   └── acc-claude-code-knowledge/
-│       └── SKILL.md                # Knowledge base
-└── README.md                       # This file
+│   ├── acc-claude-code-knowledge/
+│   ├── acc-ddd-knowledge/
+│   ├── acc-cqrs-knowledge/
+│   ├── acc-clean-arch-knowledge/
+│   ├── acc-hexagonal-knowledge/
+│   ├── acc-layer-arch-knowledge/
+│   ├── acc-event-sourcing-knowledge/
+│   ├── acc-eda-knowledge/
+│   ├── acc-create-value-object/
+│   ├── acc-create-entity/
+│   ├── acc-create-aggregate/
+│   ├── acc-create-domain-event/
+│   ├── acc-create-repository/
+│   ├── acc-create-command/
+│   ├── acc-create-query/
+│   └── acc-create-use-case/
+└── README.md
 ```
 
 ---

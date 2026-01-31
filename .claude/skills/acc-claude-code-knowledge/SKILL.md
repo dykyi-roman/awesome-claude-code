@@ -16,7 +16,7 @@ description: Knowledge base for Claude Code formats and patterns. Use when creat
 ---
 description: Required. What the command does.
 allowed-tools: Optional. Restrict tools.
-model: Optional. sonnet/haiku/opus
+model: Optional. opus/sonnet/haiku
 argument-hint: Optional. Hint for arguments.
 ---
 
@@ -74,7 +74,7 @@ Output format:
 name: agent-name  # required
 description: Required. When to use the agent.
 tools: Optional. All by default.
-model: Optional. sonnet (default) / haiku / opus / inherit
+model: Optional. opus (default) / haiku / sonnet / inherit
 permissionMode: Optional. default / acceptEdits / bypassPermissions / plan
 skills: Optional. Auto-load skills.
 ---
@@ -122,7 +122,7 @@ Quickly find and analyze relevant code.
 name: test-writer
 description: Creates tests for code. MUST BE USED after writing new functionality.
 tools: Read, Write, Bash
-model: sonnet
+model: opus
 ---
 
 You are a testing specialist.

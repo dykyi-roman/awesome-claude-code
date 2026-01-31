@@ -39,8 +39,6 @@ type(scope): brief summary in lowercase (max 50 chars)
 - Detailed explanation of what changed
 - Why the change was made
 - Any important context
-
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 ```
 
 **Types:**
@@ -71,8 +69,6 @@ type(scope): summary
 
 - Detail 1
 - Detail 2
-
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 EOF
 )"
 ```
