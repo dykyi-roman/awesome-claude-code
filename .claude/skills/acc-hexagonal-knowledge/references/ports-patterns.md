@@ -25,7 +25,7 @@ Interfaces that define how external actors can interact with the application.
 
 Application layer — these are the entry points to use cases.
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 ```php
 <?php

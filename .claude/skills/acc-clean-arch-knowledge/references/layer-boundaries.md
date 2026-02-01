@@ -48,7 +48,7 @@ Contains the most general and high-level business rules. Would exist even if the
 4. **Self-validating** — Entities and VOs validate themselves
 5. **Rich behavior** — Logic lives in entities, not services
 
-### PHP 8.4 Example
+### PHP 8.5 Example
 
 ```php
 <?php
@@ -136,7 +136,7 @@ Contains application-specific business rules. Orchestrates the flow of data to a
 4. **Defines Ports** — Interfaces for external services
 5. **Manages transactions** — Transaction boundaries here
 
-### PHP 8.4 Example
+### PHP 8.5 Example
 
 ```php
 <?php
@@ -228,7 +228,7 @@ Converts data from the format most convenient for use cases and entities, to the
 3. **No business logic** — Only transformation and routing
 4. **Framework knowledge allowed** — But keep it minimal
 
-### PHP 8.4 Examples
+### PHP 8.5 Examples
 
 **Controller (Driving Adapter):**
 

@@ -1,0 +1,8 @@
+services:
+  php:
+    build: .
+    container_name: acc-test-php
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ../:/package:ro

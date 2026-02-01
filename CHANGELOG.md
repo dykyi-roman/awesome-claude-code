@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-02-01
+
+### Added
+
+#### Commands
+- `/acc-claude-code-audit` - audit .claude folder structure and configuration quality
+
+#### Agents
+- `acc-architecture-generator` - meta-generator coordinating DDD and pattern generators
+- `acc-pattern-auditor` - design and integration patterns auditor
+- `acc-pattern-generator` - creates integration and design pattern components
+
+#### Knowledge Skills
+- `acc-outbox-pattern-knowledge` - Outbox pattern, polling publisher, reliable messaging
+- `acc-saga-pattern-knowledge` - Saga orchestration, choreography, compensation
+- `acc-stability-patterns-knowledge` - Circuit Breaker, Retry, Rate Limiter, Bulkhead
+
+#### Generator Skills
+- `acc-create-dto` - generates DTOs for layer boundaries and APIs
+- `acc-create-specification` - generates DDD Specifications with composite pattern
+- `acc-create-factory` - generates DDD Factories for complex object creation
+- `acc-create-domain-service` - generates DDD Domain Services
+- `acc-create-outbox-pattern` - generates Transactional Outbox components
+- `acc-create-saga-pattern` - generates Saga orchestration components
+- `acc-create-circuit-breaker` - generates Circuit Breaker pattern
+- `acc-create-retry-pattern` - generates Retry pattern with backoff
+- `acc-create-rate-limiter` - generates Rate Limiter pattern
+- `acc-create-bulkhead` - generates Bulkhead pattern for isolation
+- `acc-create-strategy` - generates Strategy pattern
+- `acc-create-state` - generates State pattern
+- `acc-create-decorator` - generates Decorator pattern
+- `acc-create-chain-of-responsibility` - generates Chain of Responsibility pattern
+- `acc-create-builder` - generates Builder pattern
+- `acc-create-null-object` - generates Null Object pattern
+- `acc-create-object-pool` - generates Object Pool pattern
+- `acc-create-anti-corruption-layer` - generates ACL components
+- `acc-create-read-model` - generates Read Model/Projection for CQRS
+- `acc-create-policy` - generates Policy pattern
+
+### Changed
+- Refactored 22 skills to use `references/` folder structure (under 500 lines each)
+- Skills now have `templates.md` and `examples.md` in references folder
+
 ## [2.0.0] - 2025-01-31
 
 ### Added
@@ -39,14 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `acc-create-query` - generates CQRS Queries and Handlers
 - `acc-create-use-case` - generates Application Use Cases
 
-### Changed
-- Renamed `/commit` to `/acc-commit` for consistency
-- Renamed `/claude-code` to `/acc-claude-code` for consistency
-- Renamed `claude-code-expert` to `acc-claude-code-expert` for consistency
-- Renamed `claude-code-knowledge` to `acc-claude-code-knowledge` for consistency
-- Removed Co-Authored-By from commit messages in `/acc-commit`
-
-## [1.0.0] - 2025-01-31
+## [1.0.0] - 2025-01-30
 
 ### Added
 
@@ -58,6 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Skill `acc-claude-code-knowledge` - knowledge base for formats and patterns
 - Comprehensive documentation in `.claude/README.md`
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/dykyi-roman/awesome-claude-code/releases/tag/v1.0.0

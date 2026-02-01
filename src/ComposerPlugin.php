@@ -45,7 +45,7 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     public function onPackageInstall(PackageEvent $event): void
     {
         $package = $event->getOperation()->getPackage();
-        if ($package->getName() === 'dykyi/awesome-claude-code') {
+        if ($package->getName() === 'dykyi-roman/awesome-claude-code') {
             $this->copyClaudeFiles();
         }
     }
@@ -53,7 +53,7 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     public function onPackageUpdate(PackageEvent $event): void
     {
         $package = $event->getOperation()->getTargetPackage();
-        if ($package->getName() === 'dykyi/awesome-claude-code') {
+        if ($package->getName() === 'dykyi-roman/awesome-claude-code') {
             $this->copyClaudeFiles();
         }
     }
@@ -63,7 +63,7 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         $vendorDir = $this->composer->getConfig()->get('vendor-dir');
         $projectDir = dirname($vendorDir);
 
-        $sourceBase = $vendorDir . '/dykyi/awesome-claude-code/.claude';
+        $sourceBase = $vendorDir . '/dykyi-roman/awesome-claude-code/.claude';
         $targetBase = $projectDir . '/.claude';
 
         if (!is_dir($sourceBase)) {

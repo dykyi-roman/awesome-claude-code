@@ -1,6 +1,7 @@
 ---
 description: Automatically generate commit message based on changes and push to current branch. Analyzes git diff to create meaningful commit following conventional commits format.
 allowed-tools: Bash
+argument-hint: (no arguments needed)
 ---
 
 # Auto Commit & Push

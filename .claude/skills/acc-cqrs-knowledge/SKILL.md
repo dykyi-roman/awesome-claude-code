@@ -76,7 +76,7 @@ Quick reference for CQRS architecture patterns and PHP implementation guidelines
 | Missing command validation | Command without invariants | Warning |
 | Query using write DB | QueryHandler using EntityManager | Info |
 
-## PHP 8.4 CQRS Patterns
+## PHP 8.5 CQRS Patterns
 
 ### Command
 

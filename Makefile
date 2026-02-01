@@ -1,4 +1,4 @@
-.PHONY: help list-commands list-skills list-agents validate-claude changelog release
+.PHONY: help list-commands list-skills list-agents validate-claude changelog release test test-clear
 
 .DEFAULT_GOAL := help
 
@@ -92,6 +92,25 @@ validate-claude: ## Validate .claude directory structure
 		fi; \
 	done; \
 	echo ""
+
+# =============================================================================
+# Testing
+# =============================================================================
+
+test: ## Install package in test environment (tests/)
+	@echo ""
+	@echo "$(CYAN)Installing package in test environment...$(RESET)"
+	@cd tests && docker compose run --rm php composer install --no-interaction
+	@echo ""
+	@echo "$(GREEN)Done! Check tests/.claude/ for installed components$(RESET)"
+	@echo ""
+
+test-clear: ## Clear test environment (remove vendor, .claude)
+	@echo ""
+	@echo "$(CYAN)Clearing test environment...$(RESET)"
+	@rm -rf tests/vendor tests/composer.lock tests/.claude
+	@echo "$(GREEN)Done!$(RESET)"
+	@echo ""
 
 # =============================================================================
 # Release

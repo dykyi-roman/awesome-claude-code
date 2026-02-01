@@ -1,0 +1,23 @@
+{
+    "name": "test/awesome-claude-code-test",
+    "description": "Test project for awesome-claude-code package installation",
+    "type": "project",
+    "require": {
+        "php": "^8.5",
+        "dykyi-roman/awesome-claude-code": "@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/package",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "dykyi-roman/awesome-claude-code": true
+        }
+    }
+}

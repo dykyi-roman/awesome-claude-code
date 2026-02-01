@@ -16,7 +16,7 @@ A Message Bus routes messages (Commands/Queries) to their handlers, providing de
 | **QueryBus** | Dispatch queries | Data | One per query |
 | **EventBus** | Dispatch events | void | Zero or more per event |
 
-## PHP 8.4 Implementation
+## PHP 8.5 Implementation
 
 ### Command Bus Interface
 

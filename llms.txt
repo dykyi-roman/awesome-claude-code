@@ -1,0 +1,63 @@
+# Awesome Claude Code
+
+> Claude Code extension for PHP 8.5 developers
+
+## What is this?
+
+A Composer package that adds 40+ skills, agents, and commands to Claude Code for PHP development with DDD, CQRS, and Clean Architecture patterns.
+
+## Installation
+
+```bash
+composer require dykyi-roman/awesome-claude-code
+```
+
+## Key Features
+
+- DDD component generators (Value Objects, Entities, Aggregates, Domain Events, Repositories)
+- CQRS generators (Commands, Queries, Handlers)
+- Architecture audit tools (DDD, CQRS, Clean Architecture, Hexagonal, Event Sourcing)
+- Saga and Outbox pattern support for distributed systems
+- Anti-Corruption Layer generators for external integrations
+- Event-Driven Architecture patterns and knowledge bases
+
+## Supported Patterns
+
+- Domain-Driven Design (DDD)
+- Command Query Responsibility Segregation (CQRS)
+- Clean Architecture
+- Hexagonal Architecture (Ports & Adapters)
+- Event Sourcing
+- Event-Driven Architecture (EDA)
+- Saga Pattern
+- Outbox Pattern
+- Anti-Corruption Layer (ACL)
+
+## Components
+
+### Commands
+- /acc-architecture-audit - Multi-pattern architecture audit
+- /acc-ddd-audit - DDD compliance analysis
+- /acc-claude-code - Interactive wizard for extensions
+- /acc-commit - Auto-generate commit messages
+
+### Agents
+- acc-architecture-auditor - Multi-pattern auditor
+- acc-ddd-generator - DDD component generator
+- acc-pattern-generator - Advanced pattern generator
+
+### Generator Skills
+- acc-create-value-object - Value Objects with tests
+- acc-create-entity - Entities with tests
+- acc-create-aggregate - Aggregates with events
+- acc-create-command - CQRS Commands
+- acc-create-query - CQRS Queries
+- acc-create-saga-pattern - Saga orchestration
+- acc-create-outbox-pattern - Transactional outbox
+- acc-create-anti-corruption-layer - ACL components
+
+## Links
+
+- GitHub: https://github.com/dykyi-roman/awesome-claude-code
+- Packagist: https://packagist.org/packages/dykyi-roman/awesome-claude-code
+- Author: https://github.com/dykyi-roman

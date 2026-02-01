@@ -120,7 +120,7 @@ Quick reference for Hexagonal Architecture (Ports & Adapters) patterns and PHP i
 | Port with implementation details | Interface using DB types | Warning |
 | Adapter without port | Controller calling repository directly | Warning |
 
-## PHP 8.4 Hexagonal Patterns
+## PHP 8.5 Hexagonal Patterns
 
 ### Driving Port (Use Case Interface)
 

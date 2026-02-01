@@ -1,5 +1,7 @@
 ---
 description: Interactive wizard for creating Claude Code commands, agents, and skills. Use when you need to extend Claude Code capabilities.
+allowed-tools: Read, Write, Edit, Glob, Grep, Task
+model: opus
 ---
 
 # Claude Code Creator

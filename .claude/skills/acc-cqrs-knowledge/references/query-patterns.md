@@ -16,7 +16,7 @@ A Query is an immutable object representing a request to read data without side 
 - **Returns DTOs**: never domain entities
 - **Can use optimized read models**: bypass domain model for performance
 
-## PHP 8.4 Implementation
+## PHP 8.5 Implementation
 
 ### Basic Query
 
@@ -133,7 +133,7 @@ enum SortDirection: string
 
 Optimized data structure for queries, separate from write model.
 
-### PHP 8.4 Read Model Interface
+### PHP 8.5 Read Model Interface
 
 ```php
 <?php

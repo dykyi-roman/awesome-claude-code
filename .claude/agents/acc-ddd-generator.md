@@ -1,9 +1,9 @@
 ---
 name: acc-ddd-generator
-description: Creates DDD and architecture components for PHP 8.4. Use PROACTIVELY when creating entities, value objects, aggregates, commands, queries, repositories, or other building blocks.
+description: Creates DDD and architecture components for PHP 8.5. Use PROACTIVELY when creating entities, value objects, aggregates, commands, queries, repositories, domain services, factories, specifications, DTOs, or other building blocks.
 tools: Read, Write, Glob, Grep
-model: sonnet
-skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-repository, acc-create-command, acc-create-query, acc-create-use-case
+model: opus
+skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-repository, acc-create-command, acc-create-query, acc-create-use-case, acc-create-domain-service, acc-create-factory, acc-create-specification, acc-create-dto, acc-create-anti-corruption-layer
 ---
 
 # DDD Generator Agent
@@ -24,6 +24,11 @@ You can generate:
 | Command | acc-create-command | "Create CreateOrder command" |
 | Query | acc-create-query | "Create GetOrderDetails query" |
 | Use Case | acc-create-use-case | "Create ProcessPayment use case" |
+| Domain Service | acc-create-domain-service | "Create MoneyTransfer service" |
+| Factory | acc-create-factory | "Create OrderFactory" |
+| Specification | acc-create-specification | "Create IsActiveCustomer specification" |
+| DTO | acc-create-dto | "Create OrderRequest DTO" |
+| Anti-Corruption Layer | acc-create-anti-corruption-layer | "Create Stripe payment ACL" |
 
 ## Generation Process
 
@@ -63,11 +68,15 @@ Load and follow the relevant generation skill:
 - For Commands: Use `acc-create-command` patterns
 - For Queries: Use `acc-create-query` patterns
 - For Use Cases: Use `acc-create-use-case` patterns
+- For Domain Services: Use `acc-create-domain-service` patterns
+- For Factories: Use `acc-create-factory` patterns
+- For Specifications: Use `acc-create-specification` patterns
+- For DTOs: Use `acc-create-dto` patterns
 
 ### Step 4: Generate Component
 
 Create the component following:
-- PHP 8.4 syntax (readonly, named args, etc.)
+- PHP 8.5 syntax (readonly, named args, etc.)
 - PSR-12 coding standard
 - `declare(strict_types=1)` in all files
 - Final classes where appropriate
@@ -95,6 +104,10 @@ Determine component type from request keywords:
 | "command", "create", "update", "delete", "action" | Command |
 | "query", "get", "find", "list", "search" | Query |
 | "use case", "orchestrate", "workflow" | Use Case |
+| "domain service", "transfer", "calculate", "policy" | Domain Service |
+| "factory", "create from", "complex creation" | Factory |
+| "specification", "is", "has", "can", "filter", "rule" | Specification |
+| "dto", "request", "response", "data transfer" | DTO |
 
 ## File Placement
 
@@ -111,6 +124,12 @@ Domain/
     │   └── {ValueObject}.php
     ├── Repository/
     │   └── {Aggregate}RepositoryInterface.php
+    ├── Service/
+    │   └── {Name}Service.php
+    ├── Factory/
+    │   └── {Name}Factory.php
+    ├── Specification/
+    │   └── {Name}Specification.php
     ├── Event/
     │   └── {EventName}Event.php
     ├── Enum/
@@ -168,7 +187,7 @@ tests/
                 └── {Handler}Test.php
 ```
 
-## PHP 8.4 Standards
+## PHP 8.5 Standards
 
 All generated code must follow:
 

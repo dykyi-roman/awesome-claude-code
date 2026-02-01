@@ -14,7 +14,7 @@ Single application operation that orchestrates domain objects.
 - Manages transactions
 - No business logic
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 ```php
 <?php
@@ -114,7 +114,7 @@ Read-only operation optimized for queries.
 - Optimized for reading
 - Returns read-specific DTOs
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 ```php
 <?php
@@ -158,7 +158,7 @@ Simple object for transferring data between layers.
 - Public properties or getters
 - Validates format, not business rules
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 **Command DTO (Input):**
 
@@ -253,7 +253,7 @@ Orchestrates multiple use cases or complex workflows.
 - May span multiple aggregates
 - Transaction boundary
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 ```php
 <?php
@@ -304,7 +304,7 @@ Interface for external service integration, defined in Application.
 - Implemented in Infrastructure
 - Uses Application/Domain types
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 ```php
 <?php
@@ -338,7 +338,7 @@ interface PaymentGatewayInterface
 ### Definition
 Reacts to domain events with application-level side effects.
 
-### PHP 8.4 Implementation
+### PHP 8.5 Implementation
 
 ```php
 <?php

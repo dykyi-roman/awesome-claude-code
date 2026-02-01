@@ -18,7 +18,7 @@ A read model built by processing domain events. Projections transform the event 
 | **Eventually consistent** | May lag behind write model |
 | **Idempotent** | Same event applied twice = same result |
 
-## PHP 8.4 Implementation
+## PHP 8.5 Implementation
 
 ### Projection Interface
 
