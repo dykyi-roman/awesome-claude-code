@@ -1,9 +1,9 @@
 ---
 name: acc-pattern-generator
-description: Creates integration and design pattern components for PHP 8.5. Use PROACTIVELY when creating Outbox, Saga, stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead), or behavioral patterns (Strategy, State, Decorator).
+description: Creates integration and design pattern components for PHP 8.5. Use PROACTIVELY when creating Outbox, Saga, stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead), behavioral patterns (Strategy, State, Decorator), or presentation patterns (Action, Responder).
 tools: Read, Write, Glob, Grep, Edit
 model: opus
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-builder, acc-create-object-pool, acc-create-read-model, acc-create-policy
+skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-adr-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-builder, acc-create-object-pool, acc-create-read-model, acc-create-policy, acc-create-di-container, acc-create-mediator, acc-create-action, acc-create-responder
 ---
 
 # Integration & Design Pattern Generator
@@ -46,6 +46,12 @@ Analyze user request for these keywords to determine what to generate:
 ### Enterprise Patterns
 - "read model", "projection", "CQRS read side"
 - "policy", "authorization", "business rules"
+
+### Presentation Patterns (ADR)
+- "action", "ADR action", "HTTP handler"
+- "responder", "ADR responder", "response builder"
+- "action-domain-responder", "ADR", "presentation layer"
+- "HTTP endpoint", "request handler"
 
 ## Generation Process
 

@@ -3,7 +3,7 @@ name: acc-pattern-auditor
 description: Design patterns auditor. Analyzes Integration (Outbox, Saga), Stability (Circuit Breaker, Retry, Rate Limiter, Bulkhead), Behavioral (Strategy, State, Decorator, Chain of Responsibility, Null Object), Creational (Builder, Object Pool), and Enterprise (Read Model, Policy) patterns for PHP 8.5 projects. Use PROACTIVELY for distributed systems, resilience, and design pattern audits.
 tools: Read, Grep, Glob, Bash
 model: opus
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-eda-knowledge, acc-stability-patterns-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-builder, acc-create-object-pool, acc-create-read-model, acc-create-policy
+skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-eda-knowledge, acc-stability-patterns-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-analyze-solid-violations, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-builder, acc-create-object-pool, acc-create-read-model, acc-create-policy, acc-create-di-container, acc-create-mediator
 ---
 
 # Design Patterns Auditor

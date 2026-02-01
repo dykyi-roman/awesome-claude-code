@@ -9,11 +9,11 @@
 [![License](https://img.shields.io/packagist/l/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
 
 > **The most comprehensive Claude Code extension for PHP developers.**
-> Auto-generate DDD components, audit architecture, and boost productivity with 39 skills and 7 agents.
+> Auto-generate DDD components, audit architecture, and boost productivity with 61 skills and 8 agents.
 
 ## Features
 
-- **39 Skills** — DDD, CQRS, Clean Architecture, Stability Patterns, Event Sourcing generators
+- **61 Skills** — DDD, CQRS, Clean Architecture, Stability Patterns, PSR implementations, SOLID/GRASP audits
 - **Architecture Audit** — Automated compliance checking for 10+ patterns
 - **Zero Config** — Auto-installs to `.claude/` directory via Composer
 - **Tested Patterns** — Unit tests included for all generators
@@ -68,6 +68,7 @@ Existing files are not overwritten.
 | `/acc-commit` | Auto-generate commit message from diff and push to current branch |
 | `/acc-architecture-audit` | Comprehensive multi-pattern architecture audit for PHP projects |
 | `/acc-ddd-audit` | DDD compliance analysis for PHP projects |
+| `/acc-psr-audit` | PSR compliance audit (coding style, autoloading, interfaces) |
 
 ## Agents
 
@@ -80,6 +81,7 @@ Existing files are not overwritten.
 | `acc-pattern-generator` | Generates advanced pattern components |
 | `acc-ddd-auditor` | Specialized DDD compliance auditor |
 | `acc-ddd-generator` | Creates DDD and architecture components |
+| `acc-psr-generator` | Generates PSR-compliant PHP components |
 
 ## Skills
 
@@ -100,6 +102,12 @@ Knowledge bases for architecture audits and best practices.
 | `acc-saga-pattern-knowledge` | Saga pattern, orchestration, compensation |
 | `acc-outbox-pattern-knowledge` | Transactional Outbox, reliable messaging |
 | `acc-stability-patterns-knowledge` | Circuit Breaker, Retry, Rate Limiter, Bulkhead |
+| `acc-solid-knowledge` | SOLID principles (SRP, OCP, LSP, ISP, DIP) |
+| `acc-grasp-knowledge` | GRASP patterns (9 responsibility assignment principles) |
+| `acc-adr-knowledge` | Action-Domain-Responder pattern (MVC alternative) |
+| `acc-psr-coding-style-knowledge` | PSR-1/PSR-12 coding standards |
+| `acc-psr-autoloading-knowledge` | PSR-4 autoloading standard |
+| `acc-psr-overview-knowledge` | All PSR standards overview |
 
 ### Generator Skills
 
@@ -162,6 +170,31 @@ Code generators for DDD and architecture components.
 |-------|-------------|
 | `acc-create-builder` | Generates Builder pattern with tests |
 | `acc-create-object-pool` | Generates Object Pool pattern with tests |
+| `acc-create-di-container` | Generates DI Container configuration |
+| `acc-create-mediator` | Generates Mediator pattern with tests |
+
+#### Presentation Patterns (ADR)
+
+| Skill | Description |
+|-------|-------------|
+| `acc-create-action` | Generates ADR Action classes (HTTP handlers) |
+| `acc-create-responder` | Generates ADR Responder classes (response builders) |
+
+#### PSR Implementations
+
+| Skill | Description |
+|-------|-------------|
+| `acc-create-psr3-logger` | Generates PSR-3 Logger Interface |
+| `acc-create-psr6-cache` | Generates PSR-6 Caching Interface |
+| `acc-create-psr7-http-message` | Generates PSR-7 HTTP Messages |
+| `acc-create-psr11-container` | Generates PSR-11 Container Interface |
+| `acc-create-psr13-link` | Generates PSR-13 Hypermedia Links |
+| `acc-create-psr14-event-dispatcher` | Generates PSR-14 Event Dispatcher |
+| `acc-create-psr15-middleware` | Generates PSR-15 HTTP Middleware |
+| `acc-create-psr16-simple-cache` | Generates PSR-16 Simple Cache |
+| `acc-create-psr17-http-factory` | Generates PSR-17 HTTP Factories |
+| `acc-create-psr18-http-client` | Generates PSR-18 HTTP Client |
+| `acc-create-psr20-clock` | Generates PSR-20 Clock Interface |
 
 ## Supported Patterns
 
@@ -177,6 +210,8 @@ This extension provides comprehensive support for modern software architecture p
 - **Outbox Pattern** — Transactional messaging, Reliable delivery
 - **Anti-Corruption Layer** — External system isolation, Translation
 - **Stability Patterns** — Circuit Breaker, Retry, Rate Limiter, Bulkhead
+- **Action-Domain-Responder** — Web-specific MVC alternative
+- **PSR Standards** — PSR-3, 6, 7, 11, 13, 14, 15, 16, 17, 18, 20 implementations
 
 ## Documentation
 

@@ -3,7 +3,7 @@ name: acc-architecture-auditor
 description: Multi-pattern architecture auditor. Analyzes PHP projects for DDD, CQRS, Clean Architecture, Event Sourcing, Hexagonal, Layered, EDA, Outbox, and Saga compliance. Use PROACTIVELY when conducting comprehensive architecture reviews.
 tools: Read, Grep, Glob, Bash
 model: opus
-skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge, acc-event-sourcing-knowledge, acc-hexagonal-knowledge, acc-layer-arch-knowledge, acc-eda-knowledge, acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-domain-service, acc-create-factory, acc-create-specification, acc-create-repository, acc-create-use-case, acc-create-command, acc-create-query, acc-create-dto, acc-create-anti-corruption-layer, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-builder, acc-create-object-pool, acc-create-read-model, acc-create-policy
+skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge, acc-event-sourcing-knowledge, acc-hexagonal-knowledge, acc-layer-arch-knowledge, acc-eda-knowledge, acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-adr-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-domain-service, acc-create-factory, acc-create-specification, acc-create-repository, acc-create-use-case, acc-create-command, acc-create-query, acc-create-dto, acc-create-anti-corruption-layer, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-builder, acc-create-object-pool, acc-create-read-model, acc-create-policy, acc-create-action, acc-create-responder
 ---
 
 # Architecture Auditor Agent
@@ -70,6 +70,14 @@ Glob: **/Saga/**/*.php
 Glob: **/*Saga.php
 Grep: "SagaStep|SagaOrchestrator|Saga.*Interface" --glob "**/*.php"
 Grep: "function compensate" --glob "**/Saga/**/*.php"
+
+# ADR Pattern Detection
+Glob: **/*Action.php
+Glob: **/*Responder.php
+Glob: **/Action/**/*.php
+Grep: "implements.*ActionInterface|extends.*Action" --glob "**/*.php"
+Grep: "implements.*ResponderInterface" --glob "**/*.php"
+Grep: "public function __invoke.*Request" --glob "**/*Action.php"
 ```
 
 ### Phase 2: Per-Pattern Analysis
@@ -140,6 +148,7 @@ Brief overview of findings (2-3 sentences).
 | Event-Driven Architecture | Yes/No | src/Infrastructure/Messaging/ | High/Medium/Low |
 | Outbox Pattern | Yes/No | src/Domain/Shared/Outbox/ | High/Medium/Low |
 | Saga Pattern | Yes/No | src/Application/*/Saga/ | High/Medium/Low |
+| ADR Pattern | Yes/No | src/Presentation/Api/ | High/Medium/Low |
 
 ## Compliance Matrix
 
@@ -154,6 +163,7 @@ Brief overview of findings (2-3 sentences).
 | Event-Driven Architecture | X% | N | N | N |
 | Outbox Pattern | X% | N | N | N |
 | Saga Pattern | X% | N | N | N |
+| ADR Pattern | X% | N | N | N |
 
 ## Critical Issues
 
@@ -395,6 +405,34 @@ Grep: "correlationId|correlation_id" --glob "**/Saga/**/*.php"
 
 # Warning: Wrong compensation order
 Grep: "array_reverse" --glob "**/Saga/**/*.php"
+```
+
+### ADR Pattern Checks
+
+```bash
+# Critical: Response building in Action (Fat Action)
+Grep: "new Response|->withStatus|->withHeader|->withBody" --glob "**/*Action.php"
+
+# Critical: Business logic in Action
+Grep: "if \(.*->status|switch \(.*->get|foreach \(.*->get" --glob "**/*Action.php"
+
+# Critical: Repository calls in Action
+Grep: "Repository|->save\(|->persist\(" --glob "**/*Action.php"
+
+# Critical: Domain calls in Responder (Smart Responder)
+Grep: "Repository|Service|UseCase" --glob "**/*Responder.php"
+
+# Critical: Side effects in Responder
+Grep: "->save\(|->persist\(|->dispatch\(|->send\(" --glob "**/*Responder.php"
+
+# Warning: Multiple public methods in Action
+Grep: "public function [^_]" --glob "**/*Action.php"
+
+# Warning: Missing Responder for Action
+# Check if each Action has corresponding Responder
+
+# Warning: Anemic Responder (just json_encode)
+Grep: "return.*json_encode\(.*\$result" --glob "**/*Responder.php"
 ```
 
 ## Important Guidelines

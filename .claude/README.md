@@ -37,6 +37,10 @@ COMMANDS                    AGENTS                      SKILLS
                                 │
                                 ├──→ (Task) acc-ddd-generator ──→ 13 create-* skills
                                 └──→ (Task) acc-pattern-generator → 15 create-* skills
+
+/acc-psr-audit ─────────→ (direct analysis) ────────→ 3 PSR knowledge skills
+                                │
+                                └──→ (Task) acc-psr-generator ──→ 11 PSR create-* skills
 ```
 
 ### Audit → Generate Workflow
@@ -65,6 +69,7 @@ Skill generates PHP code with tests
 |------------|-----------------|-------------|
 | DDD components | `acc-ddd-generator` | 13 acc-create-* skills |
 | Design patterns | `acc-pattern-generator` | 15 acc-create-* skills |
+| PSR implementations | `acc-psr-generator` | 11 acc-create-psr* skills |
 | Architecture | `acc-architecture-generator` | Coordinator (delegates) |
 
 ### Generator Skills by Category
@@ -108,6 +113,19 @@ Skill generates PHP code with tests
 **Enterprise Patterns (2 skills):**
 - `acc-create-read-model` — CQRS Read Models
 - `acc-create-policy` — Policy pattern
+
+**PSR Implementations (11 skills):**
+- `acc-create-psr3-logger` — PSR-3 Logger Interface
+- `acc-create-psr6-cache` — PSR-6 Caching Interface
+- `acc-create-psr7-http-message` — PSR-7 HTTP Message Interface
+- `acc-create-psr11-container` — PSR-11 Container Interface
+- `acc-create-psr13-link` — PSR-13 Hypermedia Links
+- `acc-create-psr14-event-dispatcher` — PSR-14 Event Dispatcher
+- `acc-create-psr15-middleware` — PSR-15 HTTP Handlers/Middleware
+- `acc-create-psr16-simple-cache` — PSR-16 Simple Cache
+- `acc-create-psr17-http-factory` — PSR-17 HTTP Factories
+- `acc-create-psr18-http-client` — PSR-18 HTTP Client
+- `acc-create-psr20-clock` — PSR-20 Clock Interface
 
 ---
 
@@ -207,6 +225,24 @@ DDD compliance analysis for PHP projects.
 ```
 /acc-ddd-audit <path-to-project>
 ```
+
+---
+
+### `/acc-psr-audit`
+
+**Path:** `commands/acc-psr-audit.md`
+
+PSR compliance analysis for PHP projects.
+
+**Usage:**
+```
+/acc-psr-audit <path-to-project>
+```
+
+**Checks:**
+- PSR-1/PSR-12 coding style compliance
+- PSR-4 autoloading structure
+- PSR interface implementations
 
 ---
 
@@ -349,6 +385,26 @@ skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge,
 
 ---
 
+### `acc-psr-generator`
+
+**Path:** `agents/acc-psr-generator.md`
+
+Creates PSR-compliant PHP components.
+
+**Configuration:**
+```yaml
+name: acc-psr-generator
+tools: Read, Write, Glob, Grep, Edit
+model: sonnet
+skills: acc-psr-overview-knowledge, acc-create-psr3-logger, acc-create-psr6-cache,
+        acc-create-psr7-http-message, acc-create-psr11-container, acc-create-psr13-link,
+        acc-create-psr14-event-dispatcher, acc-create-psr15-middleware,
+        acc-create-psr16-simple-cache, acc-create-psr17-http-factory,
+        acc-create-psr18-http-client, acc-create-psr20-clock
+```
+
+---
+
 ## Skills
 
 ### Knowledge Skills
@@ -368,6 +424,18 @@ Knowledge bases for architecture audits and best practices.
 | `acc-outbox-pattern-knowledge` | `skills/acc-outbox-pattern-knowledge/` | Transactional Outbox pattern |
 | `acc-saga-pattern-knowledge` | `skills/acc-saga-pattern-knowledge/` | Saga/distributed transactions |
 | `acc-stability-patterns-knowledge` | `skills/acc-stability-patterns-knowledge/` | Circuit Breaker, Retry, Rate Limiter, Bulkhead |
+| `acc-adr-knowledge` | `skills/acc-adr-knowledge/` | Action-Domain-Responder pattern (MVC alternative) |
+| `acc-solid-knowledge` | `skills/acc-solid-knowledge/` | SOLID principles (SRP, OCP, LSP, ISP, DIP) |
+| `acc-grasp-knowledge` | `skills/acc-grasp-knowledge/` | GRASP patterns (9 responsibility assignment principles) |
+| `acc-psr-coding-style-knowledge` | `skills/acc-psr-coding-style-knowledge/` | PSR-1/PSR-12 coding standards |
+| `acc-psr-autoloading-knowledge` | `skills/acc-psr-autoloading-knowledge/` | PSR-4 autoloading standard |
+| `acc-psr-overview-knowledge` | `skills/acc-psr-overview-knowledge/` | All PSR standards overview |
+
+### Analyzer Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-analyze-solid-violations` | `skills/acc-analyze-solid-violations/` | SOLID violations analyzer with reports |
 
 ### Generator Skills
 
@@ -430,6 +498,31 @@ Code generators for DDD and architecture components (PHP 8.5).
 |-------|------|-------------|
 | `acc-create-builder` | `skills/acc-create-builder/` | Builder pattern |
 | `acc-create-object-pool` | `skills/acc-create-object-pool/` | Object Pool pattern |
+| `acc-create-di-container` | `skills/acc-create-di-container/` | DI Container configuration |
+| `acc-create-mediator` | `skills/acc-create-mediator/` | Mediator pattern |
+
+#### Presentation Patterns (ADR)
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-create-action` | `skills/acc-create-action/` | ADR Action classes (HTTP handlers) |
+| `acc-create-responder` | `skills/acc-create-responder/` | ADR Responder classes (response builders) |
+
+#### PSR Implementations
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-create-psr3-logger` | `skills/acc-create-psr3-logger/` | PSR-3 Logger Interface |
+| `acc-create-psr6-cache` | `skills/acc-create-psr6-cache/` | PSR-6 Caching Interface |
+| `acc-create-psr7-http-message` | `skills/acc-create-psr7-http-message/` | PSR-7 HTTP Messages |
+| `acc-create-psr11-container` | `skills/acc-create-psr11-container/` | PSR-11 Container Interface |
+| `acc-create-psr13-link` | `skills/acc-create-psr13-link/` | PSR-13 Hypermedia Links |
+| `acc-create-psr14-event-dispatcher` | `skills/acc-create-psr14-event-dispatcher/` | PSR-14 Event Dispatcher |
+| `acc-create-psr15-middleware` | `skills/acc-create-psr15-middleware/` | PSR-15 HTTP Middleware |
+| `acc-create-psr16-simple-cache` | `skills/acc-create-psr16-simple-cache/` | PSR-16 Simple Cache |
+| `acc-create-psr17-http-factory` | `skills/acc-create-psr17-http-factory/` | PSR-17 HTTP Factories |
+| `acc-create-psr18-http-client` | `skills/acc-create-psr18-http-client/` | PSR-18 HTTP Client |
+| `acc-create-psr20-clock` | `skills/acc-create-psr20-clock/` | PSR-20 Clock Interface |
 
 ---
 
@@ -442,7 +535,8 @@ Code generators for DDD and architecture components (PHP 8.5).
 │   ├── acc-claude-code.md
 │   ├── acc-claude-code-audit.md
 │   ├── acc-commit.md
-│   └── acc-ddd-audit.md
+│   ├── acc-ddd-audit.md
+│   └── acc-psr-audit.md
 ├── agents/
 │   ├── acc-architecture-auditor.md
 │   ├── acc-architecture-generator.md
@@ -450,7 +544,8 @@ Code generators for DDD and architecture components (PHP 8.5).
 │   ├── acc-ddd-auditor.md
 │   ├── acc-ddd-generator.md
 │   ├── acc-pattern-auditor.md
-│   └── acc-pattern-generator.md
+│   ├── acc-pattern-generator.md
+│   └── acc-psr-generator.md
 ├── skills/
 │   ├── acc-clean-arch-knowledge/
 │   ├── acc-claude-code-knowledge/
@@ -463,6 +558,8 @@ Code generators for DDD and architecture components (PHP 8.5).
 │   ├── acc-outbox-pattern-knowledge/
 │   ├── acc-saga-pattern-knowledge/
 │   ├── acc-stability-patterns-knowledge/
+│   ├── acc-adr-knowledge/
+│   ├── acc-create-action/
 │   ├── acc-create-aggregate/
 │   ├── acc-create-anti-corruption-layer/
 │   ├── acc-create-builder/
@@ -484,13 +581,33 @@ Code generators for DDD and architecture components (PHP 8.5).
 │   ├── acc-create-rate-limiter/
 │   ├── acc-create-read-model/
 │   ├── acc-create-repository/
+│   ├── acc-create-responder/
 │   ├── acc-create-retry-pattern/
 │   ├── acc-create-saga-pattern/
 │   ├── acc-create-specification/
 │   ├── acc-create-state/
 │   ├── acc-create-strategy/
 │   ├── acc-create-use-case/
-│   └── acc-create-value-object/
+│   ├── acc-create-value-object/
+│   ├── acc-create-di-container/
+│   ├── acc-create-mediator/
+│   ├── acc-solid-knowledge/
+│   ├── acc-grasp-knowledge/
+│   ├── acc-analyze-solid-violations/
+│   ├── acc-psr-coding-style-knowledge/
+│   ├── acc-psr-autoloading-knowledge/
+│   ├── acc-psr-overview-knowledge/
+│   ├── acc-create-psr3-logger/
+│   ├── acc-create-psr6-cache/
+│   ├── acc-create-psr7-http-message/
+│   ├── acc-create-psr11-container/
+│   ├── acc-create-psr13-link/
+│   ├── acc-create-psr14-event-dispatcher/
+│   ├── acc-create-psr15-middleware/
+│   ├── acc-create-psr16-simple-cache/
+│   ├── acc-create-psr17-http-factory/
+│   ├── acc-create-psr18-http-client/
+│   └── acc-create-psr20-clock/
 └── README.md
 ```
 
@@ -552,8 +669,9 @@ allowed-tools: Optional
 
 | Component | Count |
 |-----------|-------|
-| Commands | 5 |
-| Agents | 7 |
-| Knowledge Skills | 11 |
-| Generator Skills | 28 |
-| **Total Skills** | **39** |
+| Commands | 6 |
+| Agents | 8 |
+| Knowledge Skills | 17 |
+| Analyzer Skills | 1 |
+| Generator Skills | 43 |
+| **Total Skills** | **61** |

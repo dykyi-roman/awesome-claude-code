@@ -5,9 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.2.0] - 2026-02-01
 
-## [2.1.0] - 2025-02-01
+### Added
+
+#### Commands
+- `/acc-psr-audit` - PSR compliance audit (PSR-1/12 coding style, PSR-4 autoloading, PSR interfaces)
+
+#### Agents
+- `acc-psr-generator` - Generates PSR-compliant PHP components (11 skills)
+
+#### Knowledge Skills
+- `acc-solid-knowledge` - SOLID principles (SRP, OCP, LSP, ISP, DIP) with detection patterns and PHP examples
+- `acc-grasp-knowledge` - 9 GRASP patterns (Information Expert, Creator, Controller, Low Coupling, High Cohesion, Polymorphism, Pure Fabrication, Indirection, Protected Variations)
+- `acc-psr-coding-style-knowledge` - PSR-1/PSR-12 coding standards
+- `acc-psr-autoloading-knowledge` - PSR-4 autoloading standard
+- `acc-psr-overview-knowledge` - All PSR standards overview
+- `acc-adr-knowledge` - Action-Domain-Responder pattern (web-specific MVC alternative)
+
+#### Analyzer Skills
+- `acc-analyze-solid-violations` - SOLID violations analyzer with severity levels and remediation recommendations
+
+#### Generator Skills
+- `acc-create-di-container` - DI Container configuration (modules, service providers, autowiring)
+- `acc-create-mediator` - Mediator pattern for component coordination
+- `acc-create-psr3-logger` - PSR-3 Logger Interface implementation
+- `acc-create-psr6-cache` - PSR-6 Caching Interface implementation
+- `acc-create-psr7-http-message` - PSR-7 HTTP Message Interface implementation
+- `acc-create-psr11-container` - PSR-11 Container Interface implementation
+- `acc-create-psr13-link` - PSR-13 Hypermedia Links implementation
+- `acc-create-psr14-event-dispatcher` - PSR-14 Event Dispatcher implementation
+- `acc-create-psr15-middleware` - PSR-15 HTTP Middleware implementation
+- `acc-create-psr16-simple-cache` - PSR-16 Simple Cache implementation
+- `acc-create-psr17-http-factory` - PSR-17 HTTP Factories implementation
+- `acc-create-psr18-http-client` - PSR-18 HTTP Client implementation
+- `acc-create-psr20-clock` - PSR-20 Clock Interface implementation
+- `acc-create-action` - ADR Action classes for HTTP endpoints
+- `acc-create-responder` - ADR Responder classes for HTTP response building
+
+### Changed
+- Updated `acc-architecture-auditor` to include SOLID, GRASP, and ADR knowledge skills
+- Updated `acc-ddd-auditor` to include SOLID and GRASP knowledge skills
+- Updated `acc-pattern-generator` to include DI Container, Mediator, Action, and Responder skills
+- Updated `acc-pattern-auditor` to include SOLID/GRASP knowledge and analyzer skills
+
+## [2.1.0] - 2026-01-31
 
 ### Added
 
@@ -50,7 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored 22 skills to use `references/` folder structure (under 500 lines each)
 - Skills now have `templates.md` and `examples.md` in references folder
 
-## [2.0.0] - 2025-01-31
+## [2.0.0] - 2026-01-30
 
 ### Added
 
@@ -82,7 +124,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `acc-create-query` - generates CQRS Queries and Handlers
 - `acc-create-use-case` - generates Application Use Cases
 
-## [1.0.0] - 2025-01-30
+## [1.0.0] - 2026-01-29
 
 ### Added
 
@@ -94,7 +136,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Skill `acc-claude-code-knowledge` - knowledge base for formats and patterns
 - Comprehensive documentation in `.claude/README.md`
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/dykyi-roman/awesome-claude-code/releases/tag/v1.0.0
