@@ -11,7 +11,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
 > **The most comprehensive Claude Code extension for PHP developers.**
-> Auto-generate DDD components, audit architecture, generate documentation, and boost productivity with 73 skills and 11 agents.
+> Auto-generate DDD components, audit architecture, generate documentation, and boost productivity with 73 skills and 12 agents.
 
 ## Table of Contents
 
@@ -343,9 +343,9 @@ COMMANDS                      AGENTS                      SKILLS
                                   ├──→ (Task) acc-ddd-generator ──→ 13 create-* skills
                                   └──→ (Task) acc-pattern-generator → 20 create-* skills
 
-/acc-audit-psr ───────────→ acc-psr-generator ────────→ 11 PSR create-* skills
+/acc-audit-psr ───────────→ acc-psr-auditor ──────────→ 3 PSR knowledge skills
                                   │
-                                  └──→ 5 PSR knowledge skills
+                                  └──→ (Skill) 11 PSR create-* skills
 
 /acc-write-documentation ─→ acc-documentation-writer ─→ 8 template skills
                                   │

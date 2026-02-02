@@ -88,6 +88,7 @@ allowed-tools: Optional
 │   ├── acc-diagram-designer.md
 │   ├── acc-pattern-auditor.md
 │   ├── acc-pattern-generator.md
+│   ├── acc-psr-auditor.md
 │   └── acc-psr-generator.md
 ├── skills/
 │   ├── acc-*-knowledge/          # 20 knowledge skills

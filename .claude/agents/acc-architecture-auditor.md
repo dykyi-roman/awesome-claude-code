@@ -465,6 +465,10 @@ prompt: "Generate Aggregate Order with OrderLine items. Context: Missing aggrega
 # For design pattern
 Task tool with subagent_type="acc-pattern-generator"
 prompt: "Generate Retry pattern for EmailSender. Context: Found transient failures in src/Infrastructure/Notification/SmtpSender.php"
+
+# For architecture structure (bounded context, full feature slice)
+Task tool with subagent_type="acc-architecture-generator"
+prompt: "Create Order bounded context with aggregate, events, repository, and CQRS commands. Context: Missing proper domain structure in src/Order/"
 ```
 
 ## Output Format

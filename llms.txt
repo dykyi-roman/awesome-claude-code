@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 8 commands, 11 agents, 73 skills
+- 8 commands, 12 agents, 73 skills
 - PHP 8.5, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Documentation generation and audit

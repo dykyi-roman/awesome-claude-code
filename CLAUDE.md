@@ -56,9 +56,9 @@ COMMANDS                      AGENTS                      SKILLS
                                   ├──→ (Task) acc-ddd-generator ──→ 13 create-* skills
                                   └──→ (Task) acc-pattern-generator → 20 create-* skills
 
-/acc-audit-psr ───────────→ acc-psr-generator ────────→ 11 PSR create-* skills
+/acc-audit-psr ───────────→ acc-psr-auditor ──────────→ 3 PSR knowledge skills
                                   │
-                                  └──→ 5 PSR knowledge skills
+                                  └──→ (Skill) 11 PSR create-* skills
 
 /acc-write-documentation ─→ acc-documentation-writer ─→ 8 template skills
                                   │

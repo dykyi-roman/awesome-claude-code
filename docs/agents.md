@@ -13,7 +13,8 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-ddd-generator` | Generate DDD components | `acc-ddd-auditor` (Task) |
 | `acc-pattern-auditor` | Design patterns analysis | `/acc-audit-architecture` |
 | `acc-pattern-generator` | Generate design patterns | `acc-architecture-auditor` (Task) |
-| `acc-psr-generator` | Generate PSR implementations | `/acc-audit-psr` |
+| `acc-psr-auditor` | PSR compliance analysis | `/acc-audit-psr` |
+| `acc-psr-generator` | Generate PSR implementations | `acc-psr-auditor` (Skill) |
 | `acc-documentation-writer` | Generate documentation | `/acc-write-documentation` |
 | `acc-documentation-auditor` | Audit documentation quality | `/acc-audit-documentation` |
 | `acc-diagram-designer` | Create Mermaid diagrams | `acc-documentation-writer` (Task) |
@@ -161,6 +162,29 @@ skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge,
 - Bounded context scaffolding
 - CQRS + Event Sourcing setup
 - Full feature vertical slices
+
+---
+
+## `acc-psr-auditor`
+
+**Path:** `agents/acc-psr-auditor.md`
+
+PSR compliance auditor for PHP projects. Analyzes coding standards and interface implementations.
+
+**Configuration:**
+```yaml
+name: acc-psr-auditor
+tools: Read, Bash, Grep, Glob
+model: opus
+skills: acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-psr-overview-knowledge
+```
+
+**Analysis Phases:**
+1. Project structure discovery
+2. PSR-1/PSR-12 coding style analysis
+3. PSR-4 autoloading verification
+4. PSR interface detection
+5. Report generation with skill recommendations
 
 ---
 
