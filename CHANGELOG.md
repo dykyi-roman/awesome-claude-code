@@ -5,6 +5,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-02-04
+
+### Added
+
+#### Commands
+- `/acc-code-review` - Multi-level code review with git diff analysis, task matching, and verdicts
+
+#### Agents (6 new agents)
+- `acc-code-review-coordinator` - Code review coordinator orchestrating review levels (low/medium/high)
+- `acc-bug-hunter` - Bug detection specialist (logic errors, null pointers, race conditions, resource leaks) — 9 skills
+- `acc-security-reviewer` - Security review specialist (input validation, auth, CSRF, crypto) — 9 skills
+- `acc-performance-reviewer` - Performance review specialist (N+1 queries, memory, caching) — 8 skills
+- `acc-readability-reviewer` - Readability review specialist (naming, style, method/class length) — 9 skills
+- `acc-testability-reviewer` - Testability review specialist (DI, pure functions, side effects) — 7 skills
+
+#### Bug Detection Skills (9)
+- `acc-find-logic-errors` - Detects incorrect conditions, wrong operators, missing cases
+- `acc-find-null-pointer-issues` - Detects null access, missing checks, nullable returns
+- `acc-find-boundary-issues` - Detects off-by-one, array bounds, empty collections
+- `acc-find-race-conditions` - Detects shared mutable state, concurrent access without locks
+- `acc-find-resource-leaks` - Detects unclosed connections, file handles, streams
+- `acc-find-exception-issues` - Detects swallowed exceptions, generic catches, missing finally
+- `acc-find-type-issues` - Detects type coercion, mixed types, unsafe casts
+- `acc-find-sql-injection` - Detects unescaped queries, SQL concatenation
+- `acc-find-infinite-loops` - Detects missing break conditions, infinite recursion
+
+#### Security Review Skills (9)
+- `acc-check-input-validation` - Checks missing validation, weak regex, type coercion
+- `acc-check-output-encoding` - Checks XSS vectors, missing HTML encoding
+- `acc-check-authentication` - Checks weak auth, insecure sessions, tokens
+- `acc-check-authorization` - Checks missing access control, IDOR vulnerabilities
+- `acc-check-sensitive-data` - Checks plaintext secrets, exposed credentials, PII logging
+- `acc-check-csrf-protection` - Checks missing CSRF tokens, GET state changes
+- `acc-check-crypto-usage` - Checks weak algorithms, hardcoded keys
+- `acc-check-dependency-vulnerabilities` - Checks outdated packages, known CVEs
+- `acc-check-sql-injection` - Checks parameterized queries, ORM misuse
+
+#### Performance Review Skills (8)
+- `acc-detect-n-plus-one` - Detects queries in loops, missing eager loading
+- `acc-check-query-efficiency` - Checks SELECT *, missing indexes, full table scans
+- `acc-detect-memory-issues` - Checks large arrays, missing generators
+- `acc-check-caching-strategy` - Checks missing cache, invalidation issues
+- `acc-detect-unnecessary-loops` - Checks nested loops, redundant iterations
+- `acc-check-lazy-loading` - Checks premature loading, missing pagination
+- `acc-check-batch-processing` - Checks single-item vs bulk operations
+- `acc-estimate-complexity` - Analyzes O(n²) algorithms, exponential growth
+
+#### Readability Review Skills (9)
+- `acc-check-naming` - Checks non-descriptive names, abbreviations
+- `acc-check-code-style` - Checks PSR-12 compliance
+- `acc-check-method-length` - Checks methods > 30 lines
+- `acc-check-class-length` - Checks classes > 300 lines
+- `acc-check-nesting-depth` - Checks > 3 levels of nesting
+- `acc-check-comments` - Checks missing PHPDoc, outdated comments
+- `acc-check-magic-values` - Checks hardcoded values without constants
+- `acc-check-consistency` - Checks inconsistent patterns, mixed styles
+- `acc-suggest-simplification` - Suggests extract method, introduce variable
+
+#### Testability Review Skills (5 new)
+- `acc-check-dependency-injection` - Checks constructor injection, missing interfaces
+- `acc-check-pure-functions` - Checks side effects, external dependencies
+- `acc-check-side-effects` - Checks state mutation, global access
+- `acc-check-test-quality` - Checks test structure, assertions, isolation
+- `acc-suggest-testability-improvements` - Suggests DI refactoring, mock opportunities
+
+### Changed
+- Updated component counts: 11 commands, 29 agents, 127 skills
+
 ## [2.4.0] - 2026-02-03
 
 ### Added
@@ -113,6 +181,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Extended `acc-ddd-auditor`** from 3 to 4 skills (added bounded context analysis)
 - Renamed `/acc-claude-code` to `/acc-write-claude-component` for consistency
 - Updated component counts: 10 commands, 23 agents, 87 skills
+
+## Note: See [2.5.0] for Code Review system additions
 
 ## [2.3.0] - 2026-02-02
 
@@ -251,7 +321,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.1.0...v2.2.0

@@ -1,4 +1,4 @@
-# Awesome Claude Code - DDD & Clean Architecture Generator for PHP
+# Awesome Claude Code — PHP Architecture Toolkit
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
 [![Total Downloads](https://img.shields.io/packagist/dt/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
@@ -11,7 +11,9 @@
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
 > **The most comprehensive Claude Code extension for PHP developers.**
-> Auto-generate DDD components, audit architecture, generate tests and documentation, boost productivity with 87 skills and 23 agents.
+> Audit, Generate & Document: DDD, CQRS, Event Sourcing, Clean/Hexagonal Architecture, Design Patterns, PSR, Tests ...
+
+![Awesome Claude Code — PHP Architecture Toolkit](img.png)
 
 ## Table of Contents
 
@@ -34,8 +36,8 @@
 
 ## Features
 
-- **87 Skills** — DDD, CQRS, Clean Architecture, Stability Patterns, PSR implementations, Testing, Documentation, SOLID/GRASP audits
-- **10 Hooks** — Auto-format PHP, strict_types validation, vendor protection, syntax check, auto-tests, and more
+- **127 Skills** — DDD, CQRS, Clean Architecture, Stability Patterns, PSR implementations, Testing, Documentation, Code Review, Security, Performance, SOLID/GRASP audits
+- **21 Hooks** — DDD/Architecture guards, security checks, code quality, PSR compliance, git workflow protection
 - **MCP Support** — Database (PostgreSQL/MySQL), GitHub, Docker integration
 - **Architecture Audit** — Automated compliance checking for 10+ patterns
 - **Zero Config** — Auto-installs to `.claude/` directory via Composer
@@ -145,15 +147,15 @@ Existing files are not overwritten.
 
 | Component | Count | Description |
 |-----------|-------|-------------|
-| Commands | 10 | Slash commands for audits, generation, commits |
-| Agents | 23 | Specialized subagents for complex tasks |
-| Skills | 87 | Knowledge bases, code generators, templates |
+| Commands | 11 | Slash commands for audits, generation, commits, code review |
+| Agents | 29 | Specialized subagents for complex tasks |
+| Skills | 127 | Knowledge bases, code generators, templates, reviewers |
 
 ## Documentation
 
-- [Commands](docs/commands.md) — 10 slash commands
-- [Agents](docs/agents.md) — 23 subagents
-- [Skills](docs/skills.md) — 87 skills (knowledge + generators + templates)
+- [Commands](docs/commands.md) — 11 slash commands
+- [Agents](docs/agents.md) — 29 subagents
+- [Skills](docs/skills.md) — 127 skills (knowledge + generators + templates + reviewers)
 - [Hooks](docs/hooks.md) — 10 ready-to-use hooks for PHP/DDD
 - [MCP](docs/mcp.md) — Model Context Protocol servers
 - [Component Flow](docs/component-flow.md) — dependency graph and workflows
@@ -181,6 +183,7 @@ All commands support **meta-instructions** via `--` separator for additional con
 | `/acc-audit-documentation`    | `<path> [-- instructions]`    | Audit documentation quality                       |
 | `/acc-write-test`             | `<path> [-- instructions]`    | Generate tests for PHP code                       |
 | `/acc-audit-test`             | `<path> [-- instructions]`    | Audit test quality and coverage                   |
+| `/acc-code-review`            | `[branch] [level] [-- task]`  | Multi-level code review with task matching        |
 
 ## Agents
 
@@ -191,6 +194,7 @@ All commands support **meta-instructions** via `--` separator for additional con
 | `acc-architecture-auditor`   | Architecture audit coordinator (orchestrates structural, behavioral, integration auditors)|
 | `acc-pattern-auditor`        | Design patterns audit coordinator (orchestrates stability, behavioral, creational, integration auditors) |
 | `acc-pattern-generator`      | Design patterns generation coordinator (orchestrates stability, behavioral, creational, integration generators) |
+| `acc-code-review-coordinator`| Code review coordinator (orchestrates bug, security, performance, readability, testability reviewers) |
 
 ### Auditors
 
@@ -205,6 +209,11 @@ All commands support **meta-instructions** via `--` separator for additional con
 | `acc-psr-auditor`            | PSR compliance auditor (PSR-1/12, PSR-4, PSR interfaces)                                  |
 | `acc-documentation-auditor`  | Documentation quality auditor (completeness, accuracy, clarity)                           |
 | `acc-test-auditor`           | Test quality auditor (coverage, smells, naming, isolation)                                |
+| `acc-bug-hunter`             | Bug detection specialist (logic errors, null pointers, race conditions, resource leaks) — 9 skills       |
+| `acc-security-reviewer`      | Security review specialist (input validation, auth, CSRF, crypto, sensitive data) — 9 skills             |
+| `acc-performance-reviewer`   | Performance review specialist (N+1 queries, memory, caching, complexity) — 8 skills                      |
+| `acc-readability-reviewer`   | Readability review specialist (naming, style, method/class length, nesting) — 9 skills                   |
+| `acc-testability-reviewer`   | Testability review specialist (DI, pure functions, side effects, test quality) — 7 skills                |
 
 ### Generators
 
@@ -244,6 +253,11 @@ All commands support **meta-instructions** via `--` separator for additional con
 | ADR Patterns | 2 | Action, Responder |
 | PSR Implementations | 11 | PSR-3, 6, 7, 11, 13, 14, 15, 16, 17, 18, 20 |
 | Documentation Templates | 9 | README, Architecture, ADR, API, Mermaid |
+| Bug Detection | 9 | Logic errors, null pointers, race conditions, resource leaks |
+| Security Review | 9 | Input validation, authentication, CSRF, crypto, SQL injection |
+| Performance Review | 8 | N+1 queries, memory issues, caching, complexity |
+| Readability Review | 9 | Naming, code style, method/class length, nesting depth |
+| Testability Review | 5 | DI, pure functions, side effects, test quality |
 
 ### Knowledge Skills
 
@@ -419,6 +433,23 @@ COMMANDS                      AGENTS                      SKILLS
 /acc-audit-test ─────────→ acc-test-auditor ──────────→ acc-testing-knowledge
                                   │                     2 test analyze skills
                                   └──→ (Task) acc-test-generator
+
+/acc-code-review ────────→ acc-code-review-coordinator (coordinator)
+                                  │
+                                  ├──→ Level LOW:
+                                  │    ├──→ (Task) acc-psr-auditor
+                                  │    └──→ (Task) acc-test-auditor
+                                  │
+                                  ├──→ Level MEDIUM (includes LOW):
+                                  │    ├──→ (Task) acc-bug-hunter ────────→ 9 skills
+                                  │    └──→ (Task) acc-readability-reviewer → 9 skills
+                                  │
+                                  └──→ Level HIGH (includes MEDIUM):
+                                       ├──→ (Task) acc-security-reviewer ──→ 9 skills
+                                       ├──→ (Task) acc-performance-reviewer → 8 skills
+                                       ├──→ (Task) acc-testability-reviewer → 7 skills
+                                       ├──→ (Task) acc-ddd-auditor
+                                       └──→ (Task) acc-architecture-auditor
 ```
 
 ## Supported Patterns
@@ -442,9 +473,9 @@ This extension provides comprehensive support for modern software architecture p
 
 ```
 .claude/
-├── commands/           # 10 slash commands
-├── agents/             # 23 subagents
-├── skills/             # 87 skills
+├── commands/           # 11 slash commands
+├── agents/             # 29 subagents
+├── skills/             # 127 skills
 └── settings.json       # Shared team configuration
 
 docs/                   # Detailed documentation
@@ -461,18 +492,51 @@ docs/                   # Detailed documentation
 
 Hooks execute shell commands in response to Claude Code events. See [docs/hooks.md](docs/hooks.md) for full documentation.
 
+### PSR & Code Style (4)
+
 | Hook                 | Type  | Description                        |
 |----------------------|-------|------------------------------------|
 | Auto-format PHP      | info  | Runs `php-cs-fixer` on PHP files   |
 | Require strict_types | block | Requires `declare(strict_types=1)` |
-| Protect vendor/      | block | Prevents modification of vendor/   |
 | PHP Syntax Check     | info  | Validates PHP syntax               |
-| Auto-run Tests       | info  | Runs tests for modified class      |
-| Final Domain Classes | warn  | Warns if Domain class not final    |
-| File Size Check      | warn  | Detects God Class antipattern      |
-| No Direct Commits    | block | Forbids commits to main/master     |
-| Protect Migrations   | block | Prevents editing existing migrations |
-| Test Without Source  | warn  | Warns when changing only tests     |
+| PHPDoc Required      | warn  | Warns if public methods lack PHPDoc|
+
+### DDD & Architecture (5)
+
+| Hook                      | Type  | Description                          |
+|---------------------------|-------|--------------------------------------|
+| Final Domain Classes      | warn  | Warns if Domain class not final      |
+| Readonly Classes Check    | warn  | Warns if Domain class not readonly   |
+| Value Object Immutability | warn  | Ensures Value Objects are immutable  |
+| Aggregate Protection      | warn  | Protects Aggregate internal state    |
+| No Direct SQL             | warn  | Detects raw SQL outside Repository   |
+
+### Code Quality (4)
+
+| Hook                       | Type  | Description                          |
+|----------------------------|-------|--------------------------------------|
+| File Size Check            | warn  | Detects God Class antipattern        |
+| Constructor Injection Only | warn  | Warns about setter/property injection|
+| No Public Properties       | warn  | Warns about mutable public properties|
+| No Sleep/Exit              | warn  | Detects sleep/exit/die in code       |
+
+### Security & Safety (4)
+
+| Hook                 | Type  | Description                          |
+|----------------------|-------|--------------------------------------|
+| Protect vendor/      | block | Prevents modification of vendor/     |
+| No var_dump/print_r  | block | Blocks debug output in code          |
+| No Hardcoded Paths   | warn  | Detects hardcoded file system paths  |
+| No Global State      | warn  | Detects global variables usage       |
+
+### Git & Workflow (4)
+
+| Hook                | Type  | Description                          |
+|---------------------|-------|--------------------------------------|
+| Auto-run Tests      | info  | Runs tests for modified class        |
+| No Direct Commits   | block | Forbids commits to main/master       |
+| Protect Migrations  | block | Prevents editing existing migrations |
+| Test Without Source | warn  | Warns when changing only tests       |
 
 ## MCP
 

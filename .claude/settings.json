@@ -1,7 +1,16 @@
 {
   "hooks": {
-    "PreToolUse": [],
-    "PostToolUse": []
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$ACC_TOOL_FILE_PATH\" == *.php ]]; then php -l \"$ACC_TOOL_FILE_PATH\"; fi"
+          }
+        ]
+      }
+    ]
   },
   "permissions": {
     "allow": [

@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 10 commands, 23 agents, 87 skills, 10 hooks
+- 11 commands, 29 agents, 127 skills, 10 hooks
 - PHP 8.5, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -32,6 +32,7 @@ Components auto-copy to `.claude/` directory.
 | `/acc-commit` | Auto-generate commit message |
 | `/acc-write-test <path>` | Generate tests for file/folder |
 | `/acc-audit-test <path>` | Audit test quality |
+| `/acc-code-review [branch] [level]` | Multi-level code review |
 
 ## Agents
 
@@ -81,9 +82,9 @@ Components auto-copy to `.claude/` directory.
 
 ```
 .claude/
-├── commands/        # Slash commands (10)
-├── agents/          # Subagents (23)
-├── skills/          # Knowledge + generators (87)
+├── commands/        # Slash commands (11)
+├── agents/          # Subagents (29)
+├── skills/          # Knowledge + generators + analyzers (127)
 └── settings.json    # Hooks and permissions
 ```
 
@@ -123,4 +124,4 @@ Components auto-copy to `.claude/` directory.
 
 ## Version
 
-v2.4.0 - Hooks (10), MCP documentation, Testing system
+v2.5.0 - Code Review system, 40 new analyzer skills

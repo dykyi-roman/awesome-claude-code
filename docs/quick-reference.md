@@ -78,7 +78,8 @@ allowed-tools: Optional
 │   ├── acc-write-claude-component.md
 │   ├── acc-commit.md
 │   ├── acc-write-documentation.md
-│   └── acc-write-test.md
+│   ├── acc-write-test.md
+│   └── acc-code-review.md
 ├── agents/
 │   ├── acc-architecture-auditor.md
 │   ├── acc-architecture-generator.md
@@ -102,7 +103,13 @@ allowed-tools: Optional
 │   ├── acc-stability-generator.md
 │   ├── acc-structural-auditor.md
 │   ├── acc-test-auditor.md
-│   └── acc-test-generator.md
+│   ├── acc-test-generator.md
+│   ├── acc-code-review-coordinator.md
+│   ├── acc-bug-hunter.md
+│   ├── acc-security-reviewer.md
+│   ├── acc-performance-reviewer.md
+│   ├── acc-readability-reviewer.md
+│   └── acc-testability-reviewer.md
 ├── skills/
 │   ├── acc-*-knowledge/          # 21 knowledge skills
 │   ├── acc-analyze-*/            # 9 analyzer skills
@@ -122,13 +129,14 @@ docs/                       # Documentation (root level)
 
 | Component | Count |
 |-----------|-------|
-| Commands | 10 |
-| Agents | 23 |
+| Commands | 11 |
+| Agents | 29 |
 | Knowledge Skills | 21 |
-| Analyzer Skills | 9 |
+| Analyzer Skills | 46 |
 | Generator Skills | 48 |
 | Template Skills | 9 |
-| **Total Skills** | **87** |
+| Other Skills | 3 |
+| **Total Skills** | **127** |
 
 ---
 

@@ -21,17 +21,69 @@ Examples:
 - /acc-write-claude-component command
 - /acc-write-claude-component agent -- for DDD auditing
 - /acc-write-claude-component skill -- generates Value Objects
+- /acc-write-claude-component ? -- я хочу автоматически форматировать код
+- /acc-write-claude-component ? -- нужен аудит безопасности проекта
+- /acc-write-claude-component hook -- validate PHP syntax before Write tool
+- /acc-write-claude-component hook -- run prettier after file save
 ```
 
 **Parsing rules:**
 1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
-2. First part = **component type** (optional: command/agent/skill/hook)
+2. First part = **component type** (optional: command/agent/skill/hook/?)
 3. Second part = **meta-instructions** (optional, hints about purpose)
 
-If component type provided, skip Step 1 and go directly to Step 2.
+**Discovery mode (`?`):**
+If first part is `?`, enter discovery mode:
+- Analyze meta-instructions to understand user's goal
+- Recommend best component type with reasoning
+- Show plan before proceeding
+
+If component type provided (not `?`), skip Step 0-1 and go directly to Step 2.
 If meta-instructions provided, use them to guide questions in Step 2.
 
 ## Process
+
+### Step 0: Discovery Mode (if `?` provided)
+
+If user passed `?` as component type:
+
+1. **Analyze the goal** from meta-instructions:
+   - What problem needs solving?
+   - Is it automation, audit, generation, or workflow?
+   - Does it need separate context (agent) or just instructions (skill)?
+   - Should it trigger automatically (hook) or manually (command)?
+
+2. **Recommend component type** with reasoning:
+
+   | Goal Pattern | Recommended | Reason |
+   |--------------|-------------|--------|
+   | "автоматически при..." / "on save" / "before commit" | Hook | Triggered by events |
+   | "проверять/аудит/валидация/analyze" | Command + Agent | Complex analysis needs separate context |
+   | "генерировать/создавать/generate/create" | Command + Agent + Skills | Generation workflow |
+   | "инструкции/справочник/knowledge/reference" | Skill | Reusable knowledge |
+   | "простой workflow/quick action" | Command | Single saved prompt |
+
+3. **Present plan**:
+   ```
+   📋 Recommendation Plan
+
+   **Your goal:** {parsed from meta-instructions}
+
+   **Recommended approach:**
+   - Component type: {type}
+   - Reason: {why this type fits}
+
+   **What will be created:**
+   - {list of files}
+
+   **Alternative approaches:**
+   - {other options if applicable}
+
+   Proceed with this plan? [Yes/No/Modify]
+   ```
+
+4. If user confirms, proceed to Step 2 (Gather requirements) with component type pre-selected.
+   If no meta-instructions provided, ask user to describe their goal first.
 
 ### Step 1: Ask user what to create
 

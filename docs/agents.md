@@ -4,13 +4,14 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 
 ## Overview
 
-### Coordinators (0-2 skills, delegate via Task tool)
+### Coordinators (0-3 skills, delegate via Task tool)
 
 | Agent | Purpose | Invoked By |
 |-------|---------|------------|
 | `acc-architecture-auditor` | Architecture audit coordinator | `/acc-audit-architecture` |
 | `acc-pattern-auditor` | Design patterns audit coordinator | `acc-architecture-auditor` (Task) |
 | `acc-pattern-generator` | Design patterns generation coordinator | `acc-architecture-auditor` (Task) |
+| `acc-code-review-coordinator` | Code review coordinator (3 levels) | `/acc-code-review` |
 
 ### Auditors (3-12 skills)
 
@@ -25,6 +26,16 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-psr-auditor` | PSR compliance analysis | 3 | `/acc-audit-psr` |
 | `acc-documentation-auditor` | Audit documentation quality | 3 | `/acc-audit-documentation` |
 | `acc-test-auditor` | Test quality analysis | 3 | `/acc-audit-test` |
+
+### Reviewers (7-9 skills, code review specialists)
+
+| Agent | Purpose | Skills | Invoked By |
+|-------|---------|--------|------------|
+| `acc-bug-hunter` | Bug detection specialist | 9 | `acc-code-review-coordinator` (Task) |
+| `acc-security-reviewer` | Security review specialist | 9 | `acc-code-review-coordinator` (Task) |
+| `acc-performance-reviewer` | Performance review specialist | 8 | `acc-code-review-coordinator` (Task) |
+| `acc-readability-reviewer` | Readability review specialist | 9 | `acc-code-review-coordinator` (Task) |
+| `acc-testability-reviewer` | Testability review specialist | 7 | `acc-code-review-coordinator` (Task) |
 
 ### Generators (3-14 skills)
 
@@ -521,6 +532,129 @@ skills: acc-testing-knowledge, acc-create-unit-test, acc-create-integration-test
 3. Prepare infrastructure (builders, fakes)
 4. Generate tests using appropriate skill
 5. Verify quality rules compliance
+
+---
+
+---
+
+## `acc-code-review-coordinator`
+
+**Path:** `agents/acc-code-review-coordinator.md`
+
+Code review coordinator orchestrating multi-level reviews (low/medium/high) with git diff analysis.
+
+**Configuration:**
+```yaml
+name: acc-code-review-coordinator
+tools: Read, Grep, Glob, Bash, Task
+model: opus
+skills: acc-analyze-solid-violations, acc-detect-code-smells, acc-check-encapsulation
+```
+
+**Review Levels:**
+- **LOW**: PSR + Tests + Encapsulation + Code Smells
+- **MEDIUM**: LOW + Bugs + Readability + SOLID
+- **HIGH**: MEDIUM + Security + Performance + Testability + DDD + Architecture
+
+---
+
+## `acc-bug-hunter`
+
+**Path:** `agents/acc-bug-hunter.md`
+
+Bug detection specialist for code review.
+
+**Configuration:**
+```yaml
+name: acc-bug-hunter
+tools: Read, Grep, Glob
+model: sonnet
+skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues,
+        acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues,
+        acc-find-type-issues, acc-find-sql-injection, acc-find-infinite-loops
+```
+
+**Skills:** 9 (bug detection)
+
+---
+
+## `acc-security-reviewer`
+
+**Path:** `agents/acc-security-reviewer.md`
+
+Security review specialist for OWASP Top 10 vulnerabilities.
+
+**Configuration:**
+```yaml
+name: acc-security-reviewer
+tools: Read, Grep, Glob
+model: sonnet
+skills: acc-check-input-validation, acc-check-output-encoding, acc-check-authentication,
+        acc-check-authorization, acc-check-sensitive-data, acc-check-csrf-protection,
+        acc-check-crypto-usage, acc-check-dependency-vulnerabilities, acc-check-sql-injection
+```
+
+**Skills:** 9 (security checks)
+
+---
+
+## `acc-performance-reviewer`
+
+**Path:** `agents/acc-performance-reviewer.md`
+
+Performance review specialist for efficiency issues.
+
+**Configuration:**
+```yaml
+name: acc-performance-reviewer
+tools: Read, Grep, Glob
+model: sonnet
+skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues,
+        acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading,
+        acc-check-batch-processing, acc-estimate-complexity
+```
+
+**Skills:** 8 (performance checks)
+
+---
+
+## `acc-readability-reviewer`
+
+**Path:** `agents/acc-readability-reviewer.md`
+
+Readability review specialist for code quality.
+
+**Configuration:**
+```yaml
+name: acc-readability-reviewer
+tools: Read, Grep, Glob
+model: sonnet
+skills: acc-check-naming, acc-check-code-style, acc-check-method-length,
+        acc-check-class-length, acc-check-nesting-depth, acc-check-comments,
+        acc-check-magic-values, acc-check-consistency, acc-suggest-simplification
+```
+
+**Skills:** 9 (readability checks)
+
+---
+
+## `acc-testability-reviewer`
+
+**Path:** `agents/acc-testability-reviewer.md`
+
+Testability review specialist for test quality.
+
+**Configuration:**
+```yaml
+name: acc-testability-reviewer
+tools: Read, Grep, Glob
+model: sonnet
+skills: acc-check-dependency-injection, acc-check-pure-functions, acc-check-side-effects,
+        acc-check-test-quality, acc-suggest-testability-improvements,
+        acc-analyze-test-coverage, acc-detect-test-smells
+```
+
+**Skills:** 7 (testability checks)
 
 ---
 

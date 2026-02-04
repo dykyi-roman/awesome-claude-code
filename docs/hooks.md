@@ -4,18 +4,51 @@ Hooks execute shell commands in response to Claude Code events. Copy the hooks y
 
 ## Available Hooks
 
+### PSR & Code Style
+
 | Hook                                          | Type  | Event       | Description                          |
 |-----------------------------------------------|-------|-------------|--------------------------------------|
 | [Auto-format PHP](#auto-format-php)           | info  | Edit\|Write | Runs `php-cs-fixer` on PHP files     |
 | [Require strict_types](#require-strict_types) | block | Write       | Requires `declare(strict_types=1)`   |
-| [Protect vendor/](#protect-vendor)            | block | Edit\|Write | Prevents modification of vendor/     |
 | [PHP Syntax Check](#php-syntax-check)         | info  | Edit\|Write | Validates PHP syntax                 |
-| [Auto-run Tests](#auto-run-tests)             | info  | Edit\|Write | Runs tests for modified class        |
-| [Final Domain Classes](#final-domain-classes) | warn  | Edit\|Write | Warns if Domain class not final      |
-| [File Size Check](#file-size-check)           | warn  | Edit\|Write | Detects God Class antipattern        |
-| [No Direct Commits](#no-direct-commits)       | block | PreToolUse  | Forbids commits to main/master       |
-| [Protect Migrations](#protect-migrations)     | block | PreToolUse  | Prevents editing existing migrations |
-| [Test Without Source](#test-without-source)   | warn  | PreToolUse  | Warns when changing only tests       |
+| [PHPDoc Required](#phpdoc-required)           | warn  | Edit\|Write | Warns if public methods lack PHPDoc  |
+
+### DDD & Architecture
+
+| Hook                                                    | Type  | Event       | Description                              |
+|---------------------------------------------------------|-------|-------------|------------------------------------------|
+| [Final Domain Classes](#final-domain-classes)           | warn  | Edit\|Write | Warns if Domain class not final          |
+| [Readonly Classes Check](#readonly-classes-check)       | warn  | Edit\|Write | Warns if Domain class not readonly       |
+| [Value Object Immutability](#value-object-immutability) | warn  | Edit\|Write | Ensures Value Objects are immutable      |
+| [Aggregate Protection](#aggregate-protection)           | warn  | Edit\|Write | Protects Aggregate internal state        |
+| [No Direct SQL](#no-direct-sql)                         | warn  | Edit\|Write | Detects raw SQL outside Repository       |
+
+### Code Quality
+
+| Hook                                                        | Type  | Event       | Description                              |
+|-------------------------------------------------------------|-------|-------------|------------------------------------------|
+| [File Size Check](#file-size-check)                         | warn  | Edit\|Write | Detects God Class antipattern            |
+| [Constructor Injection Only](#constructor-injection-only)   | warn  | Edit\|Write | Warns about setter/property injection    |
+| [No Public Properties](#no-public-properties)               | warn  | Edit\|Write | Warns about mutable public properties    |
+| [No Sleep/Exit](#no-sleepexit)                              | warn  | Edit\|Write | Detects sleep/exit/die in code           |
+
+### Security & Safety
+
+| Hook                                            | Type  | Event       | Description                              |
+|-------------------------------------------------|-------|-------------|------------------------------------------|
+| [Protect vendor/](#protect-vendor)              | block | Edit\|Write | Prevents modification of vendor/         |
+| [No var_dump/print_r](#no-var_dumpprint_r)      | block | Edit\|Write | Blocks debug output in code              |
+| [No Hardcoded Paths](#no-hardcoded-paths)       | warn  | Edit\|Write | Detects hardcoded file system paths      |
+| [No Global State](#no-global-state)             | warn  | Edit\|Write | Detects global variables usage           |
+
+### Git & Workflow
+
+| Hook                                          | Type  | Event       | Description                              |
+|-----------------------------------------------|-------|-------------|------------------------------------------|
+| [Auto-run Tests](#auto-run-tests)             | info  | Edit\|Write | Runs tests for modified class            |
+| [No Direct Commits](#no-direct-commits)       | block | PreToolUse  | Forbids commits to main/master           |
+| [Protect Migrations](#protect-migrations)     | block | PreToolUse  | Prevents editing existing migrations     |
+| [Test Without Source](#test-without-source)   | warn  | PreToolUse  | Warns when changing only tests           |
 
 ## Hook Types
 
@@ -148,6 +181,210 @@ Warns when PHP file exceeds 300 lines (potential God Class).
     {
       "type": "command",
       "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]]; then lines=$(wc -l < \"$CLAUDE_FILE_PATHS\"); if [[ $lines -gt 300 ]]; then echo \"⚠️ File has $lines lines (>300). Consider splitting.\"; fi; fi"
+    }
+  ]
+}
+```
+
+---
+
+### PHPDoc Required
+
+Warns when public methods in Domain layer lack PHPDoc documentation.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == */Domain/*.php ]] && grep -B1 'public function' \"$CLAUDE_FILE_PATHS\" | grep -qv '@'; then echo '⚠️ Public methods should have PHPDoc'; fi"
+    }
+  ]
+}
+```
+
+## DDD & Architecture Hooks
+
+---
+
+### Readonly Classes Check
+
+Warns when Domain layer classes are not declared as `readonly`.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == */Domain/*.php ]] && grep -q '^class\\|^final class' \"$CLAUDE_FILE_PATHS\" && ! grep -q 'readonly class' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Domain classes should be readonly'; fi"
+    }
+  ]
+}
+```
+
+---
+
+### Value Object Immutability
+
+Ensures Value Objects remain immutable by detecting setters or property mutations.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == */ValueObject/*.php ]] && grep -qE 'public function set|->.*=' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Value Objects must be immutable'; fi"
+    }
+  ]
+}
+```
+
+---
+
+### Aggregate Protection
+
+Warns when Aggregate classes expose internal state via public properties.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == */Aggregate/*.php ]] && grep -q 'public \\$' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Aggregate internals should not be public'; fi"
+    }
+  ]
+}
+```
+
+---
+
+### No Direct SQL
+
+Detects raw SQL queries outside Repository classes. SQL should be encapsulated in repositories.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qiE 'SELECT\\s+\\*|INSERT INTO|UPDATE .+ SET|DELETE FROM' \"$CLAUDE_FILE_PATHS\" && [[ \"$CLAUDE_FILE_PATHS\" != *Repository* ]]; then echo '⚠️ Raw SQL found outside Repository'; fi"
+    }
+  ]
+}
+```
+
+## Code Quality Hooks
+
+---
+
+### Constructor Injection Only
+
+Warns about setter injection or property injection via annotations. Use constructor injection instead.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qE '@(Inject|Required|Autowired)' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Use constructor injection instead of annotations'; fi"
+    }
+  ]
+}
+```
+
+---
+
+### No Public Properties
+
+Warns about mutable public properties. Use getters or readonly properties instead.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qE 'public \\$|public string \\$|public int \\$|public array \\$' \"$CLAUDE_FILE_PATHS\" && ! grep -qE 'public readonly' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Avoid public properties, use getters or readonly'; fi"
+    }
+  ]
+}
+```
+
+---
+
+### No Sleep/Exit
+
+Warns about usage of `sleep()`, `exit()`, or `die()` in production code.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qE '\\bsleep\\b|\\bexit\\b|\\bdie\\b' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Avoid sleep/exit/die in production code'; fi"
+    }
+  ]
+}
+```
+
+## Security & Safety Hooks
+
+---
+
+### No var_dump/print_r
+
+Blocks code containing debug output functions.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qE '\\bvar_dump\\b|\\bprint_r\\b|\\bdd\\b|\\bdump\\b' \"$CLAUDE_FILE_PATHS\"; then echo '❌ Debug output detected'; exit 1; fi"
+    }
+  ]
+}
+```
+
+---
+
+### No Hardcoded Paths
+
+Warns about hardcoded file system paths. Use configuration or environment variables instead.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qE \"'/var/|'/tmp/|'/home/|C:\\\\\\\\\" \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Hardcoded paths detected, use config'; fi"
+    }
+  ]
+}
+```
+
+---
+
+### No Global State
+
+Detects usage of global variables, `$GLOBALS`, `$_SESSION`, or `$_REQUEST`.
+
+```json
+{
+  "matcher": "Edit|Write",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "if [[ \"$CLAUDE_FILE_PATHS\" == *.php ]] && grep -qE '\\bglobal \\$|\\$GLOBALS|\\$_SESSION|\\$_REQUEST' \"$CLAUDE_FILE_PATHS\"; then echo '⚠️ Avoid global state'; fi"
     }
   ]
 }

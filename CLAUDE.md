@@ -2,52 +2,31 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+Composer plugin providing Claude Code extensions for PHP development with DDD, CQRS, and Clean Architecture patterns.
 
-Composer plugin providing Claude Code extensions (commands, agents, skills) for PHP development. On `composer require dykyi-roman/awesome-claude-code`, components auto-copy to the project's `.claude/` directory without overwriting existing files.
-
-**Documentation:** [README.md](README.md) | [docs/](docs/) | [CHANGELOG.md](CHANGELOG.md) | [llms.txt](llms.txt)
-
-## Commands
+## Build & Validate
 
 ```bash
 make help              # Show all available commands
+make validate-claude   # Validate .claude structure (run before commits)
 make list-commands     # List slash commands
-make list-skills       # List skills
 make list-agents       # List agents
-make validate-claude   # Validate .claude structure
-make test              # Install in test environment (tests/)
-make test-clear        # Clear test environment
-make release           # Prepare release (run checks)
+make list-skills       # List skills
+make test              # Install in Docker test environment
+make test-clear        # Clean up test environment
 ```
 
 ## Architecture
 
-### Composer Plugin
-
-`src/ComposerPlugin.php` subscribes to `POST_PACKAGE_INSTALL` and `POST_PACKAGE_UPDATE` events. Copies `.claude/{commands,agents,skills}/` to target project. Existing files are never overwritten.
-
-### Component Structure
+`src/ComposerPlugin.php` copies `.claude/` components to target projects on `composer require`. Existing files are never overwritten.
 
 ```
 .claude/
-├── commands/           # 10 slash commands
-├── agents/             # 23 subagents
-├── skills/             # 87 skills (knowledge + generators + templates)
-│   └── name/
-│       ├── SKILL.md    # Skill definition
-│       └── references/ # Detailed documentation
-└── settings.json       # Hooks and permissions
+├── commands/     # 11 slash commands (user-invocable)
+├── agents/       # 29 subagents (Task tool targets)
+├── skills/       # 127 skills (knowledge, generators, analyzers, templates)
+└── settings.json # Hooks and permissions
 ```
-
-### Component Statistics
-
-| Component | Count |
-|-----------|-------|
-| Commands  | 10    |
-| Agents    | 23    |
-| Skills    | 87    |
-| Hooks     | 10    |
 
 ### Component Flow
 
@@ -100,170 +79,66 @@ COMMANDS                      AGENTS                        SKILLS
 /acc-audit-test ──────────→ acc-test-auditor ───────────→ acc-testing-knowledge
                                   │                       test analyze skills
                                   └──→ (Task) acc-test-generator
+
+/acc-code-review ────────→ acc-code-review-coordinator ─→ 3 skills (direct)
+                                  │
+                                  ├──→ LOW: acc-psr-auditor, acc-test-auditor
+                                  ├──→ MEDIUM: acc-bug-hunter, acc-readability-reviewer
+                                  └──→ HIGH: acc-security-reviewer, acc-performance-reviewer,
+                                             acc-testability-reviewer, acc-ddd-auditor,
+                                             acc-architecture-auditor
 ```
 
-## Component Formats
+## Key Conventions
 
-### Commands (`.claude/commands/*.md`)
+- **`acc-` prefix** — all components use this to avoid conflicts
+- **`--` separator** — pass meta-instructions: `/acc-audit-ddd ./src -- focus on aggregates`
+- **Skills < 500 lines** — extract details to `references/` folder
+- **Max 15 skills per agent** — exceeding indicates God-Agent antipattern
 
+### YAML Frontmatter (required at file start)
+
+**Command** (`.claude/commands/name.md`):
 ```yaml
 ---
-description: Required. When to use this command.
-allowed-tools: Optional. Comma-separated tool names.
-model: Optional. sonnet/haiku/opus
-argument-hint: Optional. Hint for arguments.
+description: Required
+allowed-tools: Optional
+model: Optional (sonnet/haiku/opus)
 ---
-
-Instructions. Use $ARGUMENTS for user input.
 ```
 
-### Agents (`.claude/agents/*.md`)
-
+**Agent** (`.claude/agents/name.md`):
 ```yaml
 ---
-name: required-name
-description: Required. Include "PROACTIVELY" for auto-invocation.
-tools: Optional. Default: all tools.
-model: Optional. Default: sonnet.
-skills: Optional. Auto-load skills.
+name: Required
+description: Required
+tools: Optional
+skills: Optional (list skill names)
 ---
-
-Agent prompt.
 ```
 
-### Skills (`.claude/skills/name/SKILL.md`)
-
+**Skill** (`.claude/skills/name/SKILL.md`):
 ```yaml
 ---
-name: lowercase-with-hyphens
-description: Required. Max 1024 chars.
+name: Required (lowercase, hyphens)
+description: Required (max 1024 chars)
 ---
-
-Skill instructions. Keep under 500 lines.
-Use references/ folder for detailed documentation.
 ```
 
-### Hooks (`.claude/settings.json`)
+## Adding Components
 
-Hooks execute shell commands on Claude Code events. See `docs/hooks.md` for all 10 hooks.
+Integration chain: **Skill → Agent (skills: frontmatter) → Command (Task tool)**
 
-- **PreToolUse** — runs before tool execution (validation, blocking)
-- **PostToolUse** — runs after tool execution (formatting, checks)
+When adding components:
+1. Create component with correct YAML frontmatter
+2. Wire to parent (skill→agent, agent→command)
+3. Update docs: `README.md`, `docs/*.md`, `CHANGELOG.md`
+4. Run `make validate-claude`
 
-### MCP Servers
-
-Model Context Protocol servers extend capabilities. See `docs/mcp.md`.
-
-```json
-{
-  "mcpServers": {
-    "server-name": {
-      "command": "npx",
-      "args": ["-y", "@example/mcp-server"]
-    }
-  }
-}
-```
-
-## Naming Convention
-
-All components use `acc-` prefix (Awesome Claude Code) to avoid conflicts with user components.
-
-## Command Arguments
-
-All commands support meta-instructions via `--` separator:
-
-```bash
-/acc-audit-ddd ./src -- focus on aggregate boundaries
-/acc-write-test src/Order.php -- only unit tests, skip integration
-/acc-commit v2.5.0 -- mention breaking changes
-```
-
-## Agent Design Rules
-
-- **Max 15 skills per agent** — exceeding this indicates SRP violation (God-Agent antipattern)
-- Use coordinator pattern for complex auditors (delegate to specialized sub-agents via Task tool)
-- Agents with 0 skills are valid coordinators that orchestrate other agents
-
-## Component Integration Rules
-
-When adding new components, verify proper integration in the component chain:
-
-### After Adding a Skill
-1. **Verify agent usage** — ensure skill is listed in relevant agent's `skills:` frontmatter
-2. Check if skill should be used by appropriate generator/auditor agent
-
-### After Adding an Agent
-1. **Verify command usage** — ensure agent is invoked by relevant command via `Task` tool
-2. Check component flow diagram for correct placement
-
-### Integration Checklist
-```
-Skill → Agent (skills: frontmatter) → Command (Task tool call)
-```
-
-## Documentation Updates
-
-When adding, removing, or modifying components, **always update**:
-
-1. Component tables in `README.md` and `docs/`
-2. Statistics (counts) where mentioned
-3. Component flow diagram if flow changes
-4. `CHANGELOG.md` for release notes
-
-## Testing
-
-```bash
-# Install in test environment (uses Docker)
-make test
-
-# Check installed components
-ls -la tests/.claude/
-
-# Clean up
-make test-clear
-```
-
-Test environment uses Docker with PHP-FPM. See `tests/docker-compose.yml`.
-
-## Quick Validation
-
-```bash
-# Validate all components have correct frontmatter
-make validate-claude
-
-# Count components
-find .claude/skills -maxdepth 1 -type d | tail -n +2 | wc -l  # Skills
-find .claude/agents -name "*.md" | wc -l                       # Agents
-find .claude/commands -name "*.md" | wc -l                     # Commands
-```
-
-## Adding New Components
-
-### New Skill Workflow
-```bash
-# 1. Create skill directory and SKILL.md
-mkdir -p .claude/skills/acc-new-skill
-# 2. Add YAML frontmatter with name: and description:
-# 3. Add skill to relevant agent's skills: list
-# 4. Update docs/skills.md and README.md counts
-# 5. Add to CHANGELOG.md
-```
-
-### New Agent Workflow
-```bash
-# 1. Create .claude/agents/acc-new-agent.md
-# 2. Add YAML frontmatter (name, description, tools, model, skills)
-# 3. If coordinator, ensure it invokes sub-agents via Task tool
-# 4. Update docs/agents.md and README.md counts
-# 5. Add to CHANGELOG.md
-```
-
-## Common Issues
+## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
 | Skill not loading | Check `skills:` in agent frontmatter |
 | Agent not invoked | Check command uses `Task` tool with correct `subagent_type` |
 | Validation fails | Ensure frontmatter starts with `---` |
-| Component not copied | Check `src/ComposerPlugin.php` copies the directory |

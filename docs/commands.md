@@ -38,6 +38,7 @@ Meta-instructions allow you to:
 | `/acc-audit-documentation` | `<path> [-- instructions]` | Audit documentation quality |
 | `/acc-write-test` | `<path> [-- instructions]` | Generate tests for PHP code |
 | `/acc-audit-test` | `<path> [-- instructions]` | Audit test quality and coverage |
+| `/acc-code-review` | `[branch] [level] [-- task]` | Multi-level code review with task matching |
 
 ---
 
@@ -364,6 +365,50 @@ Audit test quality and coverage.
 - Quality metrics with scores
 - Prioritized issues list
 - Skill recommendations for fixes
+
+---
+
+## `/acc-code-review`
+
+**Path:** `commands/acc-code-review.md`
+
+Multi-level code review with git diff analysis and task matching.
+
+**Arguments:**
+```
+/acc-code-review [branch] [level] [-- task-description]
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `branch` | No | Branch to review (default: current branch) |
+| `level` | No | Review depth: `low`, `medium`, `high` (default: high) |
+| `-- task-description` | No | Expected task for matching analysis |
+
+**Examples:**
+```bash
+/acc-code-review                                    # Current branch, high level
+/acc-code-review feature/payment                    # feature/payment vs main, high
+/acc-code-review medium                             # Current branch, medium level
+/acc-code-review feature/payment medium             # feature/payment vs main, medium
+/acc-code-review feature/payment -- add auth        # With task matching
+/acc-code-review -- implement JWT auth              # Current branch + task matching
+/acc-code-review feature/payment low -- add tests   # All options combined
+```
+
+**Review Levels:**
+
+| Level | Checks | Use Case |
+|-------|--------|----------|
+| **LOW** | PSR compliance, test quality, encapsulation, code smells | Quick PR check |
+| **MEDIUM** | LOW + bug detection, readability, SOLID violations | Standard review |
+| **HIGH** | MEDIUM + security, performance, testability, DDD, architecture | Full audit |
+
+**Output:**
+- Change summary (files, commits, lines changed)
+- Findings by severity (Critical/Major/Minor/Suggestion)
+- Task match analysis with percentage score (if task provided)
+- Verdict: APPROVE / APPROVE WITH COMMENTS / REQUEST CHANGES
 
 ---
 

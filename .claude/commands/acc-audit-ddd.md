@@ -59,7 +59,8 @@ Use the `acc-ddd-auditor` agent to perform a comprehensive DDD audit:
 2. **Domain Model** — Entities, Value Objects, Aggregates, Domain Services
 3. **Application Layer** — UseCases, DTOs, Command/Query Handlers
 4. **Infrastructure** — Repository implementations, external integrations
-5. **Dependencies** — layer violations, circular dependencies
+5. **Presentation Layer** — Actions/Controllers, Request/Response DTOs, Middleware
+6. **Dependencies** — layer violations, circular dependencies
 
 ### Generate Recommendations
 
@@ -130,6 +131,13 @@ Antipatterns detected:
 |---------------|-------------|--------------|
 | No repository interface | Repository | Run `/acc-create-repository` |
 | Direct external API calls | ACL | Run `/acc-create-anti-corruption-layer` |
+
+#### Presentation Layer Improvements
+| Problem Found | Recommended | Skill to Use |
+|---------------|-------------|--------------|
+| Fat controller | Action (ADR) | Run `acc-create-action` |
+| Missing response DTO | Responder | Run `acc-create-responder` |
+| No input validation | Request DTO | Run `acc-create-dto` |
 
 ### 6. Prioritized Action Items
 1. **Critical:** [Action with skill reference]

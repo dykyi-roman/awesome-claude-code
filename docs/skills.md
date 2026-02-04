@@ -7,9 +7,10 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
 | **Knowledge** | 21 | Provide expertise and best practices | `acc-ddd-knowledge` |
-| **Analyzer** | 9 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
+| **Analyzer** | 46 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
 | **Generator** | 48 | Generate PHP code with tests | `acc-create-entity` |
 | **Template** | 9 | Documentation templates | `acc-readme-template` |
+| **Other** | 3 | Estimation and suggestions | `acc-estimate-complexity` |
 
 ## How Skills Work
 
@@ -50,6 +51,8 @@ Knowledge bases for architecture audits and best practices.
 
 ## Analyzer Skills
 
+### Architecture Analyzers
+
 | Skill | Path | Description |
 |-------|------|-------------|
 | `acc-analyze-solid-violations` | `skills/acc-analyze-solid-violations/` | SOLID violations analyzer with reports |
@@ -61,6 +64,76 @@ Knowledge bases for architecture audits and best practices.
 | `acc-check-leaky-abstractions` | `skills/acc-check-leaky-abstractions/` | Detects leaky abstractions, framework leakage |
 | `acc-check-encapsulation` | `skills/acc-check-encapsulation/` | Detects public state, Tell Don't Ask violations |
 | `acc-analyze-coupling-cohesion` | `skills/acc-analyze-coupling-cohesion/` | Coupling/cohesion metrics (Ca/Ce, LCOM) |
+
+### Bug Detection Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-find-logic-errors` | `skills/acc-find-logic-errors/` | Detects incorrect conditions, wrong operators, missing cases |
+| `acc-find-null-pointer-issues` | `skills/acc-find-null-pointer-issues/` | Detects null access, missing checks, nullable returns |
+| `acc-find-boundary-issues` | `skills/acc-find-boundary-issues/` | Detects off-by-one, array bounds, empty collections |
+| `acc-find-race-conditions` | `skills/acc-find-race-conditions/` | Detects shared mutable state, concurrent access |
+| `acc-find-resource-leaks` | `skills/acc-find-resource-leaks/` | Detects unclosed connections, file handles |
+| `acc-find-exception-issues` | `skills/acc-find-exception-issues/` | Detects swallowed exceptions, generic catches |
+| `acc-find-type-issues` | `skills/acc-find-type-issues/` | Detects type coercion, mixed types, unsafe casts |
+| `acc-find-sql-injection` | `skills/acc-find-sql-injection/` | Detects unescaped queries, SQL concatenation |
+| `acc-find-infinite-loops` | `skills/acc-find-infinite-loops/` | Detects missing break conditions, infinite recursion |
+
+### Security Review Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-check-input-validation` | `skills/acc-check-input-validation/` | Checks missing validation, weak regex |
+| `acc-check-output-encoding` | `skills/acc-check-output-encoding/` | Checks XSS vectors, missing HTML encoding |
+| `acc-check-authentication` | `skills/acc-check-authentication/` | Checks weak auth, insecure sessions |
+| `acc-check-authorization` | `skills/acc-check-authorization/` | Checks missing access control, IDOR |
+| `acc-check-sensitive-data` | `skills/acc-check-sensitive-data/` | Checks plaintext secrets, PII exposure |
+| `acc-check-csrf-protection` | `skills/acc-check-csrf-protection/` | Checks missing CSRF tokens |
+| `acc-check-crypto-usage` | `skills/acc-check-crypto-usage/` | Checks weak algorithms, hardcoded keys |
+| `acc-check-dependency-vulnerabilities` | `skills/acc-check-dependency-vulnerabilities/` | Checks outdated packages, known CVEs |
+| `acc-check-sql-injection` | `skills/acc-check-sql-injection/` | Checks parameterized queries, ORM misuse |
+
+### Performance Review Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-detect-n-plus-one` | `skills/acc-detect-n-plus-one/` | Detects queries in loops, missing eager loading |
+| `acc-check-query-efficiency` | `skills/acc-check-query-efficiency/` | Checks SELECT *, missing indexes |
+| `acc-detect-memory-issues` | `skills/acc-detect-memory-issues/` | Checks large arrays, missing generators |
+| `acc-check-caching-strategy` | `skills/acc-check-caching-strategy/` | Checks missing cache, invalidation issues |
+| `acc-detect-unnecessary-loops` | `skills/acc-detect-unnecessary-loops/` | Checks nested loops, redundant iterations |
+| `acc-check-lazy-loading` | `skills/acc-check-lazy-loading/` | Checks premature loading, missing pagination |
+| `acc-check-batch-processing` | `skills/acc-check-batch-processing/` | Checks single-item vs bulk operations |
+
+### Readability Review Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-check-naming` | `skills/acc-check-naming/` | Checks non-descriptive names, abbreviations |
+| `acc-check-code-style` | `skills/acc-check-code-style/` | Checks PSR-12 compliance |
+| `acc-check-method-length` | `skills/acc-check-method-length/` | Checks methods > 30 lines |
+| `acc-check-class-length` | `skills/acc-check-class-length/` | Checks classes > 300 lines |
+| `acc-check-nesting-depth` | `skills/acc-check-nesting-depth/` | Checks > 3 levels of nesting |
+| `acc-check-comments` | `skills/acc-check-comments/` | Checks missing PHPDoc, outdated comments |
+| `acc-check-magic-values` | `skills/acc-check-magic-values/` | Checks hardcoded values without constants |
+| `acc-check-consistency` | `skills/acc-check-consistency/` | Checks inconsistent patterns, mixed styles |
+
+### Testability Review Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-check-dependency-injection` | `skills/acc-check-dependency-injection/` | Checks constructor injection, missing interfaces |
+| `acc-check-pure-functions` | `skills/acc-check-pure-functions/` | Checks side effects, external dependencies |
+| `acc-check-side-effects` | `skills/acc-check-side-effects/` | Checks state mutation, global access |
+| `acc-check-test-quality` | `skills/acc-check-test-quality/` | Checks test structure, assertions, isolation |
+
+### Other Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-estimate-complexity` | `skills/acc-estimate-complexity/` | Analyzes O(n²) algorithms, exponential growth |
+| `acc-suggest-simplification` | `skills/acc-suggest-simplification/` | Suggests extract method, introduce variable |
+| `acc-suggest-testability-improvements` | `skills/acc-suggest-testability-improvements/` | Suggests DI refactoring, mock opportunities |
 
 ## Generator Skills
 
