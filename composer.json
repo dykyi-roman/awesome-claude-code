@@ -64,6 +64,7 @@
             "Dykyi\\AwesomeClaudeCode\\": "src/"
         }
     },
+    "bin": ["bin/acc"],
     "extra": {
         "class": "Dykyi\\AwesomeClaudeCode\\ComposerPlugin"
     },

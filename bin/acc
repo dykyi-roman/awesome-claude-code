@@ -1,0 +1,268 @@
+#!/usr/bin/env bash
+#
+# ACC - Awesome Claude Code CLI
+# Force upgrade Claude components with backup support
+#
+
+set -euo pipefail
+
+# Colors
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[0;33m'
+readonly CYAN='\033[0;36m'
+readonly RESET='\033[0m'
+
+# Configuration
+readonly PACKAGE_NAME="dykyi-roman/awesome-claude-code"
+readonly COMPONENTS=("commands" "agents" "skills")
+
+# Globals
+CREATE_BACKUP=true
+COMPONENT_FILTER=""
+COMMAND=""
+
+print_usage() {
+    cat << EOF
+${CYAN}ACC - Awesome Claude Code CLI${RESET}
+
+Usage: acc <command> [options]
+
+Commands:
+  upgrade     Force upgrade Claude components from vendor
+
+Options:
+  --no-backup           Skip backup creation
+  --component=<name>    Upgrade only specific component (commands|agents|skills)
+  -h, --help            Show this help message
+
+Examples:
+  acc upgrade                          # Full upgrade with backup
+  acc upgrade --no-backup              # Upgrade without backup
+  acc upgrade --component=commands     # Upgrade only commands
+
+EOF
+}
+
+print_error() {
+    echo -e "${RED}Error:${RESET} $1" >&2
+}
+
+print_success() {
+    echo -e "${GREEN}✓${RESET} $1"
+}
+
+print_info() {
+    echo -e "${CYAN}→${RESET} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}!${RESET} $1"
+}
+
+find_project_root() {
+    local dir="$PWD"
+    while [[ "$dir" != "/" ]]; do
+        if [[ -f "$dir/composer.json" ]]; then
+            echo "$dir"
+            return 0
+        fi
+        dir="$(dirname "$dir")"
+    done
+    return 1
+}
+
+find_vendor_source() {
+    local project_root="$1"
+    local vendor_dir="${project_root}/vendor"
+    local source="${vendor_dir}/${PACKAGE_NAME}/.claude"
+
+    if [[ -d "$source" ]]; then
+        echo "$source"
+        return 0
+    fi
+    return 1
+}
+
+create_backup() {
+    local target_dir="$1"
+    local project_root="$2"
+
+    if [[ ! -d "$target_dir" ]]; then
+        print_info "No existing .claude directory to backup"
+        return 0
+    fi
+
+    local timestamp
+    timestamp=$(date +"%Y-%m-%d-%H%M%S")
+    local backup_dir="${project_root}/.claude.backup.${timestamp}"
+
+    print_info "Creating backup: ${backup_dir}"
+    cp -r "$target_dir" "$backup_dir"
+    print_success "Backup created"
+}
+
+remove_components() {
+    local target_dir="$1"
+    local components=("${@:2}")
+
+    for component in "${components[@]}"; do
+        local component_path="${target_dir}/${component}"
+        if [[ -d "$component_path" ]]; then
+            print_info "Removing: .claude/${component}/"
+            rm -rf "$component_path"
+        fi
+    done
+}
+
+copy_components() {
+    local source_dir="$1"
+    local target_dir="$2"
+    local components=("${@:3}")
+
+    mkdir -p "$target_dir"
+
+    for component in "${components[@]}"; do
+        local source_path="${source_dir}/${component}"
+        local target_path="${target_dir}/${component}"
+
+        if [[ -d "$source_path" ]]; then
+            print_info "Copying: .claude/${component}/"
+            cp -r "$source_path" "$target_path"
+
+            local count
+            count=$(find "$target_path" -type f -name "*.md" | wc -l | tr -d ' ')
+            print_success "Copied ${count} files to .claude/${component}/"
+        else
+            print_warning "Source not found: ${source_path}"
+        fi
+    done
+}
+
+cmd_upgrade() {
+    echo ""
+    echo -e "${CYAN}ACC Upgrade${RESET}"
+    echo ""
+
+    # Find project root
+    local project_root
+    if ! project_root=$(find_project_root); then
+        print_error "Cannot find composer.json in current or parent directories"
+        exit 1
+    fi
+
+    # Find vendor source
+    local source_dir
+    if ! source_dir=$(find_vendor_source "$project_root"); then
+        print_error "Package not found in vendor. Run 'composer require ${PACKAGE_NAME}' first."
+        exit 1
+    fi
+
+    local target_dir="${project_root}/.claude"
+
+    print_info "Project root: ${project_root}"
+    print_info "Source: ${source_dir}"
+    print_info "Target: ${target_dir}"
+    echo ""
+
+    # Determine which components to upgrade
+    local components_to_upgrade=()
+    if [[ -n "$COMPONENT_FILTER" ]]; then
+        # Validate component name
+        local valid=false
+        for c in "${COMPONENTS[@]}"; do
+            if [[ "$c" == "$COMPONENT_FILTER" ]]; then
+                valid=true
+                break
+            fi
+        done
+
+        if [[ "$valid" == false ]]; then
+            print_error "Invalid component: ${COMPONENT_FILTER}"
+            print_error "Valid components: ${COMPONENTS[*]}"
+            exit 1
+        fi
+
+        components_to_upgrade=("$COMPONENT_FILTER")
+        print_info "Upgrading component: ${COMPONENT_FILTER}"
+    else
+        components_to_upgrade=("${COMPONENTS[@]}")
+        print_info "Upgrading all components: ${COMPONENTS[*]}"
+    fi
+    echo ""
+
+    # Create backup if needed
+    if [[ "$CREATE_BACKUP" == true ]]; then
+        create_backup "$target_dir" "$project_root"
+        echo ""
+    else
+        print_warning "Skipping backup (--no-backup)"
+        echo ""
+    fi
+
+    # Remove old components
+    remove_components "$target_dir" "${components_to_upgrade[@]}"
+    echo ""
+
+    # Copy new components
+    copy_components "$source_dir" "$target_dir" "${components_to_upgrade[@]}"
+    echo ""
+
+    print_success "Upgrade complete!"
+    echo ""
+}
+
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            upgrade)
+                COMMAND="upgrade"
+                shift
+                ;;
+            --no-backup)
+                CREATE_BACKUP=false
+                shift
+                ;;
+            --component=*)
+                COMPONENT_FILTER="${1#*=}"
+                shift
+                ;;
+            -h|--help)
+                print_usage
+                exit 0
+                ;;
+            *)
+                print_error "Unknown option: $1"
+                print_usage
+                exit 1
+                ;;
+        esac
+    done
+}
+
+main() {
+    if [[ $# -eq 0 ]]; then
+        print_usage
+        exit 1
+    fi
+
+    parse_args "$@"
+
+    if [[ -z "$COMMAND" ]]; then
+        print_usage
+        exit 1
+    fi
+
+    case "$COMMAND" in
+        upgrade)
+            cmd_upgrade
+            ;;
+        *)
+            print_error "Unknown command: $COMMAND"
+            print_usage
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

@@ -5,6 +5,87 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-02-05
+
+### Added
+
+#### CLI Tool
+- `bin/acc` - Shell CLI for managing Claude components
+  - `acc upgrade` - Force upgrade components from vendor (overwrites existing files)
+  - `--no-backup` - Skip backup creation
+  - `--component=<name>` - Upgrade only specific component (commands|agents|skills)
+
+#### Commands
+- `/acc-fix-bug` - Automated bug diagnosis, fix generation, and regression testing
+
+#### Agents (2 new agents)
+- `acc-bug-fix-coordinator` - Orchestrates bug diagnosis → fix generation → test creation
+  - Coordinates `acc-bug-hunter` (diagnosis) → `acc-bug-fixer` (fix) → `acc-test-generator` (tests)
+  - Supports multiple input formats: text description, file:line, stack trace, log file
+  - Meta-instructions: `-- focus on <area>`, `-- skip tests`, `-- dry-run`, `-- verbose`
+- `acc-bug-fixer` - Generates safe, minimal bug fixes — 11 skills (5 new + 6 existing)
+  - Root cause analysis with 5 Whys technique
+  - Impact/blast radius analysis
+  - Fix templates for 9 bug categories
+  - Quality verification (code smells, SOLID, encapsulation)
+
+#### Bug Fix Skills (5 new)
+- `acc-bug-fix-knowledge` - Bug categories, symptoms, fix patterns, minimal intervention principles
+  - 9 bug categories: logic, null, boundary, race, resource, exception, type, sql, infinite
+  - Fix validation checklist, DDD-specific bug patterns
+- `acc-bug-root-cause-finder` - Root cause analysis methods
+  - 5 Whys technique, fault tree analysis, git bisect guidance
+  - Stack trace parsing, dependency graph analysis
+- `acc-bug-impact-analyzer` - Blast radius analysis
+  - Callers/callees analysis, data flow tracing
+  - Event/message impact, API contract analysis
+  - Impact assessment matrix (Low/Medium/High/Critical)
+- `acc-generate-bug-fix` - Fix templates for each bug category
+  - Null pointer: guard clause, null object, optional return
+  - Logic error: condition correction, boolean inversion, missing case
+  - Boundary: empty check, bounds check, range validation
+  - Race condition: database locking, optimistic locking, atomic operation
+  - Resource leak: try-finally, higher-level API
+  - Exception: specific catch, exception chaining, proper re-throw
+  - Type safety: strict types, type validation, coercion at boundary
+  - SQL injection: prepared statements, query builder
+  - Infinite loop: iteration limit, visited tracking, recursion depth limit
+- `acc-bug-regression-preventer` - Regression prevention checklist
+  - API compatibility verification
+  - Behavior preservation checks
+  - Test coverage requirements
+  - Common regression patterns to avoid
+
+#### Security Review Skills (5 new, OWASP coverage 10/10)
+- `acc-check-ssrf` - Server-Side Request Forgery detection (OWASP A10)
+  - User-controlled URLs, cloud metadata access, internal network access
+  - DNS rebinding, URL parsing bypass, protocol attacks
+- `acc-check-command-injection` - OS Command Injection detection (OWASP A03)
+  - shell_exec, exec, system, passthru with user input
+  - Missing escapeshellarg/escapeshellcmd
+- `acc-check-deserialization` - Insecure Deserialization detection (OWASP A08)
+  - unserialize with user input, missing allowed_classes
+  - Phar deserialization, gadget chain triggers
+- `acc-check-xxe` - XML External Entity detection (OWASP A03)
+  - SimpleXML, DOMDocument, XMLReader without protection
+  - XSLT processor attacks, SOAP XXE
+- `acc-check-path-traversal` - Path/Directory Traversal detection (OWASP A01)
+  - Directory traversal, file inclusion with user input
+  - Zip slip vulnerabilities, symlink attacks
+
+#### Performance Review Skills (2 new)
+- `acc-check-connection-pool` - Connection pool analysis
+  - Connection leaks, connection in loops, pool exhaustion
+- `acc-check-serialization` - Serialization overhead analysis
+  - Large object serialization, N+1 during serialization, hydration
+
+### Changed
+- Updated `acc-security-reviewer` agent: 9 → 14 skills (full OWASP Top 10 coverage)
+- Updated `acc-performance-reviewer` agent: 8 → 10 skills
+- Updated component counts: 12 commands, 31 agents, 139 skills
+- Added `bin` section to `composer.json` for CLI tool installation
+- Added `upgrade` target to Makefile for component upgrades
+
 ## [2.5.0] - 2026-02-04
 
 ### Added
@@ -321,7 +402,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.2.0...v2.3.0

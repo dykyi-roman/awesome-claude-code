@@ -79,7 +79,8 @@ allowed-tools: Optional
 │   ├── acc-commit.md
 │   ├── acc-write-documentation.md
 │   ├── acc-write-test.md
-│   └── acc-code-review.md
+│   ├── acc-code-review.md
+│   └── acc-fix-bug.md
 ├── agents/
 │   ├── acc-architecture-auditor.md
 │   ├── acc-architecture-generator.md
@@ -109,11 +110,13 @@ allowed-tools: Optional
 │   ├── acc-security-reviewer.md
 │   ├── acc-performance-reviewer.md
 │   ├── acc-readability-reviewer.md
-│   └── acc-testability-reviewer.md
+│   ├── acc-testability-reviewer.md
+│   ├── acc-bug-fix-coordinator.md
+│   └── acc-bug-fixer.md
 ├── skills/
-│   ├── acc-*-knowledge/          # 21 knowledge skills
-│   ├── acc-analyze-*/            # 9 analyzer skills
-│   ├── acc-create-*/             # 48 generator skills
+│   ├── acc-*-knowledge/          # 22 knowledge skills
+│   ├── acc-check-*/              # 55 analyzer skills
+│   ├── acc-create-*/             # 49 generator skills
 │   └── acc-*-template/           # 9 template skills
 └── settings.json
 
@@ -129,14 +132,14 @@ docs/                       # Documentation (root level)
 
 | Component | Count |
 |-----------|-------|
-| Commands | 11 |
-| Agents | 29 |
-| Knowledge Skills | 21 |
-| Analyzer Skills | 46 |
-| Generator Skills | 48 |
+| Commands | 12 |
+| Agents | 31 |
+| Knowledge Skills | 22 |
+| Analyzer Skills | 55 |
+| Generator Skills | 49 |
 | Template Skills | 9 |
-| Other Skills | 3 |
-| **Total Skills** | **127** |
+| Other Skills | 4 |
+| **Total Skills** | **139** |
 
 ---
 

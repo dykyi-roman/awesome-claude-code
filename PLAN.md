@@ -1,9 +1,6 @@
 Features:
-* Code review
-* CI Fixes
-* Docker
-* Security & Performance
-* Debug
+* CI Fixes command
+* Docker сommand
 
 ## Structural Patterns (GoF)
 - `acc-create-adapter` — Adapter pattern (обёртка для несовместимых интерфейсов)

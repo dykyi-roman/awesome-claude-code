@@ -172,3 +172,9 @@ mcp-server/
 - [MCP Specification](https://modelcontextprotocol.io/)
 - [MCP Servers Directory](https://github.com/modelcontextprotocol/servers)
 - [Claude Code MCP Documentation](https://docs.anthropic.com/en/docs/claude-code/mcp)
+
+---
+
+## Navigation
+
+[← Back to README](../README.md) | [Commands](commands.md) | [Agents](agents.md) | [Skills](skills.md) | [Hooks](hooks.md)

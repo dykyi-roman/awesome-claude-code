@@ -490,3 +490,9 @@ Available in hook commands:
 - Use `2>/dev/null` to suppress stderr
 - Use `exit 1` to block the operation
 - Test hooks manually before adding to settings
+
+---
+
+## Navigation
+
+[← Back to README](../README.md) | [Commands](commands.md) | [Agents](agents.md) | [Skills](skills.md) | [MCP](mcp.md)

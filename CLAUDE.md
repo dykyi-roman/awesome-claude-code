@@ -14,19 +14,20 @@ make list-agents       # List agents
 make list-skills       # List skills
 make test              # Install in Docker test environment
 make test-clear        # Clean up test environment
+./bin/acc upgrade      # Force upgrade components (creates backup)
 ```
 
 ## Architecture
 
-`src/ComposerPlugin.php` copies `.claude/` components to target projects on `composer require`. Existing files are never overwritten.
-
 ```
 .claude/
-├── commands/     # 11 slash commands (user-invocable)
-├── agents/       # 29 subagents (Task tool targets)
-├── skills/       # 127 skills (knowledge, generators, analyzers, templates)
+├── commands/     # Slash commands (user-invocable)
+├── agents/       # Subagents (Task tool targets)
+├── skills/       # Skills (knowledge, generators, analyzers, templates)
 └── settings.json # Hooks and permissions
 ```
+
+`src/ComposerPlugin.php` subscribes to Composer's `POST_PACKAGE_INSTALL` and `POST_PACKAGE_UPDATE` events. On install/update, it copies commands, agents, skills directories to the target project's `.claude/` folder. Existing files are never overwritten — use `./bin/acc upgrade` to force update.
 
 ### Component Flow
 
@@ -92,7 +93,10 @@ COMMANDS                      AGENTS                        SKILLS
 ## Key Conventions
 
 - **`acc-` prefix** — all components use this to avoid conflicts
-- **`--` separator** — pass meta-instructions: `/acc-audit-ddd ./src -- focus on aggregates`
+- **`--` separator** — pass meta-instructions to any command:
+  - `/acc-audit-ddd ./src -- focus on aggregates`
+  - `/acc-code-review feature/auth high -- implement OAuth2`
+  - `/acc-commit -- use Russian for commit message`
 - **Skills < 500 lines** — extract details to `references/` folder
 - **Max 15 skills per agent** — exceeding indicates God-Agent antipattern
 
@@ -137,8 +141,8 @@ When adding components:
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Skill not loading | Check `skills:` in agent frontmatter |
-| Agent not invoked | Check command uses `Task` tool with correct `subagent_type` |
-| Validation fails | Ensure frontmatter starts with `---` |
+| Issue              | Solution                                                    |
+|--------------------|-------------------------------------------------------------|
+| Skill not loading  | Check `skills:` in agent frontmatter                        |
+| Agent not invoked  | Check command uses `Task` tool with correct `subagent_type` |
+| Validation fails   | Ensure frontmatter starts with `---`                        |

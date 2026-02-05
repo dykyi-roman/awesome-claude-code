@@ -39,6 +39,7 @@ Meta-instructions allow you to:
 | `/acc-write-test` | `<path> [-- instructions]` | Generate tests for PHP code |
 | `/acc-audit-test` | `<path> [-- instructions]` | Audit test quality and coverage |
 | `/acc-code-review` | `[branch] [level] [-- task]` | Multi-level code review with task matching |
+| `/acc-fix-bug` | `<description\|file:line\|trace>` | Diagnose and fix bug with regression testing |
 
 ---
 
@@ -409,6 +410,62 @@ Multi-level code review with git diff analysis and task matching.
 - Findings by severity (Critical/Major/Minor/Suggestion)
 - Task match analysis with percentage score (if task provided)
 - Verdict: APPROVE / APPROVE WITH COMMENTS / REQUEST CHANGES
+
+---
+
+## `/acc-fix-bug`
+
+**Path:** `commands/acc-fix-bug.md`
+
+Automated bug diagnosis, fix generation, and regression testing.
+
+**Arguments:**
+```
+/acc-fix-bug <description|file:line|stack-trace> [-- instructions]
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `description` | **Yes** | Bug description, file:line reference, or stack trace |
+| `-- instructions` | No | Focus or customize the fix process |
+
+**Input Formats:**
+- Text description: `"NullPointerException in OrderService::process()"`
+- File:line reference: `src/Domain/Order.php:45 "off-by-one error"`
+- Stack trace: Paste full trace
+- Log file: `@storage/logs/error.log`
+
+**Examples:**
+```bash
+/acc-fix-bug "NullPointerException in OrderService::process()"
+/acc-fix-bug src/Domain/Order.php:45 "off-by-one error in loop"
+/acc-fix-bug @storage/logs/laravel.log
+/acc-fix-bug "Payment fails for amounts > 1000" -- focus on validation
+/acc-fix-bug src/Service/Auth.php:78 -- skip tests
+/acc-fix-bug "Race condition in inventory" -- dry-run
+```
+
+**Meta-Instructions:**
+| Instruction | Effect |
+|-------------|--------|
+| `-- focus on <area>` | Prioritize specific code area |
+| `-- skip tests` | Don't generate regression test |
+| `-- dry-run` | Show fix without applying |
+| `-- verbose` | Include detailed analysis |
+
+**Workflow:**
+1. **Parse Input** — Extract file, line, description
+2. **Diagnose** — `acc-bug-hunter` categorizes bug (9 types)
+3. **Fix** — `acc-bug-fixer` generates minimal, safe fix
+4. **Test** — `acc-test-generator` creates regression test
+5. **Apply** — Apply changes and run tests
+
+**Output:**
+- Bug category and severity
+- Root cause analysis
+- Diff of applied fix
+- Regression test file
+- Test execution results
 
 ---
 

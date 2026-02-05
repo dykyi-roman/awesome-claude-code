@@ -81,6 +81,17 @@ COMMANDS                    AGENTS                      SKILLS
 /acc-audit-test ────────→ acc-test-auditor ──────────→ acc-testing-knowledge
                                 │                      2 test analyze skills
                                 └──→ (Task) acc-test-generator
+
+/acc-fix-bug ──────────→ acc-bug-fix-coordinator
+                                │
+                                ├──→ (Task) acc-bug-hunter ─────────→ 9 detection skills
+                                │           └── logic, null, boundary, race, resource, exception, type, sql, infinite
+                                │
+                                ├──→ (Task) acc-bug-fixer ──────────→ 11 skills (5 new + 6 quality)
+                                │           └── fix-knowledge, root-cause, impact, generate-fix, regression-preventer
+                                │           └── code-smells, memory, solid, encapsulation, side-effects, immutability
+                                │
+                                └──→ (Task) acc-test-generator ─────→ 6 test skills
 ```
 
 ## Audit → Generate Workflow
@@ -115,6 +126,7 @@ Skill generates PHP code with tests
 | PSR implementations | `acc-psr-generator` | 11 acc-create-psr* skills |
 | Architecture | `acc-architecture-generator` | Coordinator (delegates) |
 | Design patterns | `acc-pattern-generator` | Coordinator (delegates to 4 generators) |
+| Bug fixes | `acc-bug-fixer` | 5 acc-bug-* skills + 6 quality skills |
 
 ## Generator Skills by Category
 

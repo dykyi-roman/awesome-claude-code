@@ -12,6 +12,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-pattern-auditor` | Design patterns audit coordinator | `acc-architecture-auditor` (Task) |
 | `acc-pattern-generator` | Design patterns generation coordinator | `acc-architecture-auditor` (Task) |
 | `acc-code-review-coordinator` | Code review coordinator (3 levels) | `/acc-code-review` |
+| `acc-bug-fix-coordinator` | Bug fix coordinator (diagnose → fix → test) | `/acc-fix-bug` |
 
 ### Auditors (3-12 skills)
 
@@ -31,11 +32,17 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-bug-hunter` | Bug detection specialist | 9 | `acc-code-review-coordinator` (Task) |
+| `acc-bug-hunter` | Bug detection specialist | 9 | `acc-code-review-coordinator`, `acc-bug-fix-coordinator` (Task) |
 | `acc-security-reviewer` | Security review specialist | 9 | `acc-code-review-coordinator` (Task) |
 | `acc-performance-reviewer` | Performance review specialist | 8 | `acc-code-review-coordinator` (Task) |
 | `acc-readability-reviewer` | Readability review specialist | 9 | `acc-code-review-coordinator` (Task) |
 | `acc-testability-reviewer` | Testability review specialist | 7 | `acc-code-review-coordinator` (Task) |
+
+### Bug Fix Specialists
+
+| Agent | Purpose | Skills | Invoked By |
+|-------|---------|--------|------------|
+| `acc-bug-fixer` | Bug fix generator | 11 | `acc-bug-fix-coordinator` (Task) |
 
 ### Generators (3-14 skills)
 
@@ -655,6 +662,73 @@ skills: acc-check-dependency-injection, acc-check-pure-functions, acc-check-side
 ```
 
 **Skills:** 7 (testability checks)
+
+---
+
+## `acc-bug-fix-coordinator`
+
+**Path:** `agents/acc-bug-fix-coordinator.md`
+
+Bug fix coordinator orchestrating diagnosis, fix generation, and regression testing.
+
+**Configuration:**
+```yaml
+name: acc-bug-fix-coordinator
+tools: Task, Read, Grep, Glob, Edit, Write, Bash
+model: opus
+# No skills - delegates to specialized agents
+```
+
+**Workflow:**
+1. Parse input (text, file:line, stack trace, log file)
+2. Task → `acc-bug-hunter` (diagnose bug category)
+3. Task → `acc-bug-fixer` (generate minimal fix)
+4. Task → `acc-test-generator` (create regression test)
+5. Apply changes and run tests
+
+**Meta-Instructions:**
+- `-- focus on <area>` — Prioritize specific area
+- `-- skip tests` — Don't generate regression test
+- `-- dry-run` — Show fix without applying
+- `-- verbose` — Detailed analysis output
+
+---
+
+## `acc-bug-fixer`
+
+**Path:** `agents/acc-bug-fixer.md`
+
+Bug fix specialist generating safe, minimal fixes using diagnosis from bug-hunter.
+
+**Configuration:**
+```yaml
+name: acc-bug-fixer
+tools: Read, Edit, Write, Grep, Glob
+model: sonnet
+skills:
+  # New skills (5)
+  - acc-bug-fix-knowledge
+  - acc-bug-root-cause-finder
+  - acc-bug-impact-analyzer
+  - acc-generate-bug-fix
+  - acc-bug-regression-preventer
+  # Existing skills (6) - quality checks
+  - acc-detect-code-smells
+  - acc-detect-memory-issues
+  - acc-analyze-solid-violations
+  - acc-check-encapsulation
+  - acc-check-side-effects
+  - acc-check-immutability
+```
+
+**Skills:** 11 (5 new + 6 existing)
+
+**Capabilities:**
+- Root cause analysis (5 Whys, fault tree)
+- Impact/blast radius analysis
+- Fix templates for 9 bug categories
+- Quality verification (SOLID, code smells, encapsulation)
+- Regression prevention checklist
 
 ---
 

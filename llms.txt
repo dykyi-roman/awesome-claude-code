@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 11 commands, 29 agents, 127 skills, 10 hooks
+- 12 commands, 31 agents, 139 skills, 10 hooks
 - PHP 8.5, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -33,6 +33,7 @@ Components auto-copy to `.claude/` directory.
 | `/acc-write-test <path>` | Generate tests for file/folder |
 | `/acc-audit-test <path>` | Audit test quality |
 | `/acc-code-review [branch] [level]` | Multi-level code review |
+| `/acc-fix-bug <target>` | Automated bug diagnosis and fix |
 
 ## Agents
 
@@ -48,21 +49,25 @@ Components auto-copy to `.claude/` directory.
 | `acc-diagram-designer` | Mermaid diagram designer |
 | `acc-test-auditor` | Test quality auditor |
 | `acc-test-generator` | Test generator |
+| `acc-bug-fix-coordinator` | Bug diagnosis → fix → test workflow |
+| `acc-bug-fixer` | Safe minimal bug fix generator |
 
 ## Skills by Category
 
-### Knowledge (21)
+### Knowledge (22)
 - Architecture: DDD, CQRS, Clean, Hexagonal, Layered, EDA, Event Sourcing
 - Patterns: Saga, Outbox, Stability (Circuit Breaker, Retry, Rate Limiter, Bulkhead)
 - Principles: SOLID, GRASP, ADR
 - Standards: PSR-1/4/12, PSR overview
 - Documentation: types, diagrams, QA
 - Testing: principles, pyramid, DDD testing
+- Bug Fix: categories, symptoms, fix patterns
 
-### Analyzers (9)
+### Analyzers (14)
 - SOLID violations, code smells, coupling/cohesion, bounded contexts, immutability, leaky abstractions, encapsulation, test coverage, test smells
+- Security: SSRF, Command Injection, Deserialization, XXE, Path Traversal
 
-### Generators (48)
+### Generators (49)
 - DDD: Value Objects, Entities, Aggregates, Domain Events, Repositories, etc.
 - CQRS: Commands, Queries, Use Cases, Read Models
 - Stability: Circuit Breaker, Retry, Rate Limiter, Bulkhead
@@ -72,6 +77,7 @@ Components auto-copy to `.claude/` directory.
 - ADR: Action, Responder
 - PSR: 3, 6, 7, 11, 13, 14, 15, 16, 17, 18, 20
 - Testing: Unit tests, Integration tests, Builders, Mocks, Test doubles
+- Bug Fix: minimal safe fix generator
 
 ### Templates (9)
 - README, Architecture, ADR, API docs
@@ -82,9 +88,9 @@ Components auto-copy to `.claude/` directory.
 
 ```
 .claude/
-├── commands/        # Slash commands (11)
-├── agents/          # Subagents (29)
-├── skills/          # Knowledge + generators + analyzers (127)
+├── commands/        # Slash commands (12)
+├── agents/          # Subagents (31)
+├── skills/          # Knowledge + generators + analyzers (139)
 └── settings.json    # Hooks and permissions
 ```
 
@@ -114,6 +120,9 @@ Components auto-copy to `.claude/` directory.
 
 # Audit test quality
 /acc-audit-test ./tests
+
+# Fix bug by description or file reference
+/acc-fix-bug ./src/Domain/Order/Order.php:42
 ```
 
 ## Links
@@ -124,4 +133,4 @@ Components auto-copy to `.claude/` directory.
 
 ## Version
 
-v2.5.0 - Code Review system, 40 new analyzer skills
+v2.6.0 - Bug Fix system, full OWASP Top 10 coverage

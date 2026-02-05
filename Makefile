@@ -1,4 +1,4 @@
-.PHONY: help list-commands list-skills list-agents validate-claude changelog release test test-clear
+.PHONY: help list-commands list-skills list-agents validate-claude changelog release test test-clear upgrade
 
 .DEFAULT_GOAL := help
 
@@ -92,6 +92,13 @@ validate-claude: ## Validate .claude directory structure
 		fi; \
 	done; \
 	echo ""
+
+# =============================================================================
+# Upgrade
+# =============================================================================
+
+upgrade: ## Force upgrade Claude components (creates backup)
+	@./bin/acc upgrade
 
 # =============================================================================
 # Testing

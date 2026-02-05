@@ -6,11 +6,11 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
-| **Knowledge** | 21 | Provide expertise and best practices | `acc-ddd-knowledge` |
-| **Analyzer** | 46 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
-| **Generator** | 48 | Generate PHP code with tests | `acc-create-entity` |
+| **Knowledge** | 22 | Provide expertise and best practices | `acc-ddd-knowledge` |
+| **Analyzer** | 55 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
+| **Generator** | 49 | Generate PHP code with tests | `acc-create-entity` |
 | **Template** | 9 | Documentation templates | `acc-readme-template` |
-| **Other** | 3 | Estimation and suggestions | `acc-estimate-complexity` |
+| **Other** | 4 | Estimation, suggestions, regression prevention | `acc-estimate-complexity` |
 
 ## How Skills Work
 
@@ -79,6 +79,16 @@ Knowledge bases for architecture audits and best practices.
 | `acc-find-sql-injection` | `skills/acc-find-sql-injection/` | Detects unescaped queries, SQL concatenation |
 | `acc-find-infinite-loops` | `skills/acc-find-infinite-loops/` | Detects missing break conditions, infinite recursion |
 
+### Bug Fix Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-bug-fix-knowledge` | `skills/acc-bug-fix-knowledge/` | Bug categories, symptoms, fix patterns, minimal intervention |
+| `acc-bug-root-cause-finder` | `skills/acc-bug-root-cause-finder/` | 5 Whys, fault tree, git bisect, stack trace parsing |
+| `acc-bug-impact-analyzer` | `skills/acc-bug-impact-analyzer/` | Blast radius, callers/callees, API contract analysis |
+| `acc-generate-bug-fix` | `skills/acc-generate-bug-fix/` | Fix templates for 9 bug categories |
+| `acc-bug-regression-preventer` | `skills/acc-bug-regression-preventer/` | API compatibility, behavior preservation checklist |
+
 ### Security Review Skills
 
 | Skill | Path | Description |
@@ -92,6 +102,11 @@ Knowledge bases for architecture audits and best practices.
 | `acc-check-crypto-usage` | `skills/acc-check-crypto-usage/` | Checks weak algorithms, hardcoded keys |
 | `acc-check-dependency-vulnerabilities` | `skills/acc-check-dependency-vulnerabilities/` | Checks outdated packages, known CVEs |
 | `acc-check-sql-injection` | `skills/acc-check-sql-injection/` | Checks parameterized queries, ORM misuse |
+| `acc-check-ssrf` | `skills/acc-check-ssrf/` | Checks SSRF, internal network access, cloud metadata |
+| `acc-check-command-injection` | `skills/acc-check-command-injection/` | Checks shell_exec, exec, system with user input |
+| `acc-check-deserialization` | `skills/acc-check-deserialization/` | Checks unserialize, allowed_classes, Phar attacks |
+| `acc-check-xxe` | `skills/acc-check-xxe/` | Checks XML parsing, entity protection, XSLT attacks |
+| `acc-check-path-traversal` | `skills/acc-check-path-traversal/` | Checks directory traversal, file inclusion, Zip slip |
 
 ### Performance Review Skills
 
@@ -104,6 +119,8 @@ Knowledge bases for architecture audits and best practices.
 | `acc-detect-unnecessary-loops` | `skills/acc-detect-unnecessary-loops/` | Checks nested loops, redundant iterations |
 | `acc-check-lazy-loading` | `skills/acc-check-lazy-loading/` | Checks premature loading, missing pagination |
 | `acc-check-batch-processing` | `skills/acc-check-batch-processing/` | Checks single-item vs bulk operations |
+| `acc-check-connection-pool` | `skills/acc-check-connection-pool/` | Checks connection leaks, pool exhaustion, timeouts |
+| `acc-check-serialization` | `skills/acc-check-serialization/` | Checks JSON overhead, N+1 serialization, hydration |
 
 ### Readability Review Skills
 

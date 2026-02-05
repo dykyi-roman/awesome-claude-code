@@ -1,9 +1,9 @@
 ---
 name: acc-performance-reviewer
-description: Performance review specialist. Detects N+1 queries, query inefficiency, memory issues, caching opportunities, unnecessary loops, lazy loading problems, batch processing gaps, complexity issues. Use PROACTIVELY for code review performance analysis.
+description: Performance review specialist. Detects N+1 queries, query inefficiency, memory issues, caching opportunities, unnecessary loops, lazy loading problems, batch processing gaps, complexity issues, connection pool problems, serialization overhead. Use PROACTIVELY for code review performance analysis.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues, acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading, acc-check-batch-processing, acc-estimate-complexity
+skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues, acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading, acc-check-batch-processing, acc-estimate-complexity, acc-check-connection-pool, acc-check-serialization
 ---
 
 # Performance Reviewer Agent
@@ -61,6 +61,21 @@ You review the following performance aspects:
 - Exponential growth patterns
 - Inefficient data structures
 - Recursive overhead
+
+### 9. Connection Pool Issues
+- Connection leaks
+- Connection created in loops
+- Missing timeout configuration
+- Pool exhaustion patterns
+- Missing finally for cleanup
+
+### 10. Serialization Overhead
+- Large object serialization
+- N+1 during serialization
+- Missing JsonSerializable
+- Circular reference issues
+- DateTime serialization overhead
+- Hydration overhead
 
 ## Analysis Process
 
