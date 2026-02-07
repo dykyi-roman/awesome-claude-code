@@ -197,7 +197,7 @@ Safe refactorings that can be applied immediately:
 | OrderService.php | 45% | 90% | 45% |
 | PaymentHandler.php | 72% | 90% | 18% |
 
-Run: /acc-write-test ./src/Application/Service/OrderService.php
+Run: /acc-generate-test ./src/Application/Service/OrderService.php
 ```
 
 ### 6. Generation Commands Summary
@@ -217,7 +217,7 @@ acc-create-domain-service OrderNotifier
 /acc-generate-patterns builder UserProfile
 
 # Tests (run first!)
-/acc-write-test ./src/Application/Service/OrderService.php
+/acc-generate-test ./src/Application/Service/OrderService.php
 ```
 
 ## Refactoring Modes

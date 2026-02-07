@@ -1,5 +1,4 @@
-Features:
-* Docker сommand
+# Features
 
 ## Structural Patterns (GoF)
 - `acc-create-adapter` — Adapter pattern (обёртка для несовместимых интерфейсов)

@@ -1,9 +1,9 @@
 ---
 name: acc-architecture-generator
 description: Meta-generator for PHP 8.5 architecture components. Coordinates DDD and integration pattern generation. Use PROACTIVELY when creating bounded contexts, complex domain structures, or full-stack architecture components.
-tools: Read, Write, Glob, Grep, Edit, Task
+tools: Read, Write, Glob, Grep, Edit, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge, acc-eda-knowledge, acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge
+skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge, acc-eda-knowledge, acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-task-progress-knowledge
 ---
 
 # Architecture Generator Agent

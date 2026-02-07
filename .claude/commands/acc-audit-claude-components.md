@@ -1,5 +1,5 @@
 ---
-description: Comprehensive audit of .claude folder. Checks structure, quality, cross-references, antipatterns, resource usage, behavior verification, context alignment, semantic fit, God-Agent detection, skill responsibility analysis, domain boundaries, and refactoring recommendations.
+description: Comprehensive audit of .claude folder. Checks structure, quality, cross-references, antipatterns, resource usage, behavior verification, context alignment, semantic fit, God-Agent detection, skill responsibility analysis, domain boundaries, memory/rules, plugins, hooks, and refactoring recommendations.
 allowed-tools: Read, Glob, Grep, Bash
 model: opus
 argument-hint: [-- additional instructions]
@@ -62,6 +62,10 @@ Use Glob to find:
 - `.claude/settings.json`
 - `.claude/settings.local.json`
 - `.claude/CLAUDE.md`
+- `.claude/rules/*.md`
+- `.claude-plugin/plugin.json`
+- `CLAUDE.md` (project root)
+- `CLAUDE.local.md` (project root)
 
 ### Step 2: Analyze Each Component
 
@@ -86,6 +90,10 @@ For each file found, evaluate against quality criteria:
 | Description | Specific purpose | Too generic | Missing |
 | Tool restrictions | Minimal needed set | Missing restrictions | Overly broad |
 | Skills reference | Links to skills | No skill usage | Broken references |
+| disallowedTools | Used when most tools needed except few | Not used, tools list too long | Conflicts with tools list |
+| hooks field | Valid scoped hooks with matchers | Hooks without matchers | Invalid hook events |
+| memory field | Appropriate scope (user/project/local) | Missing when isolation needed | Invalid value |
+| permissionMode | Appropriate for task type | Missing for sensitive ops | Overly permissive |
 
 #### Skills Quality Criteria
 
@@ -96,6 +104,9 @@ For each file found, evaluate against quality criteria:
 | Size | Under 500 lines | 500-1000 lines | Over 1000 lines |
 | References | Large content in references/ | Everything in SKILL.md | Missing needed refs |
 | Trigger conditions | Clear "when to use" | Vague triggers | No triggers |
+| context field | `fork` when isolated execution needed | Missing when should be set | Invalid value |
+| model field | Appropriate model override | Missing when speed matters | Invalid model name |
+| hooks field | Valid lifecycle hooks | Hooks without matchers | Invalid hook events |
 
 #### Settings Quality Criteria
 
@@ -103,8 +114,36 @@ For each file found, evaluate against quality criteria:
 |-----------|---------|------------|------------|
 | JSON validity | Valid JSON | - | Parse errors |
 | Hooks | Defined and documented | Undocumented | Invalid format |
-| Permissions | Explicit allow/deny | Implicit defaults | Overly permissive |
+| Hook events | Valid event names (12) | Uncommon events | Invalid event names |
+| Hook types | Correct type (command/prompt/agent) | Missing type field | Invalid type |
+| Permissions | Explicit allow/deny/ask | Implicit defaults | Overly permissive |
+| Permission syntax | Tool(specifier) format | Missing specifiers | Invalid syntax |
+| Permission eval order | deny → ask → allow | Only allow rules | No deny rules |
+| Sandbox | Configured when auto-allowing Bash | Not configured | Disabled with bypassPermissions |
 | Local settings | Gitignored properly | Not gitignored | Secrets exposed |
+| MCP servers | Explicitly allowed/denied | All enabled without review | Secrets in config |
+
+#### Memory/Rules Quality Criteria
+
+| Criterion | ✅ Good | ⚠️ Improve | ❌ Problem |
+|-----------|---------|------------|------------|
+| Root CLAUDE.md | Exists with project instructions | Exists but empty | Missing |
+| CLAUDE.md size | Under 500 lines | 500-800 lines | Over 800 lines |
+| Rules modularity | `.claude/rules/*.md` for topics | Everything in CLAUDE.md | No rules |
+| Path scoping | `paths` frontmatter on relevant rules | Generic rules for specific areas | Invalid glob patterns |
+| Local settings | `CLAUDE.local.md` gitignored | Not in .gitignore | Committed with secrets |
+| @imports | Resolve correctly (max 5 hops) | Missing referenced files | Circular imports |
+| Rules/CLAUDE.md alignment | Rules match project architecture | Outdated rules | Contradictory rules |
+
+#### Plugin Quality Criteria (if `.claude-plugin/` exists)
+
+| Criterion | ✅ Good | ⚠️ Improve | ❌ Problem |
+|-----------|---------|------------|------------|
+| Manifest | Valid plugin.json with required fields | Missing optional fields | Invalid/missing manifest |
+| Name | Lowercase, hyphens | Inconsistent | Missing |
+| Components | Proper directory structure | Mixed locations | Missing directories |
+| Namespacing | No prefix collisions | Inconsistent prefixes | Name conflicts |
+| Hooks | In hooks/hooks.json | Scattered locations | Invalid format |
 
 ### Step 3: Check Cross-References
 
@@ -127,6 +166,11 @@ Common issues to flag:
 6. **Inconsistent naming** — Mixed naming conventions
 7. **Missing error handling** — Commands without pre-flight checks
 8. **Secrets in settings** — API keys or sensitive data in versioned files
+9. **Missing CLAUDE.md** — Project lacks root CLAUDE.md for instructions
+10. **Rules without paths** — Rules in `.claude/rules/` that should be path-scoped but aren't
+11. **Oversized context** — CLAUDE.md > 500 lines (always loaded, impacts context budget)
+12. **Invalid hook events** — Hook using non-existent event name (12 valid events)
+13. **Missing permission rules** — Settings with hooks but no permission deny rules
 
 #### 4.2 Architectural Antipatterns
 
@@ -236,7 +280,15 @@ Look for mentions of:
 - Frameworks: Symfony, Laravel, etc.
 - Tech stack: PHP version, databases, queues
 
-#### 7.3 Verify Alignment
+#### 7.3 Verify CLAUDE.md/Rules Alignment
+
+Check that CLAUDE.md and `.claude/rules/` are consistent with components:
+- Rules mention patterns → corresponding skills/agents exist
+- CLAUDE.md architecture decisions → matching audit commands available
+- Rules size is reasonable (< 500 lines total in CLAUDE.md, modular rules in `.claude/rules/`)
+- No contradictory rules between CLAUDE.md and `.claude/rules/`
+
+#### 7.4 Verify Pattern Alignment
 
 Check if Claude configuration supports detected patterns:
 
@@ -271,7 +323,7 @@ Verify that commands use agents appropriate for their domain:
 
 Parse naming patterns to identify domain:
 - `acc-audit-ddd` → Domain: DDD
-- `acc-write-test` → Domain: Testing
+- `acc-generate-test` → Domain: Testing
 - `acc-create-entity` → Domain: DDD
 - `acc-psr-*` → Domain: PSR Standards
 
@@ -285,7 +337,7 @@ DDD Domain:
 └── Skills: acc-ddd-knowledge, acc-create-entity, acc-create-value-object, ...
 
 Testing Domain:
-├── Commands: acc-write-test, acc-audit-test
+├── Commands: acc-generate-test, acc-audit-test
 ├── Agents: acc-test-generator, acc-test-auditor
 └── Skills: acc-testing-knowledge, acc-create-unit-test, ...
 ```
@@ -298,7 +350,7 @@ Check command → agent domain alignment:
 |---------|--------|-------|
 | `acc-audit-ddd` → `acc-ddd-auditor` | ✅ Good | Same domain |
 | `acc-audit-ddd` → `acc-test-auditor` | ❌ Mismatch | Cross-domain |
-| `acc-write-test` → `acc-ddd-generator` | ❌ Mismatch | Wrong domain |
+| `acc-generate-test` → `acc-ddd-generator` | ❌ Mismatch | Wrong domain |
 
 #### 8.5 Semantic Fit Report Format
 
@@ -761,7 +813,7 @@ Prioritized action items:
 ├── Commands analyzed: 8
 ├── Perfect fit: 7 (87.5%)
 │   ├── ✅ acc-audit-ddd → acc-ddd-auditor (DDD → DDD)
-│   ├── ✅ acc-write-test → acc-test-generator (Testing → Testing)
+│   ├── ✅ acc-generate-test → acc-test-generator (Testing → Testing)
 │   └── ...
 ├── Cross-domain usage:
 │   └── ⚠️ acc-foo.md uses acc-bar-agent

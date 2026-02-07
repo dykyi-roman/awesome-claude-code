@@ -15,6 +15,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-bug-fix-coordinator` | Bug fix coordinator (diagnose → fix → test) | `/acc-bug-fix` |
 | `acc-refactor-coordinator` | Refactoring coordinator (analyze → prioritize → fix) | `/acc-refactor` |
 | `acc-ci-coordinator` | CI/CD coordinator (setup, debug, optimize, audit) | `/acc-ci-*`, `/acc-audit-ci` |
+| `acc-docker-coordinator` | Docker expert system coordinator (audit, generate) | `/acc-audit-docker`, `/acc-generate-docker` |
 
 ### Auditors (3-12 skills)
 
@@ -57,9 +58,9 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-creational-generator` | Generate creational patterns | 3 | `acc-pattern-generator` (Task) |
 | `acc-integration-generator` | Generate integration patterns | 7 | `acc-pattern-generator` (Task) |
 | `acc-psr-generator` | Generate PSR implementations | 14 | `/acc-generate-psr`, `acc-psr-auditor` (Skill) |
-| `acc-documentation-writer` | Generate documentation | 9 | `/acc-write-documentation` |
+| `acc-documentation-writer` | Generate documentation | 9 | `/acc-generate-documentation` |
 | `acc-diagram-designer` | Create Mermaid diagrams | 2 | `acc-documentation-writer` (Task) |
-| `acc-test-generator` | Generate PHP tests | 6 | `/acc-write-test` |
+| `acc-test-generator` | Generate PHP tests | 6 | `/acc-generate-test` |
 
 ### CI/CD Specialists
 
@@ -75,11 +76,23 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-docker-agent` | Dockerfile and layer optimization | 3 | `acc-ci-coordinator` (Task) |
 | `acc-deployment-agent` | Deploy config, blue-green, canary | 6 | `acc-ci-coordinator` (Task) |
 
+### Docker Specialists
+
+| Agent | Purpose | Skills | Invoked By |
+|-------|---------|--------|------------|
+| `acc-docker-architect-agent` | Dockerfile architecture, multi-stage builds | 5 | `acc-docker-coordinator` (Task) |
+| `acc-docker-image-builder` | Base images, PHP extensions | 5 | `acc-docker-coordinator` (Task) |
+| `acc-docker-compose-agent` | Compose configuration, services | 6 | `acc-docker-coordinator` (Task) |
+| `acc-docker-performance-agent` | Build/runtime optimization | 6 | `acc-docker-coordinator` (Task) |
+| `acc-docker-security-agent` | Security audit, hardening | 6 | `acc-docker-coordinator` (Task) |
+| `acc-docker-debugger-agent` | Error diagnosis, troubleshooting | 4 | `acc-docker-coordinator` (Task) |
+| `acc-docker-production-agent` | Production readiness, health checks | 6 | `acc-docker-coordinator` (Task) |
+
 ### Experts
 
 | Agent | Purpose | Invoked By |
 |-------|---------|------------|
-| `acc-claude-code-expert` | Create Claude Code components | `/acc-write-claude-component` |
+| `acc-claude-code-expert` | Create Claude Code components | `/acc-generate-claude-component` |
 
 ## How Agents Work
 
@@ -119,7 +132,7 @@ See `acc-task-progress-knowledge` skill for guidelines.
 
 ## `acc-claude-code-expert`
 
-**Path:** `agents/acc-write-claude-component-expert.md`
+**Path:** `agents/acc-claude-code-expert.md`
 
 Expert in creating Claude Code commands, agents, and skills.
 
@@ -979,6 +992,171 @@ tools: Read, Write, Edit, Grep, Glob
 model: sonnet
 skills: acc-deployment-knowledge, acc-create-deploy-strategy, acc-create-feature-flags,
         acc-ci-pipeline-knowledge, acc-create-github-actions, acc-create-gitlab-ci
+```
+
+**Skills:** 6
+
+---
+
+## `acc-docker-coordinator`
+
+**Path:** `agents/acc-docker-coordinator.md`
+
+Docker expert system coordinator. Orchestrates auditing, generation, and optimization.
+
+**Configuration:**
+```yaml
+name: acc-docker-coordinator
+tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
+model: opus
+skills: acc-docker-knowledge, acc-task-progress-knowledge
+```
+
+**Operations:**
+- **AUDIT**: Comprehensive Docker configuration audit
+- **GENERATE**: Generate Docker components
+
+**Delegation:**
+- `acc-docker-architect-agent` — Dockerfile architecture
+- `acc-docker-image-builder` — Base images, extensions
+- `acc-docker-compose-agent` — Compose configuration
+- `acc-docker-performance-agent` — Performance optimization
+- `acc-docker-security-agent` — Security audit
+- `acc-docker-debugger-agent` — Error diagnosis
+- `acc-docker-production-agent` — Production readiness
+
+---
+
+## `acc-docker-architect-agent`
+
+**Path:** `agents/acc-docker-architect-agent.md`
+
+Dockerfile architecture specialist for multi-stage builds, layer optimization, and BuildKit features.
+
+**Configuration:**
+```yaml
+name: acc-docker-architect-agent
+tools: Read, Write, Edit, Grep, Glob
+model: sonnet
+skills: acc-docker-knowledge, acc-docker-multistage-knowledge, acc-docker-buildkit-knowledge,
+        acc-create-dockerfile-production, acc-create-dockerfile-dev
+```
+
+**Skills:** 5
+
+---
+
+## `acc-docker-image-builder`
+
+**Path:** `agents/acc-docker-image-builder.md`
+
+Base image selection and PHP extension installation specialist.
+
+**Configuration:**
+```yaml
+name: acc-docker-image-builder
+tools: Read, Write, Edit, Grep, Glob
+model: sonnet
+skills: acc-docker-base-images-knowledge, acc-docker-php-extensions-knowledge,
+        acc-create-dockerfile-production, acc-create-dockerfile-dev, acc-create-dockerignore
+```
+
+**Skills:** 5
+
+---
+
+## `acc-docker-compose-agent`
+
+**Path:** `agents/acc-docker-compose-agent.md`
+
+Docker Compose configuration specialist for PHP stacks.
+
+**Configuration:**
+```yaml
+name: acc-docker-compose-agent
+tools: Read, Write, Edit, Grep, Glob
+model: sonnet
+skills: acc-docker-compose-knowledge, acc-docker-networking-knowledge,
+        acc-create-docker-compose-dev, acc-create-docker-compose-production,
+        acc-check-docker-compose-config, acc-create-docker-env-template
+```
+
+**Skills:** 6
+
+---
+
+## `acc-docker-performance-agent`
+
+**Path:** `agents/acc-docker-performance-agent.md`
+
+Docker build and runtime performance optimization specialist.
+
+**Configuration:**
+```yaml
+name: acc-docker-performance-agent
+tools: Read, Write, Edit, Grep, Glob
+model: sonnet
+skills: acc-optimize-docker-layers, acc-optimize-docker-build-time, acc-optimize-docker-image-size,
+        acc-optimize-docker-php-fpm, acc-optimize-docker-opcache, acc-optimize-docker-startup
+```
+
+**Skills:** 6
+
+---
+
+## `acc-docker-security-agent`
+
+**Path:** `agents/acc-docker-security-agent.md`
+
+Docker security audit and hardening specialist.
+
+**Configuration:**
+```yaml
+name: acc-docker-security-agent
+tools: Read, Grep, Glob, Bash
+model: sonnet
+skills: acc-docker-security-knowledge, acc-docker-scanning-knowledge,
+        acc-check-docker-security, acc-check-docker-secrets,
+        acc-check-docker-user-permissions, acc-detect-docker-antipatterns
+```
+
+**Skills:** 6
+
+---
+
+## `acc-docker-debugger-agent`
+
+**Path:** `agents/acc-docker-debugger-agent.md`
+
+Docker error diagnosis and troubleshooting specialist.
+
+**Configuration:**
+```yaml
+name: acc-docker-debugger-agent
+tools: Read, Grep, Glob, Bash
+model: sonnet
+skills: acc-docker-troubleshooting-knowledge, acc-analyze-docker-build-errors,
+        acc-analyze-docker-runtime-errors, acc-analyze-docker-image-size
+```
+
+**Skills:** 4
+
+---
+
+## `acc-docker-production-agent`
+
+**Path:** `agents/acc-docker-production-agent.md`
+
+Docker production readiness specialist for health checks, graceful shutdown, and logging.
+
+**Configuration:**
+```yaml
+name: acc-docker-production-agent
+tools: Read, Write, Edit, Grep, Glob
+model: sonnet
+skills: acc-docker-production-knowledge, acc-docker-orchestration-knowledge,
+        acc-check-docker-production-readiness, acc-check-docker-healthcheck,
+        acc-create-docker-healthcheck, acc-create-docker-entrypoint
 ```
 
 **Skills:** 6

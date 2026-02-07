@@ -1,6 +1,7 @@
 ---
 description: Audit PSR compliance. Checks PSR-1/PSR-12 coding style, PSR-4 autoloading, and PSR interface implementations. Use for PHP standards compliance review.
 allowed-tools: Task
+model: sonnet
 argument-hint: <path> [-- additional instructions]
 ---
 

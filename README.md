@@ -27,8 +27,8 @@ Then in Claude Code:
 /acc-code-review                    # Review current branch
 /acc-bug-fix "NullPointerException" # Diagnose and fix bug
 /acc-audit-architecture ./src       # Full architecture audit
-/acc-write-documentation            # Write documentation
-/acc-write-test                     # Write test
+/acc-generate-documentation            # Write documentation
+/acc-generate-test                     # Write test
 ```
 
 Components are **automatically copied** to your project's `.claude/` directory. Existing files are never overwritten.
@@ -54,11 +54,22 @@ Backups are stored in `.claude.backup.YYYY-MM-DD-HHMMSS/`.
 
 ![Demo](docs/demo.gif)
 
+## Features
+
 ### Code Review (3-Level Analysis)
 
 ```bash
 /acc-code-review feature/payment high -- implement Stripe payment processing
 ```
+
+Multi-level automated code review with **9 specialized reviewers**:
+
+| Level | Reviewers | What's Checked |
+|-------|-----------|----------------|
+| **LOW** | PSR Auditor, Test Auditor | Coding standards, test quality |
+| **MEDIUM** | + Bug Hunter, Readability Reviewer | Logic errors, null pointers, naming, complexity |
+| **HIGH** | + Security, Performance, Testability, DDD, Architecture | OWASP Top 10, N+1 queries, memory leaks, DDD compliance |
+
 
 ```
 # Code Review Report
@@ -101,21 +112,6 @@ Backups are stored in `.claude.backup.YYYY-MM-DD-HHMMSS/`.
 3. Move domain logic from Application to Domain layer
 ```
 
-### Claude Component Generation
-
-```bash
-/acc-write-claude-component
-> What would you like to create? command
-> Command name? validate-order
-> What should it do? Validate Order aggregate invariants
-> Should it use agents? Yes, acc-ddd-auditor
-```
-
-Generates:
-- `.claude/commands/validate-order.md` — Custom slash command
-
-## Features
-
 ### Bug Fix System
 
 Automated bug diagnosis, fix generation, and regression testing:
@@ -135,16 +131,6 @@ Automated bug diagnosis, fix generation, and regression testing:
 
 **Bug Categories:** logic errors, null pointers, boundary issues, race conditions, resource leaks, exception handling, type issues, SQL injection, infinite loops
 
-### Code Review System
-
-Multi-level automated code review with **9 specialized reviewers**:
-
-| Level | Reviewers | What's Checked |
-|-------|-----------|----------------|
-| **LOW** | PSR Auditor, Test Auditor | Coding standards, test quality |
-| **MEDIUM** | + Bug Hunter, Readability Reviewer | Logic errors, null pointers, naming, complexity |
-| **HIGH** | + Security, Performance, Testability, DDD, Architecture | OWASP Top 10, N+1 queries, memory leaks, DDD compliance |
-
 ### Architecture Audit Engine
 
 Comprehensive analysis across **10+ architecture patterns**:
@@ -162,6 +148,19 @@ Comprehensive analysis across **10+ architecture patterns**:
 - CQRS: Command, Query, Handler, UseCase, ReadModel
 - Patterns: Strategy, State, Decorator, Builder, ObjectPool, CircuitBreaker, Saga, Outbox
 - PSR: Logger (PSR-3), Cache (PSR-6/16), HTTP (PSR-7/15/17/18), Container (PSR-11), Clock (PSR-20)
+
+### Claude Component Generation
+
+```bash
+/acc-generate-claude-component
+> What would you like to create? command
+> Command name? validate-order
+> What should it do? Validate Order aggregate invariants
+> Should it use agents? Yes, acc-ddd-auditor
+```
+
+Generates:
+- `.claude/commands/validate-order.md` — Custom slash command
 
 ### Knowledge Bases
 
@@ -229,17 +228,30 @@ COMMAND ───────→ COORDINATOR ───────→ AGENTS ─
                                     └──→ test-generator ────────→ testing-knowledge ────→ create-unit-test
                                                                                            create-regression-test
 
-/acc-write-test ──────────→ test-generator ─────────────→ testing-knowledge ────→ create-unit-test
+/acc-generate-test ──────────→ test-generator ─────────────→ testing-knowledge ────→ create-unit-test
                                                                                    create-integration-test
                                                                                    create-mock-repository
 
-/acc-write-documentation ─→ documentation-writer ───────→ doc-knowledge ────────→ readme-template
+/acc-generate-documentation ─→ documentation-writer ───────→ doc-knowledge ────────→ readme-template
                                     │                                               architecture-template
                                     └──→ diagram-designer ──────→ diagram-knowledge ───→ mermaid-template
                                                                                           c4-template
 
-/acc-docker ──────────────→ (direct generation) ────────→ docker-knowledge ─────→ dockerfile-template
-                                                                                   compose-template
+/acc-audit-docker ────────→ docker-coordinator
+                                    │
+                                    ├──→ docker-architect ────────→ multistage-knowledge ──→ create-dockerfile
+                                    ├──→ docker-security ─────────→ security-knowledge ───→ check-security
+                                    ├──→ docker-performance ──────→ buildkit-knowledge ───→ optimize-build
+                                    ├──→ docker-compose ──────────→ compose-knowledge ────→ check-compose
+                                    ├──→ docker-production ───────→ production-knowledge ─→ check-readiness
+                                    └──→ docker-debugger ─────────→ troubleshoot-knowledge
+
+/acc-generate-docker ────→ docker-coordinator
+                                    │
+                                    ├──→ docker-architect ────────→ create-dockerfile-production
+                                    ├──→ docker-compose ──────────→ create-compose-dev, create-compose-prod
+                                    ├──→ docker-image-builder ───→ create-php-config, create-entrypoint
+                                    └──→ docker-production ──────→ create-nginx, create-healthcheck
 
 /acc-ci-fix ──────────────→ ci-coordinator
                                     │
@@ -264,11 +276,12 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 
 | Document | Description |
 |----------|-------------|
-| [Commands](docs/commands.md) | 23 slash commands with examples |
-| [Agents](docs/agents.md) | 42 specialized subagents |
-| [Skills](docs/skills.md) | 157 skills (knowledge, generators, analyzers) |
+| [Commands](docs/commands.md) | 25 slash commands with examples |
+| [Agents](docs/agents.md) | 50 specialized subagents |
+| [Skills](docs/skills.md) | 200 skills (knowledge, generators, analyzers) |
 | [Hooks](docs/hooks.md) | 21 PHP/DDD hooks |
 | [Component Flow](docs/component-flow.md) | Architecture and dependency graph |
+| [MCP](docs/mcp.md) | MCP server configuration |
 | [Quick Reference](docs/quick-reference.md) | Paths, formats, best practices |
 
 ## Use Cases
@@ -283,10 +296,12 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 | Design patterns audit  | `/acc-audit-patterns ./src`           | Stability, behavioral, creational patterns   |
 | Generate PSR component | `/acc-generate-psr psr-15 Auth`       | PSR-compliant implementation with tests      |
 | Generate design pattern| `/acc-generate-patterns strategy Pay` | Pattern implementation with DI configuration |
+| Audit Docker config    | `/acc-audit-docker ./`                | Dockerfile, Compose, security, performance   |
+| Generate Docker stack  | `/acc-generate-docker full`           | Dockerfile + Compose + Nginx + entrypoint    |
 | Refactor code          | `/acc-refactor ./src/OrderService`    | Analysis + prioritized roadmap + generators  |
-| Create Claude command  | `/acc-write-claude-component`         | Create command, agent, skills                |
+| Create Claude command  | `/acc-generate-claude-component`         | Create command, agent, skills                |
 | Audit test quality     | `/acc-audit-test ./tests`             | Coverage gaps, test smells, recommendations  |
-| Generate documentation | `/acc-write-documentation ./src`      | README + ARCHITECTURE.md + diagrams          |
+| Generate documentation | `/acc-generate-documentation ./src`      | README + ARCHITECTURE.md + diagrams          |
 
 ## Supported Patterns
 
@@ -338,7 +353,7 @@ Generated code targets PHP 8.5+ and uses modern features like readonly classes, 
 <details>
 <summary><strong>How do I add my own commands/skills?</strong></summary>
 
-Use the `/acc-write-claude-component` wizard to create new components interactively. It guides you through creating commands, agents, or skills with proper formatting and structure.
+Use the `/acc-generate-claude-component` wizard to create new components interactively. It guides you through creating commands, agents, or skills with proper formatting and structure.
 </details>
 
 <details>
@@ -433,7 +448,7 @@ Use the Task tool with subagent_type="acc-ddd-auditor"
 
 **Solutions:**
 1. Check your `composer.json` autoload configuration
-2. Specify target path when generating: `/acc-write-claude-component` prompts for location
+2. Specify target path when generating: `/acc-generate-claude-component` prompts for location
 3. Edit generated files to match your project structure
 </details>
 

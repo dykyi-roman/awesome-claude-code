@@ -1,6 +1,7 @@
 ---
 description: Generate or rewrite tests for PHP file/folder. Creates unit tests, integration tests, builders, mocks following DDD/CQRS patterns.
 allowed-tools: Task
+model: sonnet
 argument-hint: <path> [-- additional instructions]
 ---
 
@@ -16,11 +17,11 @@ Parse `$ARGUMENTS` to extract path and optional meta-instructions:
 Format: <path> [-- <meta-instructions>]
 
 Examples:
-- /acc-write-test src/Domain/Order/Order.php
-- /acc-write-test src/Domain/Order/ -- only unit tests, skip integration
-- /acc-write-test src/Service/PaymentService.php -- include edge cases for null payments
-- /acc-write-test src/ -- create builders for all entities
-- /acc-write-test src/Application/ -- focus on happy path scenarios
+- /acc-generate-test src/Domain/Order/Order.php
+- /acc-generate-test src/Domain/Order/ -- only unit tests, skip integration
+- /acc-generate-test src/Service/PaymentService.php -- include edge cases for null payments
+- /acc-generate-test src/ -- create builders for all entities
+- /acc-generate-test src/Application/ -- focus on happy path scenarios
 ```
 
 **Parsing rules:**
@@ -31,23 +32,23 @@ Examples:
 ## Usage
 
 ```
-/acc-write-test <path> [-- instructions]
+/acc-generate-test <path> [-- instructions]
 ```
 
 ## Examples
 
 ```bash
 # Generate tests for a single class
-/acc-write-test src/Domain/Order/Order.php
+/acc-generate-test src/Domain/Order/Order.php
 
 # Generate tests for a folder
-/acc-write-test src/Domain/Order/
+/acc-generate-test src/Domain/Order/
 
 # Generate with specific focus
-/acc-write-test src/Domain/Order/ -- focus on invariant violations
+/acc-generate-test src/Domain/Order/ -- focus on invariant violations
 
 # Generate tests for Application layer
-/acc-write-test src/Application/PlaceOrder/
+/acc-generate-test src/Application/PlaceOrder/
 ```
 
 ## What It Generates

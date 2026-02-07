@@ -13,7 +13,7 @@ All commands support optional meta-instructions via `--` separator:
 **Examples:**
 ```bash
 /acc-audit-ddd ./src -- focus on aggregate boundaries
-/acc-write-test src/Order.php -- only unit tests, skip integration
+/acc-generate-test src/Order.php -- only unit tests, skip integration
 /acc-commit v2.5.0 -- mention breaking changes
 /acc-audit-architecture ./src -- на русском языке
 ```
@@ -29,7 +29,7 @@ Meta-instructions allow you to:
 | Command | Arguments | Purpose |
 |---------|-----------|---------|
 | `/acc-commit` | `[tag] [-- instructions]` | Auto-generate commit message and push |
-| `/acc-write-claude-component` | `[type] [-- instructions]` | Create commands, agents, or skills |
+| `/acc-generate-claude-component` | `[type] [-- instructions]` | Create commands, agents, or skills |
 | `/acc-audit-claude-components` | `[-- instructions]` | Audit `.claude/` folder quality |
 | `/acc-audit-architecture` | `<path> [-- instructions]` | Multi-pattern architecture audit |
 | `/acc-audit-ddd` | `<path> [-- instructions]` | DDD compliance analysis |
@@ -41,9 +41,9 @@ Meta-instructions allow you to:
 | `/acc-generate-psr` | `<psr> <name> [-- instructions]` | Generate PSR-compliant components |
 | `/acc-generate-patterns` | `<pattern> <name> [-- instructions]` | Generate design pattern implementations |
 | `/acc-refactor` | `<path> [-- instructions]` | Guided refactoring with analysis |
-| `/acc-write-documentation` | `<path> [-- instructions]` | Generate documentation |
+| `/acc-generate-documentation` | `<path> [-- instructions]` | Generate documentation |
 | `/acc-audit-documentation` | `<path> [-- instructions]` | Audit documentation quality |
-| `/acc-write-test` | `<path> [-- instructions]` | Generate tests for PHP code |
+| `/acc-generate-test` | `<path> [-- instructions]` | Generate tests for PHP code |
 | `/acc-audit-test` | `<path> [-- instructions]` | Audit test quality and coverage |
 | `/acc-code-review` | `[branch] [level] [-- task]` | Multi-level code review with task matching |
 | `/acc-bug-fix` | `<description\|file:line\|trace>` | Diagnose and fix bug with regression testing |
@@ -51,18 +51,20 @@ Meta-instructions allow you to:
 | `/acc-ci-fix` | `<pipeline-url\|log-file\|description> [-- instructions]` | Fix CI pipeline issues with interactive approval |
 | `/acc-ci-optimize` | `[path] [-- focus areas]` | Optimize CI pipeline performance |
 | `/acc-audit-ci` | `[path] [-- focus areas]` | Comprehensive CI/CD audit |
+| `/acc-audit-docker` | `[path] [-- focus areas]` | Audit Docker config: Dockerfile, Compose, security, performance |
+| `/acc-generate-docker` | `<type> [name] [-- instructions]` | Generate Docker components (Dockerfile, Compose, Nginx, etc.) |
 
 ---
 
-## `/acc-write-claude-component`
+## `/acc-generate-claude-component`
 
-**Path:** `commands/acc-write-claude-component.md`
+**Path:** `commands/acc-generate-claude-component.md`
 
 Interactive wizard for creating Claude Code components.
 
 **Arguments:**
 ```
-/acc-write-claude-component [type] [-- instructions]
+/acc-generate-claude-component [type] [-- instructions]
 ```
 
 | Argument | Required | Description |
@@ -72,10 +74,10 @@ Interactive wizard for creating Claude Code components.
 
 **Examples:**
 ```bash
-/acc-write-claude-component                        # Interactive mode
-/acc-write-claude-component command                # Skip type selection
-/acc-write-claude-component agent -- for DDD auditing
-/acc-write-claude-component skill -- generates Value Objects
+/acc-generate-claude-component                        # Interactive mode
+/acc-generate-claude-component command                # Skip type selection
+/acc-generate-claude-component agent -- for DDD auditing
+/acc-generate-claude-component skill -- generates Value Objects
 ```
 
 **Process:**
@@ -244,15 +246,15 @@ PSR compliance analysis for PHP projects.
 
 ---
 
-## `/acc-write-documentation`
+## `/acc-generate-documentation`
 
-**Path:** `commands/acc-write-documentation.md`
+**Path:** `commands/acc-generate-documentation.md`
 
 Generate documentation for a file, folder, or project.
 
 **Arguments:**
 ```
-/acc-write-documentation <path> [-- instructions]
+/acc-generate-documentation <path> [-- instructions]
 ```
 
 | Argument | Required | Description |
@@ -262,11 +264,11 @@ Generate documentation for a file, folder, or project.
 
 **Examples:**
 ```bash
-/acc-write-documentation ./
-/acc-write-documentation src/ -- focus on API documentation
-/acc-write-documentation ./ -- create architecture doc with C4 diagrams
-/acc-write-documentation src/Domain/Order -- document only public interfaces
-/acc-write-documentation ./ -- на русском языке
+/acc-generate-documentation ./
+/acc-generate-documentation src/ -- focus on API documentation
+/acc-generate-documentation ./ -- create architecture doc with C4 diagrams
+/acc-generate-documentation src/Domain/Order -- document only public interfaces
+/acc-generate-documentation ./ -- на русском языке
 ```
 
 **Generates:**
@@ -309,15 +311,15 @@ Audit documentation quality.
 
 ---
 
-## `/acc-write-test`
+## `/acc-generate-test`
 
-**Path:** `commands/acc-write-test.md`
+**Path:** `commands/acc-generate-test.md`
 
 Generate tests for PHP file or folder.
 
 **Arguments:**
 ```
-/acc-write-test <path> [-- instructions]
+/acc-generate-test <path> [-- instructions]
 ```
 
 | Argument | Required | Description |
@@ -327,11 +329,11 @@ Generate tests for PHP file or folder.
 
 **Examples:**
 ```bash
-/acc-write-test src/Domain/Order/Order.php
-/acc-write-test src/Domain/Order/ -- only unit tests, skip integration
-/acc-write-test src/Service/PaymentService.php -- include edge cases for null payments
-/acc-write-test src/ -- create builders for all entities
-/acc-write-test src/Application/ -- focus on happy path scenarios
+/acc-generate-test src/Domain/Order/Order.php
+/acc-generate-test src/Domain/Order/ -- only unit tests, skip integration
+/acc-generate-test src/Service/PaymentService.php -- include edge cases for null payments
+/acc-generate-test src/ -- create builders for all entities
+/acc-generate-test src/Application/ -- focus on happy path scenarios
 ```
 
 **Generates:**
@@ -928,6 +930,81 @@ Comprehensive CI/CD audit for PHP projects.
 - Issues by severity (Critical/High/Medium/Low)
 - Prioritized recommendations
 - Action items
+
+---
+
+## `/acc-audit-docker`
+
+**Path:** `commands/acc-audit-docker.md`
+
+Comprehensive Docker configuration audit for PHP projects.
+
+**Arguments:**
+```
+/acc-audit-docker [path] [-- focus areas]
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `path` | No | Project path (default: `./`) |
+| `-- focus areas` | No | Focus on specific audit areas |
+
+**Examples:**
+```bash
+/acc-audit-docker
+/acc-audit-docker -- focus on security
+/acc-audit-docker -- performance and image size
+/acc-audit-docker ./ -- security and production readiness
+```
+
+**Audit Categories:**
+- **Dockerfile Architecture**: Multi-stage, layers, BuildKit
+- **Base Images & Extensions**: Selection, pinning, compatibility
+- **Docker Compose**: Services, health checks, networking
+- **Performance**: Build time, image size, caching, PHP-FPM
+- **Security**: Permissions, secrets, vulnerabilities
+- **Production Readiness**: Health checks, shutdown, logging
+
+---
+
+## `/acc-generate-docker`
+
+**Path:** `commands/acc-generate-docker.md`
+
+Generate Docker configuration components for PHP projects.
+
+**Arguments:**
+```
+/acc-generate-docker <component-type> [name] [-- instructions]
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `component-type` | **Yes** | Component to generate (see list below) |
+| `name` | No | Project/service name |
+| `-- instructions` | No | Customize generation |
+
+**Examples:**
+```bash
+/acc-generate-docker full
+/acc-generate-docker dockerfile -- with Symfony
+/acc-generate-docker compose -- with PostgreSQL and Redis
+/acc-generate-docker nginx -- with SSL
+/acc-generate-docker entrypoint -- with migrations
+```
+
+**Supported Components:**
+
+| Component | Aliases | Description |
+|-----------|---------|-------------|
+| `dockerfile` | `df` | Production multi-stage Dockerfile |
+| `compose` | `dc` | Docker Compose configuration |
+| `nginx` | `web` | Nginx reverse proxy config |
+| `entrypoint` | `ep` | Container entrypoint script |
+| `makefile` | `mk` | Docker Makefile commands |
+| `env` | `environment` | Environment template |
+| `healthcheck` | `hc` | Health check script |
+| `full` | `all` | Complete Docker setup |
 
 ---
 

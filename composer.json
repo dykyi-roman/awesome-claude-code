@@ -1,6 +1,6 @@
 {
     "name": "dykyi-roman/awesome-claude-code",
-    "description": "Claude Code extension for PHP: DDD generators, CQRS commands, Clean Architecture audits. 100+ skills for Value Objects, Aggregates, Sagas, and more.",
+    "description": "Claude Code extension for PHP: DDD generators, CQRS commands, Clean Architecture audits. 200 skills for Value Objects, Aggregates, Sagas, and more.",
     "type": "composer-plugin",
     "license": "MIT",
     "keywords": [

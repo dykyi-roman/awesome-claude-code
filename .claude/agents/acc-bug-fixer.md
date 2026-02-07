@@ -3,20 +3,7 @@ name: acc-bug-fixer
 description: Generates safe, minimal bug fixes using diagnosis from bug-hunter. Analyzes root cause, impact, and prevents regressions.
 tools: Read, Edit, Write, Grep, Glob
 model: sonnet
-skills:
-  # New skills (5)
-  - acc-bug-fix-knowledge
-  - acc-bug-root-cause-finder
-  - acc-bug-impact-analyzer
-  - acc-generate-bug-fix
-  - acc-bug-regression-preventer
-  # Existing skills (6) - quality checks
-  - acc-detect-code-smells
-  - acc-detect-memory-issues
-  - acc-analyze-solid-violations
-  - acc-check-encapsulation
-  - acc-check-side-effects
-  - acc-check-immutability
+skills: acc-bug-fix-knowledge, acc-bug-root-cause-finder, acc-bug-impact-analyzer, acc-generate-bug-fix, acc-bug-regression-preventer, acc-detect-code-smells, acc-detect-memory-issues, acc-analyze-solid-violations, acc-check-encapsulation, acc-check-side-effects, acc-check-immutability
 ---
 
 # Bug Fixer Agent

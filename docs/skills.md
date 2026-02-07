@@ -16,6 +16,7 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
   - [Readability Review Skills](#readability-review-skills)
   - [Testability Review Skills](#testability-review-skills)
   - [CI/CD Analyzer Skills](#cicd-analyzer-skills)
+  - [Docker Analyzer Skills](#docker-analyzer-skills)
   - [Other Skills](#other-skills)
 - [Generator Skills](#generator-skills)
   - [DDD Components](#ddd-components)
@@ -38,9 +39,9 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
-| **Knowledge** | 26 | Provide expertise and best practices | `acc-ddd-knowledge` |
-| **Analyzer** | 59 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
-| **Generator** | 57 | Generate PHP code with tests | `acc-create-entity` |
+| **Knowledge** | 38 | Provide expertise and best practices | `acc-ddd-knowledge` |
+| **Analyzer** | 71 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
+| **Generator** | 75 | Generate PHP code with tests | `acc-create-entity` |
 | **Template** | 9 | Documentation templates | `acc-readme-template` |
 | **Other** | 7 | Estimation, suggestions, regression prevention | `acc-estimate-complexity` |
 
@@ -59,7 +60,7 @@ Knowledge bases for architecture audits and best practices.
 
 | Skill | Path | Description |
 |-------|------|-------------|
-| `acc-claude-code-knowledge` | `skills/acc-claude-code-knowledge/` | Claude Code formats and patterns |
+| `acc-claude-code-knowledge` | `skills/acc-claude-code-knowledge/` | Claude Code formats, patterns, hooks (12 events), memory, plugins, permissions, settings |
 | `acc-ddd-knowledge` | `skills/acc-ddd-knowledge/` | DDD patterns, antipatterns |
 | `acc-cqrs-knowledge` | `skills/acc-cqrs-knowledge/` | CQRS command/query patterns |
 | `acc-clean-arch-knowledge` | `skills/acc-clean-arch-knowledge/` | Clean Architecture patterns |
@@ -84,6 +85,18 @@ Knowledge bases for architecture audits and best practices.
 | `acc-ci-tools-knowledge` | `skills/acc-ci-tools-knowledge/` | PHPStan levels, Psalm, CS-Fixer, DEPTRAC, Rector |
 | `acc-deployment-knowledge` | `skills/acc-deployment-knowledge/` | Zero-downtime, blue-green, canary, rollback, feature flags |
 | `acc-task-progress-knowledge` | `skills/acc-task-progress-knowledge/` | TaskCreate pattern for coordinator progress tracking |
+| `acc-docker-knowledge` | `skills/acc-docker-knowledge/` | Docker patterns, PHP images, Compose, security |
+| `acc-docker-multistage-knowledge` | `skills/acc-docker-multistage-knowledge/` | Multi-stage build patterns |
+| `acc-docker-base-images-knowledge` | `skills/acc-docker-base-images-knowledge/` | Base image selection, Alpine vs Debian |
+| `acc-docker-php-extensions-knowledge` | `skills/acc-docker-php-extensions-knowledge/` | PHP extension installation patterns |
+| `acc-docker-compose-knowledge` | `skills/acc-docker-compose-knowledge/` | Compose configuration for PHP stacks |
+| `acc-docker-networking-knowledge` | `skills/acc-docker-networking-knowledge/` | Network configuration, DNS, port mapping |
+| `acc-docker-security-knowledge` | `skills/acc-docker-security-knowledge/` | Security hardening, scanning |
+| `acc-docker-buildkit-knowledge` | `skills/acc-docker-buildkit-knowledge/` | BuildKit cache mounts, secrets |
+| `acc-docker-production-knowledge` | `skills/acc-docker-production-knowledge/` | Health checks, graceful shutdown, logging |
+| `acc-docker-troubleshooting-knowledge` | `skills/acc-docker-troubleshooting-knowledge/` | Error diagnosis, debugging commands |
+| `acc-docker-orchestration-knowledge` | `skills/acc-docker-orchestration-knowledge/` | Swarm, Kubernetes, scaling |
+| `acc-docker-scanning-knowledge` | `skills/acc-docker-scanning-knowledge/` | Vulnerability scanning, SBOM |
 
 ## Analyzer Skills
 
@@ -187,6 +200,23 @@ Knowledge bases for architecture audits and best practices.
 | `acc-analyze-ci-config` | `skills/acc-analyze-ci-config/` | Analyze existing CI configuration |
 | `acc-analyze-ci-logs` | `skills/acc-analyze-ci-logs/` | Parse CI logs for failures |
 | `acc-detect-ci-antipatterns` | `skills/acc-detect-ci-antipatterns/` | Detect CI antipatterns |
+
+### Docker Analyzer Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-analyze-docker-build-errors` | `skills/acc-analyze-docker-build-errors/` | Build error diagnosis |
+| `acc-analyze-docker-runtime-errors` | `skills/acc-analyze-docker-runtime-errors/` | Runtime error diagnosis |
+| `acc-analyze-docker-image-size` | `skills/acc-analyze-docker-image-size/` | Image size analysis |
+| `acc-check-docker-security` | `skills/acc-check-docker-security/` | Security checks |
+| `acc-check-docker-secrets` | `skills/acc-check-docker-secrets/` | Secret detection |
+| `acc-check-docker-user-permissions` | `skills/acc-check-docker-user-permissions/` | User/permission checks |
+| `acc-check-docker-compose-config` | `skills/acc-check-docker-compose-config/` | Compose configuration checks |
+| `acc-check-docker-production-readiness` | `skills/acc-check-docker-production-readiness/` | Production readiness checks |
+| `acc-detect-docker-antipatterns` | `skills/acc-detect-docker-antipatterns/` | Dockerfile antipatterns |
+| `acc-check-docker-layer-efficiency` | `skills/acc-check-docker-layer-efficiency/` | Layer caching analysis |
+| `acc-check-docker-php-config` | `skills/acc-check-docker-php-config/` | PHP config in Docker |
+| `acc-check-docker-healthcheck` | `skills/acc-check-docker-healthcheck/` | Health check verification |
 
 ### Other Skills
 
@@ -304,13 +334,32 @@ Code generators for DDD and architecture components (PHP 8.5).
 | `acc-create-psalm-config` | `skills/acc-create-psalm-config/` | Psalm XML configuration |
 | `acc-create-deptrac-config` | `skills/acc-create-deptrac-config/` | DEPTRAC YAML for DDD layers |
 | `acc-create-rector-config` | `skills/acc-create-rector-config/` | Rector PHP configuration |
+| `acc-generate-ci-fix` | `skills/acc-generate-ci-fix/` | CI configuration fix generation |
 
 ### Docker Skills
 
 | Skill | Path | Description |
 |-------|------|-------------|
 | `acc-create-dockerfile-ci` | `skills/acc-create-dockerfile-ci/` | Multi-stage Dockerfiles for CI |
+| `acc-create-dockerfile-production` | `skills/acc-create-dockerfile-production/` | Production Dockerfiles |
+| `acc-create-dockerfile-dev` | `skills/acc-create-dockerfile-dev/` | Development Dockerfiles with Xdebug |
+| `acc-create-dockerignore` | `skills/acc-create-dockerignore/` | .dockerignore generation |
+| `acc-create-docker-compose-dev` | `skills/acc-create-docker-compose-dev/` | Development Compose stacks |
+| `acc-create-docker-compose-production` | `skills/acc-create-docker-compose-production/` | Production Compose configs |
+| `acc-create-docker-php-config` | `skills/acc-create-docker-php-config/` | php.ini, opcache, PHP-FPM configs |
+| `acc-create-docker-healthcheck` | `skills/acc-create-docker-healthcheck/` | Health check scripts |
+| `acc-create-docker-entrypoint` | `skills/acc-create-docker-entrypoint/` | Entrypoint scripts |
+| `acc-create-docker-nginx-config` | `skills/acc-create-docker-nginx-config/` | Nginx reverse proxy configs |
+| `acc-create-docker-makefile` | `skills/acc-create-docker-makefile/` | Docker Makefile commands |
+| `acc-create-docker-env-template` | `skills/acc-create-docker-env-template/` | Environment templates |
+| `acc-create-docker-supervisor-config` | `skills/acc-create-docker-supervisor-config/` | Supervisor configs |
 | `acc-optimize-docker-layers` | `skills/acc-optimize-docker-layers/` | Docker layer caching optimization |
+| `acc-optimize-docker-build-time` | `skills/acc-optimize-docker-build-time/` | Build time optimization |
+| `acc-optimize-docker-image-size` | `skills/acc-optimize-docker-image-size/` | Image size reduction |
+| `acc-optimize-docker-php-fpm` | `skills/acc-optimize-docker-php-fpm/` | PHP-FPM tuning |
+| `acc-optimize-docker-compose-resources` | `skills/acc-optimize-docker-compose-resources/` | Resource allocation |
+| `acc-optimize-docker-opcache` | `skills/acc-optimize-docker-opcache/` | OPcache configuration |
+| `acc-optimize-docker-startup` | `skills/acc-optimize-docker-startup/` | Container startup optimization |
 
 ### Deployment Skills
 

@@ -1,6 +1,7 @@
 ---
 description: Automatically generate commit message based on changes and push to current branch. Analyzes git diff to create meaningful commit following conventional commits format. Optionally creates and pushes a git tag.
 allowed-tools: Bash
+model: sonnet
 argument-hint: [tag-name] [-- additional instructions]
 ---
 

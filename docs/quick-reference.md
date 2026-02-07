@@ -68,39 +68,43 @@ allowed-tools: Optional
 
 ```
 .claude/
-├── commands/                     # 23 commands
-│   ├── acc-audit-*.md            # Audit commands (8): architecture, ci, claude-components,
-│   │                             #   ddd, documentation, patterns, performance, psr, security, test
+├── commands/                     # 25 commands
+│   ├── acc-audit-*.md            # Audit commands (10): architecture, ci, claude-components,
+│   │                             #   ddd, docker, documentation, patterns, performance, psr, security, test
 │   ├── acc-bug-fix.md
 │   ├── acc-ci-*.md               # CI commands (3): setup, fix, optimize
 │   ├── acc-code-review.md
 │   ├── acc-commit.md
-│   ├── acc-generate-*.md         # Generate commands (3): ddd, patterns, psr
+│   ├── acc-generate-*.md         # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
 │   ├── acc-refactor.md
-│   ├── acc-write-*.md            # Write commands (3): claude-component, documentation, test
 │   └── ...
-├── agents/                       # 42 agents
-│   ├── acc-*-auditor.md          # Auditors (12): architecture, behavioral, creational,
+├── agents/                       # 50 agents
+│   ├── acc-*-auditor.md          # Auditors (11): architecture, behavioral, creational,
 │   │                             #   ddd, documentation, integration, pattern, psr,
 │   │                             #   stability, structural, test
-│   ├── acc-*-generator.md        # Generators (7): architecture, behavioral, creational,
+│   ├── acc-*-generator.md        # Generators (8): architecture, behavioral, creational,
 │   │                             #   ddd, integration, pattern, psr, stability
-│   ├── acc-*-coordinator.md      # Coordinators (4): bug-fix, ci, code-review, refactor
+│   ├── acc-*-coordinator.md      # Coordinators (5): bug-fix, ci, code-review, docker, refactor
 │   ├── acc-*-reviewer.md         # Reviewers (4): performance, readability, security, testability
 │   ├── acc-ci-*.md               # CI agents (9): ci-coordinator, ci-debugger, ci-fixer,
 │   │                             #   ci-security-agent, deployment-agent, docker-agent,
 │   │                             #   pipeline-architect, pipeline-optimizer,
 │   │                             #   static-analysis-agent, test-pipeline-agent
+│   ├── acc-docker-*.md           # Docker agents (8): docker-coordinator, docker-architect-agent,
+│   │                             #   docker-image-builder, docker-compose-agent,
+│   │                             #   docker-performance-agent, docker-security-agent,
+│   │                             #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                       # 157 skills
-│   ├── acc-*-knowledge/          # 25 knowledge skills
-│   ├── acc-check-*/              # 55 analyzer skills
+├── skills/                       # 200 skills
+│   ├── acc-*-knowledge/          # 38 knowledge skills
+│   ├── acc-check-*/              # 44 analyzer skills
 │   ├── acc-find-*/               # 9 bug detection skills
-│   ├── acc-detect-*/             # 6 detection skills
-│   ├── acc-analyze-*/            # 4 analysis skills
-│   ├── acc-create-*/             # 57 generator skills
-│   ├── acc-*-template/           # 9 template skills
-│   └── acc-*/                    # 7 other skills (estimate, suggest, bug-*)
+│   ├── acc-detect-*/             # 7 detection skills
+│   ├── acc-analyze-*/            # 8 analysis skills
+│   ├── acc-create-*/             # 69 generator skills
+│   ├── acc-optimize-*/           # 7 optimizer skills
+│   ├── acc-*-template/           # 10 template skills
+│   └── acc-*/                    # 8 other skills (estimate, suggest, bug-*)
 └── settings.json
 
 docs/                             # Documentation (root level)
@@ -117,14 +121,15 @@ docs/                             # Documentation (root level)
 
 | Component | Count |
 |-----------|-------|
-| Commands | 23 |
-| Agents | 42 |
-| Knowledge Skills | 25 |
-| Analyzer Skills | 59 |
-| Generator Skills | 57 |
-| Template Skills | 9 |
-| Other Skills | 7 |
-| **Total Skills** | **157** |
+| Commands | 25 |
+| Agents | 50 |
+| Knowledge Skills | 38 |
+| Analyzer Skills | 68 |
+| Generator Skills | 69 |
+| Optimizer Skills | 7 |
+| Template Skills | 10 |
+| Other Skills | 8 |
+| **Total Skills** | **200** |
 
 ---
 

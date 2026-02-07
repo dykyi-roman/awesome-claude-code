@@ -24,7 +24,7 @@ COMMANDS                    AGENTS                      SKILLS
 ────────                    ──────                      ──────
 /acc-commit ────────────→ (direct Bash)
 
-/acc-write-claude-component ───────→ acc-claude-code-expert ───→ acc-claude-code-knowledge
+/acc-generate-claude-component ───────→ acc-claude-code-expert ───→ acc-claude-code-knowledge
 
 /acc-audit-claude-components → (direct analysis)
 
@@ -51,7 +51,7 @@ COMMANDS                    AGENTS                      SKILLS
                                                   ├──→ (Task) acc-creational-generator ─→ 3 skills
                                                   └──→ (Task) acc-integration-generator → 7 skills
 
-/acc-audit-pattern ─────→ acc-pattern-auditor (coordinator, 2 skills)
+/acc-audit-patterns ────→ acc-pattern-auditor (coordinator, 2 skills)
                                 │
                                 ├──→ (Task) acc-stability-auditor ───→ 5 skills
                                 │           └── Circuit Breaker, Retry, Rate Limiter, Bulkhead
@@ -69,13 +69,13 @@ COMMANDS                    AGENTS                      SKILLS
                                 │
                                 └──→ (Skill) 11 PSR create-* skills
 
-/acc-write-documentation → acc-documentation-writer ─→ 8 template skills
+/acc-generate-documentation → acc-documentation-writer ─→ 8 template skills
                                 │
                                 └──→ (Task) acc-diagram-designer ─→ 2 diagram skills
 
 /acc-audit-documentation → acc-documentation-auditor → 3 QA knowledge skills
 
-/acc-write-test ────────→ acc-test-generator ────────→ acc-testing-knowledge
+/acc-generate-test ────────→ acc-test-generator ────────→ acc-testing-knowledge
                                                        5 test create-* skills
 
 /acc-audit-test ────────→ acc-test-auditor ──────────→ acc-testing-knowledge
@@ -114,6 +114,37 @@ COMMANDS                    AGENTS                      SKILLS
                               └── AUDIT ───→ acc-ci-security-agent ────→ deployment-knowledge
                                              acc-deployment-agent ──────→ 2 deploy skills
                                                                           └── deploy-strategy, feature-flags
+
+/acc-audit-docker ─────→ acc-docker-coordinator (opus, 4 skills)
+                                │
+                                ├──→ (Task) acc-docker-architect-agent ──→ 8 skills
+                                │           └── multi-stage builds, .dockerignore, antipatterns
+                                │
+                                ├──→ (Task) acc-docker-image-builder ───→ 6 skills
+                                │           └── base images, PHP extensions, php.ini
+                                │
+                                ├──→ (Task) acc-docker-compose-agent ───→ 4 skills
+                                │           └── Compose config, resources, networking
+                                │
+                                ├──→ (Task) acc-docker-performance-agent → 8 skills
+                                │           └── build time, image size, OPcache, PHP-FPM
+                                │
+                                ├──→ (Task) acc-docker-security-agent ──→ 5 skills
+                                │           └── secrets, permissions, scanning
+                                │
+                                └──→ (Task) acc-docker-production-agent → 7 skills
+                                            └── health checks, entrypoint, nginx, supervisor
+
+/acc-generate-docker ──→ acc-docker-coordinator (opus, 4 skills)
+                                │
+                                ├── dockerfile → acc-docker-architect-agent
+                                ├── compose ──→ acc-docker-compose-agent
+                                ├── nginx ───→ acc-docker-production-agent
+                                ├── entrypoint → acc-docker-production-agent
+                                ├── makefile ─→ acc-docker-production-agent
+                                ├── env ─────→ acc-docker-compose-agent
+                                ├── healthcheck → acc-docker-production-agent
+                                └── full ────→ All Docker agents (parallel)
 ```
 
 ## Audit → Generate Workflow

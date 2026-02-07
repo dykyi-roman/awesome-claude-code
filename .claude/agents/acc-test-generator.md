@@ -290,7 +290,7 @@ final class OrderBuilder
 When user requests test generation:
 
 ```
-/acc-write-test src/Domain/Order/Order.php
+/acc-generate-test src/Domain/Order/Order.php
 ```
 
 Process:

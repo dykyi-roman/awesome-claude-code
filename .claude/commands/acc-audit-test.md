@@ -1,6 +1,7 @@
 ---
 description: Audit test quality. Checks coverage gaps, test smells, naming, isolation. Recommends improvements and can generate fixes.
 allowed-tools: Task
+model: sonnet
 argument-hint: <path> [-- additional instructions]
 ---
 
@@ -120,7 +121,7 @@ The agent produces a structured report:
 
 After the audit, the agent offers to fix issues using:
 
-- `/acc-write-test` — for missing tests
+- `/acc-generate-test` — for missing tests
 - `acc-create-test-builder` — for test data
 - `acc-create-mock-repository` — for Fakes
 - `acc-create-test-double` — for appropriate doubles

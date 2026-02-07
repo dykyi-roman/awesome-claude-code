@@ -1,13 +1,24 @@
 ---
 name: acc-claude-code-knowledge
-description: Knowledge base for Claude Code formats and patterns. Use when creating or improving commands, agents, skills, or hooks.
+description: Comprehensive knowledge base for Claude Code formats, patterns, and configuration. Use when creating, improving, or auditing commands, agents, skills, hooks, memory, plugins, or settings.
 ---
 
 # Claude Code Knowledge Base
 
-## Quick Reference for Formats
+## Component Types Overview
 
-### Commands
+| Type | Path | Invocation | Context Cost |
+|------|------|------------|--------------|
+| Command | `.claude/commands/name.md` | `/name args` | Loaded on invocation |
+| Agent | `.claude/agents/name.md` | `Task(subagent_type)` | Loaded into subagent context |
+| Skill | `.claude/skills/name/SKILL.md` | Auto or `/name` | Loaded by description match |
+| Hook | `.claude/settings.json` | Automatic on event | Zero (shell script) |
+| Rules | `.claude/rules/*.md` | Auto-loaded always | Always in system prompt |
+| Memory | `CLAUDE.md` (various levels) | Auto-loaded always | Always in system prompt |
+
+---
+
+## Commands
 
 **Path:** `.claude/commands/name.md`
 **Invocation:** `/name` or `/name arguments`
@@ -15,215 +26,353 @@ description: Knowledge base for Claude Code formats and patterns. Use when creat
 ```yaml
 ---
 description: Required. What the command does.
-allowed-tools: Optional. Restrict tools.
-model: Optional. opus/sonnet/haiku
-argument-hint: Optional. Hint for arguments.
+allowed-tools: Optional. Restrict tools (comma-separated).
+model: Optional. opus/sonnet/haiku — or alias from settings.
+argument-hint: Optional. Hint shown in autocomplete.
 ---
 
-Command instructions.
+Command instructions here.
 
-Use $ARGUMENTS to insert user arguments.
+Use $ARGUMENTS for full argument string.
+Use $ARGUMENTS[0], $ARGUMENTS[1] for positional args.
+Use $1, $2 as shorthand for $ARGUMENTS[N].
+Use ${CLAUDE_SESSION_ID} for session identifier.
 ```
 
-**Examples of good commands:**
-
-```yaml
----
-description: Creates a git commit with meaningful message based on staged changes
----
-
-1. Run `git diff --staged`
-2. Analyze changes
-3. Generate commit message:
-   - Title up to 50 characters
-   - Empty line
-   - Detailed description
-4. Run `git commit -m "..."`
-```
-
-```yaml
----
-description: Runs code review for specified file or directory
-argument-hint: [path to file or directory]
-allowed-tools: Read, Grep, Glob
----
-
-Perform code review for: $ARGUMENTS
-
-Check:
-- Code quality
-- Potential bugs
-- Security
-- Performance
-
-Output format:
-## Critical Issues
-## Warnings
-## Recommendations
-```
+**Key rules:**
+- Equivalent to `.claude/skills/name/SKILL.md` with `user-invocable: true`
+- Commands in subdirectories: `.claude/commands/sub/name.md` → `/sub/name`
+- Budget: `SLASH_COMMAND_TOOL_CHAR_BUDGET` (default 15000 chars)
 
 ---
 
-### Agents
+## Agents (Subagents)
 
 **Path:** `.claude/agents/name.md`
-**Invocation:** Automatically or "Use agent name for..."
+**Invocation:** `Task` tool with `subagent_type="name"`
 
 ```yaml
 ---
-name: agent-name  # required
-description: Required. When to use the agent.
-tools: Optional. All by default.
-model: Optional. opus (default) / haiku / sonnet / inherit
-permissionMode: Optional. default / acceptEdits / bypassPermissions / plan
-skills: Optional. Auto-load skills.
+name: agent-name            # required, matches filename without .md
+description: Required. When to use. "PROACTIVELY" for auto-invoke.
+tools: Optional. All by default. Comma-separated.
+disallowedTools: Optional. Denylist complement to tools.
+model: Optional. opus | sonnet | haiku | inherit
+permissionMode: Optional. default | acceptEdits | plan | dontAsk | delegate | bypassPermissions
+skills: Optional. Auto-load skills (comma-separated inline list).
+hooks: Optional. Lifecycle hooks scoped to this agent.
+memory: Optional. user | project | local — CLAUDE.md scope to load.
 ---
 
-Agent system prompt.
+Agent system prompt here.
 ```
 
-**Available tools:**
-- Read, Write, Edit — file operations
-- Bash — execute commands
-- Grep, Glob — search
-- WebSearch, WebFetch — web
-- Task — create subagents (not recursive)
-- MCP tools — if configured
+**Permission modes:**
+- `default` — ask user for each tool use
+- `acceptEdits` — auto-allow file edits, ask for others
+- `plan` — read-only exploration, no writes
+- `dontAsk` — run without asking, within sandbox
+- `delegate` — inherit parent permissions
+- `bypassPermissions` — skip all permission checks (dangerous)
 
-**Examples of good agents:**
+**Built-in subagent types:** Explore, Plan, general-purpose, Bash, statusline-setup, claude-code-guide
 
-```yaml
----
-name: researcher
-description: Researches codebase and gathers information. Use PROACTIVELY before implementing new features.
-tools: Read, Grep, Glob, Bash
-model: haiku
----
+**Execution:** foreground (blocks) or background (`run_in_background: true`). Resume via agent ID.
 
-You are a codebase researcher.
-
-## Task
-Quickly find and analyze relevant code.
-
-## Process
-1. Glob — find files by pattern
-2. Grep — find usages/definitions
-3. Read — study key files
-4. Summarize findings
-
-## Output
-- Found files and their roles
-- Code patterns
-- Recommendations
-```
-
-```yaml
----
-name: test-writer
-description: Creates tests for code. MUST BE USED after writing new functionality.
-tools: Read, Write, Bash
-model: opus
----
-
-You are a testing specialist.
-
-## Process
-1. Read code that needs testing
-2. Determine project's test framework
-3. Write tests:
-   - Unit tests for functions
-   - Edge cases
-   - Error handling
-4. Run tests
-5. Fix if failing
-```
+**Scope priority:** CLI `--agents` flag > project `.claude/agents/` > user `~/.claude/agents/` > plugin agents
 
 ---
 
-### Skills
+## Skills
 
 **Path:** `.claude/skills/name/SKILL.md`
-**Invocation:** `/name` or automatically
+**Invocation:** `/name` (if user-invocable) or auto-loaded by agent/description match
 
 ```yaml
 ---
-name: skill-name  # lowercase, hyphens, max 64
+name: skill-name            # lowercase, hyphens, max 64 chars
 description: Required. What and when. Max 1024 chars.
-allowed-tools: Optional. Restrict.
-disable-model-invocation: true  # only user invokes
-user-invocable: false  # only Claude invokes
+allowed-tools: Optional. Restrict tools.
+model: Optional. Model override when skill is active.
+context: Optional. "fork" for isolated subagent execution.
+agent: Optional. Which subagent type to run in (Explore, Plan, etc).
+hooks: Optional. Lifecycle hooks scoped to this skill.
+disable-model-invocation: true   # only user can invoke
+user-invocable: false            # only Claude can invoke
 ---
 
-Skill instructions.
+Skill instructions here.
+
+Use $ARGUMENTS, $ARGUMENTS[N], $N for user input.
+Use !`command` for dynamic context injection (shell output inserted).
 ```
 
-**Skill folder structure:**
+**Folder structure:**
 ```
 skill-name/
-├── SKILL.md        # required
+├── SKILL.md        # required, max 500 lines
+├── references/     # large content extracted here
 ├── scripts/        # executable code
-├── references/     # additional documentation
 └── assets/         # templates, resources
 ```
 
-**Example skill with resources:**
+**Invocation control matrix:**
 
-```yaml
+| `disable-model-invocation` | `user-invocable` | Who can invoke |
+|---------------------------|------------------|----------------|
+| false (default) | true (default) | Both user and Claude |
+| true | true | User only (via `/name`) |
+| false | false | Claude only (auto-load) |
+| true | false | Nobody (disabled) |
+
 ---
-name: api-design
-description: REST API design patterns. Use when creating or reviewing API endpoints.
----
 
-# API Design Patterns
+## Hooks
 
-## Principles
-- RESTful naming
-- Consistent error format
-- Proper status codes
+**Path:** `.claude/settings.json` (or agent/skill frontmatter `hooks:` field)
 
-For detailed examples see [references/examples.md](references/examples.md)
-For templates see [assets/endpoint-template.ts](assets/endpoint-template.ts)
+### Hook Events (12)
+
+| Event | When | Matcher | Can Block |
+|-------|------|---------|-----------|
+| `PreToolUse` | Before tool execution | Tool name | Yes |
+| `PostToolUse` | After tool execution | Tool name | No |
+| `Notification` | On notification | — | No |
+| `Stop` | Agent stops | — | No |
+| `SubagentStop` | Subagent completes | Agent name | No |
+| `PreCompact` | Before context compaction | — | No |
+| `PostCompact` | After context compaction | — | No |
+| `ToolError` | Tool execution error | Tool name | No |
+| `PreUserInput` | Before user message processed | — | No |
+| `PostUserInput` | After user message processed | — | No |
+| `SessionStart` | Session begins | — | No |
+| `SessionEnd` | Session ends | — | No |
+
+### Hook Types (3)
+
+```json
+{"type": "command", "command": "./script.sh"}
+{"type": "prompt", "prompt": "Check if output is safe"}
+{"type": "agent", "agent": "validator-agent"}
 ```
 
----
+### Exit Codes
 
-### Hooks
+| Code | Behavior |
+|------|----------|
+| 0 | Allow (continue) |
+| 2 | Block (deny tool use, PreToolUse only) |
+| Other | Log warning, continue |
 
-**Path:** `.claude/settings.json`
+### Hook Configuration
 
 ```json
 {
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Write|Edit",
         "hooks": [
-          {
-            "type": "command",
-            "command": "./validate.sh"
-          }
+          {"type": "command", "command": "php -l $CLAUDE_FILE_PATH", "async": false}
         ]
       }
-    ],
-    "PostToolUse": [...],
-    "Notification": [...]
+    ]
   }
 }
 ```
 
-**Events:**
-- PreToolUse — before tool execution
-- PostToolUse — after execution
-- Notification — on notifications
+**Matcher patterns:** exact name, `|` OR, regex. MCP tools: `mcp__server__tool`.
 
-**Matcher:** tool name or pattern
+For comprehensive hooks reference see [references/hooks-reference.md](references/hooks-reference.md).
+
+---
+
+## Memory & CLAUDE.md
+
+### Hierarchy (top to bottom, higher = higher priority)
+
+| Level | Location | Scope |
+|-------|----------|-------|
+| Managed | System dirs (enterprise) | Organization-wide |
+| User | `~/.claude/CLAUDE.md` | All user projects |
+| User rules | `~/.claude/rules/*.md` | All user projects |
+| Project | `CLAUDE.md` (project root) | This project |
+| Project rules | `.claude/rules/*.md` | This project |
+| Local | `CLAUDE.local.md` (project root, auto-gitignored) | This machine only |
+| Nested | `src/CLAUDE.md`, `tests/CLAUDE.md` | Subdirectory context |
+
+### Rules Files
+
+`.claude/rules/*.md` — modular rules, always loaded into system prompt.
+
+**Path-specific rules** via `paths` frontmatter:
+```yaml
+---
+paths:
+  - src/Domain/**
+  - src/Application/**
+---
+These rules apply only when working with files matching the glob patterns above.
+```
+
+### Import Syntax
+
+```markdown
+@path/to/file.md      # relative to current file
+@/absolute/path.md    # absolute path
+@~/user/path.md       # home directory
+```
+
+Import recursion limit: 5 hops max.
+
+### Commands
+
+- `/memory` — view and edit memory files
+- `/init` — generate initial CLAUDE.md from project analysis
+
+For full reference see [references/memory-and-rules.md](references/memory-and-rules.md).
+
+---
+
+## Plugins
+
+**Path:** `.claude-plugin/plugin.json` (plugin root)
+
+```json
+{
+  "name": "my-plugin",
+  "description": "What this plugin provides",
+  "version": "1.0.0",
+  "author": "Name",
+  "repository": "https://github.com/user/repo"
+}
+```
+
+**Plugin structure:**
+```
+.claude-plugin/
+├── plugin.json         # manifest (required)
+├── commands/           # namespaced as /plugin:command
+├── agents/             # available as subagent_type
+├── skills/             # namespaced as /plugin:skill
+├── hooks/hooks.json    # plugin-scoped hooks
+├── .mcp.json           # MCP server config
+└── .lsp.json           # LSP server config
+```
+
+**Namespaced invocation:** `/plugin-name:skill-name`
+
+**Installation sources:** GitHub, Git URL, NPM, File path, Directory.
+
+For full reference see [references/plugins-reference.md](references/plugins-reference.md).
+
+---
+
+## Permissions
+
+### Rule Syntax
+
+```json
+{
+  "permissions": {
+    "allow": ["Read", "Glob", "Grep"],
+    "deny": ["Bash(rm *)"],
+    "ask": ["Write", "Edit"]
+  }
+}
+```
+
+**Specifier patterns:**
+
+| Pattern | Example | Matches |
+|---------|---------|---------|
+| `Tool` | `Read` | All Read calls |
+| `Tool(literal)` | `Bash(npm test)` | Exact command |
+| `Tool(glob)` | `Read(src/**)` | Gitignore-style glob |
+| `Tool(domain:)` | `WebFetch(domain:api.example.com)` | Domain filter |
+| `mcp__server__tool` | `mcp__github__create_issue` | MCP tool |
+| `Task(agent)` | `Task(acc-ddd-auditor)` | Specific subagent |
+
+**Evaluation order:** deny → ask → allow (deny wins over allow)
+
+For full reference see [references/settings-and-permissions.md](references/settings-and-permissions.md).
+
+---
+
+## MCP (Model Context Protocol)
+
+**Config:** `.mcp.json` (project root) or in `settings.json`
+
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-name"],
+      "env": {"API_KEY": "..."}
+    }
+  }
+}
+```
+
+**Tool naming:** `mcp__servername__toolname`
+
+**Scope hierarchy:** project `.mcp.json` > user settings > plugin `.mcp.json`
+
+**Permission:** `enableAllProjectMcpServers`, `allowedMcpServers`, `deniedMcpServers` in settings.
+
+---
+
+## Settings
+
+**Hierarchy:** managed > CLI args > local > project > user
+
+| Level | Location |
+|-------|----------|
+| User | `~/.claude/settings.json` |
+| Project | `.claude/settings.json` |
+| Local | `.claude/settings.local.json` (gitignored) |
+| Managed | Enterprise system dirs |
+
+**Key settings areas:** permissions, hooks, sandbox, MCP, model config, context management, attribution.
+
+For full schema reference see [references/settings-and-permissions.md](references/settings-and-permissions.md).
+
+---
+
+## Decision Framework
+
+When to use which component type:
+
+| Goal | Best Component | Reason |
+|------|---------------|--------|
+| Reusable saved prompt | **Command** | User invokes, low context cost |
+| Complex analysis in isolation | **Agent** | Separate context window |
+| Knowledge base / templates | **Skill** | Auto-loaded, shared across agents |
+| Auto-trigger on events | **Hook** | Zero context cost, shell execution |
+| Project-wide instructions | **CLAUDE.md** | Always in context |
+| Path-specific rules | **Rules** (`.claude/rules/`) | Conditional loading |
+| Distributable extension | **Plugin** | Namespaced, installable |
+| External tool integration | **MCP** | Standardized protocol |
+
+### Context Cost Awareness
+
+| Component | Context Budget Impact |
+|-----------|---------------------|
+| CLAUDE.md + rules | Always loaded (~500 lines recommended max) |
+| Skills (auto-loaded) | Loaded when description matches (~15K chars budget) |
+| Skills (by agent) | Loaded into agent's context window |
+| Agents | Separate context window (no parent cost) |
+| Hooks (command type) | Zero context cost (shell execution) |
+| Hooks (prompt/agent type) | Uses context for LLM evaluation |
+| MCP tools | Tool descriptions always in context |
+| Plugins | Components loaded per their type rules |
 
 ---
 
 ## Patterns
 
 ### Parallel Agents
-Run multiple agents simultaneously:
 ```
 Run in parallel:
 1. Task: researcher — study architecture
@@ -234,15 +383,13 @@ Wait for all and combine results.
 ```
 
 ### Progressive Disclosure
-Load information as needed:
 ```
-SKILL.md — brief instructions
-references/detailed.md — details when needed
-scripts/tool.py — execute without reading into context
+SKILL.md — brief instructions (max 500 lines)
+references/ — details loaded when needed
+scripts/ — execute without reading into context
 ```
 
 ### Chained Agents
-Sequential agent work:
 ```
 1. researcher → studies the task
 2. planner → creates plan based on research
@@ -250,30 +397,84 @@ Sequential agent work:
 4. reviewer → reviews implementation
 ```
 
+### Agent Teams (Coordinator Pattern)
+```
+coordinator (opus) → delegates via Task tool
+├── auditor-1 (sonnet, parallel)
+├── auditor-2 (sonnet, parallel)
+└── generator (sonnet, sequential after audit)
+
+Coordinator uses TaskCreate/TaskUpdate for progress tracking.
+```
+
+### Plugin Distribution
+```
+Package as .claude-plugin/ → publish to GitHub/NPM
+Users install: enabledPlugins in settings
+Skills namespaced: /plugin-name:skill-name
+```
+
 ---
 
-## Validation
+## Validation Checklists
 
-### Checklist for Commands
-- [ ] description is filled
-- [ ] Path: .claude/commands/*.md
-- [ ] $ARGUMENTS if arguments needed
-- [ ] Instructions are clear
+### Commands
+- [ ] `description` is filled and specific
+- [ ] Path: `.claude/commands/*.md`
+- [ ] `$ARGUMENTS` used if `argument-hint` defined
+- [ ] `model` specified consciously (opus for complex, haiku for fast)
+- [ ] Instructions are clear and step-by-step
 
-### Checklist for Agents
-- [ ] name and description are filled
-- [ ] tools are minimally necessary
-- [ ] model is chosen consciously
-- [ ] Path: .claude/agents/*.md
+### Agents
+- [ ] `name` and `description` are filled
+- [ ] `name` matches filename (without `.md`)
+- [ ] `tools` are minimally necessary
+- [ ] `disallowedTools` used if most tools needed except few
+- [ ] `model` chosen consciously
+- [ ] `permissionMode` appropriate for task
+- [ ] `skills:` is comma-separated inline list (not YAML array)
+- [ ] Coordinators have `TaskCreate, TaskUpdate` in tools
+- [ ] Coordinators have `acc-task-progress-knowledge` in skills
 
-### Checklist for Skills
-- [ ] name is lowercase with hyphens
-- [ ] description < 1024 characters
-- [ ] SKILL.md < 500 lines
-- [ ] Path: .claude/skills/name/SKILL.md
+### Skills
+- [ ] `name` is lowercase with hyphens, matches folder name
+- [ ] `description` < 1024 characters, explains "when to use"
+- [ ] `SKILL.md` < 500 lines
+- [ ] Large content extracted to `references/`
+- [ ] `context: fork` if needs isolated execution
+- [ ] Path: `.claude/skills/name/SKILL.md`
 
-### Checklist for Hooks
+### Hooks
 - [ ] JSON is valid
-- [ ] matcher is correct
-- [ ] command/script exists
-- [ ] Path: .claude/settings.json
+- [ ] Event name is one of 12 valid events
+- [ ] `matcher` is correct tool/agent name or pattern
+- [ ] `command` script exists and is executable
+- [ ] Exit codes handled properly (0=allow, 2=block)
+- [ ] `async: true` only for non-blocking operations
+
+### Memory/Rules
+- [ ] `CLAUDE.md` < 500 lines (recommended)
+- [ ] `.claude/rules/*.md` for modular rules
+- [ ] `CLAUDE.local.md` in `.gitignore`
+- [ ] `@imports` resolve (max 5 hops)
+- [ ] `paths` frontmatter uses valid glob patterns
+
+### Settings
+- [ ] Valid JSON in `settings.json`
+- [ ] Permission rules follow deny → ask → allow order
+- [ ] `settings.local.json` is gitignored
+- [ ] Sandbox configured if auto-allowing Bash
+- [ ] MCP servers explicitly allowed/denied
+
+---
+
+## Reference Files
+
+Detailed documentation for specific areas:
+
+- [Hooks Reference](references/hooks-reference.md) — all 12 events, 3 types, matchers, I/O, exit codes
+- [Skills Advanced](references/skills-advanced.md) — context:fork, agent, hooks, model, invocation control
+- [Subagents Advanced](references/subagents-advanced.md) — memory, hooks, disallowedTools, background, resume
+- [Memory and Rules](references/memory-and-rules.md) — CLAUDE.md hierarchy, rules/, @imports, paths
+- [Plugins Reference](references/plugins-reference.md) — plugin structure, manifest, marketplace, migration
+- [Settings and Permissions](references/settings-and-permissions.md) — full schema, sandbox, permissions, env vars

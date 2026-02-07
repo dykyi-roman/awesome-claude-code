@@ -5,7 +5,7 @@ model: opus
 argument-hint: <path> [-- additional instructions]
 ---
 
-# Write Documentation
+# Generate Documentation
 
 Generate high-quality technical documentation for a file, folder, or project.
 
@@ -17,11 +17,11 @@ Parse `$ARGUMENTS` to extract path and optional meta-instructions:
 Format: <path> [-- <meta-instructions>]
 
 Examples:
-- /acc-write-documentation ./
-- /acc-write-documentation src/ -- focus on API documentation
-- /acc-write-documentation ./ -- create architecture doc with C4 diagrams
-- /acc-write-documentation src/Domain/Order -- document only public interfaces
-- /acc-write-documentation ./ -- на русском языке
+- /acc-generate-documentation ./
+- /acc-generate-documentation src/ -- focus on API documentation
+- /acc-generate-documentation ./ -- create architecture doc with C4 diagrams
+- /acc-generate-documentation src/Domain/Order -- document only public interfaces
+- /acc-generate-documentation ./ -- на русском языке
 ```
 
 **Parsing rules:**
@@ -55,7 +55,7 @@ If meta-instructions provided, adjust documentation to:
 ## Documentation Flow
 
 ```
-/acc-write-documentation <path>
+/acc-generate-documentation <path>
     │
     ├─ Pre-flight: Validate path exists
     │
@@ -211,16 +211,16 @@ Generated documentation must have:
 
 ```bash
 # Document entire project
-/acc-write-documentation
+/acc-generate-documentation
 
 # Document specific directory
-/acc-write-documentation src/Domain/Order
+/acc-generate-documentation src/Domain/Order
 
 # Document specific file
-/acc-write-documentation src/Service/PaymentService.php
+/acc-generate-documentation src/Service/PaymentService.php
 
 # Document API
-/acc-write-documentation src/Api/
+/acc-generate-documentation src/Api/
 ```
 
 ## Follow-up

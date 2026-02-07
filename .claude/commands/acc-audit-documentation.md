@@ -159,8 +159,8 @@ Issues hindering user experience:
 ### High Priority
 | Issue | File | Action | Tool |
 |-------|------|--------|------|
-| Missing README | / | Create README | `/acc-write-documentation` |
-| No examples | docs/api.md | Add code examples | `/acc-write-documentation` |
+| Missing README | / | Create README | `/acc-generate-documentation` |
+| No examples | docs/api.md | Add code examples | `/acc-generate-documentation` |
 
 ### Medium Priority
 | Issue | File | Action |
@@ -243,7 +243,7 @@ Issues hindering user experience:
 Based on audit results, suggest:
 
 1. **For Critical Issues:**
-   - Run `/acc-write-documentation` to create missing docs
+   - Run `/acc-generate-documentation` to create missing docs
 
 2. **For Diagram Issues:**
    - Invoke `acc-diagram-designer` to create/update diagrams

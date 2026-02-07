@@ -27,10 +27,10 @@ Components auto-copy to `.claude/` directory.
 | `/acc-audit-psr <path>` | PSR compliance audit |
 | `/acc-audit-documentation <path>` | Audit documentation quality |
 | `/acc-audit-claude-components` | Audit .claude folder structure |
-| `/acc-write-documentation <path>` | Generate documentation |
-| `/acc-write-claude-component` | Create commands/agents/skills |
+| `/acc-generate-documentation <path>` | Generate documentation |
+| `/acc-generate-claude-component` | Create commands/agents/skills |
 | `/acc-commit` | Auto-generate commit message |
-| `/acc-write-test <path>` | Generate tests for file/folder |
+| `/acc-generate-test <path>` | Generate tests for file/folder |
 | `/acc-audit-test <path>` | Audit test quality |
 | `/acc-code-review [branch] [level]` | Multi-level code review |
 | `/acc-bug-fix <target>` | Automated bug diagnosis and fix |
@@ -107,7 +107,7 @@ Components auto-copy to `.claude/` directory.
 /acc-audit-architecture ./src
 
 # Generate documentation
-/acc-write-documentation ./src
+/acc-generate-documentation ./src
 
 # Check documentation quality
 /acc-audit-documentation ./docs
@@ -116,7 +116,7 @@ Components auto-copy to `.claude/` directory.
 /acc-create-value-object Email
 
 # Generate tests
-/acc-write-test ./src/Domain/Order/
+/acc-generate-test ./src/Domain/Order/
 
 # Audit test quality
 /acc-audit-test ./tests
