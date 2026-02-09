@@ -133,7 +133,6 @@ Knowledge bases for architecture audits and best practices.
 | `acc-find-resource-leaks` | `skills/acc-find-resource-leaks/` | Detects unclosed connections, file handles |
 | `acc-find-exception-issues` | `skills/acc-find-exception-issues/` | Detects swallowed exceptions, generic catches |
 | `acc-find-type-issues` | `skills/acc-find-type-issues/` | Detects type coercion, mixed types, unsafe casts |
-| `acc-find-sql-injection` | `skills/acc-find-sql-injection/` | Detects unescaped queries, SQL concatenation |
 | `acc-find-infinite-loops` | `skills/acc-find-infinite-loops/` | Detects missing break conditions, infinite recursion |
 
 ### Bug Fix Skills

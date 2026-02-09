@@ -1,9 +1,9 @@
 ---
 name: acc-psr-auditor
 description: PSR compliance auditor for PHP projects. Analyzes PSR-1/PSR-12 coding style, PSR-4 autoloading, and PSR interface implementations. Use PROACTIVELY for PSR audit, coding standards review, or when analyzing PHP project compliance.
-tools: Read, Bash, Grep, Glob
+tools: Read, Bash, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-psr-overview-knowledge
+skills: acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-psr-overview-knowledge, acc-task-progress-knowledge
 ---
 
 # PSR Compliance Auditor
@@ -163,6 +163,23 @@ Grep: "ClientInterface.*Psr\\Http\\Client|Psr\\Http\\Client\\ClientInterface" --
 Grep: "ClockInterface" --glob "**/*.php"
 Grep: "Psr\\Clock" --glob "**/*.php"
 ```
+
+### PSR in Domain Layer — Interface vs Implementation Rule
+
+When analyzing PSR usage in Domain layer files, apply this distinction:
+
+**Acceptable in Domain (pure interfaces):**
+- `psr/log` → `Psr\Log\LoggerInterface`
+- `psr/clock` → `Psr\Clock\ClockInterface`
+- `psr/event-dispatcher` → `Psr\EventDispatcher\EventDispatcherInterface`
+
+**Not acceptable in Domain (implementation packages):**
+- `monolog/monolog`, `symfony/cache`, `guzzlehttp/guzzle`, `symfony/http-client`
+- Any concrete class from Infrastructure frameworks
+
+**Rule:** PSR interface packages contain only contracts (interfaces) with no implementation.
+They are de facto PHP standard library extensions. Flag only concrete implementation
+packages in Domain layer, not PSR interface imports.
 
 ### Phase 5: Report Generation
 
@@ -331,6 +348,16 @@ Skill: acc-create-psr3-logger
 # Using Skill tool for PSR-20 Clock
 Skill: acc-create-psr20-clock
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning PSR compliance", scan files and categorize
+2. **Phase 2: Analyze** — Create task "Analyzing PSR compliance", perform deep analysis
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Important Notes
 

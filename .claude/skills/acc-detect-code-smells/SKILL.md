@@ -313,3 +313,14 @@ This skill works alongside:
 Based on Martin Fowler's "Refactoring" catalog:
 - https://refactoring.guru/refactoring/smells
 - "Refactoring: Improving the Design of Existing Code" (Fowler)
+
+## When This Is Acceptable
+
+- **DTOs** — Data classes are NOT a code smell; they serve a clear data transfer purpose
+- **Configuration classes** — Classes with many constants/properties for configuration
+- **Builder pattern** — Method chaining in builders creates apparent "Feature Envy" but is by design
+
+### False Positive Indicators
+- Class has `DTO`, `Request`, `Response`, `Config` in its name
+- Class implements a Builder pattern with fluent API
+- "Long parameter list" is actually a constructor with proper dependency injection

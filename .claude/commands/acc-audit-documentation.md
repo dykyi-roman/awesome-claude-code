@@ -225,17 +225,55 @@ Issues hindering user experience:
 | 40-59 | 🟠 Poor | Major issues blocking users |
 | 0-39 | 🔴 Critical | Documentation emergency |
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Completeness only | Required files present, basic section checks |
+| `standard` | 6-dimension scoring | Completeness, accuracy, clarity, consistency, navigation, freshness |
+| `deep` | Standard + verification | Standard + code example verification, link validation, diagram rendering |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | Missing README, no installation docs, broken critical links |
+| High | 🟠 | Missing API docs, outdated examples, no architecture description |
+| Medium | 🟡 | Incomplete sections, minor inconsistencies, missing TOC |
+| Low | 🟢 | Style suggestions, missing badges, formatting improvements |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on API` | Deep API documentation analysis |
+| `focus on examples` | Verify code examples work |
+| `check links` | Full link validation |
+| `skip architecture` | Exclude architecture docs |
+| `level:quick` | Fast audit (completeness only) |
+| `level:deep` | Deep audit (+ example verification + link validation) |
+| `detailed report` | Maximum detail in report |
+| `на русском` | Report in Russian |
+
 ## Usage Examples
 
 ```bash
 # Audit entire project
-/acc-documentation-audit
+/acc-audit-documentation
 
 # Audit specific directory
-/acc-documentation-audit docs/
+/acc-audit-documentation docs/
 
 # Audit README only
-/acc-documentation-audit README.md
+/acc-audit-documentation README.md
+
+# Quick check
+/acc-audit-documentation docs/ -- level:quick
+
+# Deep analysis
+/acc-audit-documentation docs/ -- level:deep
 ```
 
 ## Follow-up Actions

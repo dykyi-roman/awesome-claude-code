@@ -949,8 +949,43 @@ mkdir -p .claude/commands .claude/agents .claude/skills
 ```
 ```
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Structure + cross-refs | Frontmatter validation, cross-reference integrity |
+| `standard` | Quick + quality + antipatterns | Standard quality criteria, structural antipatterns, behavior verification |
+| `deep` | Standard + architecture | Standard + God-Agent detection, domain boundaries, skill responsibility, refactoring recommendations |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | Invalid YAML, broken cross-references, missing required files |
+| High | 🟠 | God-Agent detected, orphaned components, behavior mismatch |
+| Medium | 🟡 | Quality criteria warnings, naming inconsistencies |
+| Low | 🟢 | Style suggestions, optional improvements |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on God-Agent` | Deep God-Agent detection analysis |
+| `check only commands` | Only audit command files |
+| `check only agents` | Only audit agent files |
+| `skip skills` | Exclude skills from audit |
+| `level:quick` | Fast audit (structure + cross-refs only) |
+| `level:deep` | Deep audit (+ God-Agent + domain boundaries) |
+| `detailed report` | Maximum detail in report |
+| `на русском` | Report in Russian |
+
 ## Usage
 
 ```bash
-/acc-audit-claude-code
+/acc-audit-claude-components
+/acc-audit-claude-components -- level:quick
+/acc-audit-claude-components -- level:deep
+/acc-audit-claude-components -- focus on God-Agent detection
 ```

@@ -55,7 +55,9 @@ Use the `acc-pattern-auditor` coordinator to perform a comprehensive patterns au
 
 ```
 Task tool with subagent_type="acc-pattern-auditor"
-prompt: "Perform design patterns audit on [PATH]. [META-INSTRUCTIONS if provided]
+prompt: "Perform design patterns audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
+
+Use TaskCreate/TaskUpdate for progress visibility. Create tasks for each audit phase.
 
 Analyze the following pattern categories:
 
@@ -242,11 +244,44 @@ A structured markdown report containing:
 3. **Warning** — Refactor type switches to Strategy pattern
 4. **Warning** — Add Builder for complex object construction
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Pattern detection | Detect used patterns, basic compliance check |
+| `standard` | Compliance matrix | Full pattern analysis, compliance scoring, implementation quality |
+| `deep` | Standard + opportunities | Standard + opportunity detection, cross-pattern conflicts, SOLID/GRASP |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | Missing resilience patterns for external calls, non-atomic transactions |
+| High | 🟠 | Broken pattern implementation, missing error handling in patterns |
+| Medium | 🟡 | Suboptimal pattern usage, candidate patterns not implemented |
+| Low | 🟢 | Style improvements, optional pattern suggestions |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on stability` | Deep stability patterns analysis |
+| `focus on behavioral` | Prioritize behavioral patterns |
+| `skip creational` | Exclude creational patterns |
+| `stability only` | Only stability pattern audit |
+| `level:quick` | Fast audit (pattern detection only) |
+| `level:deep` | Deep audit (+ opportunity detection + SOLID/GRASP) |
+| `detailed report` | Maximum detail in report |
+| `на русском` | Report in Russian |
+
 ## Usage Examples
 
 ```bash
 /acc-audit-patterns ./src
 /acc-audit-patterns ./src/Infrastructure -- focus on stability patterns
 /acc-audit-patterns ./src/Domain -- check behavioral patterns only
-/acc-audit-patterns ./src -- comprehensive with SOLID/GRASP analysis
+/acc-audit-patterns ./src -- level:deep
+/acc-audit-patterns ./src -- level:quick
 ```

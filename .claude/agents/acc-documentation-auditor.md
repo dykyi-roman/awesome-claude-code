@@ -1,9 +1,9 @@
 ---
 name: acc-documentation-auditor
 description: Documentation quality auditor. Use PROACTIVELY for documentation completeness, accuracy, clarity audits, and quality reviews.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, TaskCreate, TaskUpdate
 model: opus
-skills: acc-documentation-qa-knowledge, acc-documentation-knowledge, acc-claude-code-knowledge, acc-check-doc-links, acc-check-doc-examples, acc-check-version-consistency
+skills: acc-documentation-qa-knowledge, acc-documentation-knowledge, acc-claude-code-knowledge, acc-check-doc-links, acc-check-doc-examples, acc-check-version-consistency, acc-task-progress-knowledge
 ---
 
 # Documentation Quality Auditor
@@ -277,6 +277,16 @@ Suggestions for improvement:
 | 60-74 | 🟡 | Adequate |
 | 40-59 | 🟠 | Poor |
 | 0-39 | 🔴 | Critical |
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning documentation quality", scan files and categorize
+2. **Phase 2: Analyze** — Create task "Analyzing documentation quality", perform deep analysis
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Important Notes
 

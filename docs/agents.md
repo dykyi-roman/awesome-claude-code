@@ -22,12 +22,13 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-structural-auditor` | Structural patterns analysis | 12 | `acc-architecture-auditor` (Task) |
-| `acc-behavioral-auditor` | Behavioral patterns analysis | 17 | `acc-architecture-auditor`, `acc-pattern-auditor` (Task) |
-| `acc-gof-structural-auditor` | GoF Structural patterns analysis | 6 | `acc-pattern-auditor` (Task) |
-| `acc-integration-auditor` | Integration patterns analysis | 12 | `acc-architecture-auditor`, `acc-pattern-auditor` (Task) |
-| `acc-stability-auditor` | Stability patterns analysis | 8 | `acc-pattern-auditor` (Task) |
-| `acc-creational-auditor` | Creational patterns analysis | 6 | `acc-pattern-auditor` (Task) |
+| `acc-structural-auditor` | Structural patterns analysis | 13 | `acc-architecture-auditor` (Task) |
+| `acc-behavioral-auditor` | GoF Behavioral patterns analysis | 11 | `acc-pattern-auditor` (Task) |
+| `acc-cqrs-auditor` | CQRS/ES/EDA patterns analysis | 8 | `acc-architecture-auditor`, `acc-pattern-auditor` (Task) |
+| `acc-gof-structural-auditor` | GoF Structural patterns analysis | 7 | `acc-pattern-auditor` (Task) |
+| `acc-integration-auditor` | Integration patterns analysis | 13 | `acc-architecture-auditor`, `acc-pattern-auditor` (Task) |
+| `acc-stability-auditor` | Stability patterns analysis | 9 | `acc-pattern-auditor` (Task) |
+| `acc-creational-auditor` | Creational patterns analysis | 7 | `acc-pattern-auditor` (Task) |
 | `acc-ddd-auditor` | DDD compliance analysis | 8 | `/acc-audit-ddd` |
 | `acc-psr-auditor` | PSR compliance analysis | 3 | `/acc-audit-psr` |
 | `acc-documentation-auditor` | Audit documentation quality | 6 | `/acc-audit-documentation` |
@@ -38,7 +39,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
 | `acc-bug-hunter` | Bug detection specialist | 9 | `acc-code-review-coordinator`, `acc-bug-fix-coordinator` (Task) |
-| `acc-security-reviewer` | Security review specialist | 20 | `/acc-audit-security`, `acc-code-review-coordinator` (Task) |
+| `acc-security-reviewer` | Security review specialist | 21 | `/acc-audit-security`, `acc-code-review-coordinator` (Task) |
 | `acc-performance-reviewer` | Performance review specialist | 13 | `/acc-audit-performance`, `acc-code-review-coordinator` (Task) |
 | `acc-readability-reviewer` | Readability review specialist | 9 | `acc-code-review-coordinator`, `acc-refactor-coordinator` (Task) |
 | `acc-testability-reviewer` | Testability review specialist | 7 | `acc-code-review-coordinator`, `acc-refactor-coordinator` (Task) |
@@ -137,6 +138,14 @@ Coordinator agents use TaskCreate/TaskUpdate for user visibility:
 - `acc-ddd-auditor` — 3 phases
 - `acc-pattern-auditor` — 4 phases
 - `acc-explain-coordinator` — 4 phases
+- `acc-docker-coordinator` — 3 phases
+
+**Specialist auditors with progress tracking:**
+- `acc-security-reviewer` — 3 phases (Scan → Analyze → Report)
+- `acc-performance-reviewer` — 3 phases (Scan → Analyze → Report)
+- `acc-psr-auditor` — 3 phases (Scan → Analyze → Report)
+- `acc-test-auditor` — 3 phases (Scan → Analyze → Report)
+- `acc-documentation-auditor` — 3 phases (Scan → Analyze → Report)
 
 See `acc-task-progress-knowledge` skill for guidelines.
 
@@ -690,7 +699,7 @@ tools: Read, Grep, Glob
 model: sonnet
 skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues,
         acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues,
-        acc-find-type-issues, acc-find-sql-injection, acc-find-infinite-loops
+        acc-find-type-issues, acc-check-sql-injection, acc-find-infinite-loops
 ```
 
 **Skills:** 9 (bug detection)

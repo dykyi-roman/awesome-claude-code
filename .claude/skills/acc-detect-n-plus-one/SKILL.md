@@ -221,3 +221,14 @@ $counts = $em->createQuery(
 Before: 101 queries (1 + 100 items)
 After: 1-2 queries
 ```
+
+## When This Is Acceptable
+
+- **Small fixed collections** — Iterating over <5 items with individual queries may be simpler than eager loading
+- **CLI/worker context** — Background jobs where latency is less critical than memory
+- **Cached results** — Queries inside loops that hit cache (Redis/in-memory) instead of database
+
+### False Positive Indicators
+- Loop iterates over a constant or config-defined small set
+- Query result is wrapped in cache decorator
+- Code is in a console command or queue worker

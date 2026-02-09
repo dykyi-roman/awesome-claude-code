@@ -1,9 +1,9 @@
 ---
 name: acc-integration-auditor
 description: Integration patterns auditor. Analyzes Outbox, Saga, Stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead), and ADR pattern. Called by acc-architecture-auditor.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-adr-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-action, acc-create-responder
+skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-adr-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-action, acc-create-responder, acc-task-progress-knowledge
 ---
 
 # Integration Patterns Auditor
@@ -296,6 +296,16 @@ If violations found, suggest using appropriate create-* skills:
 - Missing Action → acc-create-action
 - Missing Responder → acc-create-responder
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning integration patterns", detect patterns
+2. **Phase 2: Analyze** — Create task "Analyzing integration patterns", check compliance
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Output
 

@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.10.0] - 2026-02-09
 
 ### Added
+- `.claude/rules/` directory with 3 conditional rules: `component-creation.md`, `versioning.md`, `troubleshooting.md` — loaded only when matching files are involved, saving context
+- `acc-cqrs-auditor` agent — dedicated CQRS/ES/EDA patterns auditor (split from `acc-behavioral-auditor`)
 - Creational auditor skills (+3): `acc-check-singleton-antipattern` (Singleton anti-pattern detection), `acc-check-abstract-factory` (Abstract Factory audit), `acc-create-prototype` (Prototype pattern generator)
 - Stability auditor skills (+3): `acc-check-timeout-strategy` (timeout configuration audit), `acc-check-cascading-failures` (cascading failure detection), `acc-check-fallback-strategy` (fallback/graceful degradation audit)
 - DDD auditor skills (+3): `acc-check-aggregate-consistency` (aggregate rules audit), `acc-check-cqrs-alignment` (CQRS/ES alignment), `acc-check-context-communication` (Context Map patterns)
@@ -18,6 +20,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Performance reviewer skills (+3): `acc-check-index-usage` (missing DB indexes), `acc-check-async-patterns` (sync ops that should be async), `acc-check-file-io` (file I/O patterns)
 
 ### Changed
+
+#### Audit System
+- All 11 audit commands upgraded to `model: opus` (was sonnet for psr, test, security, performance)
+- Unified severity system 🔴🟠🟡🟢 across all 11 audit commands (was 5 different icon sets)
+- All 11 audit commands now support `level:quick`, `level:standard`, `level:deep` via meta-instructions
+- All 11 audit commands now have Meta-Instructions Guide tables (was 2/11)
+- All 11 audit commands now have Pre-flight checks (was 8/11)
+- `acc-audit-psr` rewritten: 89 → 220 lines with Pre-flight Check, Audit Levels, Severity, Meta-Instructions Guide, full Expected Output template
+- `acc-audit-test` rewritten: 137 → 230 lines with Pre-flight Check, Audit Levels, Severity, Meta-Instructions Guide, full Expected Output template
+- `acc-audit-psr` and `acc-audit-test` commands expanded `allowed-tools` from `Task` to `Read, Grep, Glob, Bash, Task`
+
+#### Agents
+- `acc-behavioral-auditor` split: CQRS/ES/EDA → new `acc-cqrs-auditor` (8 skills), GoF behavioral remains (11 skills, was 17+458 lines)
+- `acc-docker-production-agent` slimmed: 410 → ~200 lines, extracted inline templates to skill references
+- `acc-find-sql-injection` merged into `acc-check-sql-injection` (>70% content overlap), `acc-bug-hunter` updated
+- `acc-pattern-auditor` and `acc-architecture-auditor` coordinators updated delegation tables for CQRS split
 - `acc-creational-auditor` expanded: 3 → 6 skills, added Abstract Factory, Singleton anti-pattern, Prototype phases
 - `acc-stability-auditor` expanded: 5 → 8 skills, added Timeout, Cascading Failures, Fallback phases
 - `acc-ddd-auditor` expanded: 5 → 8 skills, added Aggregate Consistency, CQRS Alignment, Context Communication phases
@@ -25,8 +43,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `acc-security-reviewer` expanded: 14 → 20 skills, added OWASP A04 Insecure Design, A09 Logging Failures, Secure Headers, CORS, Mass Assignment, Type Juggling
 - `acc-performance-reviewer` expanded: 10 → 13 skills, added Index Usage, Async Patterns, File I/O
 - `acc-pattern-auditor` coordinator updated delegation table (stability 5→8, creational 3→6)
-- Updated component counts: 26 commands, 56 agents, 243 skills
 
+#### Progress Tracking
+- 5 specialist agents (`acc-security-reviewer`, `acc-performance-reviewer`, `acc-psr-auditor`, `acc-test-auditor`, `acc-documentation-auditor`) upgraded with TaskCreate/TaskUpdate progress tracking (3 phases: Scan → Analyze → Report)
+- 6 sub-auditors (`acc-behavioral-auditor`, `acc-cqrs-auditor`, `acc-creational-auditor`, `acc-gof-structural-auditor`, `acc-structural-auditor`, `acc-integration-auditor`, `acc-stability-auditor`) upgraded with TaskCreate/TaskUpdate progress tracking
+
+#### Skills & CLAUDE.md
+- 10 analyzer skills expanded with "When This Is Acceptable" false-positive guidance: `acc-check-method-length`, `acc-check-class-length`, `acc-detect-n-plus-one`, `acc-analyze-solid-violations`, `acc-detect-code-smells`, `acc-check-input-validation`, `acc-check-sql-injection`, `acc-detect-memory-issues`, `acc-check-caching-strategy`, `acc-check-output-encoding`
+- `CLAUDE.md` slimmed from 147 to ~80 lines — extracted component creation, versioning, and troubleshooting sections into conditional rules
+- Updated component counts: 26 commands, 57 agents, 242 skills
 ---
 
 ## [2.9.0] - 2026-02-08
@@ -201,7 +226,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.11.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.10.0...HEAD
 [2.10.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.9.0...v2.10.0
 [2.9.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.8.0...v2.9.0
 [2.8.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.7.0...v2.8.0

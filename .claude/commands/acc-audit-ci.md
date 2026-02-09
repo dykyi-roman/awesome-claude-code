@@ -56,11 +56,13 @@ Use the `acc-ci-coordinator` agent to perform the audit:
 
 ```
 Task tool with subagent_type="acc-ci-coordinator"
-prompt: "Perform comprehensive CI/CD audit at [PATH].
+prompt: "Perform comprehensive CI/CD audit at [PATH]. Audit level: [LEVEL].
 
 Operation: AUDIT
 
 [FOCUS_AREAS if provided]
+
+Use TaskCreate/TaskUpdate for progress visibility. Create tasks for each audit phase.
 
 Audit areas:
 1. Pipeline structure and stages
@@ -195,6 +197,16 @@ The coordinator will delegate to specialized agents and aggregate results:
 | `include dependency scan` | Full dependency vulnerability scan |
 | `quick audit` | High-level overview only |
 | `detailed report` | Maximum detail in report |
+
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Structure check | Pipeline structure, basic config validation |
+| `standard` | Full 7-category | All 7 audit areas with detailed findings |
+| `deep` | Standard + dependencies | Standard + dependency vulnerability scan, cross-job optimization |
 
 ## Severity Levels
 

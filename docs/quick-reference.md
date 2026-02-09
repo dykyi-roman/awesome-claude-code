@@ -18,6 +18,7 @@ Component paths, formats, and best practices. Use this as a cheat sheet when cre
 | Command | `.claude/commands/name.md`     | `/name`          |
 | Agent   | `.claude/agents/name.md`       | Auto or explicit |
 | Skill   | `.claude/skills/name/SKILL.md` | `/name` or auto  |
+| Rule    | `.claude/rules/name.md`        | Conditional      |
 | Hook    | `.claude/settings.json`        | On event         |
 
 ## YAML Frontmatter
@@ -79,8 +80,8 @@ allowed-tools: Optional
 │   ├── acc-generate-*.md         # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
 │   ├── acc-refactor.md
 │   └── ...
-├── agents/                       # 56 agents
-│   ├── acc-*-auditor.md          # Auditors (12): architecture, behavioral, creational,
+├── agents/                       # 57 agents
+│   ├── acc-*-auditor.md          # Auditors (13): architecture, behavioral, cqrs, creational,
 │   │                             #   ddd, documentation, gof-structural, integration,
 │   │                             #   pattern, psr, stability, structural, test
 │   ├── acc-*-generator.md        # Generators (9): architecture, behavioral, creational,
@@ -98,10 +99,10 @@ allowed-tools: Optional
 │   │                             #   docker-performance-agent, docker-security-agent,
 │   │                             #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                       # 243 skills
+├── skills/                       # 242 skills
 │   ├── acc-*-knowledge/          # 38 knowledge skills
 │   ├── acc-check-*/              # 62 analyzer skills
-│   ├── acc-find-*/               # 9 bug detection skills
+│   ├── acc-find-*/               # 8 bug detection skills
 │   ├── acc-detect-*/             # 8 detection skills
 │   ├── acc-analyze-*/            # 8 analysis skills
 │   ├── acc-scan-*/               # 1 scanner skill
@@ -115,6 +116,10 @@ allowed-tools: Optional
 │   ├── acc-optimize-*/           # 7 optimizer skills
 │   ├── acc-*-template/           # 10 template skills
 │   └── acc-*/                    # 8 other skills (estimate, suggest, bug-*)
+├── rules/                       # 3 conditional rules
+│   ├── component-creation.md    # Loads for .claude/ edits
+│   ├── versioning.md            # Loads for CHANGELOG, README, docs/
+│   └── troubleshooting.md       # Loads for .claude/, src/, Makefile
 └── settings.json
 
 docs/                             # Documentation (root level)
@@ -132,14 +137,14 @@ docs/                             # Documentation (root level)
 | Component | Count |
 |-----------|-------|
 | Commands | 26 |
-| Agents | 56 |
+| Agents | 57 |
 | Knowledge Skills | 38 |
-| Analyzer Skills | 97 |
+| Analyzer Skills | 96 |
 | Generator Skills | 80 |
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 9 |
-| **Total Skills** | **243** |
+| **Total Skills** | **242** |
 
 ---
 

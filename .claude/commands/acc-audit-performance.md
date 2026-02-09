@@ -1,7 +1,7 @@
 ---
 description: Performance audit. Detects N+1 queries, memory issues, caching gaps, inefficient loops, batch processing problems, algorithm complexity, connection pools, serialization overhead.
 allowed-tools: Read, Grep, Glob, Task
-model: sonnet
+model: opus
 argument-hint: <path> [-- additional instructions]
 ---
 
@@ -55,7 +55,7 @@ Use the `acc-performance-reviewer` agent to perform a comprehensive performance 
 
 ```
 Task tool with subagent_type="acc-performance-reviewer"
-prompt: "Perform performance audit on [PATH]. [META-INSTRUCTIONS if provided]
+prompt: "Perform performance audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Analyze for:
 1. N+1 Query Problems — queries inside loops, missing eager loading
@@ -199,11 +199,44 @@ Request Flow: Controller → Service → Repository → Database
 | Response time | 450ms | <100ms | ❌ |
 | Cache hit ratio | 20% | >80% | ❌ |
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Critical patterns | N+1 queries, memory issues (OOM risks) |
+| `standard` | Full 10-category | All 10 performance categories with file:line references |
+| `deep` | Standard + profiling | Standard + hot path analysis, profiling suggestions, optimization roadmap |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | System degradation, timeouts, OOM errors, N+1 with large datasets |
+| High | 🟠 | Noticeable latency, scaling issues, missing batch processing |
+| Medium | 🟡 | Suboptimal but functional, caching opportunities |
+| Low | 🟢 | Minor optimizations, code style improvements |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on N+1` | Deep N+1 query analysis |
+| `focus on memory` | Memory usage and leak detection |
+| `focus on caching` | Caching strategy analysis |
+| `skip serialization` | Exclude serialization checks |
+| `level:quick` | Fast audit (N+1 + memory only) |
+| `level:deep` | Deep audit (+ hot path profiling) |
+| `detailed report` | Maximum detail with complexity analysis |
+| `на русском` | Report in Russian |
+
 ## Usage Examples
 
 ```bash
 /acc-audit-performance ./src
 /acc-audit-performance ./src/Repository -- focus on N+1 and query efficiency
 /acc-audit-performance ./src/Application -- check memory and batch processing
-/acc-audit-performance . -- comprehensive analysis with profiling suggestions
+/acc-audit-performance . -- level:deep
+/acc-audit-performance ./src -- level:quick
 ```

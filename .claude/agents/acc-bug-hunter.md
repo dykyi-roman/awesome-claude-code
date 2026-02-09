@@ -3,7 +3,7 @@ name: acc-bug-hunter
 description: Bug detection specialist. Finds logic errors, null pointers, boundary issues, race conditions, resource leaks, exception issues, type issues, SQL injection, infinite loops. Use PROACTIVELY for code review bug detection.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues, acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues, acc-find-type-issues, acc-find-sql-injection, acc-find-infinite-loops
+skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues, acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues, acc-find-type-issues, acc-check-sql-injection, acc-find-infinite-loops
 ---
 
 # Bug Hunter Agent

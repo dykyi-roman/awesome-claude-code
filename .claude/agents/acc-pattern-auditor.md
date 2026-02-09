@@ -16,7 +16,8 @@ Before executing workflow, create tasks for user visibility:
 
 ```
 TaskCreate: subject="Audit stability patterns", description="Circuit Breaker, Retry, Rate Limiter, Bulkhead", activeForm="Auditing stability..."
-TaskCreate: subject="Audit behavioral patterns", description="Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento", activeForm="Auditing behavioral..."
+TaskCreate: subject="Audit CQRS/ES/EDA patterns", description="CQRS, Event Sourcing, Event-Driven Architecture", activeForm="Auditing CQRS/ES/EDA..."
+TaskCreate: subject="Audit GoF behavioral patterns", description="Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento", activeForm="Auditing GoF behavioral..."
 TaskCreate: subject="Audit GoF structural patterns", description="Adapter, Facade, Proxy, Composite, Bridge, Flyweight", activeForm="Auditing GoF structural..."
 TaskCreate: subject="Audit creational patterns", description="Builder, Object Pool, Factory", activeForm="Auditing creational..."
 TaskCreate: subject="Audit integration patterns", description="Outbox, Saga, ADR", activeForm="Auditing integration..."
@@ -34,7 +35,8 @@ This agent delegates to specialized auditors:
 | Auditor | Patterns | Skills |
 |---------|----------|--------|
 | `acc-stability-auditor` | Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout, Cascading Failures, Fallback | 8 skills |
-| `acc-behavioral-auditor` | Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento | 17 skills |
+| `acc-cqrs-auditor` | CQRS, Event Sourcing, Event-Driven Architecture | 8 skills |
+| `acc-behavioral-auditor` | Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento | 11 skills |
 | `acc-gof-structural-auditor` | Adapter, Facade, Proxy, Composite, Bridge, Flyweight | 6 skills |
 | `acc-creational-auditor` | Builder, Object Pool, Factory, Abstract Factory, Singleton (anti), Prototype | 6 skills |
 | `acc-integration-auditor` | Outbox, Saga, ADR | 12 skills |
@@ -49,7 +51,12 @@ Before delegating, perform quick detection to determine which auditors to invoke
 # Stability Patterns
 Grep: "CircuitBreaker|Retry|RateLimiter|Bulkhead" --glob "**/*.php"
 
-# Behavioral Patterns
+# CQRS/ES/EDA Patterns
+Grep: "CommandBus|QueryBus|CommandHandler|QueryHandler" --glob "**/*.php"
+Grep: "EventStore|EventSourcing|reconstitute" --glob "**/*.php"
+Grep: "EventPublisher|MessageBroker|EventDispatcher" --glob "**/*.php"
+
+# GoF Behavioral Patterns
 Grep: "Strategy|State|Handler|Decorator|NullObject|TemplateMethod|Visitor|Iterator|Memento" --glob "**/*.php"
 
 # GoF Structural Patterns
@@ -71,9 +78,13 @@ Based on detection results, invoke relevant auditors using the Task tool:
 Task tool with subagent_type="acc-stability-auditor"
 prompt: "Audit stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead) in [TARGET_PATH]. Check for unprotected external calls."
 
-# If behavioral patterns detected
+# If CQRS/ES/EDA patterns detected
+Task tool with subagent_type="acc-cqrs-auditor"
+prompt: "Audit CQRS, Event Sourcing, and Event-Driven Architecture patterns in [TARGET_PATH]."
+
+# If GoF behavioral patterns detected
 Task tool with subagent_type="acc-behavioral-auditor"
-prompt: "Audit behavioral patterns (CQRS, Event Sourcing, EDA, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento) in [TARGET_PATH]."
+prompt: "Audit GoF behavioral patterns (Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento) in [TARGET_PATH]."
 
 # If GoF structural patterns detected or direct SDK usage found
 Task tool with subagent_type="acc-gof-structural-auditor"

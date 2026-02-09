@@ -51,7 +51,9 @@ If meta-instructions provided, adjust audit to:
 
 ## Instructions
 
-Use the `acc-ddd-auditor` agent to perform a comprehensive DDD audit:
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+Use the `acc-ddd-auditor` agent to perform a comprehensive DDD audit. Pass: `"Audit level: [LEVEL]. Use TaskCreate/TaskUpdate for progress visibility."`
 
 ### Analysis Scope
 
@@ -144,11 +146,44 @@ Antipatterns detected:
 2. **High:** [Action with skill reference]
 3. **Medium:** [Action with skill reference]
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Layer check | Layer structure detection, basic dependency direction |
+| `standard` | Full 10-phase | All 6 analysis areas, domain model quality, full compliance matrix |
+| `deep` | Standard + consistency | Standard + aggregate consistency, bounded context communication, event flow |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | Domain → Infrastructure dependency, business logic in Presentation |
+| High | 🟠 | Anemic domain models, primitive obsession, missing aggregates |
+| Medium | 🟡 | Naming violations, missing Value Objects, suboptimal layering |
+| Low | 🟢 | Optional improvements, style suggestions |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on aggregates` | Deep aggregate analysis |
+| `focus on [Context]` | Analyze specific bounded context |
+| `skip Infrastructure` | Exclude infrastructure audit |
+| `check aggregates only` | Only aggregate consistency |
+| `level:quick` | Fast audit (layer check only) |
+| `level:deep` | Deep audit (+ aggregate consistency + context communication) |
+| `detailed report` | Maximum detail in report |
+| `на русском` | Report in Russian |
+
 ## Usage Examples
 
 ```bash
-/acc-ddd-audit
-/acc-ddd-audit src/
-/acc-ddd-audit /path/to/project
+/acc-audit-ddd ./src
+/acc-audit-ddd ./src -- focus on Order bounded context
+/acc-audit-ddd ./src -- level:deep
+/acc-audit-ddd ./src -- level:quick
 ```
 

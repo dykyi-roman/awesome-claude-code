@@ -307,3 +307,14 @@ OrderNotifier (50 lines)
 OrderReporter (60 lines)
 ```
 ```
+
+## When This Is Acceptable
+
+- **Aggregate Roots** — DDD aggregates may legitimately contain many methods to protect invariants
+- **Event Sourcing aggregates** — Aggregates with many `apply*` event handlers grow naturally
+- **Test classes** — Test classes with many test methods for thorough coverage
+
+### False Positive Indicators
+- Class extends `AggregateRoot` or similar base
+- Class is in `tests/` directory
+- Class has many small, focused methods (high method count ≠ God class)

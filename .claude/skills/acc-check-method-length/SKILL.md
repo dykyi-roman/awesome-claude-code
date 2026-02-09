@@ -297,3 +297,14 @@ public function processOrder(Order $order): void
 }
 ```
 ```
+
+## When This Is Acceptable
+
+- **CLI commands/migrations** — Long methods in console commands or database migrations are often unavoidable due to sequential operations
+- **Test setup methods** — `setUp()` methods with extensive fixture creation may legitimately be long
+- **Configuration methods** — Methods that configure framework services/routes often need many lines
+
+### False Positive Indicators
+- Method is in a `Command` or `Migration` class
+- Method name starts with `setUp` or `configure`
+- Method body is mostly configuration/declaration, not logic

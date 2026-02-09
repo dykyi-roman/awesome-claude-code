@@ -56,7 +56,9 @@ Execute a two-phase audit using specialized agents:
 
 ### Phase 1: Architecture Audit
 
-Use the `acc-architecture-auditor` agent to analyze:
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+Use the `acc-architecture-auditor` agent (with audit level and progress tracking) to analyze:
 - DDD (Domain-Driven Design)
 - CQRS (Command Query Responsibility Segregation)
 - Clean Architecture
@@ -68,6 +70,8 @@ Use the `acc-architecture-auditor` agent to analyze:
 - Saga Pattern
 
 ### Phase 2: Design Patterns Audit
+
+Pass to each agent: `"Audit level: [LEVEL]. Use TaskCreate/TaskUpdate for progress visibility."`
 
 Use the `acc-pattern-auditor` agent to analyze:
 - Stability Patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead)
@@ -165,11 +169,44 @@ Conflicts between architectural patterns.
 2. **High:** [Action with skill reference]
 3. **Medium:** [Action with skill reference]
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Layer detection | Architecture type detection, basic layer compliance |
+| `standard` | Full pattern analysis | All architecture + design patterns, compliance matrix |
+| `deep` | Standard + cross-analysis | Standard + cross-pattern conflicts, opportunity detection, SOLID/GRASP |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | Domain → Infrastructure dependency, framework leakage into Domain |
+| High | 🟠 | Missing resilience patterns, unprotected external calls, anemic models |
+| Medium | 🟡 | Suboptimal pattern usage, missing opportunities |
+| Low | 🟢 | Style improvements, optional pattern suggestions |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on CQRS` | Deep CQRS/Event Sourcing analysis |
+| `focus on stability` | Prioritize stability patterns |
+| `structural only` | Only DDD/Clean/Hexagonal audit |
+| `skip behavioral` | Exclude behavioral patterns |
+| `level:quick` | Fast audit (layer detection only) |
+| `level:deep` | Deep audit (+ cross-pattern conflicts) |
+| `detailed report` | Maximum detail in report |
+| `на русском` | Report in Russian |
+
 ## Usage Examples
 
 ```bash
-/acc-architecture-audit
-/acc-architecture-audit src/
-/acc-architecture-audit /path/to/project
+/acc-audit-architecture ./src
+/acc-audit-architecture ./src -- focus on CQRS and Event Sourcing
+/acc-audit-architecture ./src -- level:deep
+/acc-audit-architecture ./src -- level:quick
 ```
 

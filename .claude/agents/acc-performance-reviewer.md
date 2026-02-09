@@ -1,9 +1,9 @@
 ---
 name: acc-performance-reviewer
 description: Performance review specialist. Detects N+1 queries, query inefficiency, memory issues, caching opportunities, unnecessary loops, lazy loading problems, batch processing gaps, complexity issues, connection pool problems, serialization overhead, missing indexes, async patterns, file I/O issues. Use PROACTIVELY for code review performance analysis.
-tools: Read, Grep, Glob
-model: sonnet
-skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues, acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading, acc-check-batch-processing, acc-estimate-complexity, acc-check-connection-pool, acc-check-serialization, acc-check-index-usage, acc-check-async-patterns, acc-check-file-io
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues, acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading, acc-check-batch-processing, acc-estimate-complexity, acc-check-connection-pool, acc-check-serialization, acc-check-index-usage, acc-check-async-patterns, acc-check-file-io, acc-task-progress-knowledge
 ---
 
 # Performance Reviewer Agent
@@ -141,6 +141,16 @@ For each performance issue found, report:
 **Expected Improvement:**
 [Estimated improvement in latency/memory/queries]
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning performance issues", scan files and categorize
+2. **Phase 2: Analyze** — Create task "Analyzing performance issues", perform deep analysis
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Important Notes
 

@@ -274,12 +274,17 @@ interface ClockInterface {
 
 ### Layer Mapping
 
-| DDD Layer | Relevant PSRs |
-|-----------|---------------|
-| Domain | PSR-14 (Domain Events) |
-| Application | PSR-3, PSR-11, PSR-14, PSR-20 |
-| Infrastructure | PSR-6, PSR-16, PSR-18 |
-| Presentation | PSR-7, PSR-15, PSR-17 |
+| DDD Layer | Relevant PSRs | Note |
+|-----------|---------------|------|
+| Domain | PSR-3, PSR-14, PSR-20 | PSR interfaces are pure contracts — acceptable in Domain |
+| Application | PSR-3, PSR-11, PSR-14, PSR-20 | Service orchestration layer |
+| Infrastructure | PSR-6, PSR-16, PSR-18 | Implementation layer |
+| Presentation | PSR-7, PSR-15, PSR-17 | HTTP layer |
+
+> **Important:** PSR packages (`psr/log`, `psr/clock`, `psr/event-dispatcher`) contain **only interfaces** —
+> no implementation code. They are PHP community standards equivalent to a standard library.
+> Using PSR interfaces in Domain layer is acceptable and common practice.
+> What is NOT acceptable in Domain: implementation packages like `monolog/monolog`, `symfony/cache`, `guzzlehttp/guzzle`.
 
 ### Example: CQRS Application
 

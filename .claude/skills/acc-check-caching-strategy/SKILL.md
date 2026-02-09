@@ -259,3 +259,14 @@ public function getWithLock(string $key, callable $loader): mixed
 Response time: 500ms → 5ms (on cache hit)
 Database load: 1000 QPS → 100 QPS
 ```
+
+## When This Is Acceptable
+
+- **Premature caching** — Adding cache before proving a performance bottleneck exists creates complexity without benefit
+- **Frequently changing data** — Data that changes on every request (e.g., real-time prices) shouldn't be cached
+- **Development environment** — Missing cache in dev/test environments is intentional
+
+### False Positive Indicators
+- Code is in early development stage without performance profiling
+- Data has TTL < 1 second or changes per-request
+- Cache is disabled by environment configuration (dev/test)

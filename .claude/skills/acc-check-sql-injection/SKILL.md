@@ -258,3 +258,14 @@ Result: Query returns all rows, bypassing conditions.
 // Parameterized query
 ```
 ```
+
+## When This Is Acceptable
+
+- **ORM query builders** — Doctrine/Eloquent query builders use parameter binding internally; they are safe by design
+- **Named parameters in DQL/HQL** — `:paramName` syntax with `setParameter()` is not vulnerable
+- **Schema migrations** — DDL statements in migrations don't process user input
+
+### False Positive Indicators
+- Code uses `$qb->where('field = :value')->setParameter('value', $input)`
+- Code uses Doctrine DQL with bound parameters
+- SQL is in a migration file with no user input

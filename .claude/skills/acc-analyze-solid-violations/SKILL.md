@@ -285,3 +285,14 @@ This analyzer uses detection patterns from `acc-solid-knowledge`. For detailed p
 ## Report Template
 
 See `assets/report-template.md` for the full report format.
+
+## When This Is Acceptable
+
+- **Doctrine entities** — Entities may appear to violate SRP due to persistence concerns mixed with domain logic (framework requirement)
+- **DTOs/Value Objects** — Data classes with many properties don't violate SRP (single responsibility = data transfer)
+- **Framework controllers** — Slim controllers with inject+validate+delegate are acceptable
+
+### False Positive Indicators
+- Class is a DTO, Value Object, or Request/Response object
+- Class is a Doctrine entity with only getters/setters + domain methods
+- Apparent SRP violation is actually framework convention

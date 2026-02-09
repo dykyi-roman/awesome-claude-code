@@ -265,3 +265,14 @@ Grep: "private static array" --glob "**/*.php"
 Before: ~500 MB peak
 After: ~10 MB peak (streaming)
 ```
+
+## When This Is Acceptable
+
+- **CLI commands/workers** — Console commands may legitimately use more memory for batch processing
+- **Known bounded datasets** — Loading all items when the table is guaranteed small (e.g., countries, currencies)
+- **Cached data** — Large arrays that are built once and cached for reuse
+
+### False Positive Indicators
+- Code is in a console command or queue worker with explicit memory management
+- Collection is loaded from a known-small dataset (< 1000 records by business rule)
+- Large array is built for cache warming with explicit garbage collection

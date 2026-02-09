@@ -1,7 +1,7 @@
 ---
 description: Security audit (OWASP Top 10, PHP-specific vulnerabilities). Analyzes input validation, injection, authentication, authorization, CSRF, XSS, XXE, SSRF, deserialization, path traversal.
 allowed-tools: Read, Grep, Glob, Task
-model: sonnet
+model: opus
 argument-hint: <path> [-- additional instructions]
 ---
 
@@ -55,7 +55,7 @@ Use the `acc-security-reviewer` agent to perform a comprehensive security audit:
 
 ```
 Task tool with subagent_type="acc-security-reviewer"
-prompt: "Perform security audit on [PATH]. [META-INSTRUCTIONS if provided]
+prompt: "Perform security audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Analyze for:
 1. Input Validation (A03:2021)
@@ -181,11 +181,44 @@ For each critical issue:
 | A03 Injection | ❌ | 5 issues |
 | ... | ... | ... |
 
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Critical patterns only | `eval()`, `unserialize()`, SQL injection, command injection |
+| `standard` | Full OWASP analysis | All 14 vulnerability categories, CWE references, fix suggestions |
+| `deep` | Standard + extended | Standard + dependency vulnerability scan, attack vector mapping, CWE chains |
+
+## Severity Levels
+
+| Level | Symbol | Criteria |
+|-------|--------|----------|
+| Critical | 🔴 | RCE, SQL injection, auth bypass, data breach, deserialization |
+| High | 🟠 | XSS, CSRF, information disclosure, privilege escalation |
+| Medium | 🟡 | Missing best practices, theoretical attacks, low-impact issues |
+| Low | 🟢 | Code hardening suggestions, defense-in-depth improvements |
+
+## Meta-Instructions Guide
+
+| Instruction | Effect |
+|-------------|--------|
+| `focus on injection` | Deep injection analysis (SQL, Command, XSS) |
+| `focus on A01-A03` | Analyze specific OWASP categories only |
+| `skip A06` | Exclude vulnerable components check |
+| `injection only` | Only check injection vulnerabilities |
+| `level:quick` | Fast audit (only critical patterns) |
+| `level:deep` | Deep audit (+ dependency scan + attack vectors) |
+| `detailed report` | Maximum detail with CWE references |
+| `на русском` | Report in Russian |
+
 ## Usage Examples
 
 ```bash
 /acc-audit-security ./src
 /acc-audit-security ./src/Api -- focus on input validation
 /acc-audit-security ./src/Payment -- check A01-A03 only
-/acc-audit-security . -- verbose output with all details
+/acc-audit-security . -- level:deep
+/acc-audit-security ./src -- level:quick
 ```

@@ -1,9 +1,9 @@
 ---
 name: acc-test-auditor
 description: Test quality auditor for PHP projects. Analyzes coverage gaps, test smells, naming conventions, isolation. Use PROACTIVELY for test audit, test quality review, or when improving test suites.
-tools: Read, Bash, Grep, Glob
+tools: Read, Bash, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells
+skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells, acc-task-progress-knowledge
 ---
 
 # Test Quality Auditor
@@ -212,6 +212,16 @@ Example prompt for Task tool:
 Task tool with subagent_type="acc-test-generator"
 prompt: "Generate unit tests for PaymentProcessor class in src/Domain/Payment/. Cover all public methods with happy path and exception cases. Use AAA pattern and proper naming."
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning test quality", scan files and categorize
+2. **Phase 2: Analyze** — Create task "Analyzing test quality", perform deep analysis
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Critical Rules
 

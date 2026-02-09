@@ -1,9 +1,9 @@
 ---
 name: acc-structural-auditor
 description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered patterns, SOLID and GRASP principles. Called by acc-architecture-auditor.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-ddd-knowledge, acc-clean-arch-knowledge, acc-hexagonal-knowledge, acc-layer-arch-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-analyze-solid-violations, acc-detect-code-smells, acc-check-bounded-contexts, acc-check-immutability, acc-check-leaky-abstractions, acc-check-encapsulation
+skills: acc-ddd-knowledge, acc-clean-arch-knowledge, acc-hexagonal-knowledge, acc-layer-arch-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-analyze-solid-violations, acc-detect-code-smells, acc-check-bounded-contexts, acc-check-immutability, acc-check-leaky-abstractions, acc-check-encapsulation, acc-task-progress-knowledge
 ---
 
 # Structural Architecture Auditor
@@ -233,6 +233,16 @@ If violations found, suggest using appropriate create-* skills:
 - Missing DTO → acc-create-dto
 - Missing ACL → acc-create-anti-corruption-layer
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning structural architecture patterns", detect patterns
+2. **Phase 2: Analyze** — Create task "Analyzing structural architecture patterns", check compliance
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Output
 

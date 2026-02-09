@@ -58,11 +58,13 @@ Use the `acc-docker-coordinator` agent to perform the audit:
 
 ```
 Task tool with subagent_type="acc-docker-coordinator"
-prompt: "Perform comprehensive Docker audit at [PATH].
+prompt: "Perform comprehensive Docker audit at [PATH]. Audit level: [LEVEL].
 
 Operation: AUDIT
 
 [FOCUS_AREAS if provided]
+
+Use TaskCreate/TaskUpdate for progress visibility. Create tasks for each audit phase.
 
 Audit areas:
 1. Dockerfile architecture (multi-stage, layer ordering, BuildKit)
@@ -194,6 +196,16 @@ The coordinator will delegate to specialized agents and aggregate results:
 | `production readiness` | Focus on deployment readiness |
 | `quick audit` | High-level overview only |
 | `detailed report` | Maximum detail in report |
+
+## Audit Levels
+
+Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+
+| Level | Scope | What's Checked |
+|-------|-------|----------------|
+| `quick` | Dockerfile lint | Basic Dockerfile structure, common issues |
+| `standard` | Full 6-category | All 6 audit areas with detailed findings |
+| `deep` | Standard + optimization | Standard + image size optimization, layer analysis, benchmark suggestions |
 
 ## Severity Levels
 

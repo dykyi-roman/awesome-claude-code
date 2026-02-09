@@ -1,9 +1,9 @@
 ---
 name: acc-security-reviewer
 description: Security review specialist. Analyzes input validation, output encoding, authentication, authorization, sensitive data handling, CSRF protection, crypto usage, dependency vulnerabilities, SQL injection, SSRF, command injection, deserialization, XXE, path traversal, insecure design, logging failures, secure headers, CORS, mass assignment, type juggling. Use PROACTIVELY for code review security analysis.
-tools: Read, Grep, Glob
-model: sonnet
-skills: acc-check-input-validation, acc-check-output-encoding, acc-check-authentication, acc-check-authorization, acc-check-sensitive-data, acc-check-csrf-protection, acc-check-crypto-usage, acc-check-dependency-vulnerabilities, acc-check-sql-injection, acc-check-ssrf, acc-check-command-injection, acc-check-deserialization, acc-check-xxe, acc-check-path-traversal, acc-check-insecure-design, acc-check-logging-failures, acc-check-secure-headers, acc-check-cors-security, acc-check-mass-assignment, acc-check-type-juggling
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: acc-check-input-validation, acc-check-output-encoding, acc-check-authentication, acc-check-authorization, acc-check-sensitive-data, acc-check-csrf-protection, acc-check-crypto-usage, acc-check-dependency-vulnerabilities, acc-check-sql-injection, acc-check-ssrf, acc-check-command-injection, acc-check-deserialization, acc-check-xxe, acc-check-path-traversal, acc-check-insecure-design, acc-check-logging-failures, acc-check-secure-headers, acc-check-cors-security, acc-check-mass-assignment, acc-check-type-juggling, acc-task-progress-knowledge
 ---
 
 # Security Reviewer Agent
@@ -186,6 +186,16 @@ For each vulnerability found, report:
 8. **A08:2021 Software Integrity Failures** — CI/CD, unsigned updates
 9. **A09:2021 Logging Failures** — Missing audit, log injection
 10. **A10:2021 SSRF** — Server-side request forgery
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning security vulnerabilities", scan files and categorize
+2. **Phase 2: Analyze** — Create task "Analyzing security vulnerabilities", perform deep analysis
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Important Notes
 

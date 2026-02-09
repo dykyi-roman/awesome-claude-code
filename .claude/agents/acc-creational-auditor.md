@@ -1,9 +1,9 @@
 ---
 name: acc-creational-auditor
 description: Creational patterns auditor. Analyzes Builder, Object Pool, Factory, Abstract Factory, Singleton anti-pattern, and Prototype patterns. Called by acc-pattern-auditor coordinator.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-create-builder, acc-create-object-pool, acc-create-factory, acc-check-singleton-antipattern, acc-check-abstract-factory, acc-create-prototype
+skills: acc-create-builder, acc-create-object-pool, acc-create-factory, acc-check-singleton-antipattern, acc-check-abstract-factory, acc-create-prototype, acc-task-progress-knowledge
 ---
 
 # Creational Patterns Auditor
@@ -268,6 +268,16 @@ If violations found, suggest using appropriate create-* skills:
 - Singleton/global state detected → acc-check-singleton-antipattern
 - Expensive cloning needed → acc-create-prototype
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning creational patterns", detect patterns
+2. **Phase 2: Analyze** — Create task "Analyzing creational patterns", check compliance
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Output
 

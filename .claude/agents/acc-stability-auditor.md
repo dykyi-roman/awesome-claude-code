@@ -1,9 +1,9 @@
 ---
 name: acc-stability-auditor
 description: Stability patterns auditor. Analyzes Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout, Cascading Failures, and Fallback patterns. Called by acc-pattern-auditor coordinator.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-check-timeout-strategy, acc-check-cascading-failures, acc-check-fallback-strategy
+skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-check-timeout-strategy, acc-check-cascading-failures, acc-check-fallback-strategy, acc-task-progress-knowledge
 ---
 
 # Stability Patterns Auditor
@@ -295,6 +295,16 @@ If violations found, suggest using appropriate create-* skills:
 - Cascading Failure Risk → acc-check-cascading-failures
 - Missing Fallback → acc-check-fallback-strategy
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning stability patterns", detect patterns
+2. **Phase 2: Analyze** — Create task "Analyzing stability patterns", check compliance
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Output
 

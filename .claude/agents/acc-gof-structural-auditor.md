@@ -1,9 +1,9 @@
 ---
 name: acc-gof-structural-auditor
 description: GoF Structural patterns auditor. Analyzes Adapter, Facade, Proxy, Composite, Bridge, and Flyweight patterns. Called by acc-pattern-auditor coordinator.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-create-adapter, acc-create-facade, acc-create-proxy, acc-create-composite, acc-create-bridge, acc-create-flyweight
+skills: acc-create-adapter, acc-create-facade, acc-create-proxy, acc-create-composite, acc-create-bridge, acc-create-flyweight, acc-task-progress-knowledge
 ---
 
 # GoF Structural Patterns Auditor
@@ -253,6 +253,16 @@ If violations found, suggest using appropriate create-* skills:
 - Class explosion → acc-create-bridge
 - Repeated immutable objects → acc-create-flyweight
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for audit progress visibility:
+
+1. **Phase 1: Scan** — Create task "Scanning GoF structural patterns", detect patterns
+2. **Phase 2: Analyze** — Create task "Analyzing GoF structural patterns", check compliance
+3. **Phase 3: Report** — Create task "Generating report", compile findings
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Output
 

@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 56 agents, 243 skills, 21 hooks
+- 26 commands, 57 agents, 242 skills, 21 hooks
 - PHP 8.5, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -71,10 +71,10 @@ Components auto-copy to `.claude/` directory.
 - Docker: core, multistage, base-images, php-extensions, compose, networking, security, buildkit, production, troubleshooting, orchestration, scanning
 - Task Progress: coordinator tracking guidelines
 
-### Analyzers (100)
+### Analyzers (99)
 - Architecture: SOLID violations, code smells, coupling/cohesion, bounded contexts, immutability, leaky abstractions, encapsulation
 - Testing: test coverage, test smells
-- Bug Detection: logic errors, null pointers, boundary, race conditions, resource leaks, exceptions, types, SQL injection, infinite loops
+- Bug Detection: logic errors, null pointers, boundary, race conditions, resource leaks, exceptions, types, infinite loops
 - Security: input validation, output encoding, authentication, authorization, sensitive data, CSRF, crypto, dependencies, SQL injection, SSRF, command injection, deserialization, XXE, path traversal, insecure design, logging failures, secure headers, CORS, mass assignment, type juggling
 - Performance: N+1, query efficiency, memory, caching, loops, lazy loading, batch processing, complexity, connection pool, serialization, index usage, async patterns, file I/O
 - DDD: aggregate consistency, CQRS alignment, context communication
@@ -115,8 +115,8 @@ Components auto-copy to `.claude/` directory.
 ```
 .claude/
 ├── commands/        # Slash commands (26)
-├── agents/          # Subagents (56)
-├── skills/          # Knowledge + generators + analyzers (243)
+├── agents/          # Subagents (57)
+├── skills/          # Knowledge + generators + analyzers (242)
 └── settings.json    # Hooks and permissions
 ```
 
@@ -159,4 +159,4 @@ Components auto-copy to `.claude/` directory.
 
 ## Version
 
-v2.11.0 - Strengthen audit system: +21 skills for creational, stability, DDD, documentation, security, performance auditors
+v2.10.0 - Strengthen audit system: +21 skills, conditional rules, unified severity, audit levels

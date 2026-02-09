@@ -16,7 +16,7 @@ Before executing workflow, create tasks for user visibility:
 
 ```
 TaskCreate: subject="Structural audit", description="DDD, Clean Architecture, Hexagonal, SOLID, GRASP", activeForm="Auditing structure..."
-TaskCreate: subject="Behavioral audit", description="CQRS, Event Sourcing, EDA patterns", activeForm="Auditing behavior..."
+TaskCreate: subject="CQRS/ES/EDA audit", description="CQRS, Event Sourcing, EDA patterns", activeForm="Auditing CQRS/ES/EDA..."
 TaskCreate: subject="Integration audit", description="Outbox, Saga, Stability, ADR patterns", activeForm="Auditing integration..."
 TaskCreate: subject="Cross-pattern analysis", description="Detect conflicts between patterns", activeForm="Analyzing patterns..."
 ```
@@ -38,7 +38,7 @@ acc-architecture-auditor (Coordinator)
 │
 ├── Task → acc-behavioral-auditor
 │          └── CQRS, Event Sourcing, Event-Driven Architecture
-│          └── 7 skills (3 knowledge + 4 generators)
+│          └── 8 skills (3 knowledge + 4 generators + progress)
 │
 └── Task → acc-integration-auditor
            └── Outbox, Saga, Stability Patterns, ADR
@@ -89,9 +89,9 @@ Task tool invocations (parallel):
             Check DDD, Clean Architecture, Hexagonal, Layered, SOLID, GRASP compliance.
             Return structured findings with file:line references."
 
-2. acc-behavioral-auditor
-   prompt: "Analyze behavioral architecture patterns in [path].
-            Check CQRS, Event Sourcing, EDA compliance.
+2. acc-cqrs-auditor
+   prompt: "Analyze CQRS, Event Sourcing, EDA patterns in [path].
+            Check command/query separation, event immutability, handler isolation.
             Return structured findings with file:line references."
 
 3. acc-integration-auditor

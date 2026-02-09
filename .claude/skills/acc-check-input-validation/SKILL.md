@@ -200,3 +200,14 @@ function process(int $id, string $email): void { }
 // With proper validation
 ```
 ```
+
+## When This Is Acceptable
+
+- **Framework FormRequest** — Laravel/Symfony form requests already validate input; additional validation is redundant
+- **Internal service calls** — Methods called only by already-validated application layer don't need re-validation
+- **Value Objects** — VOs validate in constructor; callers don't need additional checks
+
+### False Positive Indicators
+- Input passes through a FormRequest or Validator before reaching the method
+- Method is private/protected and called only from validated entry points
+- Parameter is a Value Object that self-validates
