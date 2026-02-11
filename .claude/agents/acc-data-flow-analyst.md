@@ -3,7 +3,7 @@ name: acc-data-flow-analyst
 description: Data flow analysis specialist. Traces request lifecycles through all layers, maps data transformations between DTOs/Commands/Entities/Responses, identifies async communication flows with queues and events.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-trace-request-lifecycle, acc-trace-data-transformation, acc-map-async-flows
+skills: acc-trace-request-lifecycle, acc-trace-data-transformation, acc-map-async-flows, acc-discover-project-logs
 ---
 
 # Data Flow Analyst Agent
@@ -40,6 +40,7 @@ You cover three areas:
 1. **Trace request lifecycle** — Use `acc-trace-request-lifecycle` to document the full request path through all layers
 2. **Map data transformations** — Use `acc-trace-data-transformation` to track how data changes shape at each boundary
 3. **Map async flows** — Use `acc-map-async-flows` to identify all asynchronous communication patterns
+4. **Supplement with logs** — Use `acc-discover-project-logs` to find application logs. If logs contain correlation IDs or request traces, use them to validate and enrich the data flow analysis with real runtime evidence
 
 ## Output Format
 

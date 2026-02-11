@@ -30,28 +30,28 @@ Meta-instructions allow you to:
 |---------|-----------|---------|
 | `/acc-commit` | `[tag] [-- instructions]` | Auto-generate commit message and push |
 | `/acc-generate-claude-component` | `[type] [-- instructions]` | Create commands, agents, or skills |
-| `/acc-audit-claude-components` | `[-- instructions]` | Audit `.claude/` folder quality |
-| `/acc-audit-architecture` | `<path> [-- instructions]` | Multi-pattern architecture audit |
-| `/acc-audit-ddd` | `<path> [-- instructions]` | DDD compliance analysis |
-| `/acc-audit-psr` | `<path> [-- instructions]` | PSR compliance audit |
-| `/acc-audit-security` | `<path> [-- instructions]` | OWASP Top 10 + PHP security audit |
-| `/acc-audit-performance` | `<path> [-- instructions]` | N+1, memory, caching, complexity audit |
-| `/acc-audit-patterns` | `<path> [-- instructions]` | Design patterns + SOLID/GRASP audit |
+| `/acc-audit-claude-components` | `[level] [-- instructions]` | Audit `.claude/` folder quality |
+| `/acc-audit-architecture` | `<path> [level] [-- instructions]` | Multi-pattern architecture audit |
+| `/acc-audit-ddd` | `<path> [level] [-- instructions]` | DDD compliance analysis |
+| `/acc-audit-psr` | `<path> [level] [-- instructions]` | PSR compliance audit |
+| `/acc-audit-security` | `<path> [level] [-- instructions]` | OWASP Top 10 + PHP security audit |
+| `/acc-audit-performance` | `<path> [level] [-- instructions]` | N+1, memory, caching, complexity audit |
+| `/acc-audit-patterns` | `<path> [level] [-- instructions]` | Design patterns + SOLID/GRASP audit |
 | `/acc-generate-ddd` | `<type> <name> [-- instructions]` | Generate DDD components (entity, VO, aggregate, etc.) |
 | `/acc-generate-psr` | `<psr> <name> [-- instructions]` | Generate PSR-compliant components |
 | `/acc-generate-patterns` | `<pattern> <name> [-- instructions]` | Generate design pattern implementations |
 | `/acc-refactor` | `<path> [-- instructions]` | Guided refactoring with analysis |
 | `/acc-generate-documentation` | `<path> [-- instructions]` | Generate documentation |
-| `/acc-audit-documentation` | `<path> [-- instructions]` | Audit documentation quality |
+| `/acc-audit-documentation` | `<path> [level] [-- instructions]` | Audit documentation quality |
 | `/acc-generate-test` | `<path> [-- instructions]` | Generate tests for PHP code |
-| `/acc-audit-test` | `<path> [-- instructions]` | Audit test quality and coverage |
+| `/acc-audit-test` | `<path> [level] [-- instructions]` | Audit test quality and coverage |
 | `/acc-code-review` | `[branch] [level] [-- task]` | Multi-level code review with task matching |
 | `/acc-bug-fix` | `<description\|file:line\|trace>` | Diagnose and fix bug with regression testing |
 | `/acc-ci-setup` | `<platform> [path] [-- instructions]` | Setup CI pipeline from scratch |
 | `/acc-ci-fix` | `<pipeline-url\|log-file\|description> [-- instructions]` | Fix CI pipeline issues with interactive approval |
 | `/acc-ci-optimize` | `[path] [-- focus areas]` | Optimize CI pipeline performance |
-| `/acc-audit-ci` | `[path] [-- focus areas]` | Comprehensive CI/CD audit |
-| `/acc-audit-docker` | `[path] [-- focus areas]` | Audit Docker config: Dockerfile, Compose, security, performance |
+| `/acc-audit-ci` | `[path] [level] [-- instructions]` | Comprehensive CI/CD audit |
+| `/acc-audit-docker` | `[path] [level] [-- instructions]` | Audit Docker config: Dockerfile, Compose, security, performance |
 | `/acc-generate-docker` | `<type> [name] [-- instructions]` | Generate Docker components (Dockerfile, Compose, Nginx, etc.) |
 | `/acc-explain` | `<path\|route\|command> [mode] [-- instructions]` | Explain code: structure, business logic, data flows, architecture |
 
@@ -98,18 +98,20 @@ Audit `.claude/` folder structure and configuration quality.
 
 **Arguments:**
 ```
-/acc-audit-claude-components [-- instructions]
+/acc-audit-claude-components [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus audit on specific aspects |
 
 **Examples:**
 ```bash
-/acc-audit-claude-components                           # Full audit
-/acc-audit-claude-components -- focus on agents only
-/acc-audit-claude-components -- check for unused skills
+/acc-audit-claude-components                           # Standard audit
+/acc-audit-claude-components deep                      # Deep audit
+/acc-audit-claude-components quick                     # Quick audit
+/acc-audit-claude-components deep -- focus on agents only
 ```
 
 **Analyzes:**
@@ -162,20 +164,21 @@ Comprehensive multi-pattern architecture audit for PHP projects.
 
 **Arguments:**
 ```
-/acc-audit-architecture <path> [-- instructions]
+/acc-audit-architecture <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to project or folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus or customize the audit |
 
 **Examples:**
 ```bash
 /acc-audit-architecture ./src
-/acc-audit-architecture ./src -- only check CQRS patterns
-/acc-audit-architecture ./src -- generate fixes for violations
-/acc-audit-architecture ./src -- на русском языке
+/acc-audit-architecture ./src deep
+/acc-audit-architecture ./src quick
+/acc-audit-architecture ./src deep -- only check CQRS patterns
 ```
 
 **Analyzes:**
@@ -202,19 +205,20 @@ DDD compliance analysis for PHP projects.
 
 **Arguments:**
 ```
-/acc-audit-ddd <path> [-- instructions]
+/acc-audit-ddd <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to project or folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific DDD aspects |
 
 **Examples:**
 ```bash
 /acc-audit-ddd ./src
-/acc-audit-ddd ./src/Domain/Order -- focus on aggregate boundaries
-/acc-audit-ddd ./src -- generate missing Value Objects
+/acc-audit-ddd ./src deep
+/acc-audit-ddd ./src/Domain/Order deep -- focus on aggregate boundaries
 ```
 
 ---
@@ -227,19 +231,20 @@ PSR compliance analysis for PHP projects.
 
 **Arguments:**
 ```
-/acc-audit-psr <path> [-- instructions]
+/acc-audit-psr <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to project or folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific PSR standards |
 
 **Examples:**
 ```bash
 /acc-audit-psr ./src
-/acc-audit-psr ./src -- only PSR-12 style check
-/acc-audit-psr ./src -- generate missing PSR interfaces
+/acc-audit-psr ./src deep
+/acc-audit-psr ./src quick -- only PSR-12 style check
 ```
 
 **Checks:**
@@ -290,19 +295,20 @@ Audit documentation quality.
 
 **Arguments:**
 ```
-/acc-audit-documentation <path> [-- instructions]
+/acc-audit-documentation <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to documentation folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific quality aspects |
 
 **Examples:**
 ```bash
 /acc-audit-documentation ./docs
-/acc-audit-documentation ./docs -- only check code examples
-/acc-audit-documentation ./ -- fix broken links
+/acc-audit-documentation ./docs deep
+/acc-audit-documentation ./docs quick -- only check code examples
 ```
 
 **Checks:**
@@ -356,20 +362,21 @@ Audit test quality and coverage.
 
 **Arguments:**
 ```
-/acc-audit-test <path> [-- instructions]
+/acc-audit-test <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to tests folder or project |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific quality aspects |
 
 **Examples:**
 ```bash
 /acc-audit-test ./tests
-/acc-audit-test ./src -- check coverage gaps only
-/acc-audit-test ./tests -- focus on test smells
-/acc-audit-test ./tests/Unit/Domain -- generate missing tests
+/acc-audit-test ./tests deep
+/acc-audit-test ./tests quick -- check coverage gaps only
+/acc-audit-test ./tests deep -- focus on test smells
 ```
 
 **Checks:**
@@ -493,20 +500,20 @@ Security audit covering OWASP Top 10 and PHP-specific vulnerabilities.
 
 **Arguments:**
 ```
-/acc-audit-security <path> [-- instructions]
+/acc-audit-security <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to project or folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific security aspects |
 
 **Examples:**
 ```bash
 /acc-audit-security ./src
-/acc-audit-security ./src/Api -- focus on OWASP A01-A03
-/acc-audit-security ./src/Payment -- check SQL injection and CSRF
-/acc-audit-security ./src -- skip A06 (vulnerable components)
+/acc-audit-security ./src deep
+/acc-audit-security ./src deep -- focus on OWASP A01-A03
 ```
 
 **Checks:**
@@ -525,20 +532,20 @@ Performance audit focusing on database, memory, and algorithm efficiency.
 
 **Arguments:**
 ```
-/acc-audit-performance <path> [-- instructions]
+/acc-audit-performance <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to project or folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific performance aspects |
 
 **Examples:**
 ```bash
 /acc-audit-performance ./src
-/acc-audit-performance ./src/Repository -- check N+1 queries
-/acc-audit-performance ./src -- focus on memory and caching
-/acc-audit-performance ./src/Domain -- analyze algorithm complexity
+/acc-audit-performance ./src deep
+/acc-audit-performance ./src deep -- focus on N+1 queries
 ```
 
 **Checks:**
@@ -561,20 +568,20 @@ Design patterns audit with SOLID/GRASP compliance analysis.
 
 **Arguments:**
 ```
-/acc-audit-patterns <path> [-- instructions]
+/acc-audit-patterns <path> [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | **Yes** | Path to project or folder to audit |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
 | `-- instructions` | No | Focus on specific pattern categories |
 
 **Examples:**
 ```bash
 /acc-audit-patterns ./src
-/acc-audit-patterns ./src/Infrastructure -- focus on stability patterns
-/acc-audit-patterns ./src -- check behavioral patterns only
-/acc-audit-patterns ./src -- skip SOLID analysis
+/acc-audit-patterns ./src deep
+/acc-audit-patterns ./src deep -- focus on stability patterns
 ```
 
 **Checks:**
@@ -904,21 +911,20 @@ Comprehensive CI/CD audit for PHP projects.
 
 **Arguments:**
 ```
-/acc-audit-ci [path] [-- focus areas]
+/acc-audit-ci [path] [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | No | Project path (default: `./`) |
-| `-- focus areas` | No | Focus on specific audit areas |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
+| `-- instructions` | No | Focus on specific audit areas |
 
 **Examples:**
 ```bash
 /acc-audit-ci
-/acc-audit-ci -- focus on security
-/acc-audit-ci -- performance only
-/acc-audit-ci ./my-project -- security and testing, skip deployment
-/acc-audit-ci -- quick audit
+/acc-audit-ci deep
+/acc-audit-ci ./ deep -- focus on security
 ```
 
 **Audit Categories:**
@@ -946,20 +952,20 @@ Comprehensive Docker configuration audit for PHP projects.
 
 **Arguments:**
 ```
-/acc-audit-docker [path] [-- focus areas]
+/acc-audit-docker [path] [level] [-- instructions]
 ```
 
 | Argument | Required | Description |
 |----------|----------|-------------|
 | `path` | No | Project path (default: `./`) |
-| `-- focus areas` | No | Focus on specific audit areas |
+| `level` | No | Audit depth: `quick`, `standard`, `deep` (default: standard) |
+| `-- instructions` | No | Focus on specific audit areas |
 
 **Examples:**
 ```bash
 /acc-audit-docker
-/acc-audit-docker -- focus on security
-/acc-audit-docker -- performance and image size
-/acc-audit-docker ./ -- security and production readiness
+/acc-audit-docker deep
+/acc-audit-docker ./ deep -- focus on security
 ```
 
 **Audit Categories:**

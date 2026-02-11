@@ -2,7 +2,7 @@
 name: acc-creational-auditor
 description: Creational patterns auditor. Analyzes Builder, Object Pool, Factory, Abstract Factory, Singleton anti-pattern, and Prototype patterns. Called by acc-pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
+model: opus
 skills: acc-create-builder, acc-create-object-pool, acc-create-factory, acc-check-singleton-antipattern, acc-check-abstract-factory, acc-create-prototype, acc-task-progress-knowledge
 ---
 

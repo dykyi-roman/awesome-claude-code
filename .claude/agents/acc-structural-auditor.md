@@ -2,7 +2,7 @@
 name: acc-structural-auditor
 description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered patterns, SOLID and GRASP principles. Called by acc-architecture-auditor.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
+model: opus
 skills: acc-ddd-knowledge, acc-clean-arch-knowledge, acc-hexagonal-knowledge, acc-layer-arch-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-analyze-solid-violations, acc-detect-code-smells, acc-check-bounded-contexts, acc-check-immutability, acc-check-leaky-abstractions, acc-check-encapsulation, acc-task-progress-knowledge
 ---
 

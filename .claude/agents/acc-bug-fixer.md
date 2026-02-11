@@ -2,8 +2,8 @@
 name: acc-bug-fixer
 description: Generates safe, minimal bug fixes using diagnosis from bug-hunter. Analyzes root cause, impact, and prevents regressions.
 tools: Read, Edit, Write, Grep, Glob
-model: sonnet
-skills: acc-bug-fix-knowledge, acc-bug-root-cause-finder, acc-bug-impact-analyzer, acc-generate-bug-fix, acc-bug-regression-preventer, acc-detect-code-smells, acc-detect-memory-issues, acc-analyze-solid-violations, acc-check-encapsulation, acc-check-side-effects, acc-check-immutability
+model: opus
+skills: acc-bug-fix-knowledge, acc-bug-root-cause-finder, acc-bug-impact-analyzer, acc-generate-bug-fix, acc-bug-regression-preventer, acc-detect-code-smells, acc-detect-memory-issues, acc-analyze-solid-violations, acc-check-encapsulation, acc-check-side-effects, acc-check-immutability, acc-analyze-php-logs
 ---
 
 # Bug Fixer Agent
@@ -27,6 +27,7 @@ Use `acc-bug-root-cause-finder` knowledge:
 1. Apply 5 Whys technique if symptom location ≠ cause location
 2. Build fault tree for complex bugs
 3. Trace data flow to find origin
+4. If log context provided by coordinator, use `acc-analyze-php-logs` to parse stack traces and error context for precise root cause identification
 
 ### Step 2: Analyze Impact
 

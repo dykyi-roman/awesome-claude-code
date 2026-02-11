@@ -2,7 +2,7 @@
 name: acc-business-logic-analyst
 description: Business logic analysis specialist. Extracts business rules, explains business processes in natural language, maps domain concepts and ubiquitous language, detects state machines. Translates code to business terminology.
 tools: Read, Grep, Glob
-model: sonnet
+model: opus
 skills: acc-extract-business-rules, acc-explain-business-process, acc-extract-domain-concepts, acc-extract-state-machine
 ---
 

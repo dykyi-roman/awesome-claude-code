@@ -2,7 +2,7 @@
 description: Design patterns audit. Analyzes stability (Circuit Breaker, Retry, Rate Limiter, Bulkhead), behavioral (Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento), GoF structural (Adapter, Facade, Proxy, Composite, Bridge, Flyweight), creational (Builder, Factory, Pool), integration (Outbox, Saga, ADR), and SOLID/GRASP compliance.
 allowed-tools: Read, Grep, Glob, Task
 model: opus
-argument-hint: <path> [-- additional instructions]
+argument-hint: <path> [level] [-- meta-instructions]
 ---
 
 # Design Patterns Audit
@@ -11,22 +11,33 @@ Perform a comprehensive design patterns audit covering stability, behavioral, cr
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract path and optional meta-instructions:
+Parse `$ARGUMENTS` to extract path, level, and optional meta-instructions:
 
 ```
-Format: <path> [-- <meta-instructions>]
+Format: <path> [level] [-- <meta-instructions>]
+
+Arguments:
+- path: Target directory or file (required, default: current directory)
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
 - /acc-audit-patterns ./src
+- /acc-audit-patterns ./src deep
+- /acc-audit-patterns ./src quick
 - /acc-audit-patterns ./src -- focus on stability patterns
-- /acc-audit-patterns ./src/Infrastructure -- check Circuit Breaker and Retry
-- /acc-audit-patterns ./src -- skip creational, analyze behavioral only
+- /acc-audit-patterns ./src deep -- check behavioral patterns only
+- /acc-audit-patterns ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
 1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
-2. First part = **path** (required, default: current directory)
-3. Second part = **meta-instructions** (optional, focus areas)
+2. First part = positional arguments, Second part = meta-instructions
+3. In positional arguments, check if last word is a valid level (`quick|standard|deep`)
+4. If level found → extract it; remaining = path
+5. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+6. Priority: positional > meta-instruction > default (`standard`)
+7. Default path: current directory (if empty)
 
 ## Target
 
@@ -246,7 +257,7 @@ A structured markdown report containing:
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|
@@ -271,8 +282,9 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 | `focus on behavioral` | Prioritize behavioral patterns |
 | `skip creational` | Exclude creational patterns |
 | `stability only` | Only stability pattern audit |
-| `level:quick` | Fast audit (pattern detection only) |
-| `level:deep` | Deep audit (+ opportunity detection + SOLID/GRASP) |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 | `на русском` | Report in Russian |
 
@@ -280,8 +292,9 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 
 ```bash
 /acc-audit-patterns ./src
+/acc-audit-patterns ./src quick
+/acc-audit-patterns ./src deep
 /acc-audit-patterns ./src/Infrastructure -- focus on stability patterns
-/acc-audit-patterns ./src/Domain -- check behavioral patterns only
+/acc-audit-patterns ./src deep -- check behavioral patterns only
 /acc-audit-patterns ./src -- level:deep
-/acc-audit-patterns ./src -- level:quick
 ```

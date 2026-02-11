@@ -2,7 +2,7 @@
 name: acc-behavioral-auditor
 description: GoF Behavioral patterns auditor. Analyzes Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento patterns. Called by acc-pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
+model: opus
 skills: acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-check-immutability, acc-create-template-method, acc-create-visitor, acc-create-iterator, acc-create-memento, acc-task-progress-knowledge
 ---
 

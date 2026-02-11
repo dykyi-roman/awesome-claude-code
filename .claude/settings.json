@@ -28,7 +28,10 @@
       "Bash(rm -rf:*)",
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)",
-      "Bash(git clean -f:*)"
+      "Bash(git clean -f:*)",
+      "Bash(git branch -D:*)",
+      "Bash(git checkout .:*)",
+      "Bash(git rebase:*)"
     ]
   }
 }

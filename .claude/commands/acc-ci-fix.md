@@ -35,7 +35,21 @@ Determine the input type:
    - Read the log file
    - Extract error messages and context
 
-3. **Text Description**
+3. **Auto-discover CI Logs** (when `-- scan-logs` is specified or no log file provided with `-- scan-logs`)
+   - Use `acc-discover-project-logs` skill via ci-debugger to find CI build logs:
+     - `build/logs/*.log`, `build/logs/*.xml`
+     - `build/reports/*.xml`
+     - PHPUnit/PHPStan output files
+   - If no logs found, use AskUserQuestion:
+     ```
+     Question: "CI log files not found automatically. Where are your CI logs?"
+     Options:
+       - "build/logs/" (PHPUnit/PHPStan output)
+       - "build/reports/" (CI reports)
+       - "Paste pipeline URL" (GitHub Actions / GitLab CI)
+     ```
+
+4. **Text Description**
    - Search codebase for CI configuration
    - Use description to guide diagnosis
 
@@ -215,6 +229,7 @@ git checkout HEAD~1 -- [file]
 | `-- skip-validation` | Don't run local syntax checks |
 | `-- verbose` | Include detailed diagnosis output |
 | `-- focus on <area>` | Prioritize specific area (tests, lint, docker) |
+| `-- scan-logs` | Auto-discover CI build logs in project (build/logs/, build/reports/) |
 
 ## Examples
 
@@ -246,7 +261,12 @@ git checkout HEAD~1 -- [file]
 /acc-ci-fix "Tests timeout" -- focus on Docker, verbose
 ```
 
-### Example 6: Skip Validation
+### Example 6: Auto-discover CI Logs
+```
+/acc-ci-fix "build failed" -- scan-logs
+```
+
+### Example 7: Skip Validation
 ```
 /acc-ci-fix ./logs/ci.txt -- skip-validation
 ```

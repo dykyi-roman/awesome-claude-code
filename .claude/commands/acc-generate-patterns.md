@@ -1,5 +1,5 @@
 ---
-description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR patterns.
+description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context patterns.
 allowed-tools: Read, Write, Edit, Glob, Grep, Task
 model: opus
 argument-hint: <pattern-name> <ComponentName> [-- additional instructions]
@@ -80,6 +80,7 @@ Examples:
 | `saga` | `distributed-saga` | Distributed transaction coordination |
 | `action` | `adr-action` | ADR Action (HTTP entry point) |
 | `responder` | `adr-responder` | ADR Responder (HTTP response) |
+| `correlation-context` | `correlation-id`, `request-id` | Correlation ID propagation middleware |
 
 ## Pre-flight Check
 
@@ -418,6 +419,25 @@ Generates:
 - Single-responsibility Action class
 - Request DTO
 - Responder with response building
+
+#### Correlation Context
+```bash
+/acc-generate-patterns correlation-context
+/acc-generate-patterns correlation-id Order -- with Symfony Messenger
+```
+
+Generates:
+```
+src/Domain/Shared/Correlation/
+├── CorrelationId.php
+└── CorrelationContext.php
+src/Presentation/Middleware/
+└── CorrelationContextMiddleware.php
+src/Infrastructure/Logging/
+└── CorrelationLogProcessor.php
+src/Infrastructure/Messaging/
+└── CorrelationMessageStamp.php
+```
 
 ## Expected Output
 

@@ -2,7 +2,7 @@
 name: acc-gof-structural-generator
 description: GoF Structural patterns generator. Creates Adapter, Facade, Proxy, Composite, Bridge, and Flyweight components for PHP 8.5. Called by acc-pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
-model: sonnet
+model: opus
 skills: acc-create-adapter, acc-create-facade, acc-create-proxy, acc-create-composite, acc-create-bridge, acc-create-flyweight
 ---
 

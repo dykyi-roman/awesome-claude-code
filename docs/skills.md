@@ -18,6 +18,7 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
   - [CI/CD Analyzer Skills](#cicd-analyzer-skills)
   - [Docker Analyzer Skills](#docker-analyzer-skills)
   - [Code Explainer Skills](#code-explainer-skills)
+  - [Log Analysis Skills](#log-analysis-skills)
 - [Other Skills](#other-skills)
 - [Generator Skills](#generator-skills)
   - [DDD Components](#ddd-components)
@@ -42,10 +43,10 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
 | **Knowledge** | 38 | Provide expertise and best practices | `acc-ddd-knowledge` |
-| **Analyzer** | 100 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
-| **Generator** | 86 | Generate PHP code with tests | `acc-create-entity` |
+| **Analyzer** | 99 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
+| **Generator** | 94 | Generate PHP code with tests | `acc-create-entity` |
 | **Template** | 10 | Documentation and output templates | `acc-readme-template` |
-| **Other** | 7 | Estimation, suggestions, regression prevention | `acc-estimate-complexity` |
+| **Other** | 4 | Estimation and suggestion utilities | `acc-estimate-complexity` |
 
 ## How Skills Work
 
@@ -250,6 +251,13 @@ Knowledge bases for architecture audits and best practices.
 | `acc-trace-data-transformation` | `skills/acc-trace-data-transformation/` | Maps Request DTO → Command → Entity → Response DTO chain |
 | `acc-map-async-flows` | `skills/acc-map-async-flows/` | Finds queue publishing, event dispatching, webhooks |
 
+### Log Analysis Skills
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `acc-discover-project-logs` | `skills/acc-discover-project-logs/` | Discovers log files across PHP frameworks, infrastructure, CI/CD |
+| `acc-analyze-php-logs` | `skills/acc-analyze-php-logs/` | Parses PHP logs (PSR-3, Monolog, Laravel, Symfony, error_log, FPM slow log) |
+
 ### Other Skills
 
 | Skill | Path | Description |
@@ -305,6 +313,7 @@ Code generators for DDD and architecture components (PHP 8.5).
 |-------|------|-------------|
 | `acc-create-outbox-pattern` | `skills/acc-create-outbox-pattern/` | Transactional Outbox |
 | `acc-create-saga-pattern` | `skills/acc-create-saga-pattern/` | Saga orchestration |
+| `acc-create-correlation-context` | `skills/acc-create-correlation-context/` | Correlation ID propagation (middleware, log processor, message stamp) |
 
 ### Behavioral Patterns
 

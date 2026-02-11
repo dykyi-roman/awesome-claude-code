@@ -20,7 +20,7 @@ This agent delegates to specialized generators:
 | `acc-behavioral-generator` | Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento | 10 skills |
 | `acc-gof-structural-generator` | Adapter, Facade, Proxy, Composite, Bridge, Flyweight | 6 skills |
 | `acc-creational-generator` | Builder, Object Pool, Factory | 3 skills |
-| `acc-integration-generator` | Outbox, Saga, Action, Responder | 7 skills |
+| `acc-integration-generator` | Outbox, Saga, Action, Responder, Correlation Context | 8 skills |
 
 ## Pattern Detection
 
@@ -60,6 +60,7 @@ Analyze user request to determine which generator to invoke:
 - "outbox", "transactional outbox", "reliable messaging"
 - "saga", "distributed transaction", "compensation"
 - "action", "ADR action", "responder"
+- "correlation", "correlation ID", "request ID", "context propagation", "distributed tracing"
 
 ## Generation Process
 
@@ -209,3 +210,4 @@ Ensure all generated code follows:
 | Saga | acc-integration-generator | acc-create-saga-pattern |
 | Action | acc-integration-generator | acc-create-action |
 | Responder | acc-integration-generator | acc-create-responder |
+| Correlation Context | acc-integration-generator | acc-create-correlation-context |

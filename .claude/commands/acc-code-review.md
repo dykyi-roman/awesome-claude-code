@@ -2,7 +2,7 @@
 description: Code review for branch changes. Analyzes git diff between branches with multi-level depth (low/medium/high). Matches changes against task description. Returns structured report with severity levels and verdict.
 allowed-tools: Read, Grep, Glob, Bash, Task
 model: opus
-argument-hint: [branch] [path] [level] [-- task-description]
+argument-hint: [branch/path] [level] [-- task-description]
 ---
 
 # Code Review Command
@@ -14,7 +14,7 @@ Perform comprehensive code review on branch changes with configurable depth leve
 Parse `$ARGUMENTS` to extract branch, path, level, and optional task description:
 
 ```
-Format: [branch] [path] [level] [-- task-description]
+Format: [branchpath] [level] [-- task-description]
 
 Arguments:
 - branch: Branch to review (auto-detected vs path)
@@ -24,7 +24,7 @@ Arguments:
 - Target: Always main/master (auto-detected)
 
 Examples:
-- /acc-code-review                                    # current branch, whole project, high
+- /acc-code-review                                   # current branch, whole project, high
 - /acc-code-review feature/payment                   # branch, whole project
 - /acc-code-review src/Domain                        # current branch, only src/Domain
 - /acc-code-review feature/payment src/Domain        # branch + path

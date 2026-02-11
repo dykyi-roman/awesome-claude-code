@@ -22,24 +22,10 @@
 - `acc-create-health-check` — Health Check endpoints
 - `acc-create-cache-aside` — Cache-Aside pattern
 
-## Priority 4 — Observability (2 skills)
-
-- `acc-create-correlation-context` — Correlation ID propagation
-- `acc-create-audit-log` — Audit logging pattern
-
-## Priority 5 — Security (2 skills)
-
-- `acc-create-authorization-policy` — Authorization policies
-- `acc-create-input-validator` — Input validation / sanitization
-
-## Priority 6 — Knowledge Skills (5 skills)
+## Priority 4 — Knowledge Skills (5 skills)
 
 - `acc-microservices-knowledge` — Microservices patterns (service mesh, API gateway)
 - `acc-api-design-knowledge` — REST/GraphQL best practices
 - `acc-message-queue-knowledge` — RabbitMQ/Kafka patterns
 - `acc-caching-strategies-knowledge` — TTL, invalidation
 - `acc-bounded-context-knowledge` — Strategic DDD
-
-## Priority 7 — New Commands (1 command)
-
-- `/acc-audit-dependencies` — Outdated packages, CVEs

@@ -2,7 +2,7 @@
 description: Comprehensive architecture audit with pattern recommendations. Detects DDD, CQRS, Clean/Hexagonal/Layered Architecture, Event Sourcing, EDA, Outbox, Saga, Stability, GoF Structural (Adapter, Facade, Proxy, Composite, Bridge, Flyweight), and Behavioral (Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento) patterns. Provides actionable recommendations with links to generation skills.
 allowed-tools: Read, Grep, Glob, Bash, Task
 model: opus
-argument-hint: <path> [-- additional instructions]
+argument-hint: <path> [level] [-- meta-instructions]
 ---
 
 # Architecture Audit Command
@@ -11,23 +11,33 @@ Perform a comprehensive architecture audit with actionable pattern recommendatio
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract path and optional meta-instructions:
+Parse `$ARGUMENTS` to extract path, level, and optional meta-instructions:
 
 ```
-Format: <path> [-- <meta-instructions>]
+Format: <path> [level] [-- <meta-instructions>]
+
+Arguments:
+- path: Target directory or file (required, default: current directory)
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
 - /acc-audit-architecture ./src
+- /acc-audit-architecture ./src deep
+- /acc-audit-architecture ./src quick
 - /acc-audit-architecture ./src -- focus on CQRS and Event Sourcing
-- /acc-audit-architecture ./src -- skip stability patterns, check DDD only
-- /acc-audit-architecture ./src -- особое внимание на Saga и Outbox
-- /acc-audit-architecture ./src -- only structural audit (DDD, Clean, SOLID)
+- /acc-audit-architecture ./src deep -- only structural audit (DDD, Clean, SOLID)
+- /acc-audit-architecture ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
 1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
-2. First part = **path** (required, default: current directory)
-3. Second part = **meta-instructions** (optional, additional focus/filters)
+2. First part = positional arguments, Second part = meta-instructions
+3. In positional arguments, check if last word is a valid level (`quick|standard|deep`)
+4. If level found → extract it; remaining = path
+5. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+6. Priority: positional > meta-instruction > default (`standard`)
+7. Default path: current directory (if empty)
 
 ## Target
 
@@ -56,7 +66,7 @@ Execute a two-phase audit using specialized agents:
 
 ### Phase 1: Architecture Audit
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 Use the `acc-architecture-auditor` agent (with audit level and progress tracking) to analyze:
 - DDD (Domain-Driven Design)
@@ -171,7 +181,7 @@ Conflicts between architectural patterns.
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|
@@ -196,8 +206,9 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 | `focus on stability` | Prioritize stability patterns |
 | `structural only` | Only DDD/Clean/Hexagonal audit |
 | `skip behavioral` | Exclude behavioral patterns |
-| `level:quick` | Fast audit (layer detection only) |
-| `level:deep` | Deep audit (+ cross-pattern conflicts) |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 | `на русском` | Report in Russian |
 
@@ -205,8 +216,10 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 
 ```bash
 /acc-audit-architecture ./src
+/acc-audit-architecture ./src quick
+/acc-audit-architecture ./src deep
 /acc-audit-architecture ./src -- focus on CQRS and Event Sourcing
+/acc-audit-architecture ./src deep -- only structural audit
 /acc-audit-architecture ./src -- level:deep
-/acc-audit-architecture ./src -- level:quick
 ```
 

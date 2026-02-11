@@ -2,7 +2,7 @@
 description: Audit PSR compliance. Checks PSR-1/PSR-12 coding style, PSR-4 autoloading, and PSR interface implementations. Use for PHP standards compliance review.
 allowed-tools: Read, Grep, Glob, Bash, Task
 model: opus
-argument-hint: <path> [-- additional instructions]
+argument-hint: <path> [level] [-- meta-instructions]
 ---
 
 # PSR Compliance Audit
@@ -11,23 +11,33 @@ Perform a comprehensive PSR compliance audit with actionable improvement recomme
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract path and optional meta-instructions:
+Parse `$ARGUMENTS` to extract path, level, and optional meta-instructions:
 
 ```
-Format: <path> [-- <meta-instructions>]
+Format: <path> [level] [-- <meta-instructions>]
+
+Arguments:
+- path: Target directory or file (required, default: current directory)
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
 - /acc-audit-psr ./src
+- /acc-audit-psr ./src deep
+- /acc-audit-psr ./src quick
 - /acc-audit-psr ./src -- focus on PSR-12 only
-- /acc-audit-psr ./src -- skip autoloading, check interfaces
-- /acc-audit-psr ./src -- check PSR-7 and PSR-15 implementations
-- /acc-audit-psr ./src -- level:deep
+- /acc-audit-psr ./src deep -- focus on interfaces
+- /acc-audit-psr ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
 1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
-2. First part = **path** (required, default: current directory)
-3. Second part = **meta-instructions** (optional, additional focus/filters)
+2. First part = positional arguments, Second part = meta-instructions
+3. In positional arguments, check if last word is a valid level (`quick|standard|deep`)
+4. If level found → extract it; remaining = path
+5. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+6. Priority: positional > meta-instruction > default (`standard`)
+7. Default path: current directory (if empty)
 
 ## Pre-flight Check
 
@@ -46,7 +56,7 @@ Examples:
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|
@@ -71,8 +81,9 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 | `focus on interfaces` | Analyze PSR interface implementations in depth |
 | `skip autoloading` | Exclude PSR-4 autoloading checks |
 | `PSR-12 only` | Only check PSR-12 coding style |
-| `level:quick` | Fast audit (only critical structural checks) |
-| `level:deep` | Deep audit (+ interface quality analysis) |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 | `на русском` | Report in Russian |
 
@@ -190,18 +201,21 @@ If no path is provided, audit the current project root.
 ## Usage Examples
 
 ```bash
-# Full audit
+# Standard audit (default)
 /acc-audit-psr ./src
 
 # Quick check
-/acc-audit-psr ./src -- level:quick
+/acc-audit-psr ./src quick
 
 # Deep analysis with interface quality
-/acc-audit-psr ./src -- level:deep
+/acc-audit-psr ./src deep
 
 # Focus on specific PSR
 /acc-audit-psr ./src -- focus on PSR-12 only
 
-# Check PSR interface implementations
-/acc-audit-psr ./src -- focus on interfaces
+# Deep + focus
+/acc-audit-psr ./src deep -- focus on interfaces
+
+# Backward compatible
+/acc-audit-psr ./src -- level:deep
 ```

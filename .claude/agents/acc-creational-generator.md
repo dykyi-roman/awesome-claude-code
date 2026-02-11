@@ -2,7 +2,7 @@
 name: acc-creational-generator
 description: Creational patterns generator. Creates Builder, Object Pool, and Factory components for PHP 8.5. Called by acc-pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
-model: sonnet
+model: opus
 skills: acc-create-builder, acc-create-object-pool, acc-create-factory, acc-create-di-container, acc-create-mediator
 ---
 

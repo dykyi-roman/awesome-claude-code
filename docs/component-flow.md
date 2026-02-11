@@ -28,7 +28,7 @@ COMMANDS                    AGENTS                      SKILLS
 
 /acc-audit-claude-components → (direct analysis)
 
-/acc-audit-ddd ─────────→ acc-ddd-auditor (3 skills) ──→ DDD, SOLID, GRASP knowledge
+/acc-audit-ddd ─────────→ acc-ddd-auditor (8 skills) ──→ DDD, SOLID, GRASP knowledge + 3 analyzers
                                 │
                                 └──→ (Task) acc-ddd-generator ──→ 13 create-* skills
 
@@ -37,8 +37,8 @@ COMMANDS                    AGENTS                      SKILLS
                                 ├──→ (Task) acc-structural-auditor ──→ 12 skills
                                 │           └── DDD, Clean, Hexagonal, Layered, SOLID, GRASP + 6 analyzers
                                 │
-                                ├──→ (Task) acc-behavioral-auditor ──→ 12 skills
-                                │           └── CQRS, Event Sourcing, EDA, Strategy, State, etc.
+                                ├──→ (Task) acc-behavioral-auditor ──→ 11 skills
+                                │           └── Strategy, State, Chain, Decorator, Null Object, etc.
                                 │
                                 ├──→ (Task) acc-integration-auditor ─→ 12 skills
                                 │           └── Outbox, Saga, ADR
@@ -50,22 +50,24 @@ COMMANDS                    AGENTS                      SKILLS
                                                   ├──→ (Task) acc-behavioral-generator ─→ 10 skills
                                                   ├──→ (Task) acc-gof-structural-generator → 6 skills
                                                   ├──→ (Task) acc-creational-generator ─→ 3 skills
-                                                  └──→ (Task) acc-integration-generator → 7 skills
+                                                  └──→ (Task) acc-integration-generator → 8 skills
 
 /acc-audit-patterns ────→ acc-pattern-auditor (coordinator, 2 skills)
                                 │
-                                ├──→ (Task) acc-stability-auditor ───→ 5 skills
-                                │           └── Circuit Breaker, Retry, Rate Limiter, Bulkhead
+                                ├──→ (Task) acc-stability-auditor ───→ 9 skills
+                                │           └── Circuit Breaker, Retry, Rate Limiter, Bulkhead,
+                                │               Timeout, Cascading Failures, Fallback
                                 │
-                                ├──→ (Task) acc-behavioral-auditor ──→ 17 skills
+                                ├──→ (Task) acc-behavioral-auditor ──→ 11 skills
                                 │           └── Strategy, State, Chain, Decorator, Null Object,
                                 │               Template Method, Visitor, Iterator, Memento
                                 │
                                 ├──→ (Task) acc-gof-structural-auditor → 6 skills
                                 │           └── Adapter, Facade, Proxy, Composite, Bridge, Flyweight
                                 │
-                                ├──→ (Task) acc-creational-auditor ──→ 3 skills
-                                │           └── Builder, Object Pool, Factory
+                                ├──→ (Task) acc-creational-auditor ──→ 7 skills
+                                │           └── Builder, Object Pool, Factory, Singleton (anti),
+                                │               Abstract Factory, Prototype
                                 │
                                 └──→ (Task) acc-integration-auditor ─→ 12 skills
                                             └── Outbox, Saga, ADR
@@ -78,7 +80,7 @@ COMMANDS                    AGENTS                      SKILLS
                                 │
                                 └──→ (Task) acc-diagram-designer ─→ 2 diagram skills
 
-/acc-audit-documentation → acc-documentation-auditor → 3 QA knowledge skills
+/acc-audit-documentation → acc-documentation-auditor → 7 skills (3 knowledge + 3 analyzers + progress)
 
 /acc-generate-test ────────→ acc-test-generator ────────→ acc-testing-knowledge
                                                        5 test create-* skills
@@ -89,12 +91,14 @@ COMMANDS                    AGENTS                      SKILLS
 
 /acc-bug-fix ──────────→ acc-bug-fix-coordinator
                                 │
-                                ├──→ (Task) acc-bug-hunter ─────────→ 9 detection skills
+                                ├──→ (Task) acc-bug-hunter ─────────→ 11 skills (9 detection + 2 log analysis)
                                 │           └── logic, null, boundary, race, resource, exception, type, sql, infinite
+                                │           └── discover-project-logs, analyze-php-logs
                                 │
-                                ├──→ (Task) acc-bug-fixer ──────────→ 11 skills (5 new + 6 quality)
+                                ├──→ (Task) acc-bug-fixer ──────────→ 12 skills (5 fix + 6 quality + 1 log)
                                 │           └── fix-knowledge, root-cause, impact, generate-fix, regression-preventer
                                 │           └── code-smells, memory, solid, encapsulation, side-effects, immutability
+                                │           └── analyze-php-logs
                                 │
                                 └──→ (Task) acc-test-generator ─────→ 6 test skills
 
@@ -109,8 +113,9 @@ COMMANDS                    AGENTS                      SKILLS
                               │                        └──→ (Task) acc-static-analysis-agent ─→ 4 config skills
                               │                        └──→ (Task) acc-test-pipeline-agent ───→ testing skills
                               │
-                              ├── FIX ─────→ acc-ci-debugger ──────────→ 2 analyzer skills
-                              │                        │                   └── analyze-ci-config, analyze-ci-logs
+                              ├── FIX ─────→ acc-ci-debugger ──────────→ 4 skills
+                              │                        │                   └── analyze-ci-logs, detect-ci-antipatterns,
+                              │                        │                       analyze-ci-config, discover-project-logs
                               │                        └──→ (Task) acc-ci-fixer ──→ generate-ci-fix skill
                               │
                               ├── OPTIMIZE → acc-pipeline-optimizer ───→ 3 skills
@@ -149,8 +154,9 @@ COMMANDS                    AGENTS                      SKILLS
                                 │           └── extract-business-rules, explain-business-process,
                                 │               extract-domain-concepts, extract-state-machine
                                 │
-                                ├──→ (Task) acc-data-flow-analyst ─────→ 3 skills
-                                │           └── trace-request-lifecycle, trace-data-transformation, map-async-flows
+                                ├──→ (Task) acc-data-flow-analyst ─────→ 4 skills
+                                │           └── trace-request-lifecycle, trace-data-transformation,
+                                │               map-async-flows, discover-project-logs
                                 │
                                 ├──→ (Task) acc-structural-auditor [REUSED, deep/onboarding]
                                 ├──→ (Task) acc-behavioral-auditor [REUSED, deep/onboarding]
@@ -198,11 +204,11 @@ Skill generates PHP code with tests
 | Behavioral patterns | `acc-behavioral-generator` | 10 acc-create-* skills |
 | GoF Structural patterns | `acc-gof-structural-generator` | 6 acc-create-* skills |
 | Creational patterns | `acc-creational-generator` | 3 acc-create-* skills |
-| Integration patterns | `acc-integration-generator` | 7 acc-create-* skills |
+| Integration patterns | `acc-integration-generator` | 8 acc-create-* skills |
 | PSR implementations | `acc-psr-generator` | 11 acc-create-psr* skills |
 | Architecture | `acc-architecture-generator` | Coordinator (delegates) |
 | Design patterns | `acc-pattern-generator` | Coordinator (delegates to 5 generators) |
-| Bug fixes | `acc-bug-fixer` | 5 acc-bug-* skills + 6 quality skills |
+| Bug fixes | `acc-bug-fixer` | 5 acc-bug-* skills + 6 quality + 1 log |
 
 ## Generator Skills by Category
 
@@ -229,10 +235,11 @@ Skill generates PHP code with tests
 - `acc-create-rate-limiter` — Rate limiting
 - `acc-create-bulkhead` — Bulkhead isolation
 
-### Integration Patterns (2 skills)
+### Integration Patterns (3 skills)
 
 - `acc-create-outbox-pattern` — Transactional Outbox
 - `acc-create-saga-pattern` — Saga orchestration
+- `acc-create-correlation-context` — Correlation ID propagation
 
 ### Behavioral Patterns (10 skills)
 

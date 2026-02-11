@@ -2,7 +2,7 @@
 description: Comprehensive audit of .claude folder. Checks structure, quality, cross-references, antipatterns, resource usage, behavior verification, context alignment, semantic fit, God-Agent detection, skill responsibility analysis, domain boundaries, memory/rules, plugins, hooks, and refactoring recommendations.
 allowed-tools: Read, Glob, Grep, Bash
 model: opus
-argument-hint: [-- additional instructions]
+argument-hint: [level] [-- meta-instructions]
 ---
 
 # Claude Code Configuration Audit
@@ -11,21 +11,30 @@ Perform a comprehensive audit of the `.claude/` folder in the current project.
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract optional meta-instructions:
+Parse `$ARGUMENTS` to extract level and optional meta-instructions:
 
 ```
-Format: [-- <meta-instructions>]
+Format: [level] [-- <meta-instructions>]
+
+Arguments:
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-claude-code
-- /acc-audit-claude-code -- focus on God-Agent detection
-- /acc-audit-claude-code -- check only commands
-- /acc-audit-claude-code -- skip skills, check agents
+- /acc-audit-claude-components
+- /acc-audit-claude-components deep
+- /acc-audit-claude-components quick
+- /acc-audit-claude-components -- focus on God-Agent detection
+- /acc-audit-claude-components deep -- check only commands
+- /acc-audit-claude-components -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
 1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
-2. Content after `--` = **meta-instructions** (optional, audit focus)
+2. First part = positional arguments, Second part = meta-instructions
+3. If first positional argument is `quick|standard|deep` → this is level
+4. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+5. Priority: positional > meta-instruction > default (`standard`)
 
 If meta-instructions provided, adjust audit to:
 - Focus on specific component types (commands/agents/skills)
@@ -951,7 +960,7 @@ mkdir -p .claude/commands .claude/agents .claude/skills
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|
@@ -976,8 +985,9 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 | `check only commands` | Only audit command files |
 | `check only agents` | Only audit agent files |
 | `skip skills` | Exclude skills from audit |
-| `level:quick` | Fast audit (structure + cross-refs only) |
-| `level:deep` | Deep audit (+ God-Agent + domain boundaries) |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 | `на русском` | Report in Russian |
 
@@ -985,7 +995,8 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 
 ```bash
 /acc-audit-claude-components
-/acc-audit-claude-components -- level:quick
+/acc-audit-claude-components quick
+/acc-audit-claude-components deep
+/acc-audit-claude-components deep -- focus on God-Agent detection
 /acc-audit-claude-components -- level:deep
-/acc-audit-claude-components -- focus on God-Agent detection
 ```

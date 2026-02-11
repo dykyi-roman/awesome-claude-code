@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 57 agents, 242 skills, 21 hooks
+- 26 commands, 61 agents, 245 skills, 21 hooks
 - PHP 8.5, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -86,12 +86,13 @@ Components auto-copy to `.claude/` directory.
 - CI/CD: CI config, CI logs, CI antipatterns
 - Docker: build errors, runtime errors, image size, security, secrets, user permissions, compose config, production readiness, antipatterns, layer efficiency, PHP config, healthcheck
 - Code Explainer: scan structure, identify entry points, detect architecture, resolve entry point, extract business rules, explain process, extract domain concepts, extract state machine, trace lifecycle, trace transformation, map async flows
+- Log Analysis: discover project logs, analyze PHP logs (PSR-3/Monolog, Laravel, Symfony, error_log, FPM slow log)
 
-### Generators (86)
+### Generators (87)
 - DDD: Value Objects, Entities, Aggregates, Domain Events, Repositories, Domain Services, Factories, Specifications, DTOs, Anti-Corruption Layer
 - CQRS: Commands, Queries, Use Cases, Read Models
 - Stability: Circuit Breaker, Retry, Rate Limiter, Bulkhead
-- Integration: Saga, Outbox
+- Integration: Saga, Outbox, Correlation Context
 - Behavioral: Strategy, State, Decorator, Chain of Responsibility, Null Object, Policy, Template Method, Visitor, Iterator, Memento
 - GoF Structural: Adapter, Facade, Proxy, Composite, Bridge, Flyweight
 - Creational: Builder, Object Pool, DI Container, Mediator, Prototype
@@ -115,8 +116,8 @@ Components auto-copy to `.claude/` directory.
 ```
 .claude/
 ├── commands/        # Slash commands (26)
-├── agents/          # Subagents (57)
-├── skills/          # Knowledge + generators + analyzers (242)
+├── agents/          # Subagents (61)
+├── skills/          # Knowledge + generators + analyzers (245)
 └── settings.json    # Hooks and permissions
 ```
 
@@ -159,4 +160,4 @@ Components auto-copy to `.claude/` directory.
 
 ## Version
 
-v2.10.0 - Strengthen audit system: +21 skills, conditional rules, unified severity, audit levels
+v2.11.0 - Log analysis, security coordinator, correlation context, deny rules

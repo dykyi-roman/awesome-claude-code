@@ -2,7 +2,7 @@
 description: Comprehensive CI/CD audit. Analyzes pipeline structure, security, performance, and best practices compliance.
 allowed-tools: Read, Grep, Glob, Bash, Task
 model: opus
-argument-hint: [path] [-- focus areas]
+argument-hint: [path] [level] [-- meta-instructions]
 ---
 
 # CI/CD Audit
@@ -11,22 +11,33 @@ Perform a comprehensive audit of CI/CD configuration, including security, perfor
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract path and optional focus areas:
+Parse `$ARGUMENTS` to extract path, level, and optional meta-instructions:
 
 ```
-Format: [path] [-- <focus-areas>]
+Format: [path] [level] [-- <meta-instructions>]
+
+Arguments:
+- path: Target directory (optional, default: ./)
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
 - /acc-audit-ci
 - /acc-audit-ci ./
+- /acc-audit-ci deep
+- /acc-audit-ci ./ deep
 - /acc-audit-ci -- focus on security
-- /acc-audit-ci ./ -- include deep dependency scan
-- /acc-audit-ci -- security and performance only
+- /acc-audit-ci deep -- focus on security
+- /acc-audit-ci -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
-1. First argument = **path** (optional, defaults to `./`)
-2. After `--` = **focus areas** (optional audit scope)
+1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
+2. First part = positional arguments, Second part = meta-instructions
+3. In positional arguments, check if any word is a valid level (`quick|standard|deep`)
+4. If level found → extract it; remaining = path (or default `./`)
+5. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+6. Priority: positional > meta-instruction > default (`standard`)
 
 ## Pre-flight Check
 
@@ -171,20 +182,23 @@ The coordinator will delegate to specialized agents and aggregate results:
 ## Usage Examples
 
 ```bash
-# Full audit
+# Standard audit (default)
 /acc-audit-ci
 
-# Security-focused audit
-/acc-audit-ci -- focus on security
+# Quick check
+/acc-audit-ci quick
 
-# Performance audit
-/acc-audit-ci -- performance only
+# Deep analysis
+/acc-audit-ci deep
 
-# Multiple focus areas
-/acc-audit-ci -- security and testing, skip deployment
+# With path and level
+/acc-audit-ci ./ deep
 
-# Specific path
-/acc-audit-ci ./my-project -- include all categories
+# Deep + focus
+/acc-audit-ci deep -- focus on security
+
+# Backward compatible
+/acc-audit-ci -- level:deep
 ```
 
 ## Meta-Instructions Guide
@@ -195,12 +209,14 @@ The coordinator will delegate to specialized agents and aggregate results:
 | `performance only` | Only performance audit |
 | `skip deployment` | Exclude deployment audit |
 | `include dependency scan` | Full dependency vulnerability scan |
-| `quick audit` | High-level overview only |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|

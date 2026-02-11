@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.11.0] - 2026-02-11
+
+### Added
+- `acc-create-correlation-context` skill — generates Correlation ID propagation infrastructure: CorrelationId value object, CorrelationContext holder, PSR-15 middleware, Monolog processor, message bus stamp, with unit tests and framework integration examples
+- `acc-discover-project-logs` skill — auto-discovers log files across PHP frameworks (Laravel, Symfony, CodeIgniter, Yii2/Yii3), infrastructure (PHP-FPM, Docker, Nginx), and CI/CD build artifacts with scoring and prioritization
+- `acc-analyze-php-logs` skill — parses PHP logs in PSR-3/Monolog (JSON + line), Laravel, Symfony, plain error_log, and PHP-FPM slow log formats; extracts exceptions, stack traces, request context, error frequency, and correlates related errors
+- Log discovery integrated into 7 agents: `acc-bug-hunter` (+2 skills), `acc-docker-debugger-agent` (+2 skills), `acc-ci-debugger` (+1 skill), `acc-bug-fixer` (+1 skill), `acc-performance-reviewer` (+1 skill), `acc-data-flow-analyst` (+1 skill), `acc-docker-coordinator` (updated delegation prompt)
+- `acc-bug-fix` command: new `-- scan-logs` / `-- no-logs` meta-instructions and auto-discover input type with AskUserQuestion fallback
+- `acc-ci-fix` command: new `-- scan-logs` meta-instruction and auto-discover CI logs input type with AskUserQuestion fallback
+- 4 security specialist agents: `acc-injection-reviewer` (A03/A10/A08), `acc-auth-reviewer` (A01/A07), `acc-data-security-reviewer` (A02/A09/A05), `acc-design-security-reviewer` (A04/A06)
+- 3 deny rules in `settings.json`: `git branch -D`, `git checkout .`, `git rebase`
+
+### Changed
+- `acc-security-reviewer` transformed from specialist (21 skills, sonnet) to coordinator (model: opus, delegates to 4 specialist agents via Task tool)
+- Unified `level` parameter across all 11 audit commands: `level` is now an explicit optional positional parameter (`quick|standard|deep`, default: `standard`) instead of hidden inside meta-instructions (`-- level:deep`). Backward-compatible: `level:*` in meta-instructions still works.
+- Updated component counts: 26 commands, 61 agents, 245 skills
+
 ## [2.10.0] - 2026-02-09
 
 ### Added
@@ -226,7 +243,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.10.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.11.0...HEAD
+[2.11.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.9.0...v2.10.0
 [2.9.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.8.0...v2.9.0
 [2.8.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.7.0...v2.8.0

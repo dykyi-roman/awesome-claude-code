@@ -80,14 +80,16 @@ allowed-tools: Optional
 │   ├── acc-generate-*.md         # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
 │   ├── acc-refactor.md
 │   └── ...
-├── agents/                       # 57 agents
+├── agents/                       # 61 agents
 │   ├── acc-*-auditor.md          # Auditors (13): architecture, behavioral, cqrs, creational,
 │   │                             #   ddd, documentation, gof-structural, integration,
 │   │                             #   pattern, psr, stability, structural, test
 │   ├── acc-*-generator.md        # Generators (9): architecture, behavioral, creational,
 │   │                             #   ddd, gof-structural, integration, pattern, psr, stability
 │   ├── acc-*-coordinator.md      # Coordinators (6): bug-fix, ci, code-review, docker, explain, refactor
-│   ├── acc-*-reviewer.md         # Reviewers (4): performance, readability, security, testability
+│   │                             #   + security-reviewer (coordinator via Task delegation)
+│   ├── acc-*-reviewer.md         # Reviewers (8): auth, data-security, design-security, injection,
+│   │                             #   performance, readability, security (coordinator), testability
 │   ├── acc-*-analyst.md          # Analysts (2): business-logic, data-flow
 │   ├── acc-codebase-navigator.md # Codebase navigation specialist
 │   ├── acc-ci-*.md               # CI agents (9): ci-coordinator, ci-debugger, ci-fixer,
@@ -99,12 +101,12 @@ allowed-tools: Optional
 │   │                             #   docker-performance-agent, docker-security-agent,
 │   │                             #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                       # 242 skills
+├── skills/                       # 245 skills
 │   ├── acc-*-knowledge/          # 38 knowledge skills
-│   ├── acc-check-*/              # 62 analyzer skills
+│   ├── acc-check-*/              # 64 analyzer skills
 │   ├── acc-find-*/               # 8 bug detection skills
 │   ├── acc-detect-*/             # 8 detection skills
-│   ├── acc-analyze-*/            # 8 analysis skills
+│   ├── acc-analyze-*/            # 9 analysis skills
 │   ├── acc-scan-*/               # 1 scanner skill
 │   ├── acc-identify-*/           # 1 identifier skill
 │   ├── acc-resolve-*/            # 1 resolver skill
@@ -112,10 +114,12 @@ allowed-tools: Optional
 │   ├── acc-explain-*/            # 2 explainer skills (business-process, output-template)
 │   ├── acc-trace-*/              # 2 tracer skills
 │   ├── acc-map-*/                # 1 mapper skill
-│   ├── acc-create-*/             # 80 generator skills
+│   ├── acc-discover-*/           # 1 discovery skill
+│   ├── acc-create-*/             # 81 generator skills
+│   ├── acc-generate-*/           # 2 generator skills
 │   ├── acc-optimize-*/           # 7 optimizer skills
 │   ├── acc-*-template/           # 10 template skills
-│   └── acc-*/                    # 8 other skills (estimate, suggest, bug-*)
+│   └── acc-*/                    # 7 other skills (estimate, suggest, bug-*)
 ├── rules/                       # 3 conditional rules
 │   ├── component-creation.md    # Loads for .claude/ edits
 │   ├── versioning.md            # Loads for CHANGELOG, README, docs/
@@ -137,14 +141,14 @@ docs/                             # Documentation (root level)
 | Component | Count |
 |-----------|-------|
 | Commands | 26 |
-| Agents | 57 |
+| Agents | 61 |
 | Knowledge Skills | 38 |
-| Analyzer Skills | 96 |
-| Generator Skills | 80 |
+| Analyzer Skills | 100 |
+| Generator Skills | 83 |
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
-| Other Skills | 9 |
-| **Total Skills** | **242** |
+| Other Skills | 7 |
+| **Total Skills** | **245** |
 
 ---
 

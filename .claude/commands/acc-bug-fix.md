@@ -33,7 +33,20 @@ Determine the input type:
    - Read the log file
    - Extract error messages and stack traces
 
-4. **Text Description**
+4. **Auto-discover Logs** (when `-- scan-logs` is specified or no `@logfile` provided with `-- scan-logs`)
+   - Use `acc-discover-project-logs` skill via bug-hunter to find log files automatically
+   - Prioritize by recency and severity
+   - If no logs found, use AskUserQuestion:
+     ```
+     Question: "Log files not found automatically. Where are your project logs?"
+     Options:
+       - "storage/logs/" (Laravel)
+       - "var/log/" (Symfony)
+       - "writable/logs/" (CodeIgniter 4)
+       - "runtime/logs/" (Yii2/Yii3)
+     ```
+
+5. **Text Description**
    - Search codebase for relevant code
    - Use Grep to find mentioned classes/methods
 
@@ -118,6 +131,8 @@ Output the comprehensive report from coordinator:
 | `-- skip tests` | Don't generate regression test |
 | `-- dry-run` | Show proposed fix without applying |
 | `-- verbose` | Include detailed diagnosis and analysis |
+| `-- scan-logs` | Auto-discover and analyze project log files for error evidence |
+| `-- no-logs` | Skip automatic log discovery (use only provided input) |
 
 ## Examples
 
@@ -141,7 +156,12 @@ Output the comprehensive report from coordinator:
 /acc-bug-fix @storage/logs/laravel.log -- skip tests
 ```
 
-### Example 5: Dry Run
+### Example 5: Auto-discover Logs
+```
+/acc-bug-fix "connection refused to database" -- scan-logs
+```
+
+### Example 6: Dry Run
 ```
 /acc-bug-fix src/Application/UseCase/CreateOrder.php:78 -- dry-run
 ```

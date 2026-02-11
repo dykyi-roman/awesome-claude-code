@@ -40,7 +40,7 @@ acc-docker-coordinator (Coordinator)
 │   ├── acc-docker-compose-agent — Compose configuration and services
 │   ├── acc-docker-performance-agent — Build/runtime optimization
 │   ├── acc-docker-security-agent — Security audit and hardening
-│   ├── acc-docker-debugger-agent — Error diagnosis and troubleshooting
+│   ├── acc-docker-debugger-agent — Error diagnosis and troubleshooting (auto-discovers container/PHP-FPM/nginx logs)
 │   └── acc-docker-production-agent — Production readiness and deployment
 │
 └── Existing Agent (not modified)

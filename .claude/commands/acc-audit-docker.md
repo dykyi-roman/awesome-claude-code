@@ -2,7 +2,7 @@
 description: Audit Docker configuration. Analyzes Dockerfile, Compose, security, performance, and production readiness for PHP projects.
 allowed-tools: Read, Grep, Glob, Bash, Task
 model: opus
-argument-hint: [path] [-- focus areas]
+argument-hint: [path] [level] [-- meta-instructions]
 ---
 
 # Docker Audit
@@ -11,22 +11,33 @@ Perform a comprehensive audit of Docker configuration, including architecture, s
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract path and optional focus areas:
+Parse `$ARGUMENTS` to extract path, level, and optional meta-instructions:
 
 ```
-Format: [path] [-- <focus-areas>]
+Format: [path] [level] [-- <meta-instructions>]
+
+Arguments:
+- path: Target directory (optional, default: ./)
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
 - /acc-audit-docker
 - /acc-audit-docker ./
+- /acc-audit-docker deep
+- /acc-audit-docker ./ deep
 - /acc-audit-docker -- focus on security
-- /acc-audit-docker ./ -- performance and image size
-- /acc-audit-docker -- security and production readiness
+- /acc-audit-docker deep -- focus on security
+- /acc-audit-docker -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
-1. First argument = **path** (optional, defaults to `./`)
-2. After `--` = **focus areas** (optional audit scope)
+1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
+2. First part = positional arguments, Second part = meta-instructions
+3. In positional arguments, check if any word is a valid level (`quick|standard|deep`)
+4. If level found → extract it; remaining = path (or default `./`)
+5. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+6. Priority: positional > meta-instruction > default (`standard`)
 
 ## Pre-flight Check
 
@@ -169,20 +180,23 @@ The coordinator will delegate to specialized agents and aggregate results:
 ## Usage Examples
 
 ```bash
-# Full audit
+# Standard audit (default)
 /acc-audit-docker
 
-# Security-focused audit
-/acc-audit-docker -- focus on security
+# Quick check
+/acc-audit-docker quick
 
-# Performance audit
-/acc-audit-docker -- performance and image size
+# Deep analysis
+/acc-audit-docker deep
 
-# Specific path
-/acc-audit-docker ./docker -- include all categories
+# With path and level
+/acc-audit-docker ./ deep
 
-# Multiple focus areas
-/acc-audit-docker -- security and production readiness
+# Deep + focus
+/acc-audit-docker deep -- focus on security
+
+# Backward compatible
+/acc-audit-docker -- level:deep
 ```
 
 ## Meta-Instructions Guide
@@ -194,12 +208,14 @@ The coordinator will delegate to specialized agents and aggregate results:
 | `skip compose` | Exclude Compose audit |
 | `image size analysis` | Focus on image size reduction |
 | `production readiness` | Focus on deployment readiness |
-| `quick audit` | High-level overview only |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|

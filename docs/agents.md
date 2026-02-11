@@ -31,16 +31,20 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-creational-auditor` | Creational patterns analysis | 7 | `acc-pattern-auditor` (Task) |
 | `acc-ddd-auditor` | DDD compliance analysis | 8 | `/acc-audit-ddd` |
 | `acc-psr-auditor` | PSR compliance analysis | 3 | `/acc-audit-psr` |
-| `acc-documentation-auditor` | Audit documentation quality | 6 | `/acc-audit-documentation` |
+| `acc-documentation-auditor` | Audit documentation quality | 7 | `/acc-audit-documentation` |
 | `acc-test-auditor` | Test quality analysis | 3 | `/acc-audit-test` |
 
-### Reviewers (7-20 skills, code review specialists)
+### Reviewers (5-15 skills, code review specialists)
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-bug-hunter` | Bug detection specialist | 9 | `acc-code-review-coordinator`, `acc-bug-fix-coordinator` (Task) |
-| `acc-security-reviewer` | Security review specialist | 21 | `/acc-audit-security`, `acc-code-review-coordinator` (Task) |
-| `acc-performance-reviewer` | Performance review specialist | 13 | `/acc-audit-performance`, `acc-code-review-coordinator` (Task) |
+| `acc-bug-hunter` | Bug detection specialist | 11 | `acc-code-review-coordinator`, `acc-bug-fix-coordinator` (Task) |
+| `acc-security-reviewer` | Security review coordinator | 1 | `/acc-audit-security`, `acc-code-review-coordinator` (Task) |
+| `acc-injection-reviewer` | Injection vulnerability specialist | 7 | `acc-security-reviewer` (Task) |
+| `acc-auth-reviewer` | Auth & access control specialist | 6 | `acc-security-reviewer` (Task) |
+| `acc-data-security-reviewer` | Data & crypto security specialist | 6 | `acc-security-reviewer` (Task) |
+| `acc-design-security-reviewer` | Design & component security specialist | 5 | `acc-security-reviewer` (Task) |
+| `acc-performance-reviewer` | Performance review specialist | 15 | `/acc-audit-performance`, `acc-code-review-coordinator` (Task) |
 | `acc-readability-reviewer` | Readability review specialist | 9 | `acc-code-review-coordinator`, `acc-refactor-coordinator` (Task) |
 | `acc-testability-reviewer` | Testability review specialist | 7 | `acc-code-review-coordinator`, `acc-refactor-coordinator` (Task) |
 
@@ -48,7 +52,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-bug-fixer` | Bug fix generator | 11 | `acc-bug-fix-coordinator` (Task) |
+| `acc-bug-fixer` | Bug fix generator | 12 | `acc-bug-fix-coordinator` (Task) |
 
 ### Generators (3-14 skills)
 
@@ -60,7 +64,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-behavioral-generator` | Generate behavioral patterns | 10 | `acc-pattern-generator` (Task) |
 | `acc-gof-structural-generator` | Generate GoF structural patterns | 6 | `acc-pattern-generator` (Task) |
 | `acc-creational-generator` | Generate creational patterns | 3 | `acc-pattern-generator` (Task) |
-| `acc-integration-generator` | Generate integration patterns | 7 | `acc-pattern-generator` (Task) |
+| `acc-integration-generator` | Generate integration patterns | 8 | `acc-pattern-generator` (Task) |
 | `acc-psr-generator` | Generate PSR implementations | 14 | `/acc-generate-psr`, `acc-psr-auditor` (Skill) |
 | `acc-documentation-writer` | Generate documentation | 9 | `/acc-generate-documentation` |
 | `acc-diagram-designer` | Create Mermaid diagrams | 2 | `acc-documentation-writer` (Task) |
@@ -73,7 +77,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-pipeline-architect` | Pipeline design and structure | 4 | `acc-ci-coordinator` (Task) |
 | `acc-static-analysis-agent` | PHPStan/Psalm/DEPTRAC config | 9 | `acc-ci-coordinator` (Task) |
 | `acc-test-pipeline-agent` | PHPUnit/coverage setup | 5 | `acc-ci-coordinator` (Task) |
-| `acc-ci-debugger` | Log analysis and diagnosis | 3 | `acc-ci-coordinator` (Task) |
+| `acc-ci-debugger` | Log analysis and diagnosis | 4 | `acc-ci-coordinator` (Task) |
 | `acc-ci-fixer` | Fix generation and application | 6 | `acc-ci-coordinator`, `/acc-ci-fix` (Task) |
 | `acc-pipeline-optimizer` | Caching and parallelization | 7 | `acc-ci-coordinator` (Task) |
 | `acc-ci-security-agent` | Secrets and deps scanning | 4 | `acc-ci-coordinator` (Task) |
@@ -89,7 +93,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `acc-docker-compose-agent` | Compose configuration, services | 6 | `acc-docker-coordinator` (Task) |
 | `acc-docker-performance-agent` | Build/runtime optimization | 6 | `acc-docker-coordinator` (Task) |
 | `acc-docker-security-agent` | Security audit, hardening | 6 | `acc-docker-coordinator` (Task) |
-| `acc-docker-debugger-agent` | Error diagnosis, troubleshooting | 4 | `acc-docker-coordinator` (Task) |
+| `acc-docker-debugger-agent` | Error diagnosis, troubleshooting | 6 | `acc-docker-coordinator` (Task) |
 | `acc-docker-production-agent` | Production readiness, health checks | 6 | `acc-docker-coordinator` (Task) |
 
 ### Code Explainer Specialists
@@ -98,7 +102,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 |-------|---------|--------|------------|
 | `acc-codebase-navigator` | Codebase structure scanning and pattern detection | 3 | `acc-explain-coordinator` (Task) |
 | `acc-business-logic-analyst` | Business rules, processes, domain concepts extraction | 4 | `acc-explain-coordinator` (Task) |
-| `acc-data-flow-analyst` | Request lifecycle, data transformation, async flow tracing | 3 | `acc-explain-coordinator` (Task) |
+| `acc-data-flow-analyst` | Request lifecycle, data transformation, async flow tracing | 4 | `acc-explain-coordinator` (Task) |
 
 ### Experts
 
@@ -214,23 +218,20 @@ skills: acc-ddd-knowledge, acc-clean-arch-knowledge, acc-hexagonal-knowledge,
 
 **Path:** `agents/acc-behavioral-auditor.md`
 
-Behavioral patterns auditor for CQRS, Event Sourcing, EDA, and GoF behavioral patterns (Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento).
+GoF Behavioral patterns auditor for Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento patterns.
 
 **Configuration:**
 ```yaml
 name: acc-behavioral-auditor
-tools: Read, Grep, Glob
-model: sonnet
-skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge, acc-eda-knowledge,
-        acc-create-command, acc-create-query, acc-create-domain-event,
-        acc-create-read-model, acc-create-strategy, acc-create-state,
-        acc-create-chain-of-responsibility, acc-create-decorator,
-        acc-create-null-object, acc-check-immutability,
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility,
+        acc-create-decorator, acc-create-null-object, acc-check-immutability,
         acc-create-template-method, acc-create-visitor,
-        acc-create-iterator, acc-create-memento
+        acc-create-iterator, acc-create-memento, acc-task-progress-knowledge
 ```
 
-**Skills:** 17 (3 knowledge + 14 generators/analyzers)
+**Skills:** 11 (9 generators + 1 analyzer + 1 progress)
 
 ---
 
@@ -266,13 +267,15 @@ Stability patterns auditor for Circuit Breaker, Retry, Rate Limiter, and Bulkhea
 **Configuration:**
 ```yaml
 name: acc-stability-auditor
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
 skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker,
-        acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead
+        acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead,
+        acc-check-timeout-strategy, acc-check-cascading-failures,
+        acc-check-fallback-strategy, acc-task-progress-knowledge
 ```
 
-**Skills:** 5 (1 knowledge + 4 generators)
+**Skills:** 9 (1 knowledge + 4 generators + 3 analyzers + 1 progress)
 
 ---
 
@@ -323,12 +326,14 @@ Creational patterns auditor for Builder, Object Pool, and Factory patterns.
 **Configuration:**
 ```yaml
 name: acc-creational-auditor
-tools: Read, Grep, Glob
-model: sonnet
-skills: acc-create-builder, acc-create-object-pool, acc-create-factory
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: acc-create-builder, acc-create-object-pool, acc-create-factory,
+        acc-check-singleton-antipattern, acc-check-abstract-factory,
+        acc-create-prototype, acc-task-progress-knowledge
 ```
 
-**Skills:** 3 (generators only)
+**Skills:** 7 (4 generators + 2 analyzers + 1 progress)
 
 ---
 
@@ -341,12 +346,15 @@ Specialized DDD compliance auditor.
 **Configuration:**
 ```yaml
 name: acc-ddd-auditor
-tools: Read, Grep, Glob, Bash, Task
+tools: Read, Bash, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ddd-knowledge, acc-solid-knowledge, acc-grasp-knowledge
+skills: acc-ddd-knowledge, acc-solid-knowledge, acc-grasp-knowledge,
+        acc-check-bounded-contexts, acc-task-progress-knowledge,
+        acc-check-aggregate-consistency, acc-check-cqrs-alignment,
+        acc-check-context-communication
 ```
 
-**Skills:** 3 (knowledge only, generation delegated to `acc-ddd-generator` via Task)
+**Skills:** 8 (3 knowledge + 4 analyzers + 1 progress, generation delegated to `acc-ddd-generator` via Task)
 
 ---
 
@@ -416,7 +424,7 @@ skills: acc-adr-knowledge
 - `acc-behavioral-generator` — Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento
 - `acc-gof-structural-generator` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
 - `acc-creational-generator` — Builder, Object Pool, Factory
-- `acc-integration-generator` — Outbox, Saga, Action, Responder
+- `acc-integration-generator` — Outbox, Saga, Action, Responder, Correlation Context
 
 ---
 
@@ -482,7 +490,7 @@ skills: acc-create-builder, acc-create-object-pool, acc-create-factory
 
 **Path:** `agents/acc-integration-generator.md`
 
-Generates integration patterns (Outbox, Saga, Action, Responder).
+Generates integration patterns (Outbox, Saga, Action, Responder, Correlation Context).
 
 **Configuration:**
 ```yaml
@@ -491,10 +499,10 @@ tools: Read, Write, Glob, Grep, Edit
 model: sonnet
 skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-adr-knowledge,
         acc-create-outbox-pattern, acc-create-saga-pattern,
-        acc-create-action, acc-create-responder
+        acc-create-action, acc-create-responder, acc-create-correlation-context
 ```
 
-**Skills:** 7
+**Skills:** 8
 
 ---
 
@@ -593,9 +601,11 @@ Documentation quality auditor.
 **Configuration:**
 ```yaml
 name: acc-documentation-auditor
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, TaskCreate, TaskUpdate
 model: opus
-skills: acc-documentation-qa-knowledge, acc-documentation-knowledge, acc-claude-code-knowledge
+skills: acc-documentation-qa-knowledge, acc-documentation-knowledge, acc-claude-code-knowledge,
+        acc-check-doc-links, acc-check-doc-examples, acc-check-version-consistency,
+        acc-task-progress-knowledge
 ```
 
 ---
@@ -699,10 +709,11 @@ tools: Read, Grep, Glob
 model: sonnet
 skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues,
         acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues,
-        acc-find-type-issues, acc-check-sql-injection, acc-find-infinite-loops
+        acc-find-type-issues, acc-check-sql-injection, acc-find-infinite-loops,
+        acc-discover-project-logs, acc-analyze-php-logs
 ```
 
-**Skills:** 9 (bug detection)
+**Skills:** 11 (bug detection + log analysis)
 
 ---
 
@@ -710,19 +721,100 @@ skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-i
 
 **Path:** `agents/acc-security-reviewer.md`
 
-Security review specialist for OWASP Top 10 vulnerabilities.
+Security review coordinator. Orchestrates 4 specialized security reviewers covering OWASP Top 10.
 
 **Configuration:**
 ```yaml
 name: acc-security-reviewer
-tools: Read, Grep, Glob
-model: sonnet
-skills: acc-check-input-validation, acc-check-output-encoding, acc-check-authentication,
-        acc-check-authorization, acc-check-sensitive-data, acc-check-csrf-protection,
-        acc-check-crypto-usage, acc-check-dependency-vulnerabilities, acc-check-sql-injection
+tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
+model: opus
+skills: acc-task-progress-knowledge
 ```
 
-**Skills:** 9 (security checks)
+**Skills:** 1 (delegates to 4 specialized agents via Task)
+
+**Delegation:**
+- `acc-injection-reviewer` — SQL injection, command injection, SSRF, XXE, path traversal, deserialization (A03, A10, A08)
+- `acc-auth-reviewer` — Authentication, authorization, CSRF, mass assignment, type juggling (A01, A07)
+- `acc-data-security-reviewer` — Sensitive data, crypto, logging failures, secure headers, CORS (A02, A09, A05)
+- `acc-design-security-reviewer` — Input validation, output encoding, insecure design, dependencies (A04, A06)
+
+---
+
+## `acc-injection-reviewer`
+
+**Path:** `agents/acc-injection-reviewer.md`
+
+Injection vulnerability specialist for SQL injection, command injection, SSRF, XXE, path traversal, deserialization.
+
+**Configuration:**
+```yaml
+name: acc-injection-reviewer
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: sonnet
+skills: acc-check-sql-injection, acc-check-command-injection, acc-check-ssrf,
+        acc-check-xxe, acc-check-path-traversal, acc-check-deserialization,
+        acc-task-progress-knowledge
+```
+
+**Skills:** 7 (6 security + 1 progress)
+
+---
+
+## `acc-auth-reviewer`
+
+**Path:** `agents/acc-auth-reviewer.md`
+
+Authentication and authorization security specialist for auth, access control, CSRF, mass assignment, type juggling.
+
+**Configuration:**
+```yaml
+name: acc-auth-reviewer
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: sonnet
+skills: acc-check-authentication, acc-check-authorization, acc-check-csrf-protection,
+        acc-check-mass-assignment, acc-check-type-juggling, acc-task-progress-knowledge
+```
+
+**Skills:** 6 (5 security + 1 progress)
+
+---
+
+## `acc-data-security-reviewer`
+
+**Path:** `agents/acc-data-security-reviewer.md`
+
+Data security specialist for sensitive data, cryptography, logging, headers, CORS.
+
+**Configuration:**
+```yaml
+name: acc-data-security-reviewer
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: sonnet
+skills: acc-check-sensitive-data, acc-check-crypto-usage, acc-check-logging-failures,
+        acc-check-secure-headers, acc-check-cors-security, acc-task-progress-knowledge
+```
+
+**Skills:** 6 (5 security + 1 progress)
+
+---
+
+## `acc-design-security-reviewer`
+
+**Path:** `agents/acc-design-security-reviewer.md`
+
+Design security specialist for input validation, output encoding, insecure design, dependency vulnerabilities.
+
+**Configuration:**
+```yaml
+name: acc-design-security-reviewer
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: sonnet
+skills: acc-check-input-validation, acc-check-output-encoding, acc-check-insecure-design,
+        acc-check-dependency-vulnerabilities, acc-task-progress-knowledge
+```
+
+**Skills:** 5 (4 security + 1 progress)
 
 ---
 
@@ -735,14 +827,16 @@ Performance review specialist for efficiency issues.
 **Configuration:**
 ```yaml
 name: acc-performance-reviewer
-tools: Read, Grep, Glob
-model: sonnet
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
 skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues,
         acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading,
-        acc-check-batch-processing, acc-estimate-complexity
+        acc-check-batch-processing, acc-estimate-complexity, acc-check-connection-pool,
+        acc-check-serialization, acc-check-index-usage, acc-check-async-patterns,
+        acc-check-file-io, acc-task-progress-knowledge, acc-discover-project-logs
 ```
 
-**Skills:** 8 (performance checks)
+**Skills:** 15 (performance checks + log discovery)
 
 ---
 
@@ -829,10 +923,11 @@ model: sonnet
 skills: acc-bug-fix-knowledge, acc-bug-root-cause-finder, acc-bug-impact-analyzer,
         acc-generate-bug-fix, acc-bug-regression-preventer,
         acc-detect-code-smells, acc-detect-memory-issues, acc-analyze-solid-violations,
-        acc-check-encapsulation, acc-check-side-effects, acc-check-immutability
+        acc-check-encapsulation, acc-check-side-effects, acc-check-immutability,
+        acc-analyze-php-logs
 ```
 
-**Skills:** 11 (5 new + 6 existing)
+**Skills:** 12 (5 new + 6 existing + 1 log analysis)
 
 **Capabilities:**
 - Root cause analysis (5 Whys, fault tree)
@@ -943,10 +1038,11 @@ CI/CD log analysis and failure diagnosis specialist.
 name: acc-ci-debugger
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-analyze-ci-logs, acc-ci-pipeline-knowledge, acc-ci-tools-knowledge
+skills: acc-analyze-ci-logs, acc-detect-ci-antipatterns, acc-analyze-ci-config,
+        acc-discover-project-logs
 ```
 
-**Skills:** 3
+**Skills:** 4
 
 ---
 
@@ -1064,7 +1160,8 @@ Docker expert system coordinator. Orchestrates auditing, generation, and optimiz
 name: acc-docker-coordinator
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-docker-knowledge, acc-task-progress-knowledge
+skills: acc-docker-knowledge, acc-task-progress-knowledge,
+        acc-docker-orchestration-knowledge, acc-create-docker-makefile
 ```
 
 **Operations:**
@@ -1190,11 +1287,12 @@ Docker error diagnosis and troubleshooting specialist.
 name: acc-docker-debugger-agent
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-docker-troubleshooting-knowledge, acc-analyze-docker-build-errors,
-        acc-analyze-docker-runtime-errors, acc-analyze-docker-image-size
+skills: acc-docker-troubleshooting-knowledge, acc-docker-knowledge,
+        acc-analyze-docker-build-errors, acc-analyze-docker-runtime-errors,
+        acc-discover-project-logs, acc-analyze-php-logs
 ```
 
-**Skills:** 4
+**Skills:** 6 (2 knowledge + 2 analyzers + 2 log analysis)
 
 ---
 
@@ -1289,10 +1387,11 @@ Data flow analysis specialist. Traces request lifecycles through all layers, map
 name: acc-data-flow-analyst
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-trace-request-lifecycle, acc-trace-data-transformation, acc-map-async-flows
+skills: acc-trace-request-lifecycle, acc-trace-data-transformation, acc-map-async-flows,
+        acc-discover-project-logs
 ```
 
-**Skills:** 3 (analyzers)
+**Skills:** 4 (analyzers + log discovery)
 
 ---
 

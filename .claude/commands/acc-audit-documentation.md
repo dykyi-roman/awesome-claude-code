@@ -2,7 +2,7 @@
 description: Audit documentation quality. Checks completeness, accuracy, clarity, navigation, and diagrams. Use for documentation review and improvement planning.
 allowed-tools: Read, Glob, Grep, Bash, Task
 model: opus
-argument-hint: <path> [-- additional instructions]
+argument-hint: <path> [level] [-- meta-instructions]
 ---
 
 # Documentation Audit
@@ -11,22 +11,33 @@ Perform a comprehensive documentation quality audit with actionable improvement 
 
 ## Input Parsing
 
-Parse `$ARGUMENTS` to extract path and optional meta-instructions:
+Parse `$ARGUMENTS` to extract path, level, and optional meta-instructions:
 
 ```
-Format: <path> [-- <meta-instructions>]
+Format: <path> [level] [-- <meta-instructions>]
+
+Arguments:
+- path: Target directory or file (required, default: current directory)
+- level: Audit depth - quick|standard|deep (optional, default: standard)
+- -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
 - /acc-audit-documentation docs/
+- /acc-audit-documentation docs/ deep
+- /acc-audit-documentation docs/ quick
 - /acc-audit-documentation docs/ -- focus on API documentation
-- /acc-audit-documentation README.md -- check examples actually work
-- /acc-audit-documentation ./ -- skip architecture, check links only
+- /acc-audit-documentation docs/ deep -- check examples actually work
+- /acc-audit-documentation docs/ -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
 1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
-2. First part = **path** (required, default: current directory)
-3. Second part = **meta-instructions** (optional, additional focus/filters)
+2. First part = positional arguments, Second part = meta-instructions
+3. In positional arguments, check if last word is a valid level (`quick|standard|deep`)
+4. If level found → extract it; remaining = path
+5. Also accept `level:quick|standard|deep` in meta-instructions (backward compatibility)
+6. Priority: positional > meta-instruction > default (`standard`)
+7. Default path: current directory (if empty)
 
 ## Target
 
@@ -227,7 +238,7 @@ Issues hindering user experience:
 
 ## Audit Levels
 
-Extract audit level from meta-instructions: `level:quick`, `level:standard`, `level:deep`. Default: `standard`.
+Level is an optional positional parameter. Default: `standard`.
 
 | Level | Scope | What's Checked |
 |-------|-------|----------------|
@@ -252,27 +263,28 @@ Extract audit level from meta-instructions: `level:quick`, `level:standard`, `le
 | `focus on examples` | Verify code examples work |
 | `check links` | Full link validation |
 | `skip architecture` | Exclude architecture docs |
-| `level:quick` | Fast audit (completeness only) |
-| `level:deep` | Deep audit (+ example verification + link validation) |
+| `level:quick` | Quick audit (same as positional `quick`) |
+| `level:standard` | Standard audit (same as positional `standard`) |
+| `level:deep` | Deep audit (same as positional `deep`) |
 | `detailed report` | Maximum detail in report |
 | `на русском` | Report in Russian |
 
 ## Usage Examples
 
 ```bash
-# Audit entire project
-/acc-audit-documentation
-
-# Audit specific directory
+# Standard audit (default)
 /acc-audit-documentation docs/
 
-# Audit README only
-/acc-audit-documentation README.md
-
 # Quick check
-/acc-audit-documentation docs/ -- level:quick
+/acc-audit-documentation docs/ quick
 
 # Deep analysis
+/acc-audit-documentation docs/ deep
+
+# Deep + focus
+/acc-audit-documentation docs/ deep -- check examples actually work
+
+# Backward compatible
 /acc-audit-documentation docs/ -- level:deep
 ```
 
