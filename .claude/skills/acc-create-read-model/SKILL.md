@@ -186,3 +186,4 @@ CREATE TABLE order_summaries (
 For complete PHP templates and examples, see:
 - `references/templates.md` — Read model, projection, store templates
 - `references/examples.md` — OrderSummary example and tests
+- `references/event-sourcing-projections.md` — Event replay projections, versioning, checkpoint tracking, async workers

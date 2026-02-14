@@ -31,7 +31,7 @@ make release                # Run validate-claude, then print release instructio
 .claude/
 ├── commands/     # Slash commands (26) — user-invokable via /acc-*
 ├── agents/       # Subagents (61) — invoked via Task tool with subagent_type
-├── skills/       # Skills (245) — knowledge bases, generators, analyzers
+├── skills/       # Skills (250) — knowledge bases, generators, analyzers
 └── settings.json # Hooks and permission allowlist (NOT copied by plugin)
 
 src/
@@ -58,7 +58,7 @@ User → /acc-command → Coordinator Agent (opus) → Specialized Agents (sonne
 
 - **Coordinators** (6): orchestrate multi-agent workflows via Task delegation, use `model: opus`, have `TaskCreate/TaskUpdate` for progress tracking — `bug-fix-coordinator`, `ci-coordinator`, `code-review-coordinator`, `docker-coordinator`, `explain-coordinator`, `refactor-coordinator`
 - **Auditor-coordinators** (4): audit via sub-agent delegation, use `model: opus` — `architecture-auditor`, `pattern-auditor`, `ddd-auditor`, `security-reviewer`
-- **Specialists** (50): perform focused tasks, use `model: sonnet` — auditors, generators, reviewers, CI/Docker/Explainer agents
+- **Specialists** (51): perform focused tasks, use `model: sonnet` — auditors, generators, reviewers, CI/Docker/Explainer agents
 
 ### Composer Plugin
 

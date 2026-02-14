@@ -9,7 +9,7 @@ paths:
 
 # Versioning
 
-1. Update `CHANGELOG.md` with new section (format: `[X.Y.Z] - YYYY-MM-DD`)
+1. Update `CHANGELOG.md` crating a new section (format: `[X.Y.Z] - YYYY-MM-DD`)
 2. Run `make validate-claude`
 3. Update component counts in `README.md`, `docs/quick-reference.md`, `composer.json` if changed
 4. Add comparison link at bottom of `CHANGELOG.md`

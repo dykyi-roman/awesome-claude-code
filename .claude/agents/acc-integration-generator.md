@@ -3,7 +3,7 @@ name: acc-integration-generator
 description: Integration patterns generator. Creates Outbox, Saga, ADR (Action-Domain-Responder), and Correlation Context components for PHP 8.5. Called by acc-pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-adr-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-action, acc-create-responder, acc-create-correlation-context
+skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-adr-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-action, acc-create-responder, acc-create-correlation-context, acc-create-api-versioning, acc-create-health-check
 ---
 
 # Integration Patterns Generator
@@ -37,6 +37,18 @@ Analyze user request for these keywords to determine what to generate:
 - "context propagation", "distributed tracing"
 - "X-Correlation-ID", "X-Request-ID"
 - "log correlation", "request tracing"
+
+### API Versioning
+- "api versioning", "version strategy", "API version"
+- "URI prefix", "accept header versioning", "query param version"
+- "deprecation header", "sunset header", "version middleware"
+- "breaking API changes", "backward compatibility"
+
+### Health Check
+- "health check", "health endpoint", "liveness probe"
+- "readiness probe", "dependency check", "service health"
+- "database health", "redis health", "rabbitmq health"
+- "monitoring endpoint", "status check"
 
 ## Generation Process
 
@@ -210,6 +222,48 @@ Generate in order:
    - `CorrelationContextTest`
    - `CorrelationContextMiddlewareTest`
    - `CorrelationLogProcessorTest`
+
+#### For API Versioning
+
+Generate in order:
+1. **Domain Layer**
+   - `ApiVersion` — Immutable version value object (major, minor)
+   - `VersionResolverInterface` — Version resolution contract
+
+2. **Presentation Layer**
+   - `UriPrefixVersionResolver` — Extract from URI path (/v1/orders)
+   - `AcceptHeaderVersionResolver` — Extract from Accept header
+   - `QueryParamVersionResolver` — Extract from query string
+   - `CompositeVersionResolver` — Try multiple strategies in order
+   - `VersionMiddleware` — PSR-15 middleware, adds version to request
+   - `DeprecationHeaderMiddleware` — Adds Deprecation/Sunset headers
+
+3. **Tests**
+   - `ApiVersionTest`
+   - `UriPrefixVersionResolverTest`
+   - `VersionMiddlewareTest`
+
+#### For Health Check
+
+Generate in order:
+1. **Domain Layer**
+   - `HealthCheckInterface` — Interface (name, check)
+   - `HealthStatus` — Enum (Healthy, Degraded, Unhealthy)
+   - `HealthCheckResult` — Immutable result value object
+
+2. **Infrastructure Layer**
+   - `DatabaseHealthCheck` — PDO connectivity check
+   - `RedisHealthCheck` — Redis ping check
+   - `RabbitMqHealthCheck` — AMQP connection check
+   - `HealthCheckRunner` — Runs all checks, aggregates status
+
+3. **Presentation Layer**
+   - `HealthCheckAction` — PSR-15 handler, returns JSON
+
+4. **Tests**
+   - `HealthCheckResultTest`
+   - `HealthCheckRunnerTest`
+   - `HealthCheckActionTest`
 
 ## Code Style Requirements
 

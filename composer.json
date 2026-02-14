@@ -1,6 +1,6 @@
 {
     "name": "dykyi-roman/awesome-claude-code",
-    "description": "Claude Code extension for PHP: audits (architecture, DDD, security, performance, PSR, design patterns, Docker, CI/CD, tests, docs), 3-level code review, automated bug fix, generators (DDD, CQRS, GoF patterns, PSR, tests, documentation, Docker, CI/CD), code explanation, refactoring. 26 commands, 61 agents, 245 skills.",
+    "description": "Claude Code extension for PHP: audits (architecture, DDD, security, performance, PSR, design patterns, Docker, CI/CD, tests, docs), 3-level code review, automated bug fix, generators (DDD, CQRS, GoF patterns, PSR, tests, documentation, Docker, CI/CD), code explanation, refactoring. 26 commands, 61 agents, 250 skills.",
     "type": "composer-plugin",
     "license": "MIT",
     "keywords": [

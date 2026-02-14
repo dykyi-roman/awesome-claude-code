@@ -101,7 +101,7 @@ allowed-tools: Optional
 │   │                             #   docker-performance-agent, docker-security-agent,
 │   │                             #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                       # 245 skills
+├── skills/                       # 250 skills
 │   ├── acc-*-knowledge/          # 38 knowledge skills
 │   ├── acc-check-*/              # 64 analyzer skills
 │   ├── acc-find-*/               # 8 bug detection skills
@@ -148,7 +148,7 @@ docs/                             # Documentation (root level)
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 7 |
-| **Total Skills** | **245** |
+| **Total Skills** | **250** |
 
 ---
 

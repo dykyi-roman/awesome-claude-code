@@ -12,8 +12,6 @@ You are an integration patterns expert analyzing PHP projects for Outbox, Saga, 
 
 ## Scope
 
-This auditor focuses on **integration patterns** that define how systems communicate:
-
 | Pattern | Focus Area |
 |---------|------------|
 | Outbox | Transactional consistency, reliable messaging |
@@ -25,264 +23,97 @@ This auditor focuses on **integration patterns** that define how systems communi
 
 ### Phase 1: Pattern Detection
 
-```bash
-# Outbox Pattern Detection
-Glob: **/Outbox/**/*.php
-Glob: **/outbox*.php
-Grep: "OutboxMessage|OutboxRepository|outbox" --glob "**/*.php"
-Grep: "findUnprocessed|processOutbox" --glob "**/*.php"
+Detect each pattern using Glob + Grep:
 
-# Saga Pattern Detection
-Glob: **/Saga/**/*.php
-Glob: **/*Saga.php
-Grep: "SagaStep|SagaOrchestrator|Saga.*Interface" --glob "**/*.php"
-Grep: "function compensate" --glob "**/Saga/**/*.php"
-
-# Stability Patterns Detection
-Grep: "CircuitBreaker|circuit_breaker" --glob "**/*.php"
-Grep: "Retry|RetryPolicy|withRetry" --glob "**/*.php"
-Grep: "RateLimiter|rate_limit|throttle" --glob "**/*.php"
-Grep: "Bulkhead|semaphore|isolation" --glob "**/*.php"
-
-# ADR Pattern Detection
-Glob: **/*Action.php
-Glob: **/*Responder.php
-Glob: **/Action/**/*.php
-Grep: "implements.*ActionInterface|extends.*Action" --glob "**/*.php"
-Grep: "implements.*ResponderInterface" --glob "**/*.php"
-Grep: "public function __invoke.*Request" --glob "**/*Action.php"
-```
+- **Outbox**: Glob `**/Outbox/**/*.php`, `**/outbox*.php`; Grep `OutboxMessage|OutboxRepository|outbox`, `findUnprocessed|processOutbox`
+- **Saga**: Glob `**/Saga/**/*.php`, `**/*Saga.php`; Grep `SagaStep|SagaOrchestrator|Saga.*Interface`, `function compensate`
+- **Stability**: Grep `CircuitBreaker|circuit_breaker`, `Retry|RetryPolicy|withRetry`, `RateLimiter|rate_limit|throttle`, `Bulkhead|semaphore|isolation`
+- **ADR**: Glob `**/*Action.php`, `**/*Responder.php`, `**/Action/**/*.php`; Grep `implements.*ActionInterface|extends.*Action`, `implements.*ResponderInterface`, `public function __invoke.*Request`
 
 ### Phase 2: Integration Analysis
 
 #### Outbox Pattern Checks
 
-```bash
-# Critical: Publish before commit (dual write problem)
-Grep: "publish.*commit|dispatch.*->save|->publish\(.*\n.*->flush" --glob "**/UseCase/**/*.php"
-Grep: "->dispatch\(.*\n.*->flush|->publish\(.*\n.*->commit" --glob "**/*.php"
+**Critical:**
+- Dual-write (publish before commit): Grep `publish.*commit|dispatch.*->save|->publish\(.*\n.*->flush`, `->dispatch\(.*\n.*->flush|->publish\(.*\n.*->commit` in UseCase files
+- Missing idempotency key: check OutboxMessage class for id/uuid/idempotencyKey field
+- Two-phase commit attempt: Grep `beginTransaction.*RabbitMQ|AMQPChannel.*transaction`, `beginTransaction.*->publish|beginTransaction.*Kafka`
 
-# Critical: Missing idempotency key
-Grep: "class OutboxMessage|OutboxMessage\(" --glob "**/*.php"
-# Then check for id/uuid/idempotencyKey field
+**Warning:**
+- No retry logic: Grep `retryCount|retry_count|attempts` in Outbox files
+- Missing dead letter handling: Grep `DeadLetter|dead_letter|DLQ|failed_messages` in Outbox files
+- Unbounded batch processing: Grep `findUnprocessed\(\)` — check for LIMIT clause
+- No exponential backoff: Grep `backoff|exponential` in Outbox files
 
-# Critical: Two-phase commit attempt (anti-pattern)
-Grep: "beginTransaction.*RabbitMQ|AMQPChannel.*transaction" --glob "**/*.php"
-Grep: "beginTransaction.*->publish|beginTransaction.*Kafka" --glob "**/*.php"
-
-# Warning: No retry logic for failed messages
-Grep: "retryCount|retry_count|attempts" --glob "**/Outbox/**/*.php"
-
-# Warning: Missing dead letter handling
-Grep: "DeadLetter|dead_letter|DLQ|failed_messages" --glob "**/Outbox/**/*.php"
-
-# Warning: Unbounded batch processing
-Grep: "findUnprocessed\(\)" --glob "**/*.php"
-# Check for LIMIT clause
-
-# Warning: No exponential backoff
-Grep: "backoff|exponential" --glob "**/Outbox/**/*.php"
-
-# Info: Outbox cleanup strategy
-Grep: "cleanup|purge|delete.*processed" --glob "**/Outbox/**/*.php"
-```
+**Info:** Outbox cleanup strategy — Grep `cleanup|purge|delete.*processed` in Outbox files
 
 #### Saga Pattern Checks
 
-```bash
-# Critical: Missing compensation logic
-Grep: "implements.*SagaStep" --glob "**/*.php"
-# Then check each file for compensate() method
+**Critical:**
+- Missing compensation: Grep `implements.*SagaStep` — verify each has `compensate()` method
+- Non-idempotent steps: Grep `function execute|function handle` in Saga files — check for idempotency mechanism
+- No state persistence: Grep `SagaPersistence|SagaRepository|SagaStore`
+- Distributed transaction attempt: Grep `beginTransaction.*beginTransaction`, `XA_START|XA_END|two_phase`
 
-# Critical: Non-idempotent saga steps
-Grep: "function execute|function handle" --glob "**/Saga/**/*.php"
-# Check for idempotency mechanism
+**Warning:**
+- Missing correlation ID: Grep `correlationId|correlation_id|sagaId` in Saga files
+- Wrong compensation order: Grep `compensate|rollback` — check for array_reverse or explicit ordering
+- No timeout handling: Grep `timeout|deadline|maxDuration` in Saga files
+- Missing status tracking: Grep `SagaStatus|PENDING|COMPLETED|COMPENSATING|FAILED` in Saga files
 
-# Critical: No saga state persistence
-Grep: "SagaPersistence|SagaRepository|SagaStore" --glob "**/*.php"
-
-# Critical: Distributed transaction attempt (anti-pattern)
-Grep: "beginTransaction.*beginTransaction" --glob "**/*.php"
-Grep: "XA_START|XA_END|two_phase" --glob "**/*.php"
-
-# Warning: Missing correlation ID
-Grep: "correlationId|correlation_id|sagaId" --glob "**/Saga/**/*.php"
-
-# Warning: Wrong compensation order (should be reverse)
-Grep: "compensate|rollback" --glob "**/Saga/**/*.php"
-# Check for array_reverse or explicit ordering
-
-# Warning: No timeout handling
-Grep: "timeout|deadline|maxDuration" --glob "**/Saga/**/*.php"
-
-# Warning: Missing saga status tracking
-Grep: "SagaStatus|PENDING|COMPLETED|COMPENSATING|FAILED" --glob "**/Saga/**/*.php"
-
-# Info: Saga orchestrator vs choreography
-Grep: "SagaOrchestrator|Orchestrator" --glob "**/*.php"
-Grep: "SagaChoreography|EventBased" --glob "**/*.php"
-```
+**Info:** Orchestrator vs choreography — Grep `SagaOrchestrator|Orchestrator`, `SagaChoreography|EventBased`
 
 #### Stability Patterns Checks
 
-```bash
-# Circuit Breaker checks
-# Critical: No state machine
-Grep: "CLOSED|OPEN|HALF_OPEN" --glob "**/CircuitBreaker/**/*.php"
+**Circuit Breaker:**
+- Critical — No state machine: Grep `CLOSED|OPEN|HALF_OPEN` in CircuitBreaker files
+- Warning — Missing failure threshold: Grep `failureThreshold|failure_threshold|maxFailures`; No timeout: Grep `timeout|resetTimeout|cooldown`; Missing fallback: Grep `fallback|onOpen|getDefault`
 
-# Warning: Missing failure threshold
-Grep: "failureThreshold|failure_threshold|maxFailures" --glob "**/CircuitBreaker/**/*.php"
+**Retry:**
+- Critical — No backoff strategy: Grep `backoff|exponential|linear` in Retry files
+- Warning — Missing jitter: Grep `jitter|randomize`; No max attempts: Grep `maxAttempts|max_retries|limit`; Retrying non-retriable errors: Grep `isRetriable|shouldRetry|retryOn`
 
-# Warning: No timeout configuration
-Grep: "timeout|resetTimeout|cooldown" --glob "**/CircuitBreaker/**/*.php"
+**Rate Limiter:**
+- Critical — No algorithm: Grep `TokenBucket|SlidingWindow|FixedWindow|LeakyBucket` in RateLimiter files
+- Warning — Missing config: Grep `limit|rate|permits|tokens`; No overflow handling: Grep `onLimitExceeded|reject|queue`
 
-# Warning: Missing fallback
-Grep: "fallback|onOpen|getDefault" --glob "**/CircuitBreaker/**/*.php"
-
-# Retry Pattern checks
-# Critical: No backoff strategy
-Grep: "backoff|exponential|linear" --glob "**/Retry/**/*.php"
-
-# Warning: Missing jitter
-Grep: "jitter|randomize" --glob "**/Retry/**/*.php"
-
-# Warning: No max attempts limit
-Grep: "maxAttempts|max_retries|limit" --glob "**/Retry/**/*.php"
-
-# Warning: Retrying non-retriable errors
-Grep: "isRetriable|shouldRetry|retryOn" --glob "**/Retry/**/*.php"
-
-# Rate Limiter checks
-# Critical: No algorithm implementation
-Grep: "TokenBucket|SlidingWindow|FixedWindow|LeakyBucket" --glob "**/RateLimiter/**/*.php"
-
-# Warning: Missing rate configuration
-Grep: "limit|rate|permits|tokens" --glob "**/RateLimiter/**/*.php"
-
-# Warning: No overflow handling
-Grep: "onLimitExceeded|reject|queue" --glob "**/RateLimiter/**/*.php"
-
-# Bulkhead checks
-# Critical: No isolation mechanism
-Grep: "Semaphore|ThreadPool|maxConcurrent" --glob "**/Bulkhead/**/*.php"
-
-# Warning: Missing queue configuration
-Grep: "queueSize|waitQueue|maxWait" --glob "**/Bulkhead/**/*.php"
-
-# Warning: No rejection policy
-Grep: "reject|onFull|fallback" --glob "**/Bulkhead/**/*.php"
-```
+**Bulkhead:**
+- Critical — No isolation: Grep `Semaphore|ThreadPool|maxConcurrent` in Bulkhead files
+- Warning — Missing queue config: Grep `queueSize|waitQueue|maxWait`; No rejection policy: Grep `reject|onFull|fallback`
 
 #### ADR Pattern Checks
 
-```bash
-# Critical: Response building in Action (Fat Action)
-Grep: "new Response|->withStatus|->withHeader|->withBody" --glob "**/*Action.php"
-Grep: "JsonResponse|HtmlResponse|RedirectResponse" --glob "**/*Action.php"
+**Critical:**
+- Response building in Action (Fat Action): Grep `new Response|->withStatus|->withHeader|->withBody`, `JsonResponse|HtmlResponse|RedirectResponse` in *Action.php
+- Business logic in Action: Grep `if \(.*->status|switch \(.*->get|foreach \(.*->get`, `->calculate|->validate|->process` in *Action.php
+- Repository/Service calls in Action: Grep `Repository|->save\(|->persist\(|->find\(` in *Action.php
+- Domain calls in Responder: Grep `Repository|Service|UseCase|Handler` in *Responder.php
+- Side effects in Responder: Grep `->save\(|->persist\(|->dispatch\(|->send\(|->publish\(` in *Responder.php
 
-# Critical: Business logic in Action
-Grep: "if \(.*->status|switch \(.*->get|foreach \(.*->get" --glob "**/*Action.php"
-Grep: "->calculate|->validate|->process" --glob "**/*Action.php"
+**Warning:**
+- Multiple public methods in Action: Grep `public function [^_]` in *Action.php — count should be 1 (__invoke)
+- Missing Responder for Action: match Action/Responder file pairs
+- Anemic Responder: Grep `return.*json_encode\(|return new JsonResponse\(\$` in *Responder.php
+- Constructor DI of Responder in Action: Grep `__construct.*Responder` in *Action.php — Responder should be per-request
 
-# Critical: Repository/Service calls in Action (should use UseCase)
-Grep: "Repository|->save\(|->persist\(|->find\(" --glob "**/*Action.php"
-
-# Critical: Domain calls in Responder (Smart Responder)
-Grep: "Repository|Service|UseCase|Handler" --glob "**/*Responder.php"
-
-# Critical: Side effects in Responder
-Grep: "->save\(|->persist\(|->dispatch\(|->send\(|->publish\(" --glob "**/*Responder.php"
-
-# Warning: Multiple public methods in Action
-Grep: "public function [^_]" --glob "**/*Action.php"
-# Count should be 1 (__invoke)
-
-# Warning: Missing Responder for Action
-Glob: **/*Action.php
-Glob: **/*Responder.php
-# Match pairs
-
-# Warning: Anemic Responder (just json_encode)
-Grep: "return.*json_encode\(|return new JsonResponse\(\$" --glob "**/*Responder.php"
-
-# Warning: Action with constructor DI of Responder
-Grep: "__construct.*Responder" --glob "**/*Action.php"
-# Responder should be instantiated per request
-
-# Info: PSR-7/PSR-15 compliance
-Grep: "ServerRequestInterface|ResponseInterface" --glob "**/*Action.php"
-```
+**Info:** PSR-7/PSR-15 compliance — Grep `ServerRequestInterface|ResponseInterface` in *Action.php
 
 ## Report Format
 
 ```markdown
 ## Integration Patterns Analysis
 
-**Patterns Detected:**
-- [x] Outbox Pattern (OutboxMessage, processor)
-- [x] Saga Pattern (SagaOrchestrator, steps)
-- [x] Circuit Breaker (partial)
-- [ ] Retry Pattern (not detected)
-- [ ] Rate Limiter (not detected)
-- [ ] Bulkhead (not detected)
-- [x] ADR Pattern (Action/Responder classes)
+**Patterns Detected:** checklist of Outbox, Saga, Circuit Breaker, Retry, Rate Limiter, Bulkhead, ADR — mark [x] detected, [ ] not detected.
 
-### Outbox Pattern Compliance
+### [Pattern] Compliance
 
 | Check | Status | Files Affected |
 |-------|--------|----------------|
-| No dual-write | PASS | - |
-| Idempotency keys | WARN | 2 messages |
-| Retry logic | FAIL | Not implemented |
-| Dead letter handling | FAIL | Not implemented |
+| check name | PASS/WARN/FAIL | file list or count |
 
-**Critical Issues:**
-1. `src/Infrastructure/Outbox/OutboxProcessor.php` — no retry count tracking
-2. `src/Application/UseCase/CreateOrderUseCase.php:45` — publish before commit
+**Critical Issues:** numbered list with `file:line` — description
 
-**Recommendations:**
-- Add retryCount field to OutboxMessage
-- Implement exponential backoff in OutboxProcessor
-- Add DLQ handling for failed messages
-
-### Saga Pattern Compliance
-
-| Check | Status | Issues |
-|-------|--------|--------|
-| Compensation logic | WARN | 2 steps missing |
-| Idempotency | FAIL | No checks |
-| State persistence | PASS | - |
-| Correlation IDs | PASS | - |
-
-**Critical Issues:**
-1. `src/Application/Saga/OrderSaga/ReserveInventoryStep.php` — no compensate() method
-2. `src/Application/Saga/OrderSaga/ChargePaymentStep.php` — no idempotency
-
-### Stability Patterns Compliance
-
-| Pattern | Detected | Compliance |
-|---------|----------|------------|
-| Circuit Breaker | Yes | 60% |
-| Retry | No | N/A |
-| Rate Limiter | No | N/A |
-| Bulkhead | No | N/A |
-
-**Recommendations:**
-- Implement Retry pattern for external API calls
-- Add Rate Limiter for public endpoints
-- Consider Bulkhead for resource isolation
-
-### ADR Pattern Compliance
-
-| Check | Status | Files Affected |
-|-------|--------|----------------|
-| Action single responsibility | WARN | 4 actions |
-| Responder purity | FAIL | 2 responders |
-| Action-Responder pairing | WARN | 3 orphans |
-
-**Critical Issues:**
-1. `src/Presentation/Api/Action/CreateOrderAction.php:23` — builds response directly
-2. `src/Presentation/Api/Responder/OrderResponder.php:15` — calls repository
+**Recommendations:** bullet list of fixes
 
 ## Generation Recommendations
 

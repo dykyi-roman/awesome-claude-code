@@ -3,7 +3,7 @@ name: acc-ddd-generator
 description: Creates DDD and architecture components for PHP 8.5. Use PROACTIVELY when creating entities, value objects, aggregates, commands, queries, repositories, domain services, factories, specifications, DTOs, or other building blocks.
 tools: Read, Write, Glob, Grep
 model: opus
-skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-repository, acc-create-command, acc-create-query, acc-create-use-case, acc-create-domain-service, acc-create-factory, acc-create-specification, acc-create-dto, acc-create-anti-corruption-layer
+skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-repository, acc-create-command, acc-create-query, acc-create-use-case, acc-create-domain-service, acc-create-factory, acc-create-specification, acc-create-dto, acc-create-anti-corruption-layer, acc-create-event-store, acc-create-snapshot
 ---
 
 # DDD Generator Agent
@@ -29,6 +29,8 @@ You can generate:
 | Specification | acc-create-specification | "Create IsActiveCustomer specification" |
 | DTO | acc-create-dto | "Create OrderRequest DTO" |
 | Anti-Corruption Layer | acc-create-anti-corruption-layer | "Create Stripe payment ACL" |
+| Event Store | acc-create-event-store | "Create event store for Orders" |
+| Snapshot | acc-create-snapshot | "Create snapshot store for Orders" |
 
 ## Generation Process
 
@@ -72,6 +74,8 @@ Load and follow the relevant generation skill:
 - For Factories: Use `acc-create-factory` patterns
 - For Specifications: Use `acc-create-specification` patterns
 - For DTOs: Use `acc-create-dto` patterns
+- For Event Stores: Use `acc-create-event-store` patterns
+- For Snapshots: Use `acc-create-snapshot` patterns
 
 ### Step 4: Generate Component
 
@@ -108,6 +112,8 @@ Determine component type from request keywords:
 | "factory", "create from", "complex creation" | Factory |
 | "specification", "is", "has", "can", "filter", "rule" | Specification |
 | "dto", "request", "response", "data transfer" | DTO |
+| "event store", "event stream", "append events", "stored event" | Event Store |
+| "snapshot", "aggregate snapshot", "state snapshot", "snapshot store" | Snapshot |
 
 ## File Placement
 
@@ -228,6 +234,16 @@ final readonly class OrderId
 6. Generate `Domain/Order/Enum/OrderStatus.php`
 7. Generate `Domain/Order/Event/OrderCreatedEvent.php`
 8. Generate corresponding tests
+
+### "Create event store for Orders"
+
+1. Check existing Order domain structure
+2. Load acc-create-event-store skill
+3. Generate `Domain/Order/EventStore/StoredEvent.php`
+4. Generate `Domain/Order/EventStore/EventStream.php`
+5. Generate `Domain/Order/EventStore/EventStoreInterface.php`
+6. Generate `Infrastructure/Order/EventStore/DoctrineEventStore.php`
+7. Generate corresponding tests
 
 ### "Create CreateOrder command and handler"
 

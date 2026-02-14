@@ -1,9 +1,9 @@
 ---
 name: acc-stability-generator
-description: Stability patterns generator. Creates Circuit Breaker, Retry, Rate Limiter, and Bulkhead components for PHP 8.5. Called by acc-pattern-generator coordinator.
+description: Stability patterns generator. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, and Cache-Aside components for PHP 8.5. Called by acc-pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead
+skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-cache-aside
 ---
 
 # Stability Patterns Generator
@@ -33,6 +33,12 @@ Analyze user request for these keywords to determine what to generate:
 - "bulkhead", "isolation", "resource pool"
 - "semaphore", "thread isolation"
 - "concurrent limit", "pool exhaustion"
+
+### Cache-Aside
+- "cache aside", "cache-aside", "lazy loading cache"
+- "on-demand cache", "cache miss", "cache hit"
+- "stampede protection", "thundering herd"
+- "cache invalidation", "tag-based invalidation"
 
 ## Generation Process
 
@@ -122,6 +128,25 @@ Generate in order:
 
 3. **Tests**
    - `SemaphoreBulkheadTest`
+
+#### For Cache-Aside
+
+Generate in order:
+1. **Domain Layer**
+   - `CacheAsideInterface` — Cache-aside contract (get, invalidate, invalidateByTag)
+   - `CacheKeyGeneratorInterface` — Key generation contract
+
+2. **Infrastructure Layer**
+   - `CacheKeyGenerator` — Key builder with prefix and hashing
+   - `CacheAsideExecutor` — PSR-16 cache executor with stampede protection
+   - `CacheInvalidator` — Tag-based and pattern-based invalidation
+   - `CacheLockInterface` — Distributed lock contract
+   - `RedisCacheLock` — Redis-based lock implementation
+
+3. **Tests**
+   - `CacheKeyGeneratorTest`
+   - `CacheAsideExecutorTest`
+   - `CacheInvalidatorTest`
 
 ## Code Style Requirements
 

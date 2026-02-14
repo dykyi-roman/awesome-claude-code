@@ -28,167 +28,89 @@ This auditor focuses on **creational patterns** that define how objects are crea
 ### Phase 1: Pattern Detection
 
 ```bash
-# Builder Pattern Detection
 Glob: **/*Builder.php
-Grep: "BuilderInterface|Builder.*build\(\)" --glob "**/*.php"
-Grep: "with[A-Z].*return.*\$this|->with[A-Z]" --glob "**/*.php"
-
-# Object Pool Detection
+Grep: "BuilderInterface|Builder.*build\(\)|with[A-Z].*return.*\$this|->with[A-Z]" --glob "**/*.php"
 Glob: **/*Pool.php
-Grep: "ObjectPool|PoolInterface|ConnectionPool" --glob "**/*.php"
-Grep: "acquire\(\)|release\(\)|getFromPool" --glob "**/*.php"
-
-# Factory Detection
+Grep: "ObjectPool|PoolInterface|ConnectionPool|acquire\(\)|release\(\)|getFromPool" --glob "**/*.php"
 Glob: **/*Factory.php
-Grep: "FactoryInterface|Factory.*create" --glob "**/*.php"
-Grep: "static function create|function make" --glob "**/*.php"
+Grep: "FactoryInterface|Factory.*create|static function create|function make" --glob "**/*.php"
 ```
 
 ### Phase 2: Builder Pattern Analysis
 
-```bash
-# Critical: Non-fluent interface
-Grep: "function with[A-Z].*: void|function set[A-Z].*: void" --glob "**/*Builder.php"
-
-# Critical: Missing build method
-Grep: "function build\(" --glob "**/*Builder.php"
-
-# Critical: Mutable builder (should be immutable or reset)
-Grep: "\$this->[a-z]+ =" --glob "**/*Builder.php"
-# Check if there's a reset() method or if builder returns new instance
-
-# Warning: No validation in build()
-Grep: "function build\(" --glob "**/*Builder.php" -A 10
-# Check for validation logic
-
-# Warning: Missing required fields tracking
-Grep: "required|mandatory|missing" --glob "**/*Builder.php"
-
-# Warning: No reset/clear method
-Grep: "function reset|function clear" --glob "**/*Builder.php"
-
-# Info: Step builder (Director pattern)
-Grep: "Director|BuilderStep|StepBuilder" --glob "**/*.php"
-```
+Search `**/*Builder.php` for:
+- **Critical:** Non-fluent interface: `function with[A-Z].*: void`, `function set[A-Z].*: void`
+- **Critical:** Missing build method: `function build(`
+- **Critical:** Mutable builder: `$this->[a-z]+ =` (check for reset() or new instance return)
+- **Warning:** No validation in build(): inspect build method body for validation logic
+- **Warning:** Missing required fields: `required, mandatory, missing`
+- **Warning:** No reset method: `function reset, function clear`
+- **Info:** Director pattern: `Director, BuilderStep, StepBuilder`
 
 ### Phase 3: Object Pool Analysis
 
-```bash
-# Critical: No acquire/release methods
-Grep: "function acquire|function release" --glob "**/*Pool.php"
-
-# Critical: No size limits
-Grep: "maxSize|maxPoolSize|limit|capacity" --glob "**/*Pool.php"
-
-# Critical: Missing object validation before reuse
-Grep: "validate|isValid|reset|clean" --glob "**/*Pool.php"
-
-# Warning: No idle timeout
-Grep: "idleTimeout|maxIdle|expiry" --glob "**/*Pool.php"
-
-# Warning: Missing metrics
-Grep: "activeCount|idleCount|metrics|stats" --glob "**/*Pool.php"
-
-# Warning: No wait/timeout for acquire
-Grep: "timeout|maxWait|tryAcquire" --glob "**/*Pool.php"
-
-# Warning: Missing pool exhaustion handling
-Grep: "onExhausted|PoolExhausted|NoAvailable" --glob "**/*Pool.php"
-
-# Info: Thread safety
-Grep: "synchronized|mutex|lock|semaphore" --glob "**/*Pool.php"
-```
+Search `**/*Pool.php` for:
+- **Critical:** Lifecycle: `function acquire, function release`
+- **Critical:** Size limits: `maxSize, maxPoolSize, limit, capacity`
+- **Critical:** Object validation: `validate, isValid, reset, clean`
+- **Warning:** Idle timeout: `idleTimeout, maxIdle, expiry`
+- **Warning:** Metrics: `activeCount, idleCount, metrics, stats`
+- **Warning:** Acquire timeout: `timeout, maxWait, tryAcquire`
+- **Warning:** Exhaustion handling: `onExhausted, PoolExhausted, NoAvailable`
+- **Info:** Thread safety: `synchronized, mutex, lock, semaphore`
 
 ### Phase 4: Factory Pattern Analysis
 
-```bash
-# Critical: Factory with business logic
-Grep: "if \(.*->get|switch \(" --glob "**/*Factory.php" -A 5
-
-# Critical: Factory returning concrete types (should return interface)
-Grep: "function create.*: [A-Z][a-zA-Z]+[^I][^n][^t][^e][^r][^f][^a][^c][^e]" --glob "**/*Factory.php"
-
-# Warning: Factory not using interface return type
-Grep: "function create\(" --glob "**/*Factory.php" -A 1
-
-# Warning: Direct instantiation instead of factory
-Grep: "new [A-Z][a-zA-Z]+Entity\(|new [A-Z][a-zA-Z]+Aggregate\(" --glob "**/UseCase/**/*.php"
-Grep: "new [A-Z][a-zA-Z]+Entity\(|new [A-Z][a-zA-Z]+Aggregate\(" --glob "**/Service/**/*.php"
-
-# Warning: Complex construction without factory
-Grep: "new.*\(.*\n.*," --glob "**/Domain/**/*.php"
-# Multi-line constructor calls indicate complex creation
-
-# Info: Abstract Factory detection
-Grep: "AbstractFactory|FactoryInterface" --glob "**/*.php"
-```
+Search `**/*Factory.php` for:
+- **Critical:** Business logic in factory: `if (.*->get`, `switch (`
+- **Critical:** Concrete return types (should return interface)
+- **Warning:** Return type check: inspect `function create(` return types
+- **Warning:** Direct instantiation bypassing factory in `**/UseCase/**/*.php` and `**/Service/**/*.php`: `new [A-Z].*Entity(`, `new [A-Z].*Aggregate(`
+- **Warning:** Complex construction without factory: multi-line `new` calls in `**/Domain/**/*.php`
+- **Info:** Abstract Factory: `AbstractFactory, FactoryInterface`
 
 ### Phase 5: Abstract Factory Analysis
 
 ```bash
-# Abstract Factory detection
-Grep: "interface.*Factory" --glob "**/*.php"
-Grep: "AbstractFactory|FactoryInterface" --glob "**/*.php"
-
-# Multiple create methods in one class
+Grep: "interface.*Factory|AbstractFactory|FactoryInterface" --glob "**/*.php"
 Grep: "function create[A-Z]" --glob "**/*Factory.php"
-
-# Family instantiation without factory (type switch)
 Grep: "switch.*type|switch.*strategy|switch.*provider" --glob "**/*.php"
-
-# Factory returning concrete types
-Grep: "function create.*: [A-Z][a-zA-Z]+[^I]" --glob "**/*Factory.php"
 ```
+
+Check for: multiple create methods in one class, family instantiation without factory, concrete return types.
 
 ### Phase 6: Singleton Anti-Pattern Detection
 
 ```bash
-# Classic singleton
 Grep: "static.*\$instance|getInstance\(\)|private function __construct" --glob "**/*.php"
-
-# Static service access
 Grep: "static function get|static::getInstance" --glob "**/*.php"
-
-# Global state via static arrays
 Grep: "private static array|protected static array" --glob "**/*.php"
-
-# Registry / Service Locator
 Grep: "Registry::get|ServiceLocator::get" --glob "**/*.php"
-
-# Mutable static in Domain
 Grep: "static \$[a-z]+ =" --glob "**/Domain/**/*.php"
 ```
 
 ### Phase 7: Prototype Pattern Analysis
 
 ```bash
-# Clone usage
-Grep: "clone \$this|clone \$" --glob "**/*.php"
-Grep: "function __clone" --glob "**/*.php"
-
-# Manual copy construction (prototype candidate)
+Grep: "clone \$this|clone \$|function __clone" --glob "**/*.php"
 Grep: "new self\(.*\$this->" --glob "**/*.php"
-
-# Missing __clone on mutable classes
 Grep: "private.*Collection|private.*array" --glob "**/Domain/**/*.php"
 ```
+
+Check for: clone usage, manual copy construction (prototype candidates), missing __clone on mutable classes.
 
 ### Phase 8: Construction Antipattern Detection
 
 ```bash
-# Telescoping constructor (many parameters)
+# Telescoping constructor (6+ parameters)
 Grep: "__construct\(.*,.*,.*,.*,.*," --glob "**/Domain/**/*.php"
-
-# Complex object instantiation in controllers
+# Direct instantiation in controllers/actions
 Grep: "new [A-Z][a-zA-Z]+\(" --glob "**/Controller/**/*.php"
 Grep: "new [A-Z][a-zA-Z]+\(" --glob "**/Action/**/*.php"
-
-# Hardcoded dependencies
+# Hardcoded dependencies in Application layer
 Grep: "new [A-Z][a-zA-Z]+Client\(|new [A-Z][a-zA-Z]+Repository\(" --glob "**/Application/**/*.php"
-
-# Missing builder for DTO with many fields
+# DTOs with many fields (builder candidates)
 Grep: "readonly class.*DTO" --glob "**/*.php"
-# Then check constructor parameter count
 ```
 
 ### Phase 9: Cross-Pattern Analysis
@@ -203,70 +125,30 @@ Check for patterns that should work together:
 ```markdown
 ## Creational Patterns Analysis
 
-**Patterns Detected:**
-- [x] Builder Pattern (3 builders found)
-- [x] Object Pool (ConnectionPool)
-- [x] Factory Pattern (5 factories found)
+**Patterns Detected:** checklist of Builder, Object Pool, Factory, Abstract Factory, Singleton, Prototype with status
 
-### Builder Pattern Compliance
+### Per-Pattern Compliance
+
+For each detected pattern, produce a compliance table:
 
 | Check | Status | Files Affected |
 |-------|--------|----------------|
-| Fluent interface | PASS | - |
-| Build method exists | PASS | - |
-| Validation in build | WARN | 2 builders |
-| Required fields tracking | FAIL | 3 builders |
-| Reset mechanism | WARN | 1 builder |
+| (key check) | PASS/WARN/FAIL | (files or -) |
 
-**Critical Issues:**
-1. `src/Domain/Order/OrderBuilder.php` — no validation before build()
-2. `src/Application/DTO/ReportBuilder.php:45` — allows building incomplete object
+Followed by **Critical Issues** (numbered, with file:line) and **Recommendations**.
 
-**Recommendations:**
-- Add validation to OrderBuilder.build()
-- Track required fields in ReportBuilder
+### Construction Antipatterns
 
-### Object Pool Compliance
-
-| Check | Status | Issues |
-|-------|--------|--------|
-| Acquire/Release | PASS | - |
-| Size limits | WARN | No max size |
-| Object validation | FAIL | Not implemented |
-| Idle timeout | WARN | Not configured |
-
-**Critical Issues:**
-1. `src/Infrastructure/Database/ConnectionPool.php` — no connection validation before reuse
-
-**Recommendations:**
-- Add isValid() check before returning connection
-- Implement maxSize limit
-
-### Factory Pattern Compliance
-
-| Check | Status | Issues |
-|-------|--------|--------|
-| Interface return types | WARN | 2 factories |
-| No business logic | PASS | - |
-| Consistent naming | PASS | - |
-| Coverage of complex objects | WARN | 3 missing |
-
-**Critical Issues:**
-1. `src/Domain/Order/OrderFactory.php` — returns Order instead of OrderInterface
-
-**Construction Antipatterns:**
-1. `src/Domain/User/User.php:15` — 8 constructor parameters (use builder)
-2. `src/Presentation/Controller/OrderController.php:34` — direct entity instantiation
+List telescoping constructors, direct instantiation in controllers, hardcoded dependencies.
 
 ## Generation Recommendations
 
-If violations found, suggest using appropriate create-* skills:
-- Complex object without builder → acc-create-builder
-- No connection pooling → acc-create-object-pool
-- Missing factory → acc-create-factory
-- Missing product family factory → acc-check-abstract-factory
-- Singleton/global state detected → acc-check-singleton-antipattern
-- Expensive cloning needed → acc-create-prototype
+- Complex object without builder -> acc-create-builder
+- No connection pooling -> acc-create-object-pool
+- Missing factory -> acc-create-factory
+- Missing product family factory -> acc-check-abstract-factory
+- Singleton/global state detected -> acc-check-singleton-antipattern
+- Expensive cloning needed -> acc-create-prototype
 ```
 
 ## Progress Tracking

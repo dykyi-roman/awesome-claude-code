@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 61 agents, 245 skills, 21 hooks
+- 26 commands, 61 agents, 250 skills, 21 hooks
 - PHP 8.5, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -117,7 +117,7 @@ Components auto-copy to `.claude/` directory.
 .claude/
 ├── commands/        # Slash commands (26)
 ├── agents/          # Subagents (61)
-├── skills/          # Knowledge + generators + analyzers (245)
+├── skills/          # Knowledge + generators + analyzers (250)
 └── settings.json    # Hooks and permissions
 ```
 

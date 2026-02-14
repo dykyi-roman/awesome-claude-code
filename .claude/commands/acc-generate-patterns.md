@@ -1,5 +1,5 @@
 ---
-description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context patterns.
+description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context, API Versioning, Health Check patterns.
 allowed-tools: Read, Write, Edit, Glob, Grep, Task
 model: opus
 argument-hint: <pattern-name> <ComponentName> [-- additional instructions]
@@ -38,6 +38,7 @@ Examples:
 | `retry` | `retry-pattern` | Transient failure handling with backoff |
 | `rate-limiter` | `throttle` | Request throttling, token bucket |
 | `bulkhead` | `isolation` | Resource isolation, prevent cascade |
+| `cache-aside` | `cache` | Cache-Aside with stampede protection |
 
 ### Behavioral Patterns (Algorithms)
 
@@ -81,6 +82,8 @@ Examples:
 | `action` | `adr-action` | ADR Action (HTTP entry point) |
 | `responder` | `adr-responder` | ADR Responder (HTTP response) |
 | `correlation-context` | `correlation-id`, `request-id` | Correlation ID propagation middleware |
+| `api-versioning` | `versioning` | API version strategy (URI/header/query) |
+| `health-check` | `health` | Application-level health endpoints |
 
 ## Pre-flight Check
 
@@ -164,6 +167,25 @@ Generates:
 - BulkheadInterface
 - Semaphore-based isolation
 - Concurrent request limiting
+
+#### Cache-Aside
+```bash
+/acc-generate-patterns cache-aside ProductCatalog
+/acc-generate-patterns cache UserProfile -- with tag-based invalidation
+```
+
+Generates:
+```
+src/Domain/Shared/Cache/
+├── CacheAsideInterface.php
+└── CacheKeyGeneratorInterface.php
+src/Infrastructure/Cache/
+├── CacheKeyGenerator.php
+├── CacheAsideExecutor.php
+├── CacheInvalidator.php
+├── CacheLockInterface.php
+└── RedisCacheLock.php
+```
 
 ### Behavioral Patterns
 
@@ -437,6 +459,47 @@ src/Infrastructure/Logging/
 └── CorrelationLogProcessor.php
 src/Infrastructure/Messaging/
 └── CorrelationMessageStamp.php
+```
+
+#### API Versioning
+```bash
+/acc-generate-patterns api-versioning
+/acc-generate-patterns versioning -- with Accept header strategy
+```
+
+Generates:
+```
+src/Domain/Shared/Api/
+├── ApiVersion.php
+└── VersionResolverInterface.php
+src/Presentation/Middleware/
+├── UriPrefixVersionResolver.php
+├── AcceptHeaderVersionResolver.php
+├── QueryParamVersionResolver.php
+├── CompositeVersionResolver.php
+├── VersionMiddleware.php
+└── DeprecationHeaderMiddleware.php
+```
+
+#### Health Check
+```bash
+/acc-generate-patterns health-check
+/acc-generate-patterns health -- with Redis and RabbitMQ checkers
+```
+
+Generates:
+```
+src/Domain/Shared/Health/
+├── HealthCheckInterface.php
+├── HealthStatus.php
+└── HealthCheckResult.php
+src/Infrastructure/Health/
+├── DatabaseHealthCheck.php
+├── RedisHealthCheck.php
+├── RabbitMqHealthCheck.php
+└── HealthCheckRunner.php
+src/Presentation/Api/Action/
+└── HealthCheckAction.php
 ```
 
 ## Expected Output

@@ -44,7 +44,7 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 |------|-------|---------|---------|
 | **Knowledge** | 38 | Provide expertise and best practices | `acc-ddd-knowledge` |
 | **Analyzer** | 99 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
-| **Generator** | 94 | Generate PHP code with tests | `acc-create-entity` |
+| **Generator** | 99 | Generate PHP code with tests | `acc-create-entity` |
 | **Template** | 10 | Documentation and output templates | `acc-readme-template` |
 | **Other** | 4 | Estimation and suggestion utilities | `acc-estimate-complexity` |
 
@@ -294,6 +294,8 @@ Code generators for DDD and architecture components (PHP 8.5).
 | `acc-create-query` | `skills/acc-create-query/` | CQRS Queries |
 | `acc-create-use-case` | `skills/acc-create-use-case/` | Application Use Cases |
 | `acc-create-read-model` | `skills/acc-create-read-model/` | CQRS Read Models/Projections |
+| `acc-create-event-store` | `skills/acc-create-event-store/` | Event Store with optimistic locking |
+| `acc-create-snapshot` | `skills/acc-create-snapshot/` | Aggregate snapshots for event sourcing |
 
 ### Stability Patterns
 
@@ -303,6 +305,7 @@ Code generators for DDD and architecture components (PHP 8.5).
 | `acc-create-retry-pattern` | `skills/acc-create-retry-pattern/` | Retry with exponential backoff |
 | `acc-create-rate-limiter` | `skills/acc-create-rate-limiter/` | Rate limiting (Token Bucket, Sliding Window) |
 | `acc-create-bulkhead` | `skills/acc-create-bulkhead/` | Bulkhead isolation pattern |
+| `acc-create-cache-aside` | `skills/acc-create-cache-aside/` | Cache-Aside with stampede protection |
 | `acc-check-timeout-strategy` | `skills/acc-check-timeout-strategy/` | Timeout config: HTTP, DB, queue, cache, locks |
 | `acc-check-cascading-failures` | `skills/acc-check-cascading-failures/` | Shared resources, unbounded queues, failure propagation |
 | `acc-check-fallback-strategy` | `skills/acc-check-fallback-strategy/` | Graceful degradation, cache fallback, feature flags |
@@ -314,6 +317,8 @@ Code generators for DDD and architecture components (PHP 8.5).
 | `acc-create-outbox-pattern` | `skills/acc-create-outbox-pattern/` | Transactional Outbox |
 | `acc-create-saga-pattern` | `skills/acc-create-saga-pattern/` | Saga orchestration |
 | `acc-create-correlation-context` | `skills/acc-create-correlation-context/` | Correlation ID propagation (middleware, log processor, message stamp) |
+| `acc-create-api-versioning` | `skills/acc-create-api-versioning/` | API Versioning (URI/header/query strategies, deprecation) |
+| `acc-create-health-check` | `skills/acc-create-health-check/` | Health Check endpoints (Database, Redis, RabbitMQ) |
 
 ### Behavioral Patterns
 

@@ -29,125 +29,59 @@ This auditor focuses on **stability patterns** that provide resilience:
 ### Phase 1: Pattern Detection
 
 ```bash
-# Circuit Breaker Detection
 Glob: **/CircuitBreaker/**/*.php
-Grep: "CircuitBreaker|circuit_breaker|CircuitState" --glob "**/*.php"
-Grep: "CLOSED|OPEN|HALF_OPEN" --glob "**/*.php"
-
-# Retry Pattern Detection
+Grep: "CircuitBreaker|circuit_breaker|CircuitState|CLOSED|OPEN|HALF_OPEN" --glob "**/*.php"
 Glob: **/Retry/**/*.php
-Grep: "Retry|RetryPolicy|withRetry|RetryExecutor" --glob "**/*.php"
-Grep: "backoff|exponential|linear" --glob "**/*.php"
-
-# Rate Limiter Detection
+Grep: "Retry|RetryPolicy|withRetry|RetryExecutor|backoff|exponential" --glob "**/*.php"
 Glob: **/RateLimiter/**/*.php
-Grep: "RateLimiter|rate_limit|throttle|TokenBucket" --glob "**/*.php"
-Grep: "SlidingWindow|FixedWindow|LeakyBucket" --glob "**/*.php"
-
-# Bulkhead Detection
+Grep: "RateLimiter|rate_limit|throttle|TokenBucket|SlidingWindow|FixedWindow|LeakyBucket" --glob "**/*.php"
 Glob: **/Bulkhead/**/*.php
 Grep: "Bulkhead|semaphore|isolation|maxConcurrent" --glob "**/*.php"
 ```
 
 ### Phase 2: Circuit Breaker Analysis
 
-```bash
-# Critical: No state machine
-Grep: "CLOSED|OPEN|HALF_OPEN" --glob "**/CircuitBreaker/**/*.php"
-
-# Critical: Missing failure tracking
-Grep: "failureCount|failure_count|failures" --glob "**/CircuitBreaker/**/*.php"
-
-# Warning: Missing failure threshold
-Grep: "failureThreshold|failure_threshold|maxFailures" --glob "**/CircuitBreaker/**/*.php"
-
-# Warning: No timeout configuration
-Grep: "timeout|resetTimeout|cooldown|openTimeout" --glob "**/CircuitBreaker/**/*.php"
-
-# Warning: Missing fallback
-Grep: "fallback|onOpen|getDefault|defaultValue" --glob "**/CircuitBreaker/**/*.php"
-
-# Warning: No success tracking for half-open
-Grep: "successThreshold|success_count|halfOpenSuccess" --glob "**/CircuitBreaker/**/*.php"
-
-# Info: Metrics/monitoring
-Grep: "metrics|monitor|record|notify" --glob "**/CircuitBreaker/**/*.php"
-```
+Search `**/CircuitBreaker/**/*.php` for:
+- **Critical:** State machine keywords: `CLOSED, OPEN, HALF_OPEN`
+- **Critical:** Failure tracking: `failureCount, failure_count, failures`
+- **Warning:** Failure threshold: `failureThreshold, failure_threshold, maxFailures`
+- **Warning:** Timeout config: `timeout, resetTimeout, cooldown, openTimeout`
+- **Warning:** Fallback: `fallback, onOpen, getDefault, defaultValue`
+- **Warning:** Half-open success tracking: `successThreshold, success_count, halfOpenSuccess`
+- **Info:** Metrics: `metrics, monitor, record, notify`
 
 ### Phase 3: Retry Pattern Analysis
 
-```bash
-# Critical: No backoff strategy
-Grep: "backoff|exponential|linear|fixed" --glob "**/Retry/**/*.php"
-
-# Critical: Missing max attempts limit
-Grep: "maxAttempts|max_retries|limit|maxRetries" --glob "**/Retry/**/*.php"
-
-# Warning: Missing jitter
-Grep: "jitter|randomize|random" --glob "**/Retry/**/*.php"
-
-# Warning: Retrying non-retriable errors
-Grep: "isRetriable|shouldRetry|retryOn|retryableExceptions" --glob "**/Retry/**/*.php"
-
-# Warning: No delay configuration
-Grep: "delay|interval|wait|sleep" --glob "**/Retry/**/*.php"
-
-# Warning: Missing retry exhaustion handling
-Grep: "onExhausted|onMaxRetries|exhausted" --glob "**/Retry/**/*.php"
-
-# Info: Context preservation
-Grep: "context|attempt|lastException" --glob "**/Retry/**/*.php"
-```
+Search `**/Retry/**/*.php` for:
+- **Critical:** Backoff strategy: `backoff, exponential, linear, fixed`
+- **Critical:** Max attempts: `maxAttempts, max_retries, limit, maxRetries`
+- **Warning:** Jitter: `jitter, randomize, random`
+- **Warning:** Retriable errors: `isRetriable, shouldRetry, retryOn, retryableExceptions`
+- **Warning:** Delay config: `delay, interval, wait, sleep`
+- **Warning:** Exhaustion handling: `onExhausted, onMaxRetries, exhausted`
+- **Info:** Context: `context, attempt, lastException`
 
 ### Phase 4: Rate Limiter Analysis
 
-```bash
-# Critical: No algorithm implementation
-Grep: "TokenBucket|SlidingWindow|FixedWindow|LeakyBucket" --glob "**/RateLimiter/**/*.php"
-
-# Critical: Missing rate storage
-Grep: "Redis|Memcached|cache|storage" --glob "**/RateLimiter/**/*.php"
-
-# Warning: Missing rate configuration
-Grep: "limit|rate|permits|tokens|capacity" --glob "**/RateLimiter/**/*.php"
-
-# Warning: No overflow handling
-Grep: "onLimitExceeded|reject|queue|block" --glob "**/RateLimiter/**/*.php"
-
-# Warning: Missing window configuration
-Grep: "window|period|interval|duration" --glob "**/RateLimiter/**/*.php"
-
-# Warning: No HTTP headers
-Grep: "X-RateLimit|Retry-After|RateLimit-Remaining" --glob "**/RateLimiter/**/*.php"
-
-# Info: Key generation (per user, per IP, etc.)
-Grep: "key|identifier|clientId|userId" --glob "**/RateLimiter/**/*.php"
-```
+Search `**/RateLimiter/**/*.php` for:
+- **Critical:** Algorithm: `TokenBucket, SlidingWindow, FixedWindow, LeakyBucket`
+- **Critical:** Storage: `Redis, Memcached, cache, storage`
+- **Warning:** Rate config: `limit, rate, permits, tokens, capacity`
+- **Warning:** Overflow: `onLimitExceeded, reject, queue, block`
+- **Warning:** Window config: `window, period, interval, duration`
+- **Warning:** HTTP headers: `X-RateLimit, Retry-After, RateLimit-Remaining`
+- **Info:** Key generation: `key, identifier, clientId, userId`
 
 ### Phase 5: Bulkhead Analysis
 
-```bash
-# Critical: No isolation mechanism
-Grep: "Semaphore|ThreadPool|maxConcurrent|permits" --glob "**/Bulkhead/**/*.php"
-
-# Critical: Missing acquire/release
-Grep: "acquire|release|tryAcquire" --glob "**/Bulkhead/**/*.php"
-
-# Warning: Missing queue configuration
-Grep: "queueSize|waitQueue|maxWait|queueCapacity" --glob "**/Bulkhead/**/*.php"
-
-# Warning: No rejection policy
-Grep: "reject|onFull|fallback|BulkheadFull" --glob "**/Bulkhead/**/*.php"
-
-# Warning: No timeout for waiting
-Grep: "timeout|maxWait|acquireTimeout" --glob "**/Bulkhead/**/*.php"
-
-# Warning: Missing metrics
-Grep: "activeCount|queuedCount|metrics" --glob "**/Bulkhead/**/*.php"
-
-# Info: Named bulkheads for different resources
-Grep: "name|identifier|pool" --glob "**/Bulkhead/**/*.php"
-```
+Search `**/Bulkhead/**/*.php` for:
+- **Critical:** Isolation: `Semaphore, ThreadPool, maxConcurrent, permits`
+- **Critical:** Lifecycle: `acquire, release, tryAcquire`
+- **Warning:** Queue config: `queueSize, waitQueue, maxWait, queueCapacity`
+- **Warning:** Rejection: `reject, onFull, fallback, BulkheadFull`
+- **Warning:** Wait timeout: `timeout, maxWait, acquireTimeout`
+- **Warning:** Metrics: `activeCount, queuedCount, metrics`
+- **Info:** Named bulkheads: `name, identifier, pool`
 
 ### Phase 6: Timeout Strategy Analysis
 
@@ -155,14 +89,11 @@ Grep: "name|identifier|pool" --glob "**/Bulkhead/**/*.php"
 # HTTP clients without timeout
 Grep: "new.*Client\(\)|new.*GuzzleHttp|new.*HttpClient" --glob "**/*.php"
 Grep: "connect_timeout|timeout.*=>" --glob "**/Infrastructure/**/*.php"
-
 # Database connections without timeout
 Grep: "new PDO\(|DriverManager::getConnection" --glob "**/*.php"
 Grep: "ATTR_TIMEOUT|wait_timeout" --glob "**/*.php"
-
 # Queue consumers blocking
 Grep: "->consume\(|->get\(|->receive\(" --glob "**/Consumer/**/*.php"
-
 # Lock without timeout
 Grep: "->acquire\(|->lock\(|flock\(" --glob "**/*.php"
 ```
@@ -170,35 +101,19 @@ Grep: "->acquire\(|->lock\(|flock\(" --glob "**/*.php"
 ### Phase 7: Cascading Failure Detection
 
 ```bash
-# Shared static resources
 Grep: "private static.*\$.*=.*\[\]|protected static.*pool" --glob "**/*.php"
-
-# Unbounded queues
 Grep: "\$this->.*\[\].*=|\[\].*events" --glob "**/Infrastructure/**/*.php"
-
-# Synchronous chains
 Grep: "\$this->.*Service->.*\n.*\$this->.*Service->" --glob "**/Application/**/*.php"
-
-# Fixed retry delays (no jitter)
 Grep: "sleep\([0-9]+\)|usleep\([0-9]+\)" --glob "**/*.php"
-
-# Missing health checks
 Grep: "class.*HealthCheck|function.*health|/health" --glob "**/*.php"
 ```
 
 ### Phase 8: Fallback Strategy Analysis
 
 ```bash
-# External calls without try-catch fallback
 Grep: "->fetch\(|->call\(|->request\(|->send\(" --glob "**/Infrastructure/**/*.php"
-
-# Cache without stale fallback
 Grep: "cache->get|cache->set" --glob "**/*.php"
-
-# Circuit breaker without fallback
 Grep: "circuitBreaker->call\(" --glob "**/*.php"
-
-# Feature flags without defaults
 Grep: "isEnabled\(|featureFlag" --glob "**/*.php"
 ```
 
@@ -207,14 +122,11 @@ Grep: "isEnabled\(|featureFlag" --glob "**/*.php"
 ```bash
 # Circuit Breaker + Retry integration
 Grep: "CircuitBreaker.*Retry|Retry.*CircuitBreaker" --glob "**/*.php"
-
 # Rate Limiter + Bulkhead integration
 Grep: "RateLimiter.*Bulkhead|Bulkhead.*RateLimiter" --glob "**/*.php"
-
 # External API calls without protection
 Grep: "HttpClient|Guzzle|curl_|file_get_contents" --glob "**/Infrastructure/**/*.php"
 Grep: "->get\(|->post\(|->request\(" --glob "**/Service/**/*.php"
-# Check if these are wrapped in stability patterns
 ```
 
 ## Report Format
@@ -222,78 +134,29 @@ Grep: "->get\(|->post\(|->request\(" --glob "**/Service/**/*.php"
 ```markdown
 ## Stability Patterns Analysis
 
-**Patterns Detected:**
-- [x] Circuit Breaker (state machine, fallback)
-- [ ] Retry Pattern (not detected)
-- [x] Rate Limiter (token bucket)
-- [ ] Bulkhead (not detected)
+**Patterns Detected:** checklist of Circuit Breaker, Retry, Rate Limiter, Bulkhead with status
 
-### Circuit Breaker Compliance
+### Per-Pattern Compliance
+
+For each detected pattern, produce a compliance table:
 
 | Check | Status | Files Affected |
 |-------|--------|----------------|
-| State machine | PASS | - |
-| Failure threshold | PASS | - |
-| Timeout configuration | WARN | 1 file |
-| Fallback mechanism | FAIL | 2 files |
-| Success tracking | WARN | 1 file |
+| (key check) | PASS/WARN/FAIL | (files or -) |
 
-**Critical Issues:**
-1. `src/Infrastructure/CircuitBreaker/PaymentCircuitBreaker.php` — no fallback method
-2. `src/Infrastructure/Http/ApiClient.php:45` — external call without circuit breaker
+Followed by **Critical Issues** (numbered, with file:line) and **Recommendations**.
 
-**Recommendations:**
-- Add fallback for PaymentCircuitBreaker
-- Wrap ApiClient HTTP calls with circuit breaker
-
-### Retry Pattern Compliance
-
-| Check | Status | Issues |
-|-------|--------|--------|
-| Pattern detected | FAIL | Not implemented |
-
-**Missing Pattern:**
-Retry pattern not detected. External API calls at:
-- `src/Infrastructure/Payment/StripeClient.php:78`
-- `src/Infrastructure/Email/SmtpMailer.php:34`
-
-**Recommendation:** Use `acc-create-retry-pattern` to implement
-
-### Rate Limiter Compliance
-
-| Check | Status | Issues |
-|-------|--------|--------|
-| Algorithm | PASS | Token Bucket |
-| Rate configuration | PASS | - |
-| Overflow handling | WARN | No queue |
-| HTTP headers | FAIL | Missing |
-
-**Critical Issues:**
-1. `src/Infrastructure/RateLimiter/ApiRateLimiter.php` — missing Retry-After header
-
-### Bulkhead Compliance
-
-| Check | Status | Issues |
-|-------|--------|--------|
-| Pattern detected | FAIL | Not implemented |
-
-**Missing Pattern:**
-Bulkhead pattern not detected. Resource-intensive operations at:
-- `src/Infrastructure/Database/ConnectionPool.php`
-- `src/Infrastructure/Queue/WorkerPool.php`
-
-**Recommendation:** Use `acc-create-bulkhead` to implement
+For missing patterns, list unprotected external calls and recommend the appropriate create-* skill.
 
 ## Generation Recommendations
 
-If violations found, suggest using appropriate create-* skills:
-- Missing Circuit Breaker → acc-create-circuit-breaker
-- Missing Retry → acc-create-retry-pattern
-- Missing Rate Limiter → acc-create-rate-limiter
-- Missing Bulkhead → acc-create-bulkhead
-- Missing Timeouts → acc-check-timeout-strategy
-- Cascading Failure Risk → acc-check-cascading-failures
-- Missing Fallback → acc-check-fallback-strategy
+- Missing Circuit Breaker -> acc-create-circuit-breaker
+- Missing Retry -> acc-create-retry-pattern
+- Missing Rate Limiter -> acc-create-rate-limiter
+- Missing Bulkhead -> acc-create-bulkhead
+- Missing Timeouts -> acc-check-timeout-strategy
+- Cascading Failure Risk -> acc-check-cascading-failures
+- Missing Fallback -> acc-check-fallback-strategy
 ```
 
 ## Progress Tracking

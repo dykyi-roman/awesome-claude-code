@@ -3,7 +3,7 @@ name: acc-psr-generator
 description: Generates PSR-compliant PHP components. Use PROACTIVELY when creating loggers (PSR-3), caches (PSR-6/16), HTTP messages (PSR-7/17/18), containers (PSR-11), events (PSR-14), middleware (PSR-15), links (PSR-13), clocks (PSR-20).
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-psr-overview-knowledge, acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-create-psr3-logger, acc-create-psr6-cache, acc-create-psr7-http-message, acc-create-psr11-container, acc-create-psr13-link, acc-create-psr14-event-dispatcher, acc-create-psr15-middleware, acc-create-psr16-simple-cache, acc-create-psr17-http-factory, acc-create-psr18-http-client, acc-create-psr20-clock
+skills: acc-create-psr3-logger, acc-create-psr6-cache, acc-create-psr7-http-message, acc-create-psr11-container, acc-create-psr13-link, acc-create-psr14-event-dispatcher, acc-create-psr15-middleware, acc-create-psr16-simple-cache, acc-create-psr17-http-factory, acc-create-psr18-http-client, acc-create-psr20-clock
 ---
 
 # PSR Component Generator

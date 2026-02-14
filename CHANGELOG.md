@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.12.0] - 2026-02-14
+
+### Added
+- `acc-create-event-store` skill — generates Event Store infrastructure: StoredEvent, EventStream, EventStoreInterface, DoctrineEventStore with optimistic locking and ConcurrencyException
+- `acc-create-snapshot` skill — generates Snapshot infrastructure for event sourcing performance: Snapshot VO, SnapshotStoreInterface, SnapshotStrategy, AggregateSnapshotter, DoctrineSnapshotStore
+- `acc-create-api-versioning` skill — generates API Versioning: ApiVersion VO, version resolvers (URI prefix, Accept header, query param, composite), VersionMiddleware, DeprecationHeaderMiddleware
+- `acc-create-health-check` skill — generates Health Check endpoints: HealthCheckInterface, HealthStatus enum, HealthCheckResult, checkers (Database, Redis, RabbitMQ), HealthCheckRunner, HealthCheckAction
+- `acc-create-cache-aside` skill — generates Cache-Aside pattern: CacheAsideExecutor with PSR-16, stampede protection via distributed locking, CacheInvalidator with tag-based invalidation
+- Enhanced `acc-create-read-model` with event sourcing projections reference: ProjectionRunner, ProjectionVersion, ProjectionCheckpoint, async ProjectionWorker
+
+### Changed
+- Updated component counts: 26 commands, 61 agents, 250 skills
+- Slimmed `acc-generate-ddd` command (418→119 lines) — extracted verbose examples to `acc-ddd-knowledge/references/generation-examples.md`
+- Slimmed `acc-ci-fix` command (391→287 lines) — extracted workflow diagram and verbose examples to `acc-generate-ci-fix/references/workflow.md`
+- Reduced `acc-psr-generator` skills (14→11) — removed knowledge skills (kept in `acc-psr-auditor`)
+- Slimmed 5 oversized agents to <200 lines: `acc-integration-auditor` (383→151), `acc-behavioral-auditor` (358→153), `acc-performance-reviewer` (333→87), `acc-stability-auditor` (326→182), `acc-creational-auditor` (321→173)
+- Extracted references for 5 near-limit skills: `acc-create-github-actions` (500→143), `acc-create-entity` (478→144), `acc-check-connection-pool` (472→99), `acc-detect-ci-antipatterns` (464→110), `acc-check-encapsulation` (459→130)
 
 ## [2.11.0] - 2026-02-11
 
