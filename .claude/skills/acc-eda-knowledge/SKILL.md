@@ -80,7 +80,7 @@ Quick reference for Event-Driven Architecture (EDA) patterns and PHP implementat
 - [ ] Dead letter queue for failures
 - [ ] No side effects until processing complete
 
-## PHP 8.5 Event-Driven Patterns
+## PHP 8.4 Event-Driven Patterns
 
 ### Domain Event
 

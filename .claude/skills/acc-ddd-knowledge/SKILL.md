@@ -76,7 +76,7 @@ Presentation → Application → Domain ← Infrastructure
 | Business logic in Controller | Presentation/*.php | Warning |
 | Business logic in Repository | Infrastructure/*.php | Warning |
 
-## PHP 8.5 DDD Patterns
+## PHP 8.4 DDD Patterns
 
 ### Value Object
 
@@ -141,7 +141,7 @@ For detailed information, load these reference files:
 - `references/domain-patterns.md` — Entity, VO, Aggregate, Repository patterns
 - `references/application-patterns.md` — UseCase, DTO, Command/Query patterns
 - `references/antipatterns.md` — Common violations with detection patterns
-- `references/php-specific.md` — PHP 8.5 specific implementations
+- `references/php-specific.md` — PHP 8.4 specific implementations
 
 ## Assets
 

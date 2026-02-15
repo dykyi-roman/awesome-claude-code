@@ -89,7 +89,7 @@ Your requirements could not be resolved to an installable set of packages.
 3. **Check PHP version:**
    ```bash
    php -v
-   # Must be 8.5 or higher
+   # Must be 8.4 or higher
    ```
 
 4. **Check required extensions:**
@@ -289,7 +289,7 @@ PHP Fatal error: Allowed memory size of 134217728 bytes exhausted
 <details>
 <summary><strong>Q: What PHP version is required?</strong></summary>
 
-PHP 8.5 or higher is required. Check your version:
+PHP 8.4 or higher is required. Check your version:
 
 ```bash
 php -v

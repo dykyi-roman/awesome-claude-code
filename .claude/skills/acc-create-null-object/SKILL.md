@@ -1,6 +1,6 @@
 ---
 name: acc-create-null-object
-description: Generates Null Object pattern for PHP 8.5. Creates safe default implementations eliminating null checks. Includes unit tests.
+description: Generates Null Object pattern for PHP 8.4. Creates safe default implementations eliminating null checks. Includes unit tests.
 ---
 
 # Null Object Pattern Generator

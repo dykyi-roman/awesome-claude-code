@@ -63,7 +63,7 @@ Task tool with subagent_type="acc-psr-generator"
 prompt: "Generate [PSR] implementation for [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
-1. PHP 8.5 with declare(strict_types=1)
+1. PHP 8.4 with declare(strict_types=1)
 2. PSR-12 coding style
 3. Final readonly classes where appropriate
 4. Constructor property promotion

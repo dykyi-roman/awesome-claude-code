@@ -1,6 +1,6 @@
 ---
 name: acc-create-psr17-http-factory
-description: Generates PSR-17 HTTP Factories implementation for PHP 8.5. Creates RequestFactoryInterface, ResponseFactoryInterface, StreamFactoryInterface, UriFactoryInterface, ServerRequestFactoryInterface, UploadedFileFactoryInterface. Includes unit tests.
+description: Generates PSR-17 HTTP Factories implementation for PHP 8.4. Creates RequestFactoryInterface, ResponseFactoryInterface, StreamFactoryInterface, UriFactoryInterface, ServerRequestFactoryInterface, UploadedFileFactoryInterface. Includes unit tests.
 ---
 
 # PSR-17 HTTP Factories Generator

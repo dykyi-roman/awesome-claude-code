@@ -16,7 +16,7 @@ A Handler executes the logic for a single Command or Query. One handler per mess
 - **CommandHandler**: modifies state, dispatches events
 - **QueryHandler**: reads state, no side effects
 
-## PHP 8.5 Implementation
+## PHP 8.4 Implementation
 
 ### Command Handler
 

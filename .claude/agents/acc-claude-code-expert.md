@@ -39,11 +39,13 @@ You are an expert in Claude Code internal architecture and extension.
 ```yaml
 ---
 description: When to use this command
-allowed-tools: Tool1, Tool2  # optional
+allowed-tools: Tool1, Tool2         # optional
 model: opus  # optional (opus/sonnet/haiku or alias)
 argument-hint: [argument description]  # optional
 ---
+```
 
+```
 Instructions for the command...
 $ARGUMENTS — full argument string
 $ARGUMENTS[0], $1 — positional args
@@ -73,7 +75,7 @@ Agent system prompt...
 name: skill-name  # lowercase, hyphens, max 64 chars
 description: What it does and when to use (max 1024 chars)
 allowed-tools: Tool1, Tool2  # optional
-model: Optional. Model override when skill is active.
+model: opus  # optional, override when skill is active
 context: Optional. "fork" for isolated subagent execution.
 agent: Optional. Subagent type (Explore, Plan, etc).
 hooks: Optional. Lifecycle hooks scoped to this skill.

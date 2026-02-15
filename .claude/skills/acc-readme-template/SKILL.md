@@ -86,7 +86,7 @@ Generate professional README.md files for PHP projects.
 ```markdown
 ## Requirements
 
-- PHP 8.5+
+- PHP 8.4+
 - Composer 2.0+
 - Extensions: ext-json, ext-pdo
 
@@ -203,14 +203,14 @@ A PHP library for processing awesome things with type safety and modern practice
 
 ## Features
 
-- ✅ **Type-Safe API** — Full PHP 8.5 type declarations
+- ✅ **Type-Safe API** — Full PHP 8.4 type declarations
 - ✅ **PSR Compliant** — PSR-4, PSR-7, PSR-12
 - ✅ **Zero Dependencies** — No external runtime dependencies
 - ✅ **Fully Tested** — 100% code coverage
 
 ## Requirements
 
-- PHP 8.5+
+- PHP 8.4+
 - Composer 2.0+
 - ext-json
 

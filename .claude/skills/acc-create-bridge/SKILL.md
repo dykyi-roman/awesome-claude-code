@@ -1,6 +1,6 @@
 ---
 name: acc-create-bridge
-description: Generates Bridge pattern for PHP 8.5. Decouples abstraction from implementation. Includes unit tests.
+description: Generates Bridge pattern for PHP 8.4. Decouples abstraction from implementation. Includes unit tests.
 ---
 
 # Bridge Pattern Generator

@@ -1,6 +1,6 @@
 ---
 name: acc-create-psr11-container
-description: Generates PSR-11 Container implementation for PHP 8.5. Creates ContainerInterface with service resolution, autowiring support, and exceptions. Includes unit tests.
+description: Generates PSR-11 Container implementation for PHP 8.4. Creates ContainerInterface with service resolution, autowiring support, and exceptions. Includes unit tests.
 ---
 
 # PSR-11 Container Generator

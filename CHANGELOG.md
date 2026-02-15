@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.13.0] - 2026-02-15
+
+### Added
+- Added support for PHP 8.4
+- `acc-cqrs-generator` agent — CQRS/ES component generator (8 skills)
+- `acc-create-unit-of-work` — Unit of Work with identity map, savepoints, event collector
+- `acc-create-message-broker-adapter` — unified interface for RabbitMQ, Kafka, SQS, InMemory
+- `acc-create-idempotent-consumer` — message deduplication with Database/Redis stores
+- `acc-create-dead-letter-queue` — DLQ handler with retry strategy and failure classifier
+- `acc-create-timeout` — timeout executors (Signal/Stream/Null) with PSR-15 middleware
+- `acc-microservices-knowledge` — decomposition, communication, API gateway, antipatterns
+- `acc-api-design-knowledge` — REST, Richardson Model, RFC 7807, pagination, error handling
+- `acc-message-queue-knowledge` — RabbitMQ/Kafka/SQS/Redis Streams comparison, delivery guarantees
+- `acc-caching-strategies-knowledge` — Cache-Aside/Read-Through/Write-Behind, invalidation, stampede prevention
+
+### Changed
+- Decomposed `acc-ddd-generator` → `acc-ddd-generator` (11 skills) + `acc-cqrs-generator` (8 skills)
+- Changed `acc-ddd-generator` model from `opus` to `sonnet`
+- Updated 5 agents routing: `acc-generate-ddd`, `acc-architecture-generator`, `acc-architecture-auditor`, `acc-ddd-auditor`, `acc-refactor-coordinator`
+- Updated `acc-integration-generator`: +4 skills (Unit of Work, Message Broker, Idempotent Consumer, Dead Letter Queue)
+- Updated `acc-stability-generator`: +1 skill (Timeout)
+- Updated `acc-pattern-generator` coordinator and `acc-generate-patterns` command for 5 new patterns
+- Updated component counts: 26 commands, 62 agents, 259 skills
+
 ## [2.12.0] - 2026-02-14
 
 ### Added
@@ -260,7 +284,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.11.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.13.0...HEAD
+[2.13.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.12.0...v2.13.0
+[2.12.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.11.0...v2.12.0
 [2.11.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.9.0...v2.10.0
 [2.9.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.8.0...v2.9.0

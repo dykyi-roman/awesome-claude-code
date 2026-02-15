@@ -1,6 +1,6 @@
 ---
 name: acc-create-decorator
-description: Generates Decorator pattern for PHP 8.5. Creates wrapper classes for dynamic behavior addition without inheritance. Includes unit tests.
+description: Generates Decorator pattern for PHP 8.4. Creates wrapper classes for dynamic behavior addition without inheritance. Includes unit tests.
 ---
 
 # Decorator Pattern Generator

@@ -1,6 +1,6 @@
 ---
 name: acc-create-psr18-http-client
-description: Generates PSR-18 HTTP Client implementation for PHP 8.5. Creates ClientInterface with request sending and exception handling. Includes unit tests.
+description: Generates PSR-18 HTTP Client implementation for PHP 8.4. Creates ClientInterface with request sending and exception handling. Includes unit tests.
 ---
 
 # PSR-18 HTTP Client Generator

@@ -1,6 +1,6 @@
 ---
 name: acc-create-specification
-description: Generates DDD Specification for PHP 8.5. Creates reusable business rule objects for validation, filtering, and querying with composite pattern support. Includes unit tests.
+description: Generates DDD Specification for PHP 8.4. Creates reusable business rule objects for validation, filtering, and querying with composite pattern support. Includes unit tests.
 ---
 
 # Specification Generator

@@ -112,7 +112,7 @@ Quick reference for Clean Architecture / Hexagonal Architecture patterns and PHP
 | Missing Port | Direct external service call | Warning |
 | Adapter with logic | Repository doing validation | Warning |
 
-## PHP 8.5 Clean Architecture Patterns
+## PHP 8.4 Clean Architecture Patterns
 
 ### Port (Driven Port)
 

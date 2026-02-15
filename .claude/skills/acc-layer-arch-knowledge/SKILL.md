@@ -118,7 +118,7 @@ Quick reference for Layered (N-Tier) Architecture patterns and PHP implementatio
 | Anemic services | Service = simple delegation | Warning |
 | Fat repository | Logic in repository | Warning |
 
-## PHP 8.5 Layered Architecture Patterns
+## PHP 8.4 Layered Architecture Patterns
 
 ### Presentation Layer (Controller)
 

@@ -1,6 +1,6 @@
 ---
 name: acc-create-template-method
-description: Generates Template Method pattern for PHP 8.5. Creates abstract algorithm skeleton with customizable steps, allowing subclasses to override specific parts without changing structure. Includes unit tests.
+description: Generates Template Method pattern for PHP 8.4. Creates abstract algorithm skeleton with customizable steps, allowing subclasses to override specific parts without changing structure. Includes unit tests.
 ---
 
 # Template Method Pattern Generator

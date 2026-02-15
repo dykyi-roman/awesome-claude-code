@@ -1,6 +1,6 @@
 ---
 name: acc-create-retry-pattern
-description: Generates Retry pattern for PHP 8.5. Creates resilience component with exponential backoff, jitter, and configurable retry strategies. Includes unit tests.
+description: Generates Retry pattern for PHP 8.4. Creates resilience component with exponential backoff, jitter, and configurable retry strategies. Includes unit tests.
 ---
 
 # Retry Pattern Generator

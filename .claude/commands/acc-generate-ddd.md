@@ -1,5 +1,5 @@
 ---
-description: Generate DDD components. Creates entities, value objects, aggregates, commands, queries, repositories, domain services, factories, specifications, DTOs, ACL, event stores, snapshots, and use cases for PHP 8.5.
+description: Generate DDD components. Creates entities, value objects, aggregates, commands, queries, repositories, domain services, factories, specifications, DTOs, ACL, event stores, snapshots, and use cases for PHP 8.4.
 allowed-tools: Read, Write, Edit, Glob, Grep, Task
 model: opus
 argument-hint: <component-type> <ComponentName> [-- additional instructions]
@@ -7,7 +7,7 @@ argument-hint: <component-type> <ComponentName> [-- additional instructions]
 
 # Generate DDD Components
 
-Generate Domain-Driven Design components for PHP 8.5 with tests and proper layer placement.
+Generate Domain-Driven Design components for PHP 8.4 with tests and proper layer placement.
 
 ## Input Parsing
 
@@ -79,18 +79,38 @@ Examples:
 
 ## Instructions
 
-Use the `acc-ddd-generator` agent to generate DDD components:
+### DDD Components (entity, value-object, aggregate, domain-event, repository, domain-service, factory, specification, use-case, dto, acl)
+
+Use the `acc-ddd-generator` agent:
 
 ```
 Task tool with subagent_type="acc-ddd-generator"
 prompt: "Generate [COMPONENT_TYPE] named [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
-1. PHP 8.5 with declare(strict_types=1)
+1. PHP 8.4 with declare(strict_types=1)
 2. PSR-12 coding style
 3. Final readonly classes where appropriate
 4. Constructor property promotion
 5. Include related components (exceptions, enums)
+6. Include unit tests
+7. Follow existing project patterns"
+```
+
+### CQRS/ES Components (command, query, event-store, snapshot, read-model)
+
+Use the `acc-cqrs-generator` agent:
+
+```
+Task tool with subagent_type="acc-cqrs-generator"
+prompt: "Generate [COMPONENT_TYPE] named [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
+
+Requirements:
+1. PHP 8.4 with declare(strict_types=1)
+2. PSR-12 coding style
+3. Final readonly classes where appropriate
+4. Constructor property promotion
+5. Include related components (handlers, projectors)
 6. Include unit tests
 7. Follow existing project patterns"
 ```

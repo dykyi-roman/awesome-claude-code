@@ -1,6 +1,6 @@
 ---
 name: acc-create-outbox-pattern
-description: Generates Transactional Outbox pattern components for PHP 8.5. Creates OutboxMessage entity, repository, publisher, and processor with unit tests.
+description: Generates Transactional Outbox pattern components for PHP 8.4. Creates OutboxMessage entity, repository, publisher, and processor with unit tests.
 ---
 
 # Outbox Pattern Generator

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Composer plugin (`composer-plugin` type) providing Claude Code extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Installed via `composer require dykyi-roman/awesome-claude-code`. The plugin auto-copies `.claude/` components (commands, agents, skills) to the target project on install/update, never overwriting existing files.
+Composer plugin (`composer-plugin` type) providing Claude Code extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v2.14.0**. Installed via `composer require dykyi-roman/awesome-claude-code`. The plugin auto-copies `.claude/` components (commands, agents, skills) to the target project on install/update, never overwriting existing files.
 
 ## Commands
 
@@ -30,8 +30,8 @@ make release                # Run validate-claude, then print release instructio
 ```
 .claude/
 ├── commands/     # Slash commands (26) — user-invokable via /acc-*
-├── agents/       # Subagents (61) — invoked via Task tool with subagent_type
-├── skills/       # Skills (250) — knowledge bases, generators, analyzers
+├── agents/       # Subagents (62) — invoked via Task tool with subagent_type
+├── skills/       # Skills (259) — knowledge bases, generators, analyzers
 └── settings.json # Hooks and permission allowlist (NOT copied by plugin)
 
 src/
@@ -40,6 +40,8 @@ src/
 bin/acc                 # CLI tool for force-upgrading components
 docs/                   # commands.md, agents.md, skills.md, hooks.md, component-flow.md, mcp.md, quick-reference.md
 tests/                  # Docker-based test environment (Dockerfile + docker-compose.yml + composer.json)
+llms.txt                # LLM-readable project summary (sync counts with other docs)
+PLAN.md                 # Planned features and priorities for future versions
 ```
 
 ### Execution Flow

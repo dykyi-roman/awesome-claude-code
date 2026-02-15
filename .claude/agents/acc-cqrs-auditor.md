@@ -3,7 +3,7 @@ name: acc-cqrs-auditor
 description: CQRS/ES/EDA patterns auditor. Analyzes Command/Query separation, Event Sourcing compliance, and Event-Driven Architecture patterns. Called by acc-architecture-auditor and acc-pattern-auditor.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge, acc-eda-knowledge, acc-create-command, acc-create-query, acc-create-domain-event, acc-create-read-model, acc-task-progress-knowledge
+skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge, acc-eda-knowledge, acc-message-queue-knowledge, acc-create-command, acc-create-query, acc-create-domain-event, acc-create-read-model, acc-task-progress-knowledge
 ---
 
 # CQRS / Event Sourcing / EDA Auditor

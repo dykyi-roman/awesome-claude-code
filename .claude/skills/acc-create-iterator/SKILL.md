@@ -1,6 +1,6 @@
 ---
 name: acc-create-iterator
-description: Generates Iterator pattern for PHP 8.5. Creates sequential access to aggregate elements without exposing underlying representation, with iterator interface and iterable collections. Includes unit tests.
+description: Generates Iterator pattern for PHP 8.4. Creates sequential access to aggregate elements without exposing underlying representation, with iterator interface and iterable collections. Includes unit tests.
 ---
 
 # Iterator Pattern Generator

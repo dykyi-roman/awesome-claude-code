@@ -1,6 +1,6 @@
 # Integration Testing Patterns
 
-Detailed patterns and examples for integration testing in PHP 8.5.
+Detailed patterns and examples for integration testing in PHP 8.4.
 
 ## Test Class Structure
 

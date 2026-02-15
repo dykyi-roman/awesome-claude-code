@@ -243,12 +243,12 @@ final readonly class ContainerListenerProvider implements ListenerProviderInterf
 | `psr/simple-cache` 3.x | PHP 8.0+ |
 | `psr/clock` 1.x | PHP 8.0+ |
 
-### Recommended Versions for PHP 8.5+
+### Recommended Versions for PHP 8.4+
 
 ```json
 {
     "require": {
-        "php": "^8.5",
+        "php": "^8.4",
         "psr/log": "^3.0",
         "psr/cache": "^3.0",
         "psr/http-message": "^2.0",

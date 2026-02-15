@@ -1,6 +1,6 @@
 ---
 name: acc-create-psr6-cache
-description: Generates PSR-6 Cache implementation for PHP 8.5. Creates CacheItemPoolInterface and CacheItemInterface implementations with TTL handling and deferred saves. Includes unit tests.
+description: Generates PSR-6 Cache implementation for PHP 8.4. Creates CacheItemPoolInterface and CacheItemInterface implementations with TTL handling and deferred saves. Includes unit tests.
 ---
 
 # PSR-6 Cache Generator

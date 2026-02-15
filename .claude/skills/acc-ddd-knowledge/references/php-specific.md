@@ -1,6 +1,6 @@
-# PHP 8.5 DDD Specifics
+# PHP 8.4 DDD Specifics
 
-PHP 8.5 features and patterns for DDD implementation.
+PHP 8.4 features and patterns for DDD implementation.
 
 ## Language Features for DDD
 
@@ -125,7 +125,7 @@ class OrderMapping
 }
 ```
 
-## DDD Building Blocks in PHP 8.5
+## DDD Building Blocks in PHP 8.4
 
 ### Entity Pattern
 
@@ -521,7 +521,7 @@ final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
 </doctrine-mapping>
 ```
 
-## Detection Patterns for PHP 8.5
+## Detection Patterns for PHP 8.4
 
 ```bash
 # Good - Using readonly classes
@@ -545,7 +545,7 @@ Grep: "^class " --glob "**/Domain/**/*.php" | grep -v "final\|abstract"
 
 ## Best Practices Checklist
 
-### PHP 8.5 Features
+### PHP 8.4 Features
 - [ ] `declare(strict_types=1)` in ALL files
 - [ ] `final` on all classes (except when inheritance needed)
 - [ ] `readonly` on value objects and DTOs

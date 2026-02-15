@@ -1,6 +1,6 @@
 # Correlation Context — Templates
 
-Complete PHP 8.5 implementations for all Correlation Context components.
+Complete PHP 8.4 implementations for all Correlation Context components.
 
 ---
 

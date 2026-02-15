@@ -1,6 +1,6 @@
 ---
 name: acc-create-health-check
-description: Generates Health Check pattern for PHP 8.5. Creates application-level health endpoints with component checkers (Database, Redis, RabbitMQ), status aggregation, and RFC-compliant JSON response. Includes unit tests.
+description: Generates Health Check pattern for PHP 8.4. Creates application-level health endpoints with component checkers (Database, Redis, RabbitMQ), status aggregation, and RFC-compliant JSON response. Includes unit tests.
 ---
 
 # Health Check Generator

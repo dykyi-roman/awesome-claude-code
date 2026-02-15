@@ -1,13 +1,13 @@
 ---
 name: acc-create-di-container
-description: Generates DI Container configuration for PHP 8.5. Creates module classes, service providers, container configuration, and autowiring setup. Supports Symfony, Laravel, and PHP-DI patterns. Includes unit tests.
+description: Generates DI Container configuration for PHP 8.4. Creates module classes, service providers, container configuration, and autowiring setup. Supports Symfony, Laravel, and PHP-DI patterns. Includes unit tests.
 ---
 
 # DI Container Generator
 
 ## Overview
 
-Generates Dependency Injection container configuration components for PHP 8.5 following DDD and Clean Architecture principles.
+Generates Dependency Injection container configuration components for PHP 8.4 following DDD and Clean Architecture principles.
 
 ## When to Use
 

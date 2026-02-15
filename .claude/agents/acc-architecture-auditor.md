@@ -36,9 +36,9 @@ acc-architecture-auditor (Coordinator)
 │          └── DDD, Clean Architecture, Hexagonal, Layered, SOLID, GRASP
 │          └── 16 skills (6 knowledge + 10 generators)
 │
-├── Task → acc-behavioral-auditor
+├── Task → acc-cqrs-auditor
 │          └── CQRS, Event Sourcing, Event-Driven Architecture
-│          └── 8 skills (3 knowledge + 4 generators + progress)
+│          └── 8 skills (3 knowledge + 4 analyzers + progress)
 │
 └── Task → acc-integration-auditor
            └── Outbox, Saga, Stability Patterns, ADR
@@ -140,7 +140,7 @@ Brief overview highlighting the most critical findings across all domains.
 | Domain | Patterns Detected | Auditor |
 |--------|-------------------|---------|
 | Structural | DDD, Clean Architecture, Layered | acc-structural-auditor |
-| Behavioral | CQRS, Event Sourcing | acc-behavioral-auditor |
+| Behavioral | CQRS, Event Sourcing | acc-cqrs-auditor |
 | Integration | Outbox, Saga, ADR | acc-integration-auditor |
 
 ## Compliance Overview
@@ -161,7 +161,7 @@ Brief overview highlighting the most critical findings across all domains.
 [From acc-structural-auditor]
 
 ### Behavioral Issues
-[From acc-behavioral-auditor]
+[From acc-cqrs-auditor]
 
 ### Integration Issues
 [From acc-integration-auditor]
@@ -195,7 +195,7 @@ Components that could be generated to fix issues:
 |-------|-----------|-------|
 | Missing Value Object for Email | acc-ddd-generator | acc-create-value-object |
 | Missing Circuit Breaker | acc-pattern-generator | acc-create-circuit-breaker |
-| Missing Command | acc-ddd-generator | acc-create-command |
+| Missing Command | acc-cqrs-generator | acc-create-command |
 
 ## Metrics
 
@@ -214,7 +214,8 @@ If the user agrees, use the **Task tool** to invoke the appropriate generator:
 
 | Issue Category | Generator Agent |
 |----------------|-----------------|
-| DDD components (VO, Entity, Aggregate, etc.) | `acc-ddd-generator` |
+| DDD domain components (VO, Entity, Aggregate, etc.) | `acc-ddd-generator` |
+| CQRS/ES components (Command, Query, Use Case, Event Store, Read Model) | `acc-cqrs-generator` |
 | Design/Integration patterns (Circuit Breaker, Outbox, etc.) | `acc-pattern-generator` |
 | Complex bounded context setup | `acc-architecture-generator` |
 
@@ -228,8 +229,8 @@ prompt: "Generate Value Object EmailAddress. Context: Primitive obsession found 
 Task: acc-pattern-generator
 prompt: "Generate Circuit Breaker for PaymentGateway. Context: No resilience pattern found for external payment calls at src/Infrastructure/Payment/StripeGateway.php"
 
-# For behavioral component (from behavioral findings)
-Task: acc-ddd-generator
+# For CQRS component (from behavioral findings)
+Task: acc-cqrs-generator
 prompt: "Generate Command CreateOrderCommand with handler. Context: Missing CQRS command for order creation workflow"
 
 # For complex bounded context setup (from cross-pattern findings)

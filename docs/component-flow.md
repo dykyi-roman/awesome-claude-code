@@ -30,7 +30,8 @@ COMMANDS                    AGENTS                      SKILLS
 
 /acc-audit-ddd ─────────→ acc-ddd-auditor (8 skills) ──→ DDD, SOLID, GRASP knowledge + 3 analyzers
                                 │
-                                └──→ (Task) acc-ddd-generator ──→ 13 create-* skills
+                                ├──→ (Task) acc-ddd-generator ──→ 11 create-* skills (domain + app)
+                                └──→ (Task) acc-cqrs-generator ─→ 6 create-* skills (CQRS/ES)
 
 /acc-audit-architecture ─→ acc-architecture-auditor (coordinator)
                                 │
@@ -44,6 +45,7 @@ COMMANDS                    AGENTS                      SKILLS
                                 │           └── Outbox, Saga, ADR
                                 │
                                 ├──→ (Task) acc-ddd-generator
+                                ├──→ (Task) acc-cqrs-generator
                                 └──→ (Task) acc-pattern-generator (coordinator)
                                                   │
                                                   ├──→ (Task) acc-stability-generator ──→ 5 skills
@@ -199,7 +201,8 @@ Skill generates PHP code with tests
 
 | Issue Type | Generator Agent | Skills Used |
 |------------|-----------------|-------------|
-| DDD components | `acc-ddd-generator` | 13 acc-create-* skills |
+| DDD building blocks | `acc-ddd-generator` | 11 acc-create-* skills |
+| CQRS/ES components | `acc-cqrs-generator` | 6 acc-create-* skills |
 | Stability patterns | `acc-stability-generator` | 5 acc-create-* skills |
 | Behavioral patterns | `acc-behavioral-generator` | 10 acc-create-* skills |
 | GoF Structural patterns | `acc-gof-structural-generator` | 6 acc-create-* skills |
@@ -212,21 +215,28 @@ Skill generates PHP code with tests
 
 ## Generator Skills by Category
 
-### DDD (13 skills)
+### DDD Building Blocks (11 skills)
 
 - `acc-create-value-object` — Value Objects
 - `acc-create-entity` — Entities
 - `acc-create-aggregate` — Aggregates
 - `acc-create-domain-event` — Domain Events
 - `acc-create-repository` — Repository interfaces
-- `acc-create-command` — CQRS Commands
-- `acc-create-query` — CQRS Queries
-- `acc-create-use-case` — Application Use Cases
 - `acc-create-domain-service` — Domain Services
 - `acc-create-factory` — Factories
 - `acc-create-specification` — Specifications
+- `acc-create-use-case` — Application Use Cases
 - `acc-create-dto` — DTOs
 - `acc-create-anti-corruption-layer` — Anti-Corruption Layer
+
+### CQRS/ES (6 skills)
+
+- `acc-create-command` — CQRS Commands
+- `acc-create-query` — CQRS Queries
+- `acc-create-use-case` — Application Use Cases
+- `acc-create-event-store` — Event Store
+- `acc-create-snapshot` — Snapshots
+- `acc-create-read-model` — Read Models/Projections
 
 ### Stability Patterns (4 skills)
 

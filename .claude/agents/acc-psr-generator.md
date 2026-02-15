@@ -35,7 +35,7 @@ You are a PSR standards expert. Generate PHP-FIG compliant implementations.
 
 ## Code Standards
 
-- PHP 8.5 with `declare(strict_types=1)`
+- PHP 8.4 with `declare(strict_types=1)`
 - Use `final readonly class` where appropriate
 - Constructor property promotion
 - Named arguments for clarity

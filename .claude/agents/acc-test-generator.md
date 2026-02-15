@@ -135,7 +135,7 @@ src/Infrastructure/            →    tests/Integration/Infrastructure/
     DoctrineOrderRepository.php         DoctrineOrderRepositoryTest.php
 ```
 
-## PHP 8.5 Standards
+## PHP 8.4 Standards
 
 All generated code must follow:
 

@@ -1,11 +1,11 @@
 ---
 name: acc-create-integration-test
-description: Generates PHPUnit integration tests for PHP 8.5. Creates tests with real dependencies, database transactions, HTTP mocking. Supports repositories, API clients, message handlers.
+description: Generates PHPUnit integration tests for PHP 8.4. Creates tests with real dependencies, database transactions, HTTP mocking. Supports repositories, API clients, message handlers.
 ---
 
 # Integration Test Generator
 
-Generates PHPUnit 11+ integration tests for PHP 8.5 infrastructure components.
+Generates PHPUnit 11+ integration tests for PHP 8.4 infrastructure components.
 
 ## Characteristics
 

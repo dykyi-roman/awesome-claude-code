@@ -59,7 +59,8 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
 | `acc-architecture-generator` | Generate architecture components | 7 | `acc-architecture-auditor` (Task) |
-| `acc-ddd-generator` | Generate DDD components | 14 | `acc-ddd-auditor` (Task) |
+| `acc-ddd-generator` | Generate DDD building blocks | 12 | `acc-ddd-auditor` (Task) |
+| `acc-cqrs-generator` | Generate CQRS/ES components | 8 | `/acc-generate-ddd`, `acc-architecture-generator` (Task) |
 | `acc-stability-generator` | Generate stability patterns | 5 | `acc-pattern-generator` (Task) |
 | `acc-behavioral-generator` | Generate behavioral patterns | 10 | `acc-pattern-generator` (Task) |
 | `acc-gof-structural-generator` | Generate GoF structural patterns | 6 | `acc-pattern-generator` (Task) |
@@ -362,19 +363,40 @@ skills: acc-ddd-knowledge, acc-solid-knowledge, acc-grasp-knowledge,
 
 **Path:** `agents/acc-ddd-generator.md`
 
-Creates DDD and architecture components.
+Creates DDD building blocks (Domain + Application layers).
 
 **Configuration:**
 ```yaml
 name: acc-ddd-generator
-tools: Read, Write, Glob, Grep
-model: opus
+tools: Read, Write, Glob, Grep, Edit
+model: sonnet
 skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity,
         acc-create-aggregate, acc-create-domain-event, acc-create-repository,
-        acc-create-command, acc-create-query, acc-create-use-case,
         acc-create-domain-service, acc-create-factory, acc-create-specification,
-        acc-create-dto, acc-create-anti-corruption-layer
+        acc-create-dto, acc-create-anti-corruption-layer, acc-create-use-case
 ```
+
+**Skills:** 12 (1 knowledge + 11 generators)
+
+---
+
+## `acc-cqrs-generator`
+
+**Path:** `agents/acc-cqrs-generator.md`
+
+Creates CQRS/ES components (Commands, Queries, Use Cases, Event Stores, Snapshots, Read Models).
+
+**Configuration:**
+```yaml
+name: acc-cqrs-generator
+tools: Read, Write, Glob, Grep, Edit
+model: sonnet
+skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge,
+        acc-create-command, acc-create-query, acc-create-use-case,
+        acc-create-event-store, acc-create-snapshot, acc-create-read-model
+```
+
+**Skills:** 8 (2 knowledge + 6 generators)
 
 ---
 
@@ -524,7 +546,7 @@ skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge,
 
 **Capabilities:**
 - Direct generation: Value Objects, Entities, Aggregates, Commands, Queries, DTOs
-- Delegated generation: Complex DDD structures via `acc-ddd-generator`, Outbox/Saga via `acc-pattern-generator`
+- Delegated generation: Complex DDD structures via `acc-ddd-generator`, CQRS/ES via `acc-cqrs-generator`, Outbox/Saga via `acc-pattern-generator`
 - Bounded context scaffolding
 - CQRS + Event Sourcing setup
 - Full feature vertical slices

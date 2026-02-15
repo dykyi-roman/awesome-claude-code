@@ -1,6 +1,6 @@
 ---
 name: acc-create-builder
-description: Generates Builder pattern for PHP 8.5. Creates step-by-step object construction with fluent interface and validation. Includes unit tests.
+description: Generates Builder pattern for PHP 8.4. Creates step-by-step object construction with fluent interface and validation. Includes unit tests.
 ---
 
 # Builder Pattern Generator

@@ -1,6 +1,6 @@
 ---
 name: acc-solid-knowledge
-description: SOLID principles knowledge base for PHP 8.5 projects. Provides quick reference for SRP, OCP, LSP, ISP, DIP with detection patterns, PHP examples, and antipattern identification. Use for architecture audits and code quality reviews.
+description: SOLID principles knowledge base for PHP 8.4 projects. Provides quick reference for SRP, OCP, LSP, ISP, DIP with detection patterns, PHP examples, and antipattern identification. Use for architecture audits and code quality reviews.
 ---
 
 # SOLID Principles Knowledge Base
@@ -116,7 +116,7 @@ grep -rn "function.*([A-Z][a-z]*[A-Z]" --include="*.php"
 - Type hints to concrete classes (not interfaces)
 - No constructor injection
 
-## PHP 8.5 Patterns
+## PHP 8.4 Patterns
 
 ### SRP Compliant
 

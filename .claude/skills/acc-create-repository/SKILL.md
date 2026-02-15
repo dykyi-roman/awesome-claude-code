@@ -1,6 +1,6 @@
 ---
 name: acc-create-repository
-description: Generates DDD Repository interfaces and implementation stubs for PHP 8.5. Creates domain interfaces in Domain layer, implementation in Infrastructure.
+description: Generates DDD Repository interfaces and implementation stubs for PHP 8.4. Creates domain interfaces in Domain layer, implementation in Infrastructure.
 ---
 
 # Repository Generator

@@ -30,7 +30,7 @@ Handle all user interaction and display concerns. This is the entry point to the
 | Request | Validated input | `CreateOrderRequest` |
 | Response | Formatted output | `OrderResource` |
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -175,7 +175,7 @@ Orchestrate business operations and coordinate between layers. Contains no busin
 | Facade | Simplified interface | `CheckoutFacade` |
 | Event Handler | React to events | `SendEmailOnOrderCreated` |
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -290,7 +290,7 @@ Contain all business logic and rules. The heart of the application.
 | Domain Event | What happened | `OrderCreatedEvent` |
 | Specification | Business rule | `OrderEligibleForDiscount` |
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -392,7 +392,7 @@ Provide technical capabilities to upper layers. Implements interfaces defined in
 | Cache Adapter | Caching | `RedisOrderCache` |
 | Message Publisher | Async messaging | `RabbitMQPublisher` |
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php

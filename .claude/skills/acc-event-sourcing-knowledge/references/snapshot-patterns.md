@@ -19,7 +19,7 @@ A cached state of an aggregate at a specific version, used to optimize loading p
 
 **Rule of thumb:** Consider snapshots when aggregates typically have 50+ events.
 
-## PHP 8.5 Implementation
+## PHP 8.4 Implementation
 
 ### Snapshot Interface
 

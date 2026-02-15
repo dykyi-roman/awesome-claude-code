@@ -1,6 +1,6 @@
 ---
 name: acc-create-responder
-description: Generates ADR Responder classes for PHP 8.5. Creates HTTP response builders with PSR-7/PSR-17 support. Includes unit tests.
+description: Generates ADR Responder classes for PHP 8.4. Creates HTTP response builders with PSR-7/PSR-17 support. Includes unit tests.
 ---
 
 # Responder Generator

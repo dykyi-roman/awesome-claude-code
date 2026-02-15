@@ -16,7 +16,7 @@ A Command is an immutable object representing a request to change system state.
 - **Intent-revealing**: name describes what should happen
 - **Returns void or ID**: never returns data
 
-## PHP 8.5 Implementation
+## PHP 8.4 Implementation
 
 ### Basic Command
 

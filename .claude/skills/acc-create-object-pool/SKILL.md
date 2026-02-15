@@ -1,6 +1,6 @@
 ---
 name: acc-create-object-pool
-description: Generates Object Pool pattern for PHP 8.5. Creates reusable object containers for expensive resources like connections. Includes unit tests.
+description: Generates Object Pool pattern for PHP 8.4. Creates reusable object containers for expensive resources like connections. Includes unit tests.
 ---
 
 # Object Pool Pattern Generator

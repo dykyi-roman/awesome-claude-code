@@ -290,8 +290,9 @@ After presenting the audit report with skill recommendations, ask the user if th
 
 If the user agrees to generate code:
 1. Use the **Task tool** to invoke the appropriate generator agent:
-   - For DDD components (Value Objects, Entities, Aggregates, Domain Events, Domain Services, Factories, Specifications, Repositories, UseCases, Commands, Queries, DTOs, ACL) → invoke `acc-ddd-generator`
-   - For design patterns (Strategy, State, Decorator, Chain of Responsibility, Null Object, Builder, Object Pool, Circuit Breaker, Retry, Rate Limiter, Bulkhead, Read Model, Policy, Outbox, Saga) → invoke `acc-pattern-generator`
+   - For DDD domain components (Value Objects, Entities, Aggregates, Domain Events, Domain Services, Factories, Specifications, Repositories, DTOs, ACL) → invoke `acc-ddd-generator`
+   - For CQRS/ES components (Commands, Queries, Use Cases, Event Stores, Snapshots, Read Models) → invoke `acc-cqrs-generator`
+   - For design patterns (Strategy, State, Decorator, Chain of Responsibility, Null Object, Builder, Object Pool, Circuit Breaker, Retry, Rate Limiter, Bulkhead, Policy, Outbox, Saga) → invoke `acc-pattern-generator`
 
 2. Pass the component name and context from the audit findings to the generator.
 

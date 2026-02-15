@@ -599,7 +599,7 @@ Design patterns audit with SOLID/GRASP compliance analysis.
 
 **Path:** `commands/acc-generate-ddd.md`
 
-Generate DDD components for PHP 8.5 with tests and proper layer placement.
+Generate DDD components for PHP 8.4 with tests and proper layer placement.
 
 **Arguments:**
 ```
@@ -627,6 +627,8 @@ Generate DDD components for PHP 8.5 with tests and proper layer placement.
 
 **Supported Components:**
 
+DDD components → `acc-ddd-generator`:
+
 | Component | Aliases | Layer |
 |-----------|---------|-------|
 | `entity` | `ent` | Domain |
@@ -637,11 +639,19 @@ Generate DDD components for PHP 8.5 with tests and proper layer placement.
 | `domain-service` | `service`, `ds` | Domain |
 | `factory` | `fact` | Domain |
 | `specification` | `spec` | Domain |
-| `command` | `cmd` | Application |
-| `query` | `qry` | Application |
 | `use-case` | `usecase`, `uc` | Application |
 | `dto` | `data-transfer` | Application |
 | `acl` | `anti-corruption` | Infrastructure |
+
+CQRS/ES components → `acc-cqrs-generator`:
+
+| Component | Aliases | Layer |
+|-----------|---------|-------|
+| `command` | `cmd` | Application |
+| `query` | `qry` | Application |
+| `event-store` | `es`, `eventstore` | Domain + Infrastructure |
+| `snapshot` | `snap` | Domain + Infrastructure |
+| `read-model` | `rm`, `projection` | Application + Infrastructure |
 
 ---
 

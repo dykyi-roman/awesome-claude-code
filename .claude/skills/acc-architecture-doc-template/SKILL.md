@@ -324,7 +324,7 @@ sequenceDiagram
 
 | Layer | Technology | Purpose |
 |-------|------------|---------|
-| Language | PHP 8.5 | Type safety, modern features |
+| Language | PHP 8.4 | Type safety, modern features |
 | Framework | Symfony 7.x | HTTP, DI, Console |
 | ORM | Doctrine 3.x | Database abstraction |
 | Database | PostgreSQL 16 | Primary storage |
@@ -414,7 +414,7 @@ flowchart TB
 
 | Layer | Technology | Purpose |
 |-------|------------|---------|
-| Language | PHP 8.5 | Type safety |
+| Language | PHP 8.4 | Type safety |
 | Framework | Symfony 7.2 | HTTP, DI |
 | Database | PostgreSQL 16 | Storage |
 | Cache | Redis 7.4 | Performance |

@@ -33,7 +33,8 @@ This agent orchestrates the following specialists:
 |-------|------|--------|
 | `acc-readability-reviewer` | Analyze naming, style, complexity | 9 skills |
 | `acc-testability-reviewer` | Analyze DI, side effects, test quality | 7 skills |
-| `acc-ddd-generator` | Generate DDD components | 13+ skills |
+| `acc-ddd-generator` | Generate DDD domain components | 12 skills |
+| `acc-cqrs-generator` | Generate CQRS/ES components | 8 skills |
 | `acc-pattern-generator` | Generate design patterns | 16+ skills |
 
 ## Refactoring Philosophy

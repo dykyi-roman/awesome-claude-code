@@ -79,7 +79,7 @@ HTTP Request → Action (collects input)
 | Multiple public methods in Action | *Action.php | Warning |
 | Template logic in Action | *Action.php | Warning |
 
-## PHP 8.5 ADR Patterns
+## PHP 8.4 ADR Patterns
 
 ### Action Pattern
 

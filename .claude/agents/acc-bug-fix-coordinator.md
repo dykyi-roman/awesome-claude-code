@@ -1,7 +1,7 @@
 ---
 name: acc-bug-fix-coordinator
 description: Coordinates bug diagnosis, fix generation, and test creation. Orchestrates acc-bug-hunter, acc-bug-fixer, and acc-test-generator.
-tools: Task, Read, Grep, Glob, Edit, Write, Bash, TaskCreate, TaskUpdate
+tools: Task, Read, Grep, Glob, Bash, TaskCreate, TaskUpdate
 model: opus
 skills: acc-task-progress-knowledge
 ---

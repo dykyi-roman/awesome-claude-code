@@ -31,6 +31,8 @@
       "Bash(git clean -f:*)",
       "Bash(git branch -D:*)",
       "Bash(git checkout .:*)",
+      "Bash(git restore .:*)",
+      "Bash(git restore --staged:*)",
       "Bash(git rebase:*)"
     ]
   }

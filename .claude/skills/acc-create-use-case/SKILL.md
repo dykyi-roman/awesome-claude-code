@@ -1,6 +1,6 @@
 ---
 name: acc-create-use-case
-description: Generates Application Use Cases for PHP 8.5. Creates orchestration services that coordinate domain objects, handle transactions, and dispatch events. Includes unit tests.
+description: Generates Application Use Cases for PHP 8.4. Creates orchestration services that coordinate domain objects, handle transactions, and dispatch events. Includes unit tests.
 ---
 
 # Use Case Generator

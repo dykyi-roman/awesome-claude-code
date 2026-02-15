@@ -91,7 +91,7 @@ Quick reference for Transactional Outbox pattern and PHP implementation guidelin
 - [ ] Stores processed message IDs
 - [ ] Acknowledges only after successful processing
 
-## PHP 8.5 Outbox Patterns
+## PHP 8.4 Outbox Patterns
 
 ### OutboxMessage Entity
 
@@ -347,7 +347,7 @@ For detailed information, load these reference files:
 
 - `references/outbox-patterns.md` — Implementation strategies and patterns
 - `references/antipatterns.md` — Common violations with detection patterns
-- `references/php-specific.md` — PHP 8.5 specific implementations
+- `references/php-specific.md` — PHP 8.4 specific implementations
 
 ## Assets
 

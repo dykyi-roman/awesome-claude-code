@@ -20,7 +20,7 @@ One-line description of what the project does.
 
 ## Requirements
 
-- PHP 8.5+
+- PHP 8.4+
 - Composer 2.0+
 - ext-json
 
@@ -97,7 +97,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 - ✅ Type-safe configuration
 - ✅ PSR-7 compatible
 - ✅ Zero dependencies
-- ✅ PHP 8.5+ support
+- ✅ PHP 8.4+ support
 - 🚧 Feature in progress
 ```
 
@@ -108,7 +108,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 | Feature | This | Alternative A | Alternative B |
 |---------|------|---------------|---------------|
-| PHP 8.5 | ✅ | ❌ | ✅ |
+| PHP 8.4 | ✅ | ❌ | ✅ |
 | Type Safety | ✅ | ⚠️ | ❌ |
 | Zero Deps | ✅ | ❌ | ❌ |
 | Performance | Fast | Slow | Medium |

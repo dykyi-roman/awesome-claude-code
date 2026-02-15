@@ -1,6 +1,6 @@
 ---
 name: acc-psr-coding-style-knowledge
-description: PSR-1 and PSR-12 coding standards knowledge base for PHP 8.5 projects. Provides quick reference for basic coding standard and extended coding style with detection patterns, examples, and antipattern identification. Use for code style audits and compliance reviews.
+description: PSR-1 and PSR-12 coding standards knowledge base for PHP 8.4 projects. Provides quick reference for basic coding standard and extended coding style with detection patterns, examples, and antipattern identification. Use for code style audits and compliance reviews.
 ---
 
 # PSR Coding Style Knowledge (PSR-1, PSR-12)

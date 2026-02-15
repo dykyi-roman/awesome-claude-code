@@ -1,13 +1,13 @@
 ---
 name: acc-create-mediator
-description: Generates Mediator pattern for PHP 8.5. Creates coordination layer for complex component interactions with event dispatching, request/response handling, and colleague classes. Reduces coupling between interacting objects. Includes unit tests.
+description: Generates Mediator pattern for PHP 8.4. Creates coordination layer for complex component interactions with event dispatching, request/response handling, and colleague classes. Reduces coupling between interacting objects. Includes unit tests.
 ---
 
 # Mediator Pattern Generator
 
 ## Overview
 
-Generates Mediator pattern components for PHP 8.5 to coordinate complex interactions between multiple objects without them referencing each other directly.
+Generates Mediator pattern components for PHP 8.4 to coordinate complex interactions between multiple objects without them referencing each other directly.
 
 ## When to Use
 

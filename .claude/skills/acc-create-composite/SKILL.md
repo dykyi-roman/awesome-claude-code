@@ -1,6 +1,6 @@
 ---
 name: acc-create-composite
-description: Generates Composite pattern for PHP 8.5. Creates tree structures with uniform treatment of individual and composite objects. Includes unit tests.
+description: Generates Composite pattern for PHP 8.4. Creates tree structures with uniform treatment of individual and composite objects. Includes unit tests.
 ---
 
 # Composite Pattern Generator

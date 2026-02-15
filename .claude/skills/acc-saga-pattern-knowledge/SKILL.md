@@ -104,7 +104,7 @@ Quick reference for Saga pattern and PHP implementation guidelines for distribut
 - [ ] Logs compensation actions
 - [ ] Eventual consistency acceptable
 
-## PHP 8.5 Saga Patterns
+## PHP 8.4 Saga Patterns
 
 ### Saga State Enum
 
@@ -372,7 +372,7 @@ For detailed information, load these reference files:
 - `references/saga-patterns.md` — Choreography and orchestration patterns
 - `references/compensation.md` — Compensating transaction strategies
 - `references/antipatterns.md` — Common violations with detection patterns
-- `references/php-specific.md` — PHP 8.5 specific implementations
+- `references/php-specific.md` — PHP 8.4 specific implementations
 
 ## Assets
 

@@ -1,6 +1,6 @@
 ---
 name: acc-create-event-store
-description: Generates Event Store pattern for PHP 8.5. Creates event sourcing storage infrastructure with event streams, stored events, optimistic locking, and version tracking. Includes unit tests.
+description: Generates Event Store pattern for PHP 8.4. Creates event sourcing storage infrastructure with event streams, stored events, optimistic locking, and version tracking. Includes unit tests.
 ---
 
 # Event Store Generator

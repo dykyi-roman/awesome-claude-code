@@ -42,9 +42,9 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
-| **Knowledge** | 38 | Provide expertise and best practices | `acc-ddd-knowledge` |
+| **Knowledge** | 42 | Provide expertise and best practices | `acc-ddd-knowledge` |
 | **Analyzer** | 99 | Detect violations and antipatterns | `acc-analyze-solid-violations` |
-| **Generator** | 99 | Generate PHP code with tests | `acc-create-entity` |
+| **Generator** | 104 | Generate PHP code with tests | `acc-create-entity` |
 | **Template** | 10 | Documentation and output templates | `acc-readme-template` |
 | **Other** | 4 | Estimation and suggestion utilities | `acc-estimate-complexity` |
 
@@ -53,7 +53,7 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 1. **Loading**: Skills are loaded by agents via `skills:` frontmatter
 2. **Activation**: Triggered by keywords in user request or agent decision
 3. **Execution**: Skill provides templates, rules, or generates code
-4. **Output**: Generated code follows PHP 8.5, DDD, and PSR standards
+4. **Output**: Generated code follows PHP 8.4, DDD, and PSR standards
 
 ---
 
@@ -100,6 +100,10 @@ Knowledge bases for architecture audits and best practices.
 | `acc-docker-troubleshooting-knowledge` | `skills/acc-docker-troubleshooting-knowledge/` | Error diagnosis, debugging commands |
 | `acc-docker-orchestration-knowledge` | `skills/acc-docker-orchestration-knowledge/` | Swarm, Kubernetes, scaling |
 | `acc-docker-scanning-knowledge` | `skills/acc-docker-scanning-knowledge/` | Vulnerability scanning, SBOM |
+| `acc-microservices-knowledge` | `skills/acc-microservices-knowledge/` | Service decomposition, API gateway, service discovery, data management |
+| `acc-api-design-knowledge` | `skills/acc-api-design-knowledge/` | REST constraints, Richardson Maturity, HTTP semantics, RFC 7807 |
+| `acc-message-queue-knowledge` | `skills/acc-message-queue-knowledge/` | Broker comparison (RabbitMQ/Kafka/SQS), delivery guarantees, consumer groups |
+| `acc-caching-strategies-knowledge` | `skills/acc-caching-strategies-knowledge/` | Cache-Aside, Read-Through, Write-Through, invalidation, Redis patterns |
 
 ## Analyzer Skills
 
@@ -269,7 +273,7 @@ Knowledge bases for architecture audits and best practices.
 
 ## Generator Skills
 
-Code generators for DDD and architecture components (PHP 8.5).
+Code generators for DDD and architecture components (PHP 8.4).
 
 ### DDD Components
 
@@ -306,6 +310,7 @@ Code generators for DDD and architecture components (PHP 8.5).
 | `acc-create-rate-limiter` | `skills/acc-create-rate-limiter/` | Rate limiting (Token Bucket, Sliding Window) |
 | `acc-create-bulkhead` | `skills/acc-create-bulkhead/` | Bulkhead isolation pattern |
 | `acc-create-cache-aside` | `skills/acc-create-cache-aside/` | Cache-Aside with stampede protection |
+| `acc-create-timeout` | `skills/acc-create-timeout/` | Timeout pattern (signal/stream executors, middleware) |
 | `acc-check-timeout-strategy` | `skills/acc-check-timeout-strategy/` | Timeout config: HTTP, DB, queue, cache, locks |
 | `acc-check-cascading-failures` | `skills/acc-check-cascading-failures/` | Shared resources, unbounded queues, failure propagation |
 | `acc-check-fallback-strategy` | `skills/acc-check-fallback-strategy/` | Graceful degradation, cache fallback, feature flags |
@@ -319,6 +324,10 @@ Code generators for DDD and architecture components (PHP 8.5).
 | `acc-create-correlation-context` | `skills/acc-create-correlation-context/` | Correlation ID propagation (middleware, log processor, message stamp) |
 | `acc-create-api-versioning` | `skills/acc-create-api-versioning/` | API Versioning (URI/header/query strategies, deprecation) |
 | `acc-create-health-check` | `skills/acc-create-health-check/` | Health Check endpoints (Database, Redis, RabbitMQ) |
+| `acc-create-unit-of-work` | `skills/acc-create-unit-of-work/` | Unit of Work (aggregate tracking, transactional consistency) |
+| `acc-create-message-broker-adapter` | `skills/acc-create-message-broker-adapter/` | Message Broker Adapter (RabbitMQ/Kafka/SQS) |
+| `acc-create-idempotent-consumer` | `skills/acc-create-idempotent-consumer/` | Idempotent Consumer (message deduplication) |
+| `acc-create-dead-letter-queue` | `skills/acc-create-dead-letter-queue/` | Dead Letter Queue (failed message capture and retry) |
 
 ### Behavioral Patterns
 

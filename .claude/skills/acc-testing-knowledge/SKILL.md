@@ -1,6 +1,6 @@
 ---
 name: acc-testing-knowledge
-description: Testing knowledge base for PHP 8.5 projects. Provides testing pyramid, AAA pattern, naming conventions, isolation principles, DDD testing guidelines, and PHPUnit patterns.
+description: Testing knowledge base for PHP 8.4 projects. Provides testing pyramid, AAA pattern, naming conventions, isolation principles, DDD testing guidelines, and PHPUnit patterns.
 ---
 
 # Testing Knowledge Base
@@ -107,7 +107,7 @@ it('fails validation for invalid email format')
 | **Application Service** | Orchestration, transactions | Repository, EventDispatcher |
 | **Repository** | CRUD operations | Database (SQLite) |
 
-## PHP 8.5 Test Patterns
+## PHP 8.4 Test Patterns
 
 ### Unit Test Template
 

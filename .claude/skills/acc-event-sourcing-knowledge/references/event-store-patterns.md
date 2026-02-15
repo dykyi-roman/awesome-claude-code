@@ -19,7 +19,7 @@ An append-only database optimized for storing and retrieving domain events.
 | **Optimistic concurrency** | Detect concurrent modifications |
 | **Stream-based** | Events grouped into streams (per aggregate) |
 
-## PHP 8.5 Implementation
+## PHP 8.4 Implementation
 
 ### Event Store Interface
 

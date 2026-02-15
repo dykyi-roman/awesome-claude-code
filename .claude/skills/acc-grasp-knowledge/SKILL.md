@@ -1,6 +1,6 @@
 ---
 name: acc-grasp-knowledge
-description: GRASP principles knowledge base for PHP 8.5 projects. Provides quick reference for 9 responsibility assignment patterns (Information Expert, Creator, Controller, Low Coupling, High Cohesion, Polymorphism, Pure Fabrication, Indirection, Protected Variations). Use for architecture audits and design decisions.
+description: GRASP principles knowledge base for PHP 8.4 projects. Provides quick reference for 9 responsibility assignment patterns (Information Expert, Creator, Controller, Low Coupling, High Cohesion, Polymorphism, Pure Fabrication, Indirection, Protected Variations). Use for architecture audits and design decisions.
 ---
 
 # GRASP Principles Knowledge Base
@@ -80,7 +80,7 @@ Grep: "class.*Manager|class.*Handler|class.*Processor" --glob "**/*.php"
 
 **Signs:** Methods don't relate to each other, class does many unrelated things.
 
-## Quick PHP 8.5 Examples
+## Quick PHP 8.4 Examples
 
 ### Information Expert
 

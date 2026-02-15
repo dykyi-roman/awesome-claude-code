@@ -798,7 +798,7 @@ Prioritized action items:
 ├── Project context detected:
 │   ├── Architecture: DDD, CQRS, Clean Architecture
 │   ├── Standards: PSR-1, PSR-4, PSR-12
-│   ├── Tech: PHP 8.5, Redis, RabbitMQ
+│   ├── Tech: PHP 8.4, Redis, RabbitMQ
 │   └── Principles: SOLID, GRASP
 ├── Pattern coverage:
 │   ├── ✅ DDD — full (audit + 13 skills)

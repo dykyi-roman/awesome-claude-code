@@ -1,5 +1,5 @@
 ---
-description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context, API Versioning, Health Check patterns.
+description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, Timeout, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context, API Versioning, Health Check, Unit of Work, Message Broker Adapter, Idempotent Consumer, Dead Letter Queue patterns.
 allowed-tools: Read, Write, Edit, Glob, Grep, Task
 model: opus
 argument-hint: <pattern-name> <ComponentName> [-- additional instructions]
@@ -7,7 +7,7 @@ argument-hint: <pattern-name> <ComponentName> [-- additional instructions]
 
 # Generate Design Patterns
 
-Generate design pattern implementations for PHP 8.5 with tests and DI configuration.
+Generate design pattern implementations for PHP 8.4 with tests and DI configuration.
 
 ## Input Parsing
 
@@ -39,6 +39,7 @@ Examples:
 | `rate-limiter` | `throttle` | Request throttling, token bucket |
 | `bulkhead` | `isolation` | Resource isolation, prevent cascade |
 | `cache-aside` | `cache` | Cache-Aside with stampede protection |
+| `timeout` | `time-limit` | Execution time limits with fallback |
 
 ### Behavioral Patterns (Algorithms)
 
@@ -84,6 +85,10 @@ Examples:
 | `correlation-context` | `correlation-id`, `request-id` | Correlation ID propagation middleware |
 | `api-versioning` | `versioning` | API version strategy (URI/header/query) |
 | `health-check` | `health` | Application-level health endpoints |
+| `unit-of-work` | `uow` | Transactional consistency across aggregates |
+| `message-broker-adapter` | `broker` | Unified broker interface (RabbitMQ/Kafka/SQS) |
+| `idempotent-consumer` | `dedup` | Message deduplication / exactly-once processing |
+| `dead-letter-queue` | `dlq` | Failed message capture and retry |
 
 ## Pre-flight Check
 
@@ -104,7 +109,7 @@ Task tool with subagent_type="acc-pattern-generator"
 prompt: "Generate [PATTERN] for [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
-1. PHP 8.5 with declare(strict_types=1)
+1. PHP 8.4 with declare(strict_types=1)
 2. PSR-12 coding style
 3. Final readonly classes where appropriate
 4. Constructor property promotion
@@ -502,6 +507,110 @@ src/Presentation/Api/Action/
 └── HealthCheckAction.php
 ```
 
+#### Unit of Work
+```bash
+/acc-generate-patterns unit-of-work
+/acc-generate-patterns uow -- with Doctrine integration
+```
+
+Generates:
+```
+src/Domain/Shared/UnitOfWork/
+├── EntityState.php
+└── TransactionManagerInterface.php
+src/Application/Shared/UnitOfWork/
+├── UnitOfWorkInterface.php
+└── AggregateTracker.php
+src/Infrastructure/Persistence/UnitOfWork/
+├── DoctrineUnitOfWork.php
+├── DoctrineTransactionManager.php
+└── DomainEventCollector.php
+```
+
+#### Message Broker Adapter
+```bash
+/acc-generate-patterns message-broker-adapter
+/acc-generate-patterns broker -- with RabbitMQ and Kafka
+```
+
+Generates:
+```
+src/Domain/Shared/Messaging/
+├── MessageId.php
+├── Message.php
+├── MessageBrokerInterface.php
+└── MessageSerializerInterface.php
+src/Infrastructure/Messaging/
+├── JsonMessageSerializer.php
+├── RabbitMq/RabbitMqAdapter.php
+├── Kafka/KafkaAdapter.php
+├── Sqs/SqsAdapter.php
+├── InMemory/InMemoryAdapter.php
+└── MessageBrokerFactory.php
+```
+
+#### Idempotent Consumer
+```bash
+/acc-generate-patterns idempotent-consumer PaymentHandler
+/acc-generate-patterns dedup EventSubscriber -- with Redis store
+```
+
+Generates:
+```
+src/Domain/Shared/Idempotency/
+├── IdempotencyKey.php
+├── ProcessingStatus.php
+└── ProcessingResult.php
+src/Application/Shared/Idempotency/
+├── IdempotencyStoreInterface.php
+└── IdempotentConsumerMiddleware.php
+src/Infrastructure/Idempotency/
+├── DatabaseIdempotencyStore.php
+└── RedisIdempotencyStore.php
+```
+
+#### Dead Letter Queue
+```bash
+/acc-generate-patterns dead-letter-queue
+/acc-generate-patterns dlq -- with exponential backoff retry
+```
+
+Generates:
+```
+src/Domain/Shared/DeadLetter/
+├── FailureType.php
+└── DeadLetterMessage.php
+src/Application/Shared/DeadLetter/
+├── DeadLetterStoreInterface.php
+├── DeadLetterHandler.php
+├── RetryStrategy.php
+├── FailureClassifier.php
+└── DlqProcessor.php
+src/Infrastructure/DeadLetter/
+└── DatabaseDeadLetterStore.php
+```
+
+#### Timeout
+```bash
+/acc-generate-patterns timeout ExternalApi
+/acc-generate-patterns time-limit DatabaseQuery -- with fallback
+```
+
+Generates:
+```
+src/Domain/Shared/Timeout/
+├── TimeoutConfig.php
+├── TimeoutInterface.php
+└── TimeoutException.php
+src/Infrastructure/Timeout/
+├── SignalTimeoutExecutor.php
+├── StreamTimeoutExecutor.php
+├── NullTimeoutExecutor.php
+└── TimeoutExecutorFactory.php
+src/Presentation/Middleware/
+└── TimeoutMiddleware.php
+```
+
 ## Expected Output
 
 ### Generated Files Summary
@@ -578,4 +687,9 @@ Generate related patterns together:
 /acc-generate-patterns saga CheckoutWorkflow
 /acc-generate-patterns builder UserProfile -- with validation steps
 /acc-generate-patterns outbox Order -- with Doctrine integration
+/acc-generate-patterns unit-of-work -- with Doctrine
+/acc-generate-patterns message-broker-adapter -- with RabbitMQ and Kafka
+/acc-generate-patterns idempotent-consumer PaymentHandler
+/acc-generate-patterns dead-letter-queue -- with exponential backoff
+/acc-generate-patterns timeout ExternalApi -- with fallback
 ```

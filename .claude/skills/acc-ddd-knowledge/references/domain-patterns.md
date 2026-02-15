@@ -13,7 +13,7 @@ Object with unique identity that persists through time and state changes.
 - Equality based on identity, not attributes
 - Contains behavior (not just data)
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -122,7 +122,7 @@ Immutable object defined by its attributes, not identity.
 - Self-validating
 - Side-effect free methods
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -244,7 +244,7 @@ Cluster of entities and value objects with a root entity that ensures consistenc
 - References by ID only (between aggregates)
 - Invariants maintained internally
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -345,7 +345,7 @@ Contract for aggregate persistence, defined in Domain.
 - Works with aggregates, not entities
 - Returns domain objects, not arrays
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -409,7 +409,7 @@ Stateless operation that doesn't naturally belong to an entity.
 - Uses domain language
 - Coordinates multiple aggregates
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php
@@ -460,7 +460,7 @@ Record of something that happened in the domain.
 - Contains all relevant data
 - Timestamped
 
-### PHP 8.5 Implementation
+### PHP 8.4 Implementation
 
 ```php
 <?php

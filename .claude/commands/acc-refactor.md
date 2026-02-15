@@ -94,7 +94,7 @@ Provide:
 
 | Principle | Violation | Fix | Generator |
 |-----------|-----------|-----|-----------|
-| **SRP** | Multiple responsibilities | Extract classes | `acc-ddd-generator` |
+| **SRP** | Multiple responsibilities | Extract classes | `acc-ddd-generator`, `acc-cqrs-generator` |
 | **OCP** | Type switches, if/else chains | Strategy pattern | `/acc-generate-patterns strategy` |
 | **LSP** | Exceptions in overrides | Redesign hierarchy | Manual |
 | **ISP** | Unused interface methods | Split interface | Manual |

@@ -37,7 +37,7 @@ Generate beginner-friendly quick start guides.
 
 Before you begin, ensure you have:
 
-- [ ] PHP 8.5 or higher
+- [ ] PHP 8.4 or higher
 - [ ] Composer 2.0 or higher
 - [ ] A database (PostgreSQL 16+ recommended)
 - [ ] Basic PHP knowledge
@@ -47,7 +47,7 @@ Before you begin, ensure you have:
 ```bash
 # Check PHP version
 php -v
-# Expected: PHP 8.5.x
+# Expected: PHP 8.4.x
 
 # Check Composer version
 composer -V
@@ -283,7 +283,7 @@ This guide will help you install and use Awesome Package in under 5 minutes.
 
 Before you begin, ensure you have:
 
-- [ ] PHP 8.5 or higher
+- [ ] PHP 8.4 or higher
 - [ ] Composer 2.0 or higher
 
 ```bash

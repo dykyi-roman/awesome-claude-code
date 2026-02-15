@@ -1,6 +1,6 @@
 ---
 name: acc-create-bulkhead
-description: Generates Bulkhead pattern for PHP 8.5. Creates resource isolation with semaphore-based concurrency limiting and thread pool isolation. Includes unit tests.
+description: Generates Bulkhead pattern for PHP 8.4. Creates resource isolation with semaphore-based concurrency limiting and thread pool isolation. Includes unit tests.
 ---
 
 # Bulkhead Pattern Generator

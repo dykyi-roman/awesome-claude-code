@@ -1,6 +1,6 @@
 ---
 name: acc-create-visitor
-description: Generates Visitor pattern for PHP 8.5. Creates operations on object structures without modifying element classes, with visitor interface, concrete visitors, and visitable elements. Includes unit tests.
+description: Generates Visitor pattern for PHP 8.4. Creates operations on object structures without modifying element classes, with visitor interface, concrete visitors, and visitable elements. Includes unit tests.
 ---
 
 # Visitor Pattern Generator

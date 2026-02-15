@@ -88,7 +88,7 @@ Traditional Storage:          Event Sourcing:
 | Non-idempotent projection | Projection with side effects | Warning |
 | Missing metadata | Event without timestamp/IDs | Warning |
 
-## PHP 8.5 Event Sourcing Patterns
+## PHP 8.4 Event Sourcing Patterns
 
 ### Domain Event
 

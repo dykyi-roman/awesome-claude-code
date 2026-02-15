@@ -1,6 +1,6 @@
 ---
 name: acc-create-circuit-breaker
-description: Generates Circuit Breaker pattern for PHP 8.5. Creates resilience component protecting against cascading failures with state management, fallback support, and metrics. Includes unit tests.
+description: Generates Circuit Breaker pattern for PHP 8.4. Creates resilience component protecting against cascading failures with state management, fallback support, and metrics. Includes unit tests.
 ---
 
 # Circuit Breaker Generator

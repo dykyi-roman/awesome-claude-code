@@ -80,12 +80,12 @@ allowed-tools: Optional
 │   ├── acc-generate-*.md         # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
 │   ├── acc-refactor.md
 │   └── ...
-├── agents/                       # 61 agents
+├── agents/                       # 62 agents
 │   ├── acc-*-auditor.md          # Auditors (13): architecture, behavioral, cqrs, creational,
 │   │                             #   ddd, documentation, gof-structural, integration,
 │   │                             #   pattern, psr, stability, structural, test
-│   ├── acc-*-generator.md        # Generators (9): architecture, behavioral, creational,
-│   │                             #   ddd, gof-structural, integration, pattern, psr, stability
+│   ├── acc-*-generator.md        # Generators (10): architecture, behavioral, creational,
+│   │                             #   cqrs, ddd, gof-structural, integration, pattern, psr, stability
 │   ├── acc-*-coordinator.md      # Coordinators (6): bug-fix, ci, code-review, docker, explain, refactor
 │   │                             #   + security-reviewer (coordinator via Task delegation)
 │   ├── acc-*-reviewer.md         # Reviewers (8): auth, data-security, design-security, injection,
@@ -101,8 +101,8 @@ allowed-tools: Optional
 │   │                             #   docker-performance-agent, docker-security-agent,
 │   │                             #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                       # 250 skills
-│   ├── acc-*-knowledge/          # 38 knowledge skills
+├── skills/                       # 259 skills
+│   ├── acc-*-knowledge/          # 42 knowledge skills
 │   ├── acc-check-*/              # 64 analyzer skills
 │   ├── acc-find-*/               # 8 bug detection skills
 │   ├── acc-detect-*/             # 8 detection skills
@@ -115,7 +115,7 @@ allowed-tools: Optional
 │   ├── acc-trace-*/              # 2 tracer skills
 │   ├── acc-map-*/                # 1 mapper skill
 │   ├── acc-discover-*/           # 1 discovery skill
-│   ├── acc-create-*/             # 81 generator skills
+│   ├── acc-create-*/             # 86 generator skills
 │   ├── acc-generate-*/           # 2 generator skills
 │   ├── acc-optimize-*/           # 7 optimizer skills
 │   ├── acc-*-template/           # 10 template skills
@@ -141,14 +141,14 @@ docs/                             # Documentation (root level)
 | Component | Count |
 |-----------|-------|
 | Commands | 26 |
-| Agents | 61 |
-| Knowledge Skills | 38 |
+| Agents | 62 |
+| Knowledge Skills | 42 |
 | Analyzer Skills | 100 |
-| Generator Skills | 83 |
+| Generator Skills | 88 |
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 7 |
-| **Total Skills** | **250** |
+| **Total Skills** | **259** |
 
 ---
 

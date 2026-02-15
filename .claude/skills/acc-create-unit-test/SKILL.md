@@ -1,11 +1,11 @@
 ---
 name: acc-create-unit-test
-description: Generates PHPUnit unit tests for PHP 8.5. Creates isolated tests with AAA pattern, proper naming, attributes, and one behavior per test. Supports Value Objects, Entities, Services.
+description: Generates PHPUnit unit tests for PHP 8.4. Creates isolated tests with AAA pattern, proper naming, attributes, and one behavior per test. Supports Value Objects, Entities, Services.
 ---
 
 # Unit Test Generator
 
-Generates PHPUnit 11+ unit tests for PHP 8.5 classes.
+Generates PHPUnit 11+ unit tests for PHP 8.4 classes.
 
 ## Characteristics
 

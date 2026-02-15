@@ -1,6 +1,6 @@
 ---
 name: acc-create-command
-description: Generates CQRS Commands and Handlers for PHP 8.5. Creates immutable command DTOs with handlers that modify state. Includes unit tests.
+description: Generates CQRS Commands and Handlers for PHP 8.4. Creates immutable command DTOs with handlers that modify state. Includes unit tests.
 ---
 
 # Command Generator

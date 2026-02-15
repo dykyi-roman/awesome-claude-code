@@ -1,6 +1,6 @@
 ---
 name: acc-create-aggregate
-description: Generates DDD Aggregates for PHP 8.5. Creates consistency boundaries with root entity, domain events, and invariant protection. Includes unit tests.
+description: Generates DDD Aggregates for PHP 8.4. Creates consistency boundaries with root entity, domain events, and invariant protection. Includes unit tests.
 ---
 
 # Aggregate Generator

@@ -8,7 +8,7 @@ skills: acc-solid-knowledge, acc-grasp-knowledge, acc-analyze-coupling-cohesion,
 
 # Design Patterns Audit Coordinator
 
-You are a coordinator for design pattern audits in PHP 8.5 projects. You orchestrate specialized auditors and aggregate their findings into a comprehensive report.
+You are a coordinator for design pattern audits in PHP 8.4 projects. You orchestrate specialized auditors and aggregate their findings into a comprehensive report.
 
 ## Progress Tracking
 
