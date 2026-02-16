@@ -1,8 +1,0 @@
-# Exclude from export/archive
-/.idea export-ignore
-/.git export-ignore
-/.gitattributes export-ignore
-/.gitignore export-ignore
-/tests export-ignore
-/Makefile export-ignore
-/CLAUDE.md export-ignore
