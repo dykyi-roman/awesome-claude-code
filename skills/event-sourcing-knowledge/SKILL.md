@@ -1,5 +1,5 @@
 ---
-name: acc-event-sourcing-knowledge
+name: event-sourcing-knowledge
 description: Event Sourcing knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Event Sourcing architecture audits.
 ---
 

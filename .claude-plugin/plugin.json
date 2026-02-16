@@ -1,0 +1,10 @@
+{
+  "name": "acc",
+  "description": "PHP Architecture Toolkit — DDD, CQRS, Event Sourcing, Clean/Hexagonal Architecture, GoF Patterns, PSR, Docker, CI/CD",
+  "version": "3.0.0",
+  "author": { "name": "Roman Dykyi", "email": "dykyi.roman@gmail.com" },
+  "homepage": "https://github.com/dykyi-roman/awesome-claude-code",
+  "repository": "https://github.com/dykyi-roman/awesome-claude-code",
+  "license": "MIT",
+  "keywords": ["php", "ddd", "cqrs", "architecture", "patterns", "psr", "docker", "ci-cd"]
+}

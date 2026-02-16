@@ -1,5 +1,5 @@
 ---
-name: acc-task-progress-knowledge
+name: task-progress-knowledge
 description: TaskCreate pattern guidelines for progress tracking in coordinator agents
 ---
 

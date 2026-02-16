@@ -1,5 +1,5 @@
 ---
-name: acc-check-magic-values
+name: check-magic-values
 description: Analyzes PHP code for magic values. Detects hardcoded numbers, string literals without constants, configuration values embedded in code.
 ---
 

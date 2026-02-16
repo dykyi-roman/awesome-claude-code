@@ -1,5 +1,5 @@
 ---
-name: acc-check-insecure-design
+name: check-insecure-design
 description: Detects OWASP A04:2021 Insecure Design vulnerabilities. Identifies missing rate limiting, account lockout, CAPTCHA, TOCTOU races, business logic flaws, and threat modeling gaps.
 ---
 

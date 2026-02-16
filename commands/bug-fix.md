@@ -7,7 +7,7 @@ argument-hint: <bug-description|file:line|stack-trace>
 
 # Bug Fix Command
 
-You are executing the `/acc-bug-fix` command. Your task is to diagnose and fix a bug using the bug fix system.
+You are executing the `/acc:bug-fix` command. Your task is to diagnose and fix a bug using the bug fix system.
 
 ## Input Received
 
@@ -34,7 +34,7 @@ Determine the input type:
    - Extract error messages and stack traces
 
 4. **Auto-discover Logs** (when `-- scan-logs` is specified or no `@logfile` provided with `-- scan-logs`)
-   - Use `acc-discover-project-logs` skill via bug-hunter to find log files automatically
+   - Use `acc:discover-project-logs` skill via bug-hunter to find log files automatically
    - Prioritize by recency and severity
    - If no logs found, use AskUserQuestion:
      ```
@@ -52,10 +52,10 @@ Determine the input type:
 
 ### Step 2: Invoke Bug Fix Coordinator
 
-Use the `acc-bug-fix-coordinator` agent to orchestrate the full bug fix workflow:
+Use the `acc:bug-fix-coordinator` agent to orchestrate the full bug fix workflow:
 
 ```
-Task tool with subagent_type="acc-bug-fix-coordinator"
+Task tool with subagent_type="acc:bug-fix-coordinator"
 
 prompt: |
   Fix the following bug:
@@ -65,17 +65,17 @@ prompt: |
   Meta-instructions: [any -- options]
 
   Execute full workflow:
-  1. Diagnose with acc-bug-hunter
-  2. Generate fix with acc-bug-fixer
-  3. Create regression test with acc-test-generator (unless skip-tests)
+  1. Diagnose with acc:bug-hunter
+  2. Generate fix with acc:bug-fixer
+  3. Create regression test with acc:test-generator (unless skip-tests)
   4. Apply changes (unless dry-run)
   5. Run tests and verify
 ```
 
 The coordinator orchestrates:
-- `acc-bug-hunter` → Diagnose bug (category, severity, location, root cause)
-- `acc-bug-fixer` → Generate minimal fix (5 Whys, impact analysis, fix code)
-- `acc-test-generator` → Create regression test (unless `-- skip tests`)
+- `acc:bug-hunter` → Diagnose bug (category, severity, location, root cause)
+- `acc:bug-fixer` → Generate minimal fix (5 Whys, impact analysis, fix code)
+- `acc:test-generator` → Create regression test (unless `-- skip tests`)
 
 ### Step 3: Report Results
 
@@ -94,10 +94,10 @@ Output the comprehensive report from coordinator:
 | Status | ✅ Fixed / ❌ Failed |
 
 ## Diagnosis
-[Summary from acc-bug-hunter]
+[Summary from acc:bug-hunter]
 
 ## Root Cause
-[5 Whys analysis from acc-bug-fixer]
+[5 Whys analysis from acc:bug-fixer]
 
 ## Fix Applied
 
@@ -138,32 +138,32 @@ Output the comprehensive report from coordinator:
 
 ### Example 1: Text Description
 ```
-/acc-bug-fix "NullPointerException in OrderService::process()"
+/acc:bug-fix "NullPointerException in OrderService::process()"
 ```
 
 ### Example 2: File Reference
 ```
-/acc-bug-fix src/Domain/Order/OrderService.php:45 "off-by-one error in loop"
+/acc:bug-fix src/Domain/Order/OrderService.php:45 "off-by-one error in loop"
 ```
 
 ### Example 3: With Meta-Instructions
 ```
-/acc-bug-fix "Payment validation fails for amounts > 1000" -- focus on validation
+/acc:bug-fix "Payment validation fails for amounts > 1000" -- focus on validation
 ```
 
 ### Example 4: From Log File
 ```
-/acc-bug-fix @storage/logs/laravel.log -- skip tests
+/acc:bug-fix @storage/logs/laravel.log -- skip tests
 ```
 
 ### Example 5: Auto-discover Logs
 ```
-/acc-bug-fix "connection refused to database" -- scan-logs
+/acc:bug-fix "connection refused to database" -- scan-logs
 ```
 
 ### Example 6: Dry Run
 ```
-/acc-bug-fix src/Application/UseCase/CreateOrder.php:78 -- dry-run
+/acc:bug-fix src/Application/UseCase/CreateOrder.php:78 -- dry-run
 ```
 
 ## Error Handling

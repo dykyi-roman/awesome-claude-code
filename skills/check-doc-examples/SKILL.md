@@ -1,5 +1,5 @@
 ---
-name: acc-check-doc-examples
+name: check-doc-examples
 description: Verifies code examples in documentation. Checks that class names, method signatures, namespaces, and imports match actual codebase. Detects outdated and misleading examples.
 ---
 

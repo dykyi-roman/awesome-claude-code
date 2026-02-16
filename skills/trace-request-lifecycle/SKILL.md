@@ -1,5 +1,5 @@
 ---
-name: acc-trace-request-lifecycle
+name: trace-request-lifecycle
 description: Traces full request lifecycle from Router through Middleware, Controller, UseCase, Repository to Response. Documents HTTP methods, routes, middleware stack, response codes, and error handling paths.
 ---
 
@@ -216,6 +216,6 @@ JSON Body → CreateOrderRequest (DTO)
 ## Integration
 
 This skill is used by:
-- `acc-data-flow-analyst` — provides lifecycle documentation
-- `acc-trace-data-transformation` — traces DTO transformations
-- `acc-explain-business-process` — maps processes to request flows
+- `data-flow-analyst` — provides lifecycle documentation
+- `trace-data-transformation` — traces DTO transformations
+- `explain-business-process` — maps processes to request flows

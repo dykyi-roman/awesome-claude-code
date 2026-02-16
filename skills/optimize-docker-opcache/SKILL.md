@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-opcache
+name: optimize-docker-opcache
 description: Optimizes OPcache configuration for PHP Docker containers. Configures memory, file limits, JIT, and validation for production and development.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-check-csrf-protection
+name: check-csrf-protection
 description: Analyzes PHP code for CSRF vulnerabilities. Detects missing CSRF tokens, state-changing GET requests, token validation gaps.
 ---
 

@@ -8,7 +8,7 @@ Thank you for your interest in contributing!
 
 1. Check existing issues to avoid duplicates
 2. Use issue templates when available
-3. Include: PHP version, Composer version, Claude Code version
+3. Include: Claude Code version, OS, reproduction steps
 4. Provide minimal reproduction steps
 
 ### Pull Requests
@@ -20,26 +20,19 @@ Thank you for your interest in contributing!
 5. Commit with descriptive message
 6. Push and create a Pull Request
 
-### Code Style
-
-- Follow PSR-12 coding standards
-- Use `declare(strict_types=1)` in all PHP files
-- Write self-documenting code
-- Add PHPDoc for public methods
-
 ### Component Guidelines
 
-**Commands:**
-- Use `acc-` prefix
+**Commands (`commands/name.md`):**
 - Include YAML frontmatter with `description`
 - Document arguments and examples
+- Use `/acc:name` syntax in examples
 
-**Agents:**
+**Agents (`agents/name.md`):**
 - Include `name`, `description`, `tools` in frontmatter
-- Reference skills in `skills:` list
+- Reference skills in `skills:` list (without prefix)
 - Keep to max 15 skills per agent
 
-**Skills:**
+**Skills (`skills/name/SKILL.md`):**
 - Keep under 500 lines
 - Use `references/` folder for templates
 - Include working examples
@@ -49,8 +42,7 @@ Thank you for your interest in contributing!
 Before submitting:
 
 ```bash
-make validate-claude  # Validate .claude structure
-make test            # Run in Docker test environment
+make validate-claude  # Validate plugin structure
 ```
 
 ### Questions?

@@ -4,55 +4,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Composer plugin (`composer-plugin` type) providing Claude Code extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v2.14.0**. Installed via `composer require dykyi-roman/awesome-claude-code`. The plugin auto-copies `.claude/` components (commands, agents, skills) to the target project on install/update, never overwriting existing files.
+Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v3.0.0**. Installed via:
+
+```bash
+/plugin marketplace add dykyi-roman/awesome-claude-code
+/plugin install acc@awesome-claude-code
+```
 
 ## Commands
 
 ```bash
 make help                   # Show all available make targets (default)
-make validate-claude        # Validate .claude/ structure — run before every commit
+make validate-claude        # Validate plugin structure — run before every commit
 make list-commands          # List all slash commands
 make list-agents            # List all agents
 make list-skills            # List all skills
-make test                   # Install in Docker test environment (tests/)
-make test-clear             # Clear test environment
 make changelog              # Show recent git commits for changelog
 make release                # Run validate-claude, then print release instructions
-./bin/acc upgrade                        # Force upgrade components (creates backup)
-./bin/acc upgrade --no-backup            # Upgrade without backup
-./bin/acc upgrade --component=commands   # Upgrade only commands|agents|skills
 ```
-
-**Testing**: `make test` runs `docker compose run --rm php composer install` in `tests/` directory, which triggers the Composer plugin and copies components to `tests/.claude/`. Use `make test-clear` to reset.
 
 ## Architecture
 
 ```
+.claude-plugin/
+├── marketplace.json
+└── plugin.json
+
+commands/          # 26 commands (was .claude/commands/) — user-invokable via /acc:*
+agents/            # 62 agents (was .claude/agents/) — invoked via Task tool with subagent_type
+skills/            # 259 skills (was .claude/skills/) — knowledge bases, generators, analyzers
+
+hooks/
+└── hooks.json     # PHP syntax check hook
+
 .claude/
-├── commands/     # Slash commands (26) — user-invokable via /acc-*
-├── agents/       # Subagents (62) — invoked via Task tool with subagent_type
-├── skills/       # Skills (259) — knowledge bases, generators, analyzers
-└── settings.json # Hooks and permission allowlist (NOT copied by plugin)
+├── settings.json  # Project settings (NOT part of plugin)
+└── rules/         # Conditional rules (NOT part of plugin)
 
-src/
-└── ComposerPlugin.php  # Single PHP file — subscribes to POST_PACKAGE_INSTALL/UPDATE
-
-bin/acc                 # CLI tool for force-upgrading components
-docs/                   # commands.md, agents.md, skills.md, hooks.md, component-flow.md, mcp.md, quick-reference.md
-tests/                  # Docker-based test environment (Dockerfile + docker-compose.yml + composer.json)
-llms.txt                # LLM-readable project summary (sync counts with other docs)
-PLAN.md                 # Planned features and priorities for future versions
+docs/              # commands.md, agents.md, skills.md, hooks.md, component-flow.md, mcp.md, quick-reference.md
+llms.txt           # LLM-readable project summary (sync counts with other docs)
 ```
 
 ### Execution Flow
 
 ```
-User → /acc-command → Coordinator Agent (opus) → Specialized Agents (sonnet, parallel via Task) → Skills → Output
+User → /acc:command → Coordinator Agent (opus) → Specialized Agents (sonnet, parallel via Task) → Skills → Output
 ```
 
 **Three component types with strict integration chain:**
 
-1. **Skill** provides knowledge or generates code (`.claude/skills/name/SKILL.md`, optionally `references/` subfolder)
+1. **Skill** provides knowledge or generates code (`skills/name/SKILL.md`, optionally `references/` subfolder)
 2. **Agent** references skills via `skills:` frontmatter, performs analysis/generation
 3. **Command** delegates to agents via the `Task` tool with `subagent_type="agent-name"`
 
@@ -62,25 +63,20 @@ User → /acc-command → Coordinator Agent (opus) → Specialized Agents (sonne
 - **Auditor-coordinators** (4): audit via sub-agent delegation, use `model: opus` — `architecture-auditor`, `pattern-auditor`, `ddd-auditor`, `security-reviewer`
 - **Specialists** (51): perform focused tasks, use `model: sonnet` — auditors, generators, reviewers, CI/Docker/Explainer agents
 
-### Composer Plugin
-
-`src/ComposerPlugin.php` — the only PHP source file. Copies `.claude/{commands,agents,skills}` from vendor to project root. Skips existing files (prints "Skipping (exists)"). Files NOT copied: `settings.json`, `settings.local.json` — these are project-specific.
-
 ## Key Rules
 
-- **`acc-` prefix** on all components to avoid naming conflicts with other extensions
-- **`--` separator** in commands for meta-instructions: `/acc-audit-ddd ./src -- focus on aggregates`
+- **`acc:` namespace** on all plugin components to avoid naming conflicts with other extensions
+- **`--` separator** in commands for meta-instructions: `/acc:audit-ddd ./src -- focus on aggregates`
 - **After any change**: run `make validate-claude`, update the matching `docs/*.md` file and `CHANGELOG.md`
-- **Component counts** appear in 6 places — keep all in sync: `README.md` (Documentation table), `docs/quick-reference.md` (Statistics + file tree), `composer.json` (description), `llms.txt` (Quick Facts + Project Structure + Skills by Category), `CHANGELOG.md`, `CLAUDE.md` (Architecture section)
+- **Component counts** appear in 6 places — keep all in sync: `README.md` (Documentation table), `docs/quick-reference.md` (Statistics + file tree), `.claude-plugin/marketplace.json` (plugin description), `llms.txt` (Quick Facts + Project Structure + Skills by Category), `CHANGELOG.md`, `CLAUDE.md` (Architecture section)
 - **File renames**: always use `git mv` instead of delete + create to preserve git history
-- **CI/CD `acc-docker-agent`** (for CI pipelines) is separate from Docker Expert System agents (`acc-docker-coordinator`, `acc-docker-*-agent`) — do not merge them
-- **`settings.json`** is project-specific (NOT copied by plugin). Contains: PostToolUse hook (`php -l` on `.php` files after Write), permissions allowlist (make, git read-only, composer validate, WebSearch)
+- **CI/CD `docker-agent`** (for CI pipelines) is separate from Docker Expert System agents (`docker-coordinator`, `docker-*-agent`) — do not merge them
 - **Every skill must be referenced** by at least one agent's `skills:` frontmatter — orphaned skills cause audit failures
 
 ## Conditional Rules
 
-`.claude/rules/` contains context-specific rules loaded only when matching files are involved:
+`.claude/rules/` contains context-specific rules for development only, loaded when matching files are involved:
 
-- `component-creation.md` — command/agent/skill frontmatter specs (loads for `.claude/` edits)
+- `component-creation.md` — command/agent/skill frontmatter specs (loads for plugin component edits)
 - `versioning.md` — versioning workflow and documentation files table (loads for CHANGELOG, README, docs/)
-- `troubleshooting.md` — diagnostic table for common issues (loads for `.claude/`, `src/`, Makefile)
+- `troubleshooting.md` — diagnostic table for common issues (loads for plugin components, Makefile)

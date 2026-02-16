@@ -1,5 +1,5 @@
 ---
-name: acc-check-nesting-depth
+name: check-nesting-depth
 description: Analyzes PHP code for nesting depth issues. Detects deep nesting over 3 levels, complex conditionals, early return opportunities.
 ---
 

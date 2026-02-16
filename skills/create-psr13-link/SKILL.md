@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr13-link
+name: create-psr13-link
 description: Generates PSR-13 Hypermedia Links implementation for PHP 8.4. Creates LinkInterface, EvolvableLinkInterface, and LinkProviderInterface for HATEOAS support. Includes unit tests.
 ---
 

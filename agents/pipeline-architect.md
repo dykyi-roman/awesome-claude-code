@@ -1,9 +1,9 @@
 ---
-name: acc-pipeline-architect
+name: pipeline-architect
 description: Pipeline design specialist. Creates CI/CD workflow structures for GitHub Actions and GitLab CI. Designs stages, job dependencies, and optimal execution flow.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-ci-pipeline-knowledge, acc-create-github-actions, acc-create-gitlab-ci, acc-estimate-pipeline-time
+skills: ci-pipeline-knowledge, create-github-actions, create-gitlab-ci, estimate-pipeline-time
 ---
 
 # Pipeline Architect
@@ -68,7 +68,7 @@ install ──┬────────▶├─► psalm ──────�
 
 #### GitHub Actions Template
 
-Use `acc-create-github-actions` skill to generate:
+Use `acc:create-github-actions` skill to generate:
 
 ```yaml
 # .github/workflows/ci.yml
@@ -118,7 +118,7 @@ jobs:
 
 #### GitLab CI Template
 
-Use `acc-create-gitlab-ci` skill to generate:
+Use `acc:create-gitlab-ci` skill to generate:
 
 ```yaml
 # .gitlab-ci.yml

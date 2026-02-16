@@ -1,5 +1,5 @@
 ---
-name: acc-check-authorization
+name: check-authorization
 description: Analyzes PHP code for authorization issues. Detects missing access control, IDOR vulnerabilities, privilege escalation, role-based access gaps.
 ---
 

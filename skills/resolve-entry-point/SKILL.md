@@ -1,5 +1,5 @@
 ---
-name: acc-resolve-entry-point
+name: resolve-entry-point
 description: Resolves HTTP routes (GET /api/orders) and console commands (app:process-payments) to their handler files. Detects framework, searches route/command definitions, extracts handler class and method, locates file via PSR-4 mapping.
 ---
 
@@ -277,7 +277,7 @@ No matching route definition found.
 1. Check available routes: `php bin/console debug:router | grep api`
 2. Verify the route path is correct (case-sensitive)
 3. The route may be defined dynamically or via imported bundle
-4. Try searching with a broader path: `/acc-explain GET /api/`
+4. Try searching with a broader path: `/acc:explain GET /api/`
 ```
 
 ## Multiple Matches
@@ -319,5 +319,5 @@ Search patterns:
 ## Integration
 
 This skill is used by:
-- `acc-codebase-navigator` — resolves user-provided routes/commands to handler files before navigation
-- `acc-explain-coordinator` — Phase 0 resolution for route/command input types
+- `codebase-navigator` — resolves user-provided routes/commands to handler files before navigation
+- `explain-coordinator` — Phase 0 resolution for route/command input types

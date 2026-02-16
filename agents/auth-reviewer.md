@@ -1,9 +1,9 @@
 ---
-name: acc-auth-reviewer
+name: auth-reviewer
 description: Authentication and authorization security reviewer. Analyzes authentication mechanisms, access control, CSRF protection, mass assignment, and PHP type juggling vulnerabilities. Covers OWASP A01:2021 Broken Access Control, A07:2021 Authentication Failures.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-authentication, acc-check-authorization, acc-check-csrf-protection, acc-check-mass-assignment, acc-check-type-juggling, acc-task-progress-knowledge
+skills: check-authentication, check-authorization, check-csrf-protection, check-mass-assignment, check-type-juggling, task-progress-knowledge
 ---
 
 # Authentication & Authorization Security Reviewer

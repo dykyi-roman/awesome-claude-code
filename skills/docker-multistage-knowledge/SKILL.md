@@ -1,5 +1,5 @@
 ---
-name: acc-docker-multistage-knowledge
+name: docker-multistage-knowledge
 description: Docker multi-stage build knowledge base. Provides patterns for PHP dependency, extension builder, and production stages with cache optimization.
 ---
 
@@ -254,5 +254,5 @@ docker build --target extensions -t app:ext-debug .
 
 ## References
 
-For base image selection guidance, see `acc-docker-base-images-knowledge`.
-For extension installation details, see `acc-docker-php-extensions-knowledge`.
+For base image selection guidance, see `docker-base-images-knowledge`.
+For extension installation details, see `docker-php-extensions-knowledge`.

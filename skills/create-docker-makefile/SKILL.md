@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-makefile
+name: create-docker-makefile
 description: Generates Docker Makefile with common commands for PHP projects. Creates build, run, test, and deployment targets.
 ---
 

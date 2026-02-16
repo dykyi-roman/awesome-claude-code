@@ -1,9 +1,9 @@
 ---
-name: acc-test-pipeline-agent
+name: test-pipeline-agent
 description: Test pipeline configuration specialist. Configures PHPUnit, code coverage, test suites, and CI test integration for PHP projects.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells, acc-check-test-quality, acc-create-unit-test
+skills: testing-knowledge, analyze-test-coverage, detect-test-smells, check-test-quality, create-unit-test
 ---
 
 # Test Pipeline Agent

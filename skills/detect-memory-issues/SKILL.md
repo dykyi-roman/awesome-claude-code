@@ -1,5 +1,5 @@
 ---
-name: acc-detect-memory-issues
+name: detect-memory-issues
 description: Detects memory issues in PHP code. Finds large arrays in memory, missing generators, memory leaks, unbounded data loading, inefficient data structures.
 ---
 

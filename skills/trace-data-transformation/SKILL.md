@@ -1,5 +1,5 @@
 ---
-name: acc-trace-data-transformation
+name: trace-data-transformation
 description: Maps data transformation chains — Request DTO to Command to Entity to Response DTO. Identifies mappers, serializers, type conversions, and data loss points across layer boundaries.
 ---
 
@@ -213,6 +213,6 @@ Check for:
 ## Integration
 
 This skill is used by:
-- `acc-data-flow-analyst` — documents data transformation chains
-- `acc-trace-request-lifecycle` — enriches lifecycle with data details
-- `acc-explain-business-process` — shows data perspective of processes
+- `data-flow-analyst` — documents data transformation chains
+- `trace-request-lifecycle` — enriches lifecycle with data details
+- `explain-business-process` — shows data perspective of processes

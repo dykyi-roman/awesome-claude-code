@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-docker-runtime-errors
+name: analyze-docker-runtime-errors
 description: Analyzes Docker runtime errors for PHP containers. Identifies 502 Bad Gateway, OOM kills, connection refused, and permission issues.
 ---
 

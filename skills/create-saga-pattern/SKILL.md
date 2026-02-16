@@ -1,5 +1,5 @@
 ---
-name: acc-create-saga-pattern
+name: create-saga-pattern
 description: Generates Saga pattern components for PHP 8.4. Creates Saga interfaces, steps, orchestrator, state management, and compensation logic with unit tests.
 ---
 

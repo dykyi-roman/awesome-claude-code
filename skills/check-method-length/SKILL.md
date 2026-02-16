@@ -1,5 +1,5 @@
 ---
-name: acc-check-method-length
+name: check-method-length
 description: Analyzes PHP code for method length issues. Detects methods exceeding 30 lines, single responsibility violations, extract method opportunities.
 ---
 

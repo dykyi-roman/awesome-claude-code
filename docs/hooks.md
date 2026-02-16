@@ -491,7 +491,7 @@ Warns when modifying test files without corresponding source code changes.
 
 ## Installation
 
-Add hooks to your `.claude/settings.json`:
+Add hooks to your `.claude/settings.json` (for project-level hooks) or `hooks/hooks.json` (for plugin-distributed hooks):
 
 ```json
 {
@@ -515,6 +515,8 @@ Add hooks to your `.claude/settings.json`:
   }
 }
 ```
+
+The plugin includes a default PHP syntax check hook in `hooks/hooks.json`. Additional hooks can be added to your project's `.claude/settings.json`.
 
 ## Environment Variables
 

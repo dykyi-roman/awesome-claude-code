@@ -1,5 +1,5 @@
 ---
-name: acc-check-input-validation
+name: check-input-validation
 description: Analyzes PHP code for input validation issues. Detects missing validation, weak regex, type coercion attacks, length/format gaps, whitelist violations.
 ---
 

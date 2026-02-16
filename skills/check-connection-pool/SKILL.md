@@ -1,5 +1,5 @@
 ---
-name: acc-check-connection-pool
+name: check-connection-pool
 description: Analyzes PHP code for connection pool issues. Detects connection leaks, improper pool sizing, missing connection release, timeout issues.
 ---
 

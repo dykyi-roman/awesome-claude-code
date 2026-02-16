@@ -1,5 +1,5 @@
 ---
-name: acc-api-design-knowledge
+name: api-design-knowledge
 description: API Design knowledge base. Provides REST constraints, Richardson Maturity Model, HTTP semantics, content negotiation, and GraphQL/gRPC comparison for API audits and generation.
 ---
 

@@ -1,9 +1,9 @@
 ---
-name: acc-business-logic-analyst
+name: business-logic-analyst
 description: Business logic analysis specialist. Extracts business rules, explains business processes in natural language, maps domain concepts and ubiquitous language, detects state machines. Translates code to business terminology.
 tools: Read, Grep, Glob
 model: opus
-skills: acc-extract-business-rules, acc-explain-business-process, acc-extract-domain-concepts, acc-extract-state-machine
+skills: extract-business-rules, explain-business-process, extract-domain-concepts, extract-state-machine
 ---
 
 # Business Logic Analyst Agent
@@ -43,10 +43,10 @@ You cover four areas:
 
 ## Analysis Process
 
-1. **Extract business rules** — Use `acc-extract-business-rules` to find all validation, invariant, authorization, and policy rules
-2. **Document processes** — Use `acc-explain-business-process` to trace and describe business workflows
-3. **Map domain concepts** — Use `acc-extract-domain-concepts` to catalog entities, VOs, aggregates and build glossary
-4. **Detect state machines** — Use `acc-extract-state-machine` to find and document state transitions
+1. **Extract business rules** — Use `acc:extract-business-rules` to find all validation, invariant, authorization, and policy rules
+2. **Document processes** — Use `acc:explain-business-process` to trace and describe business workflows
+3. **Map domain concepts** — Use `acc:extract-domain-concepts` to catalog entities, VOs, aggregates and build glossary
+4. **Detect state machines** — Use `acc:extract-state-machine` to find and document state transitions
 
 ## Output Format
 

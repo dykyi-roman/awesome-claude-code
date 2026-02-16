@@ -31,16 +31,16 @@ Input types (auto-detected):
 7. Project root:  .
 
 Examples:
-- /acc-explain GET /api/orders
-- /acc-explain POST /api/orders/{id}/status deep
-- /acc-explain app:process-payments
-- /acc-explain import:products -- explain data transformation pipeline
-- /acc-explain src/Domain/Order/Order.php
-- /acc-explain src/Domain/Order/
-- /acc-explain . onboarding
-- /acc-explain src/Payment business
-- /acc-explain src/Domain/Order/ deep -- focus on state transitions
-- /acc-explain . qa -- how does payment processing work?
+- /acc:explain GET /api/orders
+- /acc:explain POST /api/orders/{id}/status deep
+- /acc:explain app:process-payments
+- /acc:explain import:products -- explain data transformation pipeline
+- /acc:explain src/Domain/Order/Order.php
+- /acc:explain src/Domain/Order/
+- /acc:explain . onboarding
+- /acc:explain src/Payment business
+- /acc:explain src/Domain/Order/ deep -- focus on state transitions
+- /acc:explain . qa -- how does payment processing work?
 ```
 
 **Parsing rules:**
@@ -98,10 +98,10 @@ Before path validation, detect input type from the parsed input:
 
 ## Delegation
 
-Delegate to the `acc-explain-coordinator` agent with all parsed parameters:
+Delegate to the `acc:explain-coordinator` agent with all parsed parameters:
 
 ```
-Task: acc-explain-coordinator
+Task: acc:explain-coordinator
 prompt: |
   Explain the code for the following input:
 
@@ -182,35 +182,35 @@ The coordinator returns a structured explanation appropriate to the mode:
 
 ```bash
 # HTTP route: explain API endpoint handler
-/acc-explain GET /api/orders
-/acc-explain POST /api/orders/{id}/status
-/acc-explain DELETE /api/users/{id} -- explain cascade deletion
+/acc:explain GET /api/orders
+/acc:explain POST /api/orders/{id}/status
+/acc:explain DELETE /api/users/{id} -- explain cascade deletion
 
 # HTTP route with mode override
-/acc-explain POST /api/orders deep -- trace full request lifecycle with diagrams
+/acc:explain POST /api/orders deep -- trace full request lifecycle with diagrams
 
 # Console command: explain command handler
-/acc-explain app:process-payments
-/acc-explain import:products -- explain data transformation pipeline
+/acc:explain app:process-payments
+/acc:explain import:products -- explain data transformation pipeline
 
 # Quick: explain a single file
-/acc-explain src/Domain/Order/Order.php
+/acc:explain src/Domain/Order/Order.php
 
 # Deep: explain a module
-/acc-explain src/Domain/Order/
+/acc:explain src/Domain/Order/
 
 # Onboarding: project guide for new developer
-/acc-explain .
+/acc:explain .
 
 # Business: explain for stakeholder
-/acc-explain src/Payment business
+/acc:explain src/Payment business
 
 # QA: ask specific question
-/acc-explain src/Domain qa -- how are discounts calculated?
+/acc:explain src/Domain qa -- how are discounts calculated?
 
 # With focus instructions
-/acc-explain src/Domain/Order/ deep -- focus on state transitions and events
+/acc:explain src/Domain/Order/ deep -- focus on state transitions and events
 
 # Quick with context
-/acc-explain src/Infrastructure/Repository/OrderRepository.php -- explain query optimization
+/acc:explain src/Infrastructure/Repository/OrderRepository.php -- explain query optimization
 ```

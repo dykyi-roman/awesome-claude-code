@@ -1,5 +1,5 @@
 ---
-name: acc-scan-codebase-structure
+name: scan-codebase-structure
 description: Scans directory tree to identify architectural layers (Domain, Application, Infrastructure, Presentation), detect framework (Symfony, Laravel, custom), count files per layer, and build project structure map.
 ---
 
@@ -233,6 +233,6 @@ src/
 ## Integration
 
 This skill provides the structural foundation for:
-- `acc-identify-entry-points` — uses layer map to find entry points
-- `acc-detect-architecture-pattern` — uses structure for pattern detection
+- `identify-entry-points` — uses layer map to find entry points
+- `detect-architecture-pattern` — uses structure for pattern detection
 - All analysis agents — uses layer map for scoped analysis

@@ -1,9 +1,9 @@
 ---
-name: acc-injection-reviewer
+name: injection-reviewer
 description: Injection security reviewer. Analyzes SQL injection, command injection, SSRF, XXE, path traversal, and insecure deserialization vulnerabilities. Covers OWASP A03:2021 Injection, A10:2021 SSRF, A08:2021 Software Integrity, A01:2021 (path traversal).
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-sql-injection, acc-check-command-injection, acc-check-ssrf, acc-check-xxe, acc-check-path-traversal, acc-check-deserialization, acc-task-progress-knowledge
+skills: check-sql-injection, check-command-injection, check-ssrf, check-xxe, check-path-traversal, check-deserialization, task-progress-knowledge
 ---
 
 # Injection Security Reviewer

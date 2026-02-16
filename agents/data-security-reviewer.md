@@ -1,9 +1,9 @@
 ---
-name: acc-data-security-reviewer
+name: data-security-reviewer
 description: Data security reviewer. Analyzes sensitive data handling, cryptographic usage, logging failures, HTTP security headers, and CORS configuration. Covers OWASP A02:2021 Cryptographic Failures, A09:2021 Logging Failures, A05:2021 Security Misconfiguration.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-check-sensitive-data, acc-check-crypto-usage, acc-check-logging-failures, acc-check-secure-headers, acc-check-cors-security, acc-task-progress-knowledge
+skills: check-sensitive-data, check-crypto-usage, check-logging-failures, check-secure-headers, check-cors-security, task-progress-knowledge
 ---
 
 # Data Security Reviewer

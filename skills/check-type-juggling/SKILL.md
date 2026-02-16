@@ -1,5 +1,5 @@
 ---
-name: acc-check-type-juggling
+name: check-type-juggling
 description: Detects PHP type juggling vulnerabilities. Identifies loose comparison with user input, in_array without strict mode, switch statement type coercion, and hash comparison bypasses.
 ---
 

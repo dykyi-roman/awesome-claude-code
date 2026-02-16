@@ -24,14 +24,14 @@ Arguments:
 - Target: Always main/master (auto-detected)
 
 Examples:
-- /acc-code-review                                   # current branch, whole project, high
-- /acc-code-review feature/payment                   # branch, whole project
-- /acc-code-review src/Domain                        # current branch, only src/Domain
-- /acc-code-review feature/payment src/Domain        # branch + path
-- /acc-code-review src/Domain medium                 # current branch, path, medium
-- /acc-code-review feature/auth src/Auth -- JWT      # full format
-- /acc-code-review medium                            # current branch, medium
-- /acc-code-review feature/payment low -- task       # branch, low + task matching
+- /acc:code-review                                   # current branch, whole project, high
+- /acc:code-review feature/payment                   # branch, whole project
+- /acc:code-review src/Domain                        # current branch, only src/Domain
+- /acc:code-review feature/payment src/Domain        # branch + path
+- /acc:code-review src/Domain medium                 # current branch, path, medium
+- /acc:code-review feature/auth src/Auth -- JWT      # full format
+- /acc:code-review medium                            # current branch, medium
+- /acc:code-review feature/payment low -- task       # branch, low + task matching
 ```
 
 **Parsing rules:**
@@ -104,14 +104,14 @@ Examples:
 
 ## Instructions
 
-Execute code review using the `acc-code-review-coordinator` agent.
+Execute code review using the `acc:code-review-coordinator` agent.
 
 Use the Task tool to invoke the coordinator:
 
 ### PATH MODE (reviewing folder/file)
 
 ```
-Task: acc-code-review-coordinator
+Task: acc:code-review-coordinator
 prompt: |
   Perform code review with the following parameters:
 
@@ -134,7 +134,7 @@ prompt: |
 ### BRANCH MODE (reviewing branch changes)
 
 ```
-Task: acc-code-review-coordinator
+Task: acc:code-review-coordinator
 prompt: |
   Perform code review with the following parameters:
 
@@ -160,8 +160,8 @@ prompt: |
 
 | Level | Scope | Auditors/Reviewers |
 |-------|-------|-------------------|
-| **LOW** | Quick sanity check | acc-psr-auditor, acc-test-auditor + basic skills |
-| **MEDIUM** | Standard review | LOW + acc-bug-hunter, acc-readability-reviewer |
+| **LOW** | Quick sanity check | acc:psr-auditor, acc:test-auditor + basic skills |
+| **MEDIUM** | Standard review | LOW + acc:bug-hunter, acc:readability-reviewer |
 | **HIGH** | Full review | MEDIUM + security, performance, testability, ddd, architecture |
 
 ## Expected Output
@@ -204,32 +204,32 @@ One of:
 
 ```bash
 # Review current branch (full review)
-/acc-code-review
+/acc:code-review
 
 # Review specific branch
-/acc-code-review feature/payment
+/acc:code-review feature/payment
 
 # Quick review
-/acc-code-review low
+/acc:code-review low
 
 # Standard review of specific branch
-/acc-code-review feature/auth medium
+/acc:code-review feature/auth medium
 
 # Full review with task matching
-/acc-code-review feature/auth -- implement JWT authentication
+/acc:code-review feature/auth -- implement JWT authentication
 
 # Quick review with task matching
-/acc-code-review feature/payment low -- add Stripe payment processing
+/acc:code-review feature/payment low -- add Stripe payment processing
 
 # Review only specific folder (current branch)
-/acc-code-review src/Domain
+/acc:code-review src/Domain
 
 # Review specific branch and folder
-/acc-code-review feature/payment src/Domain
+/acc:code-review feature/payment src/Domain
 
 # Quick review of specific file
-/acc-code-review src/Payment/PaymentService.php low
+/acc:code-review src/Payment/PaymentService.php low
 
 # Full review with path and task
-/acc-code-review feature/auth src/Auth high -- implement JWT
+/acc:code-review feature/auth src/Auth high -- implement JWT
 ```

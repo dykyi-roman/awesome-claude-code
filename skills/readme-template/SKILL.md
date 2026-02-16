@@ -1,5 +1,5 @@
 ---
-name: acc-readme-template
+name: readme-template
 description: Generates README.md files for PHP projects. Creates structured documentation with badges, installation, usage, and examples.
 ---
 

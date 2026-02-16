@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-compose-dev
+name: create-docker-compose-dev
 description: Generates Docker Compose development configurations for PHP projects. Creates full development stacks with database, cache, queue, and debugging tools.
 ---
 

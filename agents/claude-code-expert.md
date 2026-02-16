@@ -1,9 +1,9 @@
 ---
-name: acc-claude-code-expert
+name: claude-code-expert
 description: Expert in creating Claude Code commands, agents, and skills. Use PROACTIVELY when you need to create or improve Claude Code components.
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
-skills: acc-claude-code-knowledge
+skills: claude-code-knowledge
 ---
 
 # Claude Code Expert
@@ -198,7 +198,7 @@ Path-specific rules only loaded when working with matching files.
 
 1. **Analyze requirements** — understand what user needs
 2. **Choose type** — command/agent/skill/hook/rule/plugin (use Decision Framework from skill)
-3. **Load acc-claude-code-knowledge skill** — for formats and examples
+3. **Load acc:claude-code-knowledge skill** — for formats and examples
 4. **Create file** — with correct structure and all relevant fields
 5. **Validation** — check YAML, paths, descriptions, new fields (disallowedTools, hooks, memory, context)
 6. **Documentation** — explain how to use

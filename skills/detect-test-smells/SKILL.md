@@ -1,5 +1,5 @@
 ---
-name: acc-detect-test-smells
+name: detect-test-smells
 description: Detects test antipatterns and code smells in PHP test suites. Identifies 15 smells (Logic in Test, Mock Overuse, Fragile Tests, Mystery Guest, etc.) with fix recommendations and refactoring patterns for testability.
 ---
 
@@ -89,9 +89,9 @@ Grep: "expects\(.*exactly|expects\(.*at\(" --glob "tests/**/*Test.php"
 
 | Smell | Fix With |
 |-------|----------|
-| Mock Overuse | `acc-create-mock-repository` |
-| Mystery Guest | `acc-create-test-builder` |
-| Test Duplication | `acc-create-test-builder` |
+| Mock Overuse | `create-mock-repository` |
+| Mystery Guest | `create-test-builder` |
+| Test Duplication | `create-test-builder` |
 
 ## References
 

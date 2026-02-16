@@ -1,5 +1,5 @@
 ---
-name: acc-architecture-doc-template
+name: architecture-doc-template
 description: Generates ARCHITECTURE.md files for PHP projects. Creates layer documentation, component descriptions, and architectural diagrams.
 ---
 

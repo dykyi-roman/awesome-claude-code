@@ -1,5 +1,5 @@
 ---
-name: acc-detect-docker-antipatterns
+name: detect-docker-antipatterns
 description: Detects Docker antipatterns in PHP projects. Identifies layer ordering issues, cache invalidation, bloated images, and configuration smells.
 ---
 

@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-test tests/
-- /acc-audit-test tests/ deep
-- /acc-audit-test tests/ quick
-- /acc-audit-test tests/ -- focus on Domain layer only
-- /acc-audit-test tests/ deep -- focus on test smells
-- /acc-audit-test tests/ -- level:deep (backward compatible)
+- /acc:audit-test tests/
+- /acc:audit-test tests/ deep
+- /acc:audit-test tests/ quick
+- /acc:audit-test tests/ -- focus on Domain layer only
+- /acc:audit-test tests/ deep -- focus on test smells
+- /acc:audit-test tests/ -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -49,7 +49,7 @@ Examples:
    - Check for `phpunit.xml` or `phpunit.xml.dist`
    - Check for `tests/` directory
    - Check for PHPUnit in `composer.json` (require-dev)
-   - If no test infrastructure found, report and suggest `/acc-generate-test`
+   - If no test infrastructure found, report and suggest `/acc:generate-test`
 
 3. **Check test tooling:**
    - Look for coverage configuration (Xdebug/PCOV)
@@ -117,10 +117,10 @@ Level is an optional positional parameter. Default: `standard`.
 
 ## Instructions
 
-Use the `acc-test-auditor` agent to perform quality assessment:
+Use the `acc:test-auditor` agent to perform quality assessment:
 
 ```
-Task tool with subagent_type="acc-test-auditor"
+Task tool with subagent_type="acc:test-auditor"
 prompt: "Perform test quality audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Use TaskCreate/TaskUpdate for progress visibility. Create tasks for each audit phase.
@@ -195,10 +195,10 @@ Generate detailed report with skill recommendations for fixing issues."
 
 | Gap | Skill | Command |
 |-----|-------|---------|
-| Missing unit tests | `acc-create-unit-test` | `/acc-generate-test unit` |
-| Mock overuse | `acc-create-mock-repository` | `/acc-generate-test mock` |
-| Missing test data | `acc-create-test-builder` | `/acc-generate-test builder` |
-| Integration tests | `acc-create-integration-test` | `/acc-generate-test integration` |
+| Missing unit tests | `acc:create-unit-test` | `/acc:generate-test unit` |
+| Mock overuse | `acc:create-mock-repository` | `/acc:generate-test mock` |
+| Missing test data | `acc:create-test-builder` | `/acc:generate-test builder` |
+| Integration tests | `acc:create-integration-test` | `/acc:generate-test integration` |
 
 ## 6. Action Items
 
@@ -213,20 +213,20 @@ Generate detailed report with skill recommendations for fixing issues."
 
 ```bash
 # Standard audit (default)
-/acc-audit-test tests/
+/acc:audit-test tests/
 
 # Quick coverage check
-/acc-audit-test tests/ quick
+/acc:audit-test tests/ quick
 
 # Deep analysis with cross-dependencies
-/acc-audit-test tests/ deep
+/acc:audit-test tests/ deep
 
 # Focus on specific module
-/acc-audit-test tests/Unit/Domain/Order/
+/acc:audit-test tests/Unit/Domain/Order/
 
 # Deep + focus
-/acc-audit-test tests/ deep -- focus on coverage gaps
+/acc:audit-test tests/ deep -- focus on coverage gaps
 
 # Backward compatible
-/acc-audit-test tests/ -- level:deep
+/acc:audit-test tests/ -- level:deep
 ```

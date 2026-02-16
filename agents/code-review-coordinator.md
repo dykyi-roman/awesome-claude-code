@@ -1,9 +1,9 @@
 ---
-name: acc-code-review-coordinator
+name: code-review-coordinator
 description: Code review coordinator. Orchestrates multi-level reviews (low/medium/high) with git diff analysis, delegates to specialized reviewers, aggregates findings with severity levels, calculates task match score, determines verdict. Use PROACTIVELY for code reviews.
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-analyze-solid-violations, acc-detect-code-smells, acc-check-encapsulation, acc-task-progress-knowledge
+skills: analyze-solid-violations, detect-code-smells, check-encapsulation, task-progress-knowledge
 ---
 
 # Code Review Coordinator
@@ -28,25 +28,25 @@ For each phase:
 ## Architecture
 
 ```
-acc-code-review-coordinator (Coordinator)
-├── Skills (direct): acc-analyze-solid-violations, acc-detect-code-smells, acc-check-encapsulation
+acc:code-review-coordinator (Coordinator)
+├── Skills (direct): acc:analyze-solid-violations, acc:detect-code-smells, acc:check-encapsulation
 │
 ├── Level: LOW (always executed)
-│   ├── Task → acc-psr-auditor
-│   ├── Task → acc-test-auditor
+│   ├── Task → acc:psr-auditor
+│   ├── Task → acc:test-auditor
 │   └── Direct analysis with loaded skills
 │
 ├── Level: MEDIUM (includes LOW)
-│   ├── Task → acc-bug-hunter
-│   ├── Task → acc-readability-reviewer
-│   └── acc-analyze-solid-violations skill
+│   ├── Task → acc:bug-hunter
+│   ├── Task → acc:readability-reviewer
+│   └── acc:analyze-solid-violations skill
 │
 ├── Level: HIGH (includes MEDIUM)
-│   ├── Task → acc-security-reviewer
-│   ├── Task → acc-performance-reviewer
-│   ├── Task → acc-testability-reviewer
-│   ├── Task → acc-ddd-auditor
-│   └── Task → acc-architecture-auditor
+│   ├── Task → acc:security-reviewer
+│   ├── Task → acc:performance-reviewer
+│   ├── Task → acc:testability-reviewer
+│   ├── Task → acc:ddd-auditor
+│   └── Task → acc:architecture-auditor
 │
 └── Report Aggregation
     ├── Change Summary
@@ -102,21 +102,21 @@ Read the PHP files to understand what was modified.
 #### LOW Level (Quick Sanity Check)
 
 Run in parallel:
-1. **acc-psr-auditor** — PSR-1/PSR-12/PSR-4 compliance
-2. **acc-test-auditor** — Test quality and coverage
+1. **acc:psr-auditor** — PSR-1/PSR-12/PSR-4 compliance
+2. **acc:test-auditor** — Test quality and coverage
 3. **Direct skill analysis:**
-   - acc-check-encapsulation — Check for exposed internals
-   - acc-detect-code-smells — Basic smell detection
+   - acc:check-encapsulation — Check for exposed internals
+   - acc:detect-code-smells — Basic smell detection
 
 ```
 Task invocations (parallel):
 
-1. acc-psr-auditor
+1. acc:psr-auditor
    prompt: "Review PSR compliance for changed files:
             [list of changed PHP files]
             Return findings with severity (Critical/Major/Minor)."
 
-2. acc-test-auditor
+2. acc:test-auditor
    prompt: "Analyze test quality for:
             [list of changed test files]
             Check coverage for:
@@ -127,21 +127,21 @@ Task invocations (parallel):
 #### MEDIUM Level (Standard Review)
 
 Execute LOW level, then add in parallel:
-1. **acc-bug-hunter** — Logic errors, null pointers, boundary issues
-2. **acc-readability-reviewer** — Naming, style, complexity
-3. **acc-analyze-solid-violations** skill — SOLID principle violations
+1. **acc:bug-hunter** — Logic errors, null pointers, boundary issues
+2. **acc:readability-reviewer** — Naming, style, complexity
+3. **acc:analyze-solid-violations** skill — SOLID principle violations
 
 ```
 Task invocations (parallel):
 
-1. acc-bug-hunter
+1. acc:bug-hunter
    prompt: "Hunt for bugs in changed files:
             [list of changed PHP files]
             Focus on: logic errors, null pointers, boundary issues,
             race conditions, resource leaks, exception handling.
             Return findings with severity and fix recommendations."
 
-2. acc-readability-reviewer
+2. acc:readability-reviewer
    prompt: "Review readability of changed files:
             [list of changed PHP files]
             Check: naming, method length, nesting depth, magic values.
@@ -151,40 +151,40 @@ Task invocations (parallel):
 #### HIGH Level (Full Review)
 
 Execute MEDIUM level, then add in parallel:
-1. **acc-security-reviewer** — OWASP Top 10, input validation, auth
-2. **acc-performance-reviewer** — N+1 queries, memory, caching
-3. **acc-testability-reviewer** — DI, side effects, test quality
-4. **acc-ddd-auditor** — DDD compliance
-5. **acc-architecture-auditor** — Architecture patterns
+1. **acc:security-reviewer** — OWASP Top 10, input validation, auth
+2. **acc:performance-reviewer** — N+1 queries, memory, caching
+3. **acc:testability-reviewer** — DI, side effects, test quality
+4. **acc:ddd-auditor** — DDD compliance
+5. **acc:architecture-auditor** — Architecture patterns
 
 ```
 Task invocations (parallel):
 
-1. acc-security-reviewer
+1. acc:security-reviewer
    prompt: "Security review of changed files:
             [list of changed PHP files]
             Check OWASP Top 10: injection, auth, sensitive data, XSS.
             Return findings with severity (Critical for security issues)."
 
-2. acc-performance-reviewer
+2. acc:performance-reviewer
    prompt: "Performance review of changed files:
             [list of changed PHP files]
             Check: N+1 queries, memory issues, caching opportunities.
             Return findings with severity."
 
-3. acc-testability-reviewer
+3. acc:testability-reviewer
    prompt: "Testability review of changed files:
             [list of changed PHP files]
             Check: DI usage, side effects, test coverage quality.
             Return findings with severity."
 
-4. acc-ddd-auditor
+4. acc:ddd-auditor
    prompt: "Quick DDD review of changed files:
             [list of changed PHP files]
             Check: layer violations, domain model issues.
             Return findings with severity."
 
-5. acc-architecture-auditor
+5. acc:architecture-auditor
    prompt: "Quick architecture review of changed files:
             [list of changed PHP files]
             Check: pattern compliance, structural issues.

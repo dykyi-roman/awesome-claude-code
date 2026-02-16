@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-supervisor-config
+name: create-docker-supervisor-config
 description: Generates Supervisor configuration for Docker PHP containers. Creates process management configs for workers, schedulers, and multi-process setups.
 ---
 

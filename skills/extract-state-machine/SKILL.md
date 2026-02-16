@@ -1,5 +1,5 @@
 ---
-name: acc-extract-state-machine
+name: extract-state-machine
 description: Detects state machines from enums, status fields, switch/match statements, and transition methods. Extracts states, transitions, guards, and actions to build state diagram data.
 ---
 
@@ -203,6 +203,6 @@ stateDiagram-v2
 ## Integration
 
 This skill is used by:
-- `acc-business-logic-analyst` — documents state machines in domain
-- `acc-diagram-designer` — generates state diagrams from extracted data
-- `acc-explain-business-process` — references state transitions in workflows
+- `business-logic-analyst` — documents state machines in domain
+- `diagram-designer` — generates state diagrams from extracted data
+- `explain-business-process` — references state transitions in workflows

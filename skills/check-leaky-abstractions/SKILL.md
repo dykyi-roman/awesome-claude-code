@@ -1,5 +1,5 @@
 ---
-name: acc-check-leaky-abstractions
+name: check-leaky-abstractions
 description: Detects leaky abstractions in PHP code. Identifies implementation details exposed in interfaces, concrete returns from abstract methods, framework leakage into domain, and infrastructure concerns in application layer.
 ---
 
@@ -191,7 +191,7 @@ Grep: "#\\[ApiResource|#\\[ApiProperty" --glob "**/Domain/**/*.php"
   public function findActive(): array;
   ```
 - **Impact:** Domain tied to Doctrine, cannot switch ORM
-- **Skills:** `acc-create-repository`
+- **Skills:** `create-repository`
 
 ### LEAK-002: Framework in Domain Entity
 - **File:** `src/Domain/Order/Entity/Order.php:8`
@@ -219,7 +219,7 @@ Grep: "#\\[ApiResource|#\\[ApiProperty" --glob "**/Domain/**/*.php"
   public function __invoke(CreateOrderCommand $command): OrderId
   ```
 - **Impact:** UseCase tied to HTTP, cannot reuse in CLI
-- **Skills:** `acc-create-command`, `acc-create-use-case`
+- **Skills:** `create-command`, `create-use-case`
 
 ## Warning Issues
 
@@ -354,10 +354,10 @@ grep -rn "throw.*PDO\|throw.*Doctrine" --include="*.php" src/Domain/ src/Applica
 ## Integration
 
 Works with:
-- `acc-structural-auditor` — Layer boundary analysis
-- `acc-ddd-auditor` — Domain purity checks
-- `acc-create-repository` — Clean repository interfaces
-- `acc-create-anti-corruption-layer` — External system isolation
+- `structural-auditor` — Layer boundary analysis
+- `ddd-auditor` — Domain purity checks
+- `create-repository` — Clean repository interfaces
+- `create-anti-corruption-layer` — External system isolation
 
 ## References
 

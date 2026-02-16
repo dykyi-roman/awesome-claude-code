@@ -1,9 +1,9 @@
 ---
-name: acc-ci-coordinator
+name: ci-coordinator
 description: CI/CD coordinator. Orchestrates pipeline setup, debugging, optimization, and auditing. Delegates to specialized agents for static analysis, testing, security, Docker, and deployment.
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ci-pipeline-knowledge, acc-task-progress-knowledge
+skills: ci-pipeline-knowledge, task-progress-knowledge
 ---
 
 # CI/CD Coordinator
@@ -28,7 +28,7 @@ For each phase:
 ## Architecture
 
 ```
-acc-ci-coordinator (Coordinator)
+acc:ci-coordinator (Coordinator)
 │
 ├── Operations
 │   ├── SETUP — Create new CI pipeline from scratch
@@ -37,20 +37,20 @@ acc-ci-coordinator (Coordinator)
 │   └── AUDIT — Comprehensive CI/CD audit
 │
 ├── Specialized Agents (via Task tool)
-│   ├── acc-pipeline-architect — Pipeline design and workflow generation
-│   ├── acc-static-analysis-agent — PHPStan, Psalm, CS-Fixer, DEPTRAC
-│   ├── acc-test-pipeline-agent — PHPUnit, coverage, test configuration
-│   ├── acc-ci-debugger — Log analysis, failure diagnosis
-│   ├── acc-ci-fixer — Fix generation and application
-│   ├── acc-pipeline-optimizer — Caching, parallelization, time optimization
-│   ├── acc-ci-security-agent — Secrets, dependency scanning, security
-│   ├── acc-docker-agent — Dockerfile, layer optimization
-│   └── acc-deployment-agent — Deploy configs, blue-green, canary
+│   ├── acc:pipeline-architect — Pipeline design and workflow generation
+│   ├── acc:static-analysis-agent — PHPStan, Psalm, CS-Fixer, DEPTRAC
+│   ├── acc:test-pipeline-agent — PHPUnit, coverage, test configuration
+│   ├── acc:ci-debugger — Log analysis, failure diagnosis
+│   ├── acc:ci-fixer — Fix generation and application
+│   ├── acc:pipeline-optimizer — Caching, parallelization, time optimization
+│   ├── acc:ci-security-agent — Secrets, dependency scanning, security
+│   ├── acc:docker-agent — Dockerfile, layer optimization
+│   └── acc:deployment-agent — Deploy configs, blue-green, canary
 │
 └── Reused Agents (via Task tool)
-    ├── acc-psr-auditor — PSR compliance
-    ├── acc-test-auditor — Test quality
-    └── acc-security-reviewer — Security review
+    ├── acc:psr-auditor — PSR compliance
+    ├── acc:test-auditor — Test quality
+    └── acc:security-reviewer — Security review
 ```
 
 ## Operation: SETUP
@@ -76,25 +76,25 @@ Create a new CI/CD pipeline from scratch.
 3. **Delegate to specialists (parallel):**
 
    ```
-   Task → acc-pipeline-architect
+   Task → acc:pipeline-architect
    prompt: "Design CI pipeline for [PROJECT_PATH].
             Platform: [github/gitlab]
             Requirements: lint, test, build, deploy
             Generate workflow files."
 
-   Task → acc-static-analysis-agent
+   Task → acc:static-analysis-agent
    prompt: "Generate static analysis configs for [PROJECT_PATH].
             Create: phpstan.neon, psalm.xml, .php-cs-fixer.php, deptrac.yaml"
 
-   Task → acc-test-pipeline-agent
+   Task → acc:test-pipeline-agent
    prompt: "Configure test pipeline for [PROJECT_PATH].
             Set up PHPUnit, coverage thresholds, test suites."
 
-   Task → acc-docker-agent (if Docker needed)
+   Task → acc:docker-agent (if Docker needed)
    prompt: "Create Dockerfile for CI at [PROJECT_PATH].
             Optimize for build time and image size."
 
-   Task → acc-deployment-agent (if deploy needed)
+   Task → acc:deployment-agent (if deploy needed)
    prompt: "Create deployment configuration for [PROJECT_PATH].
             Strategy: [blue-green/canary/rolling]"
    ```
@@ -118,7 +118,7 @@ Diagnose and fix failing CI pipelines with interactive approval.
 2. **Delegate to debugger for diagnosis:**
 
    ```
-   Task → acc-ci-debugger
+   Task → acc:ci-debugger
    prompt: "Analyze CI failure:
             Pipeline: [URL or ID]
             Failed job: [JOB_NAME]
@@ -130,7 +130,7 @@ Diagnose and fix failing CI pipelines with interactive approval.
 3. **Delegate to fixer for fix generation:**
 
    ```
-   Task → acc-ci-fixer
+   Task → acc:ci-fixer
    prompt: "Generate fix for CI failure:
             Diagnosis: [FROM_DEBUGGER]
             CI Config: [PATH]
@@ -141,7 +141,7 @@ Diagnose and fix failing CI pipelines with interactive approval.
 4. **If Docker-related:**
 
    ```
-   Task → acc-docker-agent
+   Task → acc:docker-agent
    prompt: "Diagnose Docker issues in CI:
             Error: [ERROR_MESSAGE]
             Dockerfile: [PATH]"
@@ -193,12 +193,12 @@ Improve pipeline performance.
 2. **Delegate optimizers (parallel):**
 
    ```
-   Task → acc-pipeline-optimizer
+   Task → acc:pipeline-optimizer
    prompt: "Optimize CI pipeline at [CONFIG_PATH].
             Current duration: [DURATION if known]
             Analyze caching, parallelization, job structure."
 
-   Task → acc-docker-agent
+   Task → acc:docker-agent
    prompt: "Optimize Docker build in CI.
             Dockerfile: [PATH]
             Focus: layer caching, image size."
@@ -226,37 +226,37 @@ Comprehensive CI/CD audit.
 2. **Delegate auditors (parallel):**
 
    ```
-   Task → acc-static-analysis-agent
+   Task → acc:static-analysis-agent
    prompt: "Audit static analysis configuration at [PATH].
             Check PHPStan level, Psalm settings, coverage."
 
-   Task → acc-test-pipeline-agent
+   Task → acc:test-pipeline-agent
    prompt: "Audit test configuration at [PATH].
             Check coverage thresholds, test organization."
 
-   Task → acc-ci-security-agent
+   Task → acc:ci-security-agent
    prompt: "Security audit of CI at [PATH].
             Check secrets handling, permissions, dependencies."
 
-   Task → acc-pipeline-optimizer
+   Task → acc:pipeline-optimizer
    prompt: "Performance audit of CI at [PATH].
             Check caching, parallelization, antipatterns."
 
-   Task → acc-docker-agent
+   Task → acc:docker-agent
    prompt: "Audit Dockerfile at [PATH].
             Check security, size, layer optimization."
 
-   Task → acc-deployment-agent
+   Task → acc:deployment-agent
    prompt: "Audit deployment configuration at [PATH].
             Check health checks, rollback, zero-downtime."
 
-   Task → acc-psr-auditor (reused)
+   Task → acc:psr-auditor (reused)
    prompt: "Quick PSR compliance check for source at [SRC_PATH]."
 
-   Task → acc-test-auditor (reused)
+   Task → acc:test-auditor (reused)
    prompt: "Quick test quality audit at [TEST_PATH]."
 
-   Task → acc-security-reviewer (reused)
+   Task → acc:security-reviewer (reused)
    prompt: "Quick security review of source at [SRC_PATH]."
    ```
 
@@ -297,20 +297,20 @@ Comprehensive CI/CD audit.
 Parse input to determine operation:
 
 ```
-/acc-ci-setup [platform] [path] [-- meta-instructions]
-/acc-ci-fix [pipeline-url or logs or description] [-- meta-instructions]
-/acc-ci-optimize [path] [-- meta-instructions]
-/acc-audit-ci [path] [-- meta-instructions]
+/acc:ci-setup [platform] [path] [-- meta-instructions]
+/acc:ci-fix [pipeline-url or logs or description] [-- meta-instructions]
+/acc:ci-optimize [path] [-- meta-instructions]
+/acc:audit-ci [path] [-- meta-instructions]
 ```
 
 **Examples:**
-- `/acc-ci-setup github ./` — Setup GitHub Actions for current project
-- `/acc-ci-fix https://github.com/org/repo/actions/runs/123` — Interactive fix with approval
-- `/acc-ci-fix "PHPStan memory exhausted"` — Interactive fix from description
-- `/acc-ci-fix ./ci.log -- dry-run` — Show diagnosis and fix without applying
-- `/acc-ci-fix ./ci.log -- auto-apply` — Apply fix without asking (for scripts)
-- `/acc-ci-optimize ./ -- focus on caching` — Optimize with cache focus
-- `/acc-audit-ci ./ -- include security deep dive` — Full audit with security focus
+- `/acc:ci-setup github ./` — Setup GitHub Actions for current project
+- `/acc:ci-fix https://github.com/org/repo/actions/runs/123` — Interactive fix with approval
+- `/acc:ci-fix "PHPStan memory exhausted"` — Interactive fix from description
+- `/acc:ci-fix ./ci.log -- dry-run` — Show diagnosis and fix without applying
+- `/acc:ci-fix ./ci.log -- auto-apply` — Apply fix without asking (for scripts)
+- `/acc:ci-optimize ./ -- focus on caching` — Optimize with cache focus
+- `/acc:audit-ci ./ -- include security deep dive` — Full audit with security focus
 
 ## Guidelines
 

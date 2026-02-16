@@ -1,5 +1,5 @@
 ---
-name: acc-check-xxe
+name: check-xxe
 description: Analyzes PHP code for XML External Entity vulnerabilities. Detects unsafe XML parsers, missing entity protection, LIBXML flags issues, XSLT attacks.
 ---
 

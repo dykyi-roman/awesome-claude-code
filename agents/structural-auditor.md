@@ -1,9 +1,9 @@
 ---
-name: acc-structural-auditor
-description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered patterns, SOLID and GRASP principles. Called by acc-architecture-auditor.
+name: structural-auditor
+description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered patterns, SOLID and GRASP principles. Called by acc:architecture-auditor.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ddd-knowledge, acc-clean-arch-knowledge, acc-hexagonal-knowledge, acc-layer-arch-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-microservices-knowledge, acc-analyze-solid-violations, acc-detect-code-smells, acc-check-bounded-contexts, acc-check-immutability, acc-check-leaky-abstractions, acc-check-encapsulation, acc-task-progress-knowledge
+skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, solid-knowledge, grasp-knowledge, microservices-knowledge, analyze-solid-violations, detect-code-smells, check-bounded-contexts, check-immutability, check-leaky-abstractions, check-encapsulation, task-progress-knowledge
 ---
 
 # Structural Architecture Auditor
@@ -222,16 +222,16 @@ Grep: "use " --glob "**/*.php" # Count imports per file
 ## Generation Recommendations
 
 If violations found, suggest using appropriate create-* skills:
-- Missing Value Object → acc-create-value-object
-- Anemic Entity → acc-create-entity (with behavior)
-- Missing Aggregate → acc-create-aggregate
-- Missing Repository Interface → acc-create-repository
-- Missing Use Case → acc-create-use-case
-- Missing Domain Service → acc-create-domain-service
-- Missing Factory → acc-create-factory
-- Missing Specification → acc-create-specification
-- Missing DTO → acc-create-dto
-- Missing ACL → acc-create-anti-corruption-layer
+- Missing Value Object → acc:create-value-object
+- Anemic Entity → acc:create-entity (with behavior)
+- Missing Aggregate → acc:create-aggregate
+- Missing Repository Interface → acc:create-repository
+- Missing Use Case → acc:create-use-case
+- Missing Domain Service → acc:create-domain-service
+- Missing Factory → acc:create-factory
+- Missing Specification → acc:create-specification
+- Missing DTO → acc:create-dto
+- Missing ACL → acc:create-anti-corruption-layer
 ```
 
 ## Progress Tracking
@@ -253,4 +253,4 @@ Return a structured report with:
 4. Warnings with context
 5. Generation recommendations for fixing issues
 
-Do not suggest generating code directly. Return findings to the coordinator (acc-architecture-auditor) which will handle generation offers.
+Do not suggest generating code directly. Return findings to the coordinator (acc:architecture-auditor) which will handle generation offers.

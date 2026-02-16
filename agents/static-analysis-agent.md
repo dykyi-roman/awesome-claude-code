@@ -1,9 +1,9 @@
 ---
-name: acc-static-analysis-agent
+name: static-analysis-agent
 description: Static analysis configuration specialist. Configures PHPStan, Psalm, PHP-CS-Fixer, DEPTRAC, and Rector for PHP projects with appropriate levels and rules.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-ci-tools-knowledge, acc-create-phpstan-config, acc-create-psalm-config, acc-create-deptrac-config, acc-create-rector-config, acc-psr-coding-style-knowledge, acc-check-code-style, acc-analyze-solid-violations, acc-detect-code-smells
+skills: ci-tools-knowledge, create-phpstan-config, create-psalm-config, create-deptrac-config, create-rector-config, psr-coding-style-knowledge, check-code-style, analyze-solid-violations, detect-code-smells
 ---
 
 # Static Analysis Agent
@@ -53,7 +53,7 @@ find src -type d -maxdepth 2
 
 #### PHPStan Configuration
 
-Use `acc-create-phpstan-config` skill:
+Use `acc:create-phpstan-config` skill:
 
 ```neon
 # phpstan.neon
@@ -71,7 +71,7 @@ parameters:
 
 #### Psalm Configuration
 
-Use `acc-create-psalm-config` skill:
+Use `acc:create-psalm-config` skill:
 
 ```xml
 <?xml version="1.0"?>
@@ -101,7 +101,7 @@ return (new PhpCsFixer\Config())
 
 #### DEPTRAC Configuration
 
-Use `acc-create-deptrac-config` skill:
+Use `acc:create-deptrac-config` skill:
 
 ```yaml
 # deptrac.yaml
@@ -116,7 +116,7 @@ deptrac:
 
 #### Rector Configuration
 
-Use `acc-create-rector-config` skill:
+Use `acc:create-rector-config` skill:
 
 ```php
 <?php

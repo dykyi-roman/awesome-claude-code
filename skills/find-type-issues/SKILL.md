@@ -1,5 +1,5 @@
 ---
-name: acc-find-type-issues
+name: find-type-issues
 description: Detects type issues in PHP code. Finds implicit type coercion, mixed types in comparisons, unsafe casting, type mismatches in returns.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-create-deploy-strategy
+name: create-deploy-strategy
 description: Generates deployment strategy configurations. Creates blue-green, canary, rolling deployment configs for GitHub Actions and GitLab CI with health checks and rollback procedures.
 ---
 

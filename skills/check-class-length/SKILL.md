@@ -1,5 +1,5 @@
 ---
-name: acc-check-class-length
+name: check-class-length
 description: Analyzes PHP code for class length issues. Detects classes exceeding 300 lines, God class indicators, cohesion issues, SRP violations.
 ---
 

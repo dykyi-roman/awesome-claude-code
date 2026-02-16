@@ -1,5 +1,5 @@
 ---
-name: acc-check-index-usage
+name: check-index-usage
 description: Detects missing database indexes in PHP code. Identifies unindexed WHERE/JOIN columns, incorrect composite index order, covering index opportunities, and index-defeating patterns.
 ---
 

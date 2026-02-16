@@ -1,5 +1,5 @@
 ---
-name: acc-create-test-double
+name: create-test-double
 description: Generates test doubles (Mocks, Stubs, Fakes, Spies) for PHP 8.4. Creates appropriate double type based on testing needs with PHPUnit MockBuilder patterns.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-build-time
+name: optimize-docker-build-time
 description: Optimizes Docker build time for PHP projects. Analyzes layer caching, BuildKit features, parallel builds, and dependency installation.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-docker-buildkit-knowledge
+name: docker-buildkit-knowledge
 description: Docker BuildKit knowledge base. Provides cache mount patterns, build secrets, SSH forwarding, and parallel build optimization.
 ---
 

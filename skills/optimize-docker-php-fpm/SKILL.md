@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-php-fpm
+name: optimize-docker-php-fpm
 description: Optimizes PHP-FPM configuration in Docker containers. Tunes process manager, request handling, and resource allocation for production workloads.
 ---
 

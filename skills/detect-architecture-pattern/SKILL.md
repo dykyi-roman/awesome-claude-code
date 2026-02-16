@@ -1,5 +1,5 @@
 ---
-name: acc-detect-architecture-pattern
+name: detect-architecture-pattern
 description: Detects architectural patterns (MVC, DDD, Hexagonal, CQRS, Layered, Event Sourcing, Microservice) from namespace structure, interface placement, and dependency direction. Outputs confidence score per pattern.
 ---
 
@@ -265,6 +265,6 @@ Presentation → Application → Domain ← Infrastructure
 ## Integration
 
 This skill is used by:
-- `acc-codebase-navigator` — determines overall architecture approach
-- `acc-explain-coordinator` — decides which analysis agents to invoke
-- `acc-structural-auditor` — provides pattern context for audit
+- `codebase-navigator` — determines overall architecture approach
+- `explain-coordinator` — decides which analysis agents to invoke
+- `structural-auditor` — provides pattern context for audit

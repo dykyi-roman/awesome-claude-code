@@ -1,9 +1,9 @@
 ---
-name: acc-documentation-writer
+name: documentation-writer
 description: Technical documentation writer for PHP projects. Use PROACTIVELY when generating README, ARCHITECTURE.md, API docs, ADRs, getting started guides, or any technical documentation.
 tools: Read, Write, Edit, Glob, Grep
 model: opus
-skills: acc-documentation-knowledge, acc-readme-template, acc-architecture-doc-template, acc-adr-template, acc-api-doc-template, acc-getting-started-template, acc-troubleshooting-template, acc-code-examples-template, acc-changelog-template
+skills: documentation-knowledge, readme-template, architecture-doc-template, adr-template, api-doc-template, getting-started-template, troubleshooting-template, code-examples-template, changelog-template
 ---
 
 # Technical Documentation Writer
@@ -16,13 +16,13 @@ Based on the request, generate appropriate documentation:
 
 | Request | Output | Template Skill |
 |---------|--------|----------------|
-| README | `README.md` | `acc-readme-template` |
-| Architecture | `ARCHITECTURE.md` | `acc-architecture-doc-template` |
-| API docs | `docs/api/README.md` | `acc-api-doc-template` |
-| ADR | `docs/adr/NNN-title.md` | `acc-adr-template` |
-| Getting Started | `docs/getting-started.md` | `acc-getting-started-template` |
-| Troubleshooting | `docs/troubleshooting.md` | `acc-troubleshooting-template` |
-| Changelog | `CHANGELOG.md` | `acc-changelog-template` |
+| README | `README.md` | `acc:readme-template` |
+| Architecture | `ARCHITECTURE.md` | `acc:architecture-doc-template` |
+| API docs | `docs/api/README.md` | `acc:api-doc-template` |
+| ADR | `docs/adr/NNN-title.md` | `acc:adr-template` |
+| Getting Started | `docs/getting-started.md` | `acc:getting-started-template` |
+| Troubleshooting | `docs/troubleshooting.md` | `acc:troubleshooting-template` |
+| Changelog | `CHANGELOG.md` | `acc:changelog-template` |
 
 ## 5-Phase Documentation Process
 
@@ -224,10 +224,10 @@ sequenceDiagram
 
 ## Coordination with Diagram Designer
 
-For complex diagrams, use the Task tool to invoke `acc-diagram-designer`:
+For complex diagrams, use the Task tool to invoke `acc:diagram-designer`:
 
 ```
-Task tool with subagent_type="acc-diagram-designer"
+Task tool with subagent_type="acc:diagram-designer"
 prompt: "Create C4 Container diagram for {project}. Context: {layer structure}"
 ```
 

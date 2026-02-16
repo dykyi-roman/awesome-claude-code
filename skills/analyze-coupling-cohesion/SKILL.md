@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-coupling-cohesion
+name: analyze-coupling-cohesion
 description: Analyzes coupling and cohesion metrics in PHP codebases. Calculates Afferent/Efferent coupling (Ca/Ce), LCOM metrics, instability index, and abstractness. Identifies highly coupled modules and low cohesion classes.
 ---
 
@@ -219,7 +219,7 @@ Abstractness (A)
   - Split into focused use cases
   - Introduce facades/mediators
   - Use domain events instead of direct calls
-- **Skills:** `acc-create-use-case`, `acc-create-mediator`
+- **Skills:** `create-use-case`, `create-mediator`
 
 ### COUP-002: Unstable Package Depends on Unstable
 - **Violation:** Stable Dependencies Principle
@@ -237,7 +237,7 @@ Abstractness (A)
 - **Refactoring:**
   - Introduce shared interface in Domain
   - Use domain events for communication
-- **Skills:** `acc-create-domain-event`
+- **Skills:** `create-domain-event`
 
 ## Warning Issues
 
@@ -251,7 +251,7 @@ Abstractness (A)
   - `OrderCreationService`
   - `OrderValidationService`
   - `OrderNotificationService`
-- **Skills:** `acc-create-use-case`, `acc-create-domain-service`
+- **Skills:** `create-use-case`, `create-domain-service`
 
 ### COUP-005: Zone of Pain
 - **Package:** `src/Infrastructure/Legacy/`
@@ -411,10 +411,10 @@ done
 ## Integration
 
 Works with:
-- `acc-detect-code-smells` — God Class detection
-- `acc-structural-auditor` — Architecture analysis
-- `acc-grasp-knowledge` — GRASP principles (Low Coupling, High Cohesion)
-- `acc-create-mediator` — Reduce coupling via mediator
+- `detect-code-smells` — God Class detection
+- `structural-auditor` — Architecture analysis
+- `grasp-knowledge` — GRASP principles (Low Coupling, High Cohesion)
+- `create-mediator` — Reduce coupling via mediator
 
 ## References
 

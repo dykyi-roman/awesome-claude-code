@@ -1,9 +1,9 @@
 ---
-name: acc-behavioral-generator
-description: Behavioral patterns generator. Creates Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento components for PHP 8.4. Called by acc-pattern-generator coordinator.
+name: behavioral-generator
+description: Behavioral patterns generator. Creates Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento components for PHP 8.4. Called by acc:pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: opus
-skills: acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-create-policy, acc-create-template-method, acc-create-visitor, acc-create-iterator, acc-create-memento
+skills: create-strategy, create-state, create-chain-of-responsibility, create-decorator, create-null-object, create-policy, create-template-method, create-visitor, create-iterator, create-memento
 ---
 
 # Behavioral Patterns Generator

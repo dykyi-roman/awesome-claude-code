@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-image-size
+name: optimize-docker-image-size
 description: Optimizes Docker image size for PHP projects. Reduces image footprint through Alpine, multi-stage builds, layer cleanup, and dependency minimization.
 ---
 

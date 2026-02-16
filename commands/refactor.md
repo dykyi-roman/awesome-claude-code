@@ -17,10 +17,10 @@ Parse `$ARGUMENTS` to extract path and optional meta-instructions:
 Format: <path> [-- <meta-instructions>]
 
 Examples:
-- /acc-refactor ./src/Domain/OrderService.php
-- /acc-refactor ./src/Application -- focus on SOLID violations
-- /acc-refactor ./src -- extract value objects only
-- /acc-refactor ./src/Service -- analyze testability, skip style
+- /acc:refactor ./src/Domain/OrderService.php
+- /acc:refactor ./src/Application -- focus on SOLID violations
+- /acc:refactor ./src -- extract value objects only
+- /acc:refactor ./src/Service -- analyze testability, skip style
 ```
 
 **Parsing rules:**
@@ -55,10 +55,10 @@ If meta-instructions provided, adjust analysis to:
 
 ## Instructions
 
-Use the `acc-refactor-coordinator` agent to perform guided refactoring:
+Use the `acc:refactor-coordinator` agent to perform guided refactoring:
 
 ```
-Task tool with subagent_type="acc-refactor-coordinator"
+Task tool with subagent_type="acc:refactor-coordinator"
 prompt: "Perform refactoring analysis on [PATH]. [META-INSTRUCTIONS if provided]
 
 Analysis scope:
@@ -94,11 +94,11 @@ Provide:
 
 | Principle | Violation | Fix | Generator |
 |-----------|-----------|-----|-----------|
-| **SRP** | Multiple responsibilities | Extract classes | `acc-ddd-generator`, `acc-cqrs-generator` |
-| **OCP** | Type switches, if/else chains | Strategy pattern | `/acc-generate-patterns strategy` |
+| **SRP** | Multiple responsibilities | Extract classes | `acc:ddd-generator`, `acc:cqrs-generator` |
+| **OCP** | Type switches, if/else chains | Strategy pattern | `/acc:generate-patterns strategy` |
 | **LSP** | Exceptions in overrides | Redesign hierarchy | Manual |
 | **ISP** | Unused interface methods | Split interface | Manual |
-| **DIP** | `new` in constructors | DI, Factories | `acc-create-factory` |
+| **DIP** | `new` in constructors | DI, Factories | `acc:create-factory` |
 
 ### Testability Issues
 
@@ -155,9 +155,9 @@ For each critical issue:
 
 **Generator Commands:**
 ```bash
-acc-create-domain-service PaymentProcessor
-acc-create-domain-service OrderNotifier
-/acc-generate-patterns mediator OrderWorkflow
+acc:create-domain-service PaymentProcessor
+acc:create-domain-service OrderNotifier
+/acc:generate-patterns mediator OrderWorkflow
 ```
 
 **Prerequisites:**
@@ -169,10 +169,10 @@ acc-create-domain-service OrderNotifier
 
 | Priority | Issue | File | Refactoring | Command |
 |----------|-------|------|-------------|---------|
-| P1 | God Class | OrderService.php | Extract classes | `acc-create-domain-service` |
+| P1 | God Class | OrderService.php | Extract classes | `acc:create-domain-service` |
 | P1 | No DI | PaymentHandler.php | Add constructor DI | Manual |
-| P2 | Primitive | User.php | Value Object | `acc-create-value-object Email` |
-| P2 | Type Switch | DiscountHandler.php | Strategy | `/acc-generate-patterns strategy` |
+| P2 | Primitive | User.php | Value Object | `acc:create-value-object Email` |
+| P2 | Type Switch | DiscountHandler.php | Strategy | `/acc:generate-patterns strategy` |
 | P3 | Magic values | Config.php | Constants | Manual |
 | P3 | Long method | ReportGenerator.php | Extract method | Manual |
 
@@ -197,53 +197,53 @@ Safe refactorings that can be applied immediately:
 | OrderService.php | 45% | 90% | 45% |
 | PaymentHandler.php | 72% | 90% | 18% |
 
-Run: /acc-generate-test ./src/Application/Service/OrderService.php
+Run: /acc:generate-test ./src/Application/Service/OrderService.php
 ```
 
 ### 6. Generation Commands Summary
 
 ```bash
 # Value Objects
-acc-create-value-object EmailAddress
-acc-create-value-object Money
-acc-create-value-object OrderId
+acc:create-value-object EmailAddress
+acc:create-value-object Money
+acc:create-value-object OrderId
 
 # Domain Services
-acc-create-domain-service PaymentProcessor
-acc-create-domain-service OrderNotifier
+acc:create-domain-service PaymentProcessor
+acc:create-domain-service OrderNotifier
 
 # Patterns
-/acc-generate-patterns strategy DiscountCalculator
-/acc-generate-patterns builder UserProfile
+/acc:generate-patterns strategy DiscountCalculator
+/acc:generate-patterns builder UserProfile
 
 # Tests (run first!)
-/acc-generate-test ./src/Application/Service/OrderService.php
+/acc:generate-test ./src/Application/Service/OrderService.php
 ```
 
 ## Refactoring Modes
 
 ### Analysis Only (Default)
 ```bash
-/acc-refactor ./src/Domain/Order
+/acc:refactor ./src/Domain/Order
 ```
 Analyzes and provides recommendations without applying changes.
 
 ### Focus on Specific Issues
 ```bash
-/acc-refactor ./src -- focus on SOLID violations
-/acc-refactor ./src -- extract value objects only
-/acc-refactor ./src -- analyze testability
+/acc:refactor ./src -- focus on SOLID violations
+/acc:refactor ./src -- extract value objects only
+/acc:refactor ./src -- analyze testability
 ```
 
 ### Quick Wins Only
 ```bash
-/acc-refactor ./src -- apply quick wins only
+/acc:refactor ./src -- apply quick wins only
 ```
 Shows only safe, low-risk refactorings.
 
 ### With Pattern Generation
 ```bash
-/acc-refactor ./src/Service/PaymentHandler.php -- apply Strategy pattern
+/acc:refactor ./src/Service/PaymentHandler.php -- apply Strategy pattern
 ```
 Analyzes and generates recommended pattern.
 
@@ -259,17 +259,17 @@ Analyzes and generates recommended pattern.
 
 ```bash
 # Full analysis of a file
-/acc-refactor ./src/Domain/OrderService.php
+/acc:refactor ./src/Domain/OrderService.php
 
 # Directory analysis with focus
-/acc-refactor ./src/Application -- focus on SOLID violations
+/acc:refactor ./src/Application -- focus on SOLID violations
 
 # Quick wins only
-/acc-refactor ./src -- quick wins only
+/acc:refactor ./src -- quick wins only
 
 # Specific pattern extraction
-/acc-refactor ./src/Service/Payment -- extract Strategy pattern
+/acc:refactor ./src/Service/Payment -- extract Strategy pattern
 
 # Testability focus
-/acc-refactor ./src -- analyze testability, generate test suggestions
+/acc:refactor ./src -- analyze testability, generate test suggestions
 ```

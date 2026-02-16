@@ -1,5 +1,5 @@
 ---
-name: acc-create-chain-of-responsibility
+name: create-chain-of-responsibility
 description: Generates Chain of Responsibility pattern for PHP 8.4. Creates handler chains for request processing with middleware-style composition. Includes unit tests.
 ---
 

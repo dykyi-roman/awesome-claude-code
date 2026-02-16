@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-user-permissions
+name: check-docker-user-permissions
 description: Checks Docker user and permission configuration. Detects root execution, improper file ownership, and missing security constraints.
 ---
 

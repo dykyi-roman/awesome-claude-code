@@ -13,13 +13,13 @@ Component paths, formats, and best practices. Use this as a cheat sheet when cre
 
 ## Component Paths
 
-| Type    | Path                           | Invocation       |
-|---------|--------------------------------|------------------|
-| Command | `.claude/commands/name.md`     | `/name`          |
-| Agent   | `.claude/agents/name.md`       | Auto or explicit |
-| Skill   | `.claude/skills/name/SKILL.md` | `/name` or auto  |
-| Rule    | `.claude/rules/name.md`        | Conditional      |
-| Hook    | `.claude/settings.json`        | On event         |
+| Type    | Path                       | Invocation          |
+|---------|----------------------------|---------------------|
+| Command | `commands/name.md`         | `/acc:name`         |
+| Agent   | `agents/name.md`           | Auto or explicit    |
+| Skill   | `skills/name/SKILL.md`     | `/acc:name` or auto |
+| Rule    | `.claude/rules/name.md`    | Conditional         |
+| Hook    | `hooks/hooks.json`         | On event            |
 
 ## YAML Frontmatter
 
@@ -68,72 +68,84 @@ allowed-tools: Optional
 ## File Structure
 
 ```
-.claude/
-├── commands/                     # 26 commands
-│   ├── acc-audit-*.md            # Audit commands (10): architecture, ci, claude-components,
-│   │                             #   ddd, docker, documentation, patterns, performance, psr, security, test
-│   ├── acc-bug-fix.md
-│   ├── acc-ci-*.md               # CI commands (3): setup, fix, optimize
-│   ├── acc-code-review.md
-│   ├── acc-commit.md
-│   ├── acc-explain.md            # Code explanation (5 modes)
-│   ├── acc-generate-*.md         # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
-│   ├── acc-refactor.md
+awesome-claude-code/
+├── .claude-plugin/
+│   ├── marketplace.json            # Marketplace catalog
+│   └── plugin.json                 # Plugin manifest
+├── commands/                       # 26 commands
+│   ├── audit-*.md                  # Audit commands (11): architecture, ci, claude-components,
+│   │                               #   ddd, docker, documentation, patterns, performance, psr, security, test
+│   ├── bug-fix.md
+│   ├── ci-*.md                     # CI commands (3): setup, fix, optimize
+│   ├── code-review.md
+│   ├── commit.md
+│   ├── explain.md                  # Code explanation (5 modes)
+│   ├── generate-*.md               # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
+│   ├── refactor.md
 │   └── ...
-├── agents/                       # 62 agents
-│   ├── acc-*-auditor.md          # Auditors (13): architecture, behavioral, cqrs, creational,
-│   │                             #   ddd, documentation, gof-structural, integration,
-│   │                             #   pattern, psr, stability, structural, test
-│   ├── acc-*-generator.md        # Generators (10): architecture, behavioral, creational,
-│   │                             #   cqrs, ddd, gof-structural, integration, pattern, psr, stability
-│   ├── acc-*-coordinator.md      # Coordinators (6): bug-fix, ci, code-review, docker, explain, refactor
-│   │                             #   + security-reviewer (coordinator via Task delegation)
-│   ├── acc-*-reviewer.md         # Reviewers (8): auth, data-security, design-security, injection,
-│   │                             #   performance, readability, security (coordinator), testability
-│   ├── acc-*-analyst.md          # Analysts (2): business-logic, data-flow
-│   ├── acc-codebase-navigator.md # Codebase navigation specialist
-│   ├── acc-ci-*.md               # CI agents (9): ci-coordinator, ci-debugger, ci-fixer,
-│   │                             #   ci-security-agent, deployment-agent, docker-agent,
-│   │                             #   pipeline-architect, pipeline-optimizer,
-│   │                             #   static-analysis-agent, test-pipeline-agent
-│   ├── acc-docker-*.md           # Docker agents (8): docker-coordinator, docker-architect-agent,
-│   │                             #   docker-image-builder, docker-compose-agent,
-│   │                             #   docker-performance-agent, docker-security-agent,
-│   │                             #   docker-debugger-agent, docker-production-agent
+├── agents/                         # 62 agents
+│   ├── *-auditor.md                # Auditors (13): architecture, behavioral, cqrs, creational,
+│   │                               #   ddd, documentation, gof-structural, integration,
+│   │                               #   pattern, psr, stability, structural, test
+│   ├── *-generator.md              # Generators (10): architecture, behavioral, creational,
+│   │                               #   cqrs, ddd, gof-structural, integration, pattern, psr, stability
+│   ├── *-coordinator.md            # Coordinators (6): bug-fix, ci, code-review, docker, explain, refactor
+│   │                               #   + security-reviewer (coordinator via Task delegation)
+│   ├── *-reviewer.md               # Reviewers (8): auth, data-security, design-security, injection,
+│   │                               #   performance, readability, security (coordinator), testability
+│   ├── *-analyst.md                # Analysts (2): business-logic, data-flow
+│   ├── codebase-navigator.md       # Codebase navigation specialist
+│   ├── ci-*.md                     # CI agents (9): ci-coordinator, ci-debugger, ci-fixer,
+│   │                               #   ci-security-agent, deployment-agent, docker-agent,
+│   │                               #   pipeline-architect, pipeline-optimizer,
+│   │                               #   static-analysis-agent, test-pipeline-agent
+│   ├── docker-*.md                 # Docker agents (8): docker-coordinator, docker-architect-agent,
+│   │                               #   docker-image-builder, docker-compose-agent,
+│   │                               #   docker-performance-agent, docker-security-agent,
+│   │                               #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                       # 259 skills
-│   ├── acc-*-knowledge/          # 42 knowledge skills
-│   ├── acc-check-*/              # 64 analyzer skills
-│   ├── acc-find-*/               # 8 bug detection skills
-│   ├── acc-detect-*/             # 8 detection skills
-│   ├── acc-analyze-*/            # 9 analysis skills
-│   ├── acc-scan-*/               # 1 scanner skill
-│   ├── acc-identify-*/           # 1 identifier skill
-│   ├── acc-resolve-*/            # 1 resolver skill
-│   ├── acc-extract-*/            # 3 extractor skills
-│   ├── acc-explain-*/            # 2 explainer skills (business-process, output-template)
-│   ├── acc-trace-*/              # 2 tracer skills
-│   ├── acc-map-*/                # 1 mapper skill
-│   ├── acc-discover-*/           # 1 discovery skill
-│   ├── acc-create-*/             # 86 generator skills
-│   ├── acc-generate-*/           # 2 generator skills
-│   ├── acc-optimize-*/           # 7 optimizer skills
-│   ├── acc-*-template/           # 10 template skills
-│   └── acc-*/                    # 7 other skills (estimate, suggest, bug-*)
-├── rules/                       # 3 conditional rules
-│   ├── component-creation.md    # Loads for .claude/ edits
-│   ├── versioning.md            # Loads for CHANGELOG, README, docs/
-│   └── troubleshooting.md       # Loads for .claude/, src/, Makefile
-└── settings.json
-
-docs/                             # Documentation (root level)
-├── commands.md
-├── agents.md
-├── skills.md
-├── component-flow.md
-├── hooks.md
-├── mcp.md
-└── quick-reference.md
+├── skills/                         # 259 skills
+│   ├── *-knowledge/                # 42 knowledge skills
+│   ├── check-*/                    # 64 analyzer skills
+│   ├── find-*/                     # 8 bug detection skills
+│   ├── detect-*/                   # 8 detection skills
+│   ├── analyze-*/                  # 9 analysis skills
+│   ├── scan-*/                     # 1 scanner skill
+│   ├── identify-*/                 # 1 identifier skill
+│   ├── resolve-*/                  # 1 resolver skill
+│   ├── extract-*/                  # 3 extractor skills
+│   ├── explain-*/                  # 2 explainer skills (business-process, output-template)
+│   ├── trace-*/                    # 2 tracer skills
+│   ├── map-*/                      # 1 mapper skill
+│   ├── discover-*/                 # 1 discovery skill
+│   ├── create-*/                   # 91 generator skills
+│   ├── generate-*/                 # 2 generator skills
+│   ├── optimize-*/                 # 7 optimizer skills
+│   ├── *-template/                 # 10 template skills
+│   └── */                          # 7 other skills (estimate, suggest, bug-*)
+├── hooks/
+│   └── hooks.json                  # PHP syntax check hook
+├── .claude/
+│   ├── settings.json               # Project settings (dev only, NOT part of plugin)
+│   └── rules/                      # Conditional rules (dev only, NOT part of plugin)
+│       ├── component-creation.md
+│       ├── versioning.md
+│       └── troubleshooting.md
+├── docs/                           # Documentation
+│   ├── commands.md
+│   ├── agents.md
+│   ├── skills.md
+│   ├── component-flow.md
+│   ├── hooks.md
+│   ├── mcp.md
+│   └── quick-reference.md
+├── README.md
+├── CLAUDE.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── Makefile
+├── llms.txt
+└── LICENSE
 ```
 
 ## Statistics
@@ -144,7 +156,7 @@ docs/                             # Documentation (root level)
 | Agents | 62 |
 | Knowledge Skills | 42 |
 | Analyzer Skills | 100 |
-| Generator Skills | 88 |
+| Generator Skills | 93 |
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 7 |

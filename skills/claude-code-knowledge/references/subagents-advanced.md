@@ -196,8 +196,8 @@ In settings.json permissions:
 ```json
 {
   "permissions": {
-    "allow": ["Task(acc-ddd-auditor)", "Task(acc-test-generator)"],
-    "deny": ["Task(acc-dangerous-agent)"]
+    "allow": ["Task(ddd-auditor)", "Task(test-generator)"],
+    "deny": ["Task(dangerous-agent)"]
   }
 }
 ```

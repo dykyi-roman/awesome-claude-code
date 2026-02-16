@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-solid-violations
+name: analyze-solid-violations
 description: Analyzes PHP codebase for SOLID principle violations. Detects God classes (SRP), type switches (OCP), broken contracts (LSP), fat interfaces (ISP), and concrete dependencies (DIP). Generates actionable reports with severity levels and remediation recommendations.
 ---
 
@@ -209,13 +209,13 @@ grep -rn "container->get\|app()->make\|\\\$this->get(" --include="*.php" src/
 - **Lines:** 847
 - **Issue:** Class exceeds 500 lines with 23 public methods
 - **Recommendation:** Extract into focused classes
-- **Skills:** `acc-create-use-case`, `acc-create-domain-service`
+- **Skills:** `create-use-case`, `create-domain-service`
 
 ### OCP-001: Type Switch
 - **File:** `src/Payment/PaymentProcessor.php:45`
 - **Issue:** Switch on payment type requires modification for new types
 - **Recommendation:** Apply Strategy pattern
-- **Skills:** `acc-create-strategy`
+- **Skills:** `create-strategy`
 
 ## Warning Violations
 
@@ -245,13 +245,13 @@ grep -rn "container->get\|app()->make\|\\\$this->get(" --include="*.php" src/
 
 | Violation | Recommended Skill |
 |-----------|-------------------|
-| God Class | `acc-create-use-case` |
-| Type Switch | `acc-create-strategy` |
-| No Interface | `acc-create-repository` |
-| Domain Logic | `acc-create-domain-service` |
-| Value Extraction | `acc-create-value-object` |
-| Factory Missing | `acc-create-factory` |
-| Decorator Need | `acc-create-decorator` |
+| God Class | `create-use-case` |
+| Type Switch | `create-strategy` |
+| No Interface | `create-repository` |
+| Domain Logic | `create-domain-service` |
+| Value Extraction | `create-value-object` |
+| Factory Missing | `create-factory` |
+| Decorator Need | `create-decorator` |
 
 ## Quick Analysis Commands
 
@@ -271,16 +271,16 @@ echo "=== DIP ===" && \
 grep -rn "new\s\+[A-Z]" --include="*.php" src/ | grep -v "Exception\|DateTime" | head -20
 ```
 
-## Integration with acc-solid-knowledge
+## Integration with solid-knowledge
 
-This analyzer uses detection patterns from `acc-solid-knowledge`. For detailed principle explanations and patterns, refer to:
+This analyzer uses detection patterns from `solid-knowledge`. For detailed principle explanations and patterns, refer to:
 
-- `acc-solid-knowledge/references/srp-patterns.md`
-- `acc-solid-knowledge/references/ocp-patterns.md`
-- `acc-solid-knowledge/references/lsp-patterns.md`
-- `acc-solid-knowledge/references/isp-patterns.md`
-- `acc-solid-knowledge/references/dip-patterns.md`
-- `acc-solid-knowledge/references/antipatterns.md`
+- `solid-knowledge/references/srp-patterns.md`
+- `solid-knowledge/references/ocp-patterns.md`
+- `solid-knowledge/references/lsp-patterns.md`
+- `solid-knowledge/references/isp-patterns.md`
+- `solid-knowledge/references/dip-patterns.md`
+- `solid-knowledge/references/antipatterns.md`
 
 ## Report Template
 

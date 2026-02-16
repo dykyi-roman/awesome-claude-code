@@ -22,13 +22,13 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-ci
-- /acc-audit-ci ./
-- /acc-audit-ci deep
-- /acc-audit-ci ./ deep
-- /acc-audit-ci -- focus on security
-- /acc-audit-ci deep -- focus on security
-- /acc-audit-ci -- level:deep (backward compatible)
+- /acc:audit-ci
+- /acc:audit-ci ./
+- /acc:audit-ci deep
+- /acc:audit-ci ./ deep
+- /acc:audit-ci -- focus on security
+- /acc:audit-ci deep -- focus on security
+- /acc:audit-ci -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -59,14 +59,14 @@ Examples:
 
 2. **If no CI found:**
    - Report "No CI configuration found"
-   - Suggest `/acc-ci-setup`
+   - Suggest `/acc:ci-setup`
 
 ## Instructions
 
-Use the `acc-ci-coordinator` agent to perform the audit:
+Use the `acc:ci-coordinator` agent to perform the audit:
 
 ```
-Task tool with subagent_type="acc-ci-coordinator"
+Task tool with subagent_type="acc:ci-coordinator"
 prompt: "Perform comprehensive CI/CD audit at [PATH]. Audit level: [LEVEL].
 
 Operation: AUDIT
@@ -183,22 +183,22 @@ The coordinator will delegate to specialized agents and aggregate results:
 
 ```bash
 # Standard audit (default)
-/acc-audit-ci
+/acc:audit-ci
 
 # Quick check
-/acc-audit-ci quick
+/acc:audit-ci quick
 
 # Deep analysis
-/acc-audit-ci deep
+/acc:audit-ci deep
 
 # With path and level
-/acc-audit-ci ./ deep
+/acc:audit-ci ./ deep
 
 # Deep + focus
-/acc-audit-ci deep -- focus on security
+/acc:audit-ci deep -- focus on security
 
 # Backward compatible
-/acc-audit-ci -- level:deep
+/acc:audit-ci -- level:deep
 ```
 
 ## Meta-Instructions Guide

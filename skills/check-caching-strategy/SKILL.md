@@ -1,5 +1,5 @@
 ---
-name: acc-check-caching-strategy
+name: check-caching-strategy
 description: Analyzes PHP code for caching opportunities and issues. Detects missing cache, cache invalidation problems, over-caching, repeated expensive operations.
 ---
 

@@ -7,7 +7,7 @@ argument-hint: <path> [-- additional instructions]
 
 # Generate Tests
 
-Invoke the `acc-test-generator` agent to create tests for PHP code.
+Invoke the `acc:test-generator` agent to create tests for PHP code.
 
 ## Input Parsing
 
@@ -17,11 +17,11 @@ Parse `$ARGUMENTS` to extract path and optional meta-instructions:
 Format: <path> [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-test src/Domain/Order/Order.php
-- /acc-generate-test src/Domain/Order/ -- only unit tests, skip integration
-- /acc-generate-test src/Service/PaymentService.php -- include edge cases for null payments
-- /acc-generate-test src/ -- create builders for all entities
-- /acc-generate-test src/Application/ -- focus on happy path scenarios
+- /acc:generate-test src/Domain/Order/Order.php
+- /acc:generate-test src/Domain/Order/ -- only unit tests, skip integration
+- /acc:generate-test src/Service/PaymentService.php -- include edge cases for null payments
+- /acc:generate-test src/ -- create builders for all entities
+- /acc:generate-test src/Application/ -- focus on happy path scenarios
 ```
 
 **Parsing rules:**
@@ -32,23 +32,23 @@ Examples:
 ## Usage
 
 ```
-/acc-generate-test <path> [-- instructions]
+/acc:generate-test <path> [-- instructions]
 ```
 
 ## Examples
 
 ```bash
 # Generate tests for a single class
-/acc-generate-test src/Domain/Order/Order.php
+/acc:generate-test src/Domain/Order/Order.php
 
 # Generate tests for a folder
-/acc-generate-test src/Domain/Order/
+/acc:generate-test src/Domain/Order/
 
 # Generate with specific focus
-/acc-generate-test src/Domain/Order/ -- focus on invariant violations
+/acc:generate-test src/Domain/Order/ -- focus on invariant violations
 
 # Generate tests for Application layer
-/acc-generate-test src/Application/PlaceOrder/
+/acc:generate-test src/Application/PlaceOrder/
 ```
 
 ## What It Generates
@@ -91,7 +91,7 @@ Examples:
 Use the Task tool to invoke the test generator agent:
 
 ```
-Task tool with subagent_type="acc-test-generator"
+Task tool with subagent_type="acc:test-generator"
 prompt: "Generate tests for $ARGUMENTS. Analyze the code, determine test type (unit/integration), create appropriate tests following AAA pattern, PHPUnit 11 attributes, and proper naming. Include edge cases and exception paths."
 ```
 

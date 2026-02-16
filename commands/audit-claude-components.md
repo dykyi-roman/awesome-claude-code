@@ -21,12 +21,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-claude-components
-- /acc-audit-claude-components deep
-- /acc-audit-claude-components quick
-- /acc-audit-claude-components -- focus on God-Agent detection
-- /acc-audit-claude-components deep -- check only commands
-- /acc-audit-claude-components -- level:deep (backward compatible)
+- /acc:audit-claude-components
+- /acc:audit-claude-components deep
+- /acc:audit-claude-components quick
+- /acc:audit-claude-components -- focus on God-Agent detection
+- /acc:audit-claude-components deep -- check only commands
+- /acc:audit-claude-components -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -204,7 +204,7 @@ Extract references from all components:
 
 1. **Commands → Agents**: Parse command bodies for agent references
    - Look for Task tool calls with agent names
-   - Pattern: `acc-*-agent`, `acc-*-auditor`, `acc-*-generator`, `acc-*-expert`, `acc-*-writer`, `acc-*-designer`
+   - Pattern: `*-agent`, `*-auditor`, `*-generator`, `*-expert`, `*-writer`, `*-designer`
 
 2. **Agents → Skills**: Parse agent frontmatter `skills:` field
    - Extract skill names from YAML list
@@ -263,9 +263,9 @@ Analyze component body:
 
 ```
 📋 Behavior Verification
-├── ✅ acc-commit.md — description matches behavior
-├── ⚠️ acc-foo.md — claims "generates" but no Write tool
-├── ❌ acc-bar.md — argument-hint defined but $ARGUMENTS unused
+├── ✅ commit.md — description matches behavior
+├── ⚠️ foo.md — claims "generates" but no Write tool
+├── ❌ bar.md — argument-hint defined but $ARGUMENTS unused
 └── Summary: X/Y components verified (Z%)
 ```
 
@@ -331,24 +331,24 @@ Verify that commands use agents appropriate for their domain:
 #### 8.1 Extract Domain from Component Name
 
 Parse naming patterns to identify domain:
-- `acc-audit-ddd` → Domain: DDD
-- `acc-generate-test` → Domain: Testing
-- `acc-create-entity` → Domain: DDD
-- `acc-psr-*` → Domain: PSR Standards
+- `acc:audit-ddd` → Domain: DDD
+- `acc:generate-test` → Domain: Testing
+- `acc:create-entity` → Domain: DDD
+- `psr-*` → Domain: PSR Standards
 
 #### 8.2 Build Domain Map
 
 Group components by domain:
 ```
 DDD Domain:
-├── Commands: acc-audit-ddd
-├── Agents: acc-ddd-auditor, acc-ddd-generator
-└── Skills: acc-ddd-knowledge, acc-create-entity, acc-create-value-object, ...
+├── Commands: acc:audit-ddd
+├── Agents: acc:ddd-auditor, acc:ddd-generator
+└── Skills: acc:ddd-knowledge, acc:create-entity, acc:create-value-object, ...
 
 Testing Domain:
-├── Commands: acc-generate-test, acc-audit-test
-├── Agents: acc-test-generator, acc-test-auditor
-└── Skills: acc-testing-knowledge, acc-create-unit-test, ...
+├── Commands: acc:generate-test, acc:audit-test
+├── Agents: acc:test-generator, acc:test-auditor
+└── Skills: acc:testing-knowledge, acc:create-unit-test, ...
 ```
 
 #### 8.3 Verify Semantic Fit
@@ -357,9 +357,9 @@ Check command → agent domain alignment:
 
 | Pattern | Status | Issue |
 |---------|--------|-------|
-| `acc-audit-ddd` → `acc-ddd-auditor` | ✅ Good | Same domain |
-| `acc-audit-ddd` → `acc-test-auditor` | ❌ Mismatch | Cross-domain |
-| `acc-generate-test` → `acc-ddd-generator` | ❌ Mismatch | Wrong domain |
+| `acc:audit-ddd` → `acc:ddd-auditor` | ✅ Good | Same domain |
+| `acc:audit-ddd` → `acc:test-auditor` | ❌ Mismatch | Cross-domain |
+| `acc:generate-test` → `acc:ddd-generator` | ❌ Mismatch | Wrong domain |
 
 #### 8.5 Semantic Fit Report Format
 
@@ -368,7 +368,7 @@ Check command → agent domain alignment:
 ├── Commands analyzed: X
 ├── Perfect fit: Y (Z%)
 ├── Cross-domain usage: [list]
-│   └── ⚠️ acc-foo.md uses acc-bar-agent (expected: acc-foo-agent)
+│   └── ⚠️ foo.md uses bar-agent (expected: foo-agent)
 └── Recommendation: Create domain-specific agents for mismatched commands
 ```
 
@@ -403,14 +403,14 @@ For agents with "coordinator" in name or description containing "orchestrates/co
 | TaskUpdate in tools | Listed in frontmatter | Not listed |
 | Progress section | Has "Progress Tracking" section | Missing section |
 | Phase count | 3-5 phases defined | <3 or >5 phases |
-| acc-task-progress-knowledge | In skills list | Missing |
+| acc:task-progress-knowledge | In skills list | Missing |
 
 **Detection:**
 ```bash
 # Check if coordinator has TaskCreate
 Grep: "TaskCreate" --glob ".claude/agents/*coordinator*.md"
 Grep: "Progress Tracking" --glob ".claude/agents/*coordinator*.md"
-Grep: "acc-task-progress-knowledge" --glob ".claude/agents/*coordinator*.md"
+Grep: "acc:task-progress-knowledge" --glob ".claude/agents/*coordinator*.md"
 ```
 
 **Coordinator Progress Report:**
@@ -419,7 +419,7 @@ Grep: "acc-task-progress-knowledge" --glob ".claude/agents/*coordinator*.md"
 ├── Coordinators found: X
 ├── With progress tracking: Y (Z%)
 ├── Missing TaskCreate:
-│   └── ❌ acc-foo-coordinator — no Progress Tracking section
+│   └── ❌ acc:foo-coordinator — no Progress Tracking section
 └── Recommendation: Add TaskCreate/TaskUpdate to coordinators
 ```
 
@@ -437,12 +437,12 @@ Parse description for action verbs:
 ├── Agents analyzed: X
 ├── Healthy agents: Y (Z%)
 ├── Warning level: [list]
-│   └── ⚠️ acc-architecture-auditor (12 skills, 4 responsibilities)
+│   └── ⚠️ acc:architecture-auditor (12 skills, 4 responsibilities)
 ├── God-Agents detected:
-│   └── ❌ acc-mega-agent (23 skills, 8 responsibilities)
+│   └── ❌ acc:mega-agent (23 skills, 8 responsibilities)
 │       ├── Recommended split:
-│       │   ├── acc-mega-auditor (audit responsibilities)
-│       │   └── acc-mega-generator (generation responsibilities)
+│       │   ├── acc:mega-auditor (audit responsibilities)
+│       │   └── acc:mega-generator (generation responsibilities)
 │       └── Skills to redistribute: [grouped list]
 └── Summary: X agents need refactoring
 ```
@@ -463,11 +463,11 @@ For each skill, verify:
 Check if skill belongs in correct agent:
 
 ```
-Skill: acc-create-unit-test
-├── Current agent: acc-ddd-generator
+Skill: acc:create-unit-test
+├── Current agent: acc:ddd-generator
 ├── Expected domain: Testing
 ├── Status: ❌ Feature Envy
-└── Recommendation: Move to acc-test-generator
+└── Recommendation: Move to acc:test-generator
 ```
 
 #### 10.3 Skill Similarity Analysis
@@ -480,10 +480,10 @@ Compare skills for potential duplication:
 
 ```
 Potential duplicates:
-├── acc-create-unit-test vs acc-create-test (85% similar)
-│   └── Recommendation: Merge into acc-create-unit-test
-├── acc-ddd-knowledge vs acc-domain-knowledge (75% similar)
-│   └── Recommendation: Keep acc-ddd-knowledge, deprecate other
+├── acc:create-unit-test vs acc:create-test (85% similar)
+│   └── Recommendation: Merge into acc:create-unit-test
+├── acc:ddd-knowledge vs acc:domain-knowledge (75% similar)
+│   └── Recommendation: Keep acc:ddd-knowledge, deprecate other
 ```
 
 #### 10.4 Skill Responsibility Report Format
@@ -493,11 +493,11 @@ Potential duplicates:
 ├── Skills analyzed: X
 ├── SRP compliant: Y (Z%)
 ├── SRP violations:
-│   └── ⚠️ acc-mega-skill.md — multiple actions (creates, audits, validates)
+│   └── ⚠️ acc:mega-skill.md — multiple actions (creates, audits, validates)
 ├── Feature Envy:
-│   └── ⚠️ acc-create-test in acc-ddd-generator (should be in acc-test-generator)
+│   └── ⚠️ acc:create-test in acc:ddd-generator (should be in acc:test-generator)
 ├── Similar skills (potential merge):
-│   └── acc-foo-skill ↔ acc-bar-skill (82% similar)
+│   └── acc:foo-skill ↔ acc:bar-skill (82% similar)
 └── Summary: X skills need attention
 ```
 
@@ -526,8 +526,8 @@ Domain: DDD
 ├── Agents: 2
 ├── Skills: 15
 └── Boundary violations: 2
-    ├── acc-ddd-generator uses acc-testing-knowledge (Testing domain)
-    └── acc-ddd-auditor references PSR patterns (PSR domain)
+    ├── acc:ddd-generator uses acc:testing-knowledge (Testing domain)
+    └── acc:ddd-auditor references PSR patterns (PSR domain)
 ```
 
 #### 11.3 Cross-Domain Dependencies
@@ -551,11 +551,11 @@ Identify when domains depend on each other:
 │   ├── PSR: 1 cmd, 1 agent, 14 skills
 │   └── ...
 ├── Boundary violations:
-│   └── ⚠️ acc-foo-skill in DDD domain references Testing domain
+│   └── ⚠️ acc:foo-skill in DDD domain references Testing domain
 ├── Missing domains:
 │   └── 💡 No dedicated Caching domain (mentioned in CLAUDE.md)
 └── Recommendations:
-    └── Consider creating acc-caching-* components
+    └── Consider creating caching-* components
 ```
 
 ### Step 12: Refactoring Recommendations
@@ -567,7 +567,7 @@ Generate actionable refactoring proposals:
 For God-Agents and SRP violations:
 
 ```markdown
-### Split Recommendation: acc-mega-agent
+### Split Recommendation: acc:mega-agent
 
 **Current state:**
 - 23 skills across 4 domains
@@ -577,25 +577,25 @@ For God-Agents and SRP violations:
 
 | New Agent | Domain | Skills | Responsibilities |
 |-----------|--------|--------|------------------|
-| acc-mega-auditor | Audit | 8 | audits, validates |
-| acc-mega-generator | Generation | 10 | generates, creates |
-| acc-mega-documenter | Documentation | 5 | documents |
+| acc:mega-auditor | Audit | 8 | audits, validates |
+| acc:mega-generator | Generation | 10 | generates, creates |
+| acc:mega-documenter | Documentation | 5 | documents |
 
 **Before:**
 ```yaml
-name: acc-mega-agent
+name: acc:mega-agent
 description: Audits, generates, validates, and documents everything
 skills:
   - 23 skills listed
 ```
 
-**After (acc-mega-auditor):**
+**After (acc:mega-auditor):**
 ```yaml
-name: acc-mega-auditor
+name: acc:mega-auditor
 description: Audits and validates mega components
 skills:
-  - acc-mega-audit-skill-1
-  - acc-mega-audit-skill-2
+  - acc:mega-audit-skill-1
+  - acc:mega-audit-skill-2
   # ... 8 skills
 ```
 ```
@@ -605,22 +605,22 @@ skills:
 For duplicate/similar skills:
 
 ```markdown
-### Merge Recommendation: acc-create-test + acc-create-unit-test
+### Merge Recommendation: acc:create-test + acc:create-unit-test
 
 **Similarity:** 85%
 **Reason:** Both create unit tests with minor variations
 
 **Proposed merge:**
-- Keep: acc-create-unit-test (more specific name)
-- Deprecate: acc-create-test
-- Migrate: Update acc-test-generator to use acc-create-unit-test
+- Keep: acc:create-unit-test (more specific name)
+- Deprecate: acc:create-test
+- Migrate: Update acc:test-generator to use acc:create-unit-test
 
 **Before:**
-- acc-create-test: Generic test creation
-- acc-create-unit-test: Unit test creation
+- acc:create-test: Generic test creation
+- acc:create-unit-test: Unit test creation
 
 **After:**
-- acc-create-unit-test: Unified test creation with type parameter
+- acc:create-unit-test: Unified test creation with type parameter
 ```
 
 #### 12.3 Move Recommendations
@@ -628,15 +628,15 @@ For duplicate/similar skills:
 For Feature Envy:
 
 ```markdown
-### Move Recommendation: acc-create-mock-repository
+### Move Recommendation: acc:create-mock-repository
 
-**Current location:** acc-ddd-generator (DDD domain)
-**Recommended location:** acc-test-generator (Testing domain)
+**Current location:** acc:ddd-generator (DDD domain)
+**Recommended location:** acc:test-generator (Testing domain)
 **Reason:** Mock repositories are testing artifacts, not DDD building blocks
 
 **Action:**
-1. Remove from acc-ddd-generator skills list
-2. Add to acc-test-generator skills list
+1. Remove from acc:ddd-generator skills list
+2. Add to acc:test-generator skills list
 3. Update documentation
 ```
 
@@ -645,15 +645,15 @@ For Feature Envy:
 For naming inconsistencies:
 
 ```markdown
-### Rename Recommendation: acc-domain-knowledge
+### Rename Recommendation: acc:domain-knowledge
 
-**Current:** acc-domain-knowledge
-**Proposed:** acc-ddd-knowledge
-**Reason:** Consistency with acc-ddd-* naming convention
+**Current:** acc:domain-knowledge
+**Proposed:** acc:ddd-knowledge
+**Reason:** Consistency with ddd-* naming convention
 
 **Affected files:**
-- .claude/skills/acc-domain-knowledge/SKILL.md → acc-ddd-knowledge/SKILL.md
-- .claude/agents/acc-ddd-auditor.md (skills reference)
+- .claude/skills/acc:domain-knowledge/SKILL.md → acc:ddd-knowledge/SKILL.md
+- .claude/agents/acc:ddd-auditor.md (skills reference)
 ```
 
 #### 12.5 Refactoring Report Format
@@ -661,15 +661,15 @@ For naming inconsistencies:
 ```
 🔧 Refactoring Recommendations
 ├── Split recommendations: X
-│   └── acc-mega-agent → acc-mega-auditor + acc-mega-generator
+│   └── acc:mega-agent → acc:mega-auditor + acc:mega-generator
 ├── Merge recommendations: X
-│   └── acc-create-test + acc-create-unit-test → acc-create-unit-test
+│   └── acc:create-test + acc:create-unit-test → acc:create-unit-test
 ├── Move recommendations: X
-│   └── acc-create-mock → from acc-ddd-generator to acc-test-generator
+│   └── acc:create-mock → from acc:ddd-generator to acc:test-generator
 ├── Rename recommendations: X
-│   └── acc-domain-knowledge → acc-ddd-knowledge
+│   └── acc:domain-knowledge → acc:ddd-knowledge
 ├── Priority order:
-│   1. ❌ Critical: Split acc-mega-agent (God-Agent)
+│   1. ❌ Critical: Split acc:mega-agent (God-Agent)
 │   2. ⚠️ High: Move Feature Envy skills
 │   3. 💡 Low: Merge similar skills
 └── Estimated impact: X files affected
@@ -705,7 +705,7 @@ Show discovered structure with status indicators:
 ```
 .claude/
 ├── commands/
-│   ├── ✅ acc-commit.md
+│   ├── ✅ commit.md
 │   ├── ⚠️ my-command.md (missing description)
 │   └── ❌ broken.md (invalid YAML)
 ├── agents/
@@ -763,7 +763,7 @@ Prioritized action items:
 📊 Resource Usage Analysis
 ├── Active components: 81/84 (96%)
 ├── Orphaned skills:
-│   └── acc-example-skill (not used by any agent)
+│   └── acc:example-skill (not used by any agent)
 ├── Orphaned agents: none
 ├── Undocumented commands: none
 └── Circular references: none
@@ -778,8 +778,8 @@ Prioritized action items:
 ```
 📋 Behavior Verification
 ├── Commands: 8/8 verified
-│   ├── ✅ acc-commit.md — "generates commit" + Bash ✓
-│   ├── ✅ acc-audit-ddd.md — "audits" + Read/Grep ✓
+│   ├── ✅ commit.md — "generates commit" + Bash ✓
+│   ├── ✅ acc:audit-ddd.md — "audits" + Read/Grep ✓
 │   └── ...
 ├── Agents: 11/11 verified
 └── Skills: 73/73 verified
@@ -788,8 +788,8 @@ Prioritized action items:
 **Mismatches found:**
 | Component | Declared | Actual | Issue |
 |-----------|----------|--------|-------|
-| acc-foo.md | "generates files" | No Write tool | Missing tool capability |
-| acc-bar.md | argument-hint: <path> | $ARGUMENTS unused | Argument not processed |
+| foo.md | "generates files" | No Write tool | Missing tool capability |
+| bar.md | argument-hint: <path> | $ARGUMENTS unused | Argument not processed |
 
 ### 7. Context Alignment
 
@@ -821,14 +821,14 @@ Prioritized action items:
 🔗 Command-Agent Semantic Fit
 ├── Commands analyzed: 8
 ├── Perfect fit: 7 (87.5%)
-│   ├── ✅ acc-audit-ddd → acc-ddd-auditor (DDD → DDD)
-│   ├── ✅ acc-generate-test → acc-test-generator (Testing → Testing)
+│   ├── ✅ acc:audit-ddd → acc:ddd-auditor (DDD → DDD)
+│   ├── ✅ acc:generate-test → acc:test-generator (Testing → Testing)
 │   └── ...
 ├── Cross-domain usage:
-│   └── ⚠️ acc-foo.md uses acc-bar-agent
+│   └── ⚠️ foo.md uses bar-agent
 │       ├── Command domain: Foo
 │       ├── Agent domain: Bar
-│       └── Recommendation: Create acc-foo-agent or use existing Foo agent
+│       └── Recommendation: Create foo-agent or use existing Foo agent
 └── Summary: 1 command needs agent alignment
 ```
 
@@ -839,19 +839,19 @@ Prioritized action items:
 ├── Agents analyzed: 11
 ├── Healthy: 9 (82%)
 ├── Warning level:
-│   └── ⚠️ acc-architecture-auditor (14 skills, 4 responsibilities)
+│   └── ⚠️ acc:architecture-auditor (14 skills, 4 responsibilities)
 ├── God-Agents: 0
-└── Summary: Consider splitting acc-architecture-auditor
+└── Summary: Consider splitting acc:architecture-auditor
 
 📋 Skill Responsibility Analysis
 ├── Skills analyzed: 73
 ├── SRP compliant: 71 (97%)
 ├── SRP violations:
-│   └── ⚠️ acc-mega-skill — audits AND generates
+│   └── ⚠️ acc:mega-skill — audits AND generates
 ├── Feature Envy: 1
-│   └── acc-create-mock-repository in acc-ddd-generator (Testing domain)
+│   └── acc:create-mock-repository in acc:ddd-generator (Testing domain)
 ├── Similar skills: 2 pairs
-│   └── acc-foo ↔ acc-bar (78% similar)
+│   └── foo ↔ bar (78% similar)
 └── Summary: 2 skills need attention
 
 🌐 Domain Boundary Analysis
@@ -861,7 +861,7 @@ Prioritized action items:
 │   ├── Testing: 2 cmd, 2 agents, 7 skills
 │   └── ...
 ├── Boundary violations: 1
-│   └── acc-create-mock-repository crosses DDD → Testing
+│   └── acc:create-mock-repository crosses DDD → Testing
 └── Missing domains: none
 ```
 
@@ -876,18 +876,18 @@ None needed.
 ## Merge Proposals
 | Skills | Similarity | Action |
 |--------|------------|--------|
-| acc-foo + acc-bar | 78% | Merge into acc-foo |
+| foo + bar | 78% | Merge into foo |
 
 ## Move Proposals
 | Skill | From | To | Reason |
 |-------|------|-----|--------|
-| acc-create-mock-repository | acc-ddd-generator | acc-test-generator | Feature Envy |
+| acc:create-mock-repository | acc:ddd-generator | acc:test-generator | Feature Envy |
 
 ## Rename Proposals
 None needed.
 
 ## Priority Order
-1. ⚠️ High: Move acc-create-mock-repository (Feature Envy)
+1. ⚠️ High: Move acc:create-mock-repository (Feature Envy)
 2. 💡 Low: Merge similar skills
 
 ## Estimated Impact
@@ -994,9 +994,9 @@ Level is an optional positional parameter. Default: `standard`.
 ## Usage
 
 ```bash
-/acc-audit-claude-components
-/acc-audit-claude-components quick
-/acc-audit-claude-components deep
-/acc-audit-claude-components deep -- focus on God-Agent detection
-/acc-audit-claude-components -- level:deep
+/acc:audit-claude-components
+/acc:audit-claude-components quick
+/acc:audit-claude-components deep
+/acc:audit-claude-components deep -- focus on God-Agent detection
+/acc:audit-claude-components -- level:deep
 ```

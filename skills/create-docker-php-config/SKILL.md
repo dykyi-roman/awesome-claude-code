@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-php-config
+name: create-docker-php-config
 description: Generates PHP configuration files for Docker containers. Creates optimized php.ini, OPcache, and PHP-FPM pool configurations.
 ---
 

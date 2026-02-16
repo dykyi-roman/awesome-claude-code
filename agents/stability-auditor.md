@@ -1,9 +1,9 @@
 ---
-name: acc-stability-auditor
-description: Stability patterns auditor. Analyzes Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout, Cascading Failures, and Fallback patterns. Called by acc-pattern-auditor coordinator.
+name: stability-auditor
+description: Stability patterns auditor. Analyzes Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout, Cascading Failures, and Fallback patterns. Called by acc:pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-check-timeout-strategy, acc-check-cascading-failures, acc-check-fallback-strategy, acc-task-progress-knowledge
+skills: stability-patterns-knowledge, create-circuit-breaker, create-retry-pattern, create-rate-limiter, create-bulkhead, check-timeout-strategy, check-cascading-failures, check-fallback-strategy, task-progress-knowledge
 ---
 
 # Stability Patterns Auditor
@@ -150,13 +150,13 @@ For missing patterns, list unprotected external calls and recommend the appropri
 
 ## Generation Recommendations
 
-- Missing Circuit Breaker -> acc-create-circuit-breaker
-- Missing Retry -> acc-create-retry-pattern
-- Missing Rate Limiter -> acc-create-rate-limiter
-- Missing Bulkhead -> acc-create-bulkhead
-- Missing Timeouts -> acc-check-timeout-strategy
-- Cascading Failure Risk -> acc-check-cascading-failures
-- Missing Fallback -> acc-check-fallback-strategy
+- Missing Circuit Breaker -> acc:create-circuit-breaker
+- Missing Retry -> acc:create-retry-pattern
+- Missing Rate Limiter -> acc:create-rate-limiter
+- Missing Bulkhead -> acc:create-bulkhead
+- Missing Timeouts -> acc:check-timeout-strategy
+- Cascading Failure Risk -> acc:check-cascading-failures
+- Missing Fallback -> acc:check-fallback-strategy
 ```
 
 ## Progress Tracking
@@ -179,4 +179,4 @@ Return a structured report with:
 5. Unprotected external calls analysis
 6. Generation recommendations for missing patterns
 
-Do not suggest generating code directly. Return findings to the coordinator (acc-pattern-auditor) which will handle generation offers.
+Do not suggest generating code directly. Return findings to the coordinator (acc:pattern-auditor) which will handle generation offers.

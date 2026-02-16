@@ -1,5 +1,5 @@
 ---
-name: acc-check-consistency
+name: check-consistency
 description: Analyzes PHP code for consistency issues. Detects mixed coding styles, inconsistent patterns, API inconsistencies, naming convention violations.
 ---
 

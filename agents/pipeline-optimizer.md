@@ -1,9 +1,9 @@
 ---
-name: acc-pipeline-optimizer
+name: pipeline-optimizer
 description: Pipeline performance optimization specialist. Analyzes CI execution time, improves caching, parallelization, and identifies bottlenecks.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-ci-pipeline-knowledge, acc-estimate-pipeline-time, acc-detect-ci-antipatterns, acc-check-caching-strategy, acc-analyze-ci-config
+skills: ci-pipeline-knowledge, estimate-pipeline-time, detect-ci-antipatterns, check-caching-strategy, analyze-ci-config
 ---
 
 # Pipeline Optimizer Agent

@@ -1,11 +1,11 @@
 ---
-name: acc-message-queue-knowledge
+name: message-queue-knowledge
 description: Message Queue knowledge base. Provides broker comparison, delivery guarantees, consumer groups, and advanced RabbitMQ/Kafka patterns for messaging audits and generation.
 ---
 
 # Message Queue Knowledge Base
 
-Quick reference for message broker operations and advanced messaging patterns. Focuses on broker-level operations — for event-driven patterns, see `acc-eda-knowledge`.
+Quick reference for message broker operations and advanced messaging patterns. Focuses on broker-level operations — for event-driven patterns, see `eda-knowledge`.
 
 ## Broker Comparison
 

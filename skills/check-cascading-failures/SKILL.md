@@ -1,5 +1,5 @@
 ---
-name: acc-check-cascading-failures
+name: check-cascading-failures
 description: Detects cascading failure risks in PHP systems. Identifies shared resources, unbounded queues, missing backpressure, thread pool exhaustion, and failure propagation paths.
 ---
 

@@ -1,9 +1,9 @@
 ---
-name: acc-bug-hunter
+name: bug-hunter
 description: Bug detection specialist. Finds logic errors, null pointers, boundary issues, race conditions, resource leaks, exception issues, type issues, SQL injection, infinite loops. Use PROACTIVELY for code review bug detection.
 tools: Read, Grep, Glob
 model: opus
-skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues, acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues, acc-find-type-issues, acc-check-sql-injection, acc-find-infinite-loops, acc-discover-project-logs, acc-analyze-php-logs
+skills: find-logic-errors, find-null-pointer-issues, find-boundary-issues, find-race-conditions, find-resource-leaks, find-exception-issues, find-type-issues, check-sql-injection, find-infinite-loops, discover-project-logs, analyze-php-logs
 ---
 
 # Bug Hunter Agent
@@ -76,8 +76,8 @@ You detect the following categories of bugs:
 
 When diagnosing bugs, proactively search for log evidence:
 
-1. **Discover logs** — Use `acc-discover-project-logs` to find application log files
-2. **Analyze relevant logs** — Use `acc-analyze-php-logs` to extract exceptions and stack traces
+1. **Discover logs** — Use `acc:discover-project-logs` to find application log files
+2. **Analyze relevant logs** — Use `acc:analyze-php-logs` to extract exceptions and stack traces
 3. **Correlate with code** — Match log errors to code locations found during static analysis
 4. **Reduce false positives** — Confirm suspected bugs with actual runtime evidence from logs
 

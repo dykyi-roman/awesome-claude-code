@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-performance ./src
-- /acc-audit-performance ./src deep
-- /acc-audit-performance ./src quick
-- /acc-audit-performance ./src -- focus on memory and caching
-- /acc-audit-performance ./src deep -- focus on N+1 queries
-- /acc-audit-performance ./src -- level:deep (backward compatible)
+- /acc:audit-performance ./src
+- /acc:audit-performance ./src deep
+- /acc:audit-performance ./src quick
+- /acc:audit-performance ./src -- focus on memory and caching
+- /acc:audit-performance ./src deep -- focus on N+1 queries
+- /acc:audit-performance ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -62,10 +62,10 @@ If meta-instructions provided, adjust audit to:
 
 ## Instructions
 
-Use the `acc-performance-reviewer` agent to perform a comprehensive performance audit:
+Use the `acc:performance-reviewer` agent to perform a comprehensive performance audit:
 
 ```
-Task tool with subagent_type="acc-performance-reviewer"
+Task tool with subagent_type="acc:performance-reviewer"
 prompt: "Perform performance audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Analyze for:
@@ -246,10 +246,10 @@ Level is an optional positional parameter. Default: `standard`.
 ## Usage Examples
 
 ```bash
-/acc-audit-performance ./src
-/acc-audit-performance ./src quick
-/acc-audit-performance ./src deep
-/acc-audit-performance ./src/Repository -- focus on N+1 and query efficiency
-/acc-audit-performance ./src deep -- check memory and batch processing
-/acc-audit-performance ./src -- level:deep
+/acc:audit-performance ./src
+/acc:audit-performance ./src quick
+/acc:audit-performance ./src deep
+/acc:audit-performance ./src/Repository -- focus on N+1 and query efficiency
+/acc:audit-performance ./src deep -- check memory and batch processing
+/acc:audit-performance ./src -- level:deep
 ```

@@ -1,5 +1,5 @@
 ---
-name: acc-ddd-knowledge
+name: ddd-knowledge
 description: DDD architecture knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Domain-Driven Design audits.
 ---
 

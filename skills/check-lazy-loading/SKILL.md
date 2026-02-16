@@ -1,5 +1,5 @@
 ---
-name: acc-check-lazy-loading
+name: check-lazy-loading
 description: Analyzes PHP code for lazy loading issues. Detects premature loading, missing pagination, inappropriate eager loading, infinite scroll problems.
 ---
 

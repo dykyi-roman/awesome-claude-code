@@ -1,5 +1,5 @@
 ---
-name: acc-create-feature-flags
+name: create-feature-flags
 description: Generates feature flag implementations for PHP projects. Creates flag services, configuration, percentage rollouts, user targeting, and integration with deployment pipelines.
 ---
 

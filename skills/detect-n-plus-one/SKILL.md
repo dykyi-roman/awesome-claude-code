@@ -1,5 +1,5 @@
 ---
-name: acc-detect-n-plus-one
+name: detect-n-plus-one
 description: Detects N+1 query problems in PHP code. Finds queries in loops, missing eager loading, lazy loading abuse, relationship traversal issues.
 ---
 

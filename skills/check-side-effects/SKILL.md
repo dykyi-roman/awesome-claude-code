@@ -1,5 +1,5 @@
 ---
-name: acc-check-side-effects
+name: check-side-effects
 description: Analyzes PHP code for side effect issues. Detects state mutation, global access, static method calls, I/O operations mixed with business logic.
 ---
 

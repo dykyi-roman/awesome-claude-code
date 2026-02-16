@@ -1,5 +1,5 @@
 ---
-name: acc-create-read-model
+name: create-read-model
 description: Generates Read Model/Projection for PHP 8.4. Creates optimized query models for CQRS read side with projections and denormalization. Includes unit tests.
 ---
 

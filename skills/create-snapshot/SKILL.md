@@ -1,5 +1,5 @@
 ---
-name: acc-create-snapshot
+name: create-snapshot
 description: Generates Snapshot pattern for PHP 8.4. Creates aggregate snapshot infrastructure for event sourcing performance optimization with configurable strategies and version tracking. Includes unit tests.
 ---
 

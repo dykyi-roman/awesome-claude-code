@@ -1,5 +1,5 @@
 ---
-name: acc-code-examples-template
+name: code-examples-template
 description: Generates code examples for PHP documentation. Creates minimal, copy-paste ready examples with expected output.
 ---
 

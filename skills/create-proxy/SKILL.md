@@ -1,5 +1,5 @@
 ---
-name: acc-create-proxy
+name: create-proxy
 description: Generates Proxy pattern for PHP 8.4. Controls access, adds lazy loading, caching, logging. Includes unit tests.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-create-state
+name: create-state
 description: Generates State pattern for PHP 8.4. Creates state machines with context, state interface, and concrete states for behavior changes. Includes unit tests.
 ---
 

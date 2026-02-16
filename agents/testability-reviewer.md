@@ -1,9 +1,9 @@
 ---
-name: acc-testability-reviewer
+name: testability-reviewer
 description: Testability review specialist. Analyzes dependency injection usage, pure functions, side effects, test coverage quality, test structure. Use PROACTIVELY for code review testability analysis.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-check-dependency-injection, acc-check-pure-functions, acc-check-side-effects, acc-analyze-test-coverage, acc-check-test-quality, acc-detect-test-smells, acc-suggest-testability-improvements
+skills: check-dependency-injection, check-pure-functions, check-side-effects, analyze-test-coverage, check-test-quality, detect-test-smells, suggest-testability-improvements
 ---
 
 # Testability Reviewer Agent

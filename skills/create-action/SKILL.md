@@ -1,5 +1,5 @@
 ---
-name: acc-create-action
+name: create-action
 description: Generates ADR Action classes for PHP 8.4. Creates single-responsibility HTTP endpoint handlers with PSR-7 support. Includes unit tests.
 ---
 

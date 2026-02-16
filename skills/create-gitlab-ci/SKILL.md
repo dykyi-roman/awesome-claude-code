@@ -1,5 +1,5 @@
 ---
-name: acc-create-gitlab-ci
+name: create-gitlab-ci
 description: Generates GitLab CI configurations for PHP projects. Creates pipelines with stages, caching, artifacts, parallel jobs, and deployment environments.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr20-clock
+name: create-psr20-clock
 description: Generates PSR-20 Clock implementation for PHP 8.4. Creates ClockInterface implementations including SystemClock, FrozenClock, and OffsetClock for time abstraction and testing. Includes unit tests.
 ---
 

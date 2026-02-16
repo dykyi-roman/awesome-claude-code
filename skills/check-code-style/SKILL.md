@@ -1,5 +1,5 @@
 ---
-name: acc-check-code-style
+name: check-code-style
 description: Analyzes PHP code for style issues. Checks PSR-12 compliance, formatting consistency, whitespace usage, line length.
 ---
 

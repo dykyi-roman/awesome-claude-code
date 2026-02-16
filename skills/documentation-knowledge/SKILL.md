@@ -1,5 +1,5 @@
 ---
-name: acc-documentation-knowledge
+name: documentation-knowledge
 description: Documentation knowledge base. Provides documentation types, audiences, best practices, and antipatterns for technical documentation creation.
 ---
 

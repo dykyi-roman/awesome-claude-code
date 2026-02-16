@@ -1,5 +1,5 @@
 ---
-name: acc-adr-knowledge
+name: adr-knowledge
 description: Action-Domain-Responder pattern knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for ADR (web-specific MVC alternative) audits.
 ---
 

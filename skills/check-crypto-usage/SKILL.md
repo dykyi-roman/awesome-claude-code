@@ -1,5 +1,5 @@
 ---
-name: acc-check-crypto-usage
+name: check-crypto-usage
 description: Analyzes PHP code for cryptography issues. Detects weak algorithms, hardcoded keys, insecure random, poor key management, deprecated functions.
 ---
 

@@ -1,9 +1,9 @@
 ---
-name: acc-stability-generator
-description: Stability patterns generator. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, and Timeout components for PHP 8.4. Called by acc-pattern-generator coordinator.
+name: stability-generator
+description: Stability patterns generator. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, and Timeout components for PHP 8.4. Called by acc:pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-stability-patterns-knowledge, acc-caching-strategies-knowledge, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-cache-aside, acc-create-timeout
+skills: stability-patterns-knowledge, caching-strategies-knowledge, create-circuit-breaker, create-retry-pattern, create-rate-limiter, create-bulkhead, create-cache-aside, create-timeout
 ---
 
 # Stability Patterns Generator

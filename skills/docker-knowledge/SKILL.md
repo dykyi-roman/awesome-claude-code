@@ -1,5 +1,5 @@
 ---
-name: acc-docker-knowledge
+name: docker-knowledge
 description: Docker knowledge base for PHP projects. Provides patterns, best practices, and guidelines for Dockerfile, Compose, security, and production readiness.
 ---
 

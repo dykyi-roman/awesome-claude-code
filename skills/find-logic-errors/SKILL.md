@@ -1,5 +1,5 @@
 ---
-name: acc-find-logic-errors
+name: find-logic-errors
 description: Detects logic errors in PHP code. Finds incorrect conditions, wrong operators, missing switch cases, inverted logic, short-circuit evaluation issues.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-create-anti-corruption-layer
+name: create-anti-corruption-layer
 description: Generates DDD Anti-Corruption Layer for PHP 8.4. Creates translation layer between bounded contexts or external systems. Includes adapters, translators, facades, and unit tests.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-create-strategy
+name: create-strategy
 description: Generates Strategy pattern for PHP 8.4. Creates interchangeable algorithm families with context class, strategy interface, and concrete implementations. Includes unit tests.
 ---
 

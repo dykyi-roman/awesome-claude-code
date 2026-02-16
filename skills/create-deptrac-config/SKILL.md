@@ -1,5 +1,5 @@
 ---
-name: acc-create-deptrac-config
+name: create-deptrac-config
 description: Generates DEPTRAC configurations for PHP projects. Creates deptrac.yaml with DDD layer rules, bounded context separation, and dependency constraints.
 ---
 

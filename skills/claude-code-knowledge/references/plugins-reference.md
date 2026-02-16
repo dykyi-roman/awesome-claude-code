@@ -238,9 +238,9 @@ claude --plugin-dir /path/to/my-plugin
 
 ```
 .claude/
-├── commands/acc-my-tool.md
-├── agents/acc-my-agent.md
-└── skills/acc-my-skill/SKILL.md
+├── commands/acc:my-tool.md
+├── agents/acc:my-agent.md
+└── skills/acc:my-skill/SKILL.md
 ```
 
 ### After (Plugin)

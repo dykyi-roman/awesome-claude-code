@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-production-readiness
+name: check-docker-production-readiness
 description: Checks Docker production readiness for PHP applications. Verifies health checks, graceful shutdown, logging, monitoring, and resource limits.
 ---
 

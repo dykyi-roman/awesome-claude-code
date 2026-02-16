@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [3.0.0] - 2026-02-16
+
+### Breaking Changes
+- **Distribution**: Migrated from Composer plugin to Claude Code marketplace plugin
+- **Command syntax**: `/acc-*` → `/acc:*` (dash replaced with colon)
+- **Installation**: `composer require` replaced with `/plugin marketplace add` + `/plugin install`
+- **Removed**: Composer infrastructure (`src/`, `bin/`, `tests/`, `composer.json`, `.gitattributes`)
+
+### Added
+- `.claude-plugin/marketplace.json` — marketplace catalog
+- `.claude-plugin/plugin.json` — plugin manifest
+- `hooks/hooks.json` — PHP syntax check hook (was in `.claude/settings.json`)
+
+### Changed
+- Components moved to root: `commands/`, `agents/`, `skills/` (was `.claude/commands/`, `.claude/agents/`, `.claude/skills/`)
+- `acc-` prefix removed from filenames (e.g., `acc-audit-ddd.md` → `audit-ddd.md`)
+- Agent `name:` frontmatter uses bare names (e.g., `name: architecture-auditor`)
+- Agent `skills:` frontmatter uses bare names (e.g., `skills: ddd-knowledge, solid-knowledge`)
+- `subagent_type` references use `acc:` namespace (e.g., `subagent_type="acc:ddd-auditor"`)
+- Slash commands use colon syntax: `/acc:audit-ddd`, `/acc:code-review`, etc.
+- Makefile updated: removed `test`, `test-clear`, `upgrade` targets; paths point to root `commands/`, `agents/`, `skills/`
+- All documentation updated for new paths and command syntax
+- Component counts unchanged: 26 commands, 62 agents, 259 skills
+
+### Fixed
+- `.claude/settings.json` PostToolUse hook: matcher `Write` → `Write|Edit` to match `hooks/hooks.json`
+- `.claude/settings.json` PostToolUse hook: env var `$ACC_TOOL_FILE_PATH` → `$CLAUDE_FILE_PATHS` (correct Claude Code variable)
+
+### Removed
+- `src/ComposerPlugin.php` — Composer plugin class
+- `bin/acc` — CLI upgrade tool
+- `tests/` — Docker-based test environment
+- `composer.json` — Composer package manifest
+- `.gitattributes` — Git export attributes
+
 ## [2.13.0] - 2026-02-15
 
 ### Added
@@ -284,7 +319,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.13.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.13.0...v3.0.0
 [2.13.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.11.0...v2.12.0
 [2.11.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.10.0...v2.11.0

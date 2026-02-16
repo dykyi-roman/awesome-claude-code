@@ -1,4 +1,4 @@
-.PHONY: help list-commands list-skills list-agents validate-claude changelog release test test-clear upgrade
+.PHONY: help list-commands list-skills list-agents validate-claude validate-plugin changelog release
 
 .DEFAULT_GOAL := help
 
@@ -12,7 +12,7 @@ help: ## Show this help
 	@echo ""
 	@echo "$(CYAN)Available commands:$(RESET)"
 	@echo ""
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(GREEN)%-15s$(RESET) %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(GREEN)%-20s$(RESET) %s\n", $$1, $$2}'
 	@echo ""
 
 # =============================================================================
@@ -23,11 +23,11 @@ list-commands: ## List all available slash commands
 	@echo ""
 	@echo "$(CYAN)Available Commands:$(RESET)"
 	@echo ""
-	@if [ -d ".claude/commands" ]; then \
-		find .claude/commands -name "*.md" -type f | while read file; do \
+	@if [ -d "commands" ]; then \
+		find commands -name "*.md" -type f | while read file; do \
 			name=$$(basename "$$file" .md); \
 			desc=$$(head -1 "$$file" 2>/dev/null | sed 's/^#* *//'); \
-			printf "  $(GREEN)/%-20s$(RESET) %s\n" "$$name" "$$desc"; \
+			printf "  $(GREEN)/acc:%-20s$(RESET) %s\n" "$$name" "$$desc"; \
 		done; \
 	else \
 		echo "  $(YELLOW)No commands found$(RESET)"; \
@@ -38,11 +38,11 @@ list-skills: ## List all available skills
 	@echo ""
 	@echo "$(CYAN)Available Skills:$(RESET)"
 	@echo ""
-	@if [ -d ".claude/skills" ]; then \
-		find .claude/skills -name "*.md" -type f | while read file; do \
-			name=$$(basename "$$file" .md); \
+	@if [ -d "skills" ]; then \
+		find skills -name "SKILL.md" -type f | while read file; do \
+			name=$$(echo "$$file" | sed 's|skills/||;s|/SKILL.md||'); \
 			desc=$$(grep -m1 "^description:" "$$file" 2>/dev/null | sed 's/^description: *//'); \
-			printf "  $(GREEN)%-20s$(RESET) %s\n" "$$name" "$$desc"; \
+			printf "  $(GREEN)%-40s$(RESET) %s\n" "$$name" "$$desc"; \
 		done; \
 	else \
 		echo "  $(YELLOW)No skills found$(RESET)"; \
@@ -53,71 +53,53 @@ list-agents: ## List all available agents
 	@echo ""
 	@echo "$(CYAN)Available Agents:$(RESET)"
 	@echo ""
-	@if [ -d ".claude/agents" ]; then \
-		find .claude/agents -name "*.md" -type f | while read file; do \
+	@if [ -d "agents" ]; then \
+		find agents -name "*.md" -type f | while read file; do \
 			name=$$(basename "$$file" .md); \
 			desc=$$(head -1 "$$file" 2>/dev/null | sed 's/^#* *//'); \
-			printf "  $(GREEN)%-20s$(RESET) %s\n" "$$name" "$$desc"; \
+			printf "  $(GREEN)%-30s$(RESET) %s\n" "$$name" "$$desc"; \
 		done; \
 	else \
 		echo "  $(YELLOW)No agents found$(RESET)"; \
 	fi
 	@echo ""
 
-validate-claude: ## Validate .claude directory structure
+validate-claude: ## Validate plugin structure
 	@echo ""
-	@echo "$(CYAN)Validating .claude structure...$(RESET)"
+	@echo "$(CYAN)Validating plugin structure...$(RESET)"
 	@echo ""
-	@errors=0; \
-	if [ ! -d ".claude" ]; then \
-		echo "  $(YELLOW)Warning: .claude directory not found$(RESET)"; \
-		exit 0; \
+	@if [ ! -d ".claude-plugin" ]; then \
+		echo "  $(YELLOW)Warning: .claude-plugin directory not found$(RESET)"; \
+		exit 1; \
 	fi; \
-	for dir in commands skills agents; do \
-		if [ -d ".claude/$$dir" ]; then \
-			echo "  $(GREEN)✓$(RESET) .claude/$$dir exists"; \
-			count=$$(find ".claude/$$dir" -name "*.md" -type f | wc -l | tr -d ' '); \
-			echo "    Found $$count markdown files"; \
+	echo "  $(GREEN)✓$(RESET) .claude-plugin/ exists"; \
+	for file in marketplace.json plugin.json; do \
+		if [ -f ".claude-plugin/$$file" ]; then \
+			echo "  $(GREEN)✓$(RESET) .claude-plugin/$$file"; \
 		else \
-			echo "  $(YELLOW)○$(RESET) .claude/$$dir not found (optional)"; \
+			echo "  $(YELLOW)✗$(RESET) .claude-plugin/$$file missing"; \
+		fi; \
+	done; \
+	for dir in commands skills agents; do \
+		if [ -d "$$dir" ]; then \
+			count=$$(find "$$dir" -name "*.md" -type f | wc -l | tr -d ' '); \
+			echo "  $(GREEN)✓$(RESET) $$dir/ ($$count files)"; \
+		else \
+			echo "  $(YELLOW)○$(RESET) $$dir/ not found"; \
 		fi; \
 	done; \
 	echo ""; \
 	echo "$(CYAN)Checking markdown syntax...$(RESET)"; \
-	find .claude -name "*.md" -type f | while read file; do \
-		if head -1 "$$file" | grep -q "^#\|^---"; then \
-			echo "  $(GREEN)✓$(RESET) $$file"; \
-		else \
-			echo "  $(YELLOW)?$(RESET) $$file (no header found)"; \
-		fi; \
+	for dir in commands agents; do \
+		find $$dir -name "*.md" -type f | while read file; do \
+			if head -1 "$$file" | grep -q "^#\|^---"; then \
+				echo "  $(GREEN)✓$(RESET) $$file"; \
+			else \
+				echo "  $(YELLOW)?$(RESET) $$file (no header found)"; \
+			fi; \
+		done; \
 	done; \
 	echo ""
-
-# =============================================================================
-# Upgrade
-# =============================================================================
-
-upgrade: ## Force upgrade Claude components (creates backup)
-	@./bin/acc upgrade
-
-# =============================================================================
-# Testing
-# =============================================================================
-
-test: ## Install package in test environment (tests/)
-	@echo ""
-	@echo "$(CYAN)Installing package in test environment...$(RESET)"
-	@cd tests && docker compose run --rm php composer install --no-interaction
-	@echo ""
-	@echo "$(GREEN)Done! Check tests/.claude/ for installed components$(RESET)"
-	@echo ""
-
-test-clear: ## Clear test environment (remove vendor, .claude)
-	@echo ""
-	@echo "$(CYAN)Clearing test environment...$(RESET)"
-	@rm -rf tests/vendor tests/composer.lock tests/.claude
-	@echo "$(GREEN)Done!$(RESET)"
-	@echo ""
 
 # =============================================================================
 # Release
@@ -135,8 +117,7 @@ release: validate-claude ## Prepare release (run checks)
 	@echo "$(GREEN)All checks passed!$(RESET)"
 	@echo ""
 	@echo "$(CYAN)To create a release:$(RESET)"
-	@echo "  1. Update version in composer.json (if needed)"
-	@echo "  2. git add -A && git commit -m 'Release vX.Y.Z'"
-	@echo "  3. git tag vX.Y.Z"
-	@echo "  4. git push origin master --tags"
+	@echo "  1. git add -A && git commit -m 'Release vX.Y.Z'"
+	@echo "  2. git tag vX.Y.Z"
+	@echo "  3. git push origin master --tags"
 	@echo ""

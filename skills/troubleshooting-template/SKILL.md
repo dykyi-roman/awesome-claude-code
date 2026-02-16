@@ -1,5 +1,5 @@
 ---
-name: acc-troubleshooting-template
+name: troubleshooting-template
 description: Generates troubleshooting guides and FAQ sections for PHP projects. Creates problem-solution documentation.
 ---
 

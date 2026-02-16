@@ -1,5 +1,5 @@
 ---
-name: acc-adr-template
+name: adr-template
 description: Generates Architecture Decision Records (ADR) for PHP projects. Creates structured decision documentation with context, decision, and consequences.
 ---
 

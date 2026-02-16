@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr3-logger
+name: create-psr3-logger
 description: Generates PSR-3 Logger implementation for PHP 8.4. Creates LoggerInterface implementations with log levels, context interpolation, and LoggerAwareTrait usage. Includes unit tests.
 ---
 

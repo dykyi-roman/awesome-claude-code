@@ -1,5 +1,5 @@
 ---
-name: acc-docker-php-extensions-knowledge
+name: docker-php-extensions-knowledge
 description: Docker PHP extensions knowledge base. Provides installation patterns for common extensions, build dependency management, and PECL usage.
 ---
 
@@ -241,4 +241,4 @@ COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 ## References
 
 For the full extensions matrix with all dependencies, see `references/extensions-matrix.md`.
-For base image selection, see `acc-docker-base-images-knowledge`.
+For base image selection, see `docker-base-images-knowledge`.

@@ -1,5 +1,5 @@
 ---
-name: acc-explain-output-template
+name: explain-output-template
 description: Output format templates for all 5 explanation modes — quick (compact), deep (full analysis with diagrams), onboarding (project guide), business (non-technical), qa (interactive Q&A).
 ---
 
@@ -375,11 +375,11 @@ Append to all modes except `qa`:
 ### No documentation found:
 Consider generating documentation:
 ```
-/acc-generate-documentation {analyzed_path}
+/generate-documentation {analyzed_path}
 ```
 ```
 
 ## Integration
 
 This skill is used by:
-- `acc-explain-coordinator` — selects template based on mode, formats final output
+- `explain-coordinator` — selects template based on mode, formats final output

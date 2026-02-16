@@ -1,5 +1,5 @@
 ---
-name: acc-create-api-versioning
+name: create-api-versioning
 description: Generates API Versioning pattern for PHP 8.4. Creates version resolution strategies (URI prefix, Accept header, query parameter), middleware, and deprecation support. Includes unit tests.
 ---
 

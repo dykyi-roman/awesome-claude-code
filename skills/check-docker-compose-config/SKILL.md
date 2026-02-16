@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-compose-config
+name: check-docker-compose-config
 description: Checks Docker Compose configuration for PHP stacks. Detects missing health checks, improper dependencies, hardcoded values, and networking issues.
 ---
 

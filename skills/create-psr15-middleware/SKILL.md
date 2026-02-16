@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr15-middleware
+name: create-psr15-middleware
 description: Generates PSR-15 HTTP Middleware implementation for PHP 8.4. Creates MiddlewareInterface and RequestHandlerInterface with pipeline composition. Includes unit tests.
 ---
 

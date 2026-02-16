@@ -1,5 +1,5 @@
 ---
-name: acc-check-version-consistency
+name: check-version-consistency
 description: Audits version consistency across project files. Checks composer.json, README, CHANGELOG, docs, and configuration files for version number synchronization.
 ---
 
@@ -94,9 +94,9 @@ For each location where version appears:
 
 ```bash
 # Count actual components
-Glob: .claude/commands/acc-*.md      # Commands count
-Glob: .claude/agents/acc-*.md        # Agents count
-Glob: .claude/skills/acc-*/SKILL.md  # Skills count
+Glob: commands/*.md      # Commands count
+Glob: agents/*.md        # Agents count
+Glob: skills/*/SKILL.md  # Skills count
 
 # Check documented counts in all files
 Grep: "commands.*[0-9]+|agents.*[0-9]+|skills.*[0-9]+" -i --glob "README.md"

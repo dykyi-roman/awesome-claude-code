@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-php-logs
+name: analyze-php-logs
 description: Parses and analyzes PHP application logs in PSR-3/Monolog, Laravel, Symfony, and plain error_log formats. Extracts exceptions, stack traces, request context, error frequency, and correlates related errors.
 ---
 
@@ -289,7 +289,7 @@ When multiple log files exist (e.g., daily rotation):
 
 - This skill is **read-only** — it analyzes and reports, never modifies files
 - Works with `Read`, `Grep` tools available to all agents
-- Use `acc-discover-project-logs` first to find log file locations
+- Use `discover-project-logs` first to find log file locations
 - For bug diagnosis: focus on exception extraction and stack trace analysis
 - For performance review: focus on PHP-FPM slow log and error frequency
 - For Docker debugging: focus on PHP-FPM logs and error correlation

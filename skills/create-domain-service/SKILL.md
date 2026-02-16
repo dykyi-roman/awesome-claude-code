@@ -1,5 +1,5 @@
 ---
-name: acc-create-domain-service
+name: create-domain-service
 description: Generates DDD Domain Services for PHP 8.4. Creates stateless services for business logic that doesn't belong to entities or value objects. Includes unit tests.
 ---
 

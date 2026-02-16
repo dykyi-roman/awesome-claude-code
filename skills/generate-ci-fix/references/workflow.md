@@ -3,7 +3,7 @@
 ## Workflow Diagram
 
 ```
-/acc-ci-fix <input> [-- instructions]
+/acc:ci-fix <input> [-- instructions]
          │
          ▼
   ┌──────────────┐
@@ -79,38 +79,38 @@
 
 ### Example 1: Interactive Mode (default)
 ```
-/acc-ci-fix "PHPStan memory exhausted"
+/acc:ci-fix "PHPStan memory exhausted"
 ```
 → Diagnoses → Shows fix → Asks approval → Applies if approved
 
 ### Example 2: Dry Run
 ```
-/acc-ci-fix ./ci.log -- dry-run
+/acc:ci-fix ./ci.log -- dry-run
 ```
 → Diagnoses → Shows fix → Ends (no changes)
 
 ### Example 3: Auto Apply
 ```
-/acc-ci-fix ./ci.log -- auto-apply
+/acc:ci-fix ./ci.log -- auto-apply
 ```
 → Diagnoses → Applies fix immediately (for scripts/CI)
 
 ### Example 4: Pipeline URL
 ```
-/acc-ci-fix https://github.com/org/repo/actions/runs/12345
+/acc:ci-fix https://github.com/org/repo/actions/runs/12345
 ```
 
 ### Example 5: With Focus
 ```
-/acc-ci-fix "Tests timeout" -- focus on Docker, verbose
+/acc:ci-fix "Tests timeout" -- focus on Docker, verbose
 ```
 
 ### Example 6: Auto-discover CI Logs
 ```
-/acc-ci-fix "build failed" -- scan-logs
+/acc:ci-fix "build failed" -- scan-logs
 ```
 
 ### Example 7: Skip Validation
 ```
-/acc-ci-fix ./logs/ci.txt -- skip-validation
+/acc:ci-fix ./logs/ci.txt -- skip-validation
 ```

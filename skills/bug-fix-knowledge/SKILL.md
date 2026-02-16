@@ -1,5 +1,5 @@
 ---
-name: acc-bug-fix-knowledge
+name: bug-fix-knowledge
 description: Bug fix knowledge base. Provides bug categories, symptoms, fix patterns, and minimal intervention principles for PHP 8.4 projects.
 ---
 

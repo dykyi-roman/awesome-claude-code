@@ -8,108 +8,108 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 
 | Agent | Purpose | Invoked By |
 |-------|---------|------------|
-| `acc-architecture-auditor` | Architecture audit coordinator | `/acc-audit-architecture` |
-| `acc-pattern-auditor` | Design patterns audit coordinator | `/acc-audit-patterns`, `acc-architecture-auditor` (Task) |
-| `acc-pattern-generator` | Design patterns generation coordinator | `/acc-generate-patterns`, `acc-architecture-auditor` (Task) |
-| `acc-code-review-coordinator` | Code review coordinator (3 levels) | `/acc-code-review` |
-| `acc-bug-fix-coordinator` | Bug fix coordinator (diagnose → fix → test) | `/acc-bug-fix` |
-| `acc-refactor-coordinator` | Refactoring coordinator (analyze → prioritize → fix) | `/acc-refactor` |
-| `acc-ci-coordinator` | CI/CD coordinator (setup, debug, optimize, audit) | `/acc-ci-*`, `/acc-audit-ci` |
-| `acc-docker-coordinator` | Docker expert system coordinator (audit, generate) | `/acc-audit-docker`, `/acc-generate-docker` |
-| `acc-explain-coordinator` | Code explanation coordinator (5 modes) | `/acc-explain` |
+| `architecture-auditor` | Architecture audit coordinator | `/acc:audit-architecture` |
+| `pattern-auditor` | Design patterns audit coordinator | `/acc:audit-patterns`, `acc:architecture-auditor` (Task) |
+| `pattern-generator` | Design patterns generation coordinator | `/acc:generate-patterns`, `acc:architecture-auditor` (Task) |
+| `code-review-coordinator` | Code review coordinator (3 levels) | `/acc:code-review` |
+| `bug-fix-coordinator` | Bug fix coordinator (diagnose → fix → test) | `/acc:bug-fix` |
+| `refactor-coordinator` | Refactoring coordinator (analyze → prioritize → fix) | `/acc:refactor` |
+| `ci-coordinator` | CI/CD coordinator (setup, debug, optimize, audit) | `/acc:ci-*`, `/acc:audit-ci` |
+| `docker-coordinator` | Docker expert system coordinator (audit, generate) | `/acc:audit-docker`, `/acc:generate-docker` |
+| `explain-coordinator` | Code explanation coordinator (5 modes) | `/acc:explain` |
 
 ### Auditors (3-12 skills)
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-structural-auditor` | Structural patterns analysis | 13 | `acc-architecture-auditor` (Task) |
-| `acc-behavioral-auditor` | GoF Behavioral patterns analysis | 11 | `acc-pattern-auditor` (Task) |
-| `acc-cqrs-auditor` | CQRS/ES/EDA patterns analysis | 8 | `acc-architecture-auditor`, `acc-pattern-auditor` (Task) |
-| `acc-gof-structural-auditor` | GoF Structural patterns analysis | 7 | `acc-pattern-auditor` (Task) |
-| `acc-integration-auditor` | Integration patterns analysis | 13 | `acc-architecture-auditor`, `acc-pattern-auditor` (Task) |
-| `acc-stability-auditor` | Stability patterns analysis | 9 | `acc-pattern-auditor` (Task) |
-| `acc-creational-auditor` | Creational patterns analysis | 7 | `acc-pattern-auditor` (Task) |
-| `acc-ddd-auditor` | DDD compliance analysis | 8 | `/acc-audit-ddd` |
-| `acc-psr-auditor` | PSR compliance analysis | 3 | `/acc-audit-psr` |
-| `acc-documentation-auditor` | Audit documentation quality | 7 | `/acc-audit-documentation` |
-| `acc-test-auditor` | Test quality analysis | 3 | `/acc-audit-test` |
+| `structural-auditor` | Structural patterns analysis | 13 | `acc:architecture-auditor` (Task) |
+| `behavioral-auditor` | GoF Behavioral patterns analysis | 11 | `acc:pattern-auditor` (Task) |
+| `cqrs-auditor` | CQRS/ES/EDA patterns analysis | 8 | `acc:architecture-auditor`, `acc:pattern-auditor` (Task) |
+| `gof-structural-auditor` | GoF Structural patterns analysis | 7 | `acc:pattern-auditor` (Task) |
+| `integration-auditor` | Integration patterns analysis | 13 | `acc:architecture-auditor`, `acc:pattern-auditor` (Task) |
+| `stability-auditor` | Stability patterns analysis | 9 | `acc:pattern-auditor` (Task) |
+| `creational-auditor` | Creational patterns analysis | 7 | `acc:pattern-auditor` (Task) |
+| `ddd-auditor` | DDD compliance analysis | 8 | `/acc:audit-ddd` |
+| `psr-auditor` | PSR compliance analysis | 3 | `/acc:audit-psr` |
+| `documentation-auditor` | Audit documentation quality | 7 | `/acc:audit-documentation` |
+| `test-auditor` | Test quality analysis | 3 | `/acc:audit-test` |
 
 ### Reviewers (5-15 skills, code review specialists)
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-bug-hunter` | Bug detection specialist | 11 | `acc-code-review-coordinator`, `acc-bug-fix-coordinator` (Task) |
-| `acc-security-reviewer` | Security review coordinator | 1 | `/acc-audit-security`, `acc-code-review-coordinator` (Task) |
-| `acc-injection-reviewer` | Injection vulnerability specialist | 7 | `acc-security-reviewer` (Task) |
-| `acc-auth-reviewer` | Auth & access control specialist | 6 | `acc-security-reviewer` (Task) |
-| `acc-data-security-reviewer` | Data & crypto security specialist | 6 | `acc-security-reviewer` (Task) |
-| `acc-design-security-reviewer` | Design & component security specialist | 5 | `acc-security-reviewer` (Task) |
-| `acc-performance-reviewer` | Performance review specialist | 15 | `/acc-audit-performance`, `acc-code-review-coordinator` (Task) |
-| `acc-readability-reviewer` | Readability review specialist | 9 | `acc-code-review-coordinator`, `acc-refactor-coordinator` (Task) |
-| `acc-testability-reviewer` | Testability review specialist | 7 | `acc-code-review-coordinator`, `acc-refactor-coordinator` (Task) |
+| `bug-hunter` | Bug detection specialist | 11 | `acc:code-review-coordinator`, `acc:bug-fix-coordinator` (Task) |
+| `security-reviewer` | Security review coordinator | 1 | `/acc:audit-security`, `acc:code-review-coordinator` (Task) |
+| `injection-reviewer` | Injection vulnerability specialist | 7 | `acc:security-reviewer` (Task) |
+| `auth-reviewer` | Auth & access control specialist | 6 | `acc:security-reviewer` (Task) |
+| `data-security-reviewer` | Data & crypto security specialist | 6 | `acc:security-reviewer` (Task) |
+| `design-security-reviewer` | Design & component security specialist | 5 | `acc:security-reviewer` (Task) |
+| `performance-reviewer` | Performance review specialist | 15 | `/acc:audit-performance`, `acc:code-review-coordinator` (Task) |
+| `readability-reviewer` | Readability review specialist | 9 | `acc:code-review-coordinator`, `acc:refactor-coordinator` (Task) |
+| `testability-reviewer` | Testability review specialist | 7 | `acc:code-review-coordinator`, `acc:refactor-coordinator` (Task) |
 
 ### Bug Fix Specialists
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-bug-fixer` | Bug fix generator | 12 | `acc-bug-fix-coordinator` (Task) |
+| `bug-fixer` | Bug fix generator | 12 | `acc:bug-fix-coordinator` (Task) |
 
 ### Generators (3-14 skills)
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-architecture-generator` | Generate architecture components | 7 | `acc-architecture-auditor` (Task) |
-| `acc-ddd-generator` | Generate DDD building blocks | 12 | `acc-ddd-auditor` (Task) |
-| `acc-cqrs-generator` | Generate CQRS/ES components | 8 | `/acc-generate-ddd`, `acc-architecture-generator` (Task) |
-| `acc-stability-generator` | Generate stability patterns | 5 | `acc-pattern-generator` (Task) |
-| `acc-behavioral-generator` | Generate behavioral patterns | 10 | `acc-pattern-generator` (Task) |
-| `acc-gof-structural-generator` | Generate GoF structural patterns | 6 | `acc-pattern-generator` (Task) |
-| `acc-creational-generator` | Generate creational patterns | 3 | `acc-pattern-generator` (Task) |
-| `acc-integration-generator` | Generate integration patterns | 8 | `acc-pattern-generator` (Task) |
-| `acc-psr-generator` | Generate PSR implementations | 14 | `/acc-generate-psr`, `acc-psr-auditor` (Skill) |
-| `acc-documentation-writer` | Generate documentation | 9 | `/acc-generate-documentation` |
-| `acc-diagram-designer` | Create Mermaid diagrams | 2 | `acc-documentation-writer` (Task) |
-| `acc-test-generator` | Generate PHP tests | 6 | `/acc-generate-test` |
+| `architecture-generator` | Generate architecture components | 7 | `acc:architecture-auditor` (Task) |
+| `ddd-generator` | Generate DDD building blocks | 12 | `acc:ddd-auditor` (Task) |
+| `cqrs-generator` | Generate CQRS/ES components | 8 | `/acc:generate-ddd`, `acc:architecture-generator` (Task) |
+| `stability-generator` | Generate stability patterns | 5 | `acc:pattern-generator` (Task) |
+| `behavioral-generator` | Generate behavioral patterns | 10 | `acc:pattern-generator` (Task) |
+| `gof-structural-generator` | Generate GoF structural patterns | 6 | `acc:pattern-generator` (Task) |
+| `creational-generator` | Generate creational patterns | 3 | `acc:pattern-generator` (Task) |
+| `integration-generator` | Generate integration patterns | 8 | `acc:pattern-generator` (Task) |
+| `psr-generator` | Generate PSR implementations | 14 | `/acc:generate-psr`, `acc:psr-auditor` (Skill) |
+| `documentation-writer` | Generate documentation | 9 | `/acc:generate-documentation` |
+| `diagram-designer` | Create Mermaid diagrams | 2 | `acc:documentation-writer` (Task) |
+| `test-generator` | Generate PHP tests | 6 | `/acc:generate-test` |
 
 ### CI/CD Specialists
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-pipeline-architect` | Pipeline design and structure | 4 | `acc-ci-coordinator` (Task) |
-| `acc-static-analysis-agent` | PHPStan/Psalm/DEPTRAC config | 9 | `acc-ci-coordinator` (Task) |
-| `acc-test-pipeline-agent` | PHPUnit/coverage setup | 5 | `acc-ci-coordinator` (Task) |
-| `acc-ci-debugger` | Log analysis and diagnosis | 4 | `acc-ci-coordinator` (Task) |
-| `acc-ci-fixer` | Fix generation and application | 6 | `acc-ci-coordinator`, `/acc-ci-fix` (Task) |
-| `acc-pipeline-optimizer` | Caching and parallelization | 7 | `acc-ci-coordinator` (Task) |
-| `acc-ci-security-agent` | Secrets and deps scanning | 4 | `acc-ci-coordinator` (Task) |
-| `acc-docker-agent` | Dockerfile and layer optimization | 3 | `acc-ci-coordinator` (Task) |
-| `acc-deployment-agent` | Deploy config, blue-green, canary | 6 | `acc-ci-coordinator` (Task) |
+| `pipeline-architect` | Pipeline design and structure | 4 | `acc:ci-coordinator` (Task) |
+| `static-analysis-agent` | PHPStan/Psalm/DEPTRAC config | 9 | `acc:ci-coordinator` (Task) |
+| `test-pipeline-agent` | PHPUnit/coverage setup | 5 | `acc:ci-coordinator` (Task) |
+| `ci-debugger` | Log analysis and diagnosis | 4 | `acc:ci-coordinator` (Task) |
+| `ci-fixer` | Fix generation and application | 6 | `acc:ci-coordinator`, `/acc:ci-fix` (Task) |
+| `pipeline-optimizer` | Caching and parallelization | 7 | `acc:ci-coordinator` (Task) |
+| `ci-security-agent` | Secrets and deps scanning | 4 | `acc:ci-coordinator` (Task) |
+| `docker-agent` | Dockerfile and layer optimization | 3 | `acc:ci-coordinator` (Task) |
+| `deployment-agent` | Deploy config, blue-green, canary | 6 | `acc:ci-coordinator` (Task) |
 
 ### Docker Specialists
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-docker-architect-agent` | Dockerfile architecture, multi-stage builds | 5 | `acc-docker-coordinator` (Task) |
-| `acc-docker-image-builder` | Base images, PHP extensions | 5 | `acc-docker-coordinator` (Task) |
-| `acc-docker-compose-agent` | Compose configuration, services | 6 | `acc-docker-coordinator` (Task) |
-| `acc-docker-performance-agent` | Build/runtime optimization | 6 | `acc-docker-coordinator` (Task) |
-| `acc-docker-security-agent` | Security audit, hardening | 6 | `acc-docker-coordinator` (Task) |
-| `acc-docker-debugger-agent` | Error diagnosis, troubleshooting | 6 | `acc-docker-coordinator` (Task) |
-| `acc-docker-production-agent` | Production readiness, health checks | 6 | `acc-docker-coordinator` (Task) |
+| `docker-architect-agent` | Dockerfile architecture, multi-stage builds | 5 | `acc:docker-coordinator` (Task) |
+| `docker-image-builder` | Base images, PHP extensions | 5 | `acc:docker-coordinator` (Task) |
+| `docker-compose-agent` | Compose configuration, services | 6 | `acc:docker-coordinator` (Task) |
+| `docker-performance-agent` | Build/runtime optimization | 6 | `acc:docker-coordinator` (Task) |
+| `docker-security-agent` | Security audit, hardening | 6 | `acc:docker-coordinator` (Task) |
+| `docker-debugger-agent` | Error diagnosis, troubleshooting | 6 | `acc:docker-coordinator` (Task) |
+| `docker-production-agent` | Production readiness, health checks | 6 | `acc:docker-coordinator` (Task) |
 
 ### Code Explainer Specialists
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `acc-codebase-navigator` | Codebase structure scanning and pattern detection | 3 | `acc-explain-coordinator` (Task) |
-| `acc-business-logic-analyst` | Business rules, processes, domain concepts extraction | 4 | `acc-explain-coordinator` (Task) |
-| `acc-data-flow-analyst` | Request lifecycle, data transformation, async flow tracing | 4 | `acc-explain-coordinator` (Task) |
+| `codebase-navigator` | Codebase structure scanning and pattern detection | 3 | `acc:explain-coordinator` (Task) |
+| `business-logic-analyst` | Business rules, processes, domain concepts extraction | 4 | `acc:explain-coordinator` (Task) |
+| `data-flow-analyst` | Request lifecycle, data transformation, async flow tracing | 4 | `acc:explain-coordinator` (Task) |
 
 ### Experts
 
 | Agent | Purpose | Invoked By |
 |-------|---------|------------|
-| `acc-claude-code-expert` | Create Claude Code components | `/acc-generate-claude-component` |
+| `claude-code-expert` | Create Claude Code components | `/acc:generate-claude-component` |
 
 ## How Agents Work
 
@@ -135,52 +135,52 @@ Coordinator agents use TaskCreate/TaskUpdate for user visibility:
 ```
 
 **Coordinators with progress tracking:**
-- `acc-code-review-coordinator` — 3 phases
-- `acc-bug-fix-coordinator` — 3 phases
-- `acc-refactor-coordinator` — 3 phases
-- `acc-architecture-auditor` — 4 phases
-- `acc-ci-coordinator` — 3 phases
-- `acc-ddd-auditor` — 3 phases
-- `acc-pattern-auditor` — 4 phases
-- `acc-explain-coordinator` — 4 phases
-- `acc-docker-coordinator` — 3 phases
+- `code-review-coordinator` — 3 phases
+- `bug-fix-coordinator` — 3 phases
+- `refactor-coordinator` — 3 phases
+- `architecture-auditor` — 4 phases
+- `ci-coordinator` — 3 phases
+- `ddd-auditor` — 3 phases
+- `pattern-auditor` — 4 phases
+- `explain-coordinator` — 4 phases
+- `docker-coordinator` — 3 phases
 
 **Specialist auditors with progress tracking:**
-- `acc-security-reviewer` — 3 phases (Scan → Analyze → Report)
-- `acc-performance-reviewer` — 3 phases (Scan → Analyze → Report)
-- `acc-psr-auditor` — 3 phases (Scan → Analyze → Report)
-- `acc-test-auditor` — 3 phases (Scan → Analyze → Report)
-- `acc-documentation-auditor` — 3 phases (Scan → Analyze → Report)
+- `security-reviewer` — 3 phases (Scan → Analyze → Report)
+- `performance-reviewer` — 3 phases (Scan → Analyze → Report)
+- `psr-auditor` — 3 phases (Scan → Analyze → Report)
+- `test-auditor` — 3 phases (Scan → Analyze → Report)
+- `documentation-auditor` — 3 phases (Scan → Analyze → Report)
 
-See `acc-task-progress-knowledge` skill for guidelines.
+See `task-progress-knowledge` skill for guidelines.
 
 ---
 
-## `acc-claude-code-expert`
+## `claude-code-expert`
 
-**Path:** `agents/acc-claude-code-expert.md`
+**Path:** `agents/claude-code-expert.md`
 
 Expert in creating Claude Code commands, agents, and skills.
 
 **Configuration:**
 ```yaml
-name: acc-claude-code-expert
+name: claude-code-expert
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
-skills: acc-claude-code-knowledge
+skills: claude-code-knowledge
 ```
 
 ---
 
-## `acc-architecture-auditor`
+## `architecture-auditor`
 
-**Path:** `agents/acc-architecture-auditor.md`
+**Path:** `agents/architecture-auditor.md`
 
 Architecture audit coordinator. Orchestrates three specialized auditors for comprehensive reviews.
 
 **Configuration:**
 ```yaml
-name: acc-architecture-auditor
+name: architecture-auditor
 tools: Read, Grep, Glob, Task
 model: opus
 # No skills - delegates to specialized auditors
@@ -194,377 +194,377 @@ model: opus
 
 ---
 
-## `acc-structural-auditor`
+## `structural-auditor`
 
-**Path:** `agents/acc-structural-auditor.md`
+**Path:** `agents/structural-auditor.md`
 
 Structural architecture auditor for DDD, Clean Architecture, Hexagonal, Layered, SOLID, GRASP.
 
 **Configuration:**
 ```yaml
-name: acc-structural-auditor
+name: structural-auditor
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-ddd-knowledge, acc-clean-arch-knowledge, acc-hexagonal-knowledge,
-        acc-layer-arch-knowledge, acc-solid-knowledge, acc-grasp-knowledge,
-        acc-analyze-solid-violations, acc-detect-code-smells, acc-check-bounded-contexts,
-        acc-check-immutability, acc-check-leaky-abstractions, acc-check-encapsulation
+skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge,
+        layer-arch-knowledge, solid-knowledge, grasp-knowledge,
+        analyze-solid-violations, detect-code-smells, check-bounded-contexts,
+        check-immutability, check-leaky-abstractions, check-encapsulation
 ```
 
 **Skills:** 12 (6 knowledge + 6 analyzer)
 
 ---
 
-## `acc-behavioral-auditor`
+## `behavioral-auditor`
 
-**Path:** `agents/acc-behavioral-auditor.md`
+**Path:** `agents/behavioral-auditor.md`
 
 GoF Behavioral patterns auditor for Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento patterns.
 
 **Configuration:**
 ```yaml
-name: acc-behavioral-auditor
+name: behavioral-auditor
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility,
-        acc-create-decorator, acc-create-null-object, acc-check-immutability,
-        acc-create-template-method, acc-create-visitor,
-        acc-create-iterator, acc-create-memento, acc-task-progress-knowledge
+skills: create-strategy, create-state, create-chain-of-responsibility,
+        create-decorator, create-null-object, check-immutability,
+        create-template-method, create-visitor,
+        create-iterator, create-memento, task-progress-knowledge
 ```
 
 **Skills:** 11 (9 generators + 1 analyzer + 1 progress)
 
 ---
 
-## `acc-integration-auditor`
+## `integration-auditor`
 
-**Path:** `agents/acc-integration-auditor.md`
+**Path:** `agents/integration-auditor.md`
 
 Integration patterns auditor for Outbox, Saga, Stability, and ADR.
 
 **Configuration:**
 ```yaml
-name: acc-integration-auditor
+name: integration-auditor
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge,
-        acc-stability-patterns-knowledge, acc-adr-knowledge,
-        acc-create-outbox-pattern, acc-create-saga-pattern,
-        acc-create-circuit-breaker, acc-create-retry-pattern,
-        acc-create-rate-limiter, acc-create-bulkhead,
-        acc-create-action, acc-create-responder
+skills: outbox-pattern-knowledge, saga-pattern-knowledge,
+        stability-patterns-knowledge, adr-knowledge,
+        create-outbox-pattern, create-saga-pattern,
+        create-circuit-breaker, create-retry-pattern,
+        create-rate-limiter, create-bulkhead,
+        create-action, create-responder
 ```
 
 **Skills:** 12 (4 knowledge + 8 generators)
 
 ---
 
-## `acc-stability-auditor`
+## `stability-auditor`
 
-**Path:** `agents/acc-stability-auditor.md`
+**Path:** `agents/stability-auditor.md`
 
 Stability patterns auditor for Circuit Breaker, Retry, Rate Limiter, and Bulkhead.
 
 **Configuration:**
 ```yaml
-name: acc-stability-auditor
+name: stability-auditor
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker,
-        acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead,
-        acc-check-timeout-strategy, acc-check-cascading-failures,
-        acc-check-fallback-strategy, acc-task-progress-knowledge
+skills: stability-patterns-knowledge, create-circuit-breaker,
+        create-retry-pattern, create-rate-limiter, create-bulkhead,
+        check-timeout-strategy, check-cascading-failures,
+        check-fallback-strategy, task-progress-knowledge
 ```
 
 **Skills:** 9 (1 knowledge + 4 generators + 3 analyzers + 1 progress)
 
 ---
 
-## `acc-gof-structural-auditor`
+## `gof-structural-auditor`
 
-**Path:** `agents/acc-gof-structural-auditor.md`
+**Path:** `agents/gof-structural-auditor.md`
 
 GoF Structural patterns auditor for Adapter, Facade, Proxy, Composite, Bridge, and Flyweight.
 
 **Configuration:**
 ```yaml
-name: acc-gof-structural-auditor
+name: gof-structural-auditor
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-create-adapter, acc-create-facade, acc-create-proxy,
-        acc-create-composite, acc-create-bridge, acc-create-flyweight
+skills: create-adapter, create-facade, create-proxy,
+        create-composite, create-bridge, create-flyweight
 ```
 
 **Skills:** 6 (generators)
 
 ---
 
-## `acc-gof-structural-generator`
+## `gof-structural-generator`
 
-**Path:** `agents/acc-gof-structural-generator.md`
+**Path:** `agents/gof-structural-generator.md`
 
 Generates GoF structural patterns (Adapter, Facade, Proxy, Composite, Bridge, Flyweight).
 
 **Configuration:**
 ```yaml
-name: acc-gof-structural-generator
+name: gof-structural-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-create-adapter, acc-create-facade, acc-create-proxy,
-        acc-create-composite, acc-create-bridge, acc-create-flyweight
+skills: create-adapter, create-facade, create-proxy,
+        create-composite, create-bridge, create-flyweight
 ```
 
 **Skills:** 6
 
 ---
 
-## `acc-creational-auditor`
+## `creational-auditor`
 
-**Path:** `agents/acc-creational-auditor.md`
+**Path:** `agents/creational-auditor.md`
 
 Creational patterns auditor for Builder, Object Pool, and Factory patterns.
 
 **Configuration:**
 ```yaml
-name: acc-creational-auditor
+name: creational-auditor
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-create-builder, acc-create-object-pool, acc-create-factory,
-        acc-check-singleton-antipattern, acc-check-abstract-factory,
-        acc-create-prototype, acc-task-progress-knowledge
+skills: create-builder, create-object-pool, create-factory,
+        check-singleton-antipattern, check-abstract-factory,
+        create-prototype, task-progress-knowledge
 ```
 
 **Skills:** 7 (4 generators + 2 analyzers + 1 progress)
 
 ---
 
-## `acc-ddd-auditor`
+## `ddd-auditor`
 
-**Path:** `agents/acc-ddd-auditor.md`
+**Path:** `agents/ddd-auditor.md`
 
 Specialized DDD compliance auditor.
 
 **Configuration:**
 ```yaml
-name: acc-ddd-auditor
+name: ddd-auditor
 tools: Read, Bash, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ddd-knowledge, acc-solid-knowledge, acc-grasp-knowledge,
-        acc-check-bounded-contexts, acc-task-progress-knowledge,
-        acc-check-aggregate-consistency, acc-check-cqrs-alignment,
-        acc-check-context-communication
+skills: ddd-knowledge, solid-knowledge, grasp-knowledge,
+        check-bounded-contexts, task-progress-knowledge,
+        check-aggregate-consistency, check-cqrs-alignment,
+        check-context-communication
 ```
 
-**Skills:** 8 (3 knowledge + 4 analyzers + 1 progress, generation delegated to `acc-ddd-generator` via Task)
+**Skills:** 8 (3 knowledge + 4 analyzers + 1 progress, generation delegated to `acc:ddd-generator` via Task)
 
 ---
 
-## `acc-ddd-generator`
+## `ddd-generator`
 
-**Path:** `agents/acc-ddd-generator.md`
+**Path:** `agents/ddd-generator.md`
 
 Creates DDD building blocks (Domain + Application layers).
 
 **Configuration:**
 ```yaml
-name: acc-ddd-generator
+name: ddd-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity,
-        acc-create-aggregate, acc-create-domain-event, acc-create-repository,
-        acc-create-domain-service, acc-create-factory, acc-create-specification,
-        acc-create-dto, acc-create-anti-corruption-layer, acc-create-use-case
+skills: ddd-knowledge, create-value-object, create-entity,
+        create-aggregate, create-domain-event, create-repository,
+        create-domain-service, create-factory, create-specification,
+        create-dto, create-anti-corruption-layer, create-use-case
 ```
 
 **Skills:** 12 (1 knowledge + 11 generators)
 
 ---
 
-## `acc-cqrs-generator`
+## `cqrs-generator`
 
-**Path:** `agents/acc-cqrs-generator.md`
+**Path:** `agents/cqrs-generator.md`
 
 Creates CQRS/ES components (Commands, Queries, Use Cases, Event Stores, Snapshots, Read Models).
 
 **Configuration:**
 ```yaml
-name: acc-cqrs-generator
+name: cqrs-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge,
-        acc-create-command, acc-create-query, acc-create-use-case,
-        acc-create-event-store, acc-create-snapshot, acc-create-read-model
+skills: cqrs-knowledge, event-sourcing-knowledge,
+        create-command, create-query, create-use-case,
+        create-event-store, create-snapshot, create-read-model
 ```
 
 **Skills:** 8 (2 knowledge + 6 generators)
 
 ---
 
-## `acc-pattern-auditor`
+## `pattern-auditor`
 
-**Path:** `agents/acc-pattern-auditor.md`
+**Path:** `agents/pattern-auditor.md`
 
 Design patterns audit coordinator. Orchestrates stability, behavioral, creational, and integration auditors.
 
 **Configuration:**
 ```yaml
-name: acc-pattern-auditor
+name: pattern-auditor
 tools: Read, Grep, Glob, Task
 model: opus
-skills: acc-solid-knowledge, acc-grasp-knowledge
+skills: solid-knowledge, grasp-knowledge
 ```
 
 **Skills:** 2 (knowledge only, delegates to 5 specialized auditors via Task)
 
 **Delegation:**
-- `acc-stability-auditor` — Circuit Breaker, Retry, Rate Limiter, Bulkhead
-- `acc-behavioral-auditor` — Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento
-- `acc-gof-structural-auditor` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
-- `acc-creational-auditor` — Builder, Object Pool, Factory
-- `acc-integration-auditor` — Outbox, Saga, ADR
+- `acc:stability-auditor` — Circuit Breaker, Retry, Rate Limiter, Bulkhead
+- `acc:behavioral-auditor` — Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento
+- `acc:gof-structural-auditor` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
+- `acc:creational-auditor` — Builder, Object Pool, Factory
+- `acc:integration-auditor` — Outbox, Saga, ADR
 
 ---
 
-## `acc-pattern-generator`
+## `pattern-generator`
 
-**Path:** `agents/acc-pattern-generator.md`
+**Path:** `agents/pattern-generator.md`
 
 Design patterns generation coordinator. Orchestrates stability, behavioral, GoF structural, creational, and integration generators.
 
 **Configuration:**
 ```yaml
-name: acc-pattern-generator
+name: pattern-generator
 tools: Read, Write, Glob, Grep, Edit, Task
 model: opus
-skills: acc-adr-knowledge
+skills: adr-knowledge
 ```
 
 **Skills:** 1 (delegates to 5 specialized generators via Task)
 
 **Delegation:**
-- `acc-stability-generator` — Circuit Breaker, Retry, Rate Limiter, Bulkhead
-- `acc-behavioral-generator` — Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento
-- `acc-gof-structural-generator` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
-- `acc-creational-generator` — Builder, Object Pool, Factory
-- `acc-integration-generator` — Outbox, Saga, Action, Responder, Correlation Context
+- `acc:stability-generator` — Circuit Breaker, Retry, Rate Limiter, Bulkhead
+- `acc:behavioral-generator` — Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento
+- `acc:gof-structural-generator` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
+- `acc:creational-generator` — Builder, Object Pool, Factory
+- `acc:integration-generator` — Outbox, Saga, Action, Responder, Correlation Context
 
 ---
 
-## `acc-stability-generator`
+## `stability-generator`
 
-**Path:** `agents/acc-stability-generator.md`
+**Path:** `agents/stability-generator.md`
 
 Generates stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead).
 
 **Configuration:**
 ```yaml
-name: acc-stability-generator
+name: stability-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-stability-patterns-knowledge, acc-create-circuit-breaker,
-        acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead
+skills: stability-patterns-knowledge, create-circuit-breaker,
+        create-retry-pattern, create-rate-limiter, create-bulkhead
 ```
 
 **Skills:** 5
 
 ---
 
-## `acc-behavioral-generator`
+## `behavioral-generator`
 
-**Path:** `agents/acc-behavioral-generator.md`
+**Path:** `agents/behavioral-generator.md`
 
 Generates behavioral patterns (Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento).
 
 **Configuration:**
 ```yaml
-name: acc-behavioral-generator
+name: behavioral-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility,
-        acc-create-decorator, acc-create-null-object, acc-create-policy,
-        acc-create-template-method, acc-create-visitor,
-        acc-create-iterator, acc-create-memento
+skills: create-strategy, create-state, create-chain-of-responsibility,
+        create-decorator, create-null-object, create-policy,
+        create-template-method, create-visitor,
+        create-iterator, create-memento
 ```
 
 **Skills:** 10
 
 ---
 
-## `acc-creational-generator`
+## `creational-generator`
 
-**Path:** `agents/acc-creational-generator.md`
+**Path:** `agents/creational-generator.md`
 
 Generates creational patterns (Builder, Object Pool, Factory).
 
 **Configuration:**
 ```yaml
-name: acc-creational-generator
+name: creational-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-create-builder, acc-create-object-pool, acc-create-factory
+skills: create-builder, create-object-pool, create-factory
 ```
 
 **Skills:** 3
 
 ---
 
-## `acc-integration-generator`
+## `integration-generator`
 
-**Path:** `agents/acc-integration-generator.md`
+**Path:** `agents/integration-generator.md`
 
 Generates integration patterns (Outbox, Saga, Action, Responder, Correlation Context).
 
 **Configuration:**
 ```yaml
-name: acc-integration-generator
+name: integration-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-adr-knowledge,
-        acc-create-outbox-pattern, acc-create-saga-pattern,
-        acc-create-action, acc-create-responder, acc-create-correlation-context
+skills: outbox-pattern-knowledge, saga-pattern-knowledge, adr-knowledge,
+        create-outbox-pattern, create-saga-pattern,
+        create-action, create-responder, create-correlation-context
 ```
 
 **Skills:** 8
 
 ---
 
-## `acc-architecture-generator`
+## `architecture-generator`
 
-**Path:** `agents/acc-architecture-generator.md`
+**Path:** `agents/architecture-generator.md`
 
 Meta-generator coordinating DDD and integration pattern generation for bounded contexts and complex structures.
 
 **Configuration:**
 ```yaml
-name: acc-architecture-generator
+name: architecture-generator
 tools: Read, Write, Glob, Grep, Edit, Task
 model: opus
-skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge,
-        acc-eda-knowledge, acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge,
-        acc-stability-patterns-knowledge
+skills: ddd-knowledge, cqrs-knowledge, clean-arch-knowledge,
+        eda-knowledge, outbox-pattern-knowledge, saga-pattern-knowledge,
+        stability-patterns-knowledge
 ```
 
 **Capabilities:**
 - Direct generation: Value Objects, Entities, Aggregates, Commands, Queries, DTOs
-- Delegated generation: Complex DDD structures via `acc-ddd-generator`, CQRS/ES via `acc-cqrs-generator`, Outbox/Saga via `acc-pattern-generator`
+- Delegated generation: Complex DDD structures via `acc:ddd-generator`, CQRS/ES via `acc:cqrs-generator`, Outbox/Saga via `acc:pattern-generator`
 - Bounded context scaffolding
 - CQRS + Event Sourcing setup
 - Full feature vertical slices
 
 ---
 
-## `acc-psr-auditor`
+## `psr-auditor`
 
-**Path:** `agents/acc-psr-auditor.md`
+**Path:** `agents/psr-auditor.md`
 
 PSR compliance auditor for PHP projects. Analyzes coding standards and interface implementations.
 
 **Configuration:**
 ```yaml
-name: acc-psr-auditor
+name: psr-auditor
 tools: Read, Bash, Grep, Glob
 model: opus
-skills: acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-psr-overview-knowledge
+skills: psr-coding-style-knowledge, psr-autoloading-knowledge, psr-overview-knowledge
 ```
 
 **Analysis Phases:**
@@ -576,90 +576,90 @@ skills: acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-psr-o
 
 ---
 
-## `acc-psr-generator`
+## `psr-generator`
 
-**Path:** `agents/acc-psr-generator.md`
+**Path:** `agents/psr-generator.md`
 
 Creates PSR-compliant PHP components.
 
 **Configuration:**
 ```yaml
-name: acc-psr-generator
+name: psr-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-psr-overview-knowledge, acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge,
-        acc-create-psr3-logger, acc-create-psr6-cache, acc-create-psr7-http-message,
-        acc-create-psr11-container, acc-create-psr13-link, acc-create-psr14-event-dispatcher,
-        acc-create-psr15-middleware, acc-create-psr16-simple-cache, acc-create-psr17-http-factory,
-        acc-create-psr18-http-client, acc-create-psr20-clock
+skills: psr-overview-knowledge, psr-coding-style-knowledge, psr-autoloading-knowledge,
+        create-psr3-logger, create-psr6-cache, create-psr7-http-message,
+        create-psr11-container, create-psr13-link, create-psr14-event-dispatcher,
+        create-psr15-middleware, create-psr16-simple-cache, create-psr17-http-factory,
+        create-psr18-http-client, create-psr20-clock
 ```
 
 ---
 
-## `acc-documentation-writer`
+## `documentation-writer`
 
-**Path:** `agents/acc-documentation-writer.md`
+**Path:** `agents/documentation-writer.md`
 
 Technical documentation writer for PHP projects.
 
 **Configuration:**
 ```yaml
-name: acc-documentation-writer
+name: documentation-writer
 tools: Read, Write, Edit, Glob, Grep
 model: opus
-skills: acc-documentation-knowledge, acc-readme-template, acc-architecture-doc-template,
-        acc-adr-template, acc-api-doc-template, acc-getting-started-template,
-        acc-troubleshooting-template, acc-code-examples-template, acc-changelog-template
+skills: documentation-knowledge, readme-template, architecture-doc-template,
+        adr-template, api-doc-template, getting-started-template,
+        troubleshooting-template, code-examples-template, changelog-template
 ```
 
 ---
 
-## `acc-documentation-auditor`
+## `documentation-auditor`
 
-**Path:** `agents/acc-documentation-auditor.md`
+**Path:** `agents/documentation-auditor.md`
 
 Documentation quality auditor.
 
 **Configuration:**
 ```yaml
-name: acc-documentation-auditor
+name: documentation-auditor
 tools: Read, Glob, Grep, Bash, TaskCreate, TaskUpdate
 model: opus
-skills: acc-documentation-qa-knowledge, acc-documentation-knowledge, acc-claude-code-knowledge,
-        acc-check-doc-links, acc-check-doc-examples, acc-check-version-consistency,
-        acc-task-progress-knowledge
+skills: documentation-qa-knowledge, documentation-knowledge, claude-code-knowledge,
+        check-doc-links, check-doc-examples, check-version-consistency,
+        task-progress-knowledge
 ```
 
 ---
 
-## `acc-diagram-designer`
+## `diagram-designer`
 
-**Path:** `agents/acc-diagram-designer.md`
+**Path:** `agents/diagram-designer.md`
 
 Diagram designer for technical documentation.
 
 **Configuration:**
 ```yaml
-name: acc-diagram-designer
+name: diagram-designer
 tools: Read, Write, Edit, Glob, Grep
 model: opus
-skills: acc-diagram-knowledge, acc-mermaid-template
+skills: diagram-knowledge, mermaid-template
 ```
 
 ---
 
-## `acc-test-auditor`
+## `test-auditor`
 
-**Path:** `agents/acc-test-auditor.md`
+**Path:** `agents/test-auditor.md`
 
 Test quality auditor for PHP projects.
 
 **Configuration:**
 ```yaml
-name: acc-test-auditor
+name: test-auditor
 tools: Read, Bash, Grep, Glob
 model: opus
-skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells
+skills: testing-knowledge, analyze-test-coverage, detect-test-smells
 ```
 
 **Analysis Phases:**
@@ -671,19 +671,19 @@ skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells
 
 ---
 
-## `acc-test-generator`
+## `test-generator`
 
-**Path:** `agents/acc-test-generator.md`
+**Path:** `agents/test-generator.md`
 
 Test generator for DDD/CQRS PHP projects.
 
 **Configuration:**
 ```yaml
-name: acc-test-generator
+name: test-generator
 tools: Read, Write, Glob, Grep
 model: opus
-skills: acc-testing-knowledge, acc-create-unit-test, acc-create-integration-test,
-        acc-create-test-builder, acc-create-mock-repository, acc-create-test-double
+skills: testing-knowledge, create-unit-test, create-integration-test,
+        create-test-builder, create-mock-repository, create-test-double
 ```
 
 **Generation Process:**
@@ -697,18 +697,18 @@ skills: acc-testing-knowledge, acc-create-unit-test, acc-create-integration-test
 
 ---
 
-## `acc-code-review-coordinator`
+## `code-review-coordinator`
 
-**Path:** `agents/acc-code-review-coordinator.md`
+**Path:** `agents/code-review-coordinator.md`
 
 Code review coordinator orchestrating multi-level reviews (low/medium/high) with git diff analysis.
 
 **Configuration:**
 ```yaml
-name: acc-code-review-coordinator
+name: code-review-coordinator
 tools: Read, Grep, Glob, Bash, Task
 model: opus
-skills: acc-analyze-solid-violations, acc-detect-code-smells, acc-check-encapsulation
+skills: analyze-solid-violations, detect-code-smells, check-encapsulation
 ```
 
 **Review Levels:**
@@ -718,199 +718,199 @@ skills: acc-analyze-solid-violations, acc-detect-code-smells, acc-check-encapsul
 
 ---
 
-## `acc-bug-hunter`
+## `bug-hunter`
 
-**Path:** `agents/acc-bug-hunter.md`
+**Path:** `agents/bug-hunter.md`
 
 Bug detection specialist for code review.
 
 **Configuration:**
 ```yaml
-name: acc-bug-hunter
+name: bug-hunter
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-find-logic-errors, acc-find-null-pointer-issues, acc-find-boundary-issues,
-        acc-find-race-conditions, acc-find-resource-leaks, acc-find-exception-issues,
-        acc-find-type-issues, acc-check-sql-injection, acc-find-infinite-loops,
-        acc-discover-project-logs, acc-analyze-php-logs
+skills: find-logic-errors, find-null-pointer-issues, find-boundary-issues,
+        find-race-conditions, find-resource-leaks, find-exception-issues,
+        find-type-issues, check-sql-injection, find-infinite-loops,
+        discover-project-logs, analyze-php-logs
 ```
 
 **Skills:** 11 (bug detection + log analysis)
 
 ---
 
-## `acc-security-reviewer`
+## `security-reviewer`
 
-**Path:** `agents/acc-security-reviewer.md`
+**Path:** `agents/security-reviewer.md`
 
 Security review coordinator. Orchestrates 4 specialized security reviewers covering OWASP Top 10.
 
 **Configuration:**
 ```yaml
-name: acc-security-reviewer
+name: security-reviewer
 tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-task-progress-knowledge
+skills: task-progress-knowledge
 ```
 
 **Skills:** 1 (delegates to 4 specialized agents via Task)
 
 **Delegation:**
-- `acc-injection-reviewer` — SQL injection, command injection, SSRF, XXE, path traversal, deserialization (A03, A10, A08)
-- `acc-auth-reviewer` — Authentication, authorization, CSRF, mass assignment, type juggling (A01, A07)
-- `acc-data-security-reviewer` — Sensitive data, crypto, logging failures, secure headers, CORS (A02, A09, A05)
-- `acc-design-security-reviewer` — Input validation, output encoding, insecure design, dependencies (A04, A06)
+- `acc:injection-reviewer` — SQL injection, command injection, SSRF, XXE, path traversal, deserialization (A03, A10, A08)
+- `acc:auth-reviewer` — Authentication, authorization, CSRF, mass assignment, type juggling (A01, A07)
+- `acc:data-security-reviewer` — Sensitive data, crypto, logging failures, secure headers, CORS (A02, A09, A05)
+- `acc:design-security-reviewer` — Input validation, output encoding, insecure design, dependencies (A04, A06)
 
 ---
 
-## `acc-injection-reviewer`
+## `injection-reviewer`
 
-**Path:** `agents/acc-injection-reviewer.md`
+**Path:** `agents/injection-reviewer.md`
 
 Injection vulnerability specialist for SQL injection, command injection, SSRF, XXE, path traversal, deserialization.
 
 **Configuration:**
 ```yaml
-name: acc-injection-reviewer
+name: injection-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-sql-injection, acc-check-command-injection, acc-check-ssrf,
-        acc-check-xxe, acc-check-path-traversal, acc-check-deserialization,
-        acc-task-progress-knowledge
+skills: check-sql-injection, check-command-injection, check-ssrf,
+        check-xxe, check-path-traversal, check-deserialization,
+        task-progress-knowledge
 ```
 
 **Skills:** 7 (6 security + 1 progress)
 
 ---
 
-## `acc-auth-reviewer`
+## `auth-reviewer`
 
-**Path:** `agents/acc-auth-reviewer.md`
+**Path:** `agents/auth-reviewer.md`
 
 Authentication and authorization security specialist for auth, access control, CSRF, mass assignment, type juggling.
 
 **Configuration:**
 ```yaml
-name: acc-auth-reviewer
+name: auth-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-authentication, acc-check-authorization, acc-check-csrf-protection,
-        acc-check-mass-assignment, acc-check-type-juggling, acc-task-progress-knowledge
+skills: check-authentication, check-authorization, check-csrf-protection,
+        check-mass-assignment, check-type-juggling, task-progress-knowledge
 ```
 
 **Skills:** 6 (5 security + 1 progress)
 
 ---
 
-## `acc-data-security-reviewer`
+## `data-security-reviewer`
 
-**Path:** `agents/acc-data-security-reviewer.md`
+**Path:** `agents/data-security-reviewer.md`
 
 Data security specialist for sensitive data, cryptography, logging, headers, CORS.
 
 **Configuration:**
 ```yaml
-name: acc-data-security-reviewer
+name: data-security-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-sensitive-data, acc-check-crypto-usage, acc-check-logging-failures,
-        acc-check-secure-headers, acc-check-cors-security, acc-task-progress-knowledge
+skills: check-sensitive-data, check-crypto-usage, check-logging-failures,
+        check-secure-headers, check-cors-security, task-progress-knowledge
 ```
 
 **Skills:** 6 (5 security + 1 progress)
 
 ---
 
-## `acc-design-security-reviewer`
+## `design-security-reviewer`
 
-**Path:** `agents/acc-design-security-reviewer.md`
+**Path:** `agents/design-security-reviewer.md`
 
 Design security specialist for input validation, output encoding, insecure design, dependency vulnerabilities.
 
 **Configuration:**
 ```yaml
-name: acc-design-security-reviewer
+name: design-security-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-input-validation, acc-check-output-encoding, acc-check-insecure-design,
-        acc-check-dependency-vulnerabilities, acc-task-progress-knowledge
+skills: check-input-validation, check-output-encoding, check-insecure-design,
+        check-dependency-vulnerabilities, task-progress-knowledge
 ```
 
 **Skills:** 5 (4 security + 1 progress)
 
 ---
 
-## `acc-performance-reviewer`
+## `performance-reviewer`
 
-**Path:** `agents/acc-performance-reviewer.md`
+**Path:** `agents/performance-reviewer.md`
 
 Performance review specialist for efficiency issues.
 
 **Configuration:**
 ```yaml
-name: acc-performance-reviewer
+name: performance-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-detect-n-plus-one, acc-check-query-efficiency, acc-detect-memory-issues,
-        acc-check-caching-strategy, acc-detect-unnecessary-loops, acc-check-lazy-loading,
-        acc-check-batch-processing, acc-estimate-complexity, acc-check-connection-pool,
-        acc-check-serialization, acc-check-index-usage, acc-check-async-patterns,
-        acc-check-file-io, acc-task-progress-knowledge, acc-discover-project-logs
+skills: detect-n-plus-one, check-query-efficiency, detect-memory-issues,
+        check-caching-strategy, detect-unnecessary-loops, check-lazy-loading,
+        check-batch-processing, estimate-complexity, check-connection-pool,
+        check-serialization, check-index-usage, check-async-patterns,
+        check-file-io, task-progress-knowledge, discover-project-logs
 ```
 
 **Skills:** 15 (performance checks + log discovery)
 
 ---
 
-## `acc-readability-reviewer`
+## `readability-reviewer`
 
-**Path:** `agents/acc-readability-reviewer.md`
+**Path:** `agents/readability-reviewer.md`
 
 Readability review specialist for code quality.
 
 **Configuration:**
 ```yaml
-name: acc-readability-reviewer
+name: readability-reviewer
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-check-naming, acc-check-code-style, acc-check-method-length,
-        acc-check-class-length, acc-check-nesting-depth, acc-check-comments,
-        acc-check-magic-values, acc-check-consistency, acc-suggest-simplification
+skills: check-naming, check-code-style, check-method-length,
+        check-class-length, check-nesting-depth, check-comments,
+        check-magic-values, check-consistency, suggest-simplification
 ```
 
 **Skills:** 9 (readability checks)
 
 ---
 
-## `acc-testability-reviewer`
+## `testability-reviewer`
 
-**Path:** `agents/acc-testability-reviewer.md`
+**Path:** `agents/testability-reviewer.md`
 
 Testability review specialist for test quality.
 
 **Configuration:**
 ```yaml
-name: acc-testability-reviewer
+name: testability-reviewer
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-check-dependency-injection, acc-check-pure-functions, acc-check-side-effects,
-        acc-check-test-quality, acc-suggest-testability-improvements,
-        acc-analyze-test-coverage, acc-detect-test-smells
+skills: check-dependency-injection, check-pure-functions, check-side-effects,
+        check-test-quality, suggest-testability-improvements,
+        analyze-test-coverage, detect-test-smells
 ```
 
 **Skills:** 7 (testability checks)
 
 ---
 
-## `acc-bug-fix-coordinator`
+## `bug-fix-coordinator`
 
-**Path:** `agents/acc-bug-fix-coordinator.md`
+**Path:** `agents/bug-fix-coordinator.md`
 
 Bug fix coordinator orchestrating diagnosis, fix generation, and regression testing.
 
 **Configuration:**
 ```yaml
-name: acc-bug-fix-coordinator
+name: bug-fix-coordinator
 tools: Task, Read, Grep, Glob, Edit, Write, Bash
 model: opus
 # No skills - delegates to specialized agents
@@ -918,9 +918,9 @@ model: opus
 
 **Workflow:**
 1. Parse input (text, file:line, stack trace, log file)
-2. Task → `acc-bug-hunter` (diagnose bug category)
-3. Task → `acc-bug-fixer` (generate minimal fix)
-4. Task → `acc-test-generator` (create regression test)
+2. Task → `acc:bug-hunter` (diagnose bug category)
+3. Task → `acc:bug-fixer` (generate minimal fix)
+4. Task → `acc:test-generator` (create regression test)
 5. Apply changes and run tests
 
 **Meta-Instructions:**
@@ -931,22 +931,22 @@ model: opus
 
 ---
 
-## `acc-bug-fixer`
+## `bug-fixer`
 
-**Path:** `agents/acc-bug-fixer.md`
+**Path:** `agents/bug-fixer.md`
 
 Bug fix specialist generating safe, minimal fixes using diagnosis from bug-hunter.
 
 **Configuration:**
 ```yaml
-name: acc-bug-fixer
+name: bug-fixer
 tools: Read, Edit, Write, Grep, Glob
 model: sonnet
-skills: acc-bug-fix-knowledge, acc-bug-root-cause-finder, acc-bug-impact-analyzer,
-        acc-generate-bug-fix, acc-bug-regression-preventer,
-        acc-detect-code-smells, acc-detect-memory-issues, acc-analyze-solid-violations,
-        acc-check-encapsulation, acc-check-side-effects, acc-check-immutability,
-        acc-analyze-php-logs
+skills: bug-fix-knowledge, bug-root-cause-finder, bug-impact-analyzer,
+        generate-bug-fix, bug-regression-preventer,
+        detect-code-smells, detect-memory-issues, analyze-solid-violations,
+        check-encapsulation, check-side-effects, check-immutability,
+        analyze-php-logs
 ```
 
 **Skills:** 12 (5 new + 6 existing + 1 log analysis)
@@ -960,18 +960,18 @@ skills: acc-bug-fix-knowledge, acc-bug-root-cause-finder, acc-bug-impact-analyze
 
 ---
 
-## `acc-ci-coordinator`
+## `ci-coordinator`
 
-**Path:** `agents/acc-ci-coordinator.md`
+**Path:** `agents/ci-coordinator.md`
 
 CI/CD coordinator orchestrating pipeline setup, fixing, optimization, and auditing.
 
 **Configuration:**
 ```yaml
-name: acc-ci-coordinator
+name: ci-coordinator
 tools: Read, Write, Edit, Grep, Glob, Bash, Task
 model: opus
-skills: acc-ci-pipeline-knowledge
+skills: ci-pipeline-knowledge
 ```
 
 **Operations:**
@@ -981,112 +981,112 @@ skills: acc-ci-pipeline-knowledge
 - **AUDIT**: Comprehensive CI/CD audit
 
 **Delegation:**
-- `acc-pipeline-architect` — Workflow structure
-- `acc-static-analysis-agent` — PHPStan, Psalm, DEPTRAC configs
-- `acc-test-pipeline-agent` — PHPUnit, coverage setup
-- `acc-ci-debugger` — Log analysis, failure diagnosis
-- `acc-pipeline-optimizer` — Caching, parallelization
-- `acc-ci-security-agent` — Secrets, permissions, deps
-- `acc-docker-agent` — Dockerfile optimization
-- `acc-deployment-agent` — Deployment strategies
+- `acc:pipeline-architect` — Workflow structure
+- `acc:static-analysis-agent` — PHPStan, Psalm, DEPTRAC configs
+- `acc:test-pipeline-agent` — PHPUnit, coverage setup
+- `acc:ci-debugger` — Log analysis, failure diagnosis
+- `acc:pipeline-optimizer` — Caching, parallelization
+- `acc:ci-security-agent` — Secrets, permissions, deps
+- `acc:docker-agent` — Dockerfile optimization
+- `acc:deployment-agent` — Deployment strategies
 
 ---
 
-## `acc-pipeline-architect`
+## `pipeline-architect`
 
-**Path:** `agents/acc-pipeline-architect.md`
+**Path:** `agents/pipeline-architect.md`
 
 Pipeline design specialist for GitHub Actions and GitLab CI.
 
 **Configuration:**
 ```yaml
-name: acc-pipeline-architect
+name: pipeline-architect
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-ci-pipeline-knowledge, acc-create-github-actions, acc-create-gitlab-ci, acc-detect-ci-antipatterns
+skills: ci-pipeline-knowledge, create-github-actions, create-gitlab-ci, detect-ci-antipatterns
 ```
 
 **Skills:** 4
 
 ---
 
-## `acc-static-analysis-agent`
+## `static-analysis-agent`
 
-**Path:** `agents/acc-static-analysis-agent.md`
+**Path:** `agents/static-analysis-agent.md`
 
 Static analysis configuration specialist.
 
 **Configuration:**
 ```yaml
-name: acc-static-analysis-agent
+name: static-analysis-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-ci-tools-knowledge, acc-create-phpstan-config, acc-create-psalm-config,
-        acc-create-deptrac-config, acc-create-rector-config, acc-psr-coding-style-knowledge,
-        acc-check-code-style, acc-analyze-solid-violations, acc-detect-code-smells
+skills: ci-tools-knowledge, create-phpstan-config, create-psalm-config,
+        create-deptrac-config, create-rector-config, psr-coding-style-knowledge,
+        check-code-style, analyze-solid-violations, detect-code-smells
 ```
 
 **Skills:** 9 (4 new + 5 reused)
 
 ---
 
-## `acc-test-pipeline-agent`
+## `test-pipeline-agent`
 
-**Path:** `agents/acc-test-pipeline-agent.md`
+**Path:** `agents/test-pipeline-agent.md`
 
 Test pipeline configuration specialist.
 
 **Configuration:**
 ```yaml
-name: acc-test-pipeline-agent
+name: test-pipeline-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells,
-        acc-check-test-quality, acc-ci-pipeline-knowledge
+skills: testing-knowledge, analyze-test-coverage, detect-test-smells,
+        check-test-quality, ci-pipeline-knowledge
 ```
 
 **Skills:** 5 (4 reused + 1 new)
 
 ---
 
-## `acc-ci-debugger`
+## `ci-debugger`
 
-**Path:** `agents/acc-ci-debugger.md`
+**Path:** `agents/ci-debugger.md`
 
 CI/CD log analysis and failure diagnosis specialist.
 
 **Configuration:**
 ```yaml
-name: acc-ci-debugger
+name: ci-debugger
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-analyze-ci-logs, acc-detect-ci-antipatterns, acc-analyze-ci-config,
-        acc-discover-project-logs
+skills: analyze-ci-logs, detect-ci-antipatterns, analyze-ci-config,
+        discover-project-logs
 ```
 
 **Skills:** 4
 
 ---
 
-## `acc-ci-fixer`
+## `ci-fixer`
 
-**Path:** `agents/acc-ci-fixer.md`
+**Path:** `agents/ci-fixer.md`
 
 CI fix generation and application specialist. Generates minimal, safe fixes for CI configuration issues.
 
 **Configuration:**
 ```yaml
-name: acc-ci-fixer
+name: ci-fixer
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-generate-ci-fix, acc-ci-pipeline-knowledge, acc-ci-tools-knowledge,
-        acc-create-github-actions, acc-create-gitlab-ci, acc-detect-ci-antipatterns
+skills: generate-ci-fix, ci-pipeline-knowledge, ci-tools-knowledge,
+        create-github-actions, create-gitlab-ci, detect-ci-antipatterns
 ```
 
 **Skills:** 6 (1 new + 5 reused)
 
 **Capabilities:**
-- Receives diagnosis from `acc-ci-debugger`
+- Receives diagnosis from `acc:ci-debugger`
 - Selects appropriate fix pattern
 - Generates minimal, safe changes
 - Applies fixes to CI config files
@@ -1095,95 +1095,95 @@ skills: acc-generate-ci-fix, acc-ci-pipeline-knowledge, acc-ci-tools-knowledge,
 
 ---
 
-## `acc-pipeline-optimizer`
+## `pipeline-optimizer`
 
-**Path:** `agents/acc-pipeline-optimizer.md`
+**Path:** `agents/pipeline-optimizer.md`
 
 Pipeline performance optimization specialist.
 
 **Configuration:**
 ```yaml
-name: acc-pipeline-optimizer
+name: pipeline-optimizer
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-ci-pipeline-knowledge, acc-estimate-pipeline-time, acc-detect-ci-antipatterns,
-        acc-optimize-docker-layers, acc-analyze-ci-config, acc-detect-memory-issues,
-        acc-check-caching-strategy
+skills: ci-pipeline-knowledge, estimate-pipeline-time, detect-ci-antipatterns,
+        optimize-docker-layers, analyze-ci-config, detect-memory-issues,
+        check-caching-strategy
 ```
 
 **Skills:** 7 (2 reused + 5 new)
 
 ---
 
-## `acc-ci-security-agent`
+## `ci-security-agent`
 
-**Path:** `agents/acc-ci-security-agent.md`
+**Path:** `agents/ci-security-agent.md`
 
 CI/CD security specialist for secrets, permissions, and dependency scanning.
 
 **Configuration:**
 ```yaml
-name: acc-ci-security-agent
+name: ci-security-agent
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-ci-pipeline-knowledge, acc-check-sensitive-data, acc-check-dependency-vulnerabilities,
-        acc-check-crypto-usage
+skills: ci-pipeline-knowledge, check-sensitive-data, check-dependency-vulnerabilities,
+        check-crypto-usage
 ```
 
 **Skills:** 4 (3 reused + 1 new)
 
 ---
 
-## `acc-docker-agent`
+## `docker-agent`
 
-**Path:** `agents/acc-docker-agent.md`
+**Path:** `agents/docker-agent.md`
 
 Docker configuration and optimization specialist.
 
 **Configuration:**
 ```yaml
-name: acc-docker-agent
+name: docker-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-create-dockerfile-ci, acc-optimize-docker-layers, acc-ci-pipeline-knowledge
+skills: create-dockerfile-ci, optimize-docker-layers, ci-pipeline-knowledge
 ```
 
 **Skills:** 3
 
 ---
 
-## `acc-deployment-agent`
+## `deployment-agent`
 
-**Path:** `agents/acc-deployment-agent.md`
+**Path:** `agents/deployment-agent.md`
 
 Deployment configuration specialist for blue-green, canary, and rolling strategies.
 
 **Configuration:**
 ```yaml
-name: acc-deployment-agent
+name: deployment-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-deployment-knowledge, acc-create-deploy-strategy, acc-create-feature-flags,
-        acc-ci-pipeline-knowledge, acc-create-github-actions, acc-create-gitlab-ci
+skills: deployment-knowledge, create-deploy-strategy, create-feature-flags,
+        ci-pipeline-knowledge, create-github-actions, create-gitlab-ci
 ```
 
 **Skills:** 6
 
 ---
 
-## `acc-docker-coordinator`
+## `docker-coordinator`
 
-**Path:** `agents/acc-docker-coordinator.md`
+**Path:** `agents/docker-coordinator.md`
 
 Docker expert system coordinator. Orchestrates auditing, generation, and optimization.
 
 **Configuration:**
 ```yaml
-name: acc-docker-coordinator
+name: docker-coordinator
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-docker-knowledge, acc-task-progress-knowledge,
-        acc-docker-orchestration-knowledge, acc-create-docker-makefile
+skills: docker-knowledge, task-progress-knowledge,
+        docker-orchestration-knowledge, create-docker-makefile
 ```
 
 **Operations:**
@@ -1191,226 +1191,226 @@ skills: acc-docker-knowledge, acc-task-progress-knowledge,
 - **GENERATE**: Generate Docker components
 
 **Delegation:**
-- `acc-docker-architect-agent` — Dockerfile architecture
-- `acc-docker-image-builder` — Base images, extensions
-- `acc-docker-compose-agent` — Compose configuration
-- `acc-docker-performance-agent` — Performance optimization
-- `acc-docker-security-agent` — Security audit
-- `acc-docker-debugger-agent` — Error diagnosis
-- `acc-docker-production-agent` — Production readiness
+- `acc:docker-architect-agent` — Dockerfile architecture
+- `acc:docker-image-builder` — Base images, extensions
+- `acc:docker-compose-agent` — Compose configuration
+- `acc:docker-performance-agent` — Performance optimization
+- `acc:docker-security-agent` — Security audit
+- `acc:docker-debugger-agent` — Error diagnosis
+- `acc:docker-production-agent` — Production readiness
 
 ---
 
-## `acc-docker-architect-agent`
+## `docker-architect-agent`
 
-**Path:** `agents/acc-docker-architect-agent.md`
+**Path:** `agents/docker-architect-agent.md`
 
 Dockerfile architecture specialist for multi-stage builds, layer optimization, and BuildKit features.
 
 **Configuration:**
 ```yaml
-name: acc-docker-architect-agent
+name: docker-architect-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-knowledge, acc-docker-multistage-knowledge, acc-docker-buildkit-knowledge,
-        acc-create-dockerfile-production, acc-create-dockerfile-dev
+skills: docker-knowledge, docker-multistage-knowledge, docker-buildkit-knowledge,
+        create-dockerfile-production, create-dockerfile-dev
 ```
 
 **Skills:** 5
 
 ---
 
-## `acc-docker-image-builder`
+## `docker-image-builder`
 
-**Path:** `agents/acc-docker-image-builder.md`
+**Path:** `agents/docker-image-builder.md`
 
 Base image selection and PHP extension installation specialist.
 
 **Configuration:**
 ```yaml
-name: acc-docker-image-builder
+name: docker-image-builder
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-base-images-knowledge, acc-docker-php-extensions-knowledge,
-        acc-create-dockerfile-production, acc-create-dockerfile-dev, acc-create-dockerignore
+skills: docker-base-images-knowledge, docker-php-extensions-knowledge,
+        create-dockerfile-production, create-dockerfile-dev, create-dockerignore
 ```
 
 **Skills:** 5
 
 ---
 
-## `acc-docker-compose-agent`
+## `docker-compose-agent`
 
-**Path:** `agents/acc-docker-compose-agent.md`
+**Path:** `agents/docker-compose-agent.md`
 
 Docker Compose configuration specialist for PHP stacks.
 
 **Configuration:**
 ```yaml
-name: acc-docker-compose-agent
+name: docker-compose-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-compose-knowledge, acc-docker-networking-knowledge,
-        acc-create-docker-compose-dev, acc-create-docker-compose-production,
-        acc-check-docker-compose-config, acc-create-docker-env-template
+skills: docker-compose-knowledge, docker-networking-knowledge,
+        create-docker-compose-dev, create-docker-compose-production,
+        check-docker-compose-config, create-docker-env-template
 ```
 
 **Skills:** 6
 
 ---
 
-## `acc-docker-performance-agent`
+## `docker-performance-agent`
 
-**Path:** `agents/acc-docker-performance-agent.md`
+**Path:** `agents/docker-performance-agent.md`
 
 Docker build and runtime performance optimization specialist.
 
 **Configuration:**
 ```yaml
-name: acc-docker-performance-agent
+name: docker-performance-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-optimize-docker-layers, acc-optimize-docker-build-time, acc-optimize-docker-image-size,
-        acc-optimize-docker-php-fpm, acc-optimize-docker-opcache, acc-optimize-docker-startup
+skills: optimize-docker-layers, optimize-docker-build-time, optimize-docker-image-size,
+        optimize-docker-php-fpm, optimize-docker-opcache, optimize-docker-startup
 ```
 
 **Skills:** 6
 
 ---
 
-## `acc-docker-security-agent`
+## `docker-security-agent`
 
-**Path:** `agents/acc-docker-security-agent.md`
+**Path:** `agents/docker-security-agent.md`
 
 Docker security audit and hardening specialist.
 
 **Configuration:**
 ```yaml
-name: acc-docker-security-agent
+name: docker-security-agent
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-docker-security-knowledge, acc-docker-scanning-knowledge,
-        acc-check-docker-security, acc-check-docker-secrets,
-        acc-check-docker-user-permissions, acc-detect-docker-antipatterns
+skills: docker-security-knowledge, docker-scanning-knowledge,
+        check-docker-security, check-docker-secrets,
+        check-docker-user-permissions, detect-docker-antipatterns
 ```
 
 **Skills:** 6
 
 ---
 
-## `acc-docker-debugger-agent`
+## `docker-debugger-agent`
 
-**Path:** `agents/acc-docker-debugger-agent.md`
+**Path:** `agents/docker-debugger-agent.md`
 
 Docker error diagnosis and troubleshooting specialist.
 
 **Configuration:**
 ```yaml
-name: acc-docker-debugger-agent
+name: docker-debugger-agent
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-docker-troubleshooting-knowledge, acc-docker-knowledge,
-        acc-analyze-docker-build-errors, acc-analyze-docker-runtime-errors,
-        acc-discover-project-logs, acc-analyze-php-logs
+skills: docker-troubleshooting-knowledge, docker-knowledge,
+        analyze-docker-build-errors, analyze-docker-runtime-errors,
+        discover-project-logs, analyze-php-logs
 ```
 
 **Skills:** 6 (2 knowledge + 2 analyzers + 2 log analysis)
 
 ---
 
-## `acc-docker-production-agent`
+## `docker-production-agent`
 
-**Path:** `agents/acc-docker-production-agent.md`
+**Path:** `agents/docker-production-agent.md`
 
 Docker production readiness specialist for health checks, graceful shutdown, and logging.
 
 **Configuration:**
 ```yaml
-name: acc-docker-production-agent
+name: docker-production-agent
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-production-knowledge, acc-docker-orchestration-knowledge,
-        acc-check-docker-production-readiness, acc-check-docker-healthcheck,
-        acc-create-docker-healthcheck, acc-create-docker-entrypoint
+skills: docker-production-knowledge, docker-orchestration-knowledge,
+        check-docker-production-readiness, check-docker-healthcheck,
+        create-docker-healthcheck, create-docker-entrypoint
 ```
 
 **Skills:** 6
 
 ---
 
-## `acc-explain-coordinator`
+## `explain-coordinator`
 
-**Path:** `agents/acc-explain-coordinator.md`
+**Path:** `agents/explain-coordinator.md`
 
 Code explanation coordinator. Orchestrates codebase navigation, business logic extraction, data flow tracing, visualization, and documentation suggestion. Supports 5 modes.
 
 **Configuration:**
 ```yaml
-name: acc-explain-coordinator
+name: explain-coordinator
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-explain-output-template, acc-task-progress-knowledge
+skills: explain-output-template, task-progress-knowledge
 ```
 
 **Workflow (4 phases):**
-1. **Navigate** — Task → `acc-codebase-navigator` (scan structure, entry points, patterns)
-2. **Analyze** — Task → `acc-business-logic-analyst` + `acc-data-flow-analyst` (+ auditors for deep/onboarding)
-3. **Visualize** — Task → `acc-diagram-designer` + `acc-documentation-writer` (deep/onboarding/business)
+1. **Navigate** — Task → `acc:codebase-navigator` (scan structure, entry points, patterns)
+2. **Analyze** — Task → `acc:business-logic-analyst` + `acc:data-flow-analyst` (+ auditors for deep/onboarding)
+3. **Visualize** — Task → `acc:diagram-designer` + `acc:documentation-writer` (deep/onboarding/business)
 4. **Present** — Aggregate results, format output, suggest documentation
 
 **Modes:** quick (file), deep (module), onboarding (project), business (non-technical), qa (interactive)
 
 ---
 
-## `acc-codebase-navigator`
+## `codebase-navigator`
 
-**Path:** `agents/acc-codebase-navigator.md`
+**Path:** `agents/codebase-navigator.md`
 
 Codebase navigation specialist. Scans directory structure, identifies architectural layers, detects framework and patterns, finds entry points.
 
 **Configuration:**
 ```yaml
-name: acc-codebase-navigator
+name: codebase-navigator
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-scan-codebase-structure, acc-identify-entry-points, acc-detect-architecture-pattern
+skills: scan-codebase-structure, identify-entry-points, detect-architecture-pattern
 ```
 
 **Skills:** 3 (analyzers)
 
 ---
 
-## `acc-business-logic-analyst`
+## `business-logic-analyst`
 
-**Path:** `agents/acc-business-logic-analyst.md`
+**Path:** `agents/business-logic-analyst.md`
 
 Business logic analysis specialist. Extracts business rules, explains business processes in natural language, maps domain concepts and ubiquitous language, detects state machines.
 
 **Configuration:**
 ```yaml
-name: acc-business-logic-analyst
+name: business-logic-analyst
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-extract-business-rules, acc-explain-business-process, acc-extract-domain-concepts, acc-extract-state-machine
+skills: extract-business-rules, explain-business-process, extract-domain-concepts, extract-state-machine
 ```
 
 **Skills:** 4 (analyzers)
 
 ---
 
-## `acc-data-flow-analyst`
+## `data-flow-analyst`
 
-**Path:** `agents/acc-data-flow-analyst.md`
+**Path:** `agents/data-flow-analyst.md`
 
 Data flow analysis specialist. Traces request lifecycles through all layers, maps data transformations between DTOs/Commands/Entities/Responses, identifies async communication flows.
 
 **Configuration:**
 ```yaml
-name: acc-data-flow-analyst
+name: data-flow-analyst
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-trace-request-lifecycle, acc-trace-data-transformation, acc-map-async-flows,
-        acc-discover-project-logs
+skills: trace-request-lifecycle, trace-data-transformation, map-async-flows,
+        discover-project-logs
 ```
 
 **Skills:** 4 (analyzers + log discovery)

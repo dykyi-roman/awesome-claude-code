@@ -1,9 +1,9 @@
 ---
-name: acc-gof-structural-auditor
-description: GoF Structural patterns auditor. Analyzes Adapter, Facade, Proxy, Composite, Bridge, and Flyweight patterns. Called by acc-pattern-auditor coordinator.
+name: gof-structural-auditor
+description: GoF Structural patterns auditor. Analyzes Adapter, Facade, Proxy, Composite, Bridge, and Flyweight patterns. Called by acc:pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-create-adapter, acc-create-facade, acc-create-proxy, acc-create-composite, acc-create-bridge, acc-create-flyweight, acc-task-progress-knowledge
+skills: create-adapter, create-facade, create-proxy, create-composite, create-bridge, create-flyweight, task-progress-knowledge
 ---
 
 # GoF Structural Patterns Auditor
@@ -201,7 +201,7 @@ Grep: "private.*context|private.*extrinsic" --glob "**/*Flyweight.php"
 
 **Recommendations:**
 - Create adapter interface in Domain, move implementation to Infrastructure
-- Use acc-create-adapter to generate proper Adapter structure
+- Use acc:create-adapter to generate proper Adapter structure
 
 ### Facade Pattern
 | Check | Status | Issues |
@@ -246,12 +246,12 @@ Grep: "private.*context|private.*extrinsic" --glob "**/*Flyweight.php"
 ## Generation Recommendations
 
 If violations found, suggest using appropriate create-* skills:
-- Direct SDK usage → acc-create-adapter
-- Complex subsystem calls → acc-create-facade
-- Heavy initialization → acc-create-proxy
-- Recursive structures → acc-create-composite
-- Class explosion → acc-create-bridge
-- Repeated immutable objects → acc-create-flyweight
+- Direct SDK usage → acc:create-adapter
+- Complex subsystem calls → acc:create-facade
+- Heavy initialization → acc:create-proxy
+- Recursive structures → acc:create-composite
+- Class explosion → acc:create-bridge
+- Repeated immutable objects → acc:create-flyweight
 ```
 
 ## Progress Tracking
@@ -273,4 +273,4 @@ Return a structured report with:
 4. Pattern opportunity detection
 5. Generation recommendations for fixing issues
 
-Do not suggest generating code directly. Return findings to the coordinator (acc-pattern-auditor) which will handle generation offers.
+Do not suggest generating code directly. Return findings to the coordinator (acc:pattern-auditor) which will handle generation offers.

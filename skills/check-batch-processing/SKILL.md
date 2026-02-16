@@ -1,5 +1,5 @@
 ---
-name: acc-check-batch-processing
+name: check-batch-processing
 description: Analyzes PHP code for batch processing issues. Detects single-item vs bulk operations, missing batch inserts, individual API calls in loops, transaction overhead.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-find-null-pointer-issues
+name: find-null-pointer-issues
 description: Detects null pointer issues in PHP code. Finds property/method access on null, missing null checks, nullable returns without handling, optional chaining gaps.
 ---
 

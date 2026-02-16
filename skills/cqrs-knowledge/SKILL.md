@@ -1,5 +1,5 @@
 ---
-name: acc-cqrs-knowledge
+name: cqrs-knowledge
 description: CQRS architecture knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Command Query Responsibility Segregation audits.
 ---
 

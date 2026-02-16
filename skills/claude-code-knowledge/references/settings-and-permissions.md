@@ -149,8 +149,8 @@ Tool(specifier)         # Match specific uses
 ```json
 {
   "allow": [
-    "Task(acc-ddd-auditor)",
-    "Task(acc-test-generator)"
+    "Task(ddd-auditor)",
+    "Task(test-generator)"
   ],
   "deny": [
     "Task(dangerous-agent)"

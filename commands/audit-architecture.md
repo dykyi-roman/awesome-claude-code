@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-architecture ./src
-- /acc-audit-architecture ./src deep
-- /acc-audit-architecture ./src quick
-- /acc-audit-architecture ./src -- focus on CQRS and Event Sourcing
-- /acc-audit-architecture ./src deep -- only structural audit (DDD, Clean, SOLID)
-- /acc-audit-architecture ./src -- level:deep (backward compatible)
+- /acc:audit-architecture ./src
+- /acc:audit-architecture ./src deep
+- /acc:audit-architecture ./src quick
+- /acc:audit-architecture ./src -- focus on CQRS and Event Sourcing
+- /acc:audit-architecture ./src deep -- only structural audit (DDD, Clean, SOLID)
+- /acc:audit-architecture ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -68,7 +68,7 @@ Execute a two-phase audit using specialized agents:
 
 Level is an optional positional parameter. Default: `standard`.
 
-Use the `acc-architecture-auditor` agent (with audit level and progress tracking) to analyze:
+Use the `acc:architecture-auditor` agent (with audit level and progress tracking) to analyze:
 - DDD (Domain-Driven Design)
 - CQRS (Command Query Responsibility Segregation)
 - Clean Architecture
@@ -83,7 +83,7 @@ Use the `acc-architecture-auditor` agent (with audit level and progress tracking
 
 Pass to each agent: `"Audit level: [LEVEL]. Use TaskCreate/TaskUpdate for progress visibility."`
 
-Use the `acc-pattern-auditor` agent to analyze:
+Use the `acc:pattern-auditor` agent to analyze:
 - Stability Patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead)
 - Behavioral Patterns (Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento)
 - GoF Structural Patterns (Adapter, Facade, Proxy, Composite, Bridge, Flyweight)
@@ -96,38 +96,38 @@ Based on detected issues, map problems to solutions:
 
 | Issue Type | Pattern | Generation Skill |
 |------------|---------|------------------|
-| External API failures | Circuit Breaker | `acc-create-circuit-breaker` |
-| Transient errors | Retry | `acc-create-retry-pattern` |
-| API rate limits | Rate Limiter | `acc-create-rate-limiter` |
-| Resource exhaustion | Bulkhead | `acc-create-bulkhead` |
-| Message loss risk | Outbox | `acc-create-outbox-pattern` |
-| Distributed transactions | Saga | `acc-create-saga-pattern` |
-| Primitive obsession | Value Object | `acc-create-value-object` |
-| Anemic entities | Entity | `acc-create-entity` |
-| Missing invariants | Aggregate | `acc-create-aggregate` |
-| Complex creation | Factory | `acc-create-factory` |
-| Complex queries | Specification | `acc-create-specification` |
-| Cross-layer data | DTO | `acc-create-dto` |
-| External systems | Anti-Corruption Layer | `acc-create-anti-corruption-layer` |
-| Algorithm switching | Strategy | `acc-create-strategy` |
-| State transitions | State | `acc-create-state` |
-| Request pipelines | Chain of Responsibility | `acc-create-chain-of-responsibility` |
-| Dynamic behavior | Decorator | `acc-create-decorator` |
-| Null checks | Null Object | `acc-create-null-object` |
-| Algorithm skeleton | Template Method | `acc-create-template-method` |
-| Operations on structure | Visitor | `acc-create-visitor` |
-| Collection traversal | Iterator | `acc-create-iterator` |
-| Undo/redo, snapshots | Memento | `acc-create-memento` |
-| Interface incompatibility | Adapter | `acc-create-adapter` |
-| Complex subsystem access | Facade | `acc-create-facade` |
-| Lazy loading, caching | Proxy | `acc-create-proxy` |
-| Tree structures | Composite | `acc-create-composite` |
-| Class explosion | Bridge | `acc-create-bridge` |
-| Repeated immutable objects | Flyweight | `acc-create-flyweight` |
-| Complex construction | Builder | `acc-create-builder` |
-| Expensive resources | Object Pool | `acc-create-object-pool` |
-| Query optimization | Read Model | `acc-create-read-model` |
-| Authorization rules | Policy | `acc-create-policy` |
+| External API failures | Circuit Breaker | `acc:create-circuit-breaker` |
+| Transient errors | Retry | `acc:create-retry-pattern` |
+| API rate limits | Rate Limiter | `acc:create-rate-limiter` |
+| Resource exhaustion | Bulkhead | `acc:create-bulkhead` |
+| Message loss risk | Outbox | `acc:create-outbox-pattern` |
+| Distributed transactions | Saga | `acc:create-saga-pattern` |
+| Primitive obsession | Value Object | `acc:create-value-object` |
+| Anemic entities | Entity | `acc:create-entity` |
+| Missing invariants | Aggregate | `acc:create-aggregate` |
+| Complex creation | Factory | `acc:create-factory` |
+| Complex queries | Specification | `acc:create-specification` |
+| Cross-layer data | DTO | `acc:create-dto` |
+| External systems | Anti-Corruption Layer | `acc:create-anti-corruption-layer` |
+| Algorithm switching | Strategy | `acc:create-strategy` |
+| State transitions | State | `acc:create-state` |
+| Request pipelines | Chain of Responsibility | `acc:create-chain-of-responsibility` |
+| Dynamic behavior | Decorator | `acc:create-decorator` |
+| Null checks | Null Object | `acc:create-null-object` |
+| Algorithm skeleton | Template Method | `acc:create-template-method` |
+| Operations on structure | Visitor | `acc:create-visitor` |
+| Collection traversal | Iterator | `acc:create-iterator` |
+| Undo/redo, snapshots | Memento | `acc:create-memento` |
+| Interface incompatibility | Adapter | `acc:create-adapter` |
+| Complex subsystem access | Facade | `acc:create-facade` |
+| Lazy loading, caching | Proxy | `acc:create-proxy` |
+| Tree structures | Composite | `acc:create-composite` |
+| Class explosion | Bridge | `acc:create-bridge` |
+| Repeated immutable objects | Flyweight | `acc:create-flyweight` |
+| Complex construction | Builder | `acc:create-builder` |
+| Expensive resources | Object Pool | `acc:create-object-pool` |
+| Query optimization | Read Model | `acc:create-read-model` |
+| Authorization rules | Policy | `acc:create-policy` |
 
 ## Expected Output
 
@@ -162,17 +162,17 @@ Conflicts between architectural patterns.
 #### Resilience Improvements
 | Problem Found | Recommended | Skill to Use |
 |---------------|-------------|--------------|
-| [Specific issue] | Circuit Breaker | Run `/acc-create-circuit-breaker` |
+| [Specific issue] | Circuit Breaker | Run `/acc:create-circuit-breaker` |
 
 #### Integration Improvements
 | Problem Found | Recommended | Skill to Use |
 |---------------|-------------|--------------|
-| [Specific issue] | Outbox Pattern | Run `/acc-create-outbox-pattern` |
+| [Specific issue] | Outbox Pattern | Run `/acc:create-outbox-pattern` |
 
 #### DDD Improvements
 | Problem Found | Recommended | Skill to Use |
 |---------------|-------------|--------------|
-| [Specific issue] | Value Object | Run `/acc-create-value-object` |
+| [Specific issue] | Value Object | Run `/acc:create-value-object` |
 
 ### 7. Prioritized Action Items
 1. **Critical:** [Action with skill reference]
@@ -215,11 +215,11 @@ Level is an optional positional parameter. Default: `standard`.
 ## Usage Examples
 
 ```bash
-/acc-audit-architecture ./src
-/acc-audit-architecture ./src quick
-/acc-audit-architecture ./src deep
-/acc-audit-architecture ./src -- focus on CQRS and Event Sourcing
-/acc-audit-architecture ./src deep -- only structural audit
-/acc-audit-architecture ./src -- level:deep
+/acc:audit-architecture ./src
+/acc:audit-architecture ./src quick
+/acc:audit-architecture ./src deep
+/acc:audit-architecture ./src -- focus on CQRS and Event Sourcing
+/acc:audit-architecture ./src deep -- only structural audit
+/acc:audit-architecture ./src -- level:deep
 ```
 

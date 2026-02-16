@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-layers
+name: optimize-docker-layers
 description: Analyzes and optimizes Docker layer caching for PHP projects. Identifies layer ordering issues, cache invalidation problems, and provides recommendations for faster builds.
 ---
 

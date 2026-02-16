@@ -1,5 +1,5 @@
 ---
-name: acc-create-dockerfile-dev
+name: create-dockerfile-dev
 description: Generates development Dockerfiles for PHP projects. Creates images with Xdebug, hot reload, and development tools.
 ---
 

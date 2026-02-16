@@ -1,5 +1,5 @@
 ---
-name: acc-check-dependency-injection
+name: check-dependency-injection
 description: Analyzes PHP code for dependency injection issues. Detects constructor injection usage, interface dependencies, service locator antipattern, new keyword in business logic.
 ---
 

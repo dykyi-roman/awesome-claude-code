@@ -1,5 +1,5 @@
 ---
-name: acc-bug-regression-preventer
+name: bug-regression-preventer
 description: Regression prevention checklist for bug fixes. Ensures API compatibility, behavior preservation, and no unintended side effects.
 ---
 

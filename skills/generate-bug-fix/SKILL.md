@@ -1,5 +1,5 @@
 ---
-name: acc-generate-bug-fix
+name: generate-bug-fix
 description: Generates minimal, safe bug fixes for PHP 8.4. Provides fix templates for each bug category with DDD/Clean Architecture patterns.
 ---
 

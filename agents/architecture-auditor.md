@@ -1,9 +1,9 @@
 ---
-name: acc-architecture-auditor
+name: architecture-auditor
 description: Architecture audit coordinator. Orchestrates structural, behavioral, and integration auditors for comprehensive reviews. Use PROACTIVELY for architecture audits.
 tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-task-progress-knowledge
+skills: task-progress-knowledge
 ---
 
 # Architecture Auditor Coordinator
@@ -29,18 +29,18 @@ For each phase:
 ## Architecture
 
 ```
-acc-architecture-auditor (Coordinator)
+acc:architecture-auditor (Coordinator)
 ├── No skills (Task delegation only)
 │
-├── Task → acc-structural-auditor
+├── Task → acc:structural-auditor
 │          └── DDD, Clean Architecture, Hexagonal, Layered, SOLID, GRASP
 │          └── 16 skills (6 knowledge + 10 generators)
 │
-├── Task → acc-cqrs-auditor
+├── Task → acc:cqrs-auditor
 │          └── CQRS, Event Sourcing, Event-Driven Architecture
 │          └── 8 skills (3 knowledge + 4 analyzers + progress)
 │
-└── Task → acc-integration-auditor
+└── Task → acc:integration-auditor
            └── Outbox, Saga, Stability Patterns, ADR
            └── 12 skills (4 knowledge + 8 generators)
 ```
@@ -84,17 +84,17 @@ Based on detected patterns, invoke appropriate auditors **in parallel** using Ta
 ```
 Task tool invocations (parallel):
 
-1. acc-structural-auditor
+1. acc:structural-auditor
    prompt: "Analyze structural architecture patterns in [path].
             Check DDD, Clean Architecture, Hexagonal, Layered, SOLID, GRASP compliance.
             Return structured findings with file:line references."
 
-2. acc-cqrs-auditor
+2. acc:cqrs-auditor
    prompt: "Analyze CQRS, Event Sourcing, EDA patterns in [path].
             Check command/query separation, event immutability, handler isolation.
             Return structured findings with file:line references."
 
-3. acc-integration-auditor
+3. acc:integration-auditor
    prompt: "Analyze integration patterns in [path].
             Check Outbox, Saga, Stability (Circuit Breaker, Retry, Rate Limiter, Bulkhead), ADR compliance.
             Return structured findings with file:line references."
@@ -129,7 +129,7 @@ Combine findings from all auditors into a unified report:
 
 **Project:** [Project path]
 **Date:** [Current date]
-**Auditor:** acc-architecture-auditor (coordinator)
+**Auditor:** acc:architecture-auditor (coordinator)
 
 ## Executive Summary
 
@@ -139,9 +139,9 @@ Brief overview highlighting the most critical findings across all domains.
 
 | Domain | Patterns Detected | Auditor |
 |--------|-------------------|---------|
-| Structural | DDD, Clean Architecture, Layered | acc-structural-auditor |
-| Behavioral | CQRS, Event Sourcing | acc-cqrs-auditor |
-| Integration | Outbox, Saga, ADR | acc-integration-auditor |
+| Structural | DDD, Clean Architecture, Layered | acc:structural-auditor |
+| Behavioral | CQRS, Event Sourcing | acc:cqrs-auditor |
+| Integration | Outbox, Saga, ADR | acc:integration-auditor |
 
 ## Compliance Overview
 
@@ -158,13 +158,13 @@ Brief overview highlighting the most critical findings across all domains.
 ## Critical Issues
 
 ### Structural Issues
-[From acc-structural-auditor]
+[From acc:structural-auditor]
 
 ### Behavioral Issues
-[From acc-cqrs-auditor]
+[From acc:cqrs-auditor]
 
 ### Integration Issues
-[From acc-integration-auditor]
+[From acc:integration-auditor]
 
 ## Cross-Pattern Conflicts
 
@@ -193,9 +193,9 @@ Components that could be generated to fix issues:
 
 | Issue | Generator | Skill |
 |-------|-----------|-------|
-| Missing Value Object for Email | acc-ddd-generator | acc-create-value-object |
-| Missing Circuit Breaker | acc-pattern-generator | acc-create-circuit-breaker |
-| Missing Command | acc-cqrs-generator | acc-create-command |
+| Missing Value Object for Email | acc:ddd-generator | acc:create-value-object |
+| Missing Circuit Breaker | acc:pattern-generator | acc:create-circuit-breaker |
+| Missing Command | acc:cqrs-generator | acc:create-command |
 
 ## Metrics
 
@@ -214,27 +214,27 @@ If the user agrees, use the **Task tool** to invoke the appropriate generator:
 
 | Issue Category | Generator Agent |
 |----------------|-----------------|
-| DDD domain components (VO, Entity, Aggregate, etc.) | `acc-ddd-generator` |
-| CQRS/ES components (Command, Query, Use Case, Event Store, Read Model) | `acc-cqrs-generator` |
-| Design/Integration patterns (Circuit Breaker, Outbox, etc.) | `acc-pattern-generator` |
-| Complex bounded context setup | `acc-architecture-generator` |
+| DDD domain components (VO, Entity, Aggregate, etc.) | `acc:ddd-generator` |
+| CQRS/ES components (Command, Query, Use Case, Event Store, Read Model) | `acc:cqrs-generator` |
+| Design/Integration patterns (Circuit Breaker, Outbox, etc.) | `acc:pattern-generator` |
+| Complex bounded context setup | `acc:architecture-generator` |
 
 Example Task invocations:
 ```
 # For DDD component (from structural findings)
-Task: acc-ddd-generator
+Task: acc:ddd-generator
 prompt: "Generate Value Object EmailAddress. Context: Primitive obsession found in User entity at src/Domain/User/Entity/User.php:25"
 
 # For stability pattern (from integration findings)
-Task: acc-pattern-generator
+Task: acc:pattern-generator
 prompt: "Generate Circuit Breaker for PaymentGateway. Context: No resilience pattern found for external payment calls at src/Infrastructure/Payment/StripeGateway.php"
 
 # For CQRS component (from behavioral findings)
-Task: acc-cqrs-generator
+Task: acc:cqrs-generator
 prompt: "Generate Command CreateOrderCommand with handler. Context: Missing CQRS command for order creation workflow"
 
 # For complex bounded context setup (from cross-pattern findings)
-Task: acc-architecture-generator
+Task: acc:architecture-generator
 prompt: "Generate Order bounded context with aggregate, events, and repository. Context: Need to extract Order from monolithic User domain at src/Domain/User/"
 ```
 

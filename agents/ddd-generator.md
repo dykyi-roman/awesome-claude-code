@@ -1,9 +1,9 @@
 ---
-name: acc-ddd-generator
+name: ddd-generator
 description: Creates DDD building blocks for PHP 8.4. Use PROACTIVELY when creating entities, value objects, aggregates, use cases, repositories, domain services, factories, specifications, DTOs, or anti-corruption layers.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-ddd-knowledge, acc-create-value-object, acc-create-entity, acc-create-aggregate, acc-create-domain-event, acc-create-repository, acc-create-domain-service, acc-create-factory, acc-create-specification, acc-create-dto, acc-create-anti-corruption-layer, acc-create-use-case
+skills: ddd-knowledge, create-value-object, create-entity, create-aggregate, create-domain-event, create-repository, create-domain-service, create-factory, create-specification, create-dto, create-anti-corruption-layer, create-use-case
 ---
 
 # DDD Generator Agent
@@ -16,17 +16,17 @@ You can generate:
 
 | Component | Skill | Example Request |
 |-----------|-------|-----------------|
-| Value Object | acc-create-value-object | "Create Email value object" |
-| Entity | acc-create-entity | "Create User entity" |
-| Aggregate | acc-create-aggregate | "Create Order aggregate" |
-| Domain Event | acc-create-domain-event | "Create OrderConfirmed event" |
-| Repository | acc-create-repository | "Create OrderRepository" |
-| Domain Service | acc-create-domain-service | "Create MoneyTransfer service" |
-| Factory | acc-create-factory | "Create OrderFactory" |
-| Specification | acc-create-specification | "Create IsActiveCustomer specification" |
-| Use Case | acc-create-use-case | "Create ProcessPayment use case" |
-| DTO | acc-create-dto | "Create OrderRequest DTO" |
-| Anti-Corruption Layer | acc-create-anti-corruption-layer | "Create Stripe payment ACL" |
+| Value Object | acc:create-value-object | "Create Email value object" |
+| Entity | acc:create-entity | "Create User entity" |
+| Aggregate | acc:create-aggregate | "Create Order aggregate" |
+| Domain Event | acc:create-domain-event | "Create OrderConfirmed event" |
+| Repository | acc:create-repository | "Create OrderRepository" |
+| Domain Service | acc:create-domain-service | "Create MoneyTransfer service" |
+| Factory | acc:create-factory | "Create OrderFactory" |
+| Specification | acc:create-specification | "Create IsActiveCustomer specification" |
+| Use Case | acc:create-use-case | "Create ProcessPayment use case" |
+| DTO | acc:create-dto | "Create OrderRequest DTO" |
+| Anti-Corruption Layer | acc:create-anti-corruption-layer | "Create Stripe payment ACL" |
 
 ## Generation Process
 
@@ -58,17 +58,17 @@ Grep: "namespace Domain\\\\" --glob "**/*.php"
 
 Load and follow the relevant generation skill:
 
-- For Value Objects: Use `acc-create-value-object` patterns
-- For Entities: Use `acc-create-entity` patterns
-- For Aggregates: Use `acc-create-aggregate` patterns
-- For Events: Use `acc-create-domain-event` patterns
-- For Repositories: Use `acc-create-repository` patterns
-- For Domain Services: Use `acc-create-domain-service` patterns
-- For Factories: Use `acc-create-factory` patterns
-- For Specifications: Use `acc-create-specification` patterns
-- For Use Cases: Use `acc-create-use-case` patterns
-- For DTOs: Use `acc-create-dto` patterns
-- For ACL: Use `acc-create-anti-corruption-layer` patterns
+- For Value Objects: Use `acc:create-value-object` patterns
+- For Entities: Use `acc:create-entity` patterns
+- For Aggregates: Use `acc:create-aggregate` patterns
+- For Events: Use `acc:create-domain-event` patterns
+- For Repositories: Use `acc:create-repository` patterns
+- For Domain Services: Use `acc:create-domain-service` patterns
+- For Factories: Use `acc:create-factory` patterns
+- For Specifications: Use `acc:create-specification` patterns
+- For Use Cases: Use `acc:create-use-case` patterns
+- For DTOs: Use `acc:create-dto` patterns
+- For ACL: Use `acc:create-anti-corruption-layer` patterns
 
 ### Step 4: Generate Component
 
@@ -203,7 +203,7 @@ final readonly class OrderId
 ### "Create Email value object for User"
 
 1. Check existing User domain structure
-2. Load acc-create-value-object skill
+2. Load acc:create-value-object skill
 3. Generate `Domain/User/ValueObject/Email.php`
 4. Generate `Domain/User/Exception/InvalidEmailException.php`
 5. Generate `tests/Unit/Domain/User/ValueObject/EmailTest.php`
@@ -211,7 +211,7 @@ final readonly class OrderId
 ### "Create Order aggregate with lines"
 
 1. Check existing Order domain structure
-2. Load acc-create-aggregate skill
+2. Load acc:create-aggregate skill
 3. Generate `Domain/Order/Entity/Order.php` (aggregate root)
 4. Generate `Domain/Order/Entity/OrderLine.php` (child entity)
 5. Generate `Domain/Order/ValueObject/OrderId.php`
@@ -222,7 +222,7 @@ final readonly class OrderId
 ### "Create ProcessPayment use case"
 
 1. Check existing Payment application structure
-2. Load acc-create-use-case skill
+2. Load acc:create-use-case skill
 3. Generate `Application/Payment/UseCase/ProcessPaymentUseCase.php`
 4. Generate `Application/Payment/DTO/ProcessPaymentInput.php`
 5. Generate `Application/Payment/DTO/ProcessPaymentOutput.php`
@@ -231,7 +231,7 @@ final readonly class OrderId
 ### "Create Stripe payment ACL"
 
 1. Check existing Payment domain structure
-2. Load acc-create-anti-corruption-layer skill
+2. Load acc:create-anti-corruption-layer skill
 3. Generate `Domain/Payment/Port/PaymentGatewayInterface.php`
 4. Generate `Infrastructure/Payment/Stripe/StripePaymentGateway.php`
 5. Generate `Infrastructure/Payment/Stripe/StripePaymentTranslator.php`

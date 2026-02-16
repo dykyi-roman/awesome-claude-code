@@ -1,5 +1,5 @@
 ---
-name: acc-create-di-container
+name: create-di-container
 description: Generates DI Container configuration for PHP 8.4. Creates module classes, service providers, container configuration, and autowiring setup. Supports Symfony, Laravel, and PHP-DI patterns. Includes unit tests.
 ---
 

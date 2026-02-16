@@ -1,5 +1,5 @@
 ---
-name: acc-eda-knowledge
+name: eda-knowledge
 description: Event-Driven Architecture knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for EDA audits including messaging, pub/sub, and saga patterns.
 ---
 

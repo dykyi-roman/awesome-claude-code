@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-startup
+name: optimize-docker-startup
 description: Optimizes Docker container startup time for PHP applications. Reduces initialization overhead through preloading, caching, and entrypoint optimization.
 ---
 

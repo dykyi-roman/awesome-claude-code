@@ -1,5 +1,5 @@
 ---
-name: acc-check-fallback-strategy
+name: check-fallback-strategy
 description: Audits fallback and graceful degradation strategies. Checks cache fallback, feature flags, default values, circuit breaker fallbacks, and degraded mode implementations.
 ---
 

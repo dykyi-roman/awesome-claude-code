@@ -1,5 +1,5 @@
 ---
-name: acc-detect-code-smells
+name: detect-code-smells
 description: Detects code smells in PHP codebases. Identifies God Class, Feature Envy, Data Clumps, Long Parameter List, Long Method, Primitive Obsession, Message Chains, Inappropriate Intimacy. Generates actionable reports with refactoring recommendations.
 ---
 
@@ -214,7 +214,7 @@ Grep: "->getInternalState|->getRawData|->getFields" --glob "**/*.php"
   - Extract `OrderValidator` (validation logic)
   - Extract `OrderNotifier` (notification logic)
   - Extract `OrderPriceCalculator` (pricing logic)
-- **Skills:** `acc-create-use-case`, `acc-create-domain-service`
+- **Skills:** `create-use-case`, `create-domain-service`
 
 ### SMELL-002: Long Parameter List
 - **File:** `src/Domain/Order/Order.php:45`
@@ -222,7 +222,7 @@ Grep: "->getInternalState|->getRawData|->getFields" --glob "**/*.php"
 - **Parameters:** 9
 - **Issue:** Too many parameters, hard to maintain
 - **Refactoring:** Introduce Parameter Object
-- **Skills:** `acc-create-dto`, `acc-create-builder`
+- **Skills:** `create-dto`, `create-builder`
 
 ## Warning Issues
 
@@ -233,21 +233,21 @@ Grep: "->getInternalState|->getRawData|->getFields" --glob "**/*.php"
   - `src/Application/DTO/CreateOrderDTO.php:8` — $street, $city, $zipCode
 - **Issue:** Address fields repeated across 3 classes
 - **Refactoring:** Extract Address Value Object
-- **Skills:** `acc-create-value-object`
+- **Skills:** `create-value-object`
 
 ### SMELL-004: Feature Envy
 - **File:** `src/Service/ReportGenerator.php:89`
 - **Method:** `generateUserReport()`
 - **Issue:** Method makes 15 calls to User object, only 2 to own class
 - **Refactoring:** Move method to User or create UserReportBuilder
-- **Skills:** `acc-create-domain-service`
+- **Skills:** `create-domain-service`
 
 ### SMELL-005: Primitive Obsession
 - **File:** `src/Domain/User/User.php:12`
 - **Field:** `private string $email`
 - **Issue:** Email should be Value Object for validation
 - **Refactoring:** Create Email Value Object
-- **Skills:** `acc-create-value-object`
+- **Skills:** `create-value-object`
 
 ### SMELL-006: Message Chain
 - **File:** `src/Application/Handler/CreateOrderHandler.php:34`
@@ -276,12 +276,12 @@ Grep: "->getInternalState|->getRawData|->getFields" --glob "**/*.php"
 
 | Smell | Recommended Skill | Approach |
 |-------|-------------------|----------|
-| God Class | `acc-create-use-case`, `acc-create-domain-service` | Extract focused classes |
-| Feature Envy | `acc-create-domain-service` | Move method to data owner |
-| Data Clumps | `acc-create-value-object` | Extract Value Object |
-| Long Parameter List | `acc-create-dto`, `acc-create-builder` | Introduce Parameter Object |
-| Long Method | `acc-create-use-case` | Extract methods |
-| Primitive Obsession | `acc-create-value-object` | Replace with Value Object |
+| God Class | `create-use-case`, `create-domain-service` | Extract focused classes |
+| Feature Envy | `create-domain-service` | Move method to data owner |
+| Data Clumps | `create-value-object` | Extract Value Object |
+| Long Parameter List | `create-dto`, `create-builder` | Introduce Parameter Object |
+| Long Method | `create-use-case` | Extract methods |
+| Primitive Obsession | `create-value-object` | Replace with Value Object |
 | Message Chains | (refactoring) | Hide delegate, extract method |
 | Inappropriate Intimacy | (refactoring) | Move method, extract class |
 
@@ -304,9 +304,9 @@ grep -rn "=== '[a-z]*'\|== '[a-z]*'" --include="*.php" src/
 ## Integration with Other Skills
 
 This skill works alongside:
-- `acc-analyze-solid-violations` — SOLID violations overlap with some smells
-- `acc-structural-auditor` — architectural context for smells
-- `acc-ddd-auditor` — domain model quality assessment
+- `analyze-solid-violations` — SOLID violations overlap with some smells
+- `structural-auditor` — architectural context for smells
+- `ddd-auditor` — domain model quality assessment
 
 ## References
 

@@ -1,5 +1,5 @@
 ---
-name: acc-changelog-template
+name: changelog-template
 description: Generates CHANGELOG.md files following Keep a Changelog format. Creates version history documentation.
 ---
 

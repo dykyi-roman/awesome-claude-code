@@ -1,5 +1,5 @@
 ---
-name: acc-stability-patterns-knowledge
+name: stability-patterns-knowledge
 description: Stability Patterns knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Circuit Breaker, Retry, Rate Limiter, Bulkhead, and resilience audits.
 ---
 

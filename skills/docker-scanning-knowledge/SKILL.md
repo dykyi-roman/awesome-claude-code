@@ -1,5 +1,5 @@
 ---
-name: acc-docker-scanning-knowledge
+name: docker-scanning-knowledge
 description: Docker image scanning knowledge base. Provides vulnerability detection, compliance checking, and SBOM generation for PHP container images.
 ---
 

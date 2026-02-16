@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-test-coverage
+name: analyze-test-coverage
 description: Analyzes PHP codebase for test coverage gaps. Detects untested classes, methods, branches, exception paths, and edge cases. Provides actionable recommendations.
 ---
 
@@ -234,9 +234,9 @@ For each conditional:
 
 | Gap | Skill | Action |
 |-----|-------|--------|
-| Missing unit test | `acc-create-unit-test` | Generate test class |
-| Missing integration test | `acc-create-integration-test` | Generate DB test |
-| Need test data | `acc-create-test-builder` | Generate builder |
+| Missing unit test | `create-unit-test` | Generate test class |
+| Missing integration test | `create-integration-test` | Generate DB test |
+| Need test data | `create-test-builder` | Generate builder |
 ```
 
 ## Severity Levels
@@ -252,7 +252,7 @@ For each conditional:
 
 After analysis, recommend using:
 
-- `acc-create-unit-test` — for missing unit tests
-- `acc-create-integration-test` — for missing integration tests
-- `acc-create-test-builder` — for complex test data
-- `acc-create-mock-repository` — for repository tests
+- `create-unit-test` — for missing unit tests
+- `create-integration-test` — for missing integration tests
+- `create-test-builder` — for complex test data
+- `create-mock-repository` — for repository tests

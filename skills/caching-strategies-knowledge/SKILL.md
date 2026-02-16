@@ -1,11 +1,11 @@
 ---
-name: acc-caching-strategies-knowledge
+name: caching-strategies-knowledge
 description: Caching Strategies knowledge base. Provides caching patterns (Cache-Aside, Read-Through, Write-Through, Write-Behind), invalidation approaches, multi-level caching, and Redis data structures for caching audits and generation.
 ---
 
 # Caching Strategies Knowledge Base
 
-Quick reference for caching patterns, invalidation strategies, and Redis implementation guidelines. Focuses on caching theory and Redis patterns — for Cache-Aside code generation, see `acc-create-cache-aside`.
+Quick reference for caching patterns, invalidation strategies, and Redis implementation guidelines. Focuses on caching theory and Redis patterns — for Cache-Aside code generation, see `create-cache-aside`.
 
 ## Caching Strategies
 

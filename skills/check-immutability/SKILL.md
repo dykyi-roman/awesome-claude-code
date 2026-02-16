@@ -1,5 +1,5 @@
 ---
-name: acc-check-immutability
+name: check-immutability
 description: Analyzes PHP code for immutability violations. Checks Value Objects, Events, DTOs for readonly properties, no setters, final classes, and wither patterns. Ensures domain objects maintain invariants.
 ---
 
@@ -229,7 +229,7 @@ Grep: "DateTimeImmutable" --glob "**/Domain/**/*.php"
       return new self($amount, $this->currency);
   }
   ```
-- **Skills:** `acc-create-value-object`
+- **Skills:** `create-value-object`
 
 ### IMM-002: Non-readonly Event
 - **File:** `src/Domain/Order/Event/OrderCreatedEvent.php`
@@ -247,7 +247,7 @@ Grep: "DateTimeImmutable" --glob "**/Domain/**/*.php"
       public function __construct(
           public string $orderId,
   ```
-- **Skills:** `acc-create-domain-event`
+- **Skills:** `create-domain-event`
 
 ### IMM-003: DateTime Instead of DateTimeImmutable
 - **File:** `src/Domain/User/Entity/User.php:45`
@@ -407,11 +407,11 @@ grep -rn "\$this->[a-z]*\[\]" --include="*.php" src/Domain/*/ValueObject/
 ## Integration
 
 Works with:
-- `acc-create-value-object` — Generate immutable VOs
-- `acc-create-domain-event` — Generate immutable events
-- `acc-create-dto` — Generate immutable DTOs
-- `acc-structural-auditor` — Architectural compliance
-- `acc-behavioral-auditor` — Event Sourcing compliance
+- `create-value-object` — Generate immutable VOs
+- `create-domain-event` — Generate immutable events
+- `create-dto` — Generate immutable DTOs
+- `structural-auditor` — Architectural compliance
+- `behavioral-auditor` — Event Sourcing compliance
 
 ## References
 

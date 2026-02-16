@@ -1,5 +1,5 @@
 ---
-name: acc-estimate-pipeline-time
+name: estimate-pipeline-time
 description: Estimates and optimizes CI/CD pipeline execution time. Analyzes job dependencies, identifies bottlenecks, and suggests parallelization strategies.
 ---
 

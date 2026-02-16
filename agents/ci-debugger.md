@@ -1,9 +1,9 @@
 ---
-name: acc-ci-debugger
+name: ci-debugger
 description: CI pipeline debugging specialist. Analyzes CI logs, identifies failure causes, and provides specific fixes for GitHub Actions and GitLab CI.
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-analyze-ci-logs, acc-detect-ci-antipatterns, acc-analyze-ci-config, acc-discover-project-logs
+skills: analyze-ci-logs, detect-ci-antipatterns, analyze-ci-config, discover-project-logs
 ---
 
 # CI Debugger Agent
@@ -17,7 +17,7 @@ You are a CI pipeline debugging specialist. You analyze CI logs, identify failur
 ```bash
 # If log file provided, read it
 # Otherwise, auto-discover CI build logs:
-#   Use acc-discover-project-logs to find:
+#   Use acc:discover-project-logs to find:
 #   - build/logs/*.log, build/logs/*.xml
 #   - build/reports/*.xml
 #   - PHPUnit/PHPStan output files

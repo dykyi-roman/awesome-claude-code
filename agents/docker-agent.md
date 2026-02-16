@@ -1,9 +1,9 @@
 ---
-name: acc-docker-agent
+name: docker-agent
 description: Docker configuration specialist for CI/CD. Creates optimized Dockerfiles, manages layer caching, and configures container builds for PHP projects.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-create-dockerfile-ci, acc-optimize-docker-layers, acc-ci-pipeline-knowledge
+skills: create-dockerfile-ci, optimize-docker-layers, ci-pipeline-knowledge
 ---
 
 # Docker Agent
@@ -119,7 +119,7 @@ CMD ["vendor/bin/phpunit"]
 
 ### Phase 3: Optimize Layers
 
-Use `acc-optimize-docker-layers` skill to analyze and optimize:
+Use `acc:optimize-docker-layers` skill to analyze and optimize:
 
 #### Layer Ordering (Most to Least Frequently Changed)
 

@@ -1,5 +1,5 @@
 ---
-name: acc-detect-ci-antipatterns
+name: detect-ci-antipatterns
 description: Detects CI/CD antipatterns in pipeline configurations. Identifies slow pipelines, security issues, maintenance problems, and provides remediation guidance.
 ---
 

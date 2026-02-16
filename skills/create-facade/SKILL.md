@@ -1,5 +1,5 @@
 ---
-name: acc-create-facade
+name: create-facade
 description: Generates Facade pattern for PHP 8.4. Creates simplified interface to complex subsystems. Includes unit tests.
 ---
 

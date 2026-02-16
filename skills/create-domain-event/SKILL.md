@@ -1,5 +1,5 @@
 ---
-name: acc-create-domain-event
+name: create-domain-event
 description: Generates DDD Domain Events for PHP 8.4. Creates immutable event records with metadata, past-tense naming. Includes unit tests.
 ---
 

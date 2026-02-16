@@ -1,5 +1,5 @@
 ---
-name: acc-check-logging-failures
+name: check-logging-failures
 description: Detects OWASP A09:2021 Security Logging and Monitoring Failures. Identifies log injection, PII in logs, missing audit trails, insufficient error context, and blind spots.
 ---
 

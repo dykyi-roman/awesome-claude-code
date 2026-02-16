@@ -1,5 +1,5 @@
 ---
-name: acc-check-encapsulation
+name: check-encapsulation
 description: Analyzes PHP code for encapsulation violations. Detects public mutable state, exposed internals, Tell Don't Ask violations, getter/setter abuse, and information hiding breaches.
 ---
 
@@ -116,10 +116,10 @@ This skill analyzes PHP codebases for encapsulation violations — situations wh
 ## Integration
 
 Works with:
-- `acc-detect-code-smells` — Feature Envy, Anemic Model
-- `acc-structural-auditor` — DDD compliance
-- `acc-create-entity` — Generate rich entities
-- `acc-create-value-object` — Encapsulated value types
+- `detect-code-smells` — Feature Envy, Anemic Model
+- `structural-auditor` — DDD compliance
+- `create-entity` — Generate rich entities
+- `create-value-object` — Encapsulated value types
 
 ## References
 

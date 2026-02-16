@@ -1,5 +1,5 @@
 ---
-name: acc-create-github-actions
+name: create-github-actions
 description: Generates GitHub Actions workflows for PHP projects. Creates CI/CD pipelines with PHPStan, PHPUnit, code coverage, Docker builds, and deployment stages.
 ---
 

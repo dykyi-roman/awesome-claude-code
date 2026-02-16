@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-nginx-config
+name: create-docker-nginx-config
 description: Generates Nginx configuration for PHP-FPM Docker containers. Creates optimized reverse proxy configs with gzip, security headers, and caching.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-docker-compose-knowledge
+name: docker-compose-knowledge
 description: Docker Compose knowledge base for PHP stacks. Provides service configuration patterns, health checks, networking, and environment management.
 ---
 
@@ -422,4 +422,4 @@ php:
 ## References
 
 For complete service configurations, see `references/service-configs.md`.
-For networking details, see `acc-docker-networking-knowledge`.
+For networking details, see `docker-networking-knowledge`.

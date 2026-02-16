@@ -17,11 +17,11 @@ Parse `$ARGUMENTS` to extract tag name and optional meta-instructions:
 Format: [tag-name] [-- <meta-instructions>]
 
 Examples:
-- /acc-commit
-- /acc-commit v2.5.0
-- /acc-commit -- focus on security changes
-- /acc-commit v2.5.0 -- mention breaking changes
-- /acc-commit -- use Russian for commit message
+- /acc:commit
+- /acc:commit v2.5.0
+- /acc:commit -- focus on security changes
+- /acc:commit v2.5.0 -- mention breaking changes
+- /acc:commit -- use Russian for commit message
 ```
 
 **Parsing rules:**

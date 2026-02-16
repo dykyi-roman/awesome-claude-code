@@ -320,7 +320,7 @@ GET /orders/123?version=2
 4. **Version lifecycle** — support N and N-1 versions minimum
 5. **Consumer-driven contracts** — test with Pact or similar tools
 
-Cross-reference: `acc-create-api-versioning` skill for code generation.
+Cross-reference: `create-api-versioning` skill for code generation.
 
 ## PHP PSR-7 Response Building
 

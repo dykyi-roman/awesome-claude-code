@@ -1,5 +1,5 @@
 ---
-name: acc-ci-tools-knowledge
+name: ci-tools-knowledge
 description: PHP CI tools knowledge base. Provides PHPStan levels and configuration, Psalm integration, PHP-CS-Fixer rules, DEPTRAC layer analysis, Rector automated refactoring, and code coverage tools.
 ---
 

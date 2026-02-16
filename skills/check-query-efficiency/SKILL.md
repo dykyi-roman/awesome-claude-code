@@ -1,5 +1,5 @@
 ---
-name: acc-check-query-efficiency
+name: check-query-efficiency
 description: Analyzes PHP code for query efficiency issues. Detects SELECT *, missing indexes hints, unnecessary joins, full table scans, suboptimal WHERE clauses.
 ---
 

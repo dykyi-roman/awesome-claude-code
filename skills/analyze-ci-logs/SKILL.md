@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-ci-logs
+name: analyze-ci-logs
 description: Analyzes CI/CD pipeline logs to identify failure causes. Parses error messages, detects common failure patterns, and provides fix recommendations.
 ---
 

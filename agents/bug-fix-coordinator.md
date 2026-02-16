@@ -1,9 +1,9 @@
 ---
-name: acc-bug-fix-coordinator
-description: Coordinates bug diagnosis, fix generation, and test creation. Orchestrates acc-bug-hunter, acc-bug-fixer, and acc-test-generator.
+name: bug-fix-coordinator
+description: Coordinates bug diagnosis, fix generation, and test creation. Orchestrates acc:bug-hunter, acc:bug-fixer, and acc:test-generator.
 tools: Task, Read, Grep, Glob, Bash, TaskCreate, TaskUpdate
 model: opus
-skills: acc-task-progress-knowledge
+skills: task-progress-knowledge
 ---
 
 # Bug Fix Coordinator Agent
@@ -67,9 +67,9 @@ Stack trace:
    - If stack trace provided, read files from trace
    - If description only, search codebase for related code
 
-### Phase 2: Diagnose (Task → acc-bug-hunter)
+### Phase 2: Diagnose (Task → acc:bug-hunter)
 
-Invoke acc-bug-hunter to diagnose the bug:
+Invoke acc:bug-hunter to diagnose the bug:
 
 ```
 Task: Diagnose the bug in the following code
@@ -83,20 +83,20 @@ Provide:
 4. Recommendations
 ```
 
-**Expected output from acc-bug-hunter:**
+**Expected output from acc:bug-hunter:**
 - Bug category (logic/null/boundary/race/resource/exception/type/sql/infinite)
 - Severity (Critical/Major/Minor)
 - Location (file:line)
 - Description
 - Recommendations
 
-### Phase 3: Fix (Task → acc-bug-fixer)
+### Phase 3: Fix (Task → acc:bug-fixer)
 
-Pass diagnosis to acc-bug-fixer:
+Pass diagnosis to acc:bug-fixer:
 
 ```
 Task: Generate a minimal, safe fix for this bug
-Diagnosis: [output from acc-bug-hunter]
+Diagnosis: [output from acc:bug-hunter]
 Context: [relevant code]
 
 Requirements:
@@ -106,14 +106,14 @@ Requirements:
 4. DDD compliant
 ```
 
-**Expected output from acc-bug-fixer:**
+**Expected output from acc:bug-fixer:**
 - Root cause analysis
 - Impact analysis
 - Proposed code fix
 - Quality check results
 - Test requirements
 
-### Phase 4: Generate Test (Task → acc-test-generator)
+### Phase 4: Generate Test (Task → acc:test-generator)
 
 Request regression test:
 
@@ -129,7 +129,7 @@ Requirements:
 3. Cover edge cases
 ```
 
-**Expected output from acc-test-generator:**
+**Expected output from acc:test-generator:**
 - Unit test code
 - Test should reproduce the bug
 - Test verifies the fix
@@ -163,11 +163,11 @@ Requirements:
 | Location | [file:line] |
 | Status | Fixed ✓ / Failed ✗ |
 
-## Diagnosis (from acc-bug-hunter)
+## Diagnosis (from acc:bug-hunter)
 [diagnosis summary]
 
 ## Root Cause
-[root cause from acc-bug-fixer]
+[root cause from acc:bug-fixer]
 
 ## Fix Applied
 **File:** `path/to/file.php`
@@ -224,20 +224,20 @@ The user can pass meta-instructions after `--`:
 
 ## Integration with Existing Agents
 
-### acc-bug-hunter (Diagnosis)
+### acc:bug-hunter (Diagnosis)
 - 9 specialized detection skills
 - Categorizes bug type
 - Provides severity assessment
 - Returns structured diagnosis
 
-### acc-bug-fixer (Fix Generation)
+### acc:bug-fixer (Fix Generation)
 - 5 new skills + 6 quality skills
 - Finds root cause
 - Analyzes impact
 - Generates minimal fix
 - Prevents regressions
 
-### acc-test-generator (Testing)
+### acc:test-generator (Testing)
 - 6 testing skills
 - Creates reproduction test
 - Generates proper test structure
@@ -262,7 +262,7 @@ When working with DDD codebases:
 ## Quick Reference
 
 ```
-/acc-bug-fix <input> [-- options]
+/acc:bug-fix <input> [-- options]
 
 Inputs:
   "description"           Text description of the bug

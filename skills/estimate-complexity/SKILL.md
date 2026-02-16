@@ -1,5 +1,5 @@
 ---
-name: acc-estimate-complexity
+name: estimate-complexity
 description: Estimates algorithm complexity in PHP code. Analyzes time and space complexity, detects O(n²) algorithms, exponential growth patterns, inefficient data structures.
 ---
 

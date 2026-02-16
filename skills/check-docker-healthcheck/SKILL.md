@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-healthcheck
+name: check-docker-healthcheck
 description: Checks Docker health check configuration for PHP services. Verifies PHP-FPM, Nginx, and dependent service health checks.
 ---
 

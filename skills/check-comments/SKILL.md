@@ -1,5 +1,5 @@
 ---
-name: acc-check-comments
+name: check-comments
 description: Analyzes PHP code for comment quality issues. Detects missing PHPDoc, outdated comments, commented-out code, opportunities for self-documenting code.
 ---
 

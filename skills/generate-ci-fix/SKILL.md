@@ -1,5 +1,5 @@
 ---
-name: acc-generate-ci-fix
+name: generate-ci-fix
 description: Generates minimal, safe fixes for CI configuration issues. Provides fix templates for dependency, test, lint, infrastructure, Docker, and timeout failures.
 ---
 

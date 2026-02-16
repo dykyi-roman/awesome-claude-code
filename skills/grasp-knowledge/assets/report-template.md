@@ -53,7 +53,7 @@ foreach ($order->getLines() as $line) {
 ```
 
 **Recommendation:**
-Move summary generation to Order class. Use skill: `acc-create-entity`
+Move summary generation to Order class. Use skill: `create-entity`
 
 ---
 
@@ -70,7 +70,7 @@ Move summary generation to Order class. Use skill: `acc-create-entity`
 Controller contains business logic, validation, persistence, and side effects.
 
 **Recommendation:**
-Extract to use case handler. Use skill: `acc-create-use-case`
+Extract to use case handler. Use skill: `create-use-case`
 
 ---
 
@@ -113,7 +113,7 @@ match ($payment->type) {
 ```
 
 **Recommendation:**
-Apply Strategy pattern. Use skill: `acc-create-strategy`
+Apply Strategy pattern. Use skill: `create-strategy`
 
 ---
 
@@ -134,7 +134,7 @@ $twilio = new \Twilio\Rest\Client($sid, $token);
 ```
 
 **Recommendation:**
-Create adapter interface. Use skill: `acc-create-anti-corruption-layer`
+Create adapter interface. Use skill: `create-anti-corruption-layer`
 
 ---
 
@@ -191,12 +191,12 @@ Entity approaching size limit. Monitor for cohesion degradation.
 
 | Violation Type | Recommended Skill |
 |----------------|-------------------|
-| Feature Envy | `acc-create-entity`, `acc-create-value-object` |
-| Fat Controller | `acc-create-use-case`, `acc-create-command` |
-| Type Switch | `acc-create-strategy` |
-| Missing Indirection | `acc-create-anti-corruption-layer` |
-| Low Cohesion | `acc-create-domain-service` |
-| Object Creation | `acc-create-factory` |
+| Feature Envy | `create-entity`, `create-value-object` |
+| Fat Controller | `create-use-case`, `create-command` |
+| Type Switch | `create-strategy` |
+| Missing Indirection | `create-anti-corruption-layer` |
+| Low Cohesion | `create-domain-service` |
+| Object Creation | `create-factory` |
 
 ---
 

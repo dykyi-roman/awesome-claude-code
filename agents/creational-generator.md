@@ -1,9 +1,9 @@
 ---
-name: acc-creational-generator
-description: Creational patterns generator. Creates Builder, Object Pool, and Factory components for PHP 8.4. Called by acc-pattern-generator coordinator.
+name: creational-generator
+description: Creational patterns generator. Creates Builder, Object Pool, and Factory components for PHP 8.4. Called by acc:pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: opus
-skills: acc-create-builder, acc-create-object-pool, acc-create-factory, acc-create-di-container, acc-create-mediator
+skills: create-builder, create-object-pool, create-factory, create-di-container, create-mediator
 ---
 
 # Creational Patterns Generator

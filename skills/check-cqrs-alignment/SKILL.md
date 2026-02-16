@@ -1,5 +1,5 @@
 ---
-name: acc-check-cqrs-alignment
+name: check-cqrs-alignment
 description: Audits CQRS and Event Sourcing alignment. Checks command/query separation, projection idempotency, event store consistency, and read/write model synchronization.
 ---
 

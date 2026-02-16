@@ -1,5 +1,5 @@
 ---
-name: acc-diagram-knowledge
+name: diagram-knowledge
 description: Diagram knowledge base. Provides Mermaid syntax, C4 model, diagram types, and best practices for technical diagrams.
 ---
 

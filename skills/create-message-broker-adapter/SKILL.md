@@ -1,5 +1,5 @@
 ---
-name: acc-create-message-broker-adapter
+name: create-message-broker-adapter
 description: Generates Message Broker Adapter components for PHP 8.4. Creates unified broker interface with RabbitMQ, Kafka, SQS adapters, message serialization, and unit tests.
 ---
 

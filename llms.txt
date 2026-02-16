@@ -1,6 +1,6 @@
 # Awesome Claude Code
 
-> Claude Code extension for PHP with DDD, CQRS, Clean Architecture generators, and documentation tools.
+> Claude Code marketplace plugin for PHP with DDD, CQRS, Clean Architecture generators, and documentation tools.
 
 ## Quick Facts
 
@@ -13,50 +13,49 @@
 ## Installation
 
 ```bash
-composer require dykyi-roman/awesome-claude-code
+/plugin marketplace add dykyi-roman/awesome-claude-code
+/plugin install acc@awesome-claude-code
 ```
-
-Components auto-copy to `.claude/` directory.
 
 ## Key Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/acc-audit-architecture <path>` | Multi-pattern architecture audit |
-| `/acc-audit-ddd <path>` | DDD compliance analysis |
-| `/acc-audit-psr <path>` | PSR compliance audit |
-| `/acc-audit-documentation <path>` | Audit documentation quality |
-| `/acc-audit-claude-components` | Audit .claude folder structure |
-| `/acc-generate-documentation <path>` | Generate documentation |
-| `/acc-generate-claude-component` | Create commands/agents/skills |
-| `/acc-commit` | Auto-generate commit message |
-| `/acc-generate-test <path>` | Generate tests for file/folder |
-| `/acc-audit-test <path>` | Audit test quality |
-| `/acc-code-review [branch] [level]` | Multi-level code review |
-| `/acc-bug-fix <target>` | Automated bug diagnosis and fix |
-| `/acc-explain <path> [mode]` | Explain code: structure, logic, data flows |
+| `/acc:audit-architecture <path>` | Multi-pattern architecture audit |
+| `/acc:audit-ddd <path>` | DDD compliance analysis |
+| `/acc:audit-psr <path>` | PSR compliance audit |
+| `/acc:audit-documentation <path>` | Audit documentation quality |
+| `/acc:audit-claude-components` | Audit .claude folder structure |
+| `/acc:generate-documentation <path>` | Generate documentation |
+| `/acc:generate-claude-component` | Create commands/agents/skills |
+| `/acc:commit` | Auto-generate commit message |
+| `/acc:generate-test <path>` | Generate tests for file/folder |
+| `/acc:audit-test <path>` | Audit test quality |
+| `/acc:code-review [branch] [level]` | Multi-level code review |
+| `/acc:bug-fix <target>` | Automated bug diagnosis and fix |
+| `/acc:explain <path> [mode]` | Explain code: structure, logic, data flows |
 
 ## Agents
 
 | Agent | Purpose |
 |-------|---------|
-| `acc-architecture-auditor` | Multi-pattern architecture auditor |
-| `acc-ddd-auditor` | DDD compliance auditor |
-| `acc-ddd-generator` | DDD domain layer generator |
-| `acc-cqrs-generator` | CQRS/ES component generator |
-| `acc-pattern-generator` | Design pattern generator |
-| `acc-psr-generator` | PSR implementation generator |
-| `acc-documentation-writer` | Technical documentation writer |
-| `acc-documentation-auditor` | Documentation quality auditor |
-| `acc-diagram-designer` | Mermaid diagram designer |
-| `acc-test-auditor` | Test quality auditor |
-| `acc-test-generator` | Test generator |
-| `acc-bug-fix-coordinator` | Bug diagnosis → fix → test workflow |
-| `acc-bug-fixer` | Safe minimal bug fix generator |
-| `acc-explain-coordinator` | Code explanation (5 modes) |
-| `acc-codebase-navigator` | Structure scanning and pattern detection |
-| `acc-business-logic-analyst` | Business rules and process extraction |
-| `acc-data-flow-analyst` | Request lifecycle and data flow tracing |
+| `architecture-auditor` | Multi-pattern architecture auditor |
+| `ddd-auditor` | DDD compliance auditor |
+| `ddd-generator` | DDD domain layer generator |
+| `cqrs-generator` | CQRS/ES component generator |
+| `pattern-generator` | Design pattern generator |
+| `psr-generator` | PSR implementation generator |
+| `documentation-writer` | Technical documentation writer |
+| `documentation-auditor` | Documentation quality auditor |
+| `diagram-designer` | Mermaid diagram designer |
+| `test-auditor` | Test quality auditor |
+| `test-generator` | Test generator |
+| `bug-fix-coordinator` | Bug diagnosis -> fix -> test workflow |
+| `bug-fixer` | Safe minimal bug fix generator |
+| `explain-coordinator` | Code explanation (5 modes) |
+| `codebase-navigator` | Structure scanning and pattern detection |
+| `business-logic-analyst` | Business rules and process extraction |
+| `data-flow-analyst` | Request lifecycle and data flow tracing |
 
 ## Skills by Category
 
@@ -92,7 +91,7 @@ Components auto-copy to `.claude/` directory.
 - Code Explainer: scan structure, identify entry points, detect architecture, resolve entry point, extract business rules, explain process, extract domain concepts, extract state machine, trace lifecycle, trace transformation, map async flows
 - Log Analysis: discover project logs, analyze PHP logs (PSR-3/Monolog, Laravel, Symfony, error_log, FPM slow log)
 
-### Generators (92)
+### Generators (93)
 - DDD: Value Objects, Entities, Aggregates, Domain Events, Repositories, Domain Services, Factories, Specifications, DTOs, Anti-Corruption Layer
 - CQRS: Commands, Queries, Use Cases, Read Models
 - Stability: Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout
@@ -118,11 +117,14 @@ Components auto-copy to `.claude/` directory.
 ## Project Structure
 
 ```
-.claude/
-├── commands/        # Slash commands (26)
-├── agents/          # Subagents (62)
-├── skills/          # Knowledge + generators + analyzers (259)
-└── settings.json    # Hooks and permissions
+.claude-plugin/
+├── marketplace.json
+└── plugin.json
+commands/        # 26 commands
+agents/          # 62 agents
+skills/          # 259 skills (knowledge + generators + analyzers)
+hooks/
+└── hooks.json   # PHP syntax check hook
 ```
 
 ## Documentation
@@ -135,33 +137,32 @@ Components auto-copy to `.claude/` directory.
 
 ```bash
 # Audit architecture
-/acc-audit-architecture ./src
+/acc:audit-architecture ./src
 
 # Generate documentation
-/acc-generate-documentation ./src
+/acc:generate-documentation ./src
 
 # Check documentation quality
-/acc-audit-documentation ./docs
+/acc:audit-documentation ./docs
 
 # Create new DDD component
-/acc-create-value-object Email
+/acc:generate-ddd vo Email
 
 # Generate tests
-/acc-generate-test ./src/Domain/Order/
+/acc:generate-test ./src/Domain/Order/
 
 # Audit test quality
-/acc-audit-test ./tests
+/acc:audit-test ./tests
 
 # Fix bug by description or file reference
-/acc-bug-fix ./src/Domain/Order/Order.php:42
+/acc:bug-fix ./src/Domain/Order/Order.php:42
 ```
 
 ## Links
 
 - GitHub: https://github.com/dykyi-roman/awesome-claude-code
-- Packagist: https://packagist.org/packages/dykyi-roman/awesome-claude-code
 - Author: https://github.com/dykyi-roman
 
 ## Version
 
-v2.14.0 - Enterprise integration patterns, knowledge bases, event sourcing, API versioning
+v3.0.0 - Claude Code marketplace plugin conversion

@@ -1,9 +1,9 @@
 ---
-name: acc-cqrs-generator
-description: CQRS/ES component generator. Creates Commands, Queries, Event Stores, Snapshots, and Read Models for PHP 8.4. Called by acc-generate-ddd command and acc-architecture-generator coordinator.
+name: cqrs-generator
+description: CQRS/ES component generator. Creates Commands, Queries, Event Stores, Snapshots, and Read Models for PHP 8.4. Called by acc:generate-ddd command and acc:architecture-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge, acc-create-command, acc-create-query, acc-create-use-case, acc-create-event-store, acc-create-snapshot, acc-create-read-model
+skills: cqrs-knowledge, event-sourcing-knowledge, create-command, create-query, create-use-case, create-event-store, create-snapshot, create-read-model
 ---
 
 # CQRS/ES Generator Agent

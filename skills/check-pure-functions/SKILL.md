@@ -1,5 +1,5 @@
 ---
-name: acc-check-pure-functions
+name: check-pure-functions
 description: Analyzes PHP code for pure function patterns. Detects side-effect-free methods, deterministic output, immutable inputs. Pure functions are easily testable.
 ---
 

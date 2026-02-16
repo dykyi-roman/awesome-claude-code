@@ -1,9 +1,9 @@
 ---
-name: acc-cqrs-auditor
-description: CQRS/ES/EDA patterns auditor. Analyzes Command/Query separation, Event Sourcing compliance, and Event-Driven Architecture patterns. Called by acc-architecture-auditor and acc-pattern-auditor.
+name: cqrs-auditor
+description: CQRS/ES/EDA patterns auditor. Analyzes Command/Query separation, Event Sourcing compliance, and Event-Driven Architecture patterns. Called by acc:architecture-auditor and acc:pattern-auditor.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-cqrs-knowledge, acc-event-sourcing-knowledge, acc-eda-knowledge, acc-message-queue-knowledge, acc-create-command, acc-create-query, acc-create-domain-event, acc-create-read-model, acc-task-progress-knowledge
+skills: cqrs-knowledge, event-sourcing-knowledge, eda-knowledge, message-queue-knowledge, create-command, create-query, create-domain-event, create-read-model, task-progress-knowledge
 ---
 
 # CQRS / Event Sourcing / EDA Auditor
@@ -189,10 +189,10 @@ Glob: **/Event/Integration/**/*.php
 
 | Gap | Pattern | Skill |
 |-----|---------|-------|
-| Missing Command | CQRS | acc-create-command |
-| Missing Query | CQRS | acc-create-query |
-| Missing Domain Event | ES | acc-create-domain-event |
-| Missing Read Model | CQRS | acc-create-read-model |
+| Missing Command | CQRS | acc:create-command |
+| Missing Query | CQRS | acc:create-query |
+| Missing Domain Event | ES | acc:create-domain-event |
+| Missing Read Model | CQRS | acc:create-read-model |
 ```
 
 ## Progress Tracking

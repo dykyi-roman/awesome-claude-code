@@ -17,10 +17,10 @@ Parse `$ARGUMENTS` to extract PSR number, component name, and optional meta-inst
 Format: <psr-number> <ComponentName> [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-psr psr-3 FileLogger
-- /acc-generate-psr psr-15 AuthMiddleware
-- /acc-generate-psr psr-6 RedisCache -- with TTL support
-- /acc-generate-psr psr-7 -- generate full HTTP stack
+- /acc:generate-psr psr-3 FileLogger
+- /acc:generate-psr psr-15 AuthMiddleware
+- /acc:generate-psr psr-6 RedisCache -- with TTL support
+- /acc:generate-psr psr-7 -- generate full HTTP stack
 ```
 
 **Parsing rules:**
@@ -56,10 +56,10 @@ Examples:
 
 ## Instructions
 
-Use the `acc-psr-generator` agent to generate PSR-compliant components:
+Use the `acc:psr-generator` agent to generate PSR-compliant components:
 
 ```
-Task tool with subagent_type="acc-psr-generator"
+Task tool with subagent_type="acc:psr-generator"
 prompt: "Generate [PSR] implementation for [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
@@ -85,8 +85,8 @@ tests/Unit/Infrastructure/{Component}/
 
 ### PSR-3: Logger
 ```bash
-/acc-generate-psr psr-3 FileLogger
-/acc-generate-psr psr-3 JsonLogger -- with context processors
+/acc:generate-psr psr-3 FileLogger
+/acc:generate-psr psr-3 JsonLogger -- with context processors
 ```
 
 Generates:
@@ -97,8 +97,8 @@ Generates:
 
 ### PSR-6: Cache Pool
 ```bash
-/acc-generate-psr psr-6 RedisCache
-/acc-generate-psr psr-6 ArrayCache -- for testing
+/acc:generate-psr psr-6 RedisCache
+/acc:generate-psr psr-6 ArrayCache -- for testing
 ```
 
 Generates:
@@ -109,8 +109,8 @@ Generates:
 
 ### PSR-7: HTTP Message
 ```bash
-/acc-generate-psr psr-7
-/acc-generate-psr psr-7 -- with uploaded files support
+/acc:generate-psr psr-7
+/acc:generate-psr psr-7 -- with uploaded files support
 ```
 
 Generates:
@@ -120,8 +120,8 @@ Generates:
 
 ### PSR-11: Container
 ```bash
-/acc-generate-psr psr-11 SimpleContainer
-/acc-generate-psr psr-11 -- with auto-wiring
+/acc:generate-psr psr-11 SimpleContainer
+/acc:generate-psr psr-11 -- with auto-wiring
 ```
 
 Generates:
@@ -131,8 +131,8 @@ Generates:
 
 ### PSR-14: Event Dispatcher
 ```bash
-/acc-generate-psr psr-14 EventDispatcher
-/acc-generate-psr psr-14 -- with prioritized listeners
+/acc:generate-psr psr-14 EventDispatcher
+/acc:generate-psr psr-14 -- with prioritized listeners
 ```
 
 Generates:
@@ -142,9 +142,9 @@ Generates:
 
 ### PSR-15: Middleware
 ```bash
-/acc-generate-psr psr-15 AuthMiddleware
-/acc-generate-psr psr-15 CorsMiddleware
-/acc-generate-psr psr-15 RateLimitMiddleware
+/acc:generate-psr psr-15 AuthMiddleware
+/acc:generate-psr psr-15 CorsMiddleware
+/acc:generate-psr psr-15 RateLimitMiddleware
 ```
 
 Generates:
@@ -154,8 +154,8 @@ Generates:
 
 ### PSR-16: Simple Cache
 ```bash
-/acc-generate-psr psr-16 MemoryCache
-/acc-generate-psr psr-16 FileCache -- with serialization
+/acc:generate-psr psr-16 MemoryCache
+/acc:generate-psr psr-16 FileCache -- with serialization
 ```
 
 Generates:
@@ -165,8 +165,8 @@ Generates:
 
 ### PSR-17: HTTP Factories
 ```bash
-/acc-generate-psr psr-17
-/acc-generate-psr psr-17 -- with PSR-7 integration
+/acc:generate-psr psr-17
+/acc:generate-psr psr-17 -- with PSR-7 integration
 ```
 
 Generates:
@@ -175,8 +175,8 @@ Generates:
 
 ### PSR-18: HTTP Client
 ```bash
-/acc-generate-psr psr-18 GuzzleAdapter
-/acc-generate-psr psr-18 CurlClient
+/acc:generate-psr psr-18 GuzzleAdapter
+/acc:generate-psr psr-18 CurlClient
 ```
 
 Generates:
@@ -186,8 +186,8 @@ Generates:
 
 ### PSR-20: Clock
 ```bash
-/acc-generate-psr psr-20 SystemClock
-/acc-generate-psr psr-20 FrozenClock -- for testing
+/acc:generate-psr psr-20 SystemClock
+/acc:generate-psr psr-20 FrozenClock -- for testing
 ```
 
 Generates:
@@ -255,33 +255,33 @@ $pipeline->pipe(new AuthMiddleware($tokenValidator));
 
 ### Full HTTP Stack (PSR-7 + PSR-15 + PSR-17 + PSR-18)
 ```bash
-/acc-generate-psr psr-7 -- HTTP messages
-/acc-generate-psr psr-17 -- factories
-/acc-generate-psr psr-15 Pipeline -- middleware
-/acc-generate-psr psr-18 HttpClient
+/acc:generate-psr psr-7 -- HTTP messages
+/acc:generate-psr psr-17 -- factories
+/acc:generate-psr psr-15 Pipeline -- middleware
+/acc:generate-psr psr-18 HttpClient
 ```
 
 ### Caching Layer
 ```bash
-/acc-generate-psr psr-6 RedisPool -- full cache with pools
+/acc:generate-psr psr-6 RedisPool -- full cache with pools
 # or
-/acc-generate-psr psr-16 SimpleRedis -- simple get/set
+/acc:generate-psr psr-16 SimpleRedis -- simple get/set
 ```
 
 ### Infrastructure Services
 ```bash
-/acc-generate-psr psr-3 AppLogger
-/acc-generate-psr psr-11 Container
-/acc-generate-psr psr-14 EventBus
-/acc-generate-psr psr-20 Clock
+/acc:generate-psr psr-3 AppLogger
+/acc:generate-psr psr-11 Container
+/acc:generate-psr psr-14 EventBus
+/acc:generate-psr psr-20 Clock
 ```
 
 ## Usage Examples
 
 ```bash
-/acc-generate-psr psr-3 FileLogger
-/acc-generate-psr psr-15 AuthMiddleware
-/acc-generate-psr psr-6 RedisCache -- with TTL and tags support
-/acc-generate-psr psr-7 -- generate complete HTTP message stack
-/acc-generate-psr psr-20 FrozenClock -- for unit testing time-dependent code
+/acc:generate-psr psr-3 FileLogger
+/acc:generate-psr psr-15 AuthMiddleware
+/acc:generate-psr psr-6 RedisCache -- with TTL and tags support
+/acc:generate-psr psr-7 -- generate complete HTTP message stack
+/acc:generate-psr psr-20 FrozenClock -- for unit testing time-dependent code
 ```

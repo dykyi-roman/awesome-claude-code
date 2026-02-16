@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-env-template
+name: create-docker-env-template
 description: Generates Docker environment templates for PHP projects. Creates .env.docker files with service configurations and documentation.
 ---
 

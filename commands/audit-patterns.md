@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-patterns ./src
-- /acc-audit-patterns ./src deep
-- /acc-audit-patterns ./src quick
-- /acc-audit-patterns ./src -- focus on stability patterns
-- /acc-audit-patterns ./src deep -- check behavioral patterns only
-- /acc-audit-patterns ./src -- level:deep (backward compatible)
+- /acc:audit-patterns ./src
+- /acc:audit-patterns ./src deep
+- /acc:audit-patterns ./src quick
+- /acc:audit-patterns ./src -- focus on stability patterns
+- /acc:audit-patterns ./src deep -- check behavioral patterns only
+- /acc:audit-patterns ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -62,10 +62,10 @@ If meta-instructions provided, adjust audit to:
 
 ## Instructions
 
-Use the `acc-pattern-auditor` coordinator to perform a comprehensive patterns audit:
+Use the `acc:pattern-auditor` coordinator to perform a comprehensive patterns audit:
 
 ```
-Task tool with subagent_type="acc-pattern-auditor"
+Task tool with subagent_type="acc:pattern-auditor"
 prompt: "Perform design patterns audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Use TaskCreate/TaskUpdate for progress visibility. Create tasks for each audit phase.
@@ -243,10 +243,10 @@ A structured markdown report containing:
 
 | Gap Identified | Location | Pattern Needed | Generation Skill |
 |----------------|----------|----------------|------------------|
-| Unprotected API | `ApiClient.php:45` | Circuit Breaker | `/acc-generate-patterns circuit-breaker ApiClient` |
-| Type switch | `PaymentHandler.php:34` | Strategy | `/acc-generate-patterns strategy Payment` |
-| 8 constructor params | `User.php:15` | Builder | `/acc-generate-patterns builder User` |
-| Direct publishing | `OrderService.php:120` | Outbox | `/acc-generate-patterns outbox Order` |
+| Unprotected API | `ApiClient.php:45` | Circuit Breaker | `/acc:generate-patterns circuit-breaker ApiClient` |
+| Type switch | `PaymentHandler.php:34` | Strategy | `/acc:generate-patterns strategy Payment` |
+| 8 constructor params | `User.php:15` | Builder | `/acc:generate-patterns builder User` |
+| Direct publishing | `OrderService.php:120` | Outbox | `/acc:generate-patterns outbox Order` |
 
 ### 9. Priority Actions
 
@@ -291,10 +291,10 @@ Level is an optional positional parameter. Default: `standard`.
 ## Usage Examples
 
 ```bash
-/acc-audit-patterns ./src
-/acc-audit-patterns ./src quick
-/acc-audit-patterns ./src deep
-/acc-audit-patterns ./src/Infrastructure -- focus on stability patterns
-/acc-audit-patterns ./src deep -- check behavioral patterns only
-/acc-audit-patterns ./src -- level:deep
+/acc:audit-patterns ./src
+/acc:audit-patterns ./src quick
+/acc:audit-patterns ./src deep
+/acc:audit-patterns ./src/Infrastructure -- focus on stability patterns
+/acc:audit-patterns ./src deep -- check behavioral patterns only
+/acc:audit-patterns ./src -- level:deep
 ```

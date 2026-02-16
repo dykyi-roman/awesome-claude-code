@@ -1,6 +1,4 @@
 .idea/
 .DS_Store
-vendor/
-composer.lock
 .claude/settings.local.json
-.claude/screenshot
+screenshot

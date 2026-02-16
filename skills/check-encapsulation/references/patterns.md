@@ -170,7 +170,7 @@ Grep: "new [A-Z][a-z]+Entity\(|new [A-Z][a-z]+Aggregate\(" --glob "**/Applicatio
 
   public function changeEmail(Email $email): void { /* validate */ }
   ```
-- **Skills:** `acc-create-entity`, `acc-create-value-object`
+- **Skills:** `create-entity`, `create-value-object`
 
 #### ENC-002: Anemic Entity
 - **File:** `src/Domain/Order/Entity/Order.php`
@@ -186,7 +186,7 @@ Grep: "new [A-Z][a-z]+Entity\(|new [A-Z][a-z]+Aggregate\(" --glob "**/Applicatio
   public function ship(TrackingNumber $tracking): void { /* ... */ }
   public function cancel(CancellationReason $reason): void { /* ... */ }
   ```
-- **Skills:** `acc-create-entity`
+- **Skills:** `create-entity`
 
 #### ENC-003: Collection Mutated Externally
 - **File:** `src/Application/Service/OrderService.php:45`

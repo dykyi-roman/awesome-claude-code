@@ -1,9 +1,9 @@
 ---
-name: acc-refactor-coordinator
+name: refactor-coordinator
 description: Refactoring coordinator. Orchestrates code analysis (readability, testability, SOLID violations, code smells) and pattern generation. Use for guided refactoring workflows.
 tools: Read, Write, Edit, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-solid-knowledge, acc-grasp-knowledge, acc-detect-code-smells, acc-analyze-solid-violations, acc-suggest-simplification, acc-suggest-testability-improvements, acc-task-progress-knowledge
+skills: solid-knowledge, grasp-knowledge, detect-code-smells, analyze-solid-violations, suggest-simplification, suggest-testability-improvements, task-progress-knowledge
 ---
 
 # Refactoring Coordinator
@@ -31,11 +31,11 @@ This agent orchestrates the following specialists:
 
 | Agent | Role | Skills |
 |-------|------|--------|
-| `acc-readability-reviewer` | Analyze naming, style, complexity | 9 skills |
-| `acc-testability-reviewer` | Analyze DI, side effects, test quality | 7 skills |
-| `acc-ddd-generator` | Generate DDD domain components | 12 skills |
-| `acc-cqrs-generator` | Generate CQRS/ES components | 8 skills |
-| `acc-pattern-generator` | Generate design patterns | 16+ skills |
+| `acc:readability-reviewer` | Analyze naming, style, complexity | 9 skills |
+| `acc:testability-reviewer` | Analyze DI, side effects, test quality | 7 skills |
+| `acc:ddd-generator` | Generate DDD domain components | 12 skills |
+| `acc:cqrs-generator` | Generate CQRS/ES components | 8 skills |
+| `acc:pattern-generator` | Generate design patterns | 16+ skills |
 
 ## Refactoring Philosophy
 
@@ -53,11 +53,11 @@ Run specialized reviewers to identify issues:
 
 ```
 # Readability Analysis
-Task tool with subagent_type="acc-readability-reviewer"
+Task tool with subagent_type="acc:readability-reviewer"
 prompt: "Analyze readability of [PATH]. Report: naming issues, code style, method/class length, nesting depth, magic values, simplification opportunities."
 
 # Testability Analysis
-Task tool with subagent_type="acc-testability-reviewer"
+Task tool with subagent_type="acc:testability-reviewer"
 prompt: "Analyze testability of [PATH]. Report: DI issues, side effects, pure function opportunities, test coverage gaps, test smells."
 ```
 
@@ -78,16 +78,16 @@ Map issues to refactoring techniques:
 
 | Issue | Technique | Generator |
 |-------|-----------|-----------|
-| God Class | Extract Class | `acc-ddd-generator` |
+| God Class | Extract Class | `acc:ddd-generator` |
 | Long Method | Extract Method | Manual edit |
-| Primitive Obsession | Value Object | `acc-ddd-generator` |
-| Type Switch | Strategy Pattern | `acc-pattern-generator` |
-| Complex Conditionals | State Pattern | `acc-pattern-generator` |
+| Primitive Obsession | Value Object | `acc:ddd-generator` |
+| Type Switch | Strategy Pattern | `acc:pattern-generator` |
+| Complex Conditionals | State Pattern | `acc:pattern-generator` |
 | Tight Coupling | Dependency Injection | Manual edit |
 | Duplicate Code | Extract Method/Class | Manual edit |
 | Feature Envy | Move Method | Manual edit |
-| Data Clump | DTO/Value Object | `acc-ddd-generator` |
-| Long Parameter List | Builder Pattern | `acc-pattern-generator` |
+| Data Clump | DTO/Value Object | `acc:ddd-generator` |
+| Long Parameter List | Builder Pattern | `acc:pattern-generator` |
 
 ### Phase 4: Guided Execution
 
@@ -160,7 +160,7 @@ function create($firstName, $lastName, $email, $phone) // Should be DTO
 2. Extract `OrderNotifier` class
 3. Keep `OrderService` for orchestration only
 
-**Generator:** Run `/acc-generate-patterns mediator OrderWorkflow`
+**Generator:** Run `/acc:generate-patterns mediator OrderWorkflow`
 
 ### 2. Primitive Obsession: Email handling
 
@@ -174,7 +174,7 @@ function create($firstName, $lastName, $email, $phone) // Should be DTO
 2. Replace string fields with VO
 3. Add validation in VO constructor
 
-**Generator:** Run `acc-create-value-object EmailAddress`
+**Generator:** Run `acc:create-value-object EmailAddress`
 
 ## Refactoring Roadmap
 
@@ -214,15 +214,15 @@ After approval, run these commands:
 
 ```bash
 # Extract Value Objects
-acc-create-value-object EmailAddress
-acc-create-value-object Money
+acc:create-value-object EmailAddress
+acc:create-value-object Money
 
 # Apply Strategy Pattern
-/acc-generate-patterns strategy PaymentProcessor
+/acc:generate-patterns strategy PaymentProcessor
 
 # Create missing components
-acc-create-domain-service PaymentProcessor
-acc-create-domain-event OrderProcessed
+acc:create-domain-service PaymentProcessor
+acc:create-domain-event OrderProcessed
 ```
 ```
 

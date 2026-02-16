@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr14-event-dispatcher
+name: create-psr14-event-dispatcher
 description: Generates PSR-14 Event Dispatcher implementation for PHP 8.4. Creates EventDispatcherInterface, ListenerProviderInterface, and StoppableEventInterface with event propagation. Includes unit tests.
 ---
 

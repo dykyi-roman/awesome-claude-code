@@ -1,5 +1,5 @@
 ---
-name: acc-create-rector-config
+name: create-rector-config
 description: Generates Rector configurations for PHP projects. Creates rector.php with PHP upgrade sets, code quality rules, dead code removal, and framework-specific migrations.
 ---
 

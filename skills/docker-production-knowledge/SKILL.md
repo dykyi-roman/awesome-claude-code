@@ -1,5 +1,5 @@
 ---
-name: acc-docker-production-knowledge
+name: docker-production-knowledge
 description: Docker production knowledge base for PHP. Provides deployment patterns, health checks, graceful shutdown, logging, and monitoring.
 ---
 

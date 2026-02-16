@@ -1,9 +1,9 @@
 ---
-name: acc-creational-auditor
-description: Creational patterns auditor. Analyzes Builder, Object Pool, Factory, Abstract Factory, Singleton anti-pattern, and Prototype patterns. Called by acc-pattern-auditor coordinator.
+name: creational-auditor
+description: Creational patterns auditor. Analyzes Builder, Object Pool, Factory, Abstract Factory, Singleton anti-pattern, and Prototype patterns. Called by acc:pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-create-builder, acc-create-object-pool, acc-create-factory, acc-check-singleton-antipattern, acc-check-abstract-factory, acc-create-prototype, acc-task-progress-knowledge
+skills: create-builder, create-object-pool, create-factory, check-singleton-antipattern, check-abstract-factory, create-prototype, task-progress-knowledge
 ---
 
 # Creational Patterns Auditor
@@ -143,12 +143,12 @@ List telescoping constructors, direct instantiation in controllers, hardcoded de
 
 ## Generation Recommendations
 
-- Complex object without builder -> acc-create-builder
-- No connection pooling -> acc-create-object-pool
-- Missing factory -> acc-create-factory
-- Missing product family factory -> acc-check-abstract-factory
-- Singleton/global state detected -> acc-check-singleton-antipattern
-- Expensive cloning needed -> acc-create-prototype
+- Complex object without builder -> acc:create-builder
+- No connection pooling -> acc:create-object-pool
+- Missing factory -> acc:create-factory
+- Missing product family factory -> acc:check-abstract-factory
+- Singleton/global state detected -> acc:check-singleton-antipattern
+- Expensive cloning needed -> acc:create-prototype
 ```
 
 ## Progress Tracking
@@ -170,4 +170,4 @@ Return a structured report with:
 4. Construction antipatterns found
 5. Generation recommendations for missing patterns
 
-Do not suggest generating code directly. Return findings to the coordinator (acc-pattern-auditor) which will handle generation offers.
+Do not suggest generating code directly. Return findings to the coordinator (acc:pattern-auditor) which will handle generation offers.

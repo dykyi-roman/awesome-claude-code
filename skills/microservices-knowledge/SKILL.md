@@ -1,5 +1,5 @@
 ---
-name: acc-microservices-knowledge
+name: microservices-knowledge
 description: Microservices Architecture knowledge base. Provides service decomposition, communication patterns, API gateway, service discovery, and data management guidelines for architecture audits and generation.
 ---
 

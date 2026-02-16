@@ -1,5 +1,5 @@
 ---
-name: acc-check-naming
+name: check-naming
 description: Analyzes PHP code for naming convention issues. Detects non-descriptive names, abbreviations, inconsistent casing, misleading names.
 ---
 

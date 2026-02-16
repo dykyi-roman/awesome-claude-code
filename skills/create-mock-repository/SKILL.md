@@ -1,5 +1,5 @@
 ---
-name: acc-create-mock-repository
+name: create-mock-repository
 description: Generates InMemory repository implementations for PHP 8.4 testing. Creates fake repositories with array storage, supporting CRUD operations and queries without database.
 ---
 

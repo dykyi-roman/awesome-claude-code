@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-layer-efficiency
+name: check-docker-layer-efficiency
 description: Checks Docker layer efficiency for PHP builds. Analyzes layer ordering, cache utilization, and identifies optimization opportunities.
 ---
 

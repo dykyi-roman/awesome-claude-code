@@ -17,11 +17,11 @@ Parse `$ARGUMENTS` to extract path and optional meta-instructions:
 Format: <path> [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-documentation ./
-- /acc-generate-documentation src/ -- focus on API documentation
-- /acc-generate-documentation ./ -- create architecture doc with C4 diagrams
-- /acc-generate-documentation src/Domain/Order -- document only public interfaces
-- /acc-generate-documentation ./ -- на русском языке
+- /acc:generate-documentation ./
+- /acc:generate-documentation src/ -- focus on API documentation
+- /acc:generate-documentation ./ -- create architecture doc with C4 diagrams
+- /acc:generate-documentation src/Domain/Order -- document only public interfaces
+- /acc:generate-documentation ./ -- на русском языке
 ```
 
 **Parsing rules:**
@@ -55,7 +55,7 @@ If meta-instructions provided, adjust documentation to:
 ## Documentation Flow
 
 ```
-/acc-generate-documentation <path>
+/acc:generate-documentation <path>
     │
     ├─ Pre-flight: Validate path exists
     │
@@ -64,10 +64,10 @@ If meta-instructions provided, adjust documentation to:
     │   ├─ Identify project type (library/app/API)
     │   └─ Determine audience
     │
-    ├─ Phase 2: Task → acc-documentation-writer
+    ├─ Phase 2: Task → acc:documentation-writer
     │   └─ Generate appropriate documentation
     │
-    ├─ Phase 3: Task → acc-diagram-designer (if architecture docs)
+    ├─ Phase 3: Task → acc:diagram-designer (if architecture docs)
     │   └─ Create Mermaid diagrams
     │
     └─ Output: Generated documentation files
@@ -75,7 +75,7 @@ If meta-instructions provided, adjust documentation to:
 
 ## Instructions
 
-Use the `acc-documentation-writer` agent to create documentation:
+Use the `acc:documentation-writer` agent to create documentation:
 
 ### For Project Root (default)
 
@@ -111,7 +111,7 @@ Generate specific documentation:
 For architecture documentation, invoke the diagram designer:
 
 ```
-Task tool with subagent_type="acc-diagram-designer"
+Task tool with subagent_type="acc:diagram-designer"
 prompt: "Create diagrams for {target}. Include:
 - System context (if project)
 - Layer diagram (if DDD/Clean Architecture)
@@ -211,16 +211,16 @@ Generated documentation must have:
 
 ```bash
 # Document entire project
-/acc-generate-documentation
+/acc:generate-documentation
 
 # Document specific directory
-/acc-generate-documentation src/Domain/Order
+/acc:generate-documentation src/Domain/Order
 
 # Document specific file
-/acc-generate-documentation src/Service/PaymentService.php
+/acc:generate-documentation src/Service/PaymentService.php
 
 # Document API
-/acc-generate-documentation src/Api/
+/acc:generate-documentation src/Api/
 ```
 
 ## Follow-up
@@ -228,5 +228,5 @@ Generated documentation must have:
 After generating documentation, suggest:
 
 1. **Review generated files** for accuracy
-2. **Run `/acc-audit-documentation`** for quality check
+2. **Run `/acc:audit-documentation`** for quality check
 3. **Add/update diagrams** if needed

@@ -1,5 +1,5 @@
 ---
-name: acc-check-dependency-vulnerabilities
+name: check-dependency-vulnerabilities
 description: Analyzes PHP dependencies for security vulnerabilities. Detects outdated packages, known CVEs, unsupported versions, vulnerable transitive dependencies.
 ---
 

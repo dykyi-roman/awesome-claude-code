@@ -1,9 +1,9 @@
 ---
-name: acc-integration-generator
-description: Integration patterns generator. Creates Outbox, Saga, ADR, Correlation Context, Unit of Work, Message Broker, Idempotent Consumer, and Dead Letter Queue components for PHP 8.4. Called by acc-pattern-generator coordinator.
+name: integration-generator
+description: Integration patterns generator. Creates Outbox, Saga, ADR, Correlation Context, Unit of Work, Message Broker, Idempotent Consumer, and Dead Letter Queue components for PHP 8.4. Called by acc:pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-adr-knowledge, acc-api-design-knowledge, acc-message-queue-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-action, acc-create-responder, acc-create-correlation-context, acc-create-api-versioning, acc-create-health-check, acc-create-unit-of-work, acc-create-message-broker-adapter, acc-create-idempotent-consumer, acc-create-dead-letter-queue
+skills: outbox-pattern-knowledge, saga-pattern-knowledge, adr-knowledge, api-design-knowledge, message-queue-knowledge, create-outbox-pattern, create-saga-pattern, create-action, create-responder, create-correlation-context, create-api-versioning, create-health-check, create-unit-of-work, create-message-broker-adapter, create-idempotent-consumer, create-dead-letter-queue
 ---
 
 # Integration Patterns Generator

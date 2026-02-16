@@ -1,5 +1,5 @@
 ---
-name: acc-create-cache-aside
+name: create-cache-aside
 description: Generates Cache-Aside pattern for PHP 8.4. Creates cache executor with PSR-16 integration, stampede protection via distributed locking, tag-based invalidation, and key generation. Includes unit tests.
 ---
 

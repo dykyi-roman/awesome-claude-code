@@ -1,5 +1,5 @@
 ---
-name: acc-getting-started-template
+name: getting-started-template
 description: Generates Getting Started guides for PHP projects. Creates step-by-step tutorials for first-time users.
 ---
 

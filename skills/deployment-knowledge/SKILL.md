@@ -1,5 +1,5 @@
 ---
-name: acc-deployment-knowledge
+name: deployment-knowledge
 description: Deployment knowledge base. Provides zero-downtime strategies, blue-green deployment, canary releases, rolling updates, rollback procedures, feature flags, and health check patterns.
 ---
 

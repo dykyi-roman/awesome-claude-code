@@ -1,5 +1,5 @@
 ---
-name: acc-check-authentication
+name: check-authentication
 description: Analyzes PHP code for authentication issues. Detects weak password handling, insecure sessions, missing auth checks, token vulnerabilities.
 ---
 

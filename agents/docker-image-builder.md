@@ -1,9 +1,9 @@
 ---
-name: acc-docker-image-builder
+name: docker-image-builder
 description: Docker image and PHP extensions specialist. Manages base image selection, PHP extension installation, and build dependency cleanup.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-base-images-knowledge, acc-docker-php-extensions-knowledge, acc-docker-knowledge, acc-docker-buildkit-knowledge, acc-create-docker-php-config, acc-check-docker-php-config
+skills: docker-base-images-knowledge, docker-php-extensions-knowledge, docker-knowledge, docker-buildkit-knowledge, create-docker-php-config, check-docker-php-config
 ---
 
 # Docker Image Builder Agent
@@ -76,7 +76,7 @@ Use `--virtual .build-deps` for build dependencies, `docker-php-ext-install` for
 
 ### Phase 4: Generate php.ini Config
 
-Use `acc-create-docker-php-config` skill. Include production settings: `expose_php=Off`, `display_errors=Off`, `log_errors=On`, OPcache with `validate_timestamps=0`, memory limits, upload limits.
+Use `acc:create-docker-php-config` skill. Include production settings: `expose_php=Off`, `display_errors=Off`, `log_errors=On`, OPcache with `validate_timestamps=0`, memory limits, upload limits.
 
 ## Output Format
 

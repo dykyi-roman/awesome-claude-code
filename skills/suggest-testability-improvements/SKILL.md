@@ -1,5 +1,5 @@
 ---
-name: acc-suggest-testability-improvements
+name: suggest-testability-improvements
 description: Suggests testability improvements for PHP code. Provides DI refactoring suggestions, mock opportunities, interface extraction, testing strategy recommendations.
 ---
 

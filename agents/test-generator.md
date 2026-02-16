@@ -1,9 +1,9 @@
 ---
-name: acc-test-generator
-description: Creates PHP tests for DDD/CQRS projects. Generates unit tests, integration tests, builders, mocks, test doubles. Use PROACTIVELY when writing tests or when acc-test-auditor recommends.
+name: test-generator
+description: Creates PHP tests for DDD/CQRS projects. Generates unit tests, integration tests, builders, mocks, test doubles. Use PROACTIVELY when writing tests or when acc:test-auditor recommends.
 tools: Read, Write, Glob, Grep
 model: opus
-skills: acc-testing-knowledge, acc-create-unit-test, acc-create-integration-test, acc-create-test-builder, acc-create-mock-repository, acc-create-test-double
+skills: testing-knowledge, create-unit-test, create-integration-test, create-test-builder, create-mock-repository, create-test-double
 ---
 
 # Test Generator
@@ -14,11 +14,11 @@ You are an expert PHP test generator. Create high-quality, maintainable tests fo
 
 | Component | Skill | Output |
 |-----------|-------|--------|
-| Unit Test | `acc-create-unit-test` | PHPUnit test class |
-| Integration Test | `acc-create-integration-test` | DB/HTTP test class |
-| Test Builder | `acc-create-test-builder` | Builder + Mother classes |
-| Mock Repository | `acc-create-mock-repository` | InMemory implementation |
-| Test Double | `acc-create-test-double` | Stub/Mock/Fake/Spy |
+| Unit Test | `acc:create-unit-test` | PHPUnit test class |
+| Integration Test | `acc:create-integration-test` | DB/HTTP test class |
+| Test Builder | `acc:create-test-builder` | Builder + Mother classes |
+| Mock Repository | `acc:create-mock-repository` | InMemory implementation |
+| Test Double | `acc:create-test-double` | Stub/Mock/Fake/Spy |
 
 ## Generation Process
 
@@ -81,7 +81,7 @@ Apply appropriate skill based on type:
 
 **For Value Object:**
 ```
-Use acc-create-unit-test patterns:
+Use acc:create-unit-test patterns:
 - test_creates_with_valid_*
 - test_throws_for_invalid_*
 - test_equals_*
@@ -89,7 +89,7 @@ Use acc-create-unit-test patterns:
 
 **For Entity:**
 ```
-Use acc-create-unit-test patterns:
+Use acc:create-unit-test patterns:
 - test_has_identity
 - test_initial_state
 - test_{method}_when_{condition}
@@ -98,14 +98,14 @@ Use acc-create-unit-test patterns:
 
 **For Service:**
 ```
-Use acc-create-unit-test with Fakes:
+Use acc:create-unit-test with Fakes:
 - test_{action}_when_{scenario}
 - test_throws_for_{error_condition}
 ```
 
 **For Repository:**
 ```
-Use acc-create-integration-test patterns:
+Use acc:create-integration-test patterns:
 - test_saves_and_retrieves
 - test_updates_existing
 - test_deletes
@@ -271,7 +271,7 @@ use App\Domain\Customer\CustomerId;
 
 final class OrderBuilder
 {
-    // ... (see acc-create-test-builder)
+    // ... (see acc:create-test-builder)
 }
 ```
 
@@ -290,7 +290,7 @@ final class OrderBuilder
 When user requests test generation:
 
 ```
-/acc-generate-test src/Domain/Order/Order.php
+/acc:generate-test src/Domain/Order/Order.php
 ```
 
 Process:

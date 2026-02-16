@@ -77,7 +77,7 @@ Hooks from all scopes are merged and all run for matching events.
 **When:** A subagent (Task) completes
 **Matcher:** Agent name
 **Can block:** No
-**JSON input:** `{"agent_name": "acc-ddd-auditor", "result": "...", "session_id": "abc123"}`
+**JSON input:** `{"agent_name": "ddd-auditor", "result": "...", "session_id": "abc123"}`
 
 **Common uses:** result aggregation, progress tracking, chaining.
 

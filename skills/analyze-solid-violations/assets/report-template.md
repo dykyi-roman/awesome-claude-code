@@ -75,11 +75,11 @@ Extract into focused classes:
 
 | New Class | Responsibility | Skill |
 |-----------|----------------|-------|
-| `RegisterUserHandler` | User registration | `acc-create-use-case` |
-| `AuthenticationService` | Login/logout | `acc-create-domain-service` |
-| `UserProfileService` | Profile management | `acc-create-domain-service` |
-| `UserNotificationService` | Email notifications | `acc-create-domain-service` |
-| `UserReportGenerator` | Reporting | `acc-create-read-model` |
+| `RegisterUserHandler` | User registration | `create-use-case` |
+| `AuthenticationService` | Login/logout | `create-domain-service` |
+| `UserProfileService` | Profile management | `create-domain-service` |
+| `UserNotificationService` | Email notifications | `create-domain-service` |
+| `UserReportGenerator` | Reporting | `create-read-model` |
 
 ---
 
@@ -117,7 +117,7 @@ interface PaymentGateway
 }
 ```
 
-**Skill:** `acc-create-strategy`
+**Skill:** `create-strategy`
 
 ---
 
@@ -218,7 +218,7 @@ public function __construct(
 - Create `PaymentGateway` interface
 - Type hint interfaces instead of implementations
 
-**Skill:** `acc-create-repository`
+**Skill:** `create-repository`
 
 ---
 
@@ -302,8 +302,8 @@ Monitor. Convert to strategy if >3 types added.
 
 | Task | File | Effort | Skill |
 |------|------|--------|-------|
-| Split UserManager | `UserManager.php` | High | `acc-create-use-case` |
-| Strategy for payments | `PaymentProcessor.php` | Medium | `acc-create-strategy` |
+| Split UserManager | `UserManager.php` | High | `create-use-case` |
+| Strategy for payments | `PaymentProcessor.php` | Medium | `create-strategy` |
 | Fix LSP violation | `ReadOnlyCache.php` | Low | Manual |
 
 ### Phase 2: Warning (Sprint 1-2)
@@ -311,7 +311,7 @@ Monitor. Convert to strategy if >3 types added.
 | Task | File | Effort | Skill |
 |------|------|--------|-------|
 | Segregate UserRepository | `UserRepositoryInterface.php` | Medium | Manual |
-| Extract interfaces | Multiple | Medium | `acc-create-repository` |
+| Extract interfaces | Multiple | Medium | `create-repository` |
 | Remove hidden deps | `NotificationService.php` | Low | Manual |
 
 ### Phase 3: Info (Backlog)
@@ -351,11 +351,11 @@ grep -rn "new\s\+[A-Z]" --include="*.php" src/ | grep -v "Exception\|DateTime"
 
 | Pattern | Skill | Use When |
 |---------|-------|----------|
-| Use Case | `acc-create-use-case` | Extracting application logic |
-| Domain Service | `acc-create-domain-service` | Cross-entity domain logic |
-| Strategy | `acc-create-strategy` | Replacing type switches |
-| Repository | `acc-create-repository` | Creating persistence interfaces |
-| Value Object | `acc-create-value-object` | Extracting data with behavior |
-| Factory | `acc-create-factory` | Complex object creation |
-| Decorator | `acc-create-decorator` | Adding behavior transparently |
-| Chain of Responsibility | `acc-create-chain-of-responsibility` | Handler chains |
+| Use Case | `create-use-case` | Extracting application logic |
+| Domain Service | `create-domain-service` | Cross-entity domain logic |
+| Strategy | `create-strategy` | Replacing type switches |
+| Repository | `create-repository` | Creating persistence interfaces |
+| Value Object | `create-value-object` | Extracting data with behavior |
+| Factory | `create-factory` | Complex object creation |
+| Decorator | `create-decorator` | Adding behavior transparently |
+| Chain of Responsibility | `create-chain-of-responsibility` | Handler chains |

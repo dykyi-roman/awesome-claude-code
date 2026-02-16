@@ -17,10 +17,10 @@ Parse `$ARGUMENTS` to extract pattern name, component name, and optional meta-in
 Format: <pattern-name> <ComponentName> [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-patterns circuit-breaker PaymentGateway
-- /acc-generate-patterns strategy PaymentProcessor
-- /acc-generate-patterns saga CheckoutWorkflow
-- /acc-generate-patterns builder UserProfile -- with validation
+- /acc:generate-patterns circuit-breaker PaymentGateway
+- /acc:generate-patterns strategy PaymentProcessor
+- /acc:generate-patterns saga CheckoutWorkflow
+- /acc:generate-patterns builder UserProfile -- with validation
 ```
 
 **Parsing rules:**
@@ -102,10 +102,10 @@ Examples:
 
 ## Instructions
 
-Use the `acc-pattern-generator` coordinator to generate pattern implementations:
+Use the `acc:pattern-generator` coordinator to generate pattern implementations:
 
 ```
-Task tool with subagent_type="acc-pattern-generator"
+Task tool with subagent_type="acc:pattern-generator"
 prompt: "Generate [PATTERN] for [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
@@ -125,8 +125,8 @@ Requirements:
 
 #### Circuit Breaker
 ```bash
-/acc-generate-patterns circuit-breaker PaymentGateway
-/acc-generate-patterns cb ExternalApi -- with Redis state storage
+/acc:generate-patterns circuit-breaker PaymentGateway
+/acc:generate-patterns cb ExternalApi -- with Redis state storage
 ```
 
 Generates:
@@ -142,8 +142,8 @@ src/Infrastructure/Stability/CircuitBreaker/
 
 #### Retry
 ```bash
-/acc-generate-patterns retry HttpClient
-/acc-generate-patterns retry-pattern ApiGateway -- exponential backoff with jitter
+/acc:generate-patterns retry HttpClient
+/acc:generate-patterns retry-pattern ApiGateway -- exponential backoff with jitter
 ```
 
 Generates:
@@ -153,8 +153,8 @@ Generates:
 
 #### Rate Limiter
 ```bash
-/acc-generate-patterns rate-limiter ApiEndpoint
-/acc-generate-patterns throttle UserRequests -- sliding window
+/acc:generate-patterns rate-limiter ApiEndpoint
+/acc:generate-patterns throttle UserRequests -- sliding window
 ```
 
 Generates:
@@ -164,8 +164,8 @@ Generates:
 
 #### Bulkhead
 ```bash
-/acc-generate-patterns bulkhead DatabasePool
-/acc-generate-patterns isolation QueueWorker
+/acc:generate-patterns bulkhead DatabasePool
+/acc:generate-patterns isolation QueueWorker
 ```
 
 Generates:
@@ -175,8 +175,8 @@ Generates:
 
 #### Cache-Aside
 ```bash
-/acc-generate-patterns cache-aside ProductCatalog
-/acc-generate-patterns cache UserProfile -- with tag-based invalidation
+/acc:generate-patterns cache-aside ProductCatalog
+/acc:generate-patterns cache UserProfile -- with tag-based invalidation
 ```
 
 Generates:
@@ -196,8 +196,8 @@ src/Infrastructure/Cache/
 
 #### Strategy
 ```bash
-/acc-generate-patterns strategy PaymentProcessor
-/acc-generate-patterns strategy Discount -- with composite
+/acc:generate-patterns strategy PaymentProcessor
+/acc:generate-patterns strategy Discount -- with composite
 ```
 
 Generates:
@@ -212,8 +212,8 @@ src/Domain/Payment/Strategy/
 
 #### State
 ```bash
-/acc-generate-patterns state Order
-/acc-generate-patterns state-machine Document -- with transitions
+/acc:generate-patterns state Order
+/acc:generate-patterns state-machine Document -- with transitions
 ```
 
 Generates:
@@ -223,8 +223,8 @@ Generates:
 
 #### Chain of Responsibility
 ```bash
-/acc-generate-patterns chain ValidationPipeline
-/acc-generate-patterns middleware RequestHandler
+/acc:generate-patterns chain ValidationPipeline
+/acc:generate-patterns middleware RequestHandler
 ```
 
 Generates:
@@ -235,8 +235,8 @@ Generates:
 
 #### Decorator
 ```bash
-/acc-generate-patterns decorator Logger
-/acc-generate-patterns wrapper Cache -- with metrics
+/acc:generate-patterns decorator Logger
+/acc:generate-patterns wrapper Cache -- with metrics
 ```
 
 Generates:
@@ -246,8 +246,8 @@ Generates:
 
 #### Null Object
 ```bash
-/acc-generate-patterns null-object Logger
-/acc-generate-patterns null Notifier
+/acc:generate-patterns null-object Logger
+/acc:generate-patterns null Notifier
 ```
 
 Generates:
@@ -257,8 +257,8 @@ Generates:
 
 #### Template Method
 ```bash
-/acc-generate-patterns template-method DataImporter
-/acc-generate-patterns template ReportGenerator -- with CSV and PDF variants
+/acc:generate-patterns template-method DataImporter
+/acc:generate-patterns template ReportGenerator -- with CSV and PDF variants
 ```
 
 Generates:
@@ -268,8 +268,8 @@ Generates:
 
 #### Visitor
 ```bash
-/acc-generate-patterns visitor PriceCalculator
-/acc-generate-patterns visitor ExportFormatter -- with JSON and XML
+/acc:generate-patterns visitor PriceCalculator
+/acc:generate-patterns visitor ExportFormatter -- with JSON and XML
 ```
 
 Generates:
@@ -279,8 +279,8 @@ Generates:
 
 #### Iterator
 ```bash
-/acc-generate-patterns iterator OrderCollection
-/acc-generate-patterns collection FilteredProducts -- with pagination
+/acc:generate-patterns iterator OrderCollection
+/acc:generate-patterns collection FilteredProducts -- with pagination
 ```
 
 Generates:
@@ -290,8 +290,8 @@ Generates:
 
 #### Memento
 ```bash
-/acc-generate-patterns memento DocumentEditor
-/acc-generate-patterns undo FormWizard -- with history limit
+/acc:generate-patterns memento DocumentEditor
+/acc:generate-patterns undo FormWizard -- with history limit
 ```
 
 Generates:
@@ -303,8 +303,8 @@ Generates:
 
 #### Adapter
 ```bash
-/acc-generate-patterns adapter StripePayment
-/acc-generate-patterns wrapper TwilioSms -- with domain interface
+/acc:generate-patterns adapter StripePayment
+/acc:generate-patterns wrapper TwilioSms -- with domain interface
 ```
 
 Generates:
@@ -317,8 +317,8 @@ src/Infrastructure/Payment/Adapter/
 
 #### Facade
 ```bash
-/acc-generate-patterns facade OrderProcessing
-/acc-generate-patterns facade UserOnboarding -- with validation
+/acc:generate-patterns facade OrderProcessing
+/acc:generate-patterns facade UserOnboarding -- with validation
 ```
 
 Generates:
@@ -327,8 +327,8 @@ Generates:
 
 #### Proxy
 ```bash
-/acc-generate-patterns proxy ReportService
-/acc-generate-patterns lazy-proxy HeavyRepository -- with caching
+/acc:generate-patterns proxy ReportService
+/acc:generate-patterns lazy-proxy HeavyRepository -- with caching
 ```
 
 Generates:
@@ -337,8 +337,8 @@ Generates:
 
 #### Composite
 ```bash
-/acc-generate-patterns composite MenuTree
-/acc-generate-patterns tree PermissionHierarchy
+/acc:generate-patterns composite MenuTree
+/acc:generate-patterns tree PermissionHierarchy
 ```
 
 Generates:
@@ -348,8 +348,8 @@ Generates:
 
 #### Bridge
 ```bash
-/acc-generate-patterns bridge Notification
-/acc-generate-patterns bridge Renderer -- with HTML and PDF
+/acc:generate-patterns bridge Notification
+/acc:generate-patterns bridge Renderer -- with HTML and PDF
 ```
 
 Generates:
@@ -359,8 +359,8 @@ Generates:
 
 #### Flyweight
 ```bash
-/acc-generate-patterns flyweight Currency
-/acc-generate-patterns flyweight Icon -- with factory
+/acc:generate-patterns flyweight Currency
+/acc:generate-patterns flyweight Icon -- with factory
 ```
 
 Generates:
@@ -372,8 +372,8 @@ Generates:
 
 #### Builder
 ```bash
-/acc-generate-patterns builder UserProfile
-/acc-generate-patterns fluent-builder QueryCriteria -- with validation
+/acc:generate-patterns builder UserProfile
+/acc:generate-patterns fluent-builder QueryCriteria -- with validation
 ```
 
 Generates:
@@ -386,8 +386,8 @@ src/Domain/User/Builder/
 
 #### Object Pool
 ```bash
-/acc-generate-patterns object-pool DatabaseConnection
-/acc-generate-patterns pool RedisConnection
+/acc:generate-patterns object-pool DatabaseConnection
+/acc:generate-patterns pool RedisConnection
 ```
 
 Generates:
@@ -398,8 +398,8 @@ Generates:
 
 #### Factory
 ```bash
-/acc-generate-patterns factory Notification
-/acc-generate-patterns factory-method Report
+/acc:generate-patterns factory Notification
+/acc:generate-patterns factory-method Report
 ```
 
 Generates:
@@ -411,8 +411,8 @@ Generates:
 
 #### Outbox
 ```bash
-/acc-generate-patterns outbox Order
-/acc-generate-patterns transactional-outbox Event
+/acc:generate-patterns outbox Order
+/acc:generate-patterns transactional-outbox Event
 ```
 
 Generates:
@@ -426,8 +426,8 @@ src/Infrastructure/Messaging/Outbox/
 
 #### Saga
 ```bash
-/acc-generate-patterns saga Checkout
-/acc-generate-patterns distributed-saga OrderFulfillment
+/acc:generate-patterns saga Checkout
+/acc:generate-patterns distributed-saga OrderFulfillment
 ```
 
 Generates:
@@ -438,8 +438,8 @@ Generates:
 
 #### ADR Action/Responder
 ```bash
-/acc-generate-patterns action CreateOrder
-/acc-generate-patterns responder OrderResponse
+/acc:generate-patterns action CreateOrder
+/acc:generate-patterns responder OrderResponse
 ```
 
 Generates:
@@ -449,8 +449,8 @@ Generates:
 
 #### Correlation Context
 ```bash
-/acc-generate-patterns correlation-context
-/acc-generate-patterns correlation-id Order -- with Symfony Messenger
+/acc:generate-patterns correlation-context
+/acc:generate-patterns correlation-id Order -- with Symfony Messenger
 ```
 
 Generates:
@@ -468,8 +468,8 @@ src/Infrastructure/Messaging/
 
 #### API Versioning
 ```bash
-/acc-generate-patterns api-versioning
-/acc-generate-patterns versioning -- with Accept header strategy
+/acc:generate-patterns api-versioning
+/acc:generate-patterns versioning -- with Accept header strategy
 ```
 
 Generates:
@@ -488,8 +488,8 @@ src/Presentation/Middleware/
 
 #### Health Check
 ```bash
-/acc-generate-patterns health-check
-/acc-generate-patterns health -- with Redis and RabbitMQ checkers
+/acc:generate-patterns health-check
+/acc:generate-patterns health -- with Redis and RabbitMQ checkers
 ```
 
 Generates:
@@ -509,8 +509,8 @@ src/Presentation/Api/Action/
 
 #### Unit of Work
 ```bash
-/acc-generate-patterns unit-of-work
-/acc-generate-patterns uow -- with Doctrine integration
+/acc:generate-patterns unit-of-work
+/acc:generate-patterns uow -- with Doctrine integration
 ```
 
 Generates:
@@ -529,8 +529,8 @@ src/Infrastructure/Persistence/UnitOfWork/
 
 #### Message Broker Adapter
 ```bash
-/acc-generate-patterns message-broker-adapter
-/acc-generate-patterns broker -- with RabbitMQ and Kafka
+/acc:generate-patterns message-broker-adapter
+/acc:generate-patterns broker -- with RabbitMQ and Kafka
 ```
 
 Generates:
@@ -551,8 +551,8 @@ src/Infrastructure/Messaging/
 
 #### Idempotent Consumer
 ```bash
-/acc-generate-patterns idempotent-consumer PaymentHandler
-/acc-generate-patterns dedup EventSubscriber -- with Redis store
+/acc:generate-patterns idempotent-consumer PaymentHandler
+/acc:generate-patterns dedup EventSubscriber -- with Redis store
 ```
 
 Generates:
@@ -571,8 +571,8 @@ src/Infrastructure/Idempotency/
 
 #### Dead Letter Queue
 ```bash
-/acc-generate-patterns dead-letter-queue
-/acc-generate-patterns dlq -- with exponential backoff retry
+/acc:generate-patterns dead-letter-queue
+/acc:generate-patterns dlq -- with exponential backoff retry
 ```
 
 Generates:
@@ -592,8 +592,8 @@ src/Infrastructure/DeadLetter/
 
 #### Timeout
 ```bash
-/acc-generate-patterns timeout ExternalApi
-/acc-generate-patterns time-limit DatabaseQuery -- with fallback
+/acc:generate-patterns timeout ExternalApi
+/acc:generate-patterns time-limit DatabaseQuery -- with fallback
 ```
 
 Generates:
@@ -667,29 +667,29 @@ Generate related patterns together:
 
 ```bash
 # Generate resilience stack
-/acc-generate-patterns circuit-breaker PaymentApi
-/acc-generate-patterns retry PaymentApi -- compose with circuit breaker
+/acc:generate-patterns circuit-breaker PaymentApi
+/acc:generate-patterns retry PaymentApi -- compose with circuit breaker
 
 # Generate ADR trio
-/acc-generate-patterns action CreateUser
-/acc-generate-patterns responder UserResponse
+/acc:generate-patterns action CreateUser
+/acc:generate-patterns responder UserResponse
 ```
 
 ## Usage Examples
 
 ```bash
-/acc-generate-patterns circuit-breaker PaymentGateway
-/acc-generate-patterns strategy PaymentProcessor
-/acc-generate-patterns adapter StripePayment
-/acc-generate-patterns facade OrderProcessing
-/acc-generate-patterns template-method DataImporter
-/acc-generate-patterns visitor PriceCalculator
-/acc-generate-patterns saga CheckoutWorkflow
-/acc-generate-patterns builder UserProfile -- with validation steps
-/acc-generate-patterns outbox Order -- with Doctrine integration
-/acc-generate-patterns unit-of-work -- with Doctrine
-/acc-generate-patterns message-broker-adapter -- with RabbitMQ and Kafka
-/acc-generate-patterns idempotent-consumer PaymentHandler
-/acc-generate-patterns dead-letter-queue -- with exponential backoff
-/acc-generate-patterns timeout ExternalApi -- with fallback
+/acc:generate-patterns circuit-breaker PaymentGateway
+/acc:generate-patterns strategy PaymentProcessor
+/acc:generate-patterns adapter StripePayment
+/acc:generate-patterns facade OrderProcessing
+/acc:generate-patterns template-method DataImporter
+/acc:generate-patterns visitor PriceCalculator
+/acc:generate-patterns saga CheckoutWorkflow
+/acc:generate-patterns builder UserProfile -- with validation steps
+/acc:generate-patterns outbox Order -- with Doctrine integration
+/acc:generate-patterns unit-of-work -- with Doctrine
+/acc:generate-patterns message-broker-adapter -- with RabbitMQ and Kafka
+/acc:generate-patterns idempotent-consumer PaymentHandler
+/acc:generate-patterns dead-letter-queue -- with exponential backoff
+/acc:generate-patterns timeout ExternalApi -- with fallback
 ```

@@ -1,5 +1,5 @@
 ---
-name: acc-outbox-pattern-knowledge
+name: outbox-pattern-knowledge
 description: Outbox Pattern knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for transactional outbox, polling publisher, and reliable messaging audits.
 ---
 

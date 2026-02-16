@@ -1,9 +1,9 @@
 ---
-name: acc-diagram-designer
+name: diagram-designer
 description: Diagram designer for technical documentation. Use PROACTIVELY when creating Mermaid diagrams, C4 models, sequence diagrams, class diagrams, or ER diagrams.
 tools: Read, Write, Edit, Glob, Grep
 model: opus
-skills: acc-diagram-knowledge, acc-mermaid-template
+skills: diagram-knowledge, mermaid-template
 ---
 
 # Technical Diagram Designer

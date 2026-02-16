@@ -2,11 +2,11 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "if [[ \"$ACC_TOOL_FILE_PATH\" == *.php ]]; then php -l \"$ACC_TOOL_FILE_PATH\"; fi"
+            "command": "file=$(echo \"$CLAUDE_FILE_PATHS\"); if [[ \"$file\" == *.php ]]; then php -l \"$file\"; fi"
           }
         ]
       }

@@ -1,5 +1,5 @@
 ---
-name: acc-create-query
+name: create-query
 description: Generates CQRS Queries and Handlers for PHP 8.4. Creates read-only query DTOs with handlers that return data without side effects. Includes unit tests.
 ---
 

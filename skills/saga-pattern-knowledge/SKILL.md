@@ -1,5 +1,5 @@
 ---
-name: acc-saga-pattern-knowledge
+name: saga-pattern-knowledge
 description: Saga Pattern knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for saga orchestration, choreography, and distributed transaction audits.
 ---
 

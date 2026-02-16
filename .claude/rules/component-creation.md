@@ -1,13 +1,13 @@
 ---
 paths:
-  - .claude/commands/*.md
-  - .claude/agents/*.md
-  - .claude/skills/**/SKILL.md
+  - commands/*.md
+  - agents/*.md
+  - skills/**/SKILL.md
 ---
 
 # Adding Components
 
-## Command (`.claude/commands/acc-name.md`)
+## Command (`commands/name.md`)
 
 ```yaml
 ---
@@ -20,7 +20,7 @@ argument-hint: Optional (e.g. "<path> [-- instructions]")
 
 Commands parse `$ARGUMENTS` for input. The `--` separator passes meta-instructions. Always specify `model:` explicitly (`sonnet` for most, `opus` for coordinators).
 
-## Agent (`.claude/agents/acc-name.md`)
+## Agent (`agents/name.md`)
 
 ```yaml
 ---
@@ -28,15 +28,15 @@ name: Required (matches filename without .md)
 description: Required
 tools: Optional (default: all tools)
 model: Optional (default: opus)
-skills: acc-skill-one, acc-skill-two
+skills: skill-one, skill-two
 ---
 ```
 
-**Important**: `skills:` is a comma-separated inline list (not a YAML array). Skill names must match the skill folder name exactly.
+**Important**: `skills:` is a comma-separated inline list (not a YAML array). Skill names must match the skill folder name exactly (without any prefix).
 
-For coordinators with 3+ phases: add `TaskCreate, TaskUpdate` to tools, include `acc-task-progress-knowledge` in skills.
+For coordinators with 3+ phases: add `TaskCreate, TaskUpdate` to tools, include `task-progress-knowledge` in skills.
 
-## Skill (`.claude/skills/acc-name/SKILL.md`)
+## Skill (`skills/name/SKILL.md`)
 
 ```yaml
 ---

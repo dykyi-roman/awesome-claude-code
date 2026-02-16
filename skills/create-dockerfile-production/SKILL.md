@@ -1,5 +1,5 @@
 ---
-name: acc-create-dockerfile-production
+name: create-dockerfile-production
 description: Generates production-ready Dockerfiles for PHP 8.4 projects. Creates multi-stage builds with composer deps, extensions builder, and optimized production stages.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-docker-image-size
+name: analyze-docker-image-size
 description: Analyzes Docker image size for PHP projects. Identifies bloated layers, unnecessary packages, and provides size reduction strategies.
 ---
 

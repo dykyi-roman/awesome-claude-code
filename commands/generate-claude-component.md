@@ -17,15 +17,15 @@ Parse `$ARGUMENTS` to extract component type and optional meta-instructions:
 Format: [component-type] [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-claude-component
-- /acc-generate-claude-component command
-- /acc-generate-claude-component agent -- for DDD auditing
-- /acc-generate-claude-component skill -- generates Value Objects
-- /acc-generate-claude-component ? -- I want to auto-format code
-- /acc-generate-claude-component ? -- need a security audit
-- /acc-generate-claude-component hook -- validate PHP syntax before Write tool
-- /acc-generate-claude-component rule -- domain layer must be pure
-- /acc-generate-claude-component plugin -- package DDD tools for distribution
+- /acc:generate-claude-component
+- /acc:generate-claude-component command
+- /acc:generate-claude-component agent -- for DDD auditing
+- /acc:generate-claude-component skill -- generates Value Objects
+- /acc:generate-claude-component ? -- I want to auto-format code
+- /acc:generate-claude-component ? -- need a security audit
+- /acc:generate-claude-component hook -- validate PHP syntax before Write tool
+- /acc:generate-claude-component rule -- domain layer must be pure
+- /acc:generate-claude-component plugin -- package DDD tools for distribution
 ```
 
 **Parsing rules:**
@@ -125,7 +125,7 @@ Depending on the choice, ask:
 - Does it need scoped hooks (`hooks` field)?
 - Is it a coordinator (orchestrates other agents)?
   - If yes: add TaskCreate, TaskUpdate to tools
-  - Add acc-task-progress-knowledge to skills
+  - Add acc:task-progress-knowledge to skills
   - Add "Progress Tracking" section with 3-5 phases
 
 **For skill:**
@@ -163,14 +163,14 @@ Depending on the choice, ask:
 
 ### Step 3: Create component
 
-Use the acc-claude-code-expert agent to create a quality component.
+Use the acc:claude-code-expert agent to create a quality component.
 
-Load the acc-claude-code-knowledge skill for access to formats and best practices.
+Load the acc:claude-code-knowledge skill for access to formats and best practices.
 
 **For coordinator agents (orchestrates multiple agents):**
 
 1. Add `TaskCreate, TaskUpdate` to tools in frontmatter
-2. Add `acc-task-progress-knowledge` to skills
+2. Add `acc:task-progress-knowledge` to skills
 3. Add "Progress Tracking" section with pattern:
 
 ```markdown

@@ -1,5 +1,5 @@
 ---
-name: acc-find-resource-leaks
+name: find-resource-leaks
 description: Detects resource leaks in PHP code. Finds unclosed file handles, database connections not released, streams not freed, missing finally blocks, temporary files not cleaned.
 ---
 

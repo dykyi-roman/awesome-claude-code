@@ -1,5 +1,5 @@
 ---
-name: acc-map-async-flows
+name: map-async-flows
 description: Finds queue publishing (RabbitMQ, Redis), event dispatching, webhooks, and scheduled tasks. Documents synchronous-to-asynchronous boundaries, message formats, consumer chains, and retry policies.
 ---
 
@@ -227,6 +227,6 @@ OrderCreated
 ## Integration
 
 This skill is used by:
-- `acc-data-flow-analyst` — documents async communication paths
-- `acc-trace-request-lifecycle` — identifies where sync becomes async
-- `acc-explain-business-process` — shows async steps in workflows
+- `data-flow-analyst` — documents async communication paths
+- `trace-request-lifecycle` — identifies where sync becomes async
+- `explain-business-process` — shows async steps in workflows

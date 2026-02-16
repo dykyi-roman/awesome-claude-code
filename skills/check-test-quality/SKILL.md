@@ -1,5 +1,5 @@
 ---
-name: acc-check-test-quality
+name: check-test-quality
 description: Analyzes PHP test code quality. Checks test structure, assertion quality, test isolation, naming conventions, AAA pattern adherence.
 ---
 

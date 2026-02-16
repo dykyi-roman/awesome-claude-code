@@ -1,5 +1,5 @@
 ---
-name: acc-create-correlation-context
+name: create-correlation-context
 description: Generates Correlation ID propagation components for PHP 8.4. Creates PSR-15 middleware, Monolog processor, message bus header propagation, and CorrelationContext value object. Includes unit tests.
 ---
 

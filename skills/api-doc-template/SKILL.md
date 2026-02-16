@@ -1,5 +1,5 @@
 ---
-name: acc-api-doc-template
+name: api-doc-template
 description: Generates API documentation for PHP projects. Creates endpoint documentation with parameters, responses, and examples.
 ---
 

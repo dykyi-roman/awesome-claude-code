@@ -1,5 +1,5 @@
 ---
-name: acc-check-aggregate-consistency
+name: check-aggregate-consistency
 description: Audits DDD aggregate design rules. Checks single transaction boundary, identity by root, invariant enforcement, small aggregates, and consistency boundaries.
 ---
 

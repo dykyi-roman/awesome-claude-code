@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-php-config
+name: check-docker-php-config
 description: Checks PHP configuration in Docker containers. Verifies php.ini settings, OPcache, PHP-FPM pool, and extension configuration for production.
 ---
 

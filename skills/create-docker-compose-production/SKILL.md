@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-compose-production
+name: create-docker-compose-production
 description: Generates Docker Compose production configurations for PHP projects. Creates hardened stacks with resource limits, restart policies, and monitoring.
 ---
 

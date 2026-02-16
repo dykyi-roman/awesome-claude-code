@@ -1,5 +1,5 @@
 ---
-name: acc-extract-business-rules
+name: extract-business-rules
 description: Extracts validation rules, guards, business constraints, authorization rules, and invariants from domain code. Maps technical implementations to business terminology for non-technical stakeholders.
 ---
 
@@ -188,6 +188,6 @@ Grep: "->status === |->getStatus\\(\\) ===" --glob "**/*.php"
 ## Integration
 
 This skill is used by:
-- `acc-business-logic-analyst` — catalogs all business rules
-- `acc-explain-business-process` — references rules in process descriptions
-- `acc-extract-domain-concepts` — connects rules to domain entities
+- `business-logic-analyst` — catalogs all business rules
+- `explain-business-process` — references rules in process descriptions
+- `extract-domain-concepts` — connects rules to domain entities

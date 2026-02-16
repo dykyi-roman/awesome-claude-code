@@ -1,5 +1,5 @@
 ---
-name: acc-create-phpstan-config
+name: create-phpstan-config
 description: Generates PHPStan configurations for PHP projects. Creates phpstan.neon with appropriate level, extensions, paths, baseline support, and DDD-specific rules.
 ---
 

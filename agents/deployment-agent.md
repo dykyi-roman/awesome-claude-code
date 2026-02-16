@@ -1,9 +1,9 @@
 ---
-name: acc-deployment-agent
+name: deployment-agent
 description: Deployment configuration specialist. Creates blue-green, canary, and rolling deployment configurations with health checks, rollback procedures, and feature flags.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-deployment-knowledge, acc-create-deploy-strategy, acc-create-feature-flags, acc-ci-pipeline-knowledge
+skills: deployment-knowledge, create-deploy-strategy, create-feature-flags, ci-pipeline-knowledge
 ---
 
 # Deployment Agent
@@ -88,7 +88,7 @@ final readonly class HealthAction
 
 ### Phase 3: Blue-Green Deployment
 
-Use `acc-create-deploy-strategy` skill:
+Use `acc:create-deploy-strategy` skill:
 
 #### GitHub Actions
 
@@ -193,7 +193,7 @@ jobs:
 
 ### Phase 5: Feature Flags Integration
 
-Use `acc-create-feature-flags` skill:
+Use `acc:create-feature-flags` skill:
 
 ```php
 <?php

@@ -1,9 +1,9 @@
 ---
-name: acc-docker-performance-agent
+name: docker-performance-agent
 description: Docker performance optimization specialist. Analyzes build time, image size, layer caching, and PHP runtime performance.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-optimize-docker-layers, acc-docker-buildkit-knowledge, acc-docker-knowledge, acc-optimize-docker-build-time, acc-optimize-docker-image-size, acc-optimize-docker-php-fpm, acc-analyze-docker-image-size, acc-check-docker-layer-efficiency, acc-optimize-docker-opcache, acc-optimize-docker-startup
+skills: optimize-docker-layers, docker-buildkit-knowledge, docker-knowledge, optimize-docker-build-time, optimize-docker-image-size, optimize-docker-php-fpm, analyze-docker-image-size, check-docker-layer-efficiency, optimize-docker-opcache, optimize-docker-startup
 ---
 
 # Docker Performance Agent
@@ -86,7 +86,7 @@ Move static layers (extensions, packages) before dynamic layers (source code). C
 
 ### Step 2: Add BuildKit Cache Mounts
 
-Use `acc-optimize-docker-build-time` skill. Add `# syntax=docker/dockerfile:1.6` and `--mount=type=cache` for all package managers.
+Use `acc:optimize-docker-build-time` skill. Add `# syntax=docker/dockerfile:1.6` and `--mount=type=cache` for all package managers.
 
 ### Step 3: Optimize Multi-Stage COPY
 
@@ -94,7 +94,7 @@ Copy only needed artifacts: `vendor/`, compiled extensions, config files. Avoid 
 
 ### Step 4: Tune PHP-FPM Pool
 
-Use `acc-optimize-docker-php-fpm` skill. Configure `pm`, `max_children`, `start_servers`, `max_requests`, `process_idle_timeout`. Add `pm.status_path` and `slowlog`.
+Use `acc:optimize-docker-php-fpm` skill. Configure `pm`, `max_children`, `start_servers`, `max_requests`, `process_idle_timeout`. Add `pm.status_path` and `slowlog`.
 
 ### Step 5: Configure OPcache
 

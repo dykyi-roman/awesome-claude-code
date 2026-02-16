@@ -4,8 +4,8 @@
 
 ### Entity
 ```bash
-/acc-generate-ddd entity Order
-/acc-generate-ddd ent User -- with soft delete
+/acc:generate-ddd entity Order
+/acc:generate-ddd ent User -- with soft delete
 ```
 
 Generates:
@@ -19,8 +19,8 @@ tests/Unit/Domain/Order/Entity/
 
 ### Value Object
 ```bash
-/acc-generate-ddd value-object Email
-/acc-generate-ddd vo Money -- with currency support
+/acc:generate-ddd value-object Email
+/acc:generate-ddd vo Money -- with currency support
 ```
 
 Generates:
@@ -34,8 +34,8 @@ tests/Unit/Domain/User/ValueObject/
 
 ### Aggregate
 ```bash
-/acc-generate-ddd aggregate Order
-/acc-generate-ddd agg ShoppingCart -- with CartItem child entity
+/acc:generate-ddd aggregate Order
+/acc:generate-ddd agg ShoppingCart -- with CartItem child entity
 ```
 
 Generates:
@@ -54,8 +54,8 @@ tests/Unit/Domain/Order/Entity/
 
 ### Domain Event
 ```bash
-/acc-generate-ddd domain-event OrderConfirmed
-/acc-generate-ddd event UserRegistered
+/acc:generate-ddd domain-event OrderConfirmed
+/acc:generate-ddd event UserRegistered
 ```
 
 Generates:
@@ -68,8 +68,8 @@ tests/Unit/Domain/Order/Event/
 
 ### Repository
 ```bash
-/acc-generate-ddd repository Order
-/acc-generate-ddd repo User -- Doctrine implementation
+/acc:generate-ddd repository Order
+/acc:generate-ddd repo User -- Doctrine implementation
 ```
 
 Generates:
@@ -84,8 +84,8 @@ tests/Unit/Domain/Order/Repository/
 
 ### Domain Service
 ```bash
-/acc-generate-ddd domain-service MoneyTransfer
-/acc-generate-ddd ds PriceCalculator -- with discount rules
+/acc:generate-ddd domain-service MoneyTransfer
+/acc:generate-ddd ds PriceCalculator -- with discount rules
 ```
 
 Generates:
@@ -98,8 +98,8 @@ tests/Unit/Domain/Payment/Service/
 
 ### Factory
 ```bash
-/acc-generate-ddd factory Order
-/acc-generate-ddd fact User -- from external API
+/acc:generate-ddd factory Order
+/acc:generate-ddd fact User -- from external API
 ```
 
 Generates:
@@ -112,8 +112,8 @@ tests/Unit/Domain/Order/Factory/
 
 ### Specification
 ```bash
-/acc-generate-ddd specification IsActiveCustomer
-/acc-generate-ddd spec CanPlaceOrder -- composite
+/acc:generate-ddd specification IsActiveCustomer
+/acc:generate-ddd spec CanPlaceOrder -- composite
 ```
 
 Generates:
@@ -128,8 +128,8 @@ tests/Unit/Domain/Customer/Specification/
 
 ### Command
 ```bash
-/acc-generate-ddd command CreateOrder
-/acc-generate-ddd cmd UpdateUserProfile
+/acc:generate-ddd command CreateOrder
+/acc:generate-ddd cmd UpdateUserProfile
 ```
 
 Generates:
@@ -144,8 +144,8 @@ tests/Unit/Application/Order/Command/
 
 ### Query
 ```bash
-/acc-generate-ddd query GetOrderDetails
-/acc-generate-ddd qry ListUserOrders -- with pagination
+/acc:generate-ddd query GetOrderDetails
+/acc:generate-ddd qry ListUserOrders -- with pagination
 ```
 
 Generates:
@@ -160,8 +160,8 @@ tests/Unit/Application/Order/Query/
 
 ### Use Case
 ```bash
-/acc-generate-ddd use-case ProcessPayment
-/acc-generate-ddd uc RegisterUser -- with email verification
+/acc:generate-ddd use-case ProcessPayment
+/acc:generate-ddd uc RegisterUser -- with email verification
 ```
 
 Generates:
@@ -174,8 +174,8 @@ tests/Unit/Application/Payment/UseCase/
 
 ### DTO
 ```bash
-/acc-generate-ddd dto OrderRequest
-/acc-generate-ddd data-transfer UserResponse -- for REST API
+/acc:generate-ddd dto OrderRequest
+/acc:generate-ddd data-transfer UserResponse -- for REST API
 ```
 
 Generates:
@@ -190,8 +190,8 @@ tests/Unit/Application/Order/DTO/
 
 ### Anti-Corruption Layer
 ```bash
-/acc-generate-ddd acl StripePayment
-/acc-generate-ddd anti-corruption ExternalCrm -- translate to domain
+/acc:generate-ddd acl StripePayment
+/acc:generate-ddd anti-corruption ExternalCrm -- translate to domain
 ```
 
 Generates:
@@ -253,11 +253,11 @@ Generate related components together:
 
 ```bash
 # Generate full aggregate
-/acc-generate-ddd aggregate Order
-/acc-generate-ddd command CreateOrder
-/acc-generate-ddd query GetOrderById
+/acc:generate-ddd aggregate Order
+/acc:generate-ddd command CreateOrder
+/acc:generate-ddd query GetOrderById
 
 # Generate CQRS stack
-/acc-generate-ddd command UpdateOrder
-/acc-generate-ddd query ListOrders -- with filters
+/acc:generate-ddd command UpdateOrder
+/acc:generate-ddd query ListOrders -- with filters
 ```

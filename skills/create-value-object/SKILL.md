@@ -1,5 +1,5 @@
 ---
-name: acc-create-value-object
+name: create-value-object
 description: Generates DDD Value Objects for PHP 8.4. Creates immutable, self-validating objects with equality comparison. Includes unit tests.
 ---
 

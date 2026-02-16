@@ -1,5 +1,5 @@
 ---
-name: acc-find-race-conditions
+name: find-race-conditions
 description: Detects race conditions in PHP code. Finds shared mutable state, check-then-act patterns, TOCTOU vulnerabilities, concurrent modification issues.
 ---
 

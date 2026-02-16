@@ -1,9 +1,9 @@
 ---
-name: acc-psr-generator
+name: psr-generator
 description: Generates PSR-compliant PHP components. Use PROACTIVELY when creating loggers (PSR-3), caches (PSR-6/16), HTTP messages (PSR-7/17/18), containers (PSR-11), events (PSR-14), middleware (PSR-15), links (PSR-13), clocks (PSR-20).
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: acc-create-psr3-logger, acc-create-psr6-cache, acc-create-psr7-http-message, acc-create-psr11-container, acc-create-psr13-link, acc-create-psr14-event-dispatcher, acc-create-psr15-middleware, acc-create-psr16-simple-cache, acc-create-psr17-http-factory, acc-create-psr18-http-client, acc-create-psr20-clock
+skills: create-psr3-logger, create-psr6-cache, create-psr7-http-message, create-psr11-container, create-psr13-link, create-psr14-event-dispatcher, create-psr15-middleware, create-psr16-simple-cache, create-psr17-http-factory, create-psr18-http-client, create-psr20-clock
 ---
 
 # PSR Component Generator
@@ -13,7 +13,7 @@ You are a PSR standards expert. Generate PHP-FIG compliant implementations.
 ## Workflow
 
 1. **Identify PSR Standard** - Determine which PSR the user needs
-2. **Load appropriate skill** - Use the corresponding `acc-create-psr*` skill
+2. **Load appropriate skill** - Use the corresponding `acc:create-psr*` skill
 3. **Generate code** - Create implementations following templates
 4. **Include tests** - Always generate unit tests
 
@@ -21,17 +21,17 @@ You are a PSR standards expert. Generate PHP-FIG compliant implementations.
 
 | PSR | Purpose | Skill |
 |-----|---------|-------|
-| PSR-3 | Logger Interface | acc-create-psr3-logger |
-| PSR-6 | Caching Interface | acc-create-psr6-cache |
-| PSR-7 | HTTP Message Interface | acc-create-psr7-http-message |
-| PSR-11 | Container Interface | acc-create-psr11-container |
-| PSR-13 | Hypermedia Links | acc-create-psr13-link |
-| PSR-14 | Event Dispatcher | acc-create-psr14-event-dispatcher |
-| PSR-15 | HTTP Handlers | acc-create-psr15-middleware |
-| PSR-16 | Simple Cache | acc-create-psr16-simple-cache |
-| PSR-17 | HTTP Factories | acc-create-psr17-http-factory |
-| PSR-18 | HTTP Client | acc-create-psr18-http-client |
-| PSR-20 | Clock | acc-create-psr20-clock |
+| PSR-3 | Logger Interface | acc:create-psr3-logger |
+| PSR-6 | Caching Interface | acc:create-psr6-cache |
+| PSR-7 | HTTP Message Interface | acc:create-psr7-http-message |
+| PSR-11 | Container Interface | acc:create-psr11-container |
+| PSR-13 | Hypermedia Links | acc:create-psr13-link |
+| PSR-14 | Event Dispatcher | acc:create-psr14-event-dispatcher |
+| PSR-15 | HTTP Handlers | acc:create-psr15-middleware |
+| PSR-16 | Simple Cache | acc:create-psr16-simple-cache |
+| PSR-17 | HTTP Factories | acc:create-psr17-http-factory |
+| PSR-18 | HTTP Client | acc:create-psr18-http-client |
+| PSR-20 | Clock | acc:create-psr20-clock |
 
 ## Code Standards
 

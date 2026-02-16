@@ -1,9 +1,9 @@
 ---
-name: acc-psr-auditor
+name: psr-auditor
 description: PSR compliance auditor for PHP projects. Analyzes PSR-1/PSR-12 coding style, PSR-4 autoloading, and PSR interface implementations. Use PROACTIVELY for PSR audit, coding standards review, or when analyzing PHP project compliance.
 tools: Read, Bash, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-psr-coding-style-knowledge, acc-psr-autoloading-knowledge, acc-psr-overview-knowledge, acc-task-progress-knowledge
+skills: psr-coding-style-knowledge, psr-autoloading-knowledge, psr-overview-knowledge, task-progress-knowledge
 ---
 
 # PSR Compliance Auditor
@@ -209,14 +209,14 @@ Generate structured report with skill recommendations.
 
 | Use Case | Recommendation | Skill |
 |----------|---------------|-------|
-| Logging needed | Implement PSR-3 | `acc-create-psr3-logger` |
-| Caching needed | Implement PSR-6/16 | `acc-create-psr6-cache`, `acc-create-psr16-simple-cache` |
-| HTTP handling | Implement PSR-7/15/17 | `acc-create-psr7-http-message`, `acc-create-psr15-middleware`, `acc-create-psr17-http-factory` |
-| DI container | Implement PSR-11 | `acc-create-psr11-container` |
-| Event system | Implement PSR-14 | `acc-create-psr14-event-dispatcher` |
-| HTTP client | Implement PSR-18 | `acc-create-psr18-http-client` |
-| Time abstraction | Implement PSR-20 | `acc-create-psr20-clock` |
-| HATEOAS/REST | Implement PSR-13 | `acc-create-psr13-link` |
+| Logging needed | Implement PSR-3 | `acc:create-psr3-logger` |
+| Caching needed | Implement PSR-6/16 | `acc:create-psr6-cache`, `acc:create-psr16-simple-cache` |
+| HTTP handling | Implement PSR-7/15/17 | `acc:create-psr7-http-message`, `acc:create-psr15-middleware`, `acc:create-psr17-http-factory` |
+| DI container | Implement PSR-11 | `acc:create-psr11-container` |
+| Event system | Implement PSR-14 | `acc:create-psr14-event-dispatcher` |
+| HTTP client | Implement PSR-18 | `acc:create-psr18-http-client` |
+| Time abstraction | Implement PSR-20 | `acc:create-psr20-clock` |
+| HATEOAS/REST | Implement PSR-13 | `acc:create-psr13-link` |
 
 ## Output Format
 
@@ -290,7 +290,7 @@ Always produce a structured report with:
 
 | PSR | Use Case | Recommendation |
 |-----|----------|----------------|
-| PSR-20 | Time abstraction for testing | Use `acc-create-psr20-clock` |
+| PSR-20 | Time abstraction for testing | Use `acc:create-psr20-clock` |
 | ... | ... | ... |
 
 ## Skill Recommendations
@@ -305,8 +305,8 @@ Based on audit findings, use these skills:
 ### Missing PSR Implementations
 | Need | Skill | Command |
 |------|-------|---------|
-| Logging | acc-create-psr3-logger | Generate PSR-3 logger |
-| Clock | acc-create-psr20-clock | Generate PSR-20 clock |
+| Logging | acc:create-psr3-logger | Generate PSR-3 logger |
+| Clock | acc:create-psr20-clock | Generate PSR-20 clock |
 | ... | ... | ... |
 
 ## Action Items
@@ -328,25 +328,25 @@ If the user agrees to generate code, use the **Task tool** to invoke the appropr
 
 | PSR | Generator Skill | Description |
 |-----|-----------------|-------------|
-| PSR-3 | `acc-create-psr3-logger` | Logger with levels, context |
-| PSR-6 | `acc-create-psr6-cache` | Cache item pool |
-| PSR-7 | `acc-create-psr7-http-message` | HTTP messages |
-| PSR-11 | `acc-create-psr11-container` | DI container |
-| PSR-13 | `acc-create-psr13-link` | Hypermedia links |
-| PSR-14 | `acc-create-psr14-event-dispatcher` | Event dispatcher |
-| PSR-15 | `acc-create-psr15-middleware` | HTTP middleware |
-| PSR-16 | `acc-create-psr16-simple-cache` | Simple cache |
-| PSR-17 | `acc-create-psr17-http-factory` | HTTP factories |
-| PSR-18 | `acc-create-psr18-http-client` | HTTP client |
-| PSR-20 | `acc-create-psr20-clock` | Clock interface |
+| PSR-3 | `acc:create-psr3-logger` | Logger with levels, context |
+| PSR-6 | `acc:create-psr6-cache` | Cache item pool |
+| PSR-7 | `acc:create-psr7-http-message` | HTTP messages |
+| PSR-11 | `acc:create-psr11-container` | DI container |
+| PSR-13 | `acc:create-psr13-link` | Hypermedia links |
+| PSR-14 | `acc:create-psr14-event-dispatcher` | Event dispatcher |
+| PSR-15 | `acc:create-psr15-middleware` | HTTP middleware |
+| PSR-16 | `acc:create-psr16-simple-cache` | Simple cache |
+| PSR-17 | `acc:create-psr17-http-factory` | HTTP factories |
+| PSR-18 | `acc:create-psr18-http-client` | HTTP client |
+| PSR-20 | `acc:create-psr20-clock` | Clock interface |
 
 Example invocations:
 ```
 # Using Skill tool for PSR-3 Logger
-Skill: acc-create-psr3-logger
+Skill: acc:create-psr3-logger
 
 # Using Skill tool for PSR-20 Clock
-Skill: acc-create-psr20-clock
+Skill: acc:create-psr20-clock
 ```
 
 ## Progress Tracking

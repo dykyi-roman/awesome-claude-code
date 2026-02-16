@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-security
+name: check-docker-security
 description: Checks Docker security for PHP projects. Detects root user, exposed secrets, privileged mode, and missing security configurations.
 ---
 

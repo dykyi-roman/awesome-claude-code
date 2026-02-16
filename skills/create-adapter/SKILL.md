@@ -1,5 +1,5 @@
 ---
-name: acc-create-adapter
+name: create-adapter
 description: Generates Adapter pattern for PHP 8.4. Converts incompatible interfaces, wraps legacy code and external libraries. Includes unit tests.
 ---
 

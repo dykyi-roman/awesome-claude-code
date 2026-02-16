@@ -1,5 +1,5 @@
 ---
-name: acc-create-event-store
+name: create-event-store
 description: Generates Event Store pattern for PHP 8.4. Creates event sourcing storage infrastructure with event streams, stored events, optimistic locking, and version tracking. Includes unit tests.
 ---
 
@@ -189,7 +189,7 @@ CREATE TABLE event_store (
 | Missing Version | No optimistic locking | Version per aggregate |
 | No Idempotency | Duplicate appends | Unique aggregate_id + version |
 | Large Payloads | Slow reads | Serialize only essential data |
-| No Snapshots | Slow rebuilds for long streams | Use acc-create-snapshot |
+| No Snapshots | Slow rebuilds for long streams | Use create-snapshot |
 | Global Stream Only | Can't load per-aggregate | Per-aggregate stream support |
 
 ---

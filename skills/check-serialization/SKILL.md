@@ -1,5 +1,5 @@
 ---
-name: acc-check-serialization
+name: check-serialization
 description: Analyzes PHP code for serialization overhead. Detects inefficient JSON encoding, large object hydration, missing JsonSerializable, circular reference issues.
 ---
 

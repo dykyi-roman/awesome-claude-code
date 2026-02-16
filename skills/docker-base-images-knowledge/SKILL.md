@@ -1,5 +1,5 @@
 ---
-name: acc-docker-base-images-knowledge
+name: docker-base-images-knowledge
 description: Docker base images knowledge base for PHP. Provides image selection guidelines, Alpine vs Debian comparison, and version pinning strategies.
 ---
 
@@ -145,4 +145,4 @@ RUN apk add --no-cache gcompat
 ## References
 
 For detailed image variant comparison, see `references/image-comparison.md`.
-For extension installation on different bases, see `acc-docker-php-extensions-knowledge`.
+For extension installation on different bases, see `docker-php-extensions-knowledge`.

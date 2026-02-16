@@ -1,9 +1,9 @@
 ---
-name: acc-integration-auditor
-description: Integration patterns auditor. Analyzes Outbox, Saga, Stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead), and ADR pattern. Called by acc-architecture-auditor.
+name: integration-auditor
+description: Integration patterns auditor. Analyzes Outbox, Saga, Stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead), and ADR pattern. Called by acc:architecture-auditor.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-adr-knowledge, acc-create-outbox-pattern, acc-create-saga-pattern, acc-create-circuit-breaker, acc-create-retry-pattern, acc-create-rate-limiter, acc-create-bulkhead, acc-create-action, acc-create-responder, acc-task-progress-knowledge
+skills: outbox-pattern-knowledge, saga-pattern-knowledge, stability-patterns-knowledge, adr-knowledge, create-outbox-pattern, create-saga-pattern, create-circuit-breaker, create-retry-pattern, create-rate-limiter, create-bulkhead, create-action, create-responder, task-progress-knowledge
 ---
 
 # Integration Patterns Auditor
@@ -118,14 +118,14 @@ Detect each pattern using Glob + Grep:
 ## Generation Recommendations
 
 If violations found, suggest using appropriate create-* skills:
-- Missing Outbox → acc-create-outbox-pattern
-- Missing Saga → acc-create-saga-pattern
-- Missing Circuit Breaker → acc-create-circuit-breaker
-- Missing Retry → acc-create-retry-pattern
-- Missing Rate Limiter → acc-create-rate-limiter
-- Missing Bulkhead → acc-create-bulkhead
-- Missing Action → acc-create-action
-- Missing Responder → acc-create-responder
+- Missing Outbox → acc:create-outbox-pattern
+- Missing Saga → acc:create-saga-pattern
+- Missing Circuit Breaker → acc:create-circuit-breaker
+- Missing Retry → acc:create-retry-pattern
+- Missing Rate Limiter → acc:create-rate-limiter
+- Missing Bulkhead → acc:create-bulkhead
+- Missing Action → acc:create-action
+- Missing Responder → acc:create-responder
 ```
 
 ## Progress Tracking
@@ -148,4 +148,4 @@ Return a structured report with:
 5. Missing pattern recommendations
 6. Generation recommendations for fixing issues
 
-Do not suggest generating code directly. Return findings to the coordinator (acc-architecture-auditor) which will handle generation offers.
+Do not suggest generating code directly. Return findings to the coordinator (acc:architecture-auditor) which will handle generation offers.

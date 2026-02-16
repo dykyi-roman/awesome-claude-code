@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-security ./src
-- /acc-audit-security ./src deep
-- /acc-audit-security ./src quick
-- /acc-audit-security ./src -- focus on OWASP A01-A03
-- /acc-audit-security ./src deep -- focus on injection
-- /acc-audit-security ./src -- level:deep (backward compatible)
+- /acc:audit-security ./src
+- /acc:audit-security ./src deep
+- /acc:audit-security ./src quick
+- /acc:audit-security ./src -- focus on OWASP A01-A03
+- /acc:audit-security ./src deep -- focus on injection
+- /acc:audit-security ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -62,10 +62,10 @@ If meta-instructions provided, adjust audit to:
 
 ## Instructions
 
-Use the `acc-security-reviewer` agent to perform a comprehensive security audit:
+Use the `acc:security-reviewer` agent to perform a comprehensive security audit:
 
 ```
-Task tool with subagent_type="acc-security-reviewer"
+Task tool with subagent_type="acc:security-reviewer"
 prompt: "Perform security audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Analyze for:
@@ -228,10 +228,10 @@ Level is an optional positional parameter. Default: `standard`.
 ## Usage Examples
 
 ```bash
-/acc-audit-security ./src
-/acc-audit-security ./src quick
-/acc-audit-security ./src deep
-/acc-audit-security ./src/Api -- focus on input validation
-/acc-audit-security ./src deep -- check A01-A03 only
-/acc-audit-security ./src -- level:deep
+/acc:audit-security ./src
+/acc:audit-security ./src quick
+/acc:audit-security ./src deep
+/acc:audit-security ./src/Api -- focus on input validation
+/acc:audit-security ./src deep -- check A01-A03 only
+/acc:audit-security ./src -- level:deep
 ```

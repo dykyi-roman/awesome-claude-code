@@ -1,5 +1,5 @@
 ---
-name: acc-create-prototype
+name: create-prototype
 description: Generates Prototype pattern implementations for PHP 8.4. Creates deep/shallow copy, clone customization, prototype registries, and immutable object duplication.
 ---
 

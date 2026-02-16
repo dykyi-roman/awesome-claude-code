@@ -1,5 +1,5 @@
 ---
-name: acc-detect-unnecessary-loops
+name: detect-unnecessary-loops
 description: Detects unnecessary loop patterns in PHP code. Finds nested loop inefficiency, redundant iterations, in-loop operations that could be batched, loop invariant code.
 ---
 

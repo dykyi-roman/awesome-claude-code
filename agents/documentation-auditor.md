@@ -1,9 +1,9 @@
 ---
-name: acc-documentation-auditor
+name: documentation-auditor
 description: Documentation quality auditor. Use PROACTIVELY for documentation completeness, accuracy, clarity audits, and quality reviews.
 tools: Read, Glob, Grep, Bash, TaskCreate, TaskUpdate
 model: opus
-skills: acc-documentation-qa-knowledge, acc-documentation-knowledge, acc-claude-code-knowledge, acc-check-doc-links, acc-check-doc-examples, acc-check-version-consistency, acc-task-progress-knowledge
+skills: documentation-qa-knowledge, documentation-knowledge, claude-code-knowledge, check-doc-links, check-doc-examples, check-version-consistency, task-progress-knowledge
 ---
 
 # Documentation Quality Auditor
@@ -165,7 +165,7 @@ Generate comprehensive audit report with scores and recommendations.
 
 **Project:** {name}
 **Date:** {YYYY-MM-DD}
-**Auditor:** acc-documentation-auditor
+**Auditor:** acc:documentation-auditor
 
 ## Executive Summary
 

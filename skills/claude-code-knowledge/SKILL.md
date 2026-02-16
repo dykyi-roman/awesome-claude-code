@@ -1,5 +1,5 @@
 ---
-name: acc-claude-code-knowledge
+name: claude-code-knowledge
 description: Comprehensive knowledge base for Claude Code formats, patterns, and configuration. Use when creating, improving, or auditing commands, agents, skills, hooks, memory, plugins, or settings.
 ---
 
@@ -291,7 +291,7 @@ For full reference see [references/plugins-reference.md](references/plugins-refe
 | `Tool(glob)` | `Read(src/**)` | Gitignore-style glob |
 | `Tool(domain:)` | `WebFetch(domain:api.example.com)` | Domain filter |
 | `mcp__server__tool` | `mcp__github__create_issue` | MCP tool |
-| `Task(agent)` | `Task(acc-ddd-auditor)` | Specific subagent |
+| `Task(agent)` | `Task(ddd-auditor)` | Specific subagent |
 
 **Evaluation order:** deny → ask → allow (deny wins over allow)
 
@@ -434,7 +434,7 @@ Skills namespaced: /plugin-name:skill-name
 - [ ] `permissionMode` appropriate for task
 - [ ] `skills:` is comma-separated inline list (not YAML array)
 - [ ] Coordinators have `TaskCreate, TaskUpdate` in tools
-- [ ] Coordinators have `acc-task-progress-knowledge` in skills
+- [ ] Coordinators have `task-progress-knowledge` in skills
 
 ### Skills
 - [ ] `name` is lowercase with hyphens, matches folder name

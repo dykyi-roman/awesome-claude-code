@@ -1,5 +1,5 @@
 ---
-name: acc-bug-root-cause-finder
+name: bug-root-cause-finder
 description: Root cause analysis methods for PHP bugs. Provides 5 Whys technique, fault tree analysis, git bisect guidance, and stack trace parsing.
 ---
 

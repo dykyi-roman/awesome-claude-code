@@ -1,5 +1,5 @@
 ---
-name: acc-create-rate-limiter
+name: create-rate-limiter
 description: Generates Rate Limiter pattern for PHP 8.4. Creates request throttling with token bucket, sliding window, and fixed window algorithms. Includes unit tests.
 ---
 

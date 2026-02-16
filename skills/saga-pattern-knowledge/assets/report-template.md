@@ -233,4 +233,4 @@ Grep: "correlationId|correlation_id" --glob "**/Saga/**/*.php"
 ---
 
 **Report Generated:** [DATE]
-**Auditor:** acc-pattern-auditor
+**Auditor:** pattern-auditor

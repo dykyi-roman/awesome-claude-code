@@ -1,5 +1,5 @@
 ---
-name: acc-check-command-injection
+name: check-command-injection
 description: Analyzes PHP code for command injection vulnerabilities. Detects shell_exec, exec, system, passthru with user input, missing escapeshellarg/escapeshellcmd.
 ---
 

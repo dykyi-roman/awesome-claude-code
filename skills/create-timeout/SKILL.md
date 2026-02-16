@@ -1,5 +1,5 @@
 ---
-name: acc-create-timeout
+name: create-timeout
 description: Generates Timeout pattern components for PHP 8.4. Creates execution time limit infrastructure with configurable timeouts, fallback support, stream timeouts, and unit tests.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-identify-entry-points
+name: identify-entry-points
 description: Finds application entry points — Controllers, Actions, Console Commands, Event Handlers, Message Consumers, route definitions, middleware, and scheduled tasks. Maps HTTP/CLI/async entry points to their handlers.
 ---
 
@@ -212,6 +212,6 @@ Queue Message → Consumer → Handler → UseCase → Domain → Ack
 ## Integration
 
 This skill is used by:
-- `acc-codebase-navigator` — builds complete entry point catalog
-- `acc-trace-request-lifecycle` — starts from identified entry points
-- `acc-explain-business-process` — maps entry points to business operations
+- `codebase-navigator` — builds complete entry point catalog
+- `trace-request-lifecycle` — starts from identified entry points
+- `explain-business-process` — maps entry points to business operations

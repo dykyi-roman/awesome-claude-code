@@ -1,5 +1,5 @@
 ---
-name: acc-hexagonal-knowledge
+name: hexagonal-knowledge
 description: Hexagonal Architecture (Ports & Adapters) knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Hexagonal Architecture audits.
 ---
 

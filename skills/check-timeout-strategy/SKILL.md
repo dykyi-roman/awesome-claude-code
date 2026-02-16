@@ -1,5 +1,5 @@
 ---
-name: acc-check-timeout-strategy
+name: check-timeout-strategy
 description: Audits timeout configuration across HTTP clients, database connections, queue consumers, cache operations, and external service calls. Detects missing or misconfigured timeouts.
 ---
 

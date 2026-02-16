@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-healthcheck
+name: create-docker-healthcheck
 description: Generates Docker health check scripts for PHP services. Creates PHP-FPM, Nginx, and custom endpoint health checks.
 ---
 

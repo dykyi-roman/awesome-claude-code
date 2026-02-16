@@ -1,5 +1,5 @@
 ---
-name: acc-docker-orchestration-knowledge
+name: docker-orchestration-knowledge
 description: Docker orchestration knowledge base. Provides patterns for Swarm, Kubernetes basics, service scaling, and load balancing for PHP.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-docker-troubleshooting-knowledge
+name: docker-troubleshooting-knowledge
 description: Docker troubleshooting knowledge base. Provides debugging patterns, common error solutions, and diagnostic commands for PHP containers.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-create-entity
+name: create-entity
 description: Generates DDD Entities for PHP 8.4. Creates identity-based objects with behavior, state transitions, and invariant protection. Includes unit tests.
 ---
 

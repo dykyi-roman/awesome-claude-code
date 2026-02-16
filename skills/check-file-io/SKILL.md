@@ -1,5 +1,5 @@
 ---
-name: acc-check-file-io
+name: check-file-io
 description: Audits file I/O patterns in PHP code. Detects full-file reads into memory, missing file locks, temp file cleanup issues, missing stream usage, and insecure file operations.
 ---
 

@@ -52,10 +52,10 @@ final class UserManager
 
 **Recommendation:**
 Extract into focused classes:
-- `UserRegistrationHandler` - Use skill: `acc-create-use-case`
-- `UserAuthenticationService` - Use skill: `acc-create-domain-service`
-- `UserEmailNotifier` - Use skill: `acc-create-domain-service`
-- `UserReportGenerator` - Use skill: `acc-create-read-model`
+- `UserRegistrationHandler` - Use skill: `create-use-case`
+- `UserAuthenticationService` - Use skill: `create-domain-service`
+- `UserEmailNotifier` - Use skill: `create-domain-service`
+- `UserReportGenerator` - Use skill: `create-read-model`
 
 ---
 
@@ -80,7 +80,7 @@ match ($payment->type) {
 
 **Recommendation:**
 Apply Strategy pattern:
-- Create `PaymentGateway` interface - Use skill: `acc-create-strategy`
+- Create `PaymentGateway` interface - Use skill: `create-strategy`
 - Implement per-type strategies
 - Use DI container tags for auto-registration
 
@@ -153,7 +153,7 @@ public function __construct(
 **Recommendation:**
 - Create `OrderRepository` interface in Domain layer
 - Type hint interface instead of implementation
-- Use skill: `acc-create-repository`
+- Use skill: `create-repository`
 
 ---
 
@@ -208,12 +208,12 @@ Class approaching complexity threshold. Monitor for SRP violation.
 
 | Violation Type | Recommended Skill |
 |----------------|-------------------|
-| God Class | `acc-create-use-case`, `acc-create-domain-service` |
-| Type Switch | `acc-create-strategy` |
+| God Class | `create-use-case`, `create-domain-service` |
+| Type Switch | `create-strategy` |
 | Interface Split | Manual refactoring |
-| Repository Interface | `acc-create-repository` |
-| Domain Service | `acc-create-domain-service` |
-| Value Object Extraction | `acc-create-value-object` |
+| Repository Interface | `create-repository` |
+| Domain Service | `create-domain-service` |
+| Value Object Extraction | `create-value-object` |
 
 ---
 

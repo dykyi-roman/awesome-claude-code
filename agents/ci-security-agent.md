@@ -1,9 +1,9 @@
 ---
-name: acc-ci-security-agent
+name: ci-security-agent
 description: CI/CD security specialist. Audits secrets handling, permissions, dependency scanning, and security configurations in CI pipelines.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-ci-pipeline-knowledge, acc-analyze-ci-config, acc-detect-ci-antipatterns, acc-check-dependency-vulnerabilities, acc-check-sensitive-data, acc-check-crypto-usage
+skills: ci-pipeline-knowledge, analyze-ci-config, detect-ci-antipatterns, check-dependency-vulnerabilities, check-sensitive-data, check-crypto-usage
 ---
 
 # CI Security Agent
@@ -183,7 +183,7 @@ container-scan:
 
 **Project:** [NAME]
 **Date:** [DATE]
-**Auditor:** acc-ci-security-agent
+**Auditor:** acc:ci-security-agent
 
 ## Executive Summary
 

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=$(echo \"$CLAUDE_FILE_PATHS\"); if [[ \"$file\" == *.php ]]; then php -l \"$file\"; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

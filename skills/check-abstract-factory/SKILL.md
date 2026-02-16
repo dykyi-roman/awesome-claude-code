@@ -1,5 +1,5 @@
 ---
-name: acc-check-abstract-factory
+name: check-abstract-factory
 description: Audits Abstract Factory pattern implementations. Checks family consistency, product hierarchy, factory method completeness, and cross-family compatibility.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-check-context-communication
+name: check-context-communication
 description: Audits Bounded Context communication patterns. Checks Context Map relationships (Shared Kernel, ACL, Open Host), event vs direct calls, and anti-corruption layer usage.
 ---
 

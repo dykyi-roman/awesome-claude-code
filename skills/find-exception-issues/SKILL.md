@@ -1,5 +1,5 @@
 ---
-name: acc-find-exception-issues
+name: find-exception-issues
 description: Detects exception handling issues in PHP code. Finds swallowed exceptions, generic catches, missing exception handling, re-throwing without context, exception in finally.
 ---
 

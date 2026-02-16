@@ -1,5 +1,5 @@
 ---
-name: acc-docker-security-knowledge
+name: docker-security-knowledge
 description: Docker security knowledge base for PHP. Provides hardening patterns, vulnerability scanning, secrets management, and OWASP container guidelines.
 ---
 

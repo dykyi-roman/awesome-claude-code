@@ -1,5 +1,5 @@
 ---
-name: acc-check-deserialization
+name: check-deserialization
 description: Analyzes PHP code for insecure deserialization. Detects unserialize with user input, missing allowed_classes, PHP object injection risks, gadget chains.
 ---
 

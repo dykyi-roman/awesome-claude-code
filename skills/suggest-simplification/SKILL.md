@@ -1,5 +1,5 @@
 ---
-name: acc-suggest-simplification
+name: suggest-simplification
 description: Suggests code simplification opportunities. Identifies extract method candidates, complex expressions, redundant code, refactoring opportunities.
 ---
 

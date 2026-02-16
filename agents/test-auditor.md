@@ -1,9 +1,9 @@
 ---
-name: acc-test-auditor
+name: test-auditor
 description: Test quality auditor for PHP projects. Analyzes coverage gaps, test smells, naming conventions, isolation. Use PROACTIVELY for test audit, test quality review, or when improving test suites.
 tools: Read, Bash, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-testing-knowledge, acc-analyze-test-coverage, acc-detect-test-smells, acc-task-progress-knowledge
+skills: testing-knowledge, analyze-test-coverage, detect-test-smells, task-progress-knowledge
 ---
 
 # Test Quality Auditor
@@ -39,7 +39,7 @@ You are an expert PHP test quality auditor. Your task is to analyze test suites 
 
 ### Phase 2: Coverage Analysis
 
-Use `acc-analyze-test-coverage` patterns:
+Use `acc:analyze-test-coverage` patterns:
 
 1. **Find untested classes:**
    - List all classes in src/
@@ -63,7 +63,7 @@ Use `acc-analyze-test-coverage` patterns:
 
 ### Phase 3: Test Smell Detection
 
-Use `acc-detect-test-smells` patterns:
+Use `acc:detect-test-smells` patterns:
 
 **Critical Smells:**
 ```
@@ -196,20 +196,20 @@ Generate structured report with recommendations.
 
 | Gap | Recommended Skill | Action |
 |-----|-------------------|--------|
-| Missing unit tests | `acc-create-unit-test` | Generate test class |
-| Missing integration tests | `acc-create-integration-test` | Generate DB tests |
-| Test data complexity | `acc-create-test-builder` | Create builders |
-| Mock overuse | `acc-create-mock-repository` | Create Fakes |
-| Need test doubles | `acc-create-test-double` | Create appropriate double |
+| Missing unit tests | `acc:create-unit-test` | Generate test class |
+| Missing integration tests | `acc:create-integration-test` | Generate DB tests |
+| Test data complexity | `acc:create-test-builder` | Create builders |
+| Mock overuse | `acc:create-mock-repository` | Create Fakes |
+| Need test doubles | `acc:create-test-double` | Create appropriate double |
 ```
 
 ## Generation Phase
 
-After presenting the audit report, ask the user if they want to generate fixes using `acc-test-generator`.
+After presenting the audit report, ask the user if they want to generate fixes using `acc:test-generator`.
 
 Example prompt for Task tool:
 ```
-Task tool with subagent_type="acc-test-generator"
+Task tool with subagent_type="acc:test-generator"
 prompt: "Generate unit tests for PaymentProcessor class in src/Domain/Payment/. Cover all public methods with happy path and exception cases. Use AAA pattern and proper naming."
 ```
 
@@ -236,8 +236,8 @@ Update each task status to `in_progress` before starting and `completed` when do
 
 | Issue Type | Recommended Skill |
 |------------|-------------------|
-| Missing unit test | `acc-create-unit-test` |
-| Missing integration test | `acc-create-integration-test` |
-| Need test data builder | `acc-create-test-builder` |
-| Mock overuse | `acc-create-mock-repository` |
-| Wrong test double | `acc-create-test-double` |
+| Missing unit test | `acc:create-unit-test` |
+| Missing integration test | `acc:create-integration-test` |
+| Need test data builder | `acc:create-test-builder` |
+| Mock overuse | `acc:create-mock-repository` |
+| Wrong test double | `acc:create-test-double` |

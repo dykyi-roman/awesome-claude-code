@@ -1,5 +1,5 @@
 ---
-name: acc-create-unit-of-work
+name: create-unit-of-work
 description: Generates Unit of Work pattern components for PHP 8.4. Creates transactional consistency infrastructure with aggregate tracking, flush/rollback, domain event collection, and unit tests.
 ---
 

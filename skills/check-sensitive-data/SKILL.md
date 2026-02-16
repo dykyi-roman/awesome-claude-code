@@ -1,5 +1,5 @@
 ---
-name: acc-check-sensitive-data
+name: check-sensitive-data
 description: Analyzes PHP code for sensitive data exposure. Detects plaintext secrets, exposed credentials, PII in logs, insecure storage, hardcoded keys.
 ---
 

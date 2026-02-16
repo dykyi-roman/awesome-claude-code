@@ -17,10 +17,10 @@ Parse `$ARGUMENTS` to extract platform, path, and optional meta-instructions:
 Format: <platform> [path] [-- <meta-instructions>]
 
 Examples:
-- /acc-ci-setup github
-- /acc-ci-setup gitlab ./
-- /acc-ci-setup github ./src -- include Docker, blue-green deploy
-- /acc-ci-setup gitlab -- skip deploy, focus on testing
+- /acc:ci-setup github
+- /acc:ci-setup gitlab ./
+- /acc:ci-setup github ./src -- include Docker, blue-green deploy
+- /acc:ci-setup gitlab -- skip deploy, focus on testing
 ```
 
 **Parsing rules:**
@@ -51,10 +51,10 @@ Examples:
 
 ## Instructions
 
-Use the `acc-ci-coordinator` agent to set up the CI pipeline:
+Use the `acc:ci-coordinator` agent to set up the CI pipeline:
 
 ```
-Task tool with subagent_type="acc-ci-coordinator"
+Task tool with subagent_type="acc:ci-coordinator"
 prompt: "Set up CI pipeline for [PATH].
 
 Platform: [PLATFORM]
@@ -106,19 +106,19 @@ The coordinator will:
 
 ```bash
 # Basic GitHub Actions setup
-/acc-ci-setup github
+/acc:ci-setup github
 
 # GitLab CI with specific path
-/acc-ci-setup gitlab ./my-project
+/acc:ci-setup gitlab ./my-project
 
 # Full setup with Docker and deployment
-/acc-ci-setup github -- include Docker, canary deployment
+/acc:ci-setup github -- include Docker, canary deployment
 
 # Testing-focused setup
-/acc-ci-setup gitlab -- focus on testing, high coverage requirements
+/acc:ci-setup gitlab -- focus on testing, high coverage requirements
 
 # Minimal setup
-/acc-ci-setup github -- only lint and unit tests, no deploy
+/acc:ci-setup github -- only lint and unit tests, no deploy
 ```
 
 ## Meta-Instructions Guide

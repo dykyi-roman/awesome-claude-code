@@ -1,5 +1,5 @@
 ---
-name: acc-ci-pipeline-knowledge
+name: ci-pipeline-knowledge
 description: CI/CD pipeline knowledge base. Provides platforms overview (GitHub Actions, GitLab CI), pipeline stages, caching strategies, parallelization, artifact management, and environment management.
 ---
 

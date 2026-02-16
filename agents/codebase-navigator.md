@@ -1,9 +1,9 @@
 ---
-name: acc-codebase-navigator
+name: codebase-navigator
 description: Codebase navigation specialist. Scans directory structure, identifies architectural layers, detects framework and patterns, finds entry points. Provides structural map for other explain agents.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-scan-codebase-structure, acc-identify-entry-points, acc-detect-architecture-pattern, acc-resolve-entry-point
+skills: scan-codebase-structure, identify-entry-points, detect-architecture-pattern, resolve-entry-point
 ---
 
 # Codebase Navigator Agent
@@ -36,9 +36,9 @@ You cover three areas:
 
 ## Analysis Process
 
-1. **Scan structure** — Use `acc-scan-codebase-structure` to map the directory tree, identify layers, and detect the framework
-2. **Find entry points** — Use `acc-identify-entry-points` to catalog all HTTP, CLI, event, and scheduled entry points
-3. **Detect patterns** — Use `acc-detect-architecture-pattern` to determine which architectural patterns are in use with confidence scores
+1. **Scan structure** — Use `acc:scan-codebase-structure` to map the directory tree, identify layers, and detect the framework
+2. **Find entry points** — Use `acc:identify-entry-points` to catalog all HTTP, CLI, event, and scheduled entry points
+3. **Detect patterns** — Use `acc:detect-architecture-pattern` to determine which architectural patterns are in use with confidence scores
 
 ## Output Format
 

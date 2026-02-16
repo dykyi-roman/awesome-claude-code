@@ -1,5 +1,5 @@
 ---
-name: acc-mermaid-template
+name: mermaid-template
 description: Generates Mermaid diagrams for technical documentation. Provides templates for flowcharts, sequence diagrams, class diagrams, ER diagrams, and C4 models.
 ---
 

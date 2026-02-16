@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-psr ./src
-- /acc-audit-psr ./src deep
-- /acc-audit-psr ./src quick
-- /acc-audit-psr ./src -- focus on PSR-12 only
-- /acc-audit-psr ./src deep -- focus on interfaces
-- /acc-audit-psr ./src -- level:deep (backward compatible)
+- /acc:audit-psr ./src
+- /acc:audit-psr ./src deep
+- /acc:audit-psr ./src quick
+- /acc:audit-psr ./src -- focus on PSR-12 only
+- /acc:audit-psr ./src deep -- focus on interfaces
+- /acc:audit-psr ./src -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -89,10 +89,10 @@ Level is an optional positional parameter. Default: `standard`.
 
 ## Instructions
 
-Use the `acc-psr-auditor` agent to perform a comprehensive PSR compliance audit:
+Use the `acc:psr-auditor` agent to perform a comprehensive PSR compliance audit:
 
 ```
-Task tool with subagent_type="acc-psr-auditor"
+Task tool with subagent_type="acc:psr-auditor"
 prompt: "Perform PSR compliance audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
 
 Use TaskCreate/TaskUpdate for progress visibility. Create tasks for each audit phase.
@@ -186,9 +186,9 @@ If no path is provided, audit the current project root.
 
 | Gap | Skill | Command |
 |-----|-------|---------|
-| No PSR-3 logger | `acc-create-psr3-logger` | `/acc-generate-psr logger` |
-| No PSR-7 messages | `acc-create-psr7-http-message` | `/acc-generate-psr http-message` |
-| No PSR-15 middleware | `acc-create-psr15-middleware` | `/acc-generate-psr middleware` |
+| No PSR-3 logger | `acc:create-psr3-logger` | `/acc:generate-psr logger` |
+| No PSR-7 messages | `acc:create-psr7-http-message` | `/acc:generate-psr http-message` |
+| No PSR-15 middleware | `acc:create-psr15-middleware` | `/acc:generate-psr middleware` |
 
 ## 6. Action Items
 
@@ -202,20 +202,20 @@ If no path is provided, audit the current project root.
 
 ```bash
 # Standard audit (default)
-/acc-audit-psr ./src
+/acc:audit-psr ./src
 
 # Quick check
-/acc-audit-psr ./src quick
+/acc:audit-psr ./src quick
 
 # Deep analysis with interface quality
-/acc-audit-psr ./src deep
+/acc:audit-psr ./src deep
 
 # Focus on specific PSR
-/acc-audit-psr ./src -- focus on PSR-12 only
+/acc:audit-psr ./src -- focus on PSR-12 only
 
 # Deep + focus
-/acc-audit-psr ./src deep -- focus on interfaces
+/acc:audit-psr ./src deep -- focus on interfaces
 
 # Backward compatible
-/acc-audit-psr ./src -- level:deep
+/acc:audit-psr ./src -- level:deep
 ```

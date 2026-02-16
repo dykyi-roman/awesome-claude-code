@@ -1,5 +1,5 @@
 ---
-name: acc-create-test-builder
+name: create-test-builder
 description: Generates Test Data Builder and Object Mother patterns for PHP 8.4. Creates fluent builders with sensible defaults and factory methods for test data creation.
 ---
 

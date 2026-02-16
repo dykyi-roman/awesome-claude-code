@@ -1,5 +1,5 @@
 ---
-name: acc-testing-knowledge
+name: testing-knowledge
 description: Testing knowledge base for PHP 8.4 projects. Provides testing pyramid, AAA pattern, naming conventions, isolation principles, DDD testing guidelines, and PHPUnit patterns.
 ---
 

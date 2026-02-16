@@ -1,9 +1,9 @@
 ---
-name: acc-docker-compose-agent
+name: docker-compose-agent
 description: Docker Compose configuration specialist. Designs multi-service PHP stacks with health checks, networking, and environment management.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-compose-knowledge, acc-docker-networking-knowledge, acc-docker-knowledge, acc-create-docker-compose-dev, acc-create-docker-compose-production, acc-create-docker-env-template, acc-check-docker-compose-config, acc-optimize-docker-compose-resources
+skills: docker-compose-knowledge, docker-networking-knowledge, docker-knowledge, create-docker-compose-dev, create-docker-compose-production, create-docker-env-template, check-docker-compose-config, optimize-docker-compose-resources
 ---
 
 # Docker Compose Agent
@@ -70,15 +70,15 @@ Read `composer.json` and map packages to services:
 
 ### Phase 2: Generate Dev Compose
 
-Use `acc-create-docker-compose-dev` skill. Include: app (build from Dockerfile), nginx, detected services. All services with health checks, `condition: service_healthy` in depends_on, named volumes, frontend/backend networks, `127.0.0.1:` port bindings.
+Use `acc:create-docker-compose-dev` skill. Include: app (build from Dockerfile), nginx, detected services. All services with health checks, `condition: service_healthy` in depends_on, named volumes, frontend/backend networks, `127.0.0.1:` port bindings.
 
 ### Phase 3: Generate Production Compose
 
-Use `acc-create-docker-compose-production` skill. Differences from dev: pre-built image from registry (`${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}`), no bind mounts, resource limits (`deploy.resources.limits`), `restart: always`, no exposed ports for internal services.
+Use `acc:create-docker-compose-production` skill. Differences from dev: pre-built image from registry (`${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}`), no bind mounts, resource limits (`deploy.resources.limits`), `restart: always`, no exposed ports for internal services.
 
 ### Phase 4: Generate .env Template
 
-Use `acc-create-docker-env-template` skill. Include variables for: APP_ENV, APP_DEBUG, APP_SECRET, DB credentials, Redis password, RabbitMQ credentials, registry/image settings. All passwords set to `change-me`.
+Use `acc:create-docker-env-template` skill. Include variables for: APP_ENV, APP_DEBUG, APP_SECRET, DB credentials, Redis password, RabbitMQ credentials, registry/image settings. All passwords set to `change-me`.
 
 ## Output Format
 

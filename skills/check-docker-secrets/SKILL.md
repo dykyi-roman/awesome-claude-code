@@ -1,5 +1,5 @@
 ---
-name: acc-check-docker-secrets
+name: check-docker-secrets
 description: Detects secrets and credentials in Docker configuration. Scans Dockerfile, Compose, and .env files for exposed passwords, tokens, and keys.
 ---
 

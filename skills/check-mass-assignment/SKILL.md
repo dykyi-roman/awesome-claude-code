@@ -1,5 +1,5 @@
 ---
-name: acc-check-mass-assignment
+name: check-mass-assignment
 description: Detects mass assignment vulnerabilities. Identifies unguarded model filling, Request::all() to create/update, missing $fillable/$guarded, and parameter binding without whitelisting.
 ---
 

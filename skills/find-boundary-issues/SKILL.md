@@ -1,5 +1,5 @@
 ---
-name: acc-find-boundary-issues
+name: find-boundary-issues
 description: Detects boundary issues in PHP code. Finds array index out of bounds, empty collection access, off-by-one errors, integer overflow, string length issues.
 ---
 

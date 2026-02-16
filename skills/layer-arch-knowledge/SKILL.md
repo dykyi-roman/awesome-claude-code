@@ -1,5 +1,5 @@
 ---
-name: acc-layer-arch-knowledge
+name: layer-arch-knowledge
 description: Layered Architecture knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for traditional N-tier/Layered Architecture audits.
 ---
 

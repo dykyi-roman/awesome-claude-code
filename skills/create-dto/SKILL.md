@@ -1,5 +1,5 @@
 ---
-name: acc-create-dto
+name: create-dto
 description: Generates DTO (Data Transfer Object) for PHP 8.4. Creates immutable objects for layer boundaries, API requests/responses, and data serialization. Includes unit tests.
 ---
 

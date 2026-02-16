@@ -7,7 +7,7 @@ argument-hint: <pipeline-url|log-file|description> [-- instructions]
 
 # CI Fix Command
 
-You are executing the `/acc-ci-fix` command. Your task is to diagnose CI pipeline issues and apply fixes with user approval.
+You are executing the `/acc:ci-fix` command. Your task is to diagnose CI pipeline issues and apply fixes with user approval.
 
 ## Input Received
 
@@ -36,7 +36,7 @@ Determine the input type:
    - Extract error messages and context
 
 3. **Auto-discover CI Logs** (when `-- scan-logs` is specified or no log file provided with `-- scan-logs`)
-   - Use `acc-discover-project-logs` skill via ci-debugger to find CI build logs:
+   - Use `acc:discover-project-logs` skill via ci-debugger to find CI build logs:
      - `build/logs/*.log`, `build/logs/*.xml`
      - `build/reports/*.xml`
      - PHPUnit/PHPStan output files
@@ -70,10 +70,10 @@ Find CI configuration files:
 
 ### Step 3: Diagnose Issue
 
-Invoke `acc-ci-debugger` agent to diagnose:
+Invoke `acc:ci-debugger` agent to diagnose:
 
 ```
-Task → acc-ci-debugger
+Task → acc:ci-debugger
 
 Analyze this CI issue:
 [log content or description]
@@ -91,12 +91,12 @@ Provide:
 
 ### Step 4: Generate Fix Preview
 
-Invoke `acc-ci-fixer` agent to generate fix (but NOT apply yet):
+Invoke `acc:ci-fixer` agent to generate fix (but NOT apply yet):
 
 ```
-Task → acc-ci-fixer
+Task → acc:ci-fixer
 
-Diagnosis from acc-ci-debugger:
+Diagnosis from acc:ci-debugger:
 [diagnosis]
 
 CI Configuration:
@@ -185,7 +185,7 @@ Output a comprehensive report:
 **Category:** [dependency/test/lint/infrastructure/docker/timeout]
 **Error Pattern:** [matched pattern]
 
-[Summary from acc-ci-debugger]
+[Summary from acc:ci-debugger]
 
 ## Fix Applied (or Proposed)
 
@@ -234,12 +234,12 @@ git checkout HEAD~1 -- [file]
 ## Examples
 
 ```bash
-/acc-ci-fix "PHPStan memory exhausted"                            # Interactive (default)
-/acc-ci-fix ./ci.log -- dry-run                                   # Show diagnosis only
-/acc-ci-fix ./ci.log -- auto-apply                                # Apply without asking
-/acc-ci-fix https://github.com/org/repo/actions/runs/12345        # From pipeline URL
-/acc-ci-fix "Tests timeout" -- focus on Docker, verbose           # Focused + verbose
-/acc-ci-fix "build failed" -- scan-logs                           # Auto-discover logs
+/acc:ci-fix "PHPStan memory exhausted"                            # Interactive (default)
+/acc:ci-fix ./ci.log -- dry-run                                   # Show diagnosis only
+/acc:ci-fix ./ci.log -- auto-apply                                # Apply without asking
+/acc:ci-fix https://github.com/org/repo/actions/runs/12345        # From pipeline URL
+/acc:ci-fix "Tests timeout" -- focus on Docker, verbose           # Focused + verbose
+/acc:ci-fix "build failed" -- scan-logs                           # Auto-discover logs
 ```
 
 ## Error Handling

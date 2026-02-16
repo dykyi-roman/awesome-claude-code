@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr16-simple-cache
+name: create-psr16-simple-cache
 description: Generates PSR-16 Simple Cache implementation for PHP 8.4. Creates CacheInterface with get/set/delete operations and TTL handling. Includes unit tests.
 ---
 

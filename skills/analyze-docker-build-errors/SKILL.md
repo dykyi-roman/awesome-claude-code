@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-docker-build-errors
+name: analyze-docker-build-errors
 description: Analyzes Docker build errors for PHP projects. Identifies extension compilation failures, dependency issues, memory limits, and provides fixes.
 ---
 

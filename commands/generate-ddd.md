@@ -17,11 +17,11 @@ Parse `$ARGUMENTS` to extract component type, name, and optional meta-instructio
 Format: <component-type> <ComponentName> [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-ddd entity Order
-- /acc-generate-ddd vo Email
-- /acc-generate-ddd aggregate Order -- with OrderLine child entity
-- /acc-generate-ddd command CreateOrder
-- /acc-generate-ddd query GetOrderById
+- /acc:generate-ddd entity Order
+- /acc:generate-ddd vo Email
+- /acc:generate-ddd aggregate Order -- with OrderLine child entity
+- /acc:generate-ddd command CreateOrder
+- /acc:generate-ddd query GetOrderById
 ```
 
 **Parsing rules:**
@@ -35,37 +35,37 @@ Examples:
 
 | Component | Aliases | Skill Used |
 |-----------|---------|------------|
-| `entity` | `ent` | acc-create-entity |
-| `value-object` | `vo`, `valueobject` | acc-create-value-object |
-| `aggregate` | `agg`, `aggregate-root` | acc-create-aggregate |
-| `domain-event` | `event`, `de` | acc-create-domain-event |
-| `repository` | `repo` | acc-create-repository |
-| `domain-service` | `service`, `ds` | acc-create-domain-service |
-| `factory` | `fact` | acc-create-factory |
-| `specification` | `spec` | acc-create-specification |
+| `entity` | `ent` | acc:create-entity |
+| `value-object` | `vo`, `valueobject` | acc:create-value-object |
+| `aggregate` | `agg`, `aggregate-root` | acc:create-aggregate |
+| `domain-event` | `event`, `de` | acc:create-domain-event |
+| `repository` | `repo` | acc:create-repository |
+| `domain-service` | `service`, `ds` | acc:create-domain-service |
+| `factory` | `fact` | acc:create-factory |
+| `specification` | `spec` | acc:create-specification |
 
 ### Application Layer Components
 
 | Component | Aliases | Skill Used |
 |-----------|---------|------------|
-| `command` | `cmd` | acc-create-command |
-| `query` | `qry` | acc-create-query |
-| `use-case` | `usecase`, `uc` | acc-create-use-case |
-| `dto` | `data-transfer` | acc-create-dto |
+| `command` | `cmd` | acc:create-command |
+| `query` | `qry` | acc:create-query |
+| `use-case` | `usecase`, `uc` | acc:create-use-case |
+| `dto` | `data-transfer` | acc:create-dto |
 
 ### Event Sourcing Components
 
 | Component | Aliases | Skill Used |
 |-----------|---------|------------|
-| `event-store` | `es`, `eventstore` | acc-create-event-store |
-| `snapshot` | `snap` | acc-create-snapshot |
-| `read-model` | `rm`, `projection` | acc-create-read-model |
+| `event-store` | `es`, `eventstore` | acc:create-event-store |
+| `snapshot` | `snap` | acc:create-snapshot |
+| `read-model` | `rm`, `projection` | acc:create-read-model |
 
 ### Integration Layer Components
 
 | Component | Aliases | Skill Used |
 |-----------|---------|------------|
-| `acl` | `anti-corruption` | acc-create-anti-corruption-layer |
+| `acl` | `anti-corruption` | acc:create-anti-corruption-layer |
 
 ## Pre-flight Check
 
@@ -81,10 +81,10 @@ Examples:
 
 ### DDD Components (entity, value-object, aggregate, domain-event, repository, domain-service, factory, specification, use-case, dto, acl)
 
-Use the `acc-ddd-generator` agent:
+Use the `acc:ddd-generator` agent:
 
 ```
-Task tool with subagent_type="acc-ddd-generator"
+Task tool with subagent_type="acc:ddd-generator"
 prompt: "Generate [COMPONENT_TYPE] named [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
@@ -99,10 +99,10 @@ Requirements:
 
 ### CQRS/ES Components (command, query, event-store, snapshot, read-model)
 
-Use the `acc-cqrs-generator` agent:
+Use the `acc:cqrs-generator` agent:
 
 ```
-Task tool with subagent_type="acc-cqrs-generator"
+Task tool with subagent_type="acc:cqrs-generator"
 prompt: "Generate [COMPONENT_TYPE] named [COMPONENT_NAME]. [META-INSTRUCTIONS if provided]
 
 Requirements:
@@ -127,12 +127,12 @@ Tests:         tests/Unit/{Domain,Application,Infrastructure}/{BC}/...
 ## Examples
 
 ```bash
-/acc-generate-ddd entity Order
-/acc-generate-ddd vo Email -- with DNS validation
-/acc-generate-ddd aggregate ShoppingCart -- with CartItem child
-/acc-generate-ddd command CreateOrder
-/acc-generate-ddd query GetUserOrders -- with pagination
-/acc-generate-ddd event-store Order -- with Doctrine implementation
-/acc-generate-ddd snapshot Payment
-/acc-generate-ddd acl StripePayment -- translate to domain Money
+/acc:generate-ddd entity Order
+/acc:generate-ddd vo Email -- with DNS validation
+/acc:generate-ddd aggregate ShoppingCart -- with CartItem child
+/acc:generate-ddd command CreateOrder
+/acc:generate-ddd query GetUserOrders -- with pagination
+/acc:generate-ddd event-store Order -- with Doctrine implementation
+/acc:generate-ddd snapshot Payment
+/acc:generate-ddd acl StripePayment -- translate to domain Money
 ```

@@ -1,9 +1,9 @@
 ---
-name: acc-explain-coordinator
+name: explain-coordinator
 description: Code explanation coordinator. Orchestrates codebase navigation, business logic extraction, data flow tracing, visualization, and documentation suggestion. Supports 5 modes — quick, deep, onboarding, business, qa.
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-explain-output-template, acc-task-progress-knowledge
+skills: explain-output-template, task-progress-knowledge
 ---
 
 # Code Explain Coordinator
@@ -89,10 +89,10 @@ If input_type is `route` or `command`:
 TaskCreate: subject="Resolve entry point", description="Resolve route/command to handler file", activeForm="Resolving entry point..."
 TaskUpdate: in_progress
 
-Task(acc-codebase-navigator):
+Task(acc:codebase-navigator):
   Resolve this {route|command} to its handler file:
   Input: {user input}
-  Use acc-resolve-entry-point skill to find the handler.
+  Use acc:resolve-entry-point skill to find the handler.
   Return: handler file path, method, middleware/schedule, route/command definition location.
 ```
 
@@ -112,10 +112,10 @@ TaskUpdate: completed
 
 ### Phase 1: Navigate (Sequential)
 
-Invoke `acc-codebase-navigator` to build the structural map:
+Invoke `acc:codebase-navigator` to build the structural map:
 
 ```
-Task(acc-codebase-navigator):
+Task(acc:codebase-navigator):
   Analyze the codebase at [path].
   Provide:
   1. Project structure map (layers, directories, file counts)
@@ -133,20 +133,20 @@ Launch analysis agents in parallel based on mode:
 
 | Mode | Agents |
 |------|--------|
-| `quick` | acc-business-logic-analyst, acc-data-flow-analyst |
-| `deep` | acc-business-logic-analyst, acc-data-flow-analyst, acc-structural-auditor, acc-behavioral-auditor |
-| `onboarding` | acc-business-logic-analyst, acc-data-flow-analyst, acc-structural-auditor, acc-behavioral-auditor |
-| `business` | acc-business-logic-analyst |
+| `quick` | acc:business-logic-analyst, acc:data-flow-analyst |
+| `deep` | acc:business-logic-analyst, acc:data-flow-analyst, acc:structural-auditor, acc:behavioral-auditor |
+| `onboarding` | acc:business-logic-analyst, acc:data-flow-analyst, acc:structural-auditor, acc:behavioral-auditor |
+| `business` | acc:business-logic-analyst |
 | `qa` | (on-demand based on question) |
 
 #### For quick mode:
 ```
-Task(acc-business-logic-analyst):
+Task(acc:business-logic-analyst):
   Analyze business logic in [path].
   Focus on: key responsibilities, business rules, domain concepts.
   Keep output compact — this is for quick mode.
 
-Task(acc-data-flow-analyst):
+Task(acc:data-flow-analyst):
   Trace data flows in [path].
   Focus on: main request flow, key transformations.
   Keep output compact — this is for quick mode.
@@ -154,20 +154,20 @@ Task(acc-data-flow-analyst):
 
 #### For deep/onboarding mode:
 ```
-Task(acc-business-logic-analyst):
+Task(acc:business-logic-analyst):
   Analyze business logic in [path].
   Provide full analysis: business rules catalog, all processes, domain model, state machines.
 
-Task(acc-data-flow-analyst):
+Task(acc:data-flow-analyst):
   Trace all data flows in [path].
   Provide full analysis: all request lifecycles, transformation chains, async flows.
 
-Task(acc-structural-auditor):
+Task(acc:structural-auditor):
   Audit structural patterns in [path].
   Focus on: DDD compliance, layer separation, SOLID adherence.
   Return findings only (no generation recommendations).
 
-Task(acc-behavioral-auditor):
+Task(acc:behavioral-auditor):
   Audit behavioral patterns in [path].
   Focus on: CQRS, Event Sourcing, EDA patterns.
   Return findings only (no generation recommendations).
@@ -175,7 +175,7 @@ Task(acc-behavioral-auditor):
 
 #### For business mode:
 ```
-Task(acc-business-logic-analyst):
+Task(acc:business-logic-analyst):
   Analyze business logic in [path].
   Use business language only — no code references.
   Focus on: who uses it, what it does, business rules, processes.
@@ -191,7 +191,7 @@ Skip for `quick` and `qa` modes.
 For `deep`, `onboarding`, and `business` modes:
 
 ```
-Task(acc-diagram-designer):
+Task(acc:diagram-designer):
   Create Mermaid diagrams for [path] based on analysis results:
   - Component diagram (architecture overview)
   - Sequence diagram (main request flow)
@@ -199,16 +199,16 @@ Task(acc-diagram-designer):
   - Class diagram (domain model, for onboarding)
   - C4 Context diagram (for onboarding)
 
-Task(acc-documentation-writer):
+Task(acc:documentation-writer):
   Format the analysis results into structured documentation.
   Mode: [mode]
-  Use the appropriate template from acc-explain-output-template.
+  Use the appropriate template from acc:explain-output-template.
 ```
 
 ### Phase 4: Present + Suggest Documentation
 
 1. **Aggregate** all results from Phases 1-3
-2. **Format** using the appropriate template from `acc-explain-output-template`
+2. **Format** using the appropriate template from `acc:explain-output-template`
 3. **Check for existing documentation** near the analyzed path
 4. **Suggest documentation** actions
 
@@ -237,7 +237,7 @@ Existing documentation found:
 No documentation found near `{analyzed_path}`.
 Consider generating documentation:
 ```
-/acc-generate-documentation {analyzed_path}
+/acc:generate-documentation {analyzed_path}
 ```
 ```
 
@@ -259,32 +259,32 @@ The user can pass meta-instructions after `--`:
 - Maximum ~50 lines
 - No diagrams
 - Key info only: purpose, responsibilities, rules, dependencies
-- Use quick template from `acc-explain-output-template`
+- Use quick template from `acc:explain-output-template`
 
 ### Deep Mode
 - Full analysis with all sections
 - Include Mermaid diagrams
 - Quality observations from auditors
-- Use deep template from `acc-explain-output-template`
+- Use deep template from `acc:explain-output-template`
 
 ### Onboarding Mode
 - Getting-started guide format
 - Include "How to navigate" section
 - Comprehensive glossary
 - C4 diagrams
-- Use onboarding template from `acc-explain-output-template`
+- Use onboarding template from `acc:explain-output-template`
 
 ### Business Mode
 - Zero code references
 - Business language only
 - Simple flow diagrams
-- Use business template from `acc-explain-output-template`
+- Use business template from `acc:explain-output-template`
 
 ### QA Mode
 - Direct answer to question
 - Supporting evidence
 - Related areas to explore
-- Use qa template from `acc-explain-output-template`
+- Use qa template from `acc:explain-output-template`
 
 ## Error Handling
 
@@ -306,7 +306,7 @@ Report: "No PHP files found at {path}. This tool analyzes PHP codebases."
 ## Quick Reference
 
 ```
-/acc-explain <input> [mode] [-- instructions]
+/acc:explain <input> [mode] [-- instructions]
 
 Input types:
   GET /api/orders              HTTP route (auto: quick)
@@ -324,14 +324,14 @@ Modes:
   qa          Interactive Q&A
 
 Examples:
-  /acc-explain GET /api/orders
-  /acc-explain POST /api/orders/{id}/status deep
-  /acc-explain app:process-payments
-  /acc-explain import:products -- explain data transformation pipeline
-  /acc-explain src/Domain/Order/Order.php
-  /acc-explain src/Domain/Order/
-  /acc-explain . onboarding
-  /acc-explain src/Payment business
-  /acc-explain src/Domain/Order/Order.php -- focus on state transitions
-  /acc-explain . qa -- how does payment processing work?
+  /acc:explain GET /api/orders
+  /acc:explain POST /api/orders/{id}/status deep
+  /acc:explain app:process-payments
+  /acc:explain import:products -- explain data transformation pipeline
+  /acc:explain src/Domain/Order/Order.php
+  /acc:explain src/Domain/Order/
+  /acc:explain . onboarding
+  /acc:explain src/Payment business
+  /acc:explain src/Domain/Order/Order.php -- focus on state transitions
+  /acc:explain . qa -- how does payment processing work?
 ```

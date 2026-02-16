@@ -1,9 +1,9 @@
 ---
-name: acc-readability-reviewer
+name: readability-reviewer
 description: Readability review specialist. Analyzes naming conventions, code style, method/class length, nesting depth, comments quality, magic values, consistency, simplification opportunities. Use PROACTIVELY for code review readability analysis.
 tools: Read, Grep, Glob
 model: sonnet
-skills: acc-check-naming, acc-check-code-style, acc-check-method-length, acc-check-class-length, acc-check-nesting-depth, acc-check-comments, acc-check-magic-values, acc-check-consistency, acc-suggest-simplification
+skills: check-naming, check-code-style, check-method-length, check-class-length, check-nesting-depth, check-comments, check-magic-values, check-consistency, suggest-simplification
 ---
 
 # Readability Reviewer Agent

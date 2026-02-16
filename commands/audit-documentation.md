@@ -22,12 +22,12 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-documentation docs/
-- /acc-audit-documentation docs/ deep
-- /acc-audit-documentation docs/ quick
-- /acc-audit-documentation docs/ -- focus on API documentation
-- /acc-audit-documentation docs/ deep -- check examples actually work
-- /acc-audit-documentation docs/ -- level:deep (backward compatible)
+- /acc:audit-documentation docs/
+- /acc:audit-documentation docs/ deep
+- /acc:audit-documentation docs/ quick
+- /acc:audit-documentation docs/ -- focus on API documentation
+- /acc:audit-documentation docs/ deep -- check examples actually work
+- /acc:audit-documentation docs/ -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -63,7 +63,7 @@ If meta-instructions provided, adjust audit to:
 ## Audit Flow
 
 ```
-/acc-documentation-audit <path>
+/acc:documentation-audit <path>
     │
     ├─ Pre-flight: Validate path exists
     │
@@ -72,7 +72,7 @@ If meta-instructions provided, adjust audit to:
     │   ├─ Categorize by type (README, API, Architecture)
     │   └─ Prioritize by importance
     │
-    ├─ Phase 2: Task → acc-documentation-auditor
+    ├─ Phase 2: Task → acc:documentation-auditor
     │   ├─ Completeness check
     │   ├─ Accuracy check
     │   ├─ Clarity check
@@ -84,7 +84,7 @@ If meta-instructions provided, adjust audit to:
 
 ## Instructions
 
-Use the `acc-documentation-auditor` agent to perform quality assessment:
+Use the `acc:documentation-auditor` agent to perform quality assessment:
 
 ### Quality Dimensions
 
@@ -170,8 +170,8 @@ Issues hindering user experience:
 ### High Priority
 | Issue | File | Action | Tool |
 |-------|------|--------|------|
-| Missing README | / | Create README | `/acc-generate-documentation` |
-| No examples | docs/api.md | Add code examples | `/acc-generate-documentation` |
+| Missing README | / | Create README | `/acc:generate-documentation` |
+| No examples | docs/api.md | Add code examples | `/acc:generate-documentation` |
 
 ### Medium Priority
 | Issue | File | Action |
@@ -273,19 +273,19 @@ Level is an optional positional parameter. Default: `standard`.
 
 ```bash
 # Standard audit (default)
-/acc-audit-documentation docs/
+/acc:audit-documentation docs/
 
 # Quick check
-/acc-audit-documentation docs/ quick
+/acc:audit-documentation docs/ quick
 
 # Deep analysis
-/acc-audit-documentation docs/ deep
+/acc:audit-documentation docs/ deep
 
 # Deep + focus
-/acc-audit-documentation docs/ deep -- check examples actually work
+/acc:audit-documentation docs/ deep -- check examples actually work
 
 # Backward compatible
-/acc-audit-documentation docs/ -- level:deep
+/acc:audit-documentation docs/ -- level:deep
 ```
 
 ## Follow-up Actions
@@ -293,10 +293,10 @@ Level is an optional positional parameter. Default: `standard`.
 Based on audit results, suggest:
 
 1. **For Critical Issues:**
-   - Run `/acc-generate-documentation` to create missing docs
+   - Run `/acc:generate-documentation` to create missing docs
 
 2. **For Diagram Issues:**
-   - Invoke `acc-diagram-designer` to create/update diagrams
+   - Invoke `acc:diagram-designer` to create/update diagrams
 
 3. **For Regular Maintenance:**
    - Schedule periodic audits

@@ -1,9 +1,9 @@
 ---
-name: acc-docker-coordinator
+name: docker-coordinator
 description: Docker expert system coordinator. Orchestrates Docker auditing, generation, and optimization. Delegates to specialized agents for architecture, images, compose, performance, security, debugging, and production.
 tools: Read, Grep, Glob, Bash, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-docker-knowledge, acc-task-progress-knowledge, acc-docker-orchestration-knowledge, acc-create-docker-makefile
+skills: docker-knowledge, task-progress-knowledge, docker-orchestration-knowledge, create-docker-makefile
 ---
 
 # Docker Coordinator
@@ -28,23 +28,23 @@ For each phase:
 ## Architecture
 
 ```
-acc-docker-coordinator (Coordinator)
+acc:docker-coordinator (Coordinator)
 │
 ├── Operations
 │   ├── AUDIT — Comprehensive Docker configuration audit
 │   └── GENERATE — Generate Docker components
 │
 ├── Specialized Agents (via Task tool)
-│   ├── acc-docker-architect-agent — Dockerfile architecture, multi-stage builds
-│   ├── acc-docker-image-builder — Base images, PHP extensions, image optimization
-│   ├── acc-docker-compose-agent — Compose configuration and services
-│   ├── acc-docker-performance-agent — Build/runtime optimization
-│   ├── acc-docker-security-agent — Security audit and hardening
-│   ├── acc-docker-debugger-agent — Error diagnosis and troubleshooting (auto-discovers container/PHP-FPM/nginx logs)
-│   └── acc-docker-production-agent — Production readiness and deployment
+│   ├── acc:docker-architect-agent — Dockerfile architecture, multi-stage builds
+│   ├── acc:docker-image-builder — Base images, PHP extensions, image optimization
+│   ├── acc:docker-compose-agent — Compose configuration and services
+│   ├── acc:docker-performance-agent — Build/runtime optimization
+│   ├── acc:docker-security-agent — Security audit and hardening
+│   ├── acc:docker-debugger-agent — Error diagnosis and troubleshooting (auto-discovers container/PHP-FPM/nginx logs)
+│   └── acc:docker-production-agent — Production readiness and deployment
 │
 └── Existing Agent (not modified)
-    └── acc-docker-agent — CI/CD Docker specialist (used by acc-ci-coordinator)
+    └── acc:docker-agent — CI/CD Docker specialist (used by acc:ci-coordinator)
 ```
 
 ## Operation: AUDIT
@@ -66,32 +66,32 @@ Comprehensive Docker configuration audit.
 2. **Delegate auditors (parallel):**
 
    ```
-   Task → acc-docker-architect-agent
+   Task → acc:docker-architect-agent
    prompt: "Audit Dockerfile architecture at [PATH].
             Analyze multi-stage builds, layer structure, stage organization.
             Check for antipatterns and optimization opportunities."
 
-   Task → acc-docker-image-builder
+   Task → acc:docker-image-builder
    prompt: "Audit base images and PHP extensions at [PATH].
             Check image selection, version pinning, extension installation.
             Verify Alpine compatibility and build dependency cleanup."
 
-   Task → acc-docker-compose-agent
+   Task → acc:docker-compose-agent
    prompt: "Audit Docker Compose configuration at [PATH].
             Check service configuration, health checks, networking, volumes.
             Verify environment management and dependency ordering."
 
-   Task → acc-docker-performance-agent
+   Task → acc:docker-performance-agent
    prompt: "Audit Docker performance at [PATH].
             Analyze build time, image size, layer caching, OPcache, PHP-FPM.
             Check for BuildKit usage and cache mount opportunities."
 
-   Task → acc-docker-security-agent
+   Task → acc:docker-security-agent
    prompt: "Security audit of Docker configuration at [PATH].
             Check user permissions, secrets handling, image vulnerabilities.
             Verify network security and capability management."
 
-   Task → acc-docker-production-agent
+   Task → acc:docker-production-agent
    prompt: "Audit production readiness at [PATH].
             Check health checks, graceful shutdown, logging, monitoring.
             Verify resource limits and restart policies."
@@ -143,13 +143,13 @@ Generate Docker components for PHP projects.
 
 | Type | Agent | Description |
 |------|-------|-------------|
-| `dockerfile` | acc-docker-architect-agent | Production Dockerfile with multi-stage |
-| `compose` | acc-docker-compose-agent | Docker Compose for full stack |
-| `nginx` | acc-docker-production-agent | Nginx config for PHP-FPM |
-| `entrypoint` | acc-docker-production-agent | Container entrypoint script |
-| `makefile` | acc-docker-production-agent | Docker Makefile commands |
-| `env` | acc-docker-compose-agent | Environment template |
-| `healthcheck` | acc-docker-production-agent | Health check script |
+| `dockerfile` | acc:docker-architect-agent | Production Dockerfile with multi-stage |
+| `compose` | acc:docker-compose-agent | Docker Compose for full stack |
+| `nginx` | acc:docker-production-agent | Nginx config for PHP-FPM |
+| `entrypoint` | acc:docker-production-agent | Container entrypoint script |
+| `makefile` | acc:docker-production-agent | Docker Makefile commands |
+| `env` | acc:docker-compose-agent | Environment template |
+| `healthcheck` | acc:docker-production-agent | Health check script |
 | `full` | All agents | Complete Docker setup |
 
 ### Process
@@ -170,7 +170,7 @@ Generate Docker components for PHP projects.
 
    For `dockerfile`:
    ```
-   Task → acc-docker-architect-agent
+   Task → acc:docker-architect-agent
    prompt: "Generate production Dockerfile for PHP project at [PATH].
             PHP version: [VERSION]
             Framework: [FRAMEWORK]
@@ -180,7 +180,7 @@ Generate Docker components for PHP projects.
 
    For `compose`:
    ```
-   Task → acc-docker-compose-agent
+   Task → acc:docker-compose-agent
    prompt: "Generate Docker Compose configuration for [PATH].
             Services needed: [SERVICES]
             Include health checks, volumes, networks.
@@ -189,10 +189,10 @@ Generate Docker components for PHP projects.
 
    For `full` (parallel):
    ```
-   Task → acc-docker-architect-agent (Dockerfile)
-   Task → acc-docker-compose-agent (docker-compose.yml + .env)
-   Task → acc-docker-production-agent (nginx, entrypoint, Makefile)
-   Task → acc-docker-image-builder (extensions config)
+   Task → acc:docker-architect-agent (Dockerfile)
+   Task → acc:docker-compose-agent (docker-compose.yml + .env)
+   Task → acc:docker-production-agent (nginx, entrypoint, Makefile)
+   Task → acc:docker-image-builder (extensions config)
    ```
 
 4. **Present results:**

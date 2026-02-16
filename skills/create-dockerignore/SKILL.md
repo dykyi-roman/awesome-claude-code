@@ -1,5 +1,5 @@
 ---
-name: acc-create-dockerignore
+name: create-dockerignore
 description: Generates optimized .dockerignore files for PHP projects. Excludes tests, docs, IDE files, and development artifacts to minimize build context.
 ---
 

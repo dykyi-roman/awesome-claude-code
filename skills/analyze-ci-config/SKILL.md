@@ -1,5 +1,5 @@
 ---
-name: acc-analyze-ci-config
+name: analyze-ci-config
 description: Analyzes existing CI/CD configurations. Detects issues in GitHub Actions and GitLab CI files, checks for best practices, caching efficiency, and security concerns.
 ---
 

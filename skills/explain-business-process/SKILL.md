@@ -1,5 +1,5 @@
 ---
-name: acc-explain-business-process
+name: explain-business-process
 description: Identifies business workflows with actors, steps, preconditions, and outcomes. Translates method chains into natural language business processes like "When customer places order, system validates inventory..."
 ---
 
@@ -114,7 +114,7 @@ For each identified process:
 - [External systems called]
 
 **Business Rules Applied:**
-- [Rule references from acc-extract-business-rules]
+- [Rule references from extract-business-rules]
 ```
 
 ## Output Format
@@ -195,6 +195,6 @@ For each identified process:
 ## Integration
 
 This skill is used by:
-- `acc-business-logic-analyst` — documents all business processes
-- `acc-extract-business-rules` — references rules in processes
-- `acc-trace-request-lifecycle` — technical trace for each process
+- `business-logic-analyst` — documents all business processes
+- `extract-business-rules` — references rules in processes
+- `trace-request-lifecycle` — technical trace for each process

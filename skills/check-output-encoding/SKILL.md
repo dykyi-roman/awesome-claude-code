@@ -1,5 +1,5 @@
 ---
-name: acc-check-output-encoding
+name: check-output-encoding
 description: Analyzes PHP code for output encoding issues. Detects XSS vulnerabilities, missing HTML encoding, raw output, template injection risks.
 ---
 

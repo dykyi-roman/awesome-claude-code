@@ -1,5 +1,5 @@
 ---
-name: acc-check-ssrf
+name: check-ssrf
 description: Analyzes PHP code for SSRF vulnerabilities. Detects unvalidated URLs, internal network access, DNS rebinding, cloud metadata access, URL parsing bypass attempts.
 ---
 

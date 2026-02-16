@@ -1,5 +1,5 @@
 ---
-name: acc-bug-impact-analyzer
+name: bug-impact-analyzer
 description: Analyzes bug fix blast radius. Determines affected code, dependencies, callers/callees, and potential side effects of changes.
 ---
 

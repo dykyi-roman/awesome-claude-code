@@ -1,5 +1,5 @@
 ---
-name: acc-check-async-patterns
+name: check-async-patterns
 description: Detects synchronous operations that should be async. Identifies blocking email sends, in-request API calls, heavy processing in request cycle, and missing queue offloading.
 ---
 

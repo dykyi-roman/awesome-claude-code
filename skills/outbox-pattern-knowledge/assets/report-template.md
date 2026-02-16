@@ -194,4 +194,4 @@ Grep: "messageId|deduplication" --glob "**/Consumer/**/*.php"
 ---
 
 **Report Generated:** [DATE]
-**Auditor:** acc-pattern-auditor
+**Auditor:** pattern-auditor

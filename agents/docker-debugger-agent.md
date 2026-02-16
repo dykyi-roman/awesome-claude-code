@@ -1,9 +1,9 @@
 ---
-name: acc-docker-debugger-agent
+name: docker-debugger-agent
 description: Docker error diagnosis specialist. Analyzes build failures, runtime errors, and container connectivity issues for PHP projects.
 tools: Read, Grep, Glob, Bash
 model: sonnet
-skills: acc-docker-troubleshooting-knowledge, acc-docker-knowledge, acc-analyze-docker-build-errors, acc-analyze-docker-runtime-errors, acc-discover-project-logs, acc-analyze-php-logs
+skills: docker-troubleshooting-knowledge, docker-knowledge, analyze-docker-build-errors, analyze-docker-runtime-errors, discover-project-logs, analyze-php-logs
 ---
 
 # Docker Debugger Agent
@@ -39,12 +39,12 @@ grep -E '"ext-' composer.json 2>/dev/null
 ```
 
 **Auto-discover container logs:**
-Use `acc-discover-project-logs` to find:
+Use `acc:discover-project-logs` to find:
 - PHP-FPM error/slow logs (inside container or mounted volumes)
 - Nginx/Apache error logs
 - Application logs (Laravel, Symfony, etc.)
 
-Use `acc-analyze-php-logs` to parse discovered PHP logs for:
+Use `acc:analyze-php-logs` to parse discovered PHP logs for:
 - PHP-FPM slow log entries (identify bottleneck functions)
 - Runtime errors and stack traces
 - Error frequency and correlation

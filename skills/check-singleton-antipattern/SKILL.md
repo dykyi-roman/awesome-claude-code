@@ -1,5 +1,5 @@
 ---
-name: acc-check-singleton-antipattern
+name: check-singleton-antipattern
 description: Detects Singleton anti-pattern in PHP code. Identifies global state via static instances, hidden dependencies, tight coupling, and testability issues.
 ---
 

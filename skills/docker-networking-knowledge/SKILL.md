@@ -1,5 +1,5 @@
 ---
-name: acc-docker-networking-knowledge
+name: docker-networking-knowledge
 description: Docker networking knowledge base. Provides network configuration patterns, DNS resolution, port mapping, and multi-service communication for PHP.
 ---
 
@@ -275,5 +275,5 @@ services:
 
 ## References
 
-For service configuration examples, see `acc-docker-compose-knowledge`.
-For base image networking considerations, see `acc-docker-base-images-knowledge`.
+For service configuration examples, see `docker-compose-knowledge`.
+For base image networking considerations, see `docker-base-images-knowledge`.

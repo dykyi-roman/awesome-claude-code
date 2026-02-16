@@ -1,9 +1,9 @@
 ---
-name: acc-design-security-reviewer
+name: design-security-reviewer
 description: Design security reviewer. Analyzes input validation, output encoding, insecure design patterns, and dependency vulnerabilities. Covers OWASP A04:2021 Insecure Design, A06:2021 Vulnerable Components, input/output security.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
-skills: acc-check-input-validation, acc-check-output-encoding, acc-check-insecure-design, acc-check-dependency-vulnerabilities, acc-task-progress-knowledge
+skills: check-input-validation, check-output-encoding, check-insecure-design, check-dependency-vulnerabilities, task-progress-knowledge
 ---
 
 # Design Security Reviewer

@@ -1,5 +1,5 @@
 ---
-name: acc-check-bounded-contexts
+name: check-bounded-contexts
 description: Analyzes bounded context boundaries in DDD projects. Detects cross-context coupling, shared kernel violations, context mapping issues, and ubiquitous language inconsistencies. Generates context map diagrams and boundary recommendations.
 ---
 
@@ -225,7 +225,7 @@ graph TB
 - **Expected:** `private UserId $userId`
 - **Impact:** Tight coupling, breaks context isolation
 - **Refactoring:** Replace with ID reference, use ACL if needed
-- **Skills:** `acc-create-value-object` (for UserId), `acc-create-anti-corruption-layer`
+- **Skills:** `create-value-object` (for UserId), `create-anti-corruption-layer`
 
 ### BC-002: Missing Anti-Corruption Layer
 - **File:** `src/Payment/Infrastructure/Gateway/StripeGateway.php`
@@ -233,7 +233,7 @@ graph TB
 - **Code:** `use Stripe\PaymentIntent;`
 - **Impact:** External API changes affect domain
 - **Refactoring:** Create PaymentIntent adapter/translator
-- **Skills:** `acc-create-anti-corruption-layer`
+- **Skills:** `create-anti-corruption-layer`
 
 ### BC-003: Unintended Shared Kernel
 - **Files:**
@@ -242,7 +242,7 @@ graph TB
 - **Issue:** Duplicated Address VO without explicit sharing
 - **Impact:** Inconsistent behavior, maintenance burden
 - **Refactoring:** Either consolidate to Shared Kernel or differentiate
-- **Skills:** `acc-create-value-object`
+- **Skills:** `create-value-object`
 
 ## Warning Issues
 
@@ -301,10 +301,10 @@ graph TB
 
 | Pattern | When to Use | Skills |
 |---------|-------------|--------|
-| ID Reference | Entity association across contexts | `acc-create-value-object` |
-| Domain Events | Async communication | `acc-create-domain-event` |
-| ACL | External systems, legacy | `acc-create-anti-corruption-layer` |
-| Shared Kernel | Common VOs (Money, etc.) | `acc-create-value-object` |
+| ID Reference | Entity association across contexts | `create-value-object` |
+| Domain Events | Async communication | `create-domain-event` |
+| ACL | External systems, legacy | `create-anti-corruption-layer` |
+| Shared Kernel | Common VOs (Money, etc.) | `create-value-object` |
 | Published Language | Public contracts | Documentation |
 
 ### Anti-patterns
@@ -334,9 +334,9 @@ find src -type d -name "Shared" -o -name "Common" -o -name "Core"
 ## Integration
 
 Works with:
-- `acc-ddd-auditor` — Domain model quality
-- `acc-structural-auditor` — Layer violations
-- `acc-ddd-generator` — Generate missing components
+- `ddd-auditor` — Domain model quality
+- `structural-auditor` — Layer violations
+- `ddd-generator` — Generate missing components
 
 ## References
 

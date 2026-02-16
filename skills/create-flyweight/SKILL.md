@@ -1,5 +1,5 @@
 ---
-name: acc-create-flyweight
+name: create-flyweight
 description: Generates Flyweight pattern for PHP 8.4. Optimizes memory via shared intrinsic state. Includes unit tests.
 ---
 

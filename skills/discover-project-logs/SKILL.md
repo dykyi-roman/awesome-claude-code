@@ -1,5 +1,5 @@
 ---
-name: acc-discover-project-logs
+name: discover-project-logs
 description: Discovers log files in PHP projects. Knows standard paths for Laravel, Symfony, CodeIgniter, Yii2/Yii3, PHP-FPM, Docker, CI/CD, web servers, and databases. Parses framework configs to extract custom log paths. Scores and prioritizes findings.
 ---
 

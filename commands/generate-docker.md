@@ -17,13 +17,13 @@ Parse `$ARGUMENTS` to extract component type, optional name, and meta-instructio
 Format: <component-type> [name] [-- <meta-instructions>]
 
 Examples:
-- /acc-generate-docker dockerfile
-- /acc-generate-docker compose
-- /acc-generate-docker full
-- /acc-generate-docker dockerfile production -- with Symfony
-- /acc-generate-docker compose myapp -- with PostgreSQL and Redis
-- /acc-generate-docker nginx -- with SSL termination
-- /acc-generate-docker entrypoint -- with migrations
+- /acc:generate-docker dockerfile
+- /acc:generate-docker compose
+- /acc:generate-docker full
+- /acc:generate-docker dockerfile production -- with Symfony
+- /acc:generate-docker compose myapp -- with PostgreSQL and Redis
+- /acc:generate-docker nginx -- with SSL termination
+- /acc:generate-docker entrypoint -- with migrations
 ```
 
 **Parsing rules:**
@@ -75,10 +75,10 @@ Examples:
 
 ## Instructions
 
-Use the `acc-docker-coordinator` agent to generate components:
+Use the `acc:docker-coordinator` agent to generate components:
 
 ```
-Task tool with subagent_type="acc-docker-coordinator"
+Task tool with subagent_type="acc:docker-coordinator"
 prompt: "Generate Docker component: [COMPONENT_TYPE]
 
 Operation: GENERATE
@@ -107,8 +107,8 @@ Requirements:
 
 ### Dockerfile
 ```bash
-/acc-generate-docker dockerfile
-/acc-generate-docker df -- with Symfony and PostgreSQL
+/acc:generate-docker dockerfile
+/acc:generate-docker df -- with Symfony and PostgreSQL
 ```
 
 Generates:
@@ -120,8 +120,8 @@ Dockerfile.dev          # Development with Xdebug
 
 ### Docker Compose
 ```bash
-/acc-generate-docker compose
-/acc-generate-docker dc -- with MySQL, Redis, RabbitMQ
+/acc:generate-docker compose
+/acc:generate-docker dc -- with MySQL, Redis, RabbitMQ
 ```
 
 Generates:
@@ -133,8 +133,8 @@ docker-compose.prod.yml # Production overrides
 
 ### Nginx
 ```bash
-/acc-generate-docker nginx
-/acc-generate-docker web -- with SSL and rate limiting
+/acc:generate-docker nginx
+/acc:generate-docker web -- with SSL and rate limiting
 ```
 
 Generates:
@@ -145,8 +145,8 @@ docker/nginx/default.conf  # Server block
 
 ### Entrypoint
 ```bash
-/acc-generate-docker entrypoint
-/acc-generate-docker ep -- with migrations and cache warmup
+/acc:generate-docker entrypoint
+/acc:generate-docker ep -- with migrations and cache warmup
 ```
 
 Generates:
@@ -156,8 +156,8 @@ docker/entrypoint.sh    # Startup script with signal handling
 
 ### Makefile
 ```bash
-/acc-generate-docker makefile
-/acc-generate-docker mk -- with deploy targets
+/acc:generate-docker makefile
+/acc:generate-docker mk -- with deploy targets
 ```
 
 Generates:
@@ -167,8 +167,8 @@ Makefile.docker         # Docker commands (or appends to existing Makefile)
 
 ### Environment
 ```bash
-/acc-generate-docker env
-/acc-generate-docker environment -- with all services
+/acc:generate-docker env
+/acc:generate-docker environment -- with all services
 ```
 
 Generates:
@@ -178,8 +178,8 @@ Generates:
 
 ### Health Check
 ```bash
-/acc-generate-docker healthcheck
-/acc-generate-docker hc -- for PHP-FPM and custom endpoint
+/acc:generate-docker healthcheck
+/acc:generate-docker hc -- for PHP-FPM and custom endpoint
 ```
 
 Generates:
@@ -189,8 +189,8 @@ docker/healthcheck.sh   # Health check script
 
 ### Full Stack
 ```bash
-/acc-generate-docker full
-/acc-generate-docker all -- Symfony with PostgreSQL, Redis, RabbitMQ
+/acc:generate-docker full
+/acc:generate-docker all -- Symfony with PostgreSQL, Redis, RabbitMQ
 ```
 
 Generates:
@@ -245,22 +245,22 @@ Quick start:
 
 ```bash
 # Generate full Docker setup
-/acc-generate-docker full
+/acc:generate-docker full
 
 # Just a Dockerfile
-/acc-generate-docker dockerfile
+/acc:generate-docker dockerfile
 
 # Compose with specific services
-/acc-generate-docker compose -- with PostgreSQL and Redis
+/acc:generate-docker compose -- with PostgreSQL and Redis
 
 # Nginx for Symfony
-/acc-generate-docker nginx -- Symfony public directory
+/acc:generate-docker nginx -- Symfony public directory
 
 # Everything for Laravel
-/acc-generate-docker full -- Laravel with MySQL, Redis, queue workers
+/acc:generate-docker full -- Laravel with MySQL, Redis, queue workers
 
 # Just the Makefile
-/acc-generate-docker makefile -- with deploy and CI targets
+/acc:generate-docker makefile -- with deploy and CI targets
 ```
 
 ## Meta-Instructions Guide

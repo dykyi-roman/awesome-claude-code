@@ -1,5 +1,5 @@
 ---
-name: acc-check-sql-injection
+name: check-sql-injection
 description: Analyzes PHP code for SQL injection vulnerabilities. Detects query concatenation, ORM misuse, raw queries, dynamic identifiers, prepared statement bypasses.
 ---
 

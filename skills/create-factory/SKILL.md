@@ -1,5 +1,5 @@
 ---
-name: acc-create-factory
+name: create-factory
 description: Generates DDD Factory for PHP 8.4. Creates factories for complex domain object instantiation with validation and encapsulated creation logic. Includes unit tests.
 ---
 

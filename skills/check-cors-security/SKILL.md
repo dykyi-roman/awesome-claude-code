@@ -1,5 +1,5 @@
 ---
-name: acc-check-cors-security
+name: check-cors-security
 description: Audits CORS configuration security. Detects wildcard origins, credentials with wildcards, dynamic origin reflection, missing preflight handling, and overly permissive policies.
 ---
 

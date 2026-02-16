@@ -1,5 +1,5 @@
 ---
-name: acc-optimize-docker-compose-resources
+name: optimize-docker-compose-resources
 description: Optimizes Docker Compose resource allocation for PHP stacks. Configures memory limits, CPU constraints, and service scaling.
 ---
 

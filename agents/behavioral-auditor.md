@@ -1,9 +1,9 @@
 ---
-name: acc-behavioral-auditor
-description: GoF Behavioral patterns auditor. Analyzes Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento patterns. Called by acc-pattern-auditor coordinator.
+name: behavioral-auditor
+description: GoF Behavioral patterns auditor. Analyzes Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, and Memento patterns. Called by acc:pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: acc-create-strategy, acc-create-state, acc-create-chain-of-responsibility, acc-create-decorator, acc-create-null-object, acc-check-immutability, acc-create-template-method, acc-create-visitor, acc-create-iterator, acc-create-memento, acc-task-progress-knowledge
+skills: create-strategy, create-state, create-chain-of-responsibility, create-decorator, create-null-object, check-immutability, create-template-method, create-visitor, create-iterator, create-memento, task-progress-knowledge
 ---
 
 # GoF Behavioral Patterns Auditor
@@ -128,7 +128,7 @@ Scan for code that would benefit from behavioral patterns:
 
 | Gap Identified | Location | Pattern Needed | Skill |
 |----------------|----------|----------------|-------|
-| description | `file.php:line` | Pattern | acc-create-* |
+| description | `file.php:line` | Pattern | create-* |
 ```
 
 ## Progress Tracking
@@ -150,4 +150,4 @@ Return a structured report with:
 4. Opportunity detection results
 5. Generation recommendations
 
-Do not suggest generating code directly. Return findings to the coordinator (acc-pattern-auditor) which will handle generation offers.
+Do not suggest generating code directly. Return findings to the coordinator (acc:pattern-auditor) which will handle generation offers.

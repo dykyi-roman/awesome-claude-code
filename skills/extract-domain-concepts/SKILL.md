@@ -1,5 +1,5 @@
 ---
-name: acc-extract-domain-concepts
+name: extract-domain-concepts
 description: Maps domain model components — Entities, Value Objects, Aggregates, Services, Events, Repositories. Builds Ubiquitous Language glossary connecting code names to business terminology.
 ---
 
@@ -216,7 +216,7 @@ Order (Aggregate Root)
 ## Integration
 
 This skill is used by:
-- `acc-business-logic-analyst` — provides domain model documentation
-- `acc-explain-business-process` — references domain concepts
-- `acc-extract-business-rules` — connects rules to domain entities
-- `acc-diagram-designer` — generates class/ER diagrams from this data
+- `business-logic-analyst` — provides domain model documentation
+- `explain-business-process` — references domain concepts
+- `extract-business-rules` — connects rules to domain entities
+- `diagram-designer` — generates class/ER diagrams from this data

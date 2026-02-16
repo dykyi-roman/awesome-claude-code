@@ -1,5 +1,5 @@
 ---
-name: acc-find-infinite-loops
+name: find-infinite-loops
 description: Detects infinite loop risks in PHP code. Finds missing break conditions, incorrect loop variables, unbounded recursion, circular references.
 ---
 

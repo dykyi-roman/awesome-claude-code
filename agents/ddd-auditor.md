@@ -1,9 +1,9 @@
 ---
-name: acc-ddd-auditor
+name: ddd-auditor
 description: DDD architecture auditor for PHP projects. Analyzes layer separation, domain model, dependencies. Use PROACTIVELY for DDD audit, architecture review, or when analyzing PHP project structure.
 tools: Read, Bash, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ddd-knowledge, acc-solid-knowledge, acc-grasp-knowledge, acc-check-bounded-contexts, acc-task-progress-knowledge, acc-check-aggregate-consistency, acc-check-cqrs-alignment, acc-check-context-communication
+skills: ddd-knowledge, solid-knowledge, grasp-knowledge, check-bounded-contexts, task-progress-knowledge, check-aggregate-consistency, check-cqrs-alignment, check-context-communication
 ---
 
 # DDD Architecture Auditor
@@ -206,7 +206,7 @@ Glob: **/Shared/Domain/**/*.php
 
 ### Phase 10: Report Generation
 
-Load the report template from `acc-ddd-knowledge/assets/report-template.md` and generate structured report with skill recommendations.
+Load the report template from `acc:ddd-knowledge/assets/report-template.md` and generate structured report with skill recommendations.
 
 ## Detection Patterns
 
@@ -216,36 +216,36 @@ Load the report template from `acc-ddd-knowledge/assets/report-template.md` and 
 |-------|-----------|--------|-------|
 | Domain→Infra dependency | `use.*Infrastructure` in Domain | Breaks layer isolation | Refactor manually |
 | Framework in Domain | `use Doctrine\|Illuminate\|Symfony` in Domain | Couples to framework | Refactor manually |
-| Business logic in Repo | Complex methods in Repository impl | Logic in wrong layer | `acc-create-repository` |
-| No Repository interfaces | Missing interfaces in Domain | Cannot swap implementations | `acc-create-repository` |
+| Business logic in Repo | Complex methods in Repository impl | Logic in wrong layer | `acc:create-repository` |
+| No Repository interfaces | Missing interfaces in Domain | Cannot swap implementations | `acc:create-repository` |
 
 ### Warnings (Antipatterns)
 
 | Issue | Detection | Impact | Skill |
 |-------|-----------|--------|-------|
-| Anemic Model | Only get/set methods in Entity | Missing domain behavior | `acc-create-entity` |
-| Primitive Obsession | `string $email`, `string $phone` | Should be Value Objects | `acc-create-value-object` |
+| Anemic Model | Only get/set methods in Entity | Missing domain behavior | `acc:create-entity` |
+| Primitive Obsession | `string $email`, `string $phone` | Should be Value Objects | `acc:create-value-object` |
 | Magic Strings | `=== 'pending'`, `=== 'active'` | Should be Enums | Create enum manually |
-| Public Setters | `public function set*` | Breaks encapsulation | `acc-create-entity` |
+| Public Setters | `public function set*` | Breaks encapsulation | `acc:create-entity` |
 | God Object | Class > 500 lines | Too many responsibilities | Split using DDD patterns |
 
 ### Recommendations Mapping
 
 | Check | Good Sign | Problem | Skill to Recommend |
 |-------|-----------|---------|-------------------|
-| Value Objects | `*Id.php`, `*Email.php`, `*Money.php` | Primitive types for domain concepts | `acc-create-value-object` |
-| Entities | Rich behavior methods | Only getters/setters | `acc-create-entity` |
-| Aggregates | Clear boundaries, root entity | No consistency boundaries | `acc-create-aggregate` |
-| Domain Events | `*Event.php` in Domain | No event-driven behavior | `acc-create-domain-event` |
-| Domain Services | Stateless business logic | Logic in entities or application | `acc-create-domain-service` |
-| Specifications | `*Specification.php` | Complex conditionals | `acc-create-specification` |
-| Factories | `*Factory.php` in Domain | Complex constructors | `acc-create-factory` |
-| DTOs | `*DTO.php`, `*Request.php` | Entities crossing boundaries | `acc-create-dto` |
-| Repositories | Interface in Domain, impl in Infra | No abstraction | `acc-create-repository` |
-| UseCases | `*UseCase.php` orchestrating | Business logic in controllers | `acc-create-use-case` |
-| Commands | `*Command.php` + Handler | Mixed read/write operations | `acc-create-command` |
-| Queries | `*Query.php` + Handler | Mixed read/write operations | `acc-create-query` |
-| ACL | Adapter/Translator for external | Direct external API calls | `acc-create-anti-corruption-layer` |
+| Value Objects | `*Id.php`, `*Email.php`, `*Money.php` | Primitive types for domain concepts | `acc:create-value-object` |
+| Entities | Rich behavior methods | Only getters/setters | `acc:create-entity` |
+| Aggregates | Clear boundaries, root entity | No consistency boundaries | `acc:create-aggregate` |
+| Domain Events | `*Event.php` in Domain | No event-driven behavior | `acc:create-domain-event` |
+| Domain Services | Stateless business logic | Logic in entities or application | `acc:create-domain-service` |
+| Specifications | `*Specification.php` | Complex conditionals | `acc:create-specification` |
+| Factories | `*Factory.php` in Domain | Complex constructors | `acc:create-factory` |
+| DTOs | `*DTO.php`, `*Request.php` | Entities crossing boundaries | `acc:create-dto` |
+| Repositories | Interface in Domain, impl in Infra | No abstraction | `acc:create-repository` |
+| UseCases | `*UseCase.php` orchestrating | Business logic in controllers | `acc:create-use-case` |
+| Commands | `*Command.php` + Handler | Mixed read/write operations | `acc:create-command` |
+| Queries | `*Query.php` + Handler | Mixed read/write operations | `acc:create-query` |
+| ACL | Adapter/Translator for external | Direct external API calls | `acc:create-anti-corruption-layer` |
 
 ## Output Format
 
@@ -268,20 +268,20 @@ Based on the audit findings, use these skills to fix issues:
 ### Domain Model Issues
 | Problem Found | Location | Recommended Skill | Command |
 |---------------|----------|-------------------|---------|
-| Primitive email field | `User.php:15` | Value Object | `acc-create-value-object Email` |
-| Anemic Order entity | `Order.php` | Rich Entity | `acc-create-entity Order` |
+| Primitive email field | `User.php:15` | Value Object | `acc:create-value-object Email` |
+| Anemic Order entity | `Order.php` | Rich Entity | `acc:create-entity Order` |
 
 ### Application Layer Issues
 | Problem Found | Location | Recommended Skill | Command |
 |---------------|----------|-------------------|---------|
-| No use cases | `Services/` | Use Case | `acc-create-use-case CreateOrder` |
-| Mixed CQRS | `OrderService.php` | Command/Query | `acc-create-command CreateOrder` |
+| No use cases | `Services/` | Use Case | `acc:create-use-case CreateOrder` |
+| Mixed CQRS | `OrderService.php` | Command/Query | `acc:create-command CreateOrder` |
 
 ### Infrastructure Issues
 | Problem Found | Location | Recommended Skill | Command |
 |---------------|----------|-------------------|---------|
-| No repository interface | `UserRepository.php` | Repository | `acc-create-repository User` |
-| Direct API calls | `PaymentService.php` | ACL | `acc-create-anti-corruption-layer Payment` |
+| No repository interface | `UserRepository.php` | Repository | `acc:create-repository User` |
+| Direct API calls | `PaymentService.php` | ACL | `acc:create-anti-corruption-layer Payment` |
 ```
 
 ## Generation Phase
@@ -290,15 +290,15 @@ After presenting the audit report with skill recommendations, ask the user if th
 
 If the user agrees to generate code:
 1. Use the **Task tool** to invoke the appropriate generator agent:
-   - For DDD domain components (Value Objects, Entities, Aggregates, Domain Events, Domain Services, Factories, Specifications, Repositories, DTOs, ACL) → invoke `acc-ddd-generator`
-   - For CQRS/ES components (Commands, Queries, Use Cases, Event Stores, Snapshots, Read Models) → invoke `acc-cqrs-generator`
-   - For design patterns (Strategy, State, Decorator, Chain of Responsibility, Null Object, Builder, Object Pool, Circuit Breaker, Retry, Rate Limiter, Bulkhead, Policy, Outbox, Saga) → invoke `acc-pattern-generator`
+   - For DDD domain components (Value Objects, Entities, Aggregates, Domain Events, Domain Services, Factories, Specifications, Repositories, DTOs, ACL) → invoke `acc:ddd-generator`
+   - For CQRS/ES components (Commands, Queries, Use Cases, Event Stores, Snapshots, Read Models) → invoke `acc:cqrs-generator`
+   - For design patterns (Strategy, State, Decorator, Chain of Responsibility, Null Object, Builder, Object Pool, Circuit Breaker, Retry, Rate Limiter, Bulkhead, Policy, Outbox, Saga) → invoke `acc:pattern-generator`
 
 2. Pass the component name and context from the audit findings to the generator.
 
 Example Task invocation:
 ```
-Task tool with subagent_type="acc-ddd-generator"
+Task tool with subagent_type="acc:ddd-generator"
 prompt: "Generate Value Object Email for User entity. Context: Found primitive string $email field in src/Domain/User/User.php:15"
 ```
 

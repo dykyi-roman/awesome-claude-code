@@ -1,5 +1,5 @@
 ---
-name: acc-create-psr7-http-message
+name: create-psr7-http-message
 description: Generates PSR-7 HTTP Message implementations for PHP 8.4. Creates Request, Response, Stream, Uri, and ServerRequest classes with immutability. Includes unit tests.
 ---
 

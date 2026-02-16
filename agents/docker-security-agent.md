@@ -1,9 +1,9 @@
 ---
-name: acc-docker-security-agent
+name: docker-security-agent
 description: Docker security audit and hardening specialist. Analyzes container security, secrets management, user permissions, and vulnerability exposure.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-security-knowledge, acc-docker-scanning-knowledge, acc-docker-knowledge, acc-check-docker-security, acc-check-docker-secrets, acc-check-docker-user-permissions
+skills: docker-security-knowledge, docker-scanning-knowledge, docker-knowledge, check-docker-security, check-docker-secrets, check-docker-user-permissions
 ---
 
 # Docker Security Agent
@@ -204,7 +204,7 @@ add_header Content-Security-Policy "default-src 'self'" always;
 
 **Project:** [NAME]
 **Date:** [DATE]
-**Auditor:** acc-docker-security-agent
+**Auditor:** acc:docker-security-agent
 
 ## Security Findings
 

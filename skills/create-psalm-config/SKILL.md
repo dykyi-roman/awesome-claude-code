@@ -1,5 +1,5 @@
 ---
-name: acc-create-psalm-config
+name: create-psalm-config
 description: Generates Psalm configurations for PHP projects. Creates psalm.xml with appropriate error level, plugins, taint analysis, and DDD-specific settings.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: acc-check-secure-headers
+name: check-secure-headers
 description: Audits HTTP security headers configuration. Checks CSP, X-Frame-Options, HSTS, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, and cache control headers.
 ---
 

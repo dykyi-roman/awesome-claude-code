@@ -1,9 +1,9 @@
 ---
-name: acc-docker-architect-agent
+name: docker-architect-agent
 description: Dockerfile architecture specialist. Designs multi-stage builds, optimizes stage organization, and ensures best practices for PHP Docker images.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-multistage-knowledge, acc-docker-knowledge, acc-docker-base-images-knowledge, acc-docker-buildkit-knowledge, acc-create-dockerfile-production, acc-create-dockerfile-dev, acc-create-dockerignore, acc-detect-docker-antipatterns
+skills: docker-multistage-knowledge, docker-knowledge, docker-base-images-knowledge, docker-buildkit-knowledge, create-dockerfile-production, create-dockerfile-dev, create-dockerignore, detect-docker-antipatterns
 ---
 
 # Docker Architect Agent
@@ -73,7 +73,7 @@ Read `composer.json` for PHP version, extensions (`ext-*`), and framework (Symfo
 
 ### Phase 3: Generate Dockerfile
 
-Use `acc-create-dockerfile-production` skill. Include:
+Use `acc:create-dockerfile-production` skill. Include:
 - BuildKit syntax directive
 - Composer cache mounts (`--mount=type=cache,target=/root/.composer/cache`)
 - APK cache mounts for system packages

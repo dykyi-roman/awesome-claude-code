@@ -1,5 +1,5 @@
 ---
-name: acc-grasp-knowledge
+name: grasp-knowledge
 description: GRASP principles knowledge base for PHP 8.4 projects. Provides quick reference for 9 responsibility assignment patterns (Information Expert, Creator, Controller, Low Coupling, High Cohesion, Polymorphism, Pure Fabrication, Indirection, Protected Variations). Use for architecture audits and design decisions.
 ---
 

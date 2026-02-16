@@ -17,11 +17,11 @@ Parse `$ARGUMENTS` to extract path and optional focus areas:
 Format: [path] [-- <focus-areas>]
 
 Examples:
-- /acc-ci-optimize
-- /acc-ci-optimize ./
-- /acc-ci-optimize -- focus on caching
-- /acc-ci-optimize ./ -- reduce Docker build time
-- /acc-ci-optimize -- parallelize tests, optimize lint
+- /acc:ci-optimize
+- /acc:ci-optimize ./
+- /acc:ci-optimize -- focus on caching
+- /acc:ci-optimize ./ -- reduce Docker build time
+- /acc:ci-optimize -- parallelize tests, optimize lint
 ```
 
 **Parsing rules:**
@@ -37,7 +37,7 @@ Examples:
    ```
 
 2. **If no CI found:**
-   - Suggest running `/acc-ci-setup` first
+   - Suggest running `/acc:ci-setup` first
 
 3. **Check for optimization targets:**
    ```bash
@@ -53,10 +53,10 @@ Examples:
 
 ## Instructions
 
-Use the `acc-ci-coordinator` agent to optimize:
+Use the `acc:ci-coordinator` agent to optimize:
 
 ```
-Task tool with subagent_type="acc-ci-coordinator"
+Task tool with subagent_type="acc:ci-coordinator"
 prompt: "Optimize CI pipeline at [PATH].
 
 Operation: OPTIMIZE
@@ -136,19 +136,19 @@ The coordinator will:
 
 ```bash
 # General optimization
-/acc-ci-optimize
+/acc:ci-optimize
 
 # Focus on caching
-/acc-ci-optimize -- focus on caching, reduce cache misses
+/acc:ci-optimize -- focus on caching, reduce cache misses
 
 # Docker optimization
-/acc-ci-optimize -- optimize Docker build time
+/acc:ci-optimize -- optimize Docker build time
 
 # Test parallelization
-/acc-ci-optimize -- split tests into parallel jobs
+/acc:ci-optimize -- split tests into parallel jobs
 
 # Full optimization with path
-/acc-ci-optimize ./my-project -- optimize everything, target 10 min total
+/acc:ci-optimize ./my-project -- optimize everything, target 10 min total
 ```
 
 ## Meta-Instructions Guide

@@ -1,5 +1,5 @@
 ---
-name: acc-create-dead-letter-queue
+name: create-dead-letter-queue
 description: Generates Dead Letter Queue components for PHP 8.4. Creates failed message capture, retry strategy with exponential backoff, failure classification, and unit tests.
 ---
 

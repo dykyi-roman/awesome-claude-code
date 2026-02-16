@@ -1,13 +1,11 @@
 # Awesome Claude Code — PHP Architecture Toolkit
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
-[![Total Downloads](https://img.shields.io/packagist/dt/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
+[![Claude Code Marketplace](https://img.shields.io/badge/Marketplace-awesome--claude--code-blueviolet?style=flat-square)](https://marketplace.claude.ai/plugin/dykyi-roman/awesome-claude-code)
 [![PHP 8.4](https://img.shields.io/badge/PHP-8.4-blue?style=flat-square)](https://php.net)
-[![PHP 8.4](https://img.shields.io/badge/PHP-8.5-blue?style=flat-square)](https://php.net)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Extension-purple?style=flat-square)](https://claude.ai/code)
 [![DDD](https://img.shields.io/badge/DDD-Ready-green?style=flat-square)](https://en.wikipedia.org/wiki/Domain-driven_design)
 [![CQRS](https://img.shields.io/badge/CQRS-Ready-orange?style=flat-square)](https://martinfowler.com/bliki/CQRS.html)
-[![License](https://img.shields.io/packagist/l/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
+[![License](https://img.shields.io/github/license/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code/blob/master/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
@@ -19,38 +17,20 @@
 ## Quick Start
 
 ```bash
-composer require dykyi-roman/awesome-claude-code
+/plugin marketplace add dykyi-roman/awesome-claude-code
+/plugin install acc@awesome-claude-code
 ```
 
 Then in Claude Code:
 
 ```bash
-/acc-code-review                    # Review current branch
-/acc-bug-fix "NullPointerException" # Diagnose and fix bug
-/acc-explain GET /api/orders        # Explain HTTP route
-/acc-audit-architecture ./src       # Full architecture audit
-/acc-generate-documentation         # Write documentation
-/acc-generate-test                  # Write test
+/acc:code-review                    # Review current branch
+/acc:bug-fix "NullPointerException" # Diagnose and fix bug
+/acc:explain GET /api/orders        # Explain HTTP route
+/acc:audit-architecture ./src       # Full architecture audit
+/acc:generate-documentation         # Write documentation
+/acc:generate-test                  # Write test
 ```
-
-Components are **automatically copied** to your project's `.claude/` directory. Existing files are never overwritten.
-
-### Upgrading Components
-
-To force update to the latest version (overwrites existing files):
-
-```bash
-# Full upgrade with automatic backup
-./vendor/bin/acc upgrade
-
-# Upgrade without backup
-./vendor/bin/acc upgrade --no-backup
-
-# Upgrade only specific component
-./vendor/bin/acc upgrade --component=commands
-```
-
-Backups are stored in `.claude.backup.YYYY-MM-DD-HHMMSS/`.
 
 ## Demo
 
@@ -61,7 +41,7 @@ Backups are stored in `.claude.backup.YYYY-MM-DD-HHMMSS/`.
 ### Code Review (3-Level Analysis)
 
 ```bash
-/acc-code-review feature/payment high -- implement Stripe payment processing
+/acc:code-review feature/payment high -- implement Stripe payment processing
 ```
 
 Multi-level automated code review with **9 specialized reviewers**:
@@ -119,16 +99,16 @@ Multi-level automated code review with **9 specialized reviewers**:
 Automated bug diagnosis, fix generation, and regression testing:
 
 ```bash
-/acc-bug-fix "NullPointerException in OrderService::process()"
-/acc-bug-fix src/Domain/Order.php:45 "off-by-one error"
-/acc-bug-fix @storage/logs/error.log -- focus on validation
+/acc:bug-fix "NullPointerException in OrderService::process()"
+/acc:bug-fix src/Domain/Order.php:45 "off-by-one error"
+/acc:bug-fix @storage/logs/error.log -- focus on validation
 ```
 
 | Phase | Agent | What It Does |
 |-------|-------|--------------|
-| **Diagnose** | acc-bug-hunter | Categorizes bug (9 types), finds root cause |
-| **Fix** | acc-bug-fixer | Generates minimal, safe fix with 11 skills |
-| **Test** | acc-test-generator | Creates regression test |
+| **Diagnose** | bug-hunter | Categorizes bug (9 types), finds root cause |
+| **Fix** | bug-fixer | Generates minimal, safe fix with 11 skills |
+| **Test** | test-generator | Creates regression test |
 | **Verify** | coordinator | Applies fix, runs tests, reports results |
 
 **Bug Categories:** logic errors, null pointers, boundary issues, race conditions, resource leaks, exception handling, type issues, SQL injection, infinite loops
@@ -154,15 +134,15 @@ Comprehensive analysis across **10+ architecture patterns**:
 ### Claude Component Generation
 
 ```bash
-/acc-generate-claude-component
+/acc:generate-claude-component
 > What would you like to create? command
 > Command name? validate-order
 > What should it do? Validate Order aggregate invariants
-> Should it use agents? Yes, acc-ddd-auditor
+> Should it use agents? Yes, ddd-auditor
 ```
 
 Generates:
-- `.claude/commands/validate-order.md` — Custom slash command
+- `commands/validate-order.md` — Custom slash command
 
 ### Knowledge Bases
 
@@ -186,7 +166,7 @@ Generates:
 ```
 COMMAND ───────→ COORDINATOR ───────→ AGENTS ───────→ KNOWLEDGE SKILLS ──────→ GENERATORS SKILLS
 
-/acc-code-review ──→ code-review-coordinator
+/acc:code-review ──→ code-review-coordinator
                             │
                             ├─ LOW ──────→ psr-auditor ─────────→ psr-knowledge ─────────→ create-psr-*
                             │              test-auditor ────────→ testing-knowledge ────→ create-test-*
@@ -201,7 +181,7 @@ COMMAND ───────→ COORDINATOR ───────→ AGENTS ─
                                            │                                               create-aggregate...
                                            architecture-auditor → arch-knowledge ───────→ create-*, pattern-*
 
-/acc-audit-architecture ──→ architecture-auditor (coordinator)
+/acc:audit-architecture ──→ architecture-auditor (coordinator)
                                     │
                                     ├──→ structural-auditor ────→ ddd-knowledge ────────→ create-entity
                                     │                             clean-arch-knowledge    create-value-object
@@ -223,23 +203,23 @@ COMMAND ───────→ COORDINATOR ───────→ AGENTS ─
                                               ├──→ creational-generator ─→ builder, factory, object-pool
                                               └──→ integration-generator → saga, outbox, acl
 
-/acc-bug-fix ─────────────→ bug-fix-coordinator
+/acc:bug-fix ─────────────→ bug-fix-coordinator
                                     │
                                     ├──→ bug-hunter ────────────→ detection-skills ─────→ (9 analyzers)
                                     ├──→ bug-fixer ─────────────→ fix-knowledge ────────→ generate-bug-fix
                                     └──→ test-generator ────────→ testing-knowledge ────→ create-unit-test
                                                                                            create-regression-test
 
-/acc-generate-test ──────────→ test-generator ─────────────→ testing-knowledge ────→ create-unit-test
+/acc:generate-test ──────────→ test-generator ─────────────→ testing-knowledge ────→ create-unit-test
                                                                                    create-integration-test
                                                                                    create-mock-repository
 
-/acc-generate-documentation ─→ documentation-writer ───────→ doc-knowledge ────────→ readme-template
+/acc:generate-documentation ─→ documentation-writer ───────→ doc-knowledge ────────→ readme-template
                                     │                                               architecture-template
                                     └──→ diagram-designer ──────→ diagram-knowledge ───→ mermaid-template
                                                                                           c4-template
 
-/acc-audit-docker ────────→ docker-coordinator
+/acc:audit-docker ────────→ docker-coordinator
                                     │
                                     ├──→ docker-architect ────────→ multistage-knowledge ──→ create-dockerfile
                                     ├──→ docker-security ─────────→ security-knowledge ───→ check-security
@@ -248,14 +228,14 @@ COMMAND ───────→ COORDINATOR ───────→ AGENTS ─
                                     ├──→ docker-production ───────→ production-knowledge ─→ check-readiness
                                     └──→ docker-debugger ─────────→ troubleshoot-knowledge
 
-/acc-generate-docker ────→ docker-coordinator
+/acc:generate-docker ────→ docker-coordinator
                                     │
                                     ├──→ docker-architect ────────→ create-dockerfile-production
                                     ├──→ docker-compose ──────────→ create-compose-dev, create-compose-prod
                                     ├──→ docker-image-builder ───→ create-php-config, create-entrypoint
                                     └──→ docker-production ──────→ create-nginx, create-healthcheck
 
-/acc-ci-fix ──────────────→ ci-coordinator
+/acc:ci-fix ──────────────→ ci-coordinator
                                     │
                                     ├──→ ci-debugger ───────────→ analyze-ci-logs, ci-pipeline-knowledge
                                     └──→ ci-fixer ──────────────→ generate-ci-fix, ci-tools-knowledge
@@ -287,24 +267,24 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 
 ## Use Cases
 
-| Scenario               | Command                               | Result                                       |
-|------------------------|---------------------------------------|----------------------------------------------|
-| Fix a bug              | `/acc-bug-fix "NullPointerException"` | Diagnosis + fix + regression test            |
-| Review PR before merge | `/acc-code-review feature/auth high`  | Security, performance, DDD compliance report |
-| Audit legacy codebase  | `/acc-audit-architecture ./src`       | Pattern detection + compliance score         |
-| Security audit         | `/acc-audit-security ./src`           | OWASP Top 10 + PHP-specific vulnerabilities  |
-| Performance audit      | `/acc-audit-performance ./src`        | N+1 queries, memory issues, caching gaps     |
-| Design patterns audit  | `/acc-audit-patterns ./src`           | Stability, behavioral, creational patterns   |
-| Generate PSR component | `/acc-generate-psr psr-15 Auth`       | PSR-compliant implementation with tests      |
-| Generate design pattern| `/acc-generate-patterns strategy Pay` | Pattern implementation with DI configuration |
-| Explain code           | `/acc-explain src/Domain/Order/`      | Structure, business logic, data flows        |
-| Onboard to project     | `/acc-explain .`                      | Project guide with glossary and diagrams     |
-| Audit Docker config    | `/acc-audit-docker ./`                | Dockerfile, Compose, security, performance   |
-| Generate Docker stack  | `/acc-generate-docker full`           | Dockerfile + Compose + Nginx + entrypoint    |
-| Refactor code          | `/acc-refactor ./src/OrderService`    | Analysis + prioritized roadmap + generators  |
-| Create Claude command  | `/acc-generate-claude-component`         | Create command, agent, skills                |
-| Audit test quality     | `/acc-audit-test ./tests`             | Coverage gaps, test smells, recommendations  |
-| Generate documentation | `/acc-generate-documentation ./src`      | README + ARCHITECTURE.md + diagrams          |
+| Scenario               | Command                              | Result                                       |
+|------------------------|--------------------------------------|----------------------------------------------|
+| Fix a bug              | `/acc:bug-fix "NullPointerException"` | Diagnosis + fix + regression test            |
+| Review PR before merge | `/acc:code-review feature/auth high`  | Security, performance, DDD compliance report |
+| Audit legacy codebase  | `/acc:audit-architecture ./src`       | Pattern detection + compliance score         |
+| Security audit         | `/acc:audit-security ./src`           | OWASP Top 10 + PHP-specific vulnerabilities  |
+| Performance audit      | `/acc:audit-performance ./src`        | N+1 queries, memory issues, caching gaps     |
+| Design patterns audit  | `/acc:audit-patterns ./src`           | Stability, behavioral, creational patterns   |
+| Generate PSR component | `/acc:generate-psr psr-15 Auth`       | PSR-compliant implementation with tests      |
+| Generate design pattern| `/acc:generate-patterns strategy Pay` | Pattern implementation with DI configuration |
+| Explain code           | `/acc:explain src/Domain/Order/`      | Structure, business logic, data flows        |
+| Onboard to project     | `/acc:explain .`                      | Project guide with glossary and diagrams     |
+| Audit Docker config    | `/acc:audit-docker ./`                | Dockerfile, Compose, security, performance   |
+| Generate Docker stack  | `/acc:generate-docker full`           | Dockerfile + Compose + Nginx + entrypoint    |
+| Refactor code          | `/acc:refactor ./src/OrderService`    | Analysis + prioritized roadmap + generators  |
+| Create Claude command  | `/acc:generate-claude-component`      | Create command, agent, skills                |
+| Audit test quality     | `/acc:audit-test ./tests`             | Coverage gaps, test smells, recommendations  |
+| Generate documentation | `/acc:generate-documentation ./src`   | README + ARCHITECTURE.md + diagrams          |
 
 ## Supported Patterns
 
@@ -330,15 +310,102 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 ## Requirements
 
 - **PHP 8.4+** — for generated code (strict typing, readonly classes)
-- **Composer 2.0+** — for package installation
 - **Claude Code CLI** — [Installation guide](https://docs.anthropic.com/en/docs/claude-code)
+
+## Installation (v2.x — Composer)
+
+> **Note:** v2.x is no longer maintained. Use the [marketplace version](#quick-start) (v3.0.0+) for the latest features and automatic updates.
+
+If you need to use the legacy Composer-based version (v2.14.0):
+
+```bash
+composer require --dev dykyi-roman/awesome-claude-code:^2.14
+```
+
+After installation, register the Composer plugin:
+
+```bash
+./vendor/bin/acc install
+```
+
+This copies commands, agents, and skills into your `.claude/` directory. Commands use dash syntax: `/acc-audit-architecture`, `/acc-code-review`, etc.
+
+### v2.x Requirements
+
+- PHP 8.4+
+- Composer 2.0+
+- Claude Code CLI
+
+### v2.x Updates
+
+```bash
+composer update dykyi-roman/awesome-claude-code
+./vendor/bin/acc upgrade
+```
+
+## Migration from v2.x to v3.0.0
+
+v3.0.0 is a **breaking change** — the plugin moved from Composer to the Claude Code Marketplace. Follow these steps to upgrade:
+
+### Step 1: Remove the Composer package
+
+```bash
+composer remove dykyi-roman/awesome-claude-code
+```
+
+### Step 2: Clean up old components
+
+Remove all v2.x files that were copied to `.claude/`:
+
+```bash
+rm -rf .claude/commands/acc-* .claude/agents/acc-* .claude/skills/acc-*
+```
+
+> **Warning:** If you customized any `acc-*` files, back them up first. Your `.claude/settings.json` and `.claude/rules/` are not affected.
+
+### Step 3: Install from the marketplace
+
+```bash
+/plugin marketplace add dykyi-roman/awesome-claude-code
+/plugin install acc@awesome-claude-code
+```
+
+### Step 4: Update command references
+
+All commands changed from dash (`-`) to colon (`:`) syntax:
+
+```bash
+# Before (v2.x)
+/acc-code-review feature/auth high
+/acc-audit-architecture ./src
+/acc-generate-ddd entity Order
+
+# After (v3.0.0)
+/acc:code-review feature/auth high
+/acc:audit-architecture ./src
+/acc:generate-ddd entity Order
+```
+
+If you have scripts or documentation referencing old command names, update them.
+
+### What changed
+
+| Aspect | v2.x (Composer plugin) | v3.0.0 (Marketplace plugin) |
+|--------|------------------------|-----------------------------|
+| **Install method** | `composer require` | `/plugin marketplace add` + `/plugin install` |
+| **Command syntax** | `/acc-command` (dash) | `/acc:command` (colon) |
+| **Component paths** | `.claude/commands/acc-*.md` | `commands/*.md` (managed by plugin system) |
+| **PHP/Composer dependency** | Required Composer 2.0+ | No PHP/Composer dependency for the plugin itself |
+| **Updates** | `composer update` + `./vendor/bin/acc upgrade` | Automatic via marketplace |
+| **Component location** | Copied to `.claude/` by Composer plugin | Managed by Claude Code plugin system |
+| **Customization** | Edit files in `.claude/` directly | Fork the plugin or override locally |
 
 ## FAQ
 
 <details>
-<summary><strong>How does auto-installation work?</strong></summary>
+<summary><strong>How does installation work?</strong></summary>
 
-The Composer plugin subscribes to `POST_PACKAGE_INSTALL` and `POST_PACKAGE_UPDATE` events. When you run `composer require`, it automatically copies `.claude/` components (commands, agents, skills) to your project directory. Existing files are never overwritten to preserve your customizations.
+The marketplace plugin is managed by Claude Code's native plugin system. When you run `/plugin install acc@awesome-claude-code`, Claude Code registers the plugin's commands, agents, and skills. Updates are delivered automatically through the marketplace -- no manual steps required.
 </details>
 
 <details>
@@ -356,31 +423,19 @@ Generated code targets PHP 8.4+ and uses modern features like readonly classes, 
 <details>
 <summary><strong>How do I add my own commands/skills?</strong></summary>
 
-Use the `/acc-generate-claude-component` wizard to create new components interactively. It guides you through creating commands, agents, or skills with proper formatting and structure.
+Use the `/acc:generate-claude-component` wizard to create new components interactively. It guides you through creating commands, agents, or skills with proper formatting and structure.
 </details>
 
 <details>
 <summary><strong>What if I want to update to a newer version?</strong></summary>
 
-Run `composer update dykyi-roman/awesome-claude-code`. New components are added, but existing files are not overwritten.
-
-To force update existing files with the latest versions:
-
-```bash
-# Full upgrade with automatic backup
-./vendor/bin/acc upgrade
-
-# Upgrade specific component only
-./vendor/bin/acc upgrade --component=skills
-```
-
-Backups are stored in `.claude.backup.YYYY-MM-DD-HHMMSS/`.
+Marketplace plugins update automatically. When a new version is published, Claude Code picks up the latest components on next use. No manual upgrade steps are needed.
 </details>
 
 <details>
 <summary><strong>Can I use only specific skills?</strong></summary>
 
-Yes. After installation, you can remove unwanted components from `.claude/` directory. Each component (command, agent, skill) works independently.
+Yes. After installation, you can remove unwanted components. Each component (command, agent, skill) works independently.
 </details>
 
 ## Troubleshooting
@@ -391,15 +446,15 @@ Yes. After installation, you can remove unwanted components from `.claude/` dire
 **Symptom:** Agent doesn't use expected skill.
 
 **Solutions:**
-1. Check `skills:` list in agent frontmatter (`.claude/agents/agent-name.md`)
-2. Verify skill exists in `.claude/skills/skill-name/SKILL.md`
+1. Check `skills:` list in agent frontmatter (`agents/agent-name.md`)
+2. Verify skill exists in `skills/skill-name/SKILL.md`
 3. Check skill name matches exactly (case-sensitive, with hyphens)
 
 ```yaml
 # In agent file:
 ---
 skills:
-  - acc-ddd-knowledge  # Must match skill folder name
+  - ddd-knowledge  # Must match skill folder name
 ---
 ```
 </details>
@@ -411,25 +466,13 @@ skills:
 
 **Solutions:**
 1. Verify command uses `Task` tool with correct `subagent_type`
-2. Check agent file exists in `.claude/agents/`
+2. Check agent file exists in `agents/`
 3. Ensure agent name in command matches agent filename (without `.md`)
 
 ```markdown
 # In command file:
-Use the Task tool with subagent_type="acc-ddd-auditor"
+Use the Task tool with subagent_type="acc:ddd-auditor"
 ```
-</details>
-
-<details>
-<summary><strong>Components not copied after install</strong></summary>
-
-**Symptom:** `.claude/` folder is empty or missing after `composer require`.
-
-**Solutions:**
-1. Run `composer install` again (not just `require`)
-2. Check Composer allows plugins: `composer config allow-plugins.dykyi-roman/awesome-claude-code true`
-3. Verify you're in the project root directory
-4. Check file permissions on `.claude/` directory
 </details>
 
 <details>
@@ -451,7 +494,7 @@ Use the Task tool with subagent_type="acc-ddd-auditor"
 
 **Solutions:**
 1. Check your `composer.json` autoload configuration
-2. Specify target path when generating: `/acc-generate-claude-component` prompts for location
+2. Specify target path when generating: `/acc:generate-claude-component` prompts for location
 3. Edit generated files to match your project structure
 </details>
 

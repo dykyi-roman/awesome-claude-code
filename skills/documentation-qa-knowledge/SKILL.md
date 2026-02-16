@@ -1,5 +1,5 @@
 ---
-name: acc-documentation-qa-knowledge
+name: documentation-qa-knowledge
 description: Documentation QA knowledge base. Provides quality checklists, audit criteria, and metrics for documentation review.
 ---
 

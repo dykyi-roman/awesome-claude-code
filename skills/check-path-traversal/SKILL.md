@@ -1,5 +1,5 @@
 ---
-name: acc-check-path-traversal
+name: check-path-traversal
 description: Analyzes PHP code for path traversal vulnerabilities. Detects directory traversal, file inclusion with user input, missing path validation, symlink attacks.
 ---
 

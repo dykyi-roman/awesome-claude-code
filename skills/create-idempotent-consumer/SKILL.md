@@ -1,5 +1,5 @@
 ---
-name: acc-create-idempotent-consumer
+name: create-idempotent-consumer
 description: Generates Idempotent Consumer components for PHP 8.4. Creates message deduplication infrastructure with idempotency key management, storage backends, middleware, and unit tests.
 ---
 

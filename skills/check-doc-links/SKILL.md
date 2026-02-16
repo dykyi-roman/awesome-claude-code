@@ -1,5 +1,5 @@
 ---
-name: acc-check-doc-links
+name: check-doc-links
 description: Validates documentation links. Detects broken relative links, missing anchor targets, malformed URLs, and orphaned documentation files.
 ---
 

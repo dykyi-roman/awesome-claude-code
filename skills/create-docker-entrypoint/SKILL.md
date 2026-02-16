@@ -1,5 +1,5 @@
 ---
-name: acc-create-docker-entrypoint
+name: create-docker-entrypoint
 description: Generates Docker entrypoint scripts for PHP containers. Creates startup scripts with signal handling, migrations, and cache warmup.
 ---
 

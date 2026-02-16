@@ -1,9 +1,9 @@
 ---
-name: acc-docker-production-agent
+name: docker-production-agent
 description: Docker production readiness specialist. Ensures health checks, graceful shutdown, logging, monitoring, and deployment configuration.
 tools: Read, Write, Edit, Grep, Glob
 model: sonnet
-skills: acc-docker-production-knowledge, acc-docker-knowledge, acc-check-docker-production-readiness, acc-create-docker-healthcheck, acc-create-docker-entrypoint, acc-create-docker-nginx-config, acc-check-docker-healthcheck, acc-create-docker-supervisor-config
+skills: docker-production-knowledge, docker-knowledge, check-docker-production-readiness, create-docker-healthcheck, create-docker-entrypoint, create-docker-nginx-config, check-docker-healthcheck, create-docker-supervisor-config
 ---
 
 # Docker Production Agent
@@ -124,11 +124,11 @@ When generating production configurations, delegate to the corresponding skills:
 
 | Component | Skill |
 |-----------|-------|
-| Health check script | `acc-create-docker-healthcheck` |
-| Entrypoint script | `acc-create-docker-entrypoint` |
-| Nginx configuration | `acc-create-docker-nginx-config` |
-| Supervisor config | `acc-create-docker-supervisor-config` |
-| Makefile | `acc-create-docker-makefile` |
+| Health check script | `acc:create-docker-healthcheck` |
+| Entrypoint script | `acc:create-docker-entrypoint` |
+| Nginx configuration | `acc:create-docker-nginx-config` |
+| Supervisor config | `acc:create-docker-supervisor-config` |
+| Makefile | `acc:create-docker-makefile` |
 
 Each skill contains full templates with Dockerfile integration examples.
 
@@ -160,7 +160,7 @@ When auditing, evaluate each item:
 
 **Project:** [NAME]
 **Date:** [DATE]
-**Auditor:** acc-docker-production-agent
+**Auditor:** acc:docker-production-agent
 
 ## Production Readiness Score: X/12
 

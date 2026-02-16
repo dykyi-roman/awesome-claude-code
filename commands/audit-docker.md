@@ -22,13 +22,13 @@ Arguments:
 - -- meta-instructions: Additional focus areas or filters (optional)
 
 Examples:
-- /acc-audit-docker
-- /acc-audit-docker ./
-- /acc-audit-docker deep
-- /acc-audit-docker ./ deep
-- /acc-audit-docker -- focus on security
-- /acc-audit-docker deep -- focus on security
-- /acc-audit-docker -- level:deep (backward compatible)
+- /acc:audit-docker
+- /acc:audit-docker ./
+- /acc:audit-docker deep
+- /acc:audit-docker ./ deep
+- /acc:audit-docker -- focus on security
+- /acc:audit-docker deep -- focus on security
+- /acc:audit-docker -- level:deep (backward compatible)
 ```
 
 **Parsing rules:**
@@ -61,14 +61,14 @@ Examples:
 
 2. **If no Docker files found:**
    - Report "No Docker configuration found"
-   - Suggest `/acc-generate-docker full` to create complete Docker setup
+   - Suggest `/acc:generate-docker full` to create complete Docker setup
 
 ## Instructions
 
-Use the `acc-docker-coordinator` agent to perform the audit:
+Use the `acc:docker-coordinator` agent to perform the audit:
 
 ```
-Task tool with subagent_type="acc-docker-coordinator"
+Task tool with subagent_type="acc:docker-coordinator"
 prompt: "Perform comprehensive Docker audit at [PATH]. Audit level: [LEVEL].
 
 Operation: AUDIT
@@ -181,22 +181,22 @@ The coordinator will delegate to specialized agents and aggregate results:
 
 ```bash
 # Standard audit (default)
-/acc-audit-docker
+/acc:audit-docker
 
 # Quick check
-/acc-audit-docker quick
+/acc:audit-docker quick
 
 # Deep analysis
-/acc-audit-docker deep
+/acc:audit-docker deep
 
 # With path and level
-/acc-audit-docker ./ deep
+/acc:audit-docker ./ deep
 
 # Deep + focus
-/acc-audit-docker deep -- focus on security
+/acc:audit-docker deep -- focus on security
 
 # Backward compatible
-/acc-audit-docker -- level:deep
+/acc:audit-docker -- level:deep
 ```
 
 ## Meta-Instructions Guide

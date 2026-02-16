@@ -1,5 +1,5 @@
 ---
-name: acc-clean-arch-knowledge
+name: clean-arch-knowledge
 description: Clean Architecture knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Clean Architecture and Hexagonal Architecture audits.
 ---
 

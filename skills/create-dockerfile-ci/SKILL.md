@@ -1,5 +1,5 @@
 ---
-name: acc-create-dockerfile-ci
+name: create-dockerfile-ci
 description: Generates optimized Dockerfiles for PHP CI pipelines. Creates multi-stage builds with separate stages for dependencies, testing, and production with minimal image sizes.
 ---
 

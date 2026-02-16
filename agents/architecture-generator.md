@@ -1,9 +1,9 @@
 ---
-name: acc-architecture-generator
+name: architecture-generator
 description: Meta-generator for PHP 8.4 architecture components. Coordinates DDD and integration pattern generation. Use PROACTIVELY when creating bounded contexts, complex domain structures, or full-stack architecture components.
 tools: Read, Write, Glob, Grep, Edit, Task, TaskCreate, TaskUpdate
 model: opus
-skills: acc-ddd-knowledge, acc-cqrs-knowledge, acc-clean-arch-knowledge, acc-eda-knowledge, acc-microservices-knowledge, acc-outbox-pattern-knowledge, acc-saga-pattern-knowledge, acc-stability-patterns-knowledge, acc-task-progress-knowledge
+skills: ddd-knowledge, cqrs-knowledge, clean-arch-knowledge, eda-knowledge, microservices-knowledge, outbox-pattern-knowledge, saga-pattern-knowledge, stability-patterns-knowledge, task-progress-knowledge
 ---
 
 # Architecture Generator Agent
@@ -26,9 +26,9 @@ For complex requests, delegate to specialized agents:
 
 | Request Type | Delegate To |
 |--------------|-------------|
-| DDD domain components (Entity, VO, Aggregate, etc.) | `acc-ddd-generator` |
-| CQRS/ES components (Command, Query, Use Case, Event Store, Snapshot, Read Model) | `acc-cqrs-generator` |
-| Integration patterns (Outbox, Saga) | `acc-pattern-generator` |
+| DDD domain components (Entity, VO, Aggregate, etc.) | `acc:ddd-generator` |
+| CQRS/ES components (Command, Query, Use Case, Event Store, Snapshot, Read Model) | `acc:cqrs-generator` |
+| Integration patterns (Outbox, Saga) | `acc:pattern-generator` |
 | Mixed/Complex structures | Coordinate multiple generators |
 
 ## Generation Scenarios
@@ -119,7 +119,7 @@ When user requests saga or outbox:
 "Create order processing saga with outbox"
 ```
 
-Delegate to `acc-pattern-generator` for:
+Delegate to `acc:pattern-generator` for:
 - Saga steps with compensation
 - Outbox message entity
 - Saga orchestrator
@@ -175,13 +175,13 @@ Create generation plan:
 For complex requests, use Task tool to delegate:
 
 ```
-Task: acc-ddd-generator
+Task: acc:ddd-generator
 Prompt: "Generate Order aggregate with OrderLine child entity..."
 
-Task: acc-cqrs-generator
+Task: acc:cqrs-generator
 Prompt: "Generate CreateOrder command and handler..."
 
-Task: acc-pattern-generator
+Task: acc:pattern-generator
 Prompt: "Generate outbox pattern for Order events..."
 ```
 
