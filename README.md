@@ -9,7 +9,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
-> **The most comprehensive Claude Code extension for PHP developers.**
+> **The most comprehensive Claude Code extension for PHP developers.** Current version: **v3.1.0**
 > Audit, Generate & Document: DDD, CQRS, Event Sourcing, Clean/Hexagonal Architecture, Design Patterns, PSR, Tests ...
 
 ![Awesome Claude Code — PHP Architecture Toolkit](docs/img.png)
@@ -201,7 +201,8 @@ COMMAND ───────→ COORDINATOR ───────→ AGENTS ─
                                               ├──→ behavioral-generator ─→ strategy, state, decorator, visitor, memento
                                               ├──→ gof-structural-generator → adapter, facade, proxy, composite
                                               ├──→ creational-generator ─→ builder, factory, object-pool
-                                              └──→ integration-generator → saga, outbox, acl
+                                              ├──→ messaging-generator ───→ saga, outbox, correlation, broker
+                                              └──→ api-infrastructure-generator → ADR, versioning, health
 
 /acc:bug-fix ─────────────→ bug-fix-coordinator
                                     │
@@ -258,8 +259,8 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 | Document                                   | Description                                   |
 |--------------------------------------------|-----------------------------------------------|
 | [Commands](docs/commands.md)               | 26 slash commands with examples               |
-| [Agents](docs/agents.md)                   | 62 specialized subagents                      |
-| [Skills](docs/skills.md)                   | 259 skills (knowledge, generators, analyzers) |
+| [Agents](docs/agents.md)                   | 64 specialized subagents                      |
+| [Skills](docs/skills.md)                   | 264 skills (knowledge, generators, analyzers) |
 | [Hooks](docs/hooks.md)                     | 21 PHP/DDD hooks                              |
 | [Component Flow](docs/component-flow.md)   | Architecture and dependency graph             |
 | [MCP](docs/mcp.md)                         | MCP server configuration                      |

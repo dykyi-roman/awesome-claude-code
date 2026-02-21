@@ -30,13 +30,15 @@ COMMANDS                    AGENTS                      SKILLS
 
 /acc:audit-ddd ─────────→ acc:ddd-auditor (8 skills) ──→ DDD, SOLID, GRASP knowledge + 3 analyzers
                                 │
+                                ├──→ (Task) acc:framework-expert ─→ 5 framework knowledge skills
                                 ├──→ (Task) acc:ddd-generator ──→ 11 create-* skills (domain + app)
                                 └──→ (Task) acc:cqrs-generator ─→ 6 create-* skills (CQRS/ES)
 
 /acc:audit-architecture ─→ acc:architecture-auditor (coordinator)
                                 │
                                 ├──→ (Task) acc:structural-auditor ──→ 12 skills
-                                │           └── DDD, Clean, Hexagonal, Layered, SOLID, GRASP + 6 analyzers
+                                │           ├── DDD, Clean, Hexagonal, Layered, SOLID, GRASP + 6 analyzers
+                                │           └──→ (Task) acc:framework-expert ─→ 5 framework knowledge skills
                                 │
                                 ├──→ (Task) acc:behavioral-auditor ──→ 11 skills
                                 │           └── Strategy, State, Chain, Decorator, Null Object, etc.
@@ -52,7 +54,8 @@ COMMANDS                    AGENTS                      SKILLS
                                                   ├──→ (Task) acc:behavioral-generator ─→ 10 skills
                                                   ├──→ (Task) acc:gof-structural-generator → 6 skills
                                                   ├──→ (Task) acc:creational-generator ─→ 3 skills
-                                                  └──→ (Task) acc:integration-generator → 11 skills
+                                                  ├──→ (Task) acc:messaging-generator ──→ 9 skills
+                                                  └──→ (Task) acc:api-infrastructure-generator → 7 skills
 
 /acc:audit-patterns ────→ acc:pattern-auditor (coordinator, 2 skills)
                                 │
@@ -207,10 +210,11 @@ Skill generates PHP code with tests
 | Behavioral patterns | `behavioral-generator` | 10 create-* skills |
 | GoF Structural patterns | `gof-structural-generator` | 6 create-* skills |
 | Creational patterns | `creational-generator` | 3 create-* skills |
-| Integration patterns | `integration-generator` | 11 create-* skills |
+| Messaging patterns | `messaging-generator` | 9 create-* skills |
+| API & infrastructure patterns | `api-infrastructure-generator` | 7 create-* skills |
 | PSR implementations | `psr-generator` | 11 create-psr* skills |
 | Architecture | `architecture-generator` | Coordinator (delegates) |
-| Design patterns | `pattern-generator` | Coordinator (delegates to 5 generators) |
+| Design patterns | `pattern-generator` | Coordinator (delegates to 6 generators) |
 | Bug fixes | `bug-fixer` | 5 bug-* skills + 6 quality + 1 log |
 
 ## Generator Skills by Category
@@ -247,17 +251,22 @@ Skill generates PHP code with tests
 - `create-cache-aside` — Cache-Aside pattern
 - `create-timeout` — Timeout pattern
 
-### Integration Patterns (9 skills)
+### Messaging Patterns (6 skills)
 
 - `create-outbox-pattern` — Transactional Outbox
 - `create-saga-pattern` — Saga orchestration
 - `create-correlation-context` — Correlation ID propagation
-- `create-unit-of-work` — Unit of Work
 - `create-message-broker-adapter` — Message Broker Adapter
 - `create-idempotent-consumer` — Idempotent Consumer
 - `create-dead-letter-queue` — Dead Letter Queue
+
+### API & Infrastructure Patterns (5 skills)
+
+- `create-action` — ADR Action
+- `create-responder` — ADR Responder
 - `create-api-versioning` — API Versioning
 - `create-health-check` — Health Check
+- `create-unit-of-work` — Unit of Work
 
 ### Behavioral Patterns (10 skills)
 

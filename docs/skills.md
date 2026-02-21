@@ -42,11 +42,12 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
-| **Knowledge** | 42 | Provide expertise and best practices | `ddd-knowledge` |
-| **Analyzer** | 99 | Detect violations and antipatterns | `analyze-solid-violations` |
-| **Generator** | 104 | Generate PHP code with tests | `create-entity` |
+| **Knowledge** | 47 | Provide expertise and best practices | `ddd-knowledge` |
+| **Analyzer** | 100 | Detect violations and antipatterns | `analyze-solid-violations` |
+| **Generator** | 93 | Generate PHP code with tests | `create-entity` |
+| **Optimizer** | 7 | Optimize configurations and performance | `optimize-docker-layers` |
 | **Template** | 10 | Documentation and output templates | `readme-template` |
-| **Other** | 4 | Estimation and suggestion utilities | `estimate-complexity` |
+| **Other** | 7 | Estimation, suggestion, bug fix utilities | `estimate-complexity` |
 
 ## How Skills Work
 
@@ -104,6 +105,11 @@ Knowledge bases for architecture audits and best practices.
 | `api-design-knowledge` | `skills/api-design-knowledge/` | REST constraints, Richardson Maturity, HTTP semantics, RFC 7807 |
 | `message-queue-knowledge` | `skills/message-queue-knowledge/` | Broker comparison (RabbitMQ/Kafka/SQS), delivery guarantees, consumer groups |
 | `caching-strategies-knowledge` | `skills/caching-strategies-knowledge/` | Cache-Aside, Read-Through, Write-Through, invalidation, Redis patterns |
+| `symfony-knowledge` | `skills/symfony-knowledge/` | Symfony architecture, DDD integration, Doctrine, DI, testing, antipatterns |
+| `laravel-knowledge` | `skills/laravel-knowledge/` | Laravel architecture, DDD integration, Eloquent, Service Container, testing, antipatterns |
+| `yii-knowledge` | `skills/yii-knowledge/` | Yii3 modular architecture, DDD integration, PSR-7/PSR-15, persistence, testing, antipatterns |
+| `codeigniter-knowledge` | `skills/codeigniter-knowledge/` | CodeIgniter 4 MVC, DDD integration, persistence, services, testing, antipatterns |
+| `no-framework-knowledge` | `skills/no-framework-knowledge/` | Pure PHP architecture, DDD integration, PSR-7/PSR-15, standalone persistence, DI, testing |
 
 ## Analyzer Skills
 

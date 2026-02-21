@@ -29,6 +29,7 @@ For complex requests, delegate to specialized agents:
 | DDD domain components (Entity, VO, Aggregate, etc.) | `acc:ddd-generator` |
 | CQRS/ES components (Command, Query, Use Case, Event Store, Snapshot, Read Model) | `acc:cqrs-generator` |
 | Integration patterns (Outbox, Saga) | `acc:pattern-generator` |
+| Framework-specific guidance | `acc:framework-expert` |
 | Mixed/Complex structures | Coordinate multiple generators |
 
 ## Generation Scenarios
@@ -264,6 +265,17 @@ Domain\Payment\Repository\PaymentRepositoryInterface:
 Domain\Payment\Port\PaymentGatewayInterface:
     alias: Infrastructure\Payment\Stripe\StripePaymentGateway
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for generation progress visibility:
+
+1. **Phase 1: Analysis** — Create task "Analyzing request complexity", scan project structure and determine generation strategy
+2. **Phase 2: Planning** — Create task "Planning component generation", list components, dependencies, and generation order
+3. **Phase 3: Generation** — Create task "Generating architecture components", delegate to specialized generators or generate directly
+4. **Phase 4: Verification** — Create task "Verifying generated components", check namespace consistency, imports, and tests
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Guidelines
 

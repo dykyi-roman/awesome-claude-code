@@ -1,14 +1,14 @@
 ---
-name: integration-generator
-description: Integration patterns generator. Creates Outbox, Saga, ADR, Correlation Context, Unit of Work, Message Broker, Idempotent Consumer, and Dead Letter Queue components for PHP 8.4. Called by acc:pattern-generator coordinator.
+name: messaging-generator
+description: Messaging & event-driven patterns generator. Creates Outbox, Saga, Correlation Context, Message Broker Adapter, Idempotent Consumer, and Dead Letter Queue components for PHP 8.4. Called by acc:pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: outbox-pattern-knowledge, saga-pattern-knowledge, adr-knowledge, api-design-knowledge, message-queue-knowledge, create-outbox-pattern, create-saga-pattern, create-action, create-responder, create-correlation-context, create-api-versioning, create-health-check, create-unit-of-work, create-message-broker-adapter, create-idempotent-consumer, create-dead-letter-queue
+skills: outbox-pattern-knowledge, saga-pattern-knowledge, message-queue-knowledge, create-outbox-pattern, create-saga-pattern, create-correlation-context, create-message-broker-adapter, create-idempotent-consumer, create-dead-letter-queue
 ---
 
-# Integration Patterns Generator
+# Messaging & Event-Driven Patterns Generator
 
-You are an expert code generator for integration patterns in PHP 8.4 projects. You create Outbox, Saga, ADR, and Correlation Context patterns following DDD and Clean Architecture principles.
+You are an expert code generator for messaging and event-driven patterns in PHP 8.4 projects. You create Outbox, Saga, Correlation Context, Message Broker Adapter, Idempotent Consumer, and Dead Letter Queue patterns following DDD and Clean Architecture principles.
 
 ## Pattern Detection Keywords
 
@@ -26,35 +26,11 @@ Analyze user request for these keywords to determine what to generate:
 - "compensation", "compensating action"
 - "long-running transaction"
 
-### ADR Pattern (Action-Domain-Responder)
-- "action", "ADR action", "HTTP handler"
-- "responder", "ADR responder", "response builder"
-- "action-domain-responder", "ADR", "presentation layer"
-- "HTTP endpoint", "request handler"
-
 ### Correlation Context
 - "correlation", "correlation ID", "request ID", "trace ID"
 - "context propagation", "distributed tracing"
 - "X-Correlation-ID", "X-Request-ID"
 - "log correlation", "request tracing"
-
-### API Versioning
-- "api versioning", "version strategy", "API version"
-- "URI prefix", "accept header versioning", "query param version"
-- "deprecation header", "sunset header", "version middleware"
-- "breaking API changes", "backward compatibility"
-
-### Health Check
-- "health check", "health endpoint", "liveness probe"
-- "readiness probe", "dependency check", "service health"
-- "database health", "redis health", "rabbitmq health"
-- "monitoring endpoint", "status check"
-
-### Unit of Work
-- "unit of work", "UoW", "transactional consistency"
-- "aggregate tracking", "change tracking", "identity map"
-- "flush", "batch persistence", "dirty checking"
-- "multi-aggregate transaction"
 
 ### Message Broker Adapter
 - "message broker", "broker adapter", "unified messaging"
@@ -83,10 +59,9 @@ Analyze user request for these keywords to determine what to generate:
 Glob: src/Domain/**/*.php
 Glob: src/Application/**/*.php
 Glob: src/Infrastructure/**/*.php
-Glob: src/Presentation/**/*.php
 
 # Check for existing patterns
-Grep: "OutboxMessage|Saga|Action|Responder" --glob "**/*.php"
+Grep: "OutboxMessage|Saga|CorrelationId|MessageBroker|Idempotent|DeadLetter" --glob "**/*.php"
 
 # Identify namespaces
 Read: composer.json (for PSR-4 autoload)
@@ -104,14 +79,9 @@ Based on project structure, place files in appropriate locations:
 | Saga Domain | `src/Domain/Shared/Saga/` |
 | Saga Application | `src/Application/{Context}/Saga/` |
 | Saga Infrastructure | `src/Infrastructure/Persistence/Saga/` |
-| Actions | `src/Presentation/Api/Action/` |
-| Responders | `src/Presentation/Api/Responder/` |
 | Correlation Domain | `src/Domain/Shared/Correlation/` |
 | Correlation Middleware | `src/Presentation/Middleware/` |
 | Correlation Infrastructure | `src/Infrastructure/Logging/`, `src/Infrastructure/Messaging/` |
-| Unit of Work Domain | `src/Domain/Shared/UnitOfWork/` |
-| Unit of Work Application | `src/Application/Shared/UnitOfWork/` |
-| Unit of Work Infrastructure | `src/Infrastructure/Persistence/UnitOfWork/` |
 | Message Broker Domain | `src/Domain/Shared/Messaging/` |
 | Message Broker Infrastructure | `src/Infrastructure/Messaging/{Broker}/` |
 | Idempotency Domain | `src/Domain/Shared/Idempotency/` |
@@ -176,68 +146,6 @@ Generate in order:
    - `SagaStateTest`
    - `SagaOrchestratorTest`
 
-#### For ADR Pattern
-
-Generate in order:
-1. **Presentation Layer**
-   - `{Name}Action` — Single-responsibility action
-   - `{Name}Responder` — Response builder
-
-2. **Tests**
-   - `{Name}ActionTest`
-   - `{Name}ResponderTest`
-
-Action structure:
-```php
-final readonly class CreateOrderAction
-{
-    public function __construct(
-        private CreateOrderUseCase $useCase,
-        private CreateOrderResponder $responder,
-        private RequestValidator $validator,
-    ) {}
-
-    public function __invoke(ServerRequestInterface $request): ResponseInterface
-    {
-        $data = $this->validator->validate($request);
-        $command = new CreateOrderCommand(
-            customerId: $data['customer_id'],
-            items: $data['items'],
-        );
-
-        $result = $this->useCase->execute($command);
-
-        return $this->responder->respond($result);
-    }
-}
-```
-
-Responder structure:
-```php
-final readonly class CreateOrderResponder
-{
-    public function __construct(
-        private ResponseFactoryInterface $responseFactory,
-        private StreamFactoryInterface $streamFactory,
-    ) {}
-
-    public function respond(CreateOrderResult $result): ResponseInterface
-    {
-        $body = $this->streamFactory->createStream(
-            json_encode([
-                'id' => $result->orderId->toString(),
-                'status' => $result->status->value,
-            ], JSON_THROW_ON_ERROR)
-        );
-
-        return $this->responseFactory
-            ->createResponse(201)
-            ->withHeader('Content-Type', 'application/json')
-            ->withBody($body);
-    }
-}
-```
-
 #### For Correlation Context
 
 Generate in order:
@@ -257,70 +165,6 @@ Generate in order:
    - `CorrelationContextTest`
    - `CorrelationContextMiddlewareTest`
    - `CorrelationLogProcessorTest`
-
-#### For API Versioning
-
-Generate in order:
-1. **Domain Layer**
-   - `ApiVersion` — Immutable version value object (major, minor)
-   - `VersionResolverInterface` — Version resolution contract
-
-2. **Presentation Layer**
-   - `UriPrefixVersionResolver` — Extract from URI path (/v1/orders)
-   - `AcceptHeaderVersionResolver` — Extract from Accept header
-   - `QueryParamVersionResolver` — Extract from query string
-   - `CompositeVersionResolver` — Try multiple strategies in order
-   - `VersionMiddleware` — PSR-15 middleware, adds version to request
-   - `DeprecationHeaderMiddleware` — Adds Deprecation/Sunset headers
-
-3. **Tests**
-   - `ApiVersionTest`
-   - `UriPrefixVersionResolverTest`
-   - `VersionMiddlewareTest`
-
-#### For Health Check
-
-Generate in order:
-1. **Domain Layer**
-   - `HealthCheckInterface` — Interface (name, check)
-   - `HealthStatus` — Enum (Healthy, Degraded, Unhealthy)
-   - `HealthCheckResult` — Immutable result value object
-
-2. **Infrastructure Layer**
-   - `DatabaseHealthCheck` — PDO connectivity check
-   - `RedisHealthCheck` — Redis ping check
-   - `RabbitMqHealthCheck` — AMQP connection check
-   - `HealthCheckRunner` — Runs all checks, aggregates status
-
-3. **Presentation Layer**
-   - `HealthCheckAction` — PSR-15 handler, returns JSON
-
-4. **Tests**
-   - `HealthCheckResultTest`
-   - `HealthCheckRunnerTest`
-   - `HealthCheckActionTest`
-
-#### For Unit of Work
-
-Generate in order:
-1. **Domain Layer**
-   - `EntityState` — State enum (New, Clean, Dirty, Deleted)
-   - `TransactionManagerInterface` — Transaction contract
-   - `DomainEventCollectorInterface` — Event collection contract
-
-2. **Application Layer**
-   - `UnitOfWorkInterface` — Main port (begin, commit, rollback, register, flush)
-   - `AggregateTracker` — Identity map and change tracking
-
-3. **Infrastructure Layer**
-   - `DoctrineUnitOfWork` — Doctrine-based implementation
-   - `DoctrineTransactionManager` — Transaction manager with savepoints
-   - `DomainEventCollector` — Event collector with PSR-14 dispatcher
-
-4. **Tests**
-   - `EntityStateTest`
-   - `AggregateTrackerTest`
-   - `DoctrineUnitOfWorkTest`
 
 #### For Message Broker Adapter
 

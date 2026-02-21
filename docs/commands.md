@@ -1104,4 +1104,4 @@ Explain code structure, business logic, data flows, and architecture patterns. A
 
 ## Navigation
 
-[<- Back to README](../README.md) | [Agents ->](agents.md) | [Skills](skills.md) | [Component Flow](component-flow.md) | [Quick Reference](quick-reference.md)
+[← Back to README](../README.md) | [Agents →](agents.md) | [Skills](skills.md) | [Component Flow](component-flow.md) | [Quick Reference](quick-reference.md)

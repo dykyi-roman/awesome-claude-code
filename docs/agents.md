@@ -22,7 +22,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `structural-auditor` | Structural patterns analysis | 13 | `acc:architecture-auditor` (Task) |
+| `structural-auditor` | Structural patterns analysis | 14 | `acc:architecture-auditor` (Task) |
 | `behavioral-auditor` | GoF Behavioral patterns analysis | 11 | `acc:pattern-auditor` (Task) |
 | `cqrs-auditor` | CQRS/ES/EDA patterns analysis | 8 | `acc:architecture-auditor`, `acc:pattern-auditor` (Task) |
 | `gof-structural-auditor` | GoF Structural patterns analysis | 7 | `acc:pattern-auditor` (Task) |
@@ -65,7 +65,8 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `behavioral-generator` | Generate behavioral patterns | 10 | `acc:pattern-generator` (Task) |
 | `gof-structural-generator` | Generate GoF structural patterns | 6 | `acc:pattern-generator` (Task) |
 | `creational-generator` | Generate creational patterns | 3 | `acc:pattern-generator` (Task) |
-| `integration-generator` | Generate integration patterns | 8 | `acc:pattern-generator` (Task) |
+| `messaging-generator` | Generate messaging patterns | 9 | `acc:pattern-generator` (Task) |
+| `api-infrastructure-generator` | Generate API & infrastructure patterns | 7 | `acc:pattern-generator` (Task) |
 | `psr-generator` | Generate PSR implementations | 14 | `/acc:generate-psr`, `acc:psr-auditor` (Skill) |
 | `documentation-writer` | Generate documentation | 9 | `/acc:generate-documentation` |
 | `diagram-designer` | Create Mermaid diagrams | 2 | `acc:documentation-writer` (Task) |
@@ -110,6 +111,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | Agent | Purpose | Invoked By |
 |-------|---------|------------|
 | `claude-code-expert` | Create Claude Code components | `/acc:generate-claude-component` |
+| `framework-expert` | PHP framework knowledge (Symfony, Laravel, Yii, CI4, No-Framework) | `acc:ddd-auditor`, `acc:structural-auditor`, `acc:architecture-generator` (Task) |
 
 ## How Agents Work
 
@@ -172,6 +174,31 @@ skills: claude-code-knowledge
 
 ---
 
+## `framework-expert`
+
+**Path:** `agents/framework-expert.md`
+
+PHP framework knowledge expert. Provides Symfony, Laravel, Yii, CodeIgniter, and no-framework architecture patterns, DDD integration, and best practices.
+
+**Configuration:**
+```yaml
+name: framework-expert
+tools: Read, Grep, Glob
+model: sonnet
+skills: symfony-knowledge, laravel-knowledge, yii-knowledge,
+        codeigniter-knowledge, no-framework-knowledge
+```
+
+**Skills:** 5 (knowledge)
+
+**Capabilities:**
+- Framework detection from `composer.json` and directory structure
+- Framework-specific DDD mapping recommendations
+- Framework-specific antipatterns and violations
+- Migration guidance between frameworks
+
+---
+
 ## `architecture-auditor`
 
 **Path:** `agents/architecture-auditor.md`
@@ -203,15 +230,18 @@ Structural architecture auditor for DDD, Clean Architecture, Hexagonal, Layered,
 **Configuration:**
 ```yaml
 name: structural-auditor
-tools: Read, Grep, Glob
-model: sonnet
+tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
+model: opus
 skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge,
         layer-arch-knowledge, solid-knowledge, grasp-knowledge,
-        analyze-solid-violations, detect-code-smells, check-bounded-contexts,
-        check-immutability, check-leaky-abstractions, check-encapsulation
+        microservices-knowledge, analyze-solid-violations, detect-code-smells,
+        check-bounded-contexts, check-immutability, check-leaky-abstractions,
+        check-encapsulation, task-progress-knowledge
 ```
 
-**Skills:** 12 (6 knowledge + 6 analyzer)
+**Skills:** 14 (7 knowledge + 6 analyzer + 1 progress)
+
+Delegates to `acc:framework-expert` via Task when a PHP framework is detected.
 
 ---
 
@@ -429,7 +459,7 @@ skills: solid-knowledge, grasp-knowledge
 
 **Path:** `agents/pattern-generator.md`
 
-Design patterns generation coordinator. Orchestrates stability, behavioral, GoF structural, creational, and integration generators.
+Design patterns generation coordinator. Orchestrates stability, behavioral, GoF structural, creational, messaging, and API infrastructure generators.
 
 **Configuration:**
 ```yaml
@@ -439,14 +469,15 @@ model: opus
 skills: adr-knowledge
 ```
 
-**Skills:** 1 (delegates to 5 specialized generators via Task)
+**Skills:** 1 (delegates to 6 specialized generators via Task)
 
 **Delegation:**
 - `acc:stability-generator` — Circuit Breaker, Retry, Rate Limiter, Bulkhead
 - `acc:behavioral-generator` — Strategy, State, Chain, Decorator, Null Object, Template Method, Visitor, Iterator, Memento
 - `acc:gof-structural-generator` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
 - `acc:creational-generator` — Builder, Object Pool, Factory
-- `acc:integration-generator` — Outbox, Saga, Action, Responder, Correlation Context
+- `acc:messaging-generator` — Outbox, Saga, Correlation Context, Message Broker, Idempotent Consumer, Dead Letter Queue
+- `acc:api-infrastructure-generator` — ADR (Action, Responder), API Versioning, Health Check, Unit of Work
 
 ---
 
@@ -508,23 +539,43 @@ skills: create-builder, create-object-pool, create-factory
 
 ---
 
-## `integration-generator`
+## `messaging-generator`
 
-**Path:** `agents/integration-generator.md`
+**Path:** `agents/messaging-generator.md`
 
-Generates integration patterns (Outbox, Saga, Action, Responder, Correlation Context).
+Generates messaging and event-driven patterns (Outbox, Saga, Correlation Context, Message Broker Adapter, Idempotent Consumer, Dead Letter Queue).
 
 **Configuration:**
 ```yaml
-name: integration-generator
+name: messaging-generator
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: outbox-pattern-knowledge, saga-pattern-knowledge, adr-knowledge,
-        create-outbox-pattern, create-saga-pattern,
-        create-action, create-responder, create-correlation-context
+skills: outbox-pattern-knowledge, saga-pattern-knowledge, message-queue-knowledge,
+        create-outbox-pattern, create-saga-pattern, create-correlation-context,
+        create-message-broker-adapter, create-idempotent-consumer, create-dead-letter-queue
 ```
 
-**Skills:** 8
+**Skills:** 9 (3 knowledge + 6 generators)
+
+---
+
+## `api-infrastructure-generator`
+
+**Path:** `agents/api-infrastructure-generator.md`
+
+Generates API and infrastructure patterns (ADR Action/Responder, API Versioning, Health Check, Unit of Work).
+
+**Configuration:**
+```yaml
+name: api-infrastructure-generator
+tools: Read, Write, Glob, Grep, Edit
+model: sonnet
+skills: adr-knowledge, api-design-knowledge,
+        create-action, create-responder, create-api-versioning,
+        create-health-check, create-unit-of-work
+```
+
+**Skills:** 7 (2 knowledge + 5 generators)
 
 ---
 

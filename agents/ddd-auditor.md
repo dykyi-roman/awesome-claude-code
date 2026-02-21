@@ -27,6 +27,17 @@ For each phase:
 
 ## 7-Phase Analysis Process
 
+### Phase 0: Framework Detection
+
+Delegate framework-specific analysis to `acc:framework-expert`:
+
+```
+Task tool with subagent_type="acc:framework-expert"
+prompt: "Detect PHP framework in [path]. Analyze DDD integration score, framework-specific violations, and recommendations."
+```
+
+Use framework analysis results to inform Phase 1-9 checks with framework-specific patterns.
+
 ### Phase 1: Project Structure Discovery
 
 1. Identify project type and framework:

@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 62 agents, 259 skills, 21 hooks
+- 26 commands, 64 agents, 264 skills, 21 hooks
 - PHP 8.4+, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -59,7 +59,7 @@
 
 ## Skills by Category
 
-### Knowledge (42)
+### Knowledge (47)
 - Architecture: DDD, CQRS, Clean, Hexagonal, Layered, EDA, Event Sourcing, Microservices
 - Patterns: Saga, Outbox, Stability (Circuit Breaker, Retry, Rate Limiter, Bulkhead), ADR
 - API: REST design (Richardson Maturity, RFC 7807), content negotiation
@@ -72,6 +72,7 @@
 - Bug Fix: categories, symptoms, fix patterns
 - CI/CD: pipeline, tools, deployment
 - Docker: core, multistage, base-images, php-extensions, compose, networking, security, buildkit, production, troubleshooting, orchestration, scanning
+- Frameworks: Symfony, Laravel, Yii, CodeIgniter, No-Framework (pure PHP)
 - Task Progress: coordinator tracking guidelines
 
 ### Analyzers (99)
@@ -121,8 +122,8 @@
 ├── marketplace.json
 └── plugin.json
 commands/        # 26 commands
-agents/          # 62 agents
-skills/          # 259 skills (knowledge + generators + analyzers)
+agents/          # 64 agents
+skills/          # 264 skills (knowledge + generators + analyzers)
 hooks/
 └── hooks.json   # PHP syntax check hook
 ```
@@ -165,4 +166,4 @@ hooks/
 
 ## Version
 
-v3.0.0 - Claude Code marketplace plugin conversion
+v3.1.0 - Framework knowledge skills, enhanced symfony-knowledge, decomposed integration-generator

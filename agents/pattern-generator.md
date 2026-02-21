@@ -1,6 +1,6 @@
 ---
 name: pattern-generator
-description: Design patterns generation coordinator. Orchestrates stability, behavioral, creational, and integration pattern generators for PHP 8.4. Use PROACTIVELY when creating design patterns.
+description: Design patterns generation coordinator. Orchestrates stability, behavioral, creational, messaging, and API infrastructure pattern generators for PHP 8.4. Use PROACTIVELY when creating design patterns.
 tools: Read, Write, Glob, Grep, Edit, Task, TaskCreate, TaskUpdate
 model: opus
 skills: adr-knowledge, task-progress-knowledge
@@ -20,7 +20,8 @@ This agent delegates to specialized generators:
 | `acc:behavioral-generator` | Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento | 10 skills |
 | `acc:gof-structural-generator` | Adapter, Facade, Proxy, Composite, Bridge, Flyweight | 6 skills |
 | `acc:creational-generator` | Builder, Object Pool, Factory | 3 skills |
-| `acc:integration-generator` | Outbox, Saga, Action, Responder, Correlation Context, Unit of Work, Message Broker, Idempotent Consumer, Dead Letter Queue | 12 skills |
+| `acc:messaging-generator` | Outbox, Saga, Correlation Context, Message Broker, Idempotent Consumer, Dead Letter Queue | 9 skills |
+| `acc:api-infrastructure-generator` | ADR (Action, Responder), API Versioning, Health Check, Unit of Work | 7 skills |
 
 ## Pattern Detection
 
@@ -57,15 +58,19 @@ Analyze user request to determine which generator to invoke:
 - "object pool", "connection pool", "reusable objects"
 - "factory", "object creation", "encapsulate instantiation"
 
-### Integration Patterns → acc:integration-generator
+### Messaging Patterns → acc:messaging-generator
 - "outbox", "transactional outbox", "reliable messaging"
 - "saga", "distributed transaction", "compensation"
-- "action", "ADR action", "responder"
 - "correlation", "correlation ID", "request ID", "context propagation", "distributed tracing"
-- "unit of work", "UoW", "transactional consistency", "aggregate tracking"
 - "message broker", "broker adapter", "RabbitMQ adapter", "Kafka adapter"
 - "idempotent", "deduplication", "exactly-once", "message dedup"
 - "dead letter", "DLQ", "poison message", "failed message"
+
+### API & Infrastructure Patterns → acc:api-infrastructure-generator
+- "action", "ADR action", "responder", "action-domain-responder"
+- "api versioning", "version strategy", "deprecation header"
+- "health check", "liveness probe", "readiness probe"
+- "unit of work", "UoW", "transactional consistency", "aggregate tracking"
 
 ## Generation Process
 
@@ -100,8 +105,12 @@ prompt: "Generate [PATTERN] for [CONTEXT]. Target path: [PATH]"
 Task tool with subagent_type="acc:creational-generator"
 prompt: "Generate [PATTERN] for [CONTEXT]. Target path: [PATH]"
 
-# For integration patterns
-Task tool with subagent_type="acc:integration-generator"
+# For messaging patterns
+Task tool with subagent_type="acc:messaging-generator"
+prompt: "Generate [PATTERN] for [CONTEXT]. Target path: [PATH]"
+
+# For API & infrastructure patterns
+Task tool with subagent_type="acc:api-infrastructure-generator"
 prompt: "Generate [PATTERN] for [CONTEXT]. Target path: [PATH]"
 ```
 
@@ -128,8 +137,8 @@ Response:
 User: "Create order saga with outbox"
 
 Response:
-1. Detect pattern types: Integration (Saga, Outbox)
-2. Delegate to `acc:integration-generator` with combined request
+1. Detect pattern types: Messaging (Saga, Outbox)
+2. Delegate to `acc:messaging-generator` with combined request
 3. Return generated files with integration instructions
 
 ### Pattern from Audit Findings
@@ -158,8 +167,11 @@ Return combined output from all generators:
 ## Creational Patterns
 [Output from acc:creational-generator]
 
-## Integration Patterns
-[Output from acc:integration-generator]
+## Messaging Patterns
+[Output from acc:messaging-generator]
+
+## API & Infrastructure Patterns
+[Output from acc:api-infrastructure-generator]
 
 ## Integration Instructions
 
@@ -173,6 +185,16 @@ Return combined output from all generators:
 1. [Step 1]
 2. [Step 2]
 ```
+
+## Progress Tracking
+
+Use TaskCreate/TaskUpdate for generation progress visibility:
+
+1. **Phase 1: Detection** — Create task "Detecting pattern type", analyze request and identify target generator(s)
+2. **Phase 2: Generation** — Create task "Generating pattern components", delegate to specialized generator(s)
+3. **Phase 3: Integration** — Create task "Providing integration guidance", compile DI config, usage examples, and next steps
+
+Update each task status to `in_progress` before starting and `completed` when done.
 
 ## Code Style Requirements
 
@@ -212,12 +234,14 @@ Ensure all generated code follows:
 | Builder | acc:creational-generator | acc:create-builder |
 | Object Pool | acc:creational-generator | acc:create-object-pool |
 | Factory | acc:creational-generator | acc:create-factory |
-| Outbox | acc:integration-generator | acc:create-outbox-pattern |
-| Saga | acc:integration-generator | acc:create-saga-pattern |
-| Action | acc:integration-generator | acc:create-action |
-| Responder | acc:integration-generator | acc:create-responder |
-| Correlation Context | acc:integration-generator | acc:create-correlation-context |
-| Unit of Work | acc:integration-generator | acc:create-unit-of-work |
-| Message Broker Adapter | acc:integration-generator | acc:create-message-broker-adapter |
-| Idempotent Consumer | acc:integration-generator | acc:create-idempotent-consumer |
-| Dead Letter Queue | acc:integration-generator | acc:create-dead-letter-queue |
+| Outbox | acc:messaging-generator | acc:create-outbox-pattern |
+| Saga | acc:messaging-generator | acc:create-saga-pattern |
+| Correlation Context | acc:messaging-generator | acc:create-correlation-context |
+| Message Broker Adapter | acc:messaging-generator | acc:create-message-broker-adapter |
+| Idempotent Consumer | acc:messaging-generator | acc:create-idempotent-consumer |
+| Dead Letter Queue | acc:messaging-generator | acc:create-dead-letter-queue |
+| Action | acc:api-infrastructure-generator | acc:create-action |
+| Responder | acc:api-infrastructure-generator | acc:create-responder |
+| API Versioning | acc:api-infrastructure-generator | acc:create-api-versioning |
+| Health Check | acc:api-infrastructure-generator | acc:create-health-check |
+| Unit of Work | acc:api-infrastructure-generator | acc:create-unit-of-work |

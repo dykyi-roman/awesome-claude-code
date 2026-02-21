@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [3.1.0] - 2026-02-21
+
+### Added
+- `framework-expert` agent — PHP framework knowledge expert for Symfony, Laravel, Yii, CodeIgniter, and no-framework projects
+- 5 framework knowledge skills: `symfony-knowledge` (12 references), `laravel-knowledge` (11 references), `yii-knowledge` (11 references), `codeigniter-knowledge` (11 references), `no-framework-knowledge` (11 references)
+- `messaging-generator` agent — Outbox, Saga, Correlation Context, Message Broker, Idempotent Consumer, Dead Letter Queue (9 skills)
+- `api-infrastructure-generator` agent — ADR, API Versioning, Health Check, Unit of Work (7 skills)
+
+### Changed
+- Decomposed `integration-generator` (16 skills) → `messaging-generator` (9) + `api-infrastructure-generator` (7)
+- `symfony-knowledge`: added security, messenger-advanced, workflow, event-system, infrastructure-components references; expanded antipatterns (+2) and ddd-integration
+- `laravel-knowledge`: added security, queues-advanced, event-system, infrastructure-components references; expanded antipatterns (+2) and ddd-integration
+- `yii-knowledge`: added security, event-system, queue, infrastructure-components references; expanded antipatterns (+2) and ddd-integration
+- `codeigniter-knowledge`: added security, event-system, queue, infrastructure-components references; expanded antipatterns (+2) and ddd-integration
+- `no-framework-knowledge`: added security, event-system, queue, infrastructure-components references; expanded antipatterns (+2) and ddd-integration
+- `framework-expert` agent: added security/workflow/queue/facade detection patterns and report sections
+- `structural-auditor`, `architecture-generator`: added framework delegation to `acc:framework-expert`
+- `ddd-auditor`: added Phase 0 framework detection via `acc:framework-expert` delegation
+- `architecture-generator`, `pattern-generator`: added "Progress Tracking" sections with TaskCreate/TaskUpdate phases
+- Updated component counts: 26 commands, 64 agents, 264 skills
+
+### Fixed
+- Created 22 missing reference files across 7 skills: `ci-pipeline-knowledge` (3), `ci-tools-knowledge` (3), `deployment-knowledge` (3), `diagram-knowledge` (3), `documentation-knowledge` (5), `documentation-qa-knowledge` (3), `stability-patterns-knowledge` (2)
+- `README.md`: added current version (v3.1.0)
+- `docs/agents.md`: added `acc:ddd-auditor` to `framework-expert` Invoked By
+- `docs/component-flow.md`: added `framework-expert` to dependency graph (ddd-auditor, structural-auditor)
+- `docs/skills.md`, `docs/quick-reference.md`: unified skill category counts (100 analyzer, 93 generator, 7 optimizer, 10 template, 7 other)
+- `docs/commands.md`: fixed navigation arrows (`<-`/`->` → `←`/`→`)
+- `docs/quick-reference.md`: added version, fixed file tree explain-output-template double-count
+
+### Removed
+- `integration-generator` agent (replaced by `messaging-generator` + `api-infrastructure-generator`)
+
+---
 ## [3.0.0] - 2026-02-16
 
 ### Breaking Changes
@@ -319,7 +353,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.13.0...v3.0.0
 [2.13.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.11.0...v2.12.0

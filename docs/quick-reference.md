@@ -1,5 +1,7 @@
 # Quick Reference
 
+> Version: **v3.1.0**
+
 Component paths, formats, and best practices. Use this as a cheat sheet when creating or modifying components.
 
 ## When to Use This Document
@@ -83,12 +85,12 @@ awesome-claude-code/
 │   ├── generate-*.md               # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
 │   ├── refactor.md
 │   └── ...
-├── agents/                         # 62 agents
+├── agents/                         # 64 agents
 │   ├── *-auditor.md                # Auditors (13): architecture, behavioral, cqrs, creational,
 │   │                               #   ddd, documentation, gof-structural, integration,
 │   │                               #   pattern, psr, stability, structural, test
-│   ├── *-generator.md              # Generators (10): architecture, behavioral, creational,
-│   │                               #   cqrs, ddd, gof-structural, integration, pattern, psr, stability
+│   ├── *-generator.md              # Generators (11): api-infrastructure, architecture, behavioral, creational,
+│   │                               #   cqrs, ddd, gof-structural, messaging, pattern, psr, stability
 │   ├── *-coordinator.md            # Coordinators (6): bug-fix, ci, code-review, docker, explain, refactor
 │   │                               #   + security-reviewer (coordinator via Task delegation)
 │   ├── *-reviewer.md               # Reviewers (8): auth, data-security, design-security, injection,
@@ -104,8 +106,8 @@ awesome-claude-code/
 │   │                               #   docker-performance-agent, docker-security-agent,
 │   │                               #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                         # 259 skills
-│   ├── *-knowledge/                # 42 knowledge skills
+├── skills/                         # 264 skills
+│   ├── *-knowledge/                # 47 knowledge skills
 │   ├── check-*/                    # 64 analyzer skills
 │   ├── find-*/                     # 8 bug detection skills
 │   ├── detect-*/                   # 8 detection skills
@@ -114,7 +116,7 @@ awesome-claude-code/
 │   ├── identify-*/                 # 1 identifier skill
 │   ├── resolve-*/                  # 1 resolver skill
 │   ├── extract-*/                  # 3 extractor skills
-│   ├── explain-*/                  # 2 explainer skills (business-process, output-template)
+│   ├── explain-*/                  # 1 explainer skill (business-process)
 │   ├── trace-*/                    # 2 tracer skills
 │   ├── map-*/                      # 1 mapper skill
 │   ├── discover-*/                 # 1 discovery skill
@@ -153,14 +155,14 @@ awesome-claude-code/
 | Component | Count |
 |-----------|-------|
 | Commands | 26 |
-| Agents | 62 |
-| Knowledge Skills | 42 |
+| Agents | 64 |
+| Knowledge Skills | 47 |
 | Analyzer Skills | 100 |
 | Generator Skills | 93 |
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 7 |
-| **Total Skills** | **259** |
+| **Total Skills** | **264** |
 
 ---
 

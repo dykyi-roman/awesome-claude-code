@@ -1,7 +1,7 @@
 ---
 name: structural-auditor
 description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered patterns, SOLID and GRASP principles. Called by acc:architecture-auditor.
-tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
 skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, solid-knowledge, grasp-knowledge, microservices-knowledge, analyze-solid-violations, detect-code-smells, check-bounded-contexts, check-immutability, check-leaky-abstractions, check-encapsulation, task-progress-knowledge
 ---
@@ -52,6 +52,17 @@ Glob: **/Application/**/*.php
 Glob: **/Domain/**/*.php
 Glob: **/Infrastructure/**/*.php
 ```
+
+### Framework-Specific Analysis (Optional)
+
+If a PHP framework is detected (Symfony, Laravel, Yii, CodeIgniter) or a no-framework project:
+
+```bash
+# Quick framework detection
+Grep: "symfony/framework-bundle|laravel/framework|yiisoft/yii2|yiisoft/app|codeigniter4/framework" --glob "**/composer.json"
+```
+
+When a framework is detected, delegate to `acc:framework-expert` via Task tool for framework-specific violations and DDD integration assessment. Include the framework-specific findings in the final report.
 
 ### Phase 2: Structural Analysis
 
