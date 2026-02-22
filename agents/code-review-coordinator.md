@@ -44,6 +44,8 @@ acc:code-review-coordinator (Coordinator)
 ├── Level: HIGH (includes MEDIUM)
 │   ├── Task → acc:security-reviewer
 │   ├── Task → acc:performance-reviewer
+│   ├── Task → acc:resource-reviewer
+│   ├── Task → acc:scalability-reviewer
 │   ├── Task → acc:testability-reviewer
 │   ├── Task → acc:ddd-auditor
 │   └── Task → acc:architecture-auditor
@@ -169,10 +171,22 @@ Task invocations (parallel):
 2. acc:performance-reviewer
    prompt: "Performance review of changed files:
             [list of changed PHP files]
-            Check: N+1 queries, memory issues, caching opportunities.
+            Check: N+1 queries, caching opportunities, query efficiency, loops, batch processing.
             Return findings with severity."
 
-3. acc:testability-reviewer
+3. acc:resource-reviewer
+   prompt: "Resource usage review of changed files:
+            [list of changed PHP files]
+            Check: memory issues, connection pools, serialization, async patterns, file I/O.
+            Return findings with severity."
+
+4. acc:scalability-reviewer
+   prompt: "Scalability review of changed files:
+            [list of changed PHP files]
+            Check: horizontal scaling blockers, database scaling, stateless design.
+            Return findings with severity."
+
+5. acc:testability-reviewer
    prompt: "Testability review of changed files:
             [list of changed PHP files]
             Check: DI usage, side effects, test coverage quality.

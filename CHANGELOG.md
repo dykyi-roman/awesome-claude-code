@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [3.2.0] - 2026-02-22
+
+### Added
+- 6 new knowledge skills for system design: `consistency-patterns-knowledge`, `observability-knowledge`, `access-control-knowledge`, `scalability-knowledge`, `replication-sharding-knowledge`, `cloud-native-knowledge`
+- 7 new analyzer skills: `check-idempotency`, `check-observability-coverage`, `check-access-control-model`, `check-scalability-readiness`, `check-distributed-locks`, `check-database-scaling`, `check-12-factor-compliance`
+- 6 new generator skills: `create-idempotency-handler`, `create-structured-logger`, `create-access-control`, `create-distributed-lock`, `create-read-write-proxy`, `create-metrics-collector`
+- `observability-auditor` agent — analyzes structured logging, correlation IDs, metrics endpoints, tracing, health checks (called by `architecture-auditor`)
+
+### Changed
+- Enhanced `caching-strategies-knowledge`: added cache stampede prevention (locking, XFetch, stale-while-revalidate), distributed cache coherence, write-back vs write-through comparison
+- Enhanced `stability-patterns-knowledge`: added backpressure mechanisms, graceful degradation, adaptive retry with jitter, chaos engineering, health-based routing
+- Enhanced `testing-knowledge`: added contract testing (Pact), chaos testing, load testing patterns, E2E distributed testing
+- Enhanced `api-design-knowledge`: added cursor-based pagination, API rate limiting algorithms, gRPC for PHP, GraphQL N+1 prevention
+- Enhanced `microservices-knowledge`: added Strangler Fig pattern, API Gateway aggregation, database-per-service trade-offs
+- Enhanced `integration-auditor`: added `consistency-patterns-knowledge`, `check-idempotency`, `check-distributed-locks` skills; idempotency and distributed lock checks
+- Enhanced `auth-reviewer`: added `access-control-knowledge`, `check-access-control-model` skills; access control model checks
+- Enhanced `performance-reviewer`: added `scalability-knowledge`, `check-scalability-readiness`, `replication-sharding-knowledge`, `check-database-scaling` skills; scalability and database scaling categories
+- Enhanced `architecture-auditor`: added 4th sub-auditor `acc:observability-auditor`, expanded cross-pattern analysis and report format
+- Enhanced `structural-auditor`: added `cloud-native-knowledge`, `check-12-factor-compliance` skills; 12-Factor compliance checks
+- Updated component counts: 26 commands, 68 agents, 283 skills
+- Split `performance-reviewer` (19 skills) → `performance-reviewer` (9) + `resource-reviewer` (5) + `scalability-reviewer` (5) — eliminates God-Agent antipattern
+- Split `structural-auditor` (16 skills) → `structural-auditor` (9) + `principles-auditor` (7) — separates architecture patterns from SOLID/GRASP principles
+- Trimmed `integration-auditor` (16→11 skills) — removed 5 stability skills already covered by `stability-auditor`
+- Changed `integration-auditor`, `gof-structural-auditor`, `stability-auditor`, `observability-auditor` model from `sonnet` to `opus` (sub-auditors require higher analysis quality)
+- Updated `architecture-auditor` delegation: 4→5 sub-auditors (added `principles-auditor`)
+- Updated `code-review-coordinator` HIGH level: added `resource-reviewer`, `scalability-reviewer`
+- Updated `audit-performance` command: delegates to 3 parallel reviewers (performance + resource + scalability)
+
+---
 ## [3.1.0] - 2026-02-21
 
 ### Added
@@ -353,7 +382,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.13.0...v3.0.0
 [2.13.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.12.0...v2.13.0

@@ -137,9 +137,40 @@ Grep: "ChainCache|StackedCache|MultiLevelCache" --glob "**/*.php"
 Grep: "apcu_fetch|apcu_store" --glob "**/*.php"
 ```
 
+## Advanced Patterns
+
+### Cache Stampede Prevention
+
+| Method | How It Works | Complexity | Best For |
+|--------|-------------|------------|----------|
+| Locking (Mutex) | One process recomputes, others wait | Medium | Most cases |
+| Probabilistic Early Expiry (XFetch) | Recompute before TTL with probability | Medium | High concurrency |
+| Stale-While-Revalidate | Serve stale, refresh async | Medium | Latency-critical |
+| External refresh | Cron/worker refreshes before expiry | Low | Predictable access |
+
+### Distributed Cache Coherence
+
+| Strategy | Consistency | Latency | Complexity |
+|----------|-------------|---------|------------|
+| TTL only | Eventual (stale window) | None | Low |
+| Pub/Sub invalidation | Near-real-time | ~1-5ms | Medium |
+| Write-through all nodes | Strong | High | High |
+| Version-based (ETag) | Strong (on read) | Per-read check | Medium |
+
+### Write-Back vs Write-Through
+
+| Aspect | Write-Through | Write-Back |
+|--------|---------------|------------|
+| Write latency | Higher (sync) | Lower (cache only) |
+| Data safety | Safe | Risk of loss |
+| Consistency | Strong | Eventual |
+| DB load | Per-write | Batched |
+| Use case | Financial, orders | Analytics, counters |
+
 ## References
 
 For detailed information, load these reference files:
 
 - `references/strategies.md` — Detailed strategy analysis, cache warming, stampede prevention, distributed consistency
 - `references/redis-patterns.md` — Eviction policies, data structure guide, cluster/sentinel, Lua scripting, PHP patterns
+- `references/advanced-patterns.md` — Cache stampede prevention (locking, XFetch, stale-while-revalidate), cache warming strategies, write-back vs write-through comparison, distributed cache coherence, key design patterns

@@ -36,15 +36,18 @@ COMMANDS                    AGENTS                      SKILLS
 
 /acc:audit-architecture ─→ acc:architecture-auditor (coordinator)
                                 │
-                                ├──→ (Task) acc:structural-auditor ──→ 12 skills
-                                │           ├── DDD, Clean, Hexagonal, Layered, SOLID, GRASP + 6 analyzers
+                                ├──→ (Task) acc:structural-auditor ──→ 9 skills
+                                │           ├── DDD, Clean, Hexagonal, Layered, Microservices, Cloud-Native + 2 analyzers
                                 │           └──→ (Task) acc:framework-expert ─→ 5 framework knowledge skills
                                 │
-                                ├──→ (Task) acc:behavioral-auditor ──→ 11 skills
-                                │           └── Strategy, State, Chain, Decorator, Null Object, etc.
+                                ├──→ (Task) acc:principles-auditor ──→ 7 skills
+                                │           └── SOLID, GRASP + 5 analyzers (violations, smells, immutability, leaky abstractions, encapsulation)
                                 │
-                                ├──→ (Task) acc:integration-auditor ─→ 12 skills
-                                │           └── Outbox, Saga, ADR
+                                ├──→ (Task) acc:integration-auditor ─→ 11 skills
+                                │           └── Outbox, Saga, ADR, Idempotency, Distributed Locks
+                                │
+                                ├──→ (Task) acc:observability-auditor → 6 skills
+                                │           └── Logging, Metrics, Tracing, Health Checks
                                 │
                                 ├──→ (Task) acc:ddd-generator
                                 ├──→ (Task) acc:cqrs-generator
@@ -55,7 +58,7 @@ COMMANDS                    AGENTS                      SKILLS
                                                   ├──→ (Task) acc:gof-structural-generator → 6 skills
                                                   ├──→ (Task) acc:creational-generator ─→ 3 skills
                                                   ├──→ (Task) acc:messaging-generator ──→ 9 skills
-                                                  └──→ (Task) acc:api-infrastructure-generator → 7 skills
+                                                  └──→ (Task) acc:api-infrastructure-generator → 13 skills
 
 /acc:audit-patterns ────→ acc:pattern-auditor (coordinator, 2 skills)
                                 │
@@ -74,8 +77,19 @@ COMMANDS                    AGENTS                      SKILLS
                                 │           └── Builder, Object Pool, Factory, Singleton (anti),
                                 │               Abstract Factory, Prototype
                                 │
-                                └──→ (Task) acc:integration-auditor ─→ 12 skills
-                                            └── Outbox, Saga, ADR
+                                └──→ (Task) acc:integration-auditor ─→ 11 skills
+                                            └── Outbox, Saga, ADR, Idempotency, Distributed Locks
+
+/acc:audit-performance ─→ (3 parallel reviewers)
+                                │
+                                ├──→ (Task) acc:performance-reviewer ──→ 9 skills
+                                │           └── N+1, query efficiency, caching, loops, lazy loading, batch, complexity, indexes
+                                │
+                                ├──→ (Task) acc:resource-reviewer ─────→ 5 skills
+                                │           └── memory issues, connection pool, serialization, async patterns, file I/O
+                                │
+                                └──→ (Task) acc:scalability-reviewer ──→ 5 skills
+                                            └── scalability readiness, database scaling, replication/sharding
 
 /acc:audit-psr ─────────→ acc:psr-auditor ─────────→ 3 PSR knowledge skills
                                 │
@@ -164,6 +178,7 @@ COMMANDS                    AGENTS                      SKILLS
                                 │               map-async-flows, discover-project-logs
                                 │
                                 ├──→ (Task) acc:structural-auditor [REUSED, deep/onboarding]
+                                ├──→ (Task) acc:principles-auditor [REUSED, deep/onboarding]
                                 ├──→ (Task) acc:behavioral-auditor [REUSED, deep/onboarding]
                                 ├──→ (Task) acc:diagram-designer [REUSED, deep/onboarding/business]
                                 └──→ (Task) acc:documentation-writer [REUSED, deep/onboarding/business]
@@ -211,7 +226,7 @@ Skill generates PHP code with tests
 | GoF Structural patterns | `gof-structural-generator` | 6 create-* skills |
 | Creational patterns | `creational-generator` | 3 create-* skills |
 | Messaging patterns | `messaging-generator` | 9 create-* skills |
-| API & infrastructure patterns | `api-infrastructure-generator` | 7 create-* skills |
+| API & infrastructure patterns | `api-infrastructure-generator` | 13 create-* skills |
 | PSR implementations | `psr-generator` | 11 create-psr* skills |
 | Architecture | `architecture-generator` | Coordinator (delegates) |
 | Design patterns | `pattern-generator` | Coordinator (delegates to 6 generators) |
@@ -260,13 +275,19 @@ Skill generates PHP code with tests
 - `create-idempotent-consumer` — Idempotent Consumer
 - `create-dead-letter-queue` — Dead Letter Queue
 
-### API & Infrastructure Patterns (5 skills)
+### API & Infrastructure Patterns (11 skills)
 
 - `create-action` — ADR Action
 - `create-responder` — ADR Responder
 - `create-api-versioning` — API Versioning
 - `create-health-check` — Health Check
 - `create-unit-of-work` — Unit of Work
+- `create-idempotency-handler` — Idempotency Handler
+- `create-structured-logger` — Structured Logger
+- `create-access-control` — Access Control (RBAC/ABAC)
+- `create-distributed-lock` — Distributed Lock
+- `create-read-write-proxy` — Read-Write Proxy
+- `create-metrics-collector` — Metrics Collector
 
 ### Behavioral Patterns (10 skills)
 

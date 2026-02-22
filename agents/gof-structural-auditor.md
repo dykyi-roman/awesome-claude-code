@@ -2,7 +2,7 @@
 name: gof-structural-auditor
 description: GoF Structural patterns auditor. Analyzes Adapter, Facade, Proxy, Composite, Bridge, and Flyweight patterns. Called by acc:pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
+model: opus
 skills: create-adapter, create-facade, create-proxy, create-composite, create-bridge, create-flyweight, task-progress-knowledge
 ---
 

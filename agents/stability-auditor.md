@@ -2,7 +2,7 @@
 name: stability-auditor
 description: Stability patterns auditor. Analyzes Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout, Cascading Failures, and Fallback patterns. Called by acc:pattern-auditor coordinator.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
+model: opus
 skills: stability-patterns-knowledge, create-circuit-breaker, create-retry-pattern, create-rate-limiter, create-bulkhead, check-timeout-strategy, check-cascading-failures, check-fallback-strategy, task-progress-knowledge
 ---
 

@@ -9,6 +9,7 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 - [Knowledge Skills](#knowledge-skills)
 - [Analyzer Skills](#analyzer-skills)
   - [Architecture Analyzers](#architecture-analyzers)
+  - [System Design Analyzers](#system-design-analyzers)
   - [Bug Detection Skills](#bug-detection-skills)
   - [Bug Fix Skills](#bug-fix-skills)
   - [Security Review Skills](#security-review-skills)
@@ -25,6 +26,7 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
   - [CQRS Components](#cqrs-components)
   - [Stability Patterns](#stability-patterns)
   - [Integration Patterns](#integration-patterns)
+  - [System Design Patterns](#system-design-patterns)
   - [Behavioral Patterns](#behavioral-patterns)
   - [Structural Patterns (GoF)](#structural-patterns-gof)
   - [Creational Patterns](#creational-patterns)
@@ -42,9 +44,9 @@ Knowledge bases and code generators. Skills provide domain expertise and code ge
 
 | Type | Count | Purpose | Example |
 |------|-------|---------|---------|
-| **Knowledge** | 47 | Provide expertise and best practices | `ddd-knowledge` |
-| **Analyzer** | 100 | Detect violations and antipatterns | `analyze-solid-violations` |
-| **Generator** | 93 | Generate PHP code with tests | `create-entity` |
+| **Knowledge** | 53 | Provide expertise and best practices | `ddd-knowledge` |
+| **Analyzer** | 107 | Detect violations and antipatterns | `analyze-solid-violations` |
+| **Generator** | 99 | Generate PHP code with tests | `create-entity` |
 | **Optimizer** | 7 | Optimize configurations and performance | `optimize-docker-layers` |
 | **Template** | 10 | Documentation and output templates | `readme-template` |
 | **Other** | 7 | Estimation, suggestion, bug fix utilities | `estimate-complexity` |
@@ -110,6 +112,12 @@ Knowledge bases for architecture audits and best practices.
 | `yii-knowledge` | `skills/yii-knowledge/` | Yii3 modular architecture, DDD integration, PSR-7/PSR-15, persistence, testing, antipatterns |
 | `codeigniter-knowledge` | `skills/codeigniter-knowledge/` | CodeIgniter 4 MVC, DDD integration, persistence, services, testing, antipatterns |
 | `no-framework-knowledge` | `skills/no-framework-knowledge/` | Pure PHP architecture, DDD integration, PSR-7/PSR-15, standalone persistence, DI, testing |
+| `consistency-patterns-knowledge` | `skills/consistency-patterns-knowledge/` | Strong vs eventual consistency, idempotency, optimistic/pessimistic locking, conflict resolution |
+| `observability-knowledge` | `skills/observability-knowledge/` | Three pillars (logs, metrics, traces), OpenTelemetry, SLI/SLO/SLA, structured logging |
+| `access-control-knowledge` | `skills/access-control-knowledge/` | ACL, RBAC, ABAC, ReBAC (Zanzibar), multi-tenancy, Symfony Voters, Laravel Gates |
+| `scalability-knowledge` | `skills/scalability-knowledge/` | Horizontal/vertical scaling, stateless design, session management, PHP-FPM scaling |
+| `replication-sharding-knowledge` | `skills/replication-sharding-knowledge/` | Read/write splitting, replica lag handling, Doctrine MasterSlaveConnection, query routing |
+| `cloud-native-knowledge` | `skills/cloud-native-knowledge/` | 12-Factor App principles, config via env, stateless processes, container-first PHP |
 
 ## Analyzer Skills
 
@@ -132,6 +140,18 @@ Knowledge bases for architecture audits and best practices.
 | `check-doc-links` | `skills/check-doc-links/` | Broken relative links, missing anchor targets |
 | `check-doc-examples` | `skills/check-doc-examples/` | Code examples match actual class/method names |
 | `check-version-consistency` | `skills/check-version-consistency/` | Version sync: composer.json, README, CHANGELOG, docs |
+
+### System Design Analyzers
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `check-idempotency` | `skills/check-idempotency/` | Idempotency keys on endpoints, deduplication in handlers, retry-unsafe ops |
+| `check-observability-coverage` | `skills/check-observability-coverage/` | Structured logging, correlation IDs, health endpoints, metrics, tracing |
+| `check-access-control-model` | `skills/check-access-control-model/` | Consistent ACL/RBAC/ABAC, Voter/Policy patterns, no inline permission checks |
+| `check-scalability-readiness` | `skills/check-scalability-readiness/` | Stateless design, session storage, shared-nothing, connection pooling |
+| `check-distributed-locks` | `skills/check-distributed-locks/` | Lock TTL, deadlock prevention, try/finally release, Symfony Lock |
+| `check-database-scaling` | `skills/check-database-scaling/` | Read/write splitting config, replica routing, connection pool settings |
+| `check-12-factor-compliance` | `skills/check-12-factor-compliance/` | Config via env vars, stateless processes, log streaming, dev/prod parity |
 
 ### Bug Detection Skills
 
@@ -334,6 +354,17 @@ Code generators for DDD and architecture components (PHP 8.4).
 | `create-message-broker-adapter` | `skills/create-message-broker-adapter/` | Message Broker Adapter (RabbitMQ/Kafka/SQS) |
 | `create-idempotent-consumer` | `skills/create-idempotent-consumer/` | Idempotent Consumer (message deduplication) |
 | `create-dead-letter-queue` | `skills/create-dead-letter-queue/` | Dead Letter Queue (failed message capture and retry) |
+
+### System Design Patterns
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `create-idempotency-handler` | `skills/create-idempotency-handler/` | PSR-15 idempotency middleware, IdempotencyKey VO, Redis storage |
+| `create-structured-logger` | `skills/create-structured-logger/` | PSR-3 structured logger, CorrelationIdProcessor, context middleware |
+| `create-access-control` | `skills/create-access-control/` | RBAC/ABAC components, VoterInterface, PolicyInterface, PermissionChecker |
+| `create-distributed-lock` | `skills/create-distributed-lock/` | LockInterface, LockFactory, Redis/Database adapters with TTL |
+| `create-read-write-proxy` | `skills/create-read-write-proxy/` | Read/write connection wrapper, query routing, transaction-aware routing |
+| `create-metrics-collector` | `skills/create-metrics-collector/` | MetricsCollectorInterface, Prometheus adapter, RED metrics middleware |
 
 ### Behavioral Patterns
 

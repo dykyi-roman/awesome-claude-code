@@ -1,5 +1,5 @@
 ---
-description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, Timeout, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context, API Versioning, Health Check, Unit of Work, Message Broker Adapter, Idempotent Consumer, Dead Letter Queue patterns.
+description: Generate design patterns. Creates Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache-Aside, Timeout, Strategy, State, Chain of Responsibility, Decorator, Null Object, Template Method, Visitor, Iterator, Memento, Adapter, Facade, Proxy, Composite, Bridge, Flyweight, Builder, Object Pool, Factory, Outbox, Saga, ADR, Correlation Context, API Versioning, Health Check, Unit of Work, Message Broker Adapter, Idempotent Consumer, Dead Letter Queue, Idempotency Handler, Structured Logger, Access Control, Distributed Lock, Read-Write Proxy, Metrics Collector patterns.
 allowed-tools: Read, Write, Edit, Glob, Grep, Task
 model: opus
 argument-hint: <pattern-name> <ComponentName> [-- additional instructions]
@@ -89,6 +89,17 @@ Examples:
 | `message-broker-adapter` | `broker` | Unified broker interface (RabbitMQ/Kafka/SQS) |
 | `idempotent-consumer` | `dedup` | Message deduplication / exactly-once processing |
 | `dead-letter-queue` | `dlq` | Failed message capture and retry |
+
+### System Design Patterns (Infrastructure)
+
+| Pattern | Alias | Use Case |
+|---------|-------|----------|
+| `idempotency-handler` | `idempotency` | PSR-15 idempotency key middleware |
+| `structured-logger` | `logger` | Structured logging with correlation IDs |
+| `access-control` | `rbac`, `abac` | RBAC/ABAC permission system |
+| `distributed-lock` | `lock` | Redis/DB distributed locking |
+| `read-write-proxy` | `rw-proxy`, `read-replica` | Read/write DB connection routing |
+| `metrics-collector` | `metrics`, `prometheus` | Prometheus metrics with RED middleware |
 
 ## Pre-flight Check
 

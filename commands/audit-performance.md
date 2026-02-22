@@ -62,7 +62,7 @@ If meta-instructions provided, adjust audit to:
 
 ## Instructions
 
-Use the `acc:performance-reviewer` agent to perform a comprehensive performance audit:
+Use three specialized reviewers in parallel:
 
 ```
 Task tool with subagent_type="acc:performance-reviewer"
@@ -71,20 +71,35 @@ prompt: "Perform performance audit on [PATH]. Audit level: [LEVEL]. [META-INSTRU
 Analyze for:
 1. N+1 Query Problems — queries inside loops, missing eager loading
 2. Query Efficiency — SELECT *, missing indexes, full table scans
-3. Memory Issues — large arrays, missing generators, unbounded loading
-4. Caching Strategy — missing cache opportunities, repeated expensive operations
-5. Unnecessary Loops — nested loop inefficiency, redundant iterations
-6. Lazy Loading Problems — premature loading, missing pagination
-7. Batch Processing — single-item vs bulk operations, transaction overhead
-8. Algorithm Complexity — O(n²) patterns, exponential growth
-9. Connection Pool Issues — leaks, connections in loops, missing cleanup
-10. Serialization Overhead — large objects, N+1 during serialization
+3. Caching Strategy — missing cache opportunities, repeated expensive operations
+4. Unnecessary Loops — nested loop inefficiency, redundant iterations
+5. Lazy Loading Problems — premature loading, missing pagination
+6. Batch Processing — single-item vs bulk operations, transaction overhead
+7. Algorithm Complexity — O(n²) patterns, exponential growth
+8. Database Index Usage — missing indexes, incorrect composite order
 
-Provide:
-- Severity classification (Critical/Major/Minor)
-- Performance impact estimates
-- Current vs optimal complexity
-- Code examples (problematic and optimized)"
+Provide severity classification, impact estimates, current vs optimal complexity, code examples."
+
+Task tool with subagent_type="acc:resource-reviewer"
+prompt: "Perform resource usage audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
+
+Analyze for:
+1. Memory Issues — large arrays, missing generators, unbounded loading
+2. Connection Pool Issues — leaks, connections in loops, missing cleanup
+3. Serialization Overhead — large objects, N+1 during serialization
+4. Async Patterns — blocking operations in request cycle
+5. File I/O Patterns — full file reads, missing streaming
+
+Provide severity classification, impact estimates, code examples."
+
+Task tool with subagent_type="acc:scalability-reviewer"
+prompt: "Perform scalability audit on [PATH]. Audit level: [LEVEL]. [META-INSTRUCTIONS if provided]
+
+Analyze for:
+1. Scalability Readiness — stateless design, session handling, hardcoded config
+2. Database Scaling — read/write separation, connection pooling, replica usage
+
+Provide severity classification, scaling impact, code examples."
 ```
 
 ## Analysis Scope

@@ -210,6 +210,47 @@ Need to verify a call was made?
 | Eager Test | Tests multiple behaviors | Split into separate tests |
 | Fragile Test | Breaks on refactor | Test behavior, not implementation |
 
+## Advanced Testing Patterns
+
+### Contract Testing (Pact)
+
+| Aspect | Unit Test | Integration Test | Contract Test |
+|--------|-----------|------------------|---------------|
+| Speed | Fast | Slow | Medium |
+| Scope | Single class | Service + deps | API boundary |
+| Isolation | Full | Partial | Consumer/Provider |
+| Use case | Business logic | DB, queues | Service-to-service |
+
+**When to use:** Microservices REST APIs, message-based systems, event schema verification.
+
+### Load Testing Patterns
+
+| Pattern | Duration | Load Profile | Goal |
+|---------|----------|--------------|------|
+| Smoke | 1-2 min | Minimal | Verify script works |
+| Load | 10-30 min | Expected traffic | Performance baseline |
+| Stress | 10-30 min | 1.5-2x expected | Find breaking point |
+| Spike | 5-10 min | Sudden burst | Test auto-scaling |
+| Soak | 2-8 hours | Sustained | Find memory leaks |
+
+### Chaos Testing (Failure Injection)
+
+| Failure | How to Inject | What It Tests |
+|---------|---------------|---------------|
+| Network latency | Sleep in middleware | Timeout handling |
+| Service error | Return 500 randomly | Circuit breaker |
+| Connection refused | Close port | Fallback behavior |
+| Slow database | Query delay | Query timeout handling |
+
+### E2E Distributed Testing
+
+| Strategy | How | Trade-off |
+|----------|-----|-----------|
+| Test containers | Docker Compose per test | Isolated but slow |
+| Shared staging | Dedicated environment | Fast but interference |
+| Data seeding | API/DB setup per test | Controlled but complex |
+| Snapshot restore | DB snapshot before tests | Fast reset |
+
 ## References
 
 For detailed information, load these reference files:
@@ -217,3 +258,4 @@ For detailed information, load these reference files:
 - `references/unit-testing.md` — Unit test patterns and examples
 - `references/integration-testing.md` — Integration test setup and patterns
 - `references/ddd-testing.md` — Testing DDD components (VO, Entity, Aggregate, Service)
+- `references/advanced-testing.md` — Contract testing (Pact), chaos testing, load testing patterns (ramp-up, spike, soak), E2E distributed testing

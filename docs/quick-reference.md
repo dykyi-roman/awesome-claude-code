@@ -1,6 +1,6 @@
 # Quick Reference
 
-> Version: **v3.1.0**
+> Version: **v3.2.0**
 
 Component paths, formats, and best practices. Use this as a cheat sheet when creating or modifying components.
 
@@ -85,16 +85,16 @@ awesome-claude-code/
 │   ├── generate-*.md               # Generate commands (7): claude-component, ddd, docker, documentation, patterns, psr, test
 │   ├── refactor.md
 │   └── ...
-├── agents/                         # 64 agents
-│   ├── *-auditor.md                # Auditors (13): architecture, behavioral, cqrs, creational,
+├── agents/                         # 68 agents
+│   ├── *-auditor.md                # Auditors (15): architecture, behavioral, cqrs, creational,
 │   │                               #   ddd, documentation, gof-structural, integration,
-│   │                               #   pattern, psr, stability, structural, test
+│   │                               #   observability, pattern, principles, psr, stability, structural, test
 │   ├── *-generator.md              # Generators (11): api-infrastructure, architecture, behavioral, creational,
 │   │                               #   cqrs, ddd, gof-structural, messaging, pattern, psr, stability
 │   ├── *-coordinator.md            # Coordinators (6): bug-fix, ci, code-review, docker, explain, refactor
 │   │                               #   + security-reviewer (coordinator via Task delegation)
-│   ├── *-reviewer.md               # Reviewers (8): auth, data-security, design-security, injection,
-│   │                               #   performance, readability, security (coordinator), testability
+│   ├── *-reviewer.md               # Reviewers (10): auth, data-security, design-security, injection,
+│   │                               #   performance, readability, resource, scalability, security (coordinator), testability
 │   ├── *-analyst.md                # Analysts (2): business-logic, data-flow
 │   ├── codebase-navigator.md       # Codebase navigation specialist
 │   ├── ci-*.md                     # CI agents (9): ci-coordinator, ci-debugger, ci-fixer,
@@ -106,9 +106,9 @@ awesome-claude-code/
 │   │                               #   docker-performance-agent, docker-security-agent,
 │   │                               #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                         # 264 skills
-│   ├── *-knowledge/                # 47 knowledge skills
-│   ├── check-*/                    # 64 analyzer skills
+├── skills/                         # 283 skills
+│   ├── *-knowledge/                # 53 knowledge skills
+│   ├── check-*/                    # 71 analyzer skills
 │   ├── find-*/                     # 8 bug detection skills
 │   ├── detect-*/                   # 8 detection skills
 │   ├── analyze-*/                  # 9 analysis skills
@@ -120,7 +120,7 @@ awesome-claude-code/
 │   ├── trace-*/                    # 2 tracer skills
 │   ├── map-*/                      # 1 mapper skill
 │   ├── discover-*/                 # 1 discovery skill
-│   ├── create-*/                   # 91 generator skills
+│   ├── create-*/                   # 97 generator skills
 │   ├── generate-*/                 # 2 generator skills
 │   ├── optimize-*/                 # 7 optimizer skills
 │   ├── *-template/                 # 10 template skills
@@ -155,14 +155,14 @@ awesome-claude-code/
 | Component | Count |
 |-----------|-------|
 | Commands | 26 |
-| Agents | 64 |
-| Knowledge Skills | 47 |
-| Analyzer Skills | 100 |
-| Generator Skills | 93 |
+| Agents | 68 |
+| Knowledge Skills | 53 |
+| Analyzer Skills | 107 |
+| Generator Skills | 99 |
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 7 |
-| **Total Skills** | **264** |
+| **Total Skills** | **283** |
 
 ---
 

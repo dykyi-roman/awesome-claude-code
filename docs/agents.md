@@ -18,33 +18,37 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `docker-coordinator` | Docker expert system coordinator (audit, generate) | `/acc:audit-docker`, `/acc:generate-docker` |
 | `explain-coordinator` | Code explanation coordinator (5 modes) | `/acc:explain` |
 
-### Auditors (3-12 skills)
+### Auditors (3-11 skills)
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
-| `structural-auditor` | Structural patterns analysis | 14 | `acc:architecture-auditor` (Task) |
+| `structural-auditor` | Structural patterns analysis | 9 | `acc:architecture-auditor` (Task) |
 | `behavioral-auditor` | GoF Behavioral patterns analysis | 11 | `acc:pattern-auditor` (Task) |
 | `cqrs-auditor` | CQRS/ES/EDA patterns analysis | 8 | `acc:architecture-auditor`, `acc:pattern-auditor` (Task) |
 | `gof-structural-auditor` | GoF Structural patterns analysis | 7 | `acc:pattern-auditor` (Task) |
-| `integration-auditor` | Integration patterns analysis | 13 | `acc:architecture-auditor`, `acc:pattern-auditor` (Task) |
+| `integration-auditor` | Integration patterns analysis | 11 | `acc:architecture-auditor`, `acc:pattern-auditor` (Task) |
 | `stability-auditor` | Stability patterns analysis | 9 | `acc:pattern-auditor` (Task) |
 | `creational-auditor` | Creational patterns analysis | 7 | `acc:pattern-auditor` (Task) |
 | `ddd-auditor` | DDD compliance analysis | 8 | `/acc:audit-ddd` |
 | `psr-auditor` | PSR compliance analysis | 3 | `/acc:audit-psr` |
+| `observability-auditor` | Observability audit (logging, metrics, tracing, health) | 6 | `acc:architecture-auditor` (Task) |
+| `principles-auditor` | SOLID/GRASP principles analysis | 7 | `acc:architecture-auditor` (Task) |
 | `documentation-auditor` | Audit documentation quality | 7 | `/acc:audit-documentation` |
 | `test-auditor` | Test quality analysis | 3 | `/acc:audit-test` |
 
-### Reviewers (5-15 skills, code review specialists)
+### Reviewers (5-9 skills, code review specialists)
 
 | Agent | Purpose | Skills | Invoked By |
 |-------|---------|--------|------------|
 | `bug-hunter` | Bug detection specialist | 11 | `acc:code-review-coordinator`, `acc:bug-fix-coordinator` (Task) |
 | `security-reviewer` | Security review coordinator | 1 | `/acc:audit-security`, `acc:code-review-coordinator` (Task) |
 | `injection-reviewer` | Injection vulnerability specialist | 7 | `acc:security-reviewer` (Task) |
-| `auth-reviewer` | Auth & access control specialist | 6 | `acc:security-reviewer` (Task) |
+| `auth-reviewer` | Auth & access control specialist | 8 | `acc:security-reviewer` (Task) |
 | `data-security-reviewer` | Data & crypto security specialist | 6 | `acc:security-reviewer` (Task) |
 | `design-security-reviewer` | Design & component security specialist | 5 | `acc:security-reviewer` (Task) |
-| `performance-reviewer` | Performance review specialist | 15 | `/acc:audit-performance`, `acc:code-review-coordinator` (Task) |
+| `performance-reviewer` | Performance review specialist | 9 | `/acc:audit-performance`, `acc:code-review-coordinator` (Task) |
+| `resource-reviewer` | Resource usage review specialist | 5 | `/acc:audit-performance`, `acc:code-review-coordinator` (Task) |
+| `scalability-reviewer` | Scalability review specialist | 5 | `/acc:audit-performance`, `acc:code-review-coordinator` (Task) |
 | `readability-reviewer` | Readability review specialist | 9 | `acc:code-review-coordinator`, `acc:refactor-coordinator` (Task) |
 | `testability-reviewer` | Testability review specialist | 7 | `acc:code-review-coordinator`, `acc:refactor-coordinator` (Task) |
 
@@ -66,7 +70,7 @@ Subagents for specialized tasks. Agents are autonomous workers that handle compl
 | `gof-structural-generator` | Generate GoF structural patterns | 6 | `acc:pattern-generator` (Task) |
 | `creational-generator` | Generate creational patterns | 3 | `acc:pattern-generator` (Task) |
 | `messaging-generator` | Generate messaging patterns | 9 | `acc:pattern-generator` (Task) |
-| `api-infrastructure-generator` | Generate API & infrastructure patterns | 7 | `acc:pattern-generator` (Task) |
+| `api-infrastructure-generator` | Generate API & infrastructure patterns | 13 | `acc:pattern-generator` (Task) |
 | `psr-generator` | Generate PSR implementations | 14 | `/acc:generate-psr`, `acc:psr-auditor` (Skill) |
 | `documentation-writer` | Generate documentation | 9 | `/acc:generate-documentation` |
 | `diagram-designer` | Create Mermaid diagrams | 2 | `acc:documentation-writer` (Task) |
@@ -140,7 +144,7 @@ Coordinator agents use TaskCreate/TaskUpdate for user visibility:
 - `code-review-coordinator` — 3 phases
 - `bug-fix-coordinator` — 3 phases
 - `refactor-coordinator` — 3 phases
-- `architecture-auditor` — 4 phases
+- `architecture-auditor` — 5 phases
 - `ci-coordinator` — 3 phases
 - `ddd-auditor` — 3 phases
 - `pattern-auditor` — 4 phases
@@ -150,6 +154,9 @@ Coordinator agents use TaskCreate/TaskUpdate for user visibility:
 **Specialist auditors with progress tracking:**
 - `security-reviewer` — 3 phases (Scan → Analyze → Report)
 - `performance-reviewer` — 3 phases (Scan → Analyze → Report)
+- `resource-reviewer` — 3 phases (Scan → Analyze → Report)
+- `scalability-reviewer` — 3 phases (Scan → Analyze → Report)
+- `principles-auditor` — 3 phases (SOLID → GRASP → Quality)
 - `psr-auditor` — 3 phases (Scan → Analyze → Report)
 - `test-auditor` — 3 phases (Scan → Analyze → Report)
 - `documentation-auditor` — 3 phases (Scan → Analyze → Report)
@@ -203,21 +210,28 @@ skills: symfony-knowledge, laravel-knowledge, yii-knowledge,
 
 **Path:** `agents/architecture-auditor.md`
 
-Architecture audit coordinator. Orchestrates three specialized auditors for comprehensive reviews.
+Architecture audit coordinator. Orchestrates five specialized auditors for comprehensive reviews.
 
 **Configuration:**
 ```yaml
 name: architecture-auditor
-tools: Read, Grep, Glob, Task
+tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-# No skills - delegates to specialized auditors
+skills: task-progress-knowledge
 ```
 
 **Workflow:**
-1. Pattern Detection (Glob/Grep for structural, behavioral, integration patterns)
-2. Parallel Task delegation to 3 auditors
+1. Pattern Detection (Glob/Grep for structural, behavioral, integration, observability patterns)
+2. Parallel Task delegation to 5 auditors
 3. Cross-Pattern Analysis (detect conflicts between patterns)
 4. Report Aggregation (unified markdown report)
+
+**Delegation:**
+- `acc:structural-auditor` — DDD, Clean, Hexagonal, Layered, Microservices, Cloud-Native, 12-Factor
+- `acc:principles-auditor` — SOLID, GRASP, code smells, encapsulation, immutability
+- `acc:integration-auditor` — Outbox, Saga, ADR, Idempotency, Distributed Locks
+- `acc:observability-auditor` — Logging, Metrics, Tracing, Health Checks
+- `acc:pattern-generator` — Code generation for detected issues
 
 ---
 
@@ -225,7 +239,7 @@ model: opus
 
 **Path:** `agents/structural-auditor.md`
 
-Structural architecture auditor for DDD, Clean Architecture, Hexagonal, Layered, SOLID, GRASP.
+Structural architecture auditor for DDD, Clean Architecture, Hexagonal, Layered, Microservices, Cloud-Native.
 
 **Configuration:**
 ```yaml
@@ -233,13 +247,11 @@ name: structural-auditor
 tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
 skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge,
-        layer-arch-knowledge, solid-knowledge, grasp-knowledge,
-        microservices-knowledge, analyze-solid-violations, detect-code-smells,
-        check-bounded-contexts, check-immutability, check-leaky-abstractions,
-        check-encapsulation, task-progress-knowledge
+        layer-arch-knowledge, microservices-knowledge, cloud-native-knowledge,
+        check-bounded-contexts, check-12-factor-compliance, task-progress-knowledge
 ```
 
-**Skills:** 14 (7 knowledge + 6 analyzer + 1 progress)
+**Skills:** 9 (6 knowledge + 1 analyzer + 1 compliance + 1 progress)
 
 Delegates to `acc:framework-expert` via Task when a PHP framework is detected.
 
@@ -270,22 +282,22 @@ skills: create-strategy, create-state, create-chain-of-responsibility,
 
 **Path:** `agents/integration-auditor.md`
 
-Integration patterns auditor for Outbox, Saga, Stability, and ADR.
+Integration patterns auditor for Outbox, Saga, ADR, Consistency, Idempotency, and Distributed Locks.
 
 **Configuration:**
 ```yaml
 name: integration-auditor
-tools: Read, Grep, Glob
-model: sonnet
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
 skills: outbox-pattern-knowledge, saga-pattern-knowledge,
-        stability-patterns-knowledge, adr-knowledge,
+        adr-knowledge, consistency-patterns-knowledge,
         create-outbox-pattern, create-saga-pattern,
-        create-circuit-breaker, create-retry-pattern,
-        create-rate-limiter, create-bulkhead,
-        create-action, create-responder
+        create-action, create-responder,
+        check-idempotency, check-distributed-locks,
+        task-progress-knowledge
 ```
 
-**Skills:** 12 (4 knowledge + 8 generators)
+**Skills:** 11 (4 knowledge + 4 generators + 2 analyzer + 1 progress)
 
 ---
 
@@ -299,7 +311,7 @@ Stability patterns auditor for Circuit Breaker, Retry, Rate Limiter, and Bulkhea
 ```yaml
 name: stability-auditor
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
+model: opus
 skills: stability-patterns-knowledge, create-circuit-breaker,
         create-retry-pattern, create-rate-limiter, create-bulkhead,
         check-timeout-strategy, check-cascading-failures,
@@ -307,6 +319,31 @@ skills: stability-patterns-knowledge, create-circuit-breaker,
 ```
 
 **Skills:** 9 (1 knowledge + 4 generators + 3 analyzers + 1 progress)
+
+---
+
+## `observability-auditor`
+
+**Path:** `agents/observability-auditor.md`
+
+Observability auditor. Analyzes structured logging, correlation IDs, metrics endpoints, tracing integration, and health checks. Called by `acc:architecture-auditor`.
+
+**Configuration:**
+```yaml
+name: observability-auditor
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: observability-knowledge, check-observability-coverage,
+        check-logging-failures, discover-project-logs,
+        analyze-php-logs, task-progress-knowledge
+```
+
+**Skills:** 6 (1 knowledge + 2 analyzer + 2 log analysis + 1 progress)
+
+**Audit Phases:**
+1. Scan — discover logging, metrics, tracing setup
+2. Analyze — check structured logging, correlation IDs, health endpoints, OpenTelemetry
+3. Report — findings with severity and recommendations
 
 ---
 
@@ -320,7 +357,7 @@ GoF Structural patterns auditor for Adapter, Facade, Proxy, Composite, Bridge, a
 ```yaml
 name: gof-structural-auditor
 tools: Read, Grep, Glob
-model: sonnet
+model: opus
 skills: create-adapter, create-facade, create-proxy,
         create-composite, create-bridge, create-flyweight
 ```
@@ -477,7 +514,7 @@ skills: adr-knowledge
 - `acc:gof-structural-generator` — Adapter, Facade, Proxy, Composite, Bridge, Flyweight
 - `acc:creational-generator` — Builder, Object Pool, Factory
 - `acc:messaging-generator` — Outbox, Saga, Correlation Context, Message Broker, Idempotent Consumer, Dead Letter Queue
-- `acc:api-infrastructure-generator` — ADR (Action, Responder), API Versioning, Health Check, Unit of Work
+- `acc:api-infrastructure-generator` — ADR (Action, Responder), API Versioning, Health Check, Unit of Work, Idempotency Handler, Structured Logger, Access Control, Distributed Lock, Read-Write Proxy, Metrics Collector
 
 ---
 
@@ -563,7 +600,7 @@ skills: outbox-pattern-knowledge, saga-pattern-knowledge, message-queue-knowledg
 
 **Path:** `agents/api-infrastructure-generator.md`
 
-Generates API and infrastructure patterns (ADR Action/Responder, API Versioning, Health Check, Unit of Work).
+Generates API and infrastructure patterns (ADR, API Versioning, Health Check, Unit of Work, Idempotency, Structured Logger, Access Control, Distributed Lock, Read-Write Proxy, Metrics Collector).
 
 **Configuration:**
 ```yaml
@@ -572,10 +609,13 @@ tools: Read, Write, Glob, Grep, Edit
 model: sonnet
 skills: adr-knowledge, api-design-knowledge,
         create-action, create-responder, create-api-versioning,
-        create-health-check, create-unit-of-work
+        create-health-check, create-unit-of-work,
+        create-idempotency-handler, create-structured-logger,
+        create-access-control, create-distributed-lock,
+        create-read-write-proxy, create-metrics-collector
 ```
 
-**Skills:** 7 (2 knowledge + 5 generators)
+**Skills:** 13 (2 knowledge + 11 generators)
 
 ---
 
@@ -665,6 +705,31 @@ skills: documentation-knowledge, readme-template, architecture-doc-template,
 
 ---
 
+## `principles-auditor`
+
+**Path:** `agents/principles-auditor.md`
+
+SOLID and GRASP principles auditor. Analyzes SRP, OCP, LSP, ISP, DIP violations, GRASP compliance, code smells, encapsulation, immutability, and leaky abstractions.
+
+**Configuration:**
+```yaml
+name: principles-auditor
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: solid-knowledge, grasp-knowledge, analyze-solid-violations,
+        detect-code-smells, check-immutability, check-leaky-abstractions,
+        check-encapsulation
+```
+
+**Skills:** 7 (2 knowledge + 5 analyzers)
+
+**Audit Phases:**
+1. SOLID Analysis — check SRP, OCP, LSP, ISP, DIP
+2. GRASP Analysis — information expert, creator, controller, cohesion, coupling
+3. Quality Checks — code smells, encapsulation, immutability, leaky abstractions
+
+---
+
 ## `documentation-auditor`
 
 **Path:** `agents/documentation-auditor.md`
@@ -746,8 +811,6 @@ skills: testing-knowledge, create-unit-test, create-integration-test,
 
 ---
 
----
-
 ## `code-review-coordinator`
 
 **Path:** `agents/code-review-coordinator.md`
@@ -765,7 +828,7 @@ skills: analyze-solid-violations, detect-code-smells, check-encapsulation
 **Review Levels:**
 - **LOW**: PSR + Tests + Encapsulation + Code Smells
 - **MEDIUM**: LOW + Bugs + Readability + SOLID
-- **HIGH**: MEDIUM + Security + Performance + Testability + DDD + Architecture
+- **HIGH**: MEDIUM + Security + Performance + Resources + Scalability + Testability + DDD + Architecture
 
 ---
 
@@ -846,10 +909,12 @@ name: auth-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: sonnet
 skills: check-authentication, check-authorization, check-csrf-protection,
-        check-mass-assignment, check-type-juggling, task-progress-knowledge
+        check-mass-assignment, check-type-juggling,
+        access-control-knowledge, check-access-control-model,
+        task-progress-knowledge
 ```
 
-**Skills:** 6 (5 security + 1 progress)
+**Skills:** 8 (1 knowledge + 5 security + 1 analyzer + 1 progress)
 
 ---
 
@@ -895,21 +960,58 @@ skills: check-input-validation, check-output-encoding, check-insecure-design,
 
 **Path:** `agents/performance-reviewer.md`
 
-Performance review specialist for efficiency issues.
+Performance review specialist for query efficiency, caching, loops, batch processing, and algorithm complexity.
 
 **Configuration:**
 ```yaml
 name: performance-reviewer
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
 model: opus
-skills: detect-n-plus-one, check-query-efficiency, detect-memory-issues,
-        check-caching-strategy, detect-unnecessary-loops, check-lazy-loading,
-        check-batch-processing, estimate-complexity, check-connection-pool,
-        check-serialization, check-index-usage, check-async-patterns,
-        check-file-io, task-progress-knowledge, discover-project-logs
+skills: detect-n-plus-one, check-query-efficiency, check-caching-strategy,
+        detect-unnecessary-loops, check-lazy-loading, check-batch-processing,
+        estimate-complexity, check-index-usage, task-progress-knowledge
 ```
 
-**Skills:** 15 (performance checks + log discovery)
+**Skills:** 9 (8 performance + 1 progress)
+
+---
+
+## `resource-reviewer`
+
+**Path:** `agents/resource-reviewer.md`
+
+Resource usage review specialist for memory issues, connection pools, serialization overhead, async patterns, and file I/O.
+
+**Configuration:**
+```yaml
+name: resource-reviewer
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: detect-memory-issues, check-connection-pool, check-serialization,
+        check-async-patterns, check-file-io
+```
+
+**Skills:** 5 (resource usage checks)
+
+---
+
+## `scalability-reviewer`
+
+**Path:** `agents/scalability-reviewer.md`
+
+Scalability review specialist for horizontal scaling readiness, database scaling, and stateless design.
+
+**Configuration:**
+```yaml
+name: scalability-reviewer
+tools: Read, Grep, Glob, TaskCreate, TaskUpdate
+model: opus
+skills: scalability-knowledge, check-scalability-readiness,
+        replication-sharding-knowledge, check-database-scaling,
+        discover-project-logs
+```
+
+**Skills:** 5 (2 knowledge + 2 analyzer + 1 log)
 
 ---
 

@@ -2,6 +2,39 @@
 
 Slash commands for Claude Code. Commands are user-invoked actions triggered by typing `/command-name` in the CLI.
 
+## Table of Contents
+
+- [Meta-Instructions Support](#meta-instructions-support)
+- [Overview](#overview)
+- [/acc:generate-claude-component](#accgenerate-claude-component)
+- [/acc:audit-claude-components](#accaudit-claude-components)
+- [/acc:commit](#acccommit)
+- [/acc:audit-architecture](#accaudit-architecture)
+- [/acc:audit-ddd](#accaudit-ddd)
+- [/acc:audit-psr](#accaudit-psr)
+- [/acc:generate-documentation](#accgenerate-documentation)
+- [/acc:audit-documentation](#accaudit-documentation)
+- [/acc:generate-test](#accgenerate-test)
+- [/acc:audit-test](#accaudit-test)
+- [/acc:code-review](#acccode-review)
+- [/acc:bug-fix](#accbug-fix)
+- [/acc:audit-security](#accaudit-security)
+- [/acc:audit-performance](#accaudit-performance)
+- [/acc:audit-patterns](#accaudit-patterns)
+- [/acc:generate-ddd](#accgenerate-ddd)
+- [/acc:generate-psr](#accgenerate-psr)
+- [/acc:generate-patterns](#accgenerate-patterns)
+- [/acc:refactor](#accrefactor)
+- [/acc:ci-setup](#accci-setup)
+- [/acc:ci-fix](#accci-fix)
+- [/acc:ci-optimize](#accci-optimize)
+- [/acc:audit-ci](#accaudit-ci)
+- [/acc:audit-docker](#accaudit-docker)
+- [/acc:generate-docker](#accgenerate-docker)
+- [/acc:explain](#accexplain)
+
+---
+
 ## Meta-Instructions Support
 
 All commands support optional meta-instructions via `--` separator:
@@ -721,6 +754,7 @@ Generate design pattern implementations with DI configuration.
 - **GoF Structural**: `adapter`, `facade`, `proxy`, `composite`, `bridge`, `flyweight`
 - **Creational**: `builder`, `object-pool`, `factory`
 - **Integration**: `outbox`, `saga`, `action`, `responder`
+- **System Design**: `idempotency-handler`, `structured-logger`, `access-control`, `distributed-lock`, `read-write-proxy`, `metrics-collector`
 
 ---
 

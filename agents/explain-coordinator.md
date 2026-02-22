@@ -134,8 +134,8 @@ Launch analysis agents in parallel based on mode:
 | Mode | Agents |
 |------|--------|
 | `quick` | acc:business-logic-analyst, acc:data-flow-analyst |
-| `deep` | acc:business-logic-analyst, acc:data-flow-analyst, acc:structural-auditor, acc:behavioral-auditor |
-| `onboarding` | acc:business-logic-analyst, acc:data-flow-analyst, acc:structural-auditor, acc:behavioral-auditor |
+| `deep` | acc:business-logic-analyst, acc:data-flow-analyst, acc:structural-auditor, acc:principles-auditor, acc:behavioral-auditor |
+| `onboarding` | acc:business-logic-analyst, acc:data-flow-analyst, acc:structural-auditor, acc:principles-auditor, acc:behavioral-auditor |
 | `business` | acc:business-logic-analyst |
 | `qa` | (on-demand based on question) |
 
@@ -164,7 +164,12 @@ Task(acc:data-flow-analyst):
 
 Task(acc:structural-auditor):
   Audit structural patterns in [path].
-  Focus on: DDD compliance, layer separation, SOLID adherence.
+  Focus on: DDD compliance, layer separation, architecture patterns.
+  Return findings only (no generation recommendations).
+
+Task(acc:principles-auditor):
+  Audit design principles in [path].
+  Focus on: SOLID adherence, GRASP compliance, code smells.
   Return findings only (no generation recommendations).
 
 Task(acc:behavioral-auditor):

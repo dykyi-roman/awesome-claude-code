@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 64 agents, 264 skills, 21 hooks
+- 26 commands, 68 agents, 283 skills, 21 hooks
 - PHP 8.4+, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -56,12 +56,16 @@
 | `codebase-navigator` | Structure scanning and pattern detection |
 | `business-logic-analyst` | Business rules and process extraction |
 | `data-flow-analyst` | Request lifecycle and data flow tracing |
+| `principles-auditor` | SOLID/GRASP principles auditor |
+| `resource-reviewer` | Memory, connections, serialization, I/O reviewer |
+| `scalability-reviewer` | Scalability readiness and database scaling reviewer |
 
 ## Skills by Category
 
-### Knowledge (47)
+### Knowledge (53)
 - Architecture: DDD, CQRS, Clean, Hexagonal, Layered, EDA, Event Sourcing, Microservices
 - Patterns: Saga, Outbox, Stability (Circuit Breaker, Retry, Rate Limiter, Bulkhead), ADR
+- System Design: Consistency Patterns, Observability, Access Control, Scalability, Replication/Sharding, Cloud Native (12-Factor)
 - API: REST design (Richardson Maturity, RFC 7807), content negotiation
 - Messaging: Broker comparison (RabbitMQ, Kafka, SQS, Redis Streams), delivery guarantees
 - Caching: Strategies (Cache-Aside, Read-Through, Write-Through, Write-Behind), Redis patterns
@@ -75,7 +79,7 @@
 - Frameworks: Symfony, Laravel, Yii, CodeIgniter, No-Framework (pure PHP)
 - Task Progress: coordinator tracking guidelines
 
-### Analyzers (99)
+### Analyzers (107)
 - Architecture: SOLID violations, code smells, coupling/cohesion, bounded contexts, immutability, leaky abstractions, encapsulation
 - Testing: test coverage, test smells
 - Bug Detection: logic errors, null pointers, boundary, race conditions, resource leaks, exceptions, types, infinite loops
@@ -84,6 +88,7 @@
 - DDD: aggregate consistency, CQRS alignment, context communication
 - Documentation: link validation, code examples verification, version consistency
 - Stability: timeout strategy, cascading failures, fallback strategy
+- System Design: idempotency, observability coverage, access control model, scalability readiness, distributed locks, database scaling, 12-factor compliance
 - Creational: singleton anti-pattern, abstract factory audit
 - Readability: naming, code style, method/class length, nesting, comments, magic values, consistency
 - Testability: DI, pure functions, side effects, test quality
@@ -92,11 +97,12 @@
 - Code Explainer: scan structure, identify entry points, detect architecture, resolve entry point, extract business rules, explain process, extract domain concepts, extract state machine, trace lifecycle, trace transformation, map async flows
 - Log Analysis: discover project logs, analyze PHP logs (PSR-3/Monolog, Laravel, Symfony, error_log, FPM slow log)
 
-### Generators (93)
+### Generators (99)
 - DDD: Value Objects, Entities, Aggregates, Domain Events, Repositories, Domain Services, Factories, Specifications, DTOs, Anti-Corruption Layer
 - CQRS: Commands, Queries, Use Cases, Read Models
 - Stability: Circuit Breaker, Retry, Rate Limiter, Bulkhead, Timeout
 - Integration: Saga, Outbox, Correlation Context, Unit of Work, Message Broker Adapter, Idempotent Consumer, Dead Letter Queue
+- System Design: Idempotency Handler, Structured Logger, Access Control, Distributed Lock, Read/Write Proxy, Metrics Collector
 - Behavioral: Strategy, State, Decorator, Chain of Responsibility, Null Object, Policy, Template Method, Visitor, Iterator, Memento
 - GoF Structural: Adapter, Facade, Proxy, Composite, Bridge, Flyweight
 - Creational: Builder, Object Pool, DI Container, Mediator, Prototype
@@ -122,8 +128,8 @@
 ├── marketplace.json
 └── plugin.json
 commands/        # 26 commands
-agents/          # 64 agents
-skills/          # 264 skills (knowledge + generators + analyzers)
+agents/          # 68 agents
+skills/          # 283 skills (knowledge + generators + analyzers)
 hooks/
 └── hooks.json   # PHP syntax check hook
 ```
@@ -166,4 +172,4 @@ hooks/
 
 ## Version
 
-v3.1.0 - Framework knowledge skills, enhanced symfony-knowledge, decomposed integration-generator
+v3.2.0 - System design skills (consistency, observability, access control, scalability, replication, cloud-native), observability-auditor agent

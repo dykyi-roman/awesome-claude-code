@@ -116,9 +116,57 @@ Grep: "AMQPChannel|RabbitMQ|Kafka|SQS" --glob "**/Infrastructure/**/*.php"
 Grep: "EventPublisher|MessageBus" --glob "**/*.php"
 ```
 
+## Advanced Patterns
+
+### Strangler Fig Pattern
+
+Incrementally migrate from monolith to microservices:
+
+```
+Phase 1: Proxy all traffic through gateway
+Phase 2: Extract one feature to service, route via gateway
+Phase 3: Repeat until monolith is empty shell
+Phase 4: Decommission monolith
+
+┌─────────┐     ┌──────────┐     ┌──────────────┐
+│  Client  │────▶│ Gateway  │────▶│  New Service  │  (extracted)
+│          │     │ (Router) │     └──────────────┘
+│          │     │          │────▶┌──────────────┐
+│          │     │          │     │  Monolith     │  (shrinking)
+└─────────┘     └──────────┘     └──────────────┘
+```
+
+**Migration Decision:**
+
+| Factor | Extract First | Keep in Monolith |
+|--------|--------------|------------------|
+| Change frequency | High | Low |
+| Team ownership | Dedicated team | Shared |
+| Scaling needs | Independent scaling | Uniform |
+| Technology fit | Different stack needed | Same stack fine |
+
+### API Gateway Aggregation Patterns
+
+| Pattern | When | Example |
+|---------|------|---------|
+| Simple proxy | 1:1 route mapping | `/users` → User Service |
+| Aggregation | Client needs data from N services | Order + Customer + Payment |
+| BFF | Different clients need different data | Mobile vs Web vs API |
+| Offloading | Cross-cutting concerns | Auth, rate limiting, TLS |
+
+### Database-Per-Service Trade-offs
+
+| Aspect | Shared DB | DB per Service |
+|--------|-----------|----------------|
+| Consistency | ACID transactions | Saga/eventual |
+| Querying | JOIN across domains | API composition |
+| Independence | Coupled deployments | Independent |
+| Complexity | Low | High |
+| Schema changes | Coordinated | Independent |
+
 ## References
 
 For detailed information, load these reference files:
 
-- `references/patterns.md` — Service mesh, API gateway implementations, service discovery details, data consistency
+- `references/patterns.md` — Service mesh, API gateway implementations, service discovery details, data consistency, Strangler Fig, database-per-service
 - `references/antipatterns.md` — Distributed monolith, shared database, missing boundaries, chatty communication

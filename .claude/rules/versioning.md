@@ -28,7 +28,7 @@ paths:
 
 ## Count Sync Files
 
-Component counts (26 commands, 64 agents, 264 skills) must be synchronized across:
+Component counts (26 commands, 68 agents, 283 skills) must be synchronized across:
 - `README.md` (Documentation table)
 - `docs/quick-reference.md` (Statistics + file tree)
 - `.claude-plugin/marketplace.json` (plugin description)

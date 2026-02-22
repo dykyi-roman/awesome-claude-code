@@ -363,6 +363,54 @@ Grep: "->request\(|curl_exec|file_get_contents" --glob "**/Infrastructure/**/*.p
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+## Advanced Resilience Patterns
+
+### Backpressure Mechanisms
+
+| Strategy | How It Works | PHP Example |
+|----------|-------------|-------------|
+| Drop | Discard excess requests | Rate limiter returning 429 |
+| Buffer | Queue up to limit | RabbitMQ with max-length |
+| Throttle | Slow down producer | Sleep between batch items |
+| Reject | Refuse, signal overload | HTTP 503 Service Unavailable |
+| Scale | Add more consumers | Auto-scaling worker pool |
+
+### Graceful Degradation Levels
+
+| Level | Mode | What Happens |
+|-------|------|-------------|
+| 0 | Full | All features active |
+| 1 | Non-Critical Off | Recommendations, analytics disabled |
+| 2 | Read-Only | Writes disabled, reads from cache |
+| 3 | Static Fallback | Serve cached/static content only |
+| 4 | Maintenance | System unavailable page |
+
+### Adaptive Retry Jitter Algorithms
+
+| Algorithm | Formula | Best For |
+|-----------|---------|----------|
+| Full Jitter | `random(0, base * 2^attempt)` | High concurrency |
+| Equal Jitter | `half + random(0, half)` | Balanced spread |
+| Decorrelated | `random(base, prev_delay * 3)` | Sequential retries |
+
+### Health Check Types
+
+| Check | Endpoint | Purpose |
+|-------|----------|---------|
+| Liveness | `/health/live` | Process running (restart if fails) |
+| Readiness | `/health/ready` | Can accept traffic (remove from LB) |
+| Startup | `/health/startup` | Has initialized |
+
+### Chaos Engineering Principles
+
+| Practice | Description |
+|----------|-------------|
+| Steady state hypothesis | Define normal behavior metrics |
+| Vary real-world events | Inject realistic failures |
+| Run in production | Test real behavior |
+| Minimize blast radius | Limit failure scope |
+| Automate experiments | Continuous chaos testing |
+
 ## References
 
 For detailed information, load these reference files:
@@ -371,6 +419,7 @@ For detailed information, load these reference files:
 - `references/retry-patterns.md` — Retry strategies and backoff algorithms
 - `references/rate-limiting.md` — Rate limiting algorithms and configurations
 - `references/bulkhead.md` — Bulkhead isolation patterns
+- `references/advanced-resilience.md` — Backpressure mechanisms, graceful degradation, adaptive retry with jitter, chaos engineering, health-based routing, fallback strategies
 
 ## Assets
 

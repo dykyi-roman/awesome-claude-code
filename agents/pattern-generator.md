@@ -21,7 +21,7 @@ This agent delegates to specialized generators:
 | `acc:gof-structural-generator` | Adapter, Facade, Proxy, Composite, Bridge, Flyweight | 6 skills |
 | `acc:creational-generator` | Builder, Object Pool, Factory | 3 skills |
 | `acc:messaging-generator` | Outbox, Saga, Correlation Context, Message Broker, Idempotent Consumer, Dead Letter Queue | 9 skills |
-| `acc:api-infrastructure-generator` | ADR (Action, Responder), API Versioning, Health Check, Unit of Work | 7 skills |
+| `acc:api-infrastructure-generator` | ADR, API Versioning, Health Check, Unit of Work, Idempotency Handler, Structured Logger, Access Control, Distributed Lock, Read-Write Proxy, Metrics Collector | 13 skills |
 
 ## Pattern Detection
 
@@ -71,6 +71,12 @@ Analyze user request to determine which generator to invoke:
 - "api versioning", "version strategy", "deprecation header"
 - "health check", "liveness probe", "readiness probe"
 - "unit of work", "UoW", "transactional consistency", "aggregate tracking"
+- "idempotency", "idempotency key", "idempotent request", "deduplication middleware"
+- "structured logger", "structured logging", "correlation ID logger", "log context"
+- "access control", "RBAC", "ABAC", "voter", "policy", "permission checker"
+- "distributed lock", "Redis lock", "lock factory", "advisory lock"
+- "read write split", "read replica", "connection proxy", "database routing"
+- "metrics", "Prometheus", "RED metrics", "metrics collector", "metrics endpoint"
 
 ## Generation Process
 

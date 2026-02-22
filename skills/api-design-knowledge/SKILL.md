@@ -123,9 +123,51 @@ Grep: "JsonResponse.*4[0-9]{2}|JsonResponse.*5[0-9]{2}" --glob "**/*.php"
 Grep: "page|per_page|limit|offset|cursor" --glob "**/Controller/**/*.php"
 ```
 
+## Advanced API Patterns
+
+### Cursor-Based Pagination (High-Load)
+
+| Aspect | Offset-Based | Cursor-Based |
+|--------|-------------|--------------|
+| URL | `?page=5&per_page=20` | `?cursor=abc123&limit=20` |
+| Performance at scale | Degrades (OFFSET N) | Constant (WHERE id > X) |
+| Consistency | Misses/duplicates on insert | Stable, no gaps |
+| Random page access | Yes | No (sequential only) |
+| Use case | Admin panels | Feeds, large datasets |
+
+### API Rate Limiting Algorithms
+
+| Algorithm | Precision | Burst | PHP Implementation |
+|-----------|-----------|-------|-------------------|
+| Token Bucket | Medium | Allows burst | Redis Lua script |
+| Sliding Window | High | Smooth | Redis sorted set |
+| Fixed Window | Low | Edge burst | Redis INCR + EXPIRE |
+| Leaky Bucket | High | No burst | Redis list |
+
+**Rate Limit Headers:** `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`, `Retry-After` (on 429).
+
+### gRPC for PHP
+
+| Factor | Choose REST | Choose gRPC |
+|--------|-------------|-------------|
+| Client type | Browser, third-party | Internal services |
+| Payload | Small-medium JSON | Large binary data |
+| Streaming | Not needed | Real-time updates |
+| PHP ecosystem | Mature | Limited (ext-grpc) |
+
+### GraphQL N+1 Prevention
+
+| Technique | How | Complexity |
+|-----------|-----|------------|
+| DataLoader | Batch + cache per request | Medium |
+| Query depth limit | Max 5-7 nesting levels | Low |
+| Complexity scoring | Cost per field, reject expensive | Medium |
+| Persisted queries | Whitelist allowed queries | Low |
+
 ## References
 
 For detailed information, load these reference files:
 
 - `references/rest-patterns.md` — Richardson Maturity details, HATEOAS, pagination, filtering, versioning strategies
 - `references/error-handling.md` — RFC 7807 Problem Details, error response patterns, GraphQL errors, PHP implementation
+- `references/advanced-api.md` — Cursor-based pagination, API rate limiting (token bucket, sliding window), gRPC PHP integration, GraphQL N+1 solutions

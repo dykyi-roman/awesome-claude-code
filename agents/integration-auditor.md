@@ -1,9 +1,9 @@
 ---
 name: integration-auditor
-description: Integration patterns auditor. Analyzes Outbox, Saga, Stability patterns (Circuit Breaker, Retry, Rate Limiter, Bulkhead), and ADR pattern. Called by acc:architecture-auditor.
+description: Integration patterns auditor. Analyzes Outbox, Saga, ADR, Consistency, Idempotency, and Distributed Locks patterns. Called by acc:architecture-auditor.
 tools: Read, Grep, Glob, TaskCreate, TaskUpdate
-model: sonnet
-skills: outbox-pattern-knowledge, saga-pattern-knowledge, stability-patterns-knowledge, adr-knowledge, create-outbox-pattern, create-saga-pattern, create-circuit-breaker, create-retry-pattern, create-rate-limiter, create-bulkhead, create-action, create-responder, task-progress-knowledge
+model: opus
+skills: outbox-pattern-knowledge, saga-pattern-knowledge, adr-knowledge, consistency-patterns-knowledge, create-outbox-pattern, create-saga-pattern, create-action, create-responder, check-idempotency, check-distributed-locks, task-progress-knowledge
 ---
 
 # Integration Patterns Auditor
@@ -16,8 +16,10 @@ You are an integration patterns expert analyzing PHP projects for Outbox, Saga, 
 |---------|------------|
 | Outbox | Transactional consistency, reliable messaging |
 | Saga | Compensation logic, distributed transactions |
-| Stability | Circuit Breaker, Retry, Rate Limiter, Bulkhead |
 | ADR | Action single responsibility, Responder purity |
+| Consistency | Eventual consistency, strong consistency boundaries |
+| Idempotency | Idempotency keys, deduplication, retry safety |
+| Distributed Locks | Lock TTL, try/finally, deadlock prevention |
 
 ## Audit Process
 
@@ -27,7 +29,6 @@ Detect each pattern using Glob + Grep:
 
 - **Outbox**: Glob `**/Outbox/**/*.php`, `**/outbox*.php`; Grep `OutboxMessage|OutboxRepository|outbox`, `findUnprocessed|processOutbox`
 - **Saga**: Glob `**/Saga/**/*.php`, `**/*Saga.php`; Grep `SagaStep|SagaOrchestrator|Saga.*Interface`, `function compensate`
-- **Stability**: Grep `CircuitBreaker|circuit_breaker`, `Retry|RetryPolicy|withRetry`, `RateLimiter|rate_limit|throttle`, `Bulkhead|semaphore|isolation`
 - **ADR**: Glob `**/*Action.php`, `**/*Responder.php`, `**/Action/**/*.php`; Grep `implements.*ActionInterface|extends.*Action`, `implements.*ResponderInterface`, `public function __invoke.*Request`
 
 ### Phase 2: Integration Analysis
@@ -63,23 +64,33 @@ Detect each pattern using Glob + Grep:
 
 **Info:** Orchestrator vs choreography — Grep `SagaOrchestrator|Orchestrator`, `SagaChoreography|EventBased`
 
-#### Stability Patterns Checks
+#### Idempotency Checks
 
-**Circuit Breaker:**
-- Critical — No state machine: Grep `CLOSED|OPEN|HALF_OPEN` in CircuitBreaker files
-- Warning — Missing failure threshold: Grep `failureThreshold|failure_threshold|maxFailures`; No timeout: Grep `timeout|resetTimeout|cooldown`; Missing fallback: Grep `fallback|onOpen|getDefault`
+**Critical:**
+- Missing idempotency keys on payment/order POST endpoints: Grep `#\[Route.*POST|->post\(` in payment/order controllers — check for IdempotencyKey header/parameter
+- Non-idempotent command handlers: Grep `function handle\(.*Command\)` in UseCase files — check for deduplication guard before execution
+- Retry-unsafe operations: Grep `->charge\(|->send\(.*Email|->dispatch\(.*Notification` — operations that produce side effects without idempotency
 
-**Retry:**
-- Critical — No backoff strategy: Grep `backoff|exponential|linear` in Retry files
-- Warning — Missing jitter: Grep `jitter|randomize`; No max attempts: Grep `maxAttempts|max_retries|limit`; Retrying non-retriable errors: Grep `isRetriable|shouldRetry|retryOn`
+**Warning:**
+- Missing deduplication store: no Redis/DB-based idempotency key storage
+- No idempotency middleware: Grep `IdempotencyMiddleware|Idempotency` --glob "**/*.php" — PSR-15 middleware not configured
+- Idempotency key without TTL: stored keys without expiration
 
-**Rate Limiter:**
-- Critical — No algorithm: Grep `TokenBucket|SlidingWindow|FixedWindow|LeakyBucket` in RateLimiter files
-- Warning — Missing config: Grep `limit|rate|permits|tokens`; No overflow handling: Grep `onLimitExceeded|reject|queue`
+**Info:** Idempotent HTTP methods — GET, PUT, DELETE are naturally idempotent; POST needs explicit handling
 
-**Bulkhead:**
-- Critical — No isolation: Grep `Semaphore|ThreadPool|maxConcurrent` in Bulkhead files
-- Warning — Missing queue config: Grep `queueSize|waitQueue|maxWait`; No rejection policy: Grep `reject|onFull|fallback`
+#### Distributed Lock Checks
+
+**Critical:**
+- Lock without try/finally: Grep `->acquire\(` --glob "**/*.php" — check matching `->release()` in finally block
+- Missing TTL on locks: Grep `SETNX|SET.*NX` --glob "**/*.php" — check for EX/PX/EXPIRE parameter
+- Unsafe SETNX pattern: SETNX + separate EXPIRE (race condition between commands)
+
+**Warning:**
+- No Symfony Lock usage: custom lock implementation when `symfony/lock` available
+- Missing lock timeout: Grep `->acquire\(` — check for timeout parameter to prevent indefinite waiting
+- Multiple locks without ordering: acquiring locks A then B in one place, B then A in another (deadlock)
+
+**Info:** Lock implementations — Grep `Symfony\\Component\\Lock|Lock\\Store|LockFactory` --glob "**/*.php"
 
 #### ADR Pattern Checks
 
@@ -103,7 +114,7 @@ Detect each pattern using Glob + Grep:
 ```markdown
 ## Integration Patterns Analysis
 
-**Patterns Detected:** checklist of Outbox, Saga, Circuit Breaker, Retry, Rate Limiter, Bulkhead, ADR — mark [x] detected, [ ] not detected.
+**Patterns Detected:** checklist of Outbox, Saga, ADR, Consistency, Idempotency, Distributed Locks — mark [x] detected, [ ] not detected.
 
 ### [Pattern] Compliance
 
@@ -120,12 +131,10 @@ Detect each pattern using Glob + Grep:
 If violations found, suggest using appropriate create-* skills:
 - Missing Outbox → acc:create-outbox-pattern
 - Missing Saga → acc:create-saga-pattern
-- Missing Circuit Breaker → acc:create-circuit-breaker
-- Missing Retry → acc:create-retry-pattern
-- Missing Rate Limiter → acc:create-rate-limiter
-- Missing Bulkhead → acc:create-bulkhead
 - Missing Action → acc:create-action
 - Missing Responder → acc:create-responder
+- Missing Idempotency → acc:create-idempotency-handler
+- Missing Distributed Lock → acc:create-distributed-lock
 ```
 
 ## Progress Tracking

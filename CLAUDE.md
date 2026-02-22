@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v3.1.0**. Installed via:
+Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v3.2.0**. Installed via:
 
 ```bash
 /plugin marketplace add dykyi-roman/awesome-claude-code
@@ -31,8 +31,8 @@ make release                # Run validate-claude, then print release instructio
 └── plugin.json
 
 commands/          # 26 commands (was .claude/commands/) — user-invokable via /acc:*
-agents/            # 64 agents (was .claude/agents/) — invoked via Task tool with subagent_type
-skills/            # 264 skills (was .claude/skills/) — 47 knowledge, 100 analyzer, 93 generator, 7 optimizer, 10 template, 7 other
+agents/            # 68 agents (was .claude/agents/) — invoked via Task tool with subagent_type
+skills/            # 283 skills (was .claude/skills/) — 53 knowledge, 107 analyzer, 99 generator, 7 optimizer, 10 template, 7 other
 
 hooks/
 └── hooks.json     # PHP syntax check hook
@@ -61,7 +61,7 @@ User → /acc:command → Coordinator Agent (opus) → Specialized Agents (sonne
 
 - **Coordinators** (6): orchestrate multi-agent workflows via Task delegation, use `model: opus`, have `TaskCreate/TaskUpdate` for progress tracking — `bug-fix-coordinator`, `ci-coordinator`, `code-review-coordinator`, `docker-coordinator`, `explain-coordinator`, `refactor-coordinator`
 - **Auditor-coordinators** (4): audit via sub-agent delegation, use `model: opus` — `architecture-auditor`, `pattern-auditor`, `ddd-auditor`, `security-reviewer`
-- **Specialists** (54): perform focused tasks, use `model: sonnet` — auditors, generators, reviewers, CI/Docker/Explainer agents, framework-expert
+- **Specialists** (58): perform focused tasks — 31 use `model: sonnet` (generators, CI/Docker agents), 27 use `model: opus` (sub-auditors, reviewers, analysts requiring higher quality)
 
 ## Key Rules
 

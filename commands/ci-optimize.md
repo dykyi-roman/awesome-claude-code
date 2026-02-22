@@ -25,8 +25,12 @@ Examples:
 ```
 
 **Parsing rules:**
-1. First argument = **path** (optional, defaults to `./`)
-2. After `--` = **focus areas** (optional optimization targets)
+1. Split `$ARGUMENTS` by ` -- ` (space-dash-dash-space)
+2. First part = positional arguments, Second part = meta-instructions (focus areas)
+3. In positional arguments, extract path (optional, defaults to `./`)
+4. After `--` = focus areas (optional optimization targets)
+5. If no path provided, default to current directory (`./`)
+6. Validate path exists before proceeding
 
 ## Pre-flight Check
 

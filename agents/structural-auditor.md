@@ -1,9 +1,9 @@
 ---
 name: structural-auditor
-description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered patterns, SOLID and GRASP principles. Called by acc:architecture-auditor.
+description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered, Microservices, Cloud-Native patterns, bounded contexts, and 12-Factor compliance. Called by acc:architecture-auditor.
 tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, solid-knowledge, grasp-knowledge, microservices-knowledge, analyze-solid-violations, detect-code-smells, check-bounded-contexts, check-immutability, check-leaky-abstractions, check-encapsulation, task-progress-knowledge
+skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, microservices-knowledge, cloud-native-knowledge, check-bounded-contexts, check-12-factor-compliance, task-progress-knowledge
 ---
 
 # Structural Architecture Auditor
@@ -20,8 +20,9 @@ This auditor focuses on **structural patterns** that define how code is organize
 | Clean Architecture | Dependency rule (inner→outer only) |
 | Hexagonal | Port/Adapter structure, core isolation |
 | Layered | No layer skipping, no upward dependencies |
-| SOLID | SRP, OCP, LSP, ISP, DIP violations |
-| GRASP | Information expert, creator, controller, cohesion, coupling |
+| Microservices | Service boundaries, API contracts, data ownership |
+| Cloud-Native | Container readiness, config externalization, resilience |
+| 12-Factor | Env config, stateless processes, log streaming, dev/prod parity |
 
 ## Audit Process
 
@@ -144,45 +145,34 @@ Grep: "if \(.*->status|switch \(" --glob "**/Controller/**/*.php"
 Grep: "->query\(|->execute\(" --glob "**/Presentation/**/*.php"
 ```
 
-#### SOLID Checks
+#### 12-Factor Compliance Checks
 
 ```bash
-# SRP: God classes (multiple responsibilities)
-Grep: "class.*\{" --glob "**/*.php" # Then analyze line count and method count
+# Hardcoded configuration
+Grep: "= 'localhost'|= '127.0.0.1'|= '3306'|= '5432'" --glob "**/src/**/*.php"
+Grep: "getenv\(|\\$_ENV\[" --glob "**/src/**/*.php"
 
-# OCP: Type switches
-Grep: "switch \(.*->getType|if \(.*instanceof" --glob "**/*.php"
+# File-based state
+Grep: "file_put_contents|fwrite.*state|flock" --glob "**/src/**/*.php"
 
-# LSP: Weakened preconditions
-Grep: "function.*\(.*=.*null\).*:" --glob "**/*.php"
+# Env-specific conditionals
+Grep: "APP_ENV|ENVIRONMENT.*===.*'production'" --glob "**/src/**/*.php"
 
-# ISP: Fat interfaces
-Grep: "interface.*\{" --glob "**/*.php" # Then count methods
+# Non-streaming logs
+Grep: "file_put_contents.*\.log|fopen.*\.log" --glob "**/src/**/*.php"
 
-# DIP: Concrete dependencies
-Grep: "public function __construct\(.*new " --glob "**/*.php"
-Grep: "__construct\((?!.*Interface)" --glob "**/*.php"
+# Session storage
+Grep: "session.save_handler|session_start|\\$_SESSION" --glob "**/*.php"
 ```
 
-#### GRASP Checks
+**Critical:**
+- Hardcoded config values instead of environment variables
+- File-based state storage (not horizontally scalable)
 
-```bash
-# Information Expert violations
-Grep: "->get.*\(\)->get.*\(\)" --glob "**/*.php"
-
-# Creator violations
-Grep: "new.*Entity\(" --glob "**/Controller/**/*.php"
-Grep: "new.*Entity\(" --glob "**/Presentation/**/*.php"
-
-# Controller bloat
-Grep: "public function" --glob "**/Controller/**/*.php" # Count per file
-
-# Low cohesion indicators
-# Multiple unrelated public methods in single class
-
-# High coupling indicators
-Grep: "use " --glob "**/*.php" # Count imports per file
-```
+**Warning:**
+- Env-specific conditionals (`if APP_ENV === 'production'`)
+- Non-streaming log output (file-based instead of stderr)
+- File-based session storage
 
 ## Report Format
 
@@ -213,20 +203,6 @@ Grep: "use " --glob "**/*.php" # Count imports per file
 - Move OrderRepository interface to Domain layer
 
 ### Clean Architecture Compliance
-
-[Similar structure...]
-
-### SOLID Compliance
-
-| Principle | Score | Issues |
-|-----------|-------|--------|
-| SRP | 70% | 5 god classes |
-| OCP | 85% | 3 type switches |
-| LSP | 95% | 1 violation |
-| ISP | 80% | 2 fat interfaces |
-| DIP | 75% | 8 concrete deps |
-
-### GRASP Compliance
 
 [Similar structure...]
 

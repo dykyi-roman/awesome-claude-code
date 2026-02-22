@@ -9,7 +9,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
-> **The most comprehensive Claude Code extension for PHP developers.** Current version: **v3.1.0**
+> **The most comprehensive Claude Code extension for PHP developers.** Current version: **v3.2.0**
 > Audit, Generate & Document: DDD, CQRS, Event Sourcing, Clean/Hexagonal Architecture, Design Patterns, PSR, Tests ...
 
 ![Awesome Claude Code — PHP Architecture Toolkit](docs/img.png)
@@ -50,7 +50,7 @@ Multi-level automated code review with **9 specialized reviewers**:
 |-------|-----------|----------------|
 | **LOW** | PSR Auditor, Test Auditor | Coding standards, test quality |
 | **MEDIUM** | + Bug Hunter, Readability Reviewer | Logic errors, null pointers, naming, complexity |
-| **HIGH** | + Security, Performance, Testability, DDD, Architecture | OWASP Top 10, N+1 queries, memory leaks, DDD compliance |
+| **HIGH** | + Security, Performance, Resources, Scalability, Testability, DDD, Architecture | OWASP Top 10, N+1 queries, memory leaks, connection pools, scalability readiness, DDD compliance |
 
 
 ```
@@ -146,12 +146,16 @@ Generates:
 
 ### Knowledge Bases
 
-**21 deep expertise skills** covering:
+**53 knowledge skills** covering:
 
-- Architecture: DDD, CQRS, Clean, Hexagonal, Layered, Event Sourcing, EDA
+- Architecture: DDD, CQRS, Clean, Hexagonal, Layered, Event Sourcing, EDA, Microservices
 - Principles: SOLID, GRASP, PSR-1/4/12
 - Patterns: Saga, Outbox, Stability, ADR
+- System Design: Consistency, Observability, Access Control, Scalability, Replication, 12-Factor
+- API & Messaging: REST design, Message Queues, Caching Strategies
+- Frameworks: Symfony, Laravel, Yii, CodeIgniter, No-Framework
 - Documentation: Mermaid, C4 Model, ADR templates
+- Docker: 12 Docker knowledge skills (core, multistage, security, production, etc.)
 
 ### Developer Safeguards
 
@@ -186,7 +190,10 @@ COMMAND ───────→ COORDINATOR ───────→ AGENTS ─
                                     ├──→ structural-auditor ────→ ddd-knowledge ────────→ create-entity
                                     │                             clean-arch-knowledge    create-value-object
                                     │                             hexagonal-knowledge     create-repository
-                                    │                             solid-knowledge         create-use-case
+                                    │                             microservices-knowledge create-use-case
+                                    │
+                                    ├──→ principles-auditor ────→ solid-knowledge ──────→ analyze-solid-violations
+                                    │                             grasp-knowledge         detect-code-smells
                                     │
                                     ├──→ behavioral-auditor ────→ cqrs-knowledge ───────→ create-command
                                     │                             event-sourcing-knowledge create-query
@@ -259,8 +266,8 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 | Document                                   | Description                                   |
 |--------------------------------------------|-----------------------------------------------|
 | [Commands](docs/commands.md)               | 26 slash commands with examples               |
-| [Agents](docs/agents.md)                   | 64 specialized subagents                      |
-| [Skills](docs/skills.md)                   | 264 skills (knowledge, generators, analyzers) |
+| [Agents](docs/agents.md)                   | 68 specialized subagents                      |
+| [Skills](docs/skills.md)                   | 283 skills (knowledge, generators, analyzers) |
 | [Hooks](docs/hooks.md)                     | 21 PHP/DDD hooks                              |
 | [Component Flow](docs/component-flow.md)   | Architecture and dependency graph             |
 | [MCP](docs/mcp.md)                         | MCP server configuration                      |
@@ -304,6 +311,10 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 
 **Stability:**
 - Circuit Breaker, Retry, Rate Limiter, Bulkhead
+
+**System Design:**
+- Idempotency Handler, Structured Logger, Access Control (RBAC/ABAC)
+- Distributed Lock, Read-Write Proxy, Metrics Collector
 
 **Standards:**
 - PSR-3, 6, 7, 11, 13, 14, 15, 16, 17, 18, 20 implementations
