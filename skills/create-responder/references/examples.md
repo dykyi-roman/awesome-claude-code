@@ -11,10 +11,10 @@ Real-world Responder examples.
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Create;
+namespace Order\Create;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\CreateOrder\CreateOrderResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class CreateOrderResponder extends AbstractJsonResponder
@@ -65,10 +65,10 @@ final readonly class CreateOrderResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\GetById;
+namespace Order\GetById;
 
-use Application\Order\UseCase\GetOrderById\GetOrderByIdResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\GetOrderById\GetOrderByIdResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class GetOrderByIdResponder extends AbstractJsonResponder
@@ -134,10 +134,10 @@ final readonly class GetOrderByIdResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Auth\Login;
+namespace Auth\Login;
 
-use Application\Auth\UseCase\Login\LoginResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\Login\LoginResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class LoginResponder extends AbstractJsonResponder
@@ -178,10 +178,10 @@ final readonly class LoginResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Auth\Register;
+namespace Auth\Register;
 
-use Application\Auth\UseCase\Register\RegisterResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\Register\RegisterResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class RegisterResponder extends AbstractJsonResponder
@@ -233,10 +233,10 @@ final readonly class RegisterResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Product\Search;
+namespace Product\Search;
 
-use Application\Product\UseCase\SearchProducts\SearchProductsResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\SearchProducts\SearchProductsResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class SearchProductsResponder extends AbstractJsonResponder
@@ -297,10 +297,10 @@ final readonly class SearchProductsResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Webhook\Stripe;
+namespace Api\Webhook\Stripe;
 
-use Application\Payment\UseCase\ProcessStripeWebhook\ProcessStripeWebhookResult;
-use Presentation\Shared\Responder\ResponderInterface;
+use UseCase\ProcessStripeWebhook\ProcessStripeWebhookResult;
+use Responder\ResponderInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -352,10 +352,10 @@ final readonly class StripeWebhookResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\BulkDelete;
+namespace User\BulkDelete;
 
-use Application\User\UseCase\BulkDeleteUsers\BulkDeleteUsersResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\BulkDeleteUsers\BulkDeleteUsersResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class BulkDeleteUsersResponder extends AbstractJsonResponder
@@ -405,17 +405,17 @@ final readonly class BulkDeleteUsersResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\Order\Create;
+namespace Tests\Unit\Order\Create;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderResult;
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\ValueObject\Money;
+use UseCase\CreateOrder\CreateOrderResult;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\Order\Create\CreateOrderResponder;
+use Order\Create\CreateOrderResponder;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;

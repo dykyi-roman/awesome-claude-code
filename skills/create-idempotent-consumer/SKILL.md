@@ -25,7 +25,7 @@ Creates Idempotent Consumer pattern infrastructure for exactly-once message proc
 - Immutable with toString() representation
 
 ### IdempotencyStoreInterface
-- Application layer port
+- Storage abstraction for processed-key tracking
 - has(IdempotencyKey): bool — check if already processed
 - mark(IdempotencyKey, DateTimeImmutable ttl): void — mark as processed
 - remove(IdempotencyKey): void — remove entry (for reprocessing)
@@ -64,16 +64,16 @@ Determine:
 
 ### Step 2: Generate Core Components
 
-1. **Domain Layer** (`src/Domain/Shared/Idempotency/`)
+1. **Types**
    - `IdempotencyKey.php` — Key value object
    - `ProcessingResult.php` — Result value object with status
    - `ProcessingStatus.php` — Status enum (Processed/Duplicate/Failed)
 
-2. **Application Layer** (`src/Application/Shared/Idempotency/`)
-   - `IdempotencyStoreInterface.php` — Storage port
+2. **Coordination**
+   - `IdempotencyStoreInterface.php` — Storage abstraction
    - `IdempotentConsumerMiddleware.php` — Middleware wrapper
 
-3. **Infrastructure Layer** (`src/Infrastructure/Idempotency/`)
+3. **Persistence**
    - `DatabaseIdempotencyStore.php` — PDO implementation
    - `RedisIdempotencyStore.php` — Redis implementation
    - Database migration
@@ -88,12 +88,14 @@ Determine:
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Types | `src/Domain/Shared/Idempotency/` |
-| Application Port | `src/Application/Shared/Idempotency/` |
-| Infrastructure | `src/Infrastructure/Idempotency/` |
-| Unit Tests | `tests/Unit/{Layer}/{Path}/` |
+| Component group | Path |
+|-----------------|------|
+| Types | `src/{architecture-path}/Idempotency/` |
+| Coordination (middleware + store abstraction) | `src/{architecture-path}/Idempotency/` |
+| Persistence | `src/{architecture-path}/Idempotency/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Idempotency/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Types and coordination typically live with other messaging-shared code; concrete stores live with other persistence adapters. Adjust to your project's layout.
 
 ---
 

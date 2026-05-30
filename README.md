@@ -9,7 +9,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
-> **The most comprehensive Claude Code extension for PHP developers.** Current version: **v3.2.0**
+> **The most comprehensive Claude Code extension for PHP developers.** Current version: **v4.0.0** — architecture-neutral (works with Clean, Hexagonal, Layered, N-Tier, Package-by-Feature, MVC).
 > Audit, Generate & Document: DDD, CQRS, Event Sourcing, Clean/Hexagonal Architecture, Design Patterns, PSR, Tests ...
 
 ![Awesome Claude Code — PHP Architecture Toolkit](docs/img.png)
@@ -260,6 +260,22 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 | Inconsistent patterns across team | Standardized DDD/CQRS templates ensure consistency |
 | Hours reviewing PRs manually | 3-level automated review catches bugs, security issues |
 | Learning DDD/CQRS from scratch | Built-in knowledge bases explain patterns in context |
+| Plugin assumes ONE architecture | Architecture-neutral by default; opt in to your style via `*-arch-knowledge` skills |
+
+## Supported Architectures
+
+The plugin is **architecture-neutral by default** — examples, templates, generators, and audits work across every architecture listed below. Architecture-specific guidance (folder shapes, dependency rules, idiomatic placement) is opt-in through the matching `*-arch-knowledge` skill, so DDD-on-Clean and DDD-on-Layered-3-tier each get accurate rules instead of one style's rules applied to both.
+
+| Architecture | Knowledge skill | Defining trait |
+|---|---|---|
+| **Clean Architecture** | `acc:clean-arch-knowledge` | Source code dependencies point INWARD only; Application defines Ports, Infrastructure implements them (DIP) |
+| **Hexagonal (Ports & Adapters)** | `acc:hexagonal-knowledge` | Driving Ports under `Application/{Context}/Port/Input/`; Driven Ports under `Domain/{Context}/Port/Output/`; Adapters in `Infrastructure/{Http,Persistence,...}/` |
+| **Layered (3-tier Domain-centric)** | `acc:layer-arch-knowledge` | 3 folders (Application / Domain / Infrastructure); Domain owns its persistence implementations under `Domain/{Context}/Repository/Doctrine/`; Application hosts entry-points |
+| **N-Tier (4-tier Classical)** | `acc:n-tier-arch-knowledge` | 4 folders (Presentation / Application / Domain / Infrastructure); strict downward calls; Repository interfaces in Domain, implementations in Infrastructure |
+| **Package-by-Feature** | wraps any of the above | Bounded context outermost (`src/{Feature}/`); the chosen inner architecture applied INSIDE each feature; cross-feature isolation enforced |
+| **MVC** | — | Model / View / Controller for thinner applications |
+
+DDD patterns — entities, value objects, aggregates, the Repository pattern, domain events, specifications — apply across all six. Only their physical folder placement varies. The plugin's audit skills consult the matching `*-arch-knowledge` skill when generating per-architecture rules, so audits don't flag idiomatic-in-your-architecture code as a violation.
 
 ## Documentation
 
@@ -267,7 +283,7 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 |--------------------------------------------|-----------------------------------------------|
 | [Commands](docs/commands.md)               | 26 slash commands with examples               |
 | [Agents](docs/agents.md)                   | 68 specialized subagents                      |
-| [Skills](docs/skills.md)                   | 283 skills (knowledge, generators, analyzers) |
+| [Skills](docs/skills.md)                   | 291 skills (knowledge, generators, analyzers) |
 | [Hooks](docs/hooks.md)                     | 21 PHP/DDD hooks                              |
 | [Component Flow](docs/component-flow.md)   | Architecture and dependency graph             |
 | [MCP](docs/mcp.md)                         | MCP server configuration                      |
@@ -297,10 +313,14 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 ## Supported Patterns
 
 **Architecture:**
-- Domain-Driven Design (DDD) — Aggregates, Entities, Value Objects, Domain Events, Repositories
+- Domain-Driven Design (DDD) — Aggregates, Entities, Value Objects, Domain Events, the Repository pattern. Architecture-neutral; works with all six architectural styles listed in [Supported Architectures](#supported-architectures)
 - CQRS — Command/Query separation, Handlers, Buses
-- Clean Architecture — Use Cases, Boundaries, Dependency Inversion
-- Hexagonal Architecture — Ports & Adapters, Primary/Secondary adapters
+- Clean Architecture — Concentric layers; INWARD dependency rule; Ports + DIP
+- Hexagonal Architecture — Driving / Driven Ports; Primary / Secondary Adapters
+- Layered (3-tier Domain-centric) — Application / Domain / Infrastructure; Domain owns its persistence implementations
+- N-Tier (4-tier Classical) — Presentation / Application / Domain / Infrastructure; strict downward calls
+- Package-by-Feature — Feature-first folder organization wrapping any of the above
+- MVC — Model / View / Controller
 - Event Sourcing — Event stores, Projections, Snapshots
 - Event-Driven Architecture — Messaging, Pub/Sub, Event handlers
 

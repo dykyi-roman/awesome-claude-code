@@ -27,7 +27,7 @@ Creates Dead Letter Queue pattern infrastructure for capturing and retrying fail
 - Failure classification (Transient, Permanent, Unknown)
 
 ### DeadLetterStoreInterface
-- Application layer port
+- Storage abstraction for dead-letter messages
 - store(DeadLetterMessage): void
 - findRetryable(int limit): array — find messages eligible for retry
 - markRetried(string id): void — increment attempt count
@@ -70,18 +70,18 @@ Determine:
 
 ### Step 2: Generate Core Components
 
-1. **Domain Layer** (`src/Domain/Shared/DeadLetter/`)
+1. **Types**
    - `FailureType.php` — Enum (Transient, Permanent, Unknown)
    - `DeadLetterMessage.php` — Message entity
 
-2. **Application Layer** (`src/Application/Shared/DeadLetter/`)
-   - `DeadLetterStoreInterface.php` — Storage port
+2. **Coordination**
+   - `DeadLetterStoreInterface.php` — Storage abstraction
    - `DeadLetterHandler.php` — Exception handler
    - `RetryStrategy.php` — Retry configuration and backoff calculation
    - `FailureClassifier.php` — Exception classification
    - `DlqProcessor.php` — Retry processor
 
-3. **Infrastructure Layer** (`src/Infrastructure/DeadLetter/`)
+3. **Persistence**
    - `DatabaseDeadLetterStore.php` — PDO implementation
    - Database migration
 
@@ -95,12 +95,14 @@ Determine:
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Types | `src/Domain/Shared/DeadLetter/` |
-| Application | `src/Application/Shared/DeadLetter/` |
-| Infrastructure | `src/Infrastructure/DeadLetter/` |
-| Unit Tests | `tests/Unit/{Layer}/{Path}/` |
+| Component group | Path |
+|-----------------|------|
+| Types | `src/{architecture-path}/DeadLetter/` |
+| Coordination | `src/{architecture-path}/DeadLetter/` |
+| Persistence | `src/{architecture-path}/DeadLetter/` |
+| Unit Tests | `tests/Unit/{architecture-path}/DeadLetter/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Types and coordination typically live alongside other messaging-shared code; the concrete store lives with other persistence adapters. Adjust to your project's layout.
 
 ---
 

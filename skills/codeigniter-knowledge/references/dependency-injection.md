@@ -49,11 +49,11 @@ declare(strict_types=1);
 // app/Config/Services.php
 namespace Config;
 
-use App\Application\Order\ConfirmOrderUseCase;
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Shared\EventDispatcherInterface;
-use App\Infrastructure\Event\CIEventDispatcher;
-use App\Infrastructure\Persistence\CIOrderRepository;
+use Order\ConfirmOrderUseCase;
+use Repository\OrderRepositoryInterface;
+use Shared\EventDispatcherInterface;
+use Event\CIEventDispatcher;
+use Persistence\CIOrderRepository;
 use App\Models\OrderModel;
 use CodeIgniter\Config\BaseService;
 
@@ -98,7 +98,7 @@ final class Services extends BaseService
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -133,10 +133,10 @@ final class OrderController extends BaseController
 
 declare(strict_types=1);
 
-namespace App\Application\Order;
+namespace Order;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Shared\EventDispatcherInterface;
+use Repository\OrderRepositoryInterface;
+use Shared\EventDispatcherInterface;
 
 final readonly class ConfirmOrderUseCase
 {
@@ -167,10 +167,10 @@ final readonly class ConfirmOrderUseCase
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
-use App\Application\Order\ConfirmOrderUseCase;
-use App\Application\Order\CreateOrderUseCase;
+use Order\ConfirmOrderUseCase;
+use Order\CreateOrderUseCase;
 use App\Controllers\BaseController;
 
 final class OrderController extends BaseController
@@ -231,7 +231,7 @@ declare(strict_types=1);
 // app/Config/Services.php
 namespace Config;
 
-use App\Infrastructure\Logging\StructuredLogger;
+use Logging\StructuredLogger;
 use CodeIgniter\Config\BaseService;
 use Psr\Log\LoggerInterface;
 
@@ -261,7 +261,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\Services;
 

@@ -2,20 +2,20 @@
 
 ## Product Catalog Cache
 
-**File:** `src/Infrastructure/Product/ProductCachedRepository.php`
+**File:** `src/{architecture-path}/ProductCachedRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Product;
+namespace Product;
 
-use Domain\Product\Entity\Product;
-use Domain\Product\Repository\ProductRepositoryInterface;
-use Domain\Shared\Cache\CacheAsideInterface;
-use Infrastructure\Cache\CacheInvalidator;
-use Infrastructure\Cache\CacheKeyGenerator;
+use Entity\Product;
+use Repository\ProductRepositoryInterface;
+use Cache\CacheAsideInterface;
+use Cache\CacheInvalidator;
+use Cache\CacheKeyGenerator;
 
 final readonly class ProductCachedRepository implements ProductRepositoryInterface
 {
@@ -57,11 +57,11 @@ final readonly class ProductCachedRepository implements ProductRepositoryInterfa
 
 declare(strict_types=1);
 
-namespace Application\Product\Listener;
+namespace Listener;
 
-use Domain\Product\Event\ProductUpdated;
-use Infrastructure\Cache\CacheInvalidator;
-use Infrastructure\Cache\CacheKeyGenerator;
+use Event\ProductUpdated;
+use Cache\CacheInvalidator;
+use Cache\CacheKeyGenerator;
 
 final readonly class InvalidateProductCacheListener
 {
@@ -90,10 +90,10 @@ declare(strict_types=1);
 
 // config/services.php
 
-use Infrastructure\Cache\CacheAsideExecutor;
-use Infrastructure\Cache\CacheInvalidator;
-use Infrastructure\Cache\CacheKeyGenerator;
-use Infrastructure\Cache\RedisCacheLock;
+use Cache\CacheAsideExecutor;
+use Cache\CacheInvalidator;
+use Cache\CacheKeyGenerator;
+use Cache\RedisCacheLock;
 
 return static function ($container): void {
     $redis = $container->get(\Redis::class);
@@ -123,16 +123,16 @@ return static function ($container): void {
 
 ### CacheKeyGeneratorTest
 
-**File:** `tests/Unit/Infrastructure/Cache/CacheKeyGeneratorTest.php`
+**File:** `tests/Unit/CacheKeyGeneratorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Cache;
+namespace Tests\Unit\Cache;
 
-use Infrastructure\Cache\CacheKeyGenerator;
+use Cache\CacheKeyGenerator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -193,17 +193,17 @@ final class CacheKeyGeneratorTest extends TestCase
 
 ### CacheAsideExecutorTest
 
-**File:** `tests/Unit/Infrastructure/Cache/CacheAsideExecutorTest.php`
+**File:** `tests/Unit/CacheAsideExecutorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Cache;
+namespace Tests\Unit\Cache;
 
-use Infrastructure\Cache\CacheAsideExecutor;
-use Infrastructure\Cache\CacheLockInterface;
+use Cache\CacheAsideExecutor;
+use Cache\CacheLockInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -325,16 +325,16 @@ final class CacheAsideExecutorTest extends TestCase
 
 ### CacheInvalidatorTest
 
-**File:** `tests/Unit/Infrastructure/Cache/CacheInvalidatorTest.php`
+**File:** `tests/Unit/CacheInvalidatorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Cache;
+namespace Tests\Unit\Cache;
 
-use Infrastructure\Cache\CacheInvalidator;
+use Cache\CacheInvalidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

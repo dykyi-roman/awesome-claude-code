@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Factory;
+namespace Factory;
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\ValueObject\{ValueObjects};
-use Domain\{BoundedContext}\Exception\{ValidationExceptions};
+use Entity\{Entity};
+use ValueObject\{ValueObjects};
+use Exception\{ValidationExceptions};
 
 final class {Name}Factory
 {
@@ -61,11 +61,11 @@ final class {Name}Factory
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Factory;
+namespace Factory;
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\Repository\{RepositoryInterface};
-use Domain\{BoundedContext}\Service\{DomainService};
+use Entity\{Entity};
+use Repository\{RepositoryInterface};
+use Service\{DomainService};
 
 final readonly class {Name}Factory
 {
@@ -90,12 +90,12 @@ final readonly class {Name}Factory
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\{BoundedContext}\Factory;
+namespace Tests\Unit\Factory;
 
-use Domain\{BoundedContext}\Factory\{Name}Factory;
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\ValueObject\{ValueObjects};
-use Domain\{BoundedContext}\Exception\{Exceptions};
+use Factory\{Name}Factory;
+use Entity\{Entity};
+use ValueObject\{ValueObjects};
+use Exception\{Exceptions};
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -28,7 +28,7 @@ An append-only database optimized for storing and retrieving domain events.
 
 declare(strict_types=1);
 
-namespace Domain\Shared\EventStore;
+namespace EventStore;
 
 interface EventStoreInterface
 {
@@ -76,7 +76,7 @@ interface EventStoreInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore;
+namespace EventStore;
 
 final readonly class StoredEvent
 {
@@ -122,10 +122,10 @@ CREATE INDEX idx_event_store_occurred_at ON event_store(occurred_at);
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore;
+namespace EventStore;
 
-use Domain\Shared\EventStore\EventStoreInterface;
-use Domain\Shared\Event\DomainEvent;
+use EventStore\EventStoreInterface;
+use Event\DomainEvent;
 
 final readonly class PostgresEventStore implements EventStoreInterface
 {
@@ -234,9 +234,9 @@ final readonly class PostgresEventStore implements EventStoreInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore;
+namespace EventStore;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 final readonly class EventSerializer
 {
@@ -443,11 +443,11 @@ final readonly class RetryingEventStore implements EventStoreInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 
 final readonly class EventSourcedOrderRepository implements OrderRepositoryInterface
 {

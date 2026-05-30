@@ -189,11 +189,11 @@ declare(strict_types=1);
 
 // BEFORE: Bundle-based (antipattern for domain code)
 // src/OrderBundle/Entity/Order.php
-namespace App\OrderBundle\Entity;
+namespace Entity;
 
 // AFTER: DDD-aligned
 // src/Order/Domain/Entity/Order.php
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 final class Order
 {

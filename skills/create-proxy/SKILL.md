@@ -39,13 +39,13 @@ Creates Proxy pattern infrastructure for controlling access to objects.
 
 ### Step 1: Generate Subject Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the existing subject the proxies wrap.
 
 1. `{Name}Interface.php` — Operations contract
 
 ### Step 2: Generate Proxy
 
-**Path:** `src/Infrastructure/{BoundedContext}/Proxy/`
+Place at the integration boundary where infrastructure concerns (lazy loading, caching, access control, logging) wire into the abstraction.
 
 1. `Lazy{Name}Proxy.php` — Lazy initialization
 2. `Caching{Name}Proxy.php` — Result caching
@@ -62,10 +62,12 @@ Creates Proxy pattern infrastructure for controlling access to objects.
 
 | Component | Path |
 |-----------|------|
-| Subject Interface | `src/Domain/{BoundedContext}/` |
-| Real Subject | `src/Domain/` or `src/Infrastructure/` |
-| Proxy | `src/Infrastructure/{BoundedContext}/Proxy/` |
-| Unit Tests | `tests/Unit/Infrastructure/{BoundedContext}/Proxy/` |
+| Subject Interface | `src/{architecture-path}/{Name}Interface.php` |
+| Real Subject | `src/{architecture-path}/{Name}.php` |
+| Proxy | `src/{architecture-path}/Proxy/{Type}{Name}Proxy.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Proxy/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The subject interface and real subject live with the related code; proxies live with other infrastructure adapters since they typically pull in cross-cutting infrastructure (caching, logging, permissions). Adjust to your project's layout.
 
 ---
 

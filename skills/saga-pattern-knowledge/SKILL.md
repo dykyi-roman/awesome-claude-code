@@ -113,7 +113,7 @@ Quick reference for Saga pattern and PHP implementation guidelines for distribut
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 enum SagaState: string
 {
@@ -148,7 +148,7 @@ enum SagaState: string
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 interface SagaStepInterface
 {
@@ -169,7 +169,7 @@ interface SagaStepInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final class SagaContext
 {
@@ -211,12 +211,12 @@ final class SagaContext
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaState;
-use Domain\Shared\Saga\SagaStepInterface;
-use Domain\Shared\Saga\StepResult;
+use Saga\SagaContext;
+use Saga\SagaState;
+use Saga\SagaStepInterface;
+use Saga\StepResult;
 
 final class SagaOrchestrator
 {

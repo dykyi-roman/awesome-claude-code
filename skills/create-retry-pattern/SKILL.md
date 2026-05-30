@@ -41,7 +41,7 @@ Creates Retry pattern infrastructure for handling transient failures.
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Resilience/Retry/`
+Place alongside other resilience infrastructure.
 
 1. `BackoffStrategy.php` — Enum for delay strategies
 2. `RetryPolicy.php` — Configuration with shouldRetry/calculateDelay
@@ -50,7 +50,7 @@ Creates Retry pattern infrastructure for handling transient failures.
 
 ### Step 2: Generate Executor
 
-**Path:** `src/Infrastructure/Resilience/Retry/`
+Co-located with the core components in the same `Retry/` folder.
 
 1. `RetryExecutor.php` — Main retry logic with callbacks
 2. `SleepInterface.php` — For testability
@@ -66,8 +66,10 @@ Creates Retry pattern infrastructure for handling transient failures.
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Resilience/Retry/` |
-| Unit Tests | `tests/Unit/Infrastructure/Resilience/Retry/` |
+| All Classes | `src/{architecture-path}/Retry/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Retry/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Retry typically lives alongside other resilience infrastructure (bulkhead, circuit breaker, timeout). Adjust to your project's layout.
 
 ---
 

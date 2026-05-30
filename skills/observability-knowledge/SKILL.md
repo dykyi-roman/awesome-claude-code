@@ -75,7 +75,7 @@ Quick reference for the three pillars of observability, instrumentation patterns
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
@@ -106,7 +106,7 @@ final readonly class CorrelationIdProcessor implements ProcessorInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 final class CorrelationIdHolder
 {
@@ -165,7 +165,7 @@ tracestate: vendor1=value1,vendor2=value2
 
 declare(strict_types=1);
 
-namespace Infrastructure\Telemetry;
+namespace Telemetry;
 
 use OpenTelemetry\API\Globals;
 use OpenTelemetry\API\Trace\SpanKind;
@@ -272,7 +272,7 @@ final readonly class TracingService
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\RenderTextFormat;

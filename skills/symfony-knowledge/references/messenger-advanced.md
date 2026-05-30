@@ -114,7 +114,7 @@ Grep: "#\\[AsMessageHandler" --glob "src/**/*.php" --output_mode count
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Messenger;
+namespace Infrastructure\Messenger;
 
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
@@ -183,7 +183,7 @@ php bin/console messenger:failed:remove 42
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Messenger;
+namespace Infrastructure\Messenger;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
@@ -220,7 +220,7 @@ Custom middleware for cross-cutting concerns: logging, correlation, validation, 
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Messenger\Middleware;
+namespace Middleware;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -273,10 +273,10 @@ final readonly class CommandLoggingMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Messenger\Middleware;
+namespace Middleware;
 
-use App\Shared\Domain\AggregateRoot;
-use App\Shared\Domain\EventDispatcherInterface;
+use Domain\AggregateRoot;
+use Domain\EventDispatcherInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
@@ -325,7 +325,7 @@ Stamps carry metadata through the middleware pipeline.
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Messenger\Stamp;
+namespace Infrastructure\Messenger\Stamp;
 
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
@@ -396,7 +396,7 @@ Custom serializer for versioned message schemas and cross-service communication.
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Messenger;
+namespace Infrastructure\Messenger;
 
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;

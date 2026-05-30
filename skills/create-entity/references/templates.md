@@ -2,18 +2,18 @@
 
 ## Entity Template
 
-**File:** `src/Domain/{BoundedContext}/Entity/{Name}.php`
+**File:** `src/{architecture-path}/Entity/{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Entity;
+namespace Entity;
 
-use Domain\{BoundedContext}\ValueObject\{Name}Id;
-use Domain\{BoundedContext}\Enum\{Name}Status;
-use Domain\{BoundedContext}\Exception\{Exceptions};
+use ValueObject\{Name}Id;
+use Enum\{Name}Status;
+use Exception\{Exceptions};
 
 final class {Name}
 {
@@ -51,18 +51,18 @@ final class {Name}
 
 ## Test Template
 
-**File:** `tests/Unit/Domain/{BoundedContext}/Entity/{Name}Test.php`
+**File:** `tests/Unit/{architecture-path}/Entity/{Name}Test.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\{BoundedContext}\Entity;
+namespace Tests\Unit\Entity;
 
-use Domain\{BoundedContext}\Entity\{Name};
-use Domain\{BoundedContext}\ValueObject\{Name}Id;
-use Domain\{BoundedContext}\Enum\{Name}Status;
+use Entity\{Name};
+use ValueObject\{Name}Id;
+use Enum\{Name}Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -93,7 +93,7 @@ final class {Name}Test extends TestCase
 
 ## State Transition Enum Template
 
-**File:** `src/Domain/{BoundedContext}/Enum/{Name}Status.php`
+**File:** `src/{architecture-path}/Enum/{Name}Status.php`
 
 ```php
 enum OrderStatus: string

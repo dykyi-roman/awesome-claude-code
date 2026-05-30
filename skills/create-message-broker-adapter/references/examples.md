@@ -13,7 +13,7 @@ Real-world usage examples and unit tests for message broker adapters.
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderCreated
 {
@@ -44,14 +44,14 @@ final readonly class OrderCreated
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase\CreateOrder;
+namespace UseCase\CreateOrder;
 
-use Domain\Order\Order;
-use Domain\Order\OrderId;
-use Domain\Order\OrderRepositoryInterface;
-use Domain\Order\Event\OrderCreated;
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
+use Order\Order;
+use Order\OrderId;
+use Order\OrderRepositoryInterface;
+use Event\OrderCreated;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
 
 final readonly class CreateOrderUseCase
 {
@@ -110,10 +110,10 @@ final readonly class CreateOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -202,9 +202,9 @@ final class ConsumeMessagesCommand extends Command
 
 declare(strict_types=1);
 
-namespace Application\Shared\Messaging;
+namespace Messaging;
 
-use Domain\Shared\Messaging\Message;
+use Messaging\Message;
 use Psr\Log\LoggerInterface;
 
 interface MessageHandlerInterface
@@ -312,12 +312,12 @@ parameters:
             visibility_timeout: '%env(int:AWS_SQS_VISIBILITY_TIMEOUT)%'
 
 services:
-    Infrastructure\Messaging\MessageBrokerFactory:
+    Messaging\MessageBrokerFactory:
         arguments:
             $config: '%message_broker.config%'
 
-    Domain\Shared\Messaging\MessageBrokerInterface:
-        factory: ['@Infrastructure\Messaging\MessageBrokerFactory', 'create']
+    Messaging\MessageBrokerInterface:
+        factory: ['@Messaging\MessageBrokerFactory', 'create']
         arguments:
             $driver: '%env(MESSAGE_BROKER_DRIVER)%'
 ```
@@ -333,12 +333,12 @@ services:
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class OutboxProcessor
@@ -435,10 +435,10 @@ final readonly class OutboxProcessor
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Messaging;
+namespace Tests\Unit\Messaging;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageId;
+use Messaging\Message;
+use Messaging\MessageId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -527,11 +527,11 @@ final class MessageTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Messaging;
+namespace Tests\Unit\Messaging;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageId;
-use Infrastructure\Messaging\JsonMessageSerializer;
+use Messaging\Message;
+use Messaging\MessageId;
+use Messaging\JsonMessageSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -621,10 +621,10 @@ final class JsonMessageSerializerTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Messaging\InMemory;
+namespace Tests\Unit\InMemory;
 
-use Domain\Shared\Messaging\Message;
-use Infrastructure\Messaging\InMemory\InMemoryAdapter;
+use Messaging\Message;
+use Messaging\InMemory\InMemoryAdapter;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -734,10 +734,10 @@ final class InMemoryAdapterTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Messaging;
+namespace Tests\Unit\Messaging;
 
-use Infrastructure\Messaging\InMemory\InMemoryAdapter;
-use Infrastructure\Messaging\MessageBrokerFactory;
+use Messaging\InMemory\InMemoryAdapter;
+use Messaging\MessageBrokerFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

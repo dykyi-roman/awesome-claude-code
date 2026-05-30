@@ -7,7 +7,7 @@ description: Generates DI Container configuration for PHP 8.4. Creates module cl
 
 ## Overview
 
-Generates Dependency Injection container configuration components for PHP 8.4 following DDD and Clean Architecture principles.
+Generates Dependency Injection container configuration components for PHP 8.4. Works across architectures — adapt path placeholders to your project's layout.
 
 ## When to Use
 
@@ -21,11 +21,11 @@ Generates Dependency Injection container configuration components for PHP 8.4 fo
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| Module | `src/Infrastructure/DependencyInjection/{Context}Module.php` | Service registration |
-| ServiceProvider | `src/Infrastructure/DependencyInjection/{Context}ServiceProvider.php` | Laravel-style provider |
-| Extension | `src/Infrastructure/DependencyInjection/{Context}Extension.php` | Symfony bundle extension |
+| Module | `src/{architecture-path}/DependencyInjection/{Context}Module.php` | Service registration |
+| ServiceProvider | `src/{architecture-path}/DependencyInjection/{Context}ServiceProvider.php` | Laravel-style provider |
+| Extension | `src/{architecture-path}/DependencyInjection/{Context}Extension.php` | Symfony bundle extension |
 | Configuration | `config/services/{context}.yaml` | YAML configuration |
-| CompilerPass | `src/Infrastructure/DependencyInjection/Compiler/{Name}Pass.php` | Service manipulation |
+| CompilerPass | `src/{architecture-path}/DependencyInjection/Compiler/{Name}Pass.php` | Service manipulation |
 
 ## Input Requirements
 
@@ -37,19 +37,20 @@ Generates Dependency Injection container configuration components for PHP 8.4 fo
 ## File Placement
 
 ```
-src/
-└── Infrastructure/
-    └── DependencyInjection/
-        ├── {Context}Module.php           # Pure PHP registration
-        ├── {Context}ServiceProvider.php  # Laravel
-        ├── {Context}Extension.php        # Symfony
-        └── Compiler/
-            └── {Handler}Pass.php         # Compiler passes
+src/{architecture-path}/
+└── DependencyInjection/
+    ├── {Context}Module.php           # Pure PHP registration
+    ├── {Context}ServiceProvider.php  # Laravel
+    ├── {Context}Extension.php        # Symfony
+    └── Compiler/
+        └── {Handler}Pass.php         # Compiler passes
 
 config/
 └── services/
-    └── {context}.yaml                    # YAML config
+    └── {context}.yaml                # YAML config
 ```
+
+> `{architecture-path}` represents your project's architecture-specific folders. DI configuration typically lives with other infrastructure / bootstrap code. Adjust to your project's layout.
 
 ## Template: Module Class (Framework-agnostic)
 
@@ -58,12 +59,12 @@ config/
 
 declare(strict_types=1);
 
-namespace App\{Context}\Infrastructure\DependencyInjection;
+namespace DependencyInjection;
 
-use App\{Context}\Application\Command\CreateOrderHandler;
-use App\{Context}\Application\Query\GetOrderHandler;
-use App\{Context}\Domain\Repository\OrderRepository;
-use App\{Context}\Infrastructure\Persistence\DoctrineOrderRepository;
+use Command\CreateOrderHandler;
+use Query\GetOrderHandler;
+use Repository\OrderRepository;
+use Persistence\DoctrineOrderRepository;
 
 /**
  * Dependency injection module for {Context} bounded context.
@@ -143,7 +144,7 @@ final readonly class {Context}Module
 
 declare(strict_types=1);
 
-namespace App\{Context}\Infrastructure\DependencyInjection;
+namespace DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -210,33 +211,33 @@ services:
     public: false
 
   # Repositories
-  App\{Context}\Domain\Repository\OrderRepository:
-    class: App\{Context}\Infrastructure\Persistence\DoctrineOrderRepository
+  Repository\OrderRepository:
+    class: Persistence\DoctrineOrderRepository
 
   # Command Handlers (auto-tagged by messenger)
-  App\{Context}\Application\Command\:
-    resource: '../../../src/{Context}/Application/Command/*Handler.php'
+  Command\:
+    resource: '../../../src/{architecture-path}/Command/*Handler.php'
     tags:
       - { name: messenger.message_handler }
 
   # Query Handlers
-  App\{Context}\Application\Query\:
-    resource: '../../../src/{Context}/Application/Query/*Handler.php'
+  Query\:
+    resource: '../../../src/{architecture-path}/Query/*Handler.php'
     tags:
       - { name: messenger.message_handler }
 
   # Domain Services
-  App\{Context}\Domain\Service\:
-    resource: '../../../src/{Context}/Domain/Service/*.php'
+  Service\:
+    resource: '../../../src/{architecture-path}/Service/*.php'
 
   # Adapters (Payment Gateways as tagged services)
-  App\{Context}\Infrastructure\Adapter\PaymentGateway\:
-    resource: '../../../src/{Context}/Infrastructure/Adapter/PaymentGateway/*.php'
+  Adapter\PaymentGateway\:
+    resource: '../../../src/{architecture-path}/Adapter/PaymentGateway/*.php'
     tags:
       - { name: app.payment_gateway }
 
   # Payment Gateway Registry
-  App\{Context}\Infrastructure\PaymentGatewayRegistry:
+  PaymentGatewayRegistry:
     arguments:
       $gateways: !tagged_iterator app.payment_gateway
 ```
@@ -248,11 +249,11 @@ services:
 
 declare(strict_types=1);
 
-namespace App\{Context}\Infrastructure\DependencyInjection;
+namespace DependencyInjection;
 
-use App\{Context}\Application\Command\CreateOrderHandler;
-use App\{Context}\Domain\Repository\OrderRepository;
-use App\{Context}\Infrastructure\Persistence\DoctrineOrderRepository;
+use Command\CreateOrderHandler;
+use Repository\OrderRepository;
+use Persistence\DoctrineOrderRepository;
 use Illuminate\Support\ServiceProvider;
 
 final class {Context}ServiceProvider extends ServiceProvider
@@ -341,7 +342,7 @@ final class {Context}ServiceProvider extends ServiceProvider
 
 declare(strict_types=1);
 
-namespace App\{Context}\Infrastructure\DependencyInjection\Compiler;
+namespace Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -375,8 +376,8 @@ final class PaymentGatewayPass implements CompilerPassInterface
 
 declare(strict_types=1);
 
-use App\{Context}\Domain\Repository\OrderRepository;
-use App\{Context}\Infrastructure\Persistence\DoctrineOrderRepository;
+use Repository\OrderRepository;
+use Persistence\DoctrineOrderRepository;
 use DI\ContainerBuilder;
 
 return function (ContainerBuilder $containerBuilder): void {
@@ -419,11 +420,11 @@ return function (ContainerBuilder $containerBuilder): void {
 
 declare(strict_types=1);
 
-namespace Tests\{Context}\Infrastructure\DependencyInjection;
+namespace Tests\{Context}\DependencyInjection;
 
-use App\{Context}\Domain\Repository\OrderRepository;
-use App\{Context}\Infrastructure\DependencyInjection\{Context}Module;
-use App\{Context}\Infrastructure\Persistence\DoctrineOrderRepository;
+use Repository\OrderRepository;
+use DependencyInjection\{Context}Module;
+use Persistence\DoctrineOrderRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

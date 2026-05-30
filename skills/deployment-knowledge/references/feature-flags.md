@@ -29,7 +29,7 @@ Detailed patterns for feature flags in PHP 8.4 projects with DDD architecture, m
 
 declare(strict_types=1);
 
-namespace Domain\FeatureFlag;
+namespace FeatureFlag;
 
 enum FlagType: string
 {
@@ -45,7 +45,7 @@ enum FlagType: string
 
 declare(strict_types=1);
 
-namespace Domain\FeatureFlag;
+namespace FeatureFlag;
 
 final readonly class FeatureFlag
 {
@@ -92,7 +92,7 @@ final readonly class FeatureFlag
 
 declare(strict_types=1);
 
-namespace Domain\FeatureFlag;
+namespace FeatureFlag;
 
 interface FeatureFlagResolverInterface
 {
@@ -111,11 +111,11 @@ interface FeatureFlagResolverInterface
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Service;
 
-use Domain\FeatureFlag\FeatureFlag;
-use Domain\FeatureFlag\FeatureFlagResolverInterface;
-use Domain\FeatureFlag\FlagType;
+use FeatureFlag\FeatureFlag;
+use FeatureFlag\FeatureFlagResolverInterface;
+use FeatureFlag\FlagType;
 
 final readonly class FeatureFlagService implements FeatureFlagResolverInterface
 {
@@ -239,10 +239,10 @@ features:
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
-use Domain\FeatureFlag\FeatureFlag;
-use Domain\FeatureFlag\FlagType;
+use FeatureFlag\FeatureFlag;
+use FeatureFlag\FlagType;
 use Symfony\Component\Yaml\Yaml;
 
 final readonly class YamlFeatureFlagLoader
@@ -287,10 +287,10 @@ final readonly class YamlFeatureFlagLoader
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
-use Domain\FeatureFlag\FeatureFlag;
-use Domain\FeatureFlag\FlagType;
+use FeatureFlag\FeatureFlag;
+use FeatureFlag\FlagType;
 use Doctrine\DBAL\Connection;
 
 final readonly class DatabaseFeatureFlagLoader
@@ -358,10 +358,10 @@ CREATE TABLE feature_flags (
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
-use Domain\FeatureFlag\FeatureFlag;
-use Domain\FeatureFlag\FlagType;
+use FeatureFlag\FeatureFlag;
+use FeatureFlag\FlagType;
 
 final readonly class RedisFeatureFlagLoader
 {
@@ -446,9 +446,9 @@ final readonly class RedisFeatureFlagLoader
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
-use Domain\FeatureFlag\FeatureFlag;
+use FeatureFlag\FeatureFlag;
 
 final class CachedFeatureFlagLoader
 {
@@ -507,7 +507,7 @@ final class CachedFeatureFlagLoader
 
 declare(strict_types=1);
 
-namespace Application\UseCase\FeatureFlag;
+namespace FeatureFlag;
 
 final readonly class CleanupExpiredFlagsUseCase
 {
@@ -555,7 +555,7 @@ final readonly class CleanupExpiredFlagsUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag\Console;
+namespace Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -610,7 +610,7 @@ final class DetectStaleFlagsCommand extends Command
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 final readonly class EnvironmentFeatureFlagResolver
 {
@@ -648,7 +648,7 @@ services:
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 final readonly class RuntimeFeatureFlagResolver
 {
@@ -684,9 +684,9 @@ final readonly class RuntimeFeatureFlagResolver
 
 declare(strict_types=1);
 
-namespace Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
-use Domain\FeatureFlag\FeatureFlagResolverInterface;
+use FeatureFlag\FeatureFlagResolverInterface;
 
 final readonly class ChainedFeatureFlagResolver implements FeatureFlagResolverInterface
 {

@@ -26,8 +26,8 @@ How ADR integrates with DDD Domain and Application layers.
 ├─────────────────────────────────────────────────────────┤
 │                     DOMAIN LAYER                         │
 │  ┌────────────┐  ┌────────────┐  ┌─────────────────┐   │
-│  │  Entities  │  │   Value    │  │   Repository    │   │
-│  │            │  │  Objects   │  │   Interfaces    │   │
+│  │  Entities  │  │   Value    │  │   Repositories  │   │
+│  │            │  │  Objects   │  │   (the pattern) │   │
 │  └────────────┘  └────────────┘  └─────────────────┘   │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -41,7 +41,7 @@ How ADR integrates with DDD Domain and Application layers.
 
 declare(strict_types=1);
 
-namespace Application\User\UseCase\CreateUser;
+namespace UseCase\CreateUser;
 
 // Command (Application Layer)
 final readonly class CreateUserCommand
@@ -156,7 +156,7 @@ final readonly class CreateUserResult
 
 declare(strict_types=1);
 
-namespace Application\User\UseCase\GetUserById;
+namespace UseCase\GetUserById;
 
 // Query (Application Layer)
 final readonly class GetUserByIdQuery
@@ -325,7 +325,7 @@ Transactions are managed in Application layer, not in Action or Responder:
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase\CreateOrder;
+namespace UseCase\CreateOrder;
 
 final readonly class CreateOrderHandler
 {

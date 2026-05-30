@@ -2,16 +2,16 @@
 
 ## Order Creation with Idempotency
 
-**File:** `src/Presentation/Api/Order/CreateOrderAction.php`
+**File:** `src/{architecture-path}/Action/CreateOrderAction.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
-use Application\Order\CreateOrderUseCase;
+use Order\CreateOrderUseCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -51,10 +51,10 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Idempotency\IdempotencyMiddleware;
-use Infrastructure\Idempotency\RedisIdempotencyStorage;
+use Idempotency\IdempotencyMiddleware;
+use Idempotency\RedisIdempotencyStorage;
 
 final readonly class MiddlewarePipeline
 {
@@ -77,18 +77,18 @@ final readonly class MiddlewarePipeline
 
 ## Payment Webhook Deduplication
 
-**File:** `src/Presentation/Api/Webhook/PaymentWebhookAction.php`
+**File:** `src/{architecture-path}/Action/PaymentWebhookAction.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Webhook;
+namespace Api\Webhook;
 
-use Infrastructure\Idempotency\IdempotencyKey;
-use Infrastructure\Idempotency\IdempotencyStorageInterface;
-use Infrastructure\Idempotency\StoredResponse;
+use Idempotency\IdempotencyKey;
+use Idempotency\IdempotencyStorageInterface;
+use Idempotency\StoredResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -127,16 +127,16 @@ final readonly class PaymentWebhookAction
 
 ### IdempotencyKeyTest
 
-**File:** `tests/Unit/Infrastructure/Idempotency/IdempotencyKeyTest.php`
+**File:** `tests/Unit/IdempotencyKeyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Idempotency;
+namespace Tests\Unit\Idempotency;
 
-use Infrastructure\Idempotency\IdempotencyKey;
+use Idempotency\IdempotencyKey;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -187,18 +187,18 @@ final class IdempotencyKeyTest extends TestCase
 
 ### IdempotencyMiddlewareTest
 
-**File:** `tests/Unit/Infrastructure/Idempotency/IdempotencyMiddlewareTest.php`
+**File:** `tests/Unit/IdempotencyMiddlewareTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Idempotency;
+namespace Tests\Unit\Idempotency;
 
-use Infrastructure\Idempotency\IdempotencyMiddleware;
-use Infrastructure\Idempotency\IdempotencyStorageInterface;
-use Infrastructure\Idempotency\StoredResponse;
+use Idempotency\IdempotencyMiddleware;
+use Idempotency\IdempotencyStorageInterface;
+use Idempotency\StoredResponse;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

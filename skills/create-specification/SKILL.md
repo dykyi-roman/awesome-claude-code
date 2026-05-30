@@ -32,7 +32,7 @@ Generate DDD-compliant Specifications for encapsulating business rules and filte
 
 ### Step 1: Generate Base Infrastructure
 
-**Path:** `src/Domain/Shared/Specification/`
+Place alongside other shared domain primitives.
 
 1. `SpecificationInterface.php` — Generic interface with `isSatisfiedBy()`
 2. `AbstractSpecification.php` — Base with AND/OR/NOT methods
@@ -42,13 +42,13 @@ Generate DDD-compliant Specifications for encapsulating business rules and filte
 
 ### Step 2: Generate Concrete Specification
 
-**Path:** `src/Domain/{BoundedContext}/Specification/`
+Place inside the bounded context whose business rule the specification expresses.
 
 1. `{Name}Specification.php` — Implements business rule
 
 ### Step 3: Generate Tests
 
-**Path:** `tests/Unit/Domain/{BoundedContext}/Specification/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -56,11 +56,13 @@ Generate DDD-compliant Specifications for encapsulating business rules and filte
 
 | Component | Path |
 |-----------|------|
-| Base Interface | `src/Domain/Shared/Specification/` |
-| Abstract Spec | `src/Domain/Shared/Specification/` |
-| Composites | `src/Domain/Shared/Specification/` |
-| Concrete Specs | `src/Domain/{BoundedContext}/Specification/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Specification/` |
+| Base Interface | `src/{architecture-path}/Specification/SpecificationInterface.php` |
+| Abstract Spec | `src/{architecture-path}/Specification/AbstractSpecification.php` |
+| Composites | `src/{architecture-path}/Specification/` |
+| Concrete Specs | `src/{architecture-path}/Specification/{Name}Specification.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Specification/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Base specification types are shared across contexts; concrete specifications live inside the bounded context whose business rule they express. Adjust to your project's layout.
 
 ---
 

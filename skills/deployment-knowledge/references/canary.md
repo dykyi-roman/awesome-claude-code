@@ -320,7 +320,7 @@ done
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Monitoring\Middleware;
+namespace Middleware;
 
 use Prometheus\CollectorRegistry;
 use Psr\Http\Message\ResponseInterface;

@@ -7,22 +7,22 @@
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\DependencyInjection;
+namespace DependencyInjection;
 
-use App\Order\Application\Command\CancelOrderHandler;
-use App\Order\Application\Command\CreateOrderHandler;
-use App\Order\Application\Command\ShipOrderHandler;
-use App\Order\Application\Query\GetOrderHandler;
-use App\Order\Application\Query\ListOrdersHandler;
-use App\Order\Domain\Factory\OrderFactory;
-use App\Order\Domain\Repository\OrderRepository;
-use App\Order\Domain\Service\OrderPricingService;
-use App\Order\Infrastructure\Factory\DefaultOrderFactory;
-use App\Order\Infrastructure\Persistence\DoctrineOrderRepository;
-use App\Order\Infrastructure\Service\DefaultOrderPricingService;
-use App\Shared\Application\Command\CommandBus;
-use App\Shared\Application\Query\QueryBus;
-use App\Shared\Domain\Event\EventDispatcher;
+use Command\CancelOrderHandler;
+use Command\CreateOrderHandler;
+use Command\ShipOrderHandler;
+use Query\GetOrderHandler;
+use Query\ListOrdersHandler;
+use Factory\OrderFactory;
+use Repository\OrderRepository;
+use Service\OrderPricingService;
+use Factory\DefaultOrderFactory;
+use Persistence\DoctrineOrderRepository;
+use Service\DefaultOrderPricingService;
+use Command\CommandBus;
+use Query\QueryBus;
+use Event\EventDispatcher;
 
 final readonly class OrderModule
 {
@@ -94,10 +94,10 @@ final readonly class OrderModule
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure;
+namespace Order\Infrastructure;
 
-use App\Order\Infrastructure\DependencyInjection\Compiler\OrderHandlerPass;
-use App\Order\Infrastructure\DependencyInjection\OrderExtension;
+use Compiler\OrderHandlerPass;
+use DependencyInjection\OrderExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -124,11 +124,11 @@ final class OrderBundle extends Bundle
 
 declare(strict_types=1);
 
-namespace App\Providers;
+namespace Providers;
 
-use App\Order\Infrastructure\DependencyInjection\OrderServiceProvider;
-use App\Payment\Infrastructure\DependencyInjection\PaymentServiceProvider;
-use App\Shipping\Infrastructure\DependencyInjection\ShippingServiceProvider;
+use DependencyInjection\OrderServiceProvider;
+use DependencyInjection\PaymentServiceProvider;
+use DependencyInjection\ShippingServiceProvider;
 use Illuminate\Support\AggregateServiceProvider;
 
 final class ModuleServiceProvider extends AggregateServiceProvider
@@ -264,9 +264,9 @@ declare(strict_types=1);
 
 namespace Tests\Order\Infrastructure\DependencyInjection;
 
-use App\Order\Domain\Repository\OrderRepository;
-use App\Order\Infrastructure\DependencyInjection\OrderModule;
-use App\Order\Infrastructure\Persistence\DoctrineOrderRepository;
+use Repository\OrderRepository;
+use DependencyInjection\OrderModule;
+use Persistence\DoctrineOrderRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Order\Domain\Entity;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Event\OrderConfirmedEvent;
-use App\Order\Domain\Exception\InvalidOrderStateException;
-use App\Order\Domain\ValueObject\CustomerId;
-use App\Order\Domain\ValueObject\OrderId;
+use Entity\Order;
+use Event\OrderConfirmedEvent;
+use Exception\InvalidOrderStateException;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -88,9 +88,9 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Order\Application;
 
-use App\Order\Application\Command\CreateOrderCommand;
-use App\Order\Application\Handler\CreateOrderHandler;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
+use Command\CreateOrderCommand;
+use Handler\CreateOrderHandler;
+use Repository\OrderRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -199,9 +199,9 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Order;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\ValueObject\CustomerId;
-use App\Order\Domain\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -273,9 +273,9 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Order;
 
-use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\ValueObject\OrderId;
+use Repository\OrderRepositoryInterface;
+use Entity\Order;
+use ValueObject\OrderId;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class ShowOrderWithMockTest extends WebTestCase
@@ -317,11 +317,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Order\Application;
 
-use App\Order\Application\Command\ConfirmOrderCommand;
-use App\Order\Application\Handler\ConfirmOrderHandler;
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Order\Domain\ValueObject\OrderId;
+use Command\ConfirmOrderCommand;
+use Handler\ConfirmOrderHandler;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -355,8 +355,8 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Order;
 
-use App\Order\Application\Command\CreateOrderCommand;
-use App\Order\Domain\Event\OrderCreatedEvent;
+use Command\CreateOrderCommand;
+use Event\OrderCreatedEvent;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;

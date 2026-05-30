@@ -2,14 +2,14 @@
 
 ## Component Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}Interface.php`
+**File:** `src/{architecture-path}/{Name}Interface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}Interface
 {
@@ -21,14 +21,14 @@ interface {Name}Interface
 
 ## Leaf
 
-**File:** `src/Domain/{BoundedContext}/{Name}.php`
+**File:** `src/{architecture-path}/{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 final readonly class {Name} implements {Name}Interface
 {
@@ -47,14 +47,14 @@ final readonly class {Name} implements {Name}Interface
 
 ## Composite
 
-**File:** `src/Domain/{BoundedContext}/{Name}Composite.php`
+**File:** `src/{architecture-path}/{Name}Composite.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 final class {Name}Composite implements {Name}Interface
 {
@@ -95,14 +95,14 @@ final class {Name}Composite implements {Name}Interface
 
 ## Menu Interface
 
-**File:** `src/Domain/Menu/MenuItemInterface.php`
+**File:** `src/{architecture-path}/MenuItemInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Menu;
+namespace Menu;
 
 interface MenuItemInterface
 {
@@ -116,14 +116,14 @@ interface MenuItemInterface
 
 ## Menu Item (Leaf)
 
-**File:** `src/Domain/Menu/MenuItem.php`
+**File:** `src/{architecture-path}/MenuItem.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Menu;
+namespace Menu;
 
 final readonly class MenuItem implements MenuItemInterface
 {
@@ -149,14 +149,14 @@ final readonly class MenuItem implements MenuItemInterface
 
 ## Menu Composite
 
-**File:** `src/Domain/Menu/MenuComposite.php`
+**File:** `src/{architecture-path}/MenuComposite.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Menu;
+namespace Menu;
 
 final class MenuComposite implements MenuItemInterface
 {

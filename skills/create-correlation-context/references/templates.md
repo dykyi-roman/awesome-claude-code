@@ -4,7 +4,7 @@ Complete PHP 8.4 implementations for all Correlation Context components.
 
 ---
 
-## Domain Layer
+## Types
 
 ### CorrelationId Value Object
 
@@ -13,7 +13,7 @@ Complete PHP 8.4 implementations for all Correlation Context components.
 
 declare(strict_types=1);
 
-namespace App\Domain\Shared\Correlation;
+namespace Correlation;
 
 final readonly class CorrelationId implements \Stringable, \JsonSerializable
 {
@@ -54,7 +54,7 @@ final readonly class CorrelationId implements \Stringable, \JsonSerializable
 
 declare(strict_types=1);
 
-namespace App\Domain\Shared\Correlation;
+namespace Correlation;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -122,7 +122,7 @@ final readonly class CorrelationContext
 
 ---
 
-## Presentation Layer
+## HTTP Middleware
 
 ### CorrelationContextMiddleware (PSR-15)
 
@@ -131,9 +131,9 @@ final readonly class CorrelationContext
 
 declare(strict_types=1);
 
-namespace App\Presentation\Middleware;
+namespace Middleware;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
+use Correlation\CorrelationContext;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -161,7 +161,7 @@ final readonly class CorrelationContextMiddleware implements MiddlewareInterface
 
 ---
 
-## Infrastructure Layer
+## Logging + Messaging Adapters
 
 ### CorrelationLogProcessor (Monolog)
 
@@ -170,9 +170,9 @@ final readonly class CorrelationContextMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logging;
+namespace Logging;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
+use Correlation\CorrelationContext;
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
@@ -208,9 +208,10 @@ final class CorrelationLogProcessor implements ProcessorInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Messaging;
+namespace Messaging;
 
-use App\Domain\Shared\Correlation\CorrelationId;
+use Correlation\CorrelationContext;
+use Correlation\CorrelationId;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
 final readonly class CorrelationMessageStamp implements StampInterface
@@ -221,7 +222,7 @@ final readonly class CorrelationMessageStamp implements StampInterface
     ) {
     }
 
-    public static function fromContext(\App\Domain\Shared\Correlation\CorrelationContext $context): self
+    public static function fromContext(CorrelationContext $context): self
     {
         return new self(
             correlationId: $context->correlationId->value,
@@ -259,9 +260,9 @@ final readonly class CorrelationMessageStamp implements StampInterface
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Correlation;
+namespace Tests\Unit\Correlation;
 
-use App\Domain\Shared\Correlation\CorrelationId;
+use Correlation\CorrelationId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -317,10 +318,10 @@ final class CorrelationIdTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Correlation;
+namespace Tests\Unit\Correlation;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
-use App\Domain\Shared\Correlation\CorrelationId;
+use Correlation\CorrelationContext;
+use Correlation\CorrelationId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -381,10 +382,10 @@ final class CorrelationContextTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Middleware;
+namespace Tests\Unit\Middleware;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
-use App\Presentation\Middleware\CorrelationContextMiddleware;
+use Correlation\CorrelationContext;
+use Middleware\CorrelationContextMiddleware;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -451,11 +452,11 @@ final class CorrelationContextMiddlewareTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Logging;
+namespace Tests\Unit\Logging;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
-use App\Domain\Shared\Correlation\CorrelationId;
-use App\Infrastructure\Logging\CorrelationLogProcessor;
+use Correlation\CorrelationContext;
+use Correlation\CorrelationId;
+use Logging\CorrelationLogProcessor;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\CoversClass;

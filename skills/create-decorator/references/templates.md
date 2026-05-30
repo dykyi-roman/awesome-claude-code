@@ -2,14 +2,14 @@
 
 ## Component Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}Interface.php`
+**File:** `src/{architecture-path}/{Name}Interface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}Interface
 {
@@ -21,16 +21,16 @@ interface {Name}Interface
 
 ## Abstract Decorator
 
-**File:** `src/Domain/{BoundedContext}/Decorator/Abstract{Name}Decorator.php`
+**File:** `src/{architecture-path}/Decorator/Abstract{Name}Decorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Decorator;
+namespace Decorator;
 
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\{Name}Interface;
 
 abstract class Abstract{Name}Decorator implements {Name}Interface
 {
@@ -49,16 +49,16 @@ abstract class Abstract{Name}Decorator implements {Name}Interface
 
 ## Concrete Decorator
 
-**File:** `src/Domain/{BoundedContext}/Decorator/{Feature}{Name}Decorator.php`
+**File:** `src/{architecture-path}/Decorator/{Feature}{Name}Decorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Decorator;
+namespace Decorator;
 
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\{Name}Interface;
 
 final readonly class {Feature}{Name}Decorator extends Abstract{Name}Decorator
 {
@@ -86,17 +86,17 @@ final readonly class {Feature}{Name}Decorator extends Abstract{Name}Decorator
 
 ## Order Service Interface
 
-**File:** `src/Domain/Order/Service/OrderServiceInterface.php`
+**File:** `src/{architecture-path}/Service/OrderServiceInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Service;
+namespace Service;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 
 interface OrderServiceInterface
 {
@@ -112,18 +112,18 @@ interface OrderServiceInterface
 
 ## Abstract Order Service Decorator
 
-**File:** `src/Domain/Order/Decorator/AbstractOrderServiceDecorator.php`
+**File:** `src/{architecture-path}/Decorator/AbstractOrderServiceDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Decorator;
+namespace Decorator;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Service\OrderServiceInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Service\OrderServiceInterface;
+use ValueObject\OrderId;
 
 abstract class AbstractOrderServiceDecorator implements OrderServiceInterface
 {
@@ -152,14 +152,14 @@ abstract class AbstractOrderServiceDecorator implements OrderServiceInterface
 
 ## Notifier Interface
 
-**File:** `src/Domain/Notification/NotifierInterface.php`
+**File:** `src/{architecture-path}/NotifierInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
 interface NotifierInterface
 {
@@ -171,17 +171,17 @@ interface NotifierInterface
 
 ## Abstract Notifier Decorator
 
-**File:** `src/Domain/Notification/Decorator/AbstractNotifierDecorator.php`
+**File:** `src/{architecture-path}/Decorator/AbstractNotifierDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification\Decorator;
+namespace Decorator;
 
-use Domain\Notification\Message;
-use Domain\Notification\NotifierInterface;
+use Notification\Message;
+use Notification\NotifierInterface;
 
 abstract class AbstractNotifierDecorator implements NotifierInterface
 {

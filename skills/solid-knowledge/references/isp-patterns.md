@@ -306,7 +306,7 @@ final readonly class PaymentProcessorAdapter implements PaymentProcessor
 
 ## DDD Application
 
-### Repository Interface Segregation
+### Repository Segregation (ISP)
 
 ```php
 <?php

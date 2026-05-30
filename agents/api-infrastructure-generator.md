@@ -3,7 +3,7 @@ name: api-infrastructure-generator
 description: API & infrastructure patterns generator. Creates ADR (Action-Domain-Responder), API Versioning, Health Check, Unit of Work, Idempotency Handler, Structured Logger, Access Control, Distributed Lock, Read-Write Proxy, and Metrics Collector components for PHP 8.4. Called by acc:pattern-generator coordinator.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: adr-knowledge, api-design-knowledge, create-action, create-responder, create-api-versioning, create-health-check, create-unit-of-work, create-idempotency-handler, create-structured-logger, create-access-control, create-distributed-lock, create-read-write-proxy, create-metrics-collector
+skills: adr-knowledge, api-design-knowledge, create-action, create-responder, create-api-versioning, create-health-check, create-unit-of-work, create-idempotency-handler, create-structured-logger, create-access-control, create-distributed-lock, create-read-write-proxy, create-metrics-collector, create-response-transformer, create-infrastructure-client, create-console-command
 ---
 
 # API & Infrastructure Patterns Generator

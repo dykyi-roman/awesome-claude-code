@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
@@ -165,7 +165,7 @@ final class RedisCachePool implements CacheItemPoolInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
@@ -333,7 +333,7 @@ final class FileCachePool implements CacheItemPoolInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException as PsrInvalidArgumentException;

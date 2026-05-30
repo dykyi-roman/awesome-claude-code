@@ -2,3 +2,11 @@
 .DS_Store
 .claude/settings.local.json
 screenshot
+
+# Working notes / per-session correction journals (not shipped)
+CORRECTION_PLAN.md
+CORRECTION_LOG.md
+WORK_PLAN.md
+NEXT_SESSION.md
+dialogue.md
+review_01.md

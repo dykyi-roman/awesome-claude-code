@@ -64,7 +64,7 @@ Creates metrics collection infrastructure for application observability and moni
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Metrics/`
+Place alongside other observability infrastructure.
 
 1. `MetricsCollectorInterface.php` — Metrics contract
 2. `Counter.php` — Counter metric wrapper
@@ -73,14 +73,14 @@ Creates metrics collection infrastructure for application observability and moni
 
 ### Step 2: Generate Implementations
 
-**Path:** `src/Infrastructure/Metrics/`
+Co-located with the core components.
 
 1. `PrometheusMetricsCollector.php` — Prometheus adapter
 2. `NullMetricsCollector.php` — Null Object for testing
 
 ### Step 3: Generate HTTP Components
 
-**Path:** `src/Infrastructure/Metrics/`
+Place alongside other HTTP middleware / entry points.
 
 1. `MetricsMiddleware.php` — PSR-15 RED metrics middleware
 2. `MetricsAction.php` — `/metrics` endpoint action
@@ -96,8 +96,10 @@ Creates metrics collection infrastructure for application observability and moni
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Metrics/` |
-| Unit Tests | `tests/Unit/Infrastructure/Metrics/` |
+| All Classes | `src/{architecture-path}/Metrics/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Metrics/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Metrics components typically live alongside other observability infrastructure (logging, tracing). Adjust to your project's layout.
 
 ---
 

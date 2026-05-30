@@ -2,16 +2,16 @@
 
 ## CreateOrder Command
 
-**File:** `src/Application/Order/Command/CreateOrderCommand.php`
+**File:** `src/{architecture-path}/Command/CreateOrderCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Command;
+namespace Command;
 
-use Domain\Order\ValueObject\CustomerId;
+use ValueObject\CustomerId;
 
 final readonly class CreateOrderCommand
 {
@@ -41,22 +41,22 @@ final readonly class CreateOrderCommand
 
 ## CreateOrder Handler
 
-**File:** `src/Application/Order/Handler/CreateOrderHandler.php`
+**File:** `src/{architecture-path}/Handler/CreateOrderHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
-use Application\Order\Command\CreateOrderCommand;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\ProductId;
-use Domain\Order\ValueObject\Money;
-use Domain\Shared\EventDispatcherInterface;
+use Command\CreateOrderCommand;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use ValueObject\ProductId;
+use ValueObject\Money;
+use Shared\EventDispatcherInterface;
 
 final readonly class CreateOrderHandler
 {
@@ -96,16 +96,16 @@ final readonly class CreateOrderHandler
 
 ## ConfirmOrder Command
 
-**File:** `src/Application/Order/Command/ConfirmOrderCommand.php`
+**File:** `src/{architecture-path}/Command/ConfirmOrderCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Command;
+namespace Command;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class ConfirmOrderCommand
 {
@@ -126,19 +126,19 @@ final readonly class ConfirmOrderCommand
 
 ## ConfirmOrder Handler
 
-**File:** `src/Application/Order/Handler/ConfirmOrderHandler.php`
+**File:** `src/{architecture-path}/Handler/ConfirmOrderHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
-use Application\Order\Command\ConfirmOrderCommand;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\Exception\OrderNotFoundException;
-use Domain\Shared\EventDispatcherInterface;
+use Command\ConfirmOrderCommand;
+use Repository\OrderRepositoryInterface;
+use Exception\OrderNotFoundException;
+use Shared\EventDispatcherInterface;
 
 final readonly class ConfirmOrderHandler
 {
@@ -170,16 +170,16 @@ final readonly class ConfirmOrderHandler
 
 ## CancelOrder Command
 
-**File:** `src/Application/Order/Command/CancelOrderCommand.php`
+**File:** `src/{architecture-path}/Command/CancelOrderCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Command;
+namespace Command;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class CancelOrderCommand
 {
@@ -208,17 +208,17 @@ final readonly class CancelOrderCommand
 
 ### CreateOrderCommandTest
 
-**File:** `tests/Unit/Application/Order/Command/CreateOrderCommandTest.php`
+**File:** `tests/Unit/Command/CreateOrderCommandTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Command;
+namespace Tests\Unit\Command;
 
-use Application\Order\Command\CreateOrderCommand;
-use Domain\Order\ValueObject\CustomerId;
+use Command\CreateOrderCommand;
+use ValueObject\CustomerId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -279,22 +279,22 @@ final class CreateOrderCommandTest extends TestCase
 
 ### CreateOrderHandlerTest
 
-**File:** `tests/Unit/Application/Order/Handler/CreateOrderHandlerTest.php`
+**File:** `tests/Unit/Handler/CreateOrderHandlerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Handler;
+namespace Tests\Unit\Handler;
 
-use Application\Order\Command\CreateOrderCommand;
-use Application\Order\Handler\CreateOrderHandler;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\EventDispatcherInterface;
+use Command\CreateOrderCommand;
+use Handler\CreateOrderHandler;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
+use Shared\EventDispatcherInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

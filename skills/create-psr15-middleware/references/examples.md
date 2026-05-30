@@ -7,14 +7,14 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Http\MiddlewarePipeline;
-use App\Infrastructure\Http\Middleware\AuthenticationMiddleware;
-use App\Infrastructure\Http\Middleware\CorsMiddleware;
-use App\Infrastructure\Http\Middleware\ErrorHandlingMiddleware;
-use App\Infrastructure\Http\Middleware\JsonBodyParserMiddleware;
-use App\Infrastructure\Http\Middleware\LoggingMiddleware;
-use App\Infrastructure\Http\Middleware\RateLimitMiddleware;
-use App\Infrastructure\Http\Middleware\RoutingMiddleware;
+use Http\MiddlewarePipeline;
+use Middleware\AuthenticationMiddleware;
+use Middleware\CorsMiddleware;
+use Middleware\ErrorHandlingMiddleware;
+use Middleware\JsonBodyParserMiddleware;
+use Middleware\LoggingMiddleware;
+use Middleware\RateLimitMiddleware;
+use Middleware\RoutingMiddleware;
 
 // Bootstrap
 $container = require __DIR__ . '/bootstrap/container.php';
@@ -69,7 +69,7 @@ $response = $pipeline->handle($request);
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -109,7 +109,7 @@ final readonly class DispatcherMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -159,11 +159,11 @@ $resolver->addRouteMiddleware('api.users.create', new ValidateUserMiddleware());
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace Tests\Functional;
 
-use App\Infrastructure\Http\Middleware\AuthenticationMiddleware;
-use App\Infrastructure\Http\Middleware\CorsMiddleware;
-use App\Infrastructure\Http\MiddlewarePipeline;
+use Middleware\AuthenticationMiddleware;
+use Middleware\CorsMiddleware;
+use Http\MiddlewarePipeline;
 use PHPUnit\Framework\TestCase;
 
 final class MiddlewarePipelineTest extends TestCase

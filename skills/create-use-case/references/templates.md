@@ -7,13 +7,13 @@
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\UseCase;
+namespace UseCase;
 
-use Application\{BoundedContext}\DTO\{InputDTO};
-use Application\{BoundedContext}\DTO\{OutputDTO};
-use Domain\{BoundedContext}\Repository\{Repository}Interface;
-use Domain\Shared\EventDispatcherInterface;
-use Domain\Shared\TransactionManagerInterface;
+use DTO\{InputDTO};
+use DTO\{OutputDTO};
+use Repository\{Repository}Interface;
+use Shared\EventDispatcherInterface;
+use Shared\TransactionManagerInterface;
 
 final readonly class {Name}UseCase
 {
@@ -47,9 +47,9 @@ final readonly class {Name}UseCase
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\DTO;
+namespace DTO;
 
-use Domain\{BoundedContext}\ValueObject\{ValueObject};
+use ValueObject\{ValueObject};
 
 final readonly class {Name}Input
 {
@@ -69,7 +69,7 @@ final readonly class {Name}Input
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\DTO;
+namespace DTO;
 
 final readonly class {Name}Output
 {
@@ -97,14 +97,14 @@ final readonly class {Name}Output
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\UseCase;
+namespace Tests\Unit\UseCase;
 
-use Application\{BoundedContext}\UseCase\{Name}UseCase;
-use Application\{BoundedContext}\DTO\{Name}Input;
-use Application\{BoundedContext}\DTO\{Name}Output;
-use Domain\{BoundedContext}\Repository\{Repository}Interface;
-use Domain\Shared\EventDispatcherInterface;
-use Domain\Shared\TransactionManagerInterface;
+use UseCase\{Name}UseCase;
+use DTO\{Name}Input;
+use DTO\{Name}Output;
+use Repository\{Repository}Interface;
+use Shared\EventDispatcherInterface;
+use Shared\TransactionManagerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

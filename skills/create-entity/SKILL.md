@@ -35,10 +35,12 @@ Every Entity consists of:
 
 | File | Location |
 |------|----------|
-| Entity | `src/Domain/{BoundedContext}/Entity/{Name}.php` |
-| Status Enum | `src/Domain/{BoundedContext}/Enum/{Name}Status.php` |
-| Exceptions | `src/Domain/{BoundedContext}/Exception/{...}Exception.php` |
-| Unit Test | `tests/Unit/Domain/{BoundedContext}/Entity/{Name}Test.php` |
+| Entity | `src/{architecture-path}/Entity/{Name}.php` |
+| Status Enum | `src/{architecture-path}/Enum/{Name}Status.php` |
+| Exceptions | `src/{architecture-path}/Exception/{...}Exception.php` |
+| Unit Test | `tests/Unit/{architecture-path}/Entity/{Name}Test.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders (e.g. `Domain/{BoundedContext}` in DDD-Layered, `{BoundedContext}/Domain` in Package-by-Feature). Adjust to your project's layout.
 
 ## Entity Design Principles
 

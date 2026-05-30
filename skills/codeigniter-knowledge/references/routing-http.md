@@ -40,7 +40,7 @@ class BaseController extends Controller
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;

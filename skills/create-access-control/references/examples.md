@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 final readonly class RoleFactory
 {
@@ -43,18 +43,18 @@ final readonly class RoleFactory
 
 ## Authorization in Use Case
 
-**File:** `src/Application/Article/UpdateArticleUseCase.php`
+**File:** `src/{architecture-path}/UseCase/UpdateArticleUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Article;
+namespace Article;
 
-use Infrastructure\Security\AccessControl\AccessDecisionManager;
-use Infrastructure\Security\AccessControl\AccessSubject;
-use Infrastructure\Security\AccessControl\Permission;
+use AccessControl\AccessDecisionManager;
+use AccessControl\AccessSubject;
+use AccessControl\Permission;
 
 final readonly class UpdateArticleUseCase
 {
@@ -85,18 +85,18 @@ final readonly class UpdateArticleUseCase
 
 ## Middleware Authorization
 
-**File:** `src/Infrastructure/Security/AuthorizationMiddleware.php`
+**File:** `src/{architecture-path}/Security/AuthorizationMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Infrastructure\Security\AccessControl\AccessDecisionManager;
-use Infrastructure\Security\AccessControl\AccessSubject;
-use Infrastructure\Security\AccessControl\Permission;
+use AccessControl\AccessDecisionManager;
+use AccessControl\AccessSubject;
+use AccessControl\Permission;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -134,17 +134,17 @@ final readonly class AuthorizationMiddleware implements MiddlewareInterface
 
 ### RoleTest
 
-**File:** `tests/Unit/Infrastructure/Security/AccessControl/RoleTest.php`
+**File:** `tests/Unit/AccessControl/RoleTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Security\AccessControl;
+namespace Tests\Unit\AccessControl;
 
-use Infrastructure\Security\AccessControl\Permission;
-use Infrastructure\Security\AccessControl\Role;
+use AccessControl\Permission;
+use AccessControl\Role;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -200,22 +200,22 @@ final class RoleTest extends TestCase
 
 ### AccessDecisionManagerTest
 
-**File:** `tests/Unit/Infrastructure/Security/AccessControl/AccessDecisionManagerTest.php`
+**File:** `tests/Unit/AccessControl/AccessDecisionManagerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Security\AccessControl;
+namespace Tests\Unit\AccessControl;
 
-use Infrastructure\Security\AccessControl\AccessDecisionManager;
-use Infrastructure\Security\AccessControl\AccessSubject;
-use Infrastructure\Security\AccessControl\DecisionStrategy;
-use Infrastructure\Security\AccessControl\Permission;
-use Infrastructure\Security\AccessControl\Role;
-use Infrastructure\Security\AccessControl\Vote;
-use Infrastructure\Security\AccessControl\VoterInterface;
+use AccessControl\AccessDecisionManager;
+use AccessControl\AccessSubject;
+use AccessControl\DecisionStrategy;
+use AccessControl\Permission;
+use AccessControl\Role;
+use AccessControl\Vote;
+use AccessControl\VoterInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -296,20 +296,20 @@ final class AccessDecisionManagerTest extends TestCase
 
 ### RoleVoterTest
 
-**File:** `tests/Unit/Infrastructure/Security/AccessControl/Voter/RoleVoterTest.php`
+**File:** `tests/Unit/AccessControl/Voter/RoleVoterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Security\AccessControl\Voter;
+namespace Tests\Unit\AccessControl\Voter;
 
-use Infrastructure\Security\AccessControl\AccessSubject;
-use Infrastructure\Security\AccessControl\Permission;
-use Infrastructure\Security\AccessControl\Role;
-use Infrastructure\Security\AccessControl\Vote;
-use Infrastructure\Security\AccessControl\Voter\RoleVoter;
+use AccessControl\AccessSubject;
+use AccessControl\Permission;
+use AccessControl\Role;
+use AccessControl\Vote;
+use AccessControl\Voter\RoleVoter;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

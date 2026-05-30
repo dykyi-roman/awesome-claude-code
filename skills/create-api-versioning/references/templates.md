@@ -2,14 +2,14 @@
 
 ## ApiVersion
 
-**File:** `src/Domain/Shared/Api/ApiVersion.php`
+**File:** `src/{architecture-path}/Api/ApiVersion.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Api;
+namespace Api;
 
 final readonly class ApiVersion
 {
@@ -80,14 +80,14 @@ final readonly class ApiVersion
 
 ## VersionResolverInterface
 
-**File:** `src/Domain/Shared/Api/VersionResolverInterface.php`
+**File:** `src/{architecture-path}/Api/VersionResolverInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Api;
+namespace Api;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -101,17 +101,17 @@ interface VersionResolverInterface
 
 ## UriPrefixVersionResolver
 
-**File:** `src/Presentation/Middleware/UriPrefixVersionResolver.php`
+**File:** `src/{architecture-path}/Middleware/UriPrefixVersionResolver.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Api\ApiVersion;
-use Domain\Shared\Api\VersionResolverInterface;
+use Api\ApiVersion;
+use Api\VersionResolverInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 final readonly class UriPrefixVersionResolver implements VersionResolverInterface
@@ -136,17 +136,17 @@ final readonly class UriPrefixVersionResolver implements VersionResolverInterfac
 
 ## AcceptHeaderVersionResolver
 
-**File:** `src/Presentation/Middleware/AcceptHeaderVersionResolver.php`
+**File:** `src/{architecture-path}/Middleware/AcceptHeaderVersionResolver.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Api\ApiVersion;
-use Domain\Shared\Api\VersionResolverInterface;
+use Api\ApiVersion;
+use Api\VersionResolverInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 final readonly class AcceptHeaderVersionResolver implements VersionResolverInterface
@@ -180,17 +180,17 @@ final readonly class AcceptHeaderVersionResolver implements VersionResolverInter
 
 ## QueryParamVersionResolver
 
-**File:** `src/Presentation/Middleware/QueryParamVersionResolver.php`
+**File:** `src/{architecture-path}/Middleware/QueryParamVersionResolver.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Api\ApiVersion;
-use Domain\Shared\Api\VersionResolverInterface;
+use Api\ApiVersion;
+use Api\VersionResolverInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 final readonly class QueryParamVersionResolver implements VersionResolverInterface
@@ -221,17 +221,17 @@ final readonly class QueryParamVersionResolver implements VersionResolverInterfa
 
 ## CompositeVersionResolver
 
-**File:** `src/Presentation/Middleware/CompositeVersionResolver.php`
+**File:** `src/{architecture-path}/Middleware/CompositeVersionResolver.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Api\ApiVersion;
-use Domain\Shared\Api\VersionResolverInterface;
+use Api\ApiVersion;
+use Api\VersionResolverInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 final readonly class CompositeVersionResolver implements VersionResolverInterface
@@ -262,17 +262,17 @@ final readonly class CompositeVersionResolver implements VersionResolverInterfac
 
 ## VersionMiddleware
 
-**File:** `src/Presentation/Middleware/VersionMiddleware.php`
+**File:** `src/{architecture-path}/Middleware/VersionMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Api\ApiVersion;
-use Domain\Shared\Api\VersionResolverInterface;
+use Api\ApiVersion;
+use Api\VersionResolverInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -320,16 +320,16 @@ final readonly class VersionMiddleware implements MiddlewareInterface
 
 ## DeprecationHeaderMiddleware
 
-**File:** `src/Presentation/Middleware/DeprecationHeaderMiddleware.php`
+**File:** `src/{architecture-path}/Middleware/DeprecationHeaderMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Api\ApiVersion;
+use Api\ApiVersion;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

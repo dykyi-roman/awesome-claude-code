@@ -199,7 +199,7 @@ if ($uri === '/orders') {
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -224,7 +224,7 @@ final readonly class Application implements RequestHandlerInterface
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Message\ResponseInterface;
 

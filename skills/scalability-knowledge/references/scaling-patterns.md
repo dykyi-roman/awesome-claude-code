@@ -47,7 +47,7 @@ Every application instance must be interchangeable. No local state between reque
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
 final readonly class HealthCheckAction
 {
@@ -217,7 +217,7 @@ Horizontal at $60/mo per instance:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class ShardRouter
 {

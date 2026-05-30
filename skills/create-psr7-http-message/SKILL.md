@@ -20,12 +20,14 @@ Generates PSR-7 compliant HTTP message implementations following `Psr\Http\Messa
 
 | Component | Interface | Location |
 |-----------|-----------|----------|
-| Request | `RequestInterface` | `src/Infrastructure/Http/Message/` |
-| Response | `ResponseInterface` | `src/Infrastructure/Http/Message/` |
-| ServerRequest | `ServerRequestInterface` | `src/Infrastructure/Http/Message/` |
-| Stream | `StreamInterface` | `src/Infrastructure/Http/Message/` |
-| Uri | `UriInterface` | `src/Infrastructure/Http/Message/` |
-| UploadedFile | `UploadedFileInterface` | `src/Infrastructure/Http/Message/` |
+| Request | `RequestInterface` | `src/{architecture-path}/Http/Message/` |
+| Response | `ResponseInterface` | `src/{architecture-path}/Http/Message/` |
+| ServerRequest | `ServerRequestInterface` | `src/{architecture-path}/Http/Message/` |
+| Stream | `StreamInterface` | `src/{architecture-path}/Http/Message/` |
+| Uri | `UriInterface` | `src/{architecture-path}/Http/Message/` |
+| UploadedFile | `UploadedFileInterface` | `src/{architecture-path}/Http/Message/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. PSR-7 HTTP message implementations typically live with other HTTP infrastructure. Adjust to your project's layout.
 
 ## Quick Template: Response
 
@@ -34,7 +36,7 @@ Generates PSR-7 compliant HTTP message implementations following `Psr\Http\Messa
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -89,8 +91,8 @@ final readonly class Response implements ResponseInterface
 ```php
 <?php
 
-use App\Infrastructure\Http\Message\Response;
-use App\Infrastructure\Http\Message\Stream;
+use Http\Message\Response;
+use Http\Message\Stream;
 
 // Create response
 $response = new Response(200);

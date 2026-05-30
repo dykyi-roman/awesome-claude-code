@@ -42,13 +42,13 @@ Creates Template Method pattern infrastructure for algorithm skeletons with cust
 
 ### Step 1: Generate Abstract Template
 
-**Path:** `src/Domain/{BoundedContext}/Template/`
+Place in a `Template/` folder inside the bounded context.
 
 1. `Abstract{Name}Template.php` — Algorithm skeleton with template method
 
 ### Step 2: Generate Concrete Templates
 
-**Path:** `src/Domain/{BoundedContext}/Template/` or `src/Application/{BoundedContext}/`
+Co-located with the abstract template when the algorithm is pure domain logic; place near the coordination layer when concrete variants pull in application-level dependencies.
 
 1. `{Variant1}{Name}Template.php` — First variant implementation
 2. `{Variant2}{Name}Template.php` — Second variant implementation
@@ -56,7 +56,7 @@ Creates Template Method pattern infrastructure for algorithm skeletons with cust
 
 ### Step 3: Generate Support Classes (Optional)
 
-**Path:** `src/Domain/{BoundedContext}/ValueObject/`
+Place in a sibling `ValueObject/` folder of the bounded context.
 
 1. `{Name}Result.php` — Result value object
 2. `{Name}Config.php` — Configuration value object
@@ -72,10 +72,12 @@ Creates Template Method pattern infrastructure for algorithm skeletons with cust
 
 | Component | Path |
 |-----------|------|
-| Abstract Template | `src/Domain/{BoundedContext}/Template/` |
-| Concrete Templates (Domain logic) | `src/Domain/{BoundedContext}/Template/` |
-| Concrete Templates (App logic) | `src/Application/{BoundedContext}/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Template/` |
+| Abstract Template | `src/{architecture-path}/Template/Abstract{Name}Template.php` |
+| Concrete Templates (pure domain) | `src/{architecture-path}/Template/{Variant}{Name}Template.php` |
+| Concrete Templates (app-level deps) | `src/{architecture-path}/{Variant}{Name}Template.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Template/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Pure-domain templates co-locate with the abstract base; templates with application-level dependencies typically live near the coordination layer. Adjust to your project's layout.
 
 ---
 

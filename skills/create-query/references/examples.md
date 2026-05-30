@@ -2,16 +2,16 @@
 
 ## GetOrderDetails Query
 
-**File:** `src/Application/Order/Query/GetOrderDetailsQuery.php`
+**File:** `src/{architecture-path}/Query/GetOrderDetailsQuery.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class GetOrderDetailsQuery
 {
@@ -25,19 +25,19 @@ final readonly class GetOrderDetailsQuery
 
 ## GetOrderDetails Handler
 
-**File:** `src/Application/Order/Handler/GetOrderDetailsHandler.php`
+**File:** `src/{architecture-path}/Handler/GetOrderDetailsHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
-use Application\Order\Query\GetOrderDetailsQuery;
-use Application\Order\DTO\OrderDetailsDTO;
-use Application\Order\ReadModel\OrderReadModelInterface;
-use Domain\Order\Exception\OrderNotFoundException;
+use Query\GetOrderDetailsQuery;
+use DTO\OrderDetailsDTO;
+use ReadModel\OrderReadModelInterface;
+use Exception\OrderNotFoundException;
 
 final readonly class GetOrderDetailsHandler
 {
@@ -62,14 +62,14 @@ final readonly class GetOrderDetailsHandler
 
 ## OrderDetailsDTO
 
-**File:** `src/Application/Order/DTO/OrderDetailsDTO.php`
+**File:** `src/{architecture-path}/DTO/OrderDetailsDTO.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
 final readonly class OrderDetailsDTO
 {
@@ -129,14 +129,14 @@ final readonly class OrderDetailsDTO
 
 ## OrderLineDTO
 
-**File:** `src/Application/Order/DTO/OrderLineDTO.php`
+**File:** `src/{architecture-path}/DTO/OrderLineDTO.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
 final readonly class OrderLineDTO
 {
@@ -176,17 +176,17 @@ final readonly class OrderLineDTO
 
 ## ListOrders Query (with pagination/filtering)
 
-**File:** `src/Application/Order/Query/ListOrdersQuery.php`
+**File:** `src/{architecture-path}/Query/ListOrdersQuery.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\Enum\OrderStatus;
+use ValueObject\CustomerId;
+use Enum\OrderStatus;
 
 final readonly class ListOrdersQuery
 {
@@ -218,19 +218,19 @@ final readonly class ListOrdersQuery
 
 ## ListOrders Handler
 
-**File:** `src/Application/Order/Handler/ListOrdersHandler.php`
+**File:** `src/{architecture-path}/Handler/ListOrdersHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
-use Application\Order\Query\ListOrdersQuery;
-use Application\Order\DTO\OrderListItemDTO;
-use Application\Order\DTO\PaginatedResultDTO;
-use Application\Order\ReadModel\OrderReadModelInterface;
+use Query\ListOrdersQuery;
+use DTO\OrderListItemDTO;
+use DTO\PaginatedResultDTO;
+use ReadModel\OrderReadModelInterface;
 
 final readonly class ListOrdersHandler
 {
@@ -268,17 +268,17 @@ final readonly class ListOrdersHandler
 
 ## Read Model Interface
 
-**File:** `src/Application/Order/ReadModel/OrderReadModelInterface.php`
+**File:** `src/{architecture-path}/ReadModel/OrderReadModelInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\ReadModel;
+namespace ReadModel;
 
-use Application\Order\DTO\OrderDetailsDTO;
-use Application\Order\DTO\OrderListItemDTO;
+use DTO\OrderDetailsDTO;
+use DTO\OrderListItemDTO;
 
 interface OrderReadModelInterface
 {
@@ -306,17 +306,17 @@ interface OrderReadModelInterface
 
 ### ListOrdersQueryTest
 
-**File:** `tests/Unit/Application/Order/Query/ListOrdersQueryTest.php`
+**File:** `tests/Unit/Query/ListOrdersQueryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Query;
+namespace Tests\Unit\Query;
 
-use Application\Order\Query\ListOrdersQuery;
-use Domain\Order\Enum\OrderStatus;
+use Query\ListOrdersQuery;
+use Enum\OrderStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -380,21 +380,21 @@ final class ListOrdersQueryTest extends TestCase
 
 ### GetOrderDetailsHandlerTest
 
-**File:** `tests/Unit/Application/Order/Handler/GetOrderDetailsHandlerTest.php`
+**File:** `tests/Unit/Handler/GetOrderDetailsHandlerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Handler;
+namespace Tests\Unit\Handler;
 
-use Application\Order\Handler\GetOrderDetailsHandler;
-use Application\Order\Query\GetOrderDetailsQuery;
-use Application\Order\DTO\OrderDetailsDTO;
-use Application\Order\ReadModel\OrderReadModelInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\Exception\OrderNotFoundException;
+use Handler\GetOrderDetailsHandler;
+use Query\GetOrderDetailsQuery;
+use DTO\OrderDetailsDTO;
+use ReadModel\OrderReadModelInterface;
+use ValueObject\OrderId;
+use Exception\OrderNotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -17,9 +17,7 @@ Each resource maintains a list of permissions for specific subjects (users or gr
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class AccessControlList
 {
@@ -89,9 +87,7 @@ final readonly class AccessControlList
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 enum Permission: string
 {
@@ -159,9 +155,7 @@ enum RoleType: string
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class RbacAuthorizationService
 {
@@ -209,9 +203,7 @@ final readonly class RbacAuthorizationService
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class PolicyEngine
 {
@@ -291,9 +283,7 @@ The core data model is a set of relationship tuples:
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class RelationshipChecker
 {

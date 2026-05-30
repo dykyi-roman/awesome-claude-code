@@ -11,11 +11,11 @@ Examples for integrating Correlation ID propagation in PHP frameworks and messag
 ```yaml
 # config/services.yaml
 services:
-    App\Infrastructure\Logging\CorrelationLogProcessor:
+    Logging\CorrelationLogProcessor:
         tags:
             - { name: monolog.processor }
 
-    App\Presentation\Middleware\CorrelationContextMiddleware:
+    Middleware\CorrelationContextMiddleware:
         tags:
             - { name: kernel.event_listener, event: kernel.request, priority: 255 }
 ```
@@ -27,10 +27,10 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Messaging\Middleware;
+namespace Middleware;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
-use App\Infrastructure\Messaging\CorrelationMessageStamp;
+use Correlation\CorrelationContext;
+use Messaging\CorrelationMessageStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
@@ -51,7 +51,7 @@ final readonly class CorrelationMessengerMiddleware implements MiddlewareInterfa
             $envelope = $envelope->with(CorrelationMessageStamp::fromContext($context));
         } else {
             $context = new CorrelationContext(
-                correlationId: new \App\Domain\Shared\Correlation\CorrelationId($stamp->correlationId),
+                correlationId: new \Correlation\CorrelationId($stamp->correlationId),
                 causationId: $stamp->causationId,
             );
         }
@@ -72,7 +72,7 @@ framework:
         buses:
             command.bus:
                 middleware:
-                    - App\Infrastructure\Messaging\Middleware\CorrelationMessengerMiddleware
+                    - Middleware\CorrelationMessengerMiddleware
 ```
 
 ---
@@ -86,9 +86,9 @@ framework:
 
 declare(strict_types=1);
 
-namespace App\Http\Middleware;
+namespace Middleware;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
+use Correlation\CorrelationContext;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,10 +98,10 @@ final class CorrelationIdMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $correlationId = $request->header('X-Correlation-ID')
-            ?? \App\Domain\Shared\Correlation\CorrelationId::generate()->value;
+            ?? \Correlation\CorrelationId::generate()->value;
 
         $context = new CorrelationContext(
-            correlationId: new \App\Domain\Shared\Correlation\CorrelationId($correlationId),
+            correlationId: new \Correlation\CorrelationId($correlationId),
             causationId: $request->header('X-Causation-ID'),
         );
 
@@ -138,9 +138,9 @@ protected $middleware = [
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Messaging;
+namespace Messaging;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
+use Correlation\CorrelationContext;
 use PhpAmqpLib\Message\AMQPMessage;
 
 final readonly class CorrelationAwarePublisher
@@ -175,10 +175,10 @@ final readonly class CorrelationAwarePublisher
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Messaging;
+namespace Messaging;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
-use App\Domain\Shared\Correlation\CorrelationId;
+use Correlation\CorrelationContext;
+use Correlation\CorrelationId;
 use PhpAmqpLib\Message\AMQPMessage;
 
 final readonly class CorrelationExtractor
@@ -212,9 +212,9 @@ final readonly class CorrelationExtractor
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
-use App\Domain\Shared\Correlation\CorrelationContext;
+use Correlation\CorrelationContext;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -247,9 +247,9 @@ final readonly class CorrelationAwareHttpClient
 
 declare(strict_types=1);
 
-use App\Domain\Shared\Correlation\CorrelationContext;
-use App\Infrastructure\Logging\CorrelationLogProcessor;
-use App\Presentation\Middleware\CorrelationContextMiddleware;
+use Correlation\CorrelationContext;
+use Logging\CorrelationLogProcessor;
+use Middleware\CorrelationContextMiddleware;
 
 return [
     CorrelationContextMiddleware::class => \DI\autowire(),

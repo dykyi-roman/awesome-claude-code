@@ -319,7 +319,7 @@ public static function invalidEmailsProvider(): array
    - State transitions (for entities)
 
 3. **Generate test class:**
-   - Match namespace: `src/Domain/Order/Order.php` → `tests/Unit/Domain/Order/OrderTest.php`
+   - Mirror the production-code path under `tests/Unit/` (e.g. `src/{architecture-path}/Entity/Order.php` → `tests/Unit/{architecture-path}/Entity/OrderTest.php`)
    - Add attributes: `#[Group('unit')]`, `#[CoversClass]`
    - Create setUp if shared state needed
 

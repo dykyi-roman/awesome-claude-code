@@ -73,7 +73,7 @@ Idempotency ensures that performing the same operation multiple times produces t
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -137,7 +137,7 @@ Assumes conflicts are rare. Reads a version, performs work, writes only if versi
 
 declare(strict_types=1);
 
-namespace Domain\Model;
+namespace Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -189,7 +189,7 @@ final class Product
 
 declare(strict_types=1);
 
-namespace Application\UseCase;
+namespace UseCase;
 
 use Doctrine\ORM\OptimisticLockException;
 
@@ -281,7 +281,7 @@ Assumes conflicts are likely. Acquires a lock before reading, blocks other trans
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final readonly class RedisAtomicOperations
 {

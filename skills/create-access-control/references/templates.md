@@ -2,14 +2,14 @@
 
 ## Permission Enum
 
-**File:** `src/Infrastructure/Security/AccessControl/Permission.php`
+**File:** `src/{architecture-path}/AccessControl/Permission.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 enum Permission: string
 {
@@ -43,14 +43,14 @@ enum Permission: string
 
 ## Role Value Object
 
-**File:** `src/Infrastructure/Security/AccessControl/Role.php`
+**File:** `src/{architecture-path}/AccessControl/Role.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 final readonly class Role
 {
@@ -110,14 +110,14 @@ final readonly class Role
 
 ## AccessSubject Value Object
 
-**File:** `src/Infrastructure/Security/AccessControl/AccessSubject.php`
+**File:** `src/{architecture-path}/AccessControl/AccessSubject.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 final readonly class AccessSubject
 {
@@ -157,14 +157,14 @@ final readonly class AccessSubject
 
 ## Vote Enum
 
-**File:** `src/Infrastructure/Security/AccessControl/Vote.php`
+**File:** `src/{architecture-path}/AccessControl/Vote.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 enum Vote: string
 {
@@ -178,14 +178,14 @@ enum Vote: string
 
 ## DecisionStrategy Enum
 
-**File:** `src/Infrastructure/Security/AccessControl/DecisionStrategy.php`
+**File:** `src/{architecture-path}/AccessControl/DecisionStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 enum DecisionStrategy: string
 {
@@ -199,14 +199,14 @@ enum DecisionStrategy: string
 
 ## VoterInterface
 
-**File:** `src/Infrastructure/Security/AccessControl/VoterInterface.php`
+**File:** `src/{architecture-path}/AccessControl/VoterInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 interface VoterInterface
 {
@@ -218,14 +218,14 @@ interface VoterInterface
 
 ## AccessDecisionManager
 
-**File:** `src/Infrastructure/Security/AccessControl/AccessDecisionManager.php`
+**File:** `src/{architecture-path}/AccessControl/AccessDecisionManager.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl;
+namespace AccessControl;
 
 final readonly class AccessDecisionManager
 {
@@ -310,19 +310,19 @@ final readonly class AccessDecisionManager
 
 ## RoleVoter
 
-**File:** `src/Infrastructure/Security/AccessControl/Voter/RoleVoter.php`
+**File:** `src/{architecture-path}/AccessControl/Voter/RoleVoter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl\Voter;
+namespace AccessControl\Voter;
 
-use Infrastructure\Security\AccessControl\AccessSubject;
-use Infrastructure\Security\AccessControl\Permission;
-use Infrastructure\Security\AccessControl\Vote;
-use Infrastructure\Security\AccessControl\VoterInterface;
+use AccessControl\AccessSubject;
+use AccessControl\Permission;
+use AccessControl\Vote;
+use AccessControl\VoterInterface;
 
 final readonly class RoleVoter implements VoterInterface
 {
@@ -341,19 +341,19 @@ final readonly class RoleVoter implements VoterInterface
 
 ## ResourceOwnerVoter
 
-**File:** `src/Infrastructure/Security/AccessControl/Voter/ResourceOwnerVoter.php`
+**File:** `src/{architecture-path}/AccessControl/Voter/ResourceOwnerVoter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\AccessControl\Voter;
+namespace AccessControl\Voter;
 
-use Infrastructure\Security\AccessControl\AccessSubject;
-use Infrastructure\Security\AccessControl\Permission;
-use Infrastructure\Security\AccessControl\Vote;
-use Infrastructure\Security\AccessControl\VoterInterface;
+use AccessControl\AccessSubject;
+use AccessControl\Permission;
+use AccessControl\Vote;
+use AccessControl\VoterInterface;
 
 interface OwnableInterface
 {

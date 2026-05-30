@@ -55,7 +55,7 @@ Grep: "subscribeTo\|subscribe\(" --glob "**/config/events*.php"
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 interface EventDispatcherInterface
 {
@@ -70,9 +70,9 @@ interface EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventDispatcher;
+namespace EventDispatcher;
 
-use Domain\Shared\Event\EventDispatcherInterface;
+use Event\EventDispatcherInterface;
 
 final class InMemoryEventDispatcher implements EventDispatcherInterface
 {
@@ -141,9 +141,9 @@ return new EventDispatcher($listenerProvider);
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventDispatcher;
+namespace EventDispatcher;
 
-use Domain\Shared\Event\EventDispatcherInterface;
+use Event\EventDispatcherInterface;
 use Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcher;
 
 final readonly class PsrEventDispatcherAdapter implements EventDispatcherInterface
@@ -170,11 +170,11 @@ final readonly class PsrEventDispatcherAdapter implements EventDispatcherInterfa
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\Money;
-use Domain\Shared\Event\DomainEventInterface;
+use ValueObject\OrderId;
+use ValueObject\Money;
+use Event\DomainEventInterface;
 
 final readonly class OrderConfirmed implements DomainEventInterface
 {
@@ -200,7 +200,7 @@ final readonly class OrderConfirmed implements DomainEventInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 use Infrastructure\EventDispatcher\InMemoryEventDispatcher; // VIOLATION
 
@@ -221,10 +221,10 @@ final class Order
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\Event\OrderConfirmed;
-use Domain\Shared\Entity\AggregateRoot;
+use Event\OrderConfirmed;
+use Entity\AggregateRoot;
 
 final class Order extends AggregateRoot
 {
@@ -247,7 +247,7 @@ final class Order extends AggregateRoot
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Entity;
+namespace Entity;
 
 abstract class AggregateRoot
 {
@@ -277,11 +277,11 @@ abstract class AggregateRoot
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\Event\EventDispatcherInterface;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use Event\EventDispatcherInterface;
 
 final readonly class ConfirmOrderUseCase
 {
@@ -309,9 +309,9 @@ final readonly class ConfirmOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Listener;
+namespace Listener;
 
-use Domain\Order\Event\OrderConfirmed;
+use Event\OrderConfirmed;
 use Psr\Log\LoggerInterface;
 
 final readonly class SendOrderConfirmationEmail
@@ -338,9 +338,9 @@ final readonly class SendOrderConfirmationEmail
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 use Psr\EventDispatcher\StoppableEventInterface;
 
 final class OrderCancellationRequested implements StoppableEventInterface
@@ -372,9 +372,9 @@ final class OrderCancellationRequested implements StoppableEventInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventDispatcher;
+namespace EventDispatcher;
 
-use Domain\Shared\Event\EventDispatcherInterface;
+use Event\EventDispatcherInterface;
 
 final readonly class AsyncEventDispatcher implements EventDispatcherInterface
 {
@@ -405,9 +405,9 @@ final readonly class AsyncEventDispatcher implements EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventDispatcher;
+namespace EventDispatcher;
 
-use Domain\Shared\Event\EventDispatcherInterface;
+use Event\EventDispatcherInterface;
 
 final readonly class EventQueueWorker
 {
@@ -440,7 +440,7 @@ declare(strict_types=1);
 
 namespace Tests\Shared;
 
-use Domain\Shared\Event\EventDispatcherInterface;
+use Event\EventDispatcherInterface;
 
 final class InMemoryTestEventDispatcher implements EventDispatcherInterface
 {
@@ -490,8 +490,8 @@ declare(strict_types=1);
 
 namespace Tests\Application\Order;
 
-use Application\Order\UseCase\ConfirmOrderUseCase;
-use Domain\Order\Event\OrderConfirmed;
+use UseCase\ConfirmOrderUseCase;
+use Event\OrderConfirmed;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

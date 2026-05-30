@@ -23,14 +23,14 @@ Generates PSR-17 compliant HTTP factory implementations for creating PSR-7 objec
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Factory;
+namespace Factory;
 
-use App\Infrastructure\Http\Message\Request;
-use App\Infrastructure\Http\Message\Response;
-use App\Infrastructure\Http\Message\ServerRequest;
-use App\Infrastructure\Http\Message\Stream;
-use App\Infrastructure\Http\Message\UploadedFile;
-use App\Infrastructure\Http\Message\Uri;
+use Http\Message\Request;
+use Http\Message\Response;
+use Http\Message\ServerRequest;
+use Http\Message\Stream;
+use Http\Message\UploadedFile;
+use Http\Message\Uri;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -135,7 +135,7 @@ final readonly class HttpFactory implements
 ```php
 <?php
 
-use App\Infrastructure\Http\Factory\HttpFactory;
+use Factory\HttpFactory;
 
 $factory = new HttpFactory();
 

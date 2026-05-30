@@ -21,7 +21,7 @@ PSR-14 Event Dispatcher (`yiisoft/event-dispatcher`), listener registration, sto
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 // Pure domain event — no Yii dependency
 final readonly class OrderConfirmed
@@ -42,8 +42,8 @@ declare(strict_types=1);
 
 // config/common/di/events.php
 
-use Domain\Order\Event\OrderConfirmed;
-use Domain\Order\Event\OrderCreated;
+use Event\OrderConfirmed;
+use Event\OrderCreated;
 use Yiisoft\EventDispatcher\Provider\ListenerCollection;
 
 return [
@@ -62,9 +62,9 @@ return [
 
 declare(strict_types=1);
 
-namespace Infrastructure\Event\Listener;
+namespace Listener;
 
-use Domain\Order\Event\OrderConfirmed;
+use Event\OrderConfirmed;
 use Domain\Shared\Mail\MailerInterface;
 
 final readonly class SendOrderConfirmationEmail
@@ -93,10 +93,10 @@ declare(strict_types=1);
 
 // config/common/di/events.php
 
-use Domain\Order\Event\OrderConfirmed;
-use Domain\Order\Event\OrderCreated;
-use Infrastructure\Event\Listener\SendOrderConfirmationEmail;
-use Infrastructure\Event\Listener\UpdateInventoryOnOrderCreated;
+use Event\OrderConfirmed;
+use Event\OrderCreated;
+use Listener\SendOrderConfirmationEmail;
+use Listener\UpdateInventoryOnOrderCreated;
 use Yiisoft\EventDispatcher\Provider\ListenerCollection;
 
 return [
@@ -120,7 +120,7 @@ return [
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 // Marker interface — group related events by bounded context
 interface OrderEvent {}
@@ -161,7 +161,7 @@ $listeners->add(static fn (OrderEvent $event) => /* log all order events */);
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 use Psr\EventDispatcher\StoppableEventInterface;
 
@@ -226,7 +226,7 @@ return [
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 use Psr\EventDispatcher\EventDispatcherInterface; // VIOLATION: PSR package in Domain
 
@@ -245,7 +245,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace Domain\Shared;
+namespace Shared;
 
 interface EventDispatcherInterface
 {
@@ -261,7 +261,7 @@ interface EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Event;
+namespace Event;
 
 use Domain\Shared\EventDispatcherInterface as DomainDispatcher;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -290,11 +290,11 @@ Entity collects events internally; UseCase calls `releaseEvents()` and dispatche
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\Event\OrderConfirmed;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
+use Event\OrderConfirmed;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
 
 final class Order
 {
@@ -328,11 +328,11 @@ final class Order
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\EventDispatcherInterface;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use Shared\EventDispatcherInterface;
 
 final readonly class ConfirmOrderUseCase
 {
@@ -369,7 +369,7 @@ final readonly class ConfirmOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Event\Listener;
+namespace Listener;
 
 use Psr\Log\LoggerInterface;
 use Yiisoft\User\Event\AfterLogin;

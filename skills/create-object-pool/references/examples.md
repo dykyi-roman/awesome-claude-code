@@ -2,18 +2,18 @@
 
 ## Database Connection Pool
 
-**File:** `src/Infrastructure/Persistence/ConnectionPool.php`
+**File:** `src/{architecture-path}/Persistence/ConnectionPool.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
-use Infrastructure\Pool\ObjectPool;
-use Infrastructure\Pool\PoolConfig;
-use Infrastructure\Pool\PoolInterface;
+use Pool\ObjectPool;
+use Pool\PoolConfig;
+use Pool\PoolInterface;
 use Psr\Log\LoggerInterface;
 
 final class ConnectionPool
@@ -62,16 +62,16 @@ final class ConnectionPool
 }
 ```
 
-**File:** `src/Infrastructure/Persistence/PoolableConnection.php`
+**File:** `src/{architecture-path}/Persistence/PoolableConnection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
-use Infrastructure\Pool\PoolableInterface;
+use Pool\PoolableInterface;
 
 final class PoolableConnection implements PoolableInterface
 {
@@ -134,18 +134,18 @@ final class PoolableConnection implements PoolableInterface
 
 ## HTTP Client Pool
 
-**File:** `src/Infrastructure/Http/HttpClientPool.php`
+**File:** `src/{architecture-path}/Http/HttpClientPool.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Pool\ObjectPool;
-use Infrastructure\Pool\PoolConfig;
-use Infrastructure\Pool\PoolInterface;
+use Pool\ObjectPool;
+use Pool\PoolConfig;
+use Pool\PoolInterface;
 use Psr\Log\LoggerInterface;
 
 final class HttpClientPool
@@ -184,16 +184,16 @@ final class HttpClientPool
 }
 ```
 
-**File:** `src/Infrastructure/Http/PoolableHttpClient.php`
+**File:** `src/{architecture-path}/Http/PoolableHttpClient.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Pool\PoolableInterface;
+use Pool\PoolableInterface;
 
 final class PoolableHttpClient implements PoolableInterface
 {
@@ -287,19 +287,19 @@ final class PoolableHttpClient implements PoolableInterface
 
 ### ObjectPool Test
 
-**File:** `tests/Unit/Infrastructure/Pool/ObjectPoolTest.php`
+**File:** `tests/Unit/ObjectPoolTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Pool;
+namespace Tests\Unit\Pool;
 
-use Infrastructure\Pool\ObjectPool;
-use Infrastructure\Pool\PoolableInterface;
-use Infrastructure\Pool\PoolConfig;
-use Infrastructure\Pool\PoolExhaustedException;
+use Pool\ObjectPool;
+use Pool\PoolableInterface;
+use Pool\PoolConfig;
+use Pool\PoolExhaustedException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -435,18 +435,18 @@ final class ObjectPoolTest extends TestCase
 
 ### Connection Pool Test
 
-**File:** `tests/Unit/Infrastructure/Persistence/ConnectionPoolTest.php`
+**File:** `tests/Unit/ConnectionPoolTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Persistence;
+namespace Tests\Unit\Persistence;
 
-use Infrastructure\Persistence\ConnectionPool;
-use Infrastructure\Persistence\PoolableConnection;
-use Infrastructure\Pool\PoolConfig;
+use Persistence\ConnectionPool;
+use Persistence\PoolableConnection;
+use Pool\PoolConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

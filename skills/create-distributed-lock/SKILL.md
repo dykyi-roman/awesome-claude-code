@@ -49,7 +49,7 @@ Creates distributed locking infrastructure for concurrency control and mutual ex
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Lock/`
+Place alongside other concurrency/coordination infrastructure.
 
 1. `LockInterface.php` — Lock contract
 2. `LockConfig.php` — Configuration value object
@@ -57,13 +57,13 @@ Creates distributed locking infrastructure for concurrency control and mutual ex
 
 ### Step 2: Generate Lock Adapter
 
-**Path:** `src/Infrastructure/Lock/`
+Co-located with the core components.
 
 1. `RedisLockAdapter.php` — Redis SETNX + TTL lock implementation
 
 ### Step 3: Generate Factory
 
-**Path:** `src/Infrastructure/Lock/`
+Co-located with the adapter.
 
 1. `LockFactory.php` — Creates configured lock instances
 
@@ -78,8 +78,10 @@ Creates distributed locking infrastructure for concurrency control and mutual ex
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Lock/` |
-| Unit Tests | `tests/Unit/Infrastructure/Lock/` |
+| All Classes | `src/{architecture-path}/Lock/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Lock/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The distributed lock typically lives alongside other concurrency/coordination infrastructure (caching, queues). Adjust to your project's layout.
 
 ---
 

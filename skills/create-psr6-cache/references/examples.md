@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace Persistence;
 
-use App\Domain\User\Entity\User;
-use App\Domain\User\Repository\UserRepositoryInterface;
-use App\Domain\User\ValueObject\UserId;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\UserId;
 use Psr\Cache\CacheItemPoolInterface;
 
 final readonly class CachedUserRepository implements UserRepositoryInterface
@@ -101,7 +101,7 @@ function getMultipleUsers(CacheItemPoolInterface $cache, array $ids): array
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use Psr\Cache\CacheItemInterface;
 
@@ -146,13 +146,13 @@ interface TaggableCachePoolInterface extends CacheItemPoolInterface
 // Symfony services.yaml
 services:
     Psr\Cache\CacheItemPoolInterface:
-        class: App\Infrastructure\Cache\RedisCachePool
+        class: Cache\RedisCachePool
         arguments:
             $redis: '@Redis'
             $prefix: 'app:'
 
-    App\Infrastructure\Persistence\CachedUserRepository:
-        decorates: App\Infrastructure\Persistence\DoctrineUserRepository
+    Repository\CachedUserRepository:
+        decorates: Repository\DoctrineUserRepository
         arguments:
             $repository: '@.inner'
             $cache: '@Psr\Cache\CacheItemPoolInterface'

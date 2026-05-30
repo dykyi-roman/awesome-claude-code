@@ -40,7 +40,7 @@ Detailed patterns for message brokers in Event-Driven Architecture.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 enum ExchangeType: string
 {
@@ -58,7 +58,7 @@ enum ExchangeType: string
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 
@@ -119,7 +119,7 @@ final readonly class RabbitMQSetup
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -178,7 +178,7 @@ final readonly class RabbitMQProducer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -254,7 +254,7 @@ final class RabbitMQConsumer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 final readonly class DeadLetterQueueSetup
 {
@@ -301,7 +301,7 @@ final readonly class DeadLetterQueueSetup
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 final readonly class RetryPolicy
 {
@@ -332,7 +332,7 @@ final readonly class RetryPolicy
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 final readonly class DelayedRetryHandler
 {
@@ -390,7 +390,7 @@ final readonly class DelayedRetryHandler
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 interface IdempotencyStoreInterface
 {
@@ -428,7 +428,7 @@ final readonly class RedisIdempotencyStore implements IdempotencyStoreInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 final readonly class IdempotentConsumer implements MessageHandlerInterface
 {
@@ -466,7 +466,7 @@ final readonly class IdempotentConsumer implements MessageHandlerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 final readonly class OrderedProducer
 {
@@ -506,7 +506,7 @@ final readonly class OrderedProducer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Kafka;
+namespace Messaging\Kafka;
 
 use RdKafka\Producer;
 use RdKafka\ProducerTopic;
@@ -548,7 +548,7 @@ final readonly class KafkaEventProducer implements EventPublisherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Kafka;
+namespace Messaging\Kafka;
 
 use RdKafka\KafkaConsumer;
 

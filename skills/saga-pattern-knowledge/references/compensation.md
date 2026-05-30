@@ -40,7 +40,7 @@ Compensations must be safely re-runnable.
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
 final readonly class ReleaseInventoryCompensation
 {
@@ -73,7 +73,7 @@ Store all data needed for compensation during forward execution.
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
 final readonly class ChargePaymentStep implements SagaStepInterface
 {
@@ -157,7 +157,7 @@ Move entity to compensated state.
 
 declare(strict_types=1);
 
-namespace Domain\Order;
+namespace Enum;
 
 enum OrderStatus: string
 {
@@ -225,7 +225,7 @@ When a step partially succeeds, compensation must handle partial state.
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
 final readonly class CreateShipmentStep implements SagaStepInterface
 {

@@ -49,21 +49,21 @@ Creates structured logging infrastructure for observability and request tracing.
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Logging/`
+Place alongside other logging / observability infrastructure.
 
 1. `CorrelationId.php` — Value Object with UUID validation
 2. `CorrelationIdHolder.php` — Thread-local correlation ID storage
 
 ### Step 2: Generate Monolog Processors
 
-**Path:** `src/Infrastructure/Logging/Processor/`
+Place in a sibling `Processor/` sub-folder of the logging folder.
 
 1. `CorrelationIdProcessor.php` — Adds correlation_id to log records
 2. `RequestContextProcessor.php` — Adds request context to log records
 
 ### Step 3: Generate Middleware
 
-**Path:** `src/Infrastructure/Logging/`
+Co-located with the core components in the logging folder.
 
 1. `CorrelationIdMiddleware.php` — PSR-15 middleware for correlation ID
 
@@ -79,9 +79,11 @@ Creates structured logging infrastructure for observability and request tracing.
 
 | Component | Path |
 |-----------|------|
-| Core Classes | `src/Infrastructure/Logging/` |
-| Processors | `src/Infrastructure/Logging/Processor/` |
-| Unit Tests | `tests/Unit/Infrastructure/Logging/` |
+| Core Classes | `src/{architecture-path}/Logging/` |
+| Processors | `src/{architecture-path}/Logging/Processor/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Logging/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Logger components typically live with other observability infrastructure. Adjust to your project's layout.
 
 ---
 

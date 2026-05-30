@@ -103,8 +103,8 @@ Quick reference for API design patterns, REST best practices, and PHP implementa
 ```bash
 # REST endpoint definitions
 Grep: "#\[Route|@Route|->get\(|->post\(|->put\(|->delete\(" --glob "**/*.php"
-Glob: **/Controller/**/*.php
-Glob: **/Action/**/*.php
+Glob: **/*Controller.php
+Glob: **/*Action.php
 
 # Status code usage
 Grep: "->setStatusCode\(|Response\(.*[0-9]{3}|JsonResponse\(" --glob "**/*.php"
@@ -120,7 +120,7 @@ Grep: "ProblemDetails|RFC7807|application/problem" --glob "**/*.php"
 Grep: "JsonResponse.*4[0-9]{2}|JsonResponse.*5[0-9]{2}" --glob "**/*.php"
 
 # Pagination
-Grep: "page|per_page|limit|offset|cursor" --glob "**/Controller/**/*.php"
+Grep: "page|per_page|limit|offset|cursor" --glob "**/*Controller.php" --glob "**/*Action.php"
 ```
 
 ## Advanced API Patterns

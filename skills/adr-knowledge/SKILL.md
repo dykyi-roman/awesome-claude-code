@@ -88,10 +88,10 @@ HTTP Request → Action (collects input)
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Action\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserUseCase;
-use Application\User\UseCase\CreateUser\CreateUserInput;
+use UseCase\CreateUser\CreateUserUseCase;
+use UseCase\CreateUser\CreateUserInput;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -130,9 +130,9 @@ final readonly class CreateUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Responder\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserResult;
+use UseCase\CreateUser\CreateUserResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -221,55 +221,43 @@ Grep: "public function [^_]" --glob "**/*Action.php" | wc -l
 
 ## File Structure
 
-### Recommended Structure
+ADR organizes one HTTP endpoint into a co-located unit: `Action`, `Responder`, and an optional Request DTO. The pattern is architecture-agnostic — placement of this unit in the folder tree depends on your project's organizational style.
+
+### Per-endpoint unit (the core ADR shape)
 
 ```
-src/
-├── Presentation/
-│   ├── Api/
-│   │   └── {Context}/
-│   │       └── {Action}/
-│   │           ├── {Action}Action.php
-│   │           ├── {Action}Responder.php
-│   │           └── {Action}Request.php (optional DTO)
-│   ├── Web/
-│   │   └── {Context}/
-│   │       └── {Action}/
-│   │           ├── {Action}Action.php
-│   │           ├── {Action}Responder.php
-│   │           └── templates/ (for HTML)
-│   └── Shared/
-│       ├── Action/
-│       │   └── ActionInterface.php
-│       └── Responder/
-│           └── ResponderInterface.php
-├── Application/
-│   └── {Context}/
-│       └── UseCase/
-│           └── {Action}/
-│               ├── {Action}UseCase.php
-│               ├── {Action}Input.php
-│               └── {Action}Result.php
-└── Domain/
-    └── ...
+{ActionName}/
+├── {ActionName}Action.php
+├── {ActionName}Responder.php
+└── {ActionName}Request.php  (optional DTO)
 ```
 
-### Alternative Structure (Feature-Based)
+Where this unit lives varies by architecture — e.g. `src/{architecture-path}/{ActionName}/`. Common patterns:
+
+- Layered: under `Presentation/Api/{Context}/`
+- Package-by-Feature: under `{Context}/Presentation/`
+- Vertical Slice: under `Features/`
+
+### Shared base interfaces
+
+Reusable interfaces live separately under their own pattern markers:
 
 ```
-src/
-├── User/
-│   ├── Presentation/
-│   │   ├── CreateUser/
-│   │   │   ├── CreateUserAction.php
-│   │   │   └── CreateUserResponder.php
-│   │   └── GetUser/
-│   │       ├── GetUserAction.php
-│   │       └── GetUserResponder.php
-│   ├── Application/
-│   │   └── ...
-│   └── Domain/
-│       └── ...
+Action/
+└── ActionInterface.php
+Responder/
+└── ResponderInterface.php
+```
+
+### Paired Use Case (when ADR is combined with DDD)
+
+The Use Case the Action invokes follows the same per-endpoint co-location:
+
+```
+UseCase/{ActionName}/
+├── {ActionName}UseCase.php
+├── {ActionName}Input.php
+└── {ActionName}Result.php
 ```
 
 ## Integration with DDD

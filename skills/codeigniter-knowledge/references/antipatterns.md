@@ -23,7 +23,7 @@ Grep: "function .*(calculate|validate|process|compute)" --glob "app/Controllers/
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -62,7 +62,7 @@ final class OrderController extends BaseController
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -152,10 +152,10 @@ Grep: "\\\\Config\\\\Database::connect\(\)" --glob "app/Controllers/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
 use App\Controllers\BaseController;
-use App\Infrastructure\Persistence\CIOrderRepository;
+use Persistence\CIOrderRepository;
 use App\Models\OrderModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -178,7 +178,7 @@ final class OrderController extends BaseController
 
 declare(strict_types=1);
 
-namespace App\Controllers\Api;
+namespace Api;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -384,7 +384,7 @@ Grep: "use CodeIgniter\\Shield" --glob "**/Application/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
 final readonly class OrderAuthorizationService
 {
@@ -402,10 +402,10 @@ final readonly class OrderAuthorizationService
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Specification;
+namespace Specification;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\User\Entity\User;
+use Entity\Order;
+use Entity\User;
 
 final readonly class CanCancelOrderSpecification
 {

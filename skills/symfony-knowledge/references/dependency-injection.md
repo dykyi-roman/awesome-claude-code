@@ -78,9 +78,9 @@ Symfony resolves constructor dependencies by type. If an interface has exactly o
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Handler;
+namespace Handler;
 
-use App\Order\Domain\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 
 // Symfony auto-wires OrderRepositoryInterface if bound in services.yaml
 final readonly class CreateOrderHandler
@@ -118,7 +118,7 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Symfony;
+namespace Order\Infrastructure\Symfony;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -167,9 +167,9 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Catalog\Application\Handler;
+namespace Handler;
 
-use App\Shared\Domain\Cache\CacheInterface;
+use Cache\CacheInterface;
 
 final readonly class GetProductHandler
 {
@@ -207,9 +207,9 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Service;
+namespace Service;
 
-use App\Order\Domain\Validator\OrderValidatorInterface;
+use Validator\OrderValidatorInterface;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 final readonly class CompositeOrderValidator implements OrderValidatorInterface
@@ -251,11 +251,11 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Cache;
+namespace Cache;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Order\Domain\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 use Psr\Cache\CacheItemPoolInterface;
 
 final readonly class CachedOrderRepository implements OrderRepositoryInterface
@@ -304,7 +304,7 @@ Compiler passes modify the container at build time for advanced wiring.
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Symfony\DependencyInjection;
+namespace DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -340,7 +340,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Shared\Infrastructure\Symfony\DependencyInjection\OrderValidatorPass;
+use DependencyInjection\OrderValidatorPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -376,7 +376,7 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Service;
+namespace Service;
 
 final readonly class OrderLimitChecker
 {

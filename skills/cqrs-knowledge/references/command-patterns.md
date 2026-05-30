@@ -25,10 +25,10 @@ A Command is an immutable object representing a request to change system state.
 
 declare(strict_types=1);
 
-namespace Application\Order\Command;
+namespace Command;
 
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\Money;
+use ValueObject\CustomerId;
+use ValueObject\Money;
 
 final readonly class CreateOrderCommand
 {
@@ -47,7 +47,7 @@ final readonly class CreateOrderCommand
 
 declare(strict_types=1);
 
-namespace Application\Order\Command;
+namespace Command;
 
 final readonly class AddOrderLineCommand
 {
@@ -71,7 +71,7 @@ final readonly class AddOrderLineCommand
 
 declare(strict_types=1);
 
-namespace Application\Order\Command;
+namespace Command;
 
 final readonly class ConfirmOrderCommand
 {

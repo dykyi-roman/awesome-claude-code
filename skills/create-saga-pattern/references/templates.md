@@ -1,17 +1,17 @@
 # Saga Pattern Templates
 
-## Domain Layer Components
+## Types & Contracts
 
 ### SagaState Enum
 
-**File:** `src/Domain/Shared/Saga/SagaState.php`
+**File:** `src/{architecture-path}/Saga/SagaState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 enum SagaState: string
 {
@@ -53,14 +53,14 @@ enum SagaState: string
 
 ### StepResult Value Object
 
-**File:** `src/Domain/Shared/Saga/StepResult.php`
+**File:** `src/{architecture-path}/Saga/StepResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final readonly class StepResult
 {
@@ -111,14 +111,14 @@ final readonly class StepResult
 
 ### SagaStepInterface
 
-**File:** `src/Domain/Shared/Saga/SagaStepInterface.php`
+**File:** `src/{architecture-path}/Saga/SagaStepInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 interface SagaStepInterface
 {
@@ -138,14 +138,14 @@ interface SagaStepInterface
 
 ### SagaContext
 
-**File:** `src/Domain/Shared/Saga/SagaContext.php`
+**File:** `src/{architecture-path}/Saga/SagaContext.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final class SagaContext implements \JsonSerializable
 {
@@ -218,14 +218,14 @@ final class SagaContext implements \JsonSerializable
 
 ### SagaResult
 
-**File:** `src/Domain/Shared/Saga/SagaResult.php`
+**File:** `src/{architecture-path}/Saga/SagaResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final readonly class SagaResult
 {
@@ -275,14 +275,14 @@ final readonly class SagaResult
 
 ### Exception Classes
 
-**File:** `src/Domain/Shared/Saga/InvalidSagaStateTransition.php`
+**File:** `src/{architecture-path}/Saga/InvalidSagaStateTransition.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final class InvalidSagaStateTransition extends \DomainException
 {
@@ -295,14 +295,14 @@ final class InvalidSagaStateTransition extends \DomainException
 }
 ```
 
-**File:** `src/Domain/Shared/Saga/SagaStepNotFound.php`
+**File:** `src/{architecture-path}/Saga/SagaStepNotFound.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final class SagaStepNotFound extends \RuntimeException
 {
@@ -315,21 +315,21 @@ final class SagaStepNotFound extends \RuntimeException
 
 ---
 
-## Application Layer Components
+## Orchestration + Persistence Abstraction
 
 ### SagaPersistenceInterface
 
-**File:** `src/Application/Shared/Saga/SagaPersistenceInterface.php`
+**File:** `src/{architecture-path}/Saga/SagaPersistenceInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaState;
+use Saga\SagaContext;
+use Saga\SagaState;
 
 interface SagaPersistenceInterface
 {
@@ -358,17 +358,17 @@ interface SagaPersistenceInterface
 
 ### SagaRecord
 
-**File:** `src/Application/Shared/Saga/SagaRecord.php`
+**File:** `src/{architecture-path}/Saga/SagaRecord.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaState;
+use Saga\SagaContext;
+use Saga\SagaState;
 
 final readonly class SagaRecord
 {
@@ -390,20 +390,20 @@ final readonly class SagaRecord
 
 ### SagaOrchestrator
 
-**File:** `src/Application/Shared/Saga/SagaOrchestrator.php`
+**File:** `src/{architecture-path}/Saga/SagaOrchestrator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaResult;
-use Domain\Shared\Saga\SagaState;
-use Domain\Shared\Saga\SagaStepInterface;
-use Domain\Shared\Saga\StepResult;
+use Saga\SagaContext;
+use Saga\SagaResult;
+use Saga\SagaState;
+use Saga\SagaStepInterface;
+use Saga\StepResult;
 use Psr\Log\LoggerInterface;
 
 final class SagaOrchestrator
@@ -537,18 +537,18 @@ final class SagaOrchestrator
 
 ### AbstractSagaStep
 
-**File:** `src/Application/Shared/Saga/AbstractSagaStep.php`
+**File:** `src/{architecture-path}/Saga/AbstractSagaStep.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaStepInterface;
-use Domain\Shared\Saga\StepResult;
+use Saga\SagaContext;
+use Saga\SagaStepInterface;
+use Saga\StepResult;
 
 abstract readonly class AbstractSagaStep implements SagaStepInterface
 {
@@ -573,24 +573,24 @@ abstract readonly class AbstractSagaStep implements SagaStepInterface
 
 ---
 
-## Infrastructure Layer
+## Persistence Implementation
 
 ### DoctrineSagaPersistence
 
-**File:** `src/Infrastructure/Persistence/Doctrine/Repository/DoctrineSagaPersistence.php`
+**File:** `src/{architecture-path}/Persistence/Doctrine/Repository/DoctrineSagaPersistence.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
-use Application\Shared\Saga\SagaPersistenceInterface;
-use Application\Shared\Saga\SagaRecord;
+use Saga\SagaPersistenceInterface;
+use Saga\SagaRecord;
 use Doctrine\DBAL\Connection;
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaState;
+use Saga\SagaContext;
+use Saga\SagaState;
 
 final readonly class DoctrineSagaPersistence implements SagaPersistenceInterface
 {

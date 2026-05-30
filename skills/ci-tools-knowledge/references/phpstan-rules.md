@@ -1,4 +1,4 @@
-# PHPStan Rules for DDD & Clean Architecture
+# PHPStan Rules for DDD
 
 Custom PHPStan rules, extensions, and configuration patterns for PHP 8.4 projects following DDD principles.
 
@@ -9,7 +9,7 @@ Custom PHPStan rules, extensions, and configuration patterns for PHP 8.4 project
 | 0-3 | Legacy projects, initial adoption | Generate baseline, fix incrementally |
 | 4-5 | Active development, moderate strictness | Enable `checkMissingIterableValueType` |
 | 6-7 | Strict typing projects | Enable generics checking |
-| 8 | **Production DDD projects** | Recommended target for Clean Architecture |
+| 8 | **Production DDD projects** | Recommended target for strict-typed DDD codebases |
 | 9 | Maximum strictness | All union types fully resolved |
 | max | Bleeding edge (unstable rules) | Only for CI experimentation, not blocking |
 

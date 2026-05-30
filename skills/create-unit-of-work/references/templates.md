@@ -4,18 +4,18 @@ Complete PHP 8.4 templates for all Unit of Work pattern components.
 
 ---
 
-## Domain Layer
+## Types
 
 ### EntityState Enum
 
-**Path:** `src/Domain/Shared/UnitOfWork/EntityState.php`
+**Path:** `src/{architecture-path}/UnitOfWork/EntityState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\UnitOfWork;
+namespace UnitOfWork;
 
 enum EntityState: string
 {
@@ -65,14 +65,14 @@ enum EntityState: string
 
 ### TransactionManagerInterface
 
-**Path:** `src/Domain/Shared/UnitOfWork/TransactionManagerInterface.php`
+**Path:** `src/{architecture-path}/UnitOfWork/TransactionManagerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\UnitOfWork;
+namespace UnitOfWork;
 
 interface TransactionManagerInterface
 {
@@ -96,14 +96,14 @@ interface TransactionManagerInterface
 
 ### DomainEventCollectorInterface
 
-**Path:** `src/Domain/Shared/UnitOfWork/DomainEventCollectorInterface.php`
+**Path:** `src/{architecture-path}/UnitOfWork/DomainEventCollectorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\UnitOfWork;
+namespace UnitOfWork;
 
 interface DomainEventCollectorInterface
 {
@@ -120,18 +120,18 @@ interface DomainEventCollectorInterface
 
 ---
 
-## Application Layer
+## Coordination
 
 ### UnitOfWorkInterface
 
-**Path:** `src/Application/Shared/UnitOfWork/UnitOfWorkInterface.php`
+**Path:** `src/{architecture-path}/UnitOfWork/UnitOfWorkInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\UnitOfWork;
+namespace UnitOfWork;
 
 interface UnitOfWorkInterface
 {
@@ -163,16 +163,16 @@ interface UnitOfWorkInterface
 
 ### AggregateTracker
 
-**Path:** `src/Application/Shared/UnitOfWork/AggregateTracker.php`
+**Path:** `src/{architecture-path}/UnitOfWork/AggregateTracker.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\UnitOfWork;
+namespace UnitOfWork;
 
-use Domain\Shared\UnitOfWork\EntityState;
+use UnitOfWork\EntityState;
 
 final class AggregateTracker
 {
@@ -275,25 +275,25 @@ final class AggregateTracker
 
 ---
 
-## Infrastructure Layer
+## Persistence Implementation
 
 ### DoctrineUnitOfWork
 
-**Path:** `src/Infrastructure/Persistence/UnitOfWork/DoctrineUnitOfWork.php`
+**Path:** `src/{architecture-path}/UnitOfWork/DoctrineUnitOfWork.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\UnitOfWork;
+namespace UnitOfWork;
 
-use Application\Shared\UnitOfWork\AggregateTracker;
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
-use Domain\Shared\Event\HasDomainEventsInterface;
-use Domain\Shared\UnitOfWork\DomainEventCollectorInterface;
-use Domain\Shared\UnitOfWork\EntityState;
-use Domain\Shared\UnitOfWork\TransactionManagerInterface;
+use UnitOfWork\AggregateTracker;
+use UnitOfWork\UnitOfWorkInterface;
+use Event\HasDomainEventsInterface;
+use UnitOfWork\DomainEventCollectorInterface;
+use UnitOfWork\EntityState;
+use UnitOfWork\TransactionManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class DoctrineUnitOfWork implements UnitOfWorkInterface
@@ -415,17 +415,17 @@ final readonly class DoctrineUnitOfWork implements UnitOfWorkInterface
 
 ### DoctrineTransactionManager
 
-**Path:** `src/Infrastructure/Persistence/UnitOfWork/DoctrineTransactionManager.php`
+**Path:** `src/{architecture-path}/UnitOfWork/DoctrineTransactionManager.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\UnitOfWork;
+namespace UnitOfWork;
 
 use Doctrine\DBAL\Connection;
-use Domain\Shared\UnitOfWork\TransactionManagerInterface;
+use UnitOfWork\TransactionManagerInterface;
 
 final readonly class DoctrineTransactionManager implements TransactionManagerInterface
 {
@@ -475,16 +475,16 @@ final readonly class DoctrineTransactionManager implements TransactionManagerInt
 
 ### DomainEventCollector
 
-**Path:** `src/Infrastructure/Persistence/UnitOfWork/DomainEventCollector.php`
+**Path:** `src/{architecture-path}/UnitOfWork/DomainEventCollector.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\UnitOfWork;
+namespace UnitOfWork;
 
-use Domain\Shared\UnitOfWork\DomainEventCollectorInterface;
+use UnitOfWork\DomainEventCollectorInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final class DomainEventCollector implements DomainEventCollectorInterface
@@ -524,14 +524,14 @@ final class DomainEventCollector implements DomainEventCollectorInterface
 
 ## HasDomainEventsInterface (Helper)
 
-**Path:** `src/Domain/Shared/Event/HasDomainEventsInterface.php`
+**Path:** `src/{architecture-path}/Event/HasDomainEventsInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 interface HasDomainEventsInterface
 {
@@ -546,14 +546,14 @@ interface HasDomainEventsInterface
 
 ## Usage Example Trait
 
-**Path:** `src/Domain/Shared/Event/RaisesDomainEventsTrait.php`
+**Path:** `src/{architecture-path}/Event/RaisesDomainEventsTrait.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 trait RaisesDomainEventsTrait
 {
@@ -583,16 +583,16 @@ trait RaisesDomainEventsTrait
 
 ### EntityStateTest
 
-**Path:** `tests/Unit/Domain/Shared/UnitOfWork/EntityStateTest.php`
+**Path:** `tests/Unit/UnitOfWork/EntityStateTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\UnitOfWork;
+namespace Tests\Unit\UnitOfWork;
 
-use Domain\Shared\UnitOfWork\EntityState;
+use UnitOfWork\EntityState;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -683,17 +683,17 @@ final class EntityStateTest extends TestCase
 
 ### AggregateTrackerTest
 
-**Path:** `tests/Unit/Application/Shared/UnitOfWork/AggregateTrackerTest.php`
+**Path:** `tests/Unit/UnitOfWork/AggregateTrackerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Shared\UnitOfWork;
+namespace Tests\Unit\UnitOfWork;
 
-use Application\Shared\UnitOfWork\AggregateTracker;
-use Domain\Shared\UnitOfWork\EntityState;
+use UnitOfWork\AggregateTracker;
+use UnitOfWork\EntityState;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -796,21 +796,21 @@ final class AggregateTrackerTest extends TestCase
 
 ### DoctrineUnitOfWorkTest
 
-**Path:** `tests/Unit/Infrastructure/Persistence/UnitOfWork/DoctrineUnitOfWorkTest.php`
+**Path:** `tests/Unit/UnitOfWork/DoctrineUnitOfWorkTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Persistence\UnitOfWork;
+namespace Tests\Unit\UnitOfWork;
 
-use Domain\Shared\Event\HasDomainEventsInterface;
-use Domain\Shared\UnitOfWork\DomainEventCollectorInterface;
-use Domain\Shared\UnitOfWork\EntityState;
-use Domain\Shared\UnitOfWork\TransactionManagerInterface;
+use Event\HasDomainEventsInterface;
+use UnitOfWork\DomainEventCollectorInterface;
+use UnitOfWork\EntityState;
+use UnitOfWork\TransactionManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Infrastructure\Persistence\UnitOfWork\DoctrineUnitOfWork;
+use UnitOfWork\DoctrineUnitOfWork;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

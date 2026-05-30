@@ -4,17 +4,17 @@
 
 ### NotEmptyValidationHandler
 
-**File:** `src/Domain/Validation/Handler/NotEmptyValidationHandler.php`
+**File:** `src/{architecture-path}/Handler/NotEmptyValidationHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Validation\Handler;
+namespace Handler;
 
-use Domain\Validation\ValueObject\ValidationRequest;
-use Domain\Validation\ValueObject\ValidationResult;
+use ValueObject\ValidationRequest;
+use ValueObject\ValidationResult;
 
 final class NotEmptyValidationHandler extends AbstractValidationHandler
 {
@@ -42,17 +42,17 @@ final class NotEmptyValidationHandler extends AbstractValidationHandler
 
 ### EmailValidationHandler
 
-**File:** `src/Domain/Validation/Handler/EmailValidationHandler.php`
+**File:** `src/{architecture-path}/Handler/EmailValidationHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Validation\Handler;
+namespace Handler;
 
-use Domain\Validation\ValueObject\ValidationRequest;
-use Domain\Validation\ValueObject\ValidationResult;
+use ValueObject\ValidationRequest;
+use ValueObject\ValidationResult;
 
 final class EmailValidationHandler extends AbstractValidationHandler
 {
@@ -84,17 +84,17 @@ final class EmailValidationHandler extends AbstractValidationHandler
 
 ### MinLengthValidationHandler
 
-**File:** `src/Domain/Validation/Handler/MinLengthValidationHandler.php`
+**File:** `src/{architecture-path}/Handler/MinLengthValidationHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Validation\Handler;
+namespace Handler;
 
-use Domain\Validation\ValueObject\ValidationRequest;
-use Domain\Validation\ValueObject\ValidationResult;
+use ValueObject\ValidationRequest;
+use ValueObject\ValidationResult;
 
 final class MinLengthValidationHandler extends AbstractValidationHandler
 {
@@ -129,17 +129,17 @@ final class MinLengthValidationHandler extends AbstractValidationHandler
 
 ### DiscountHandlerInterface
 
-**File:** `src/Domain/Pricing/Handler/DiscountHandlerInterface.php`
+**File:** `src/{architecture-path}/Handler/DiscountHandlerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Handler;
+namespace Handler;
 
-use Domain\Pricing\ValueObject\DiscountRequest;
-use Domain\Pricing\ValueObject\DiscountResult;
+use ValueObject\DiscountRequest;
+use ValueObject\DiscountResult;
 
 interface DiscountHandlerInterface
 {
@@ -153,17 +153,17 @@ interface DiscountHandlerInterface
 
 ### AbstractDiscountHandler
 
-**File:** `src/Domain/Pricing/Handler/AbstractDiscountHandler.php`
+**File:** `src/{architecture-path}/Handler/AbstractDiscountHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Handler;
+namespace Handler;
 
-use Domain\Pricing\ValueObject\DiscountRequest;
-use Domain\Pricing\ValueObject\DiscountResult;
+use ValueObject\DiscountRequest;
+use ValueObject\DiscountResult;
 
 abstract class AbstractDiscountHandler implements DiscountHandlerInterface
 {
@@ -198,17 +198,17 @@ abstract class AbstractDiscountHandler implements DiscountHandlerInterface
 
 ### VipDiscountHandler
 
-**File:** `src/Domain/Pricing/Handler/VipDiscountHandler.php`
+**File:** `src/{architecture-path}/Handler/VipDiscountHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Handler;
+namespace Handler;
 
-use Domain\Pricing\ValueObject\DiscountRequest;
-use Domain\Pricing\ValueObject\DiscountResult;
+use ValueObject\DiscountRequest;
+use ValueObject\DiscountResult;
 
 final class VipDiscountHandler extends AbstractDiscountHandler
 {
@@ -235,17 +235,17 @@ final class VipDiscountHandler extends AbstractDiscountHandler
 
 ### PromoCodeDiscountHandler
 
-**File:** `src/Domain/Pricing/Handler/PromoCodeDiscountHandler.php`
+**File:** `src/{architecture-path}/Handler/PromoCodeDiscountHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Handler;
+namespace Handler;
 
-use Domain\Pricing\ValueObject\DiscountRequest;
-use Domain\Pricing\ValueObject\DiscountResult;
+use ValueObject\DiscountRequest;
+use ValueObject\DiscountResult;
 
 final class PromoCodeDiscountHandler extends AbstractDiscountHandler
 {
@@ -282,17 +282,17 @@ final class PromoCodeDiscountHandler extends AbstractDiscountHandler
 
 ### BulkDiscountHandler
 
-**File:** `src/Domain/Pricing/Handler/BulkDiscountHandler.php`
+**File:** `src/{architecture-path}/Handler/BulkDiscountHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Handler;
+namespace Handler;
 
-use Domain\Pricing\ValueObject\DiscountRequest;
-use Domain\Pricing\ValueObject\DiscountResult;
+use ValueObject\DiscountRequest;
+use ValueObject\DiscountResult;
 
 final class BulkDiscountHandler extends AbstractDiscountHandler
 {
@@ -322,17 +322,17 @@ final class BulkDiscountHandler extends AbstractDiscountHandler
 
 ### NotEmptyValidationHandlerTest
 
-**File:** `tests/Unit/Domain/Validation/Handler/NotEmptyValidationHandlerTest.php`
+**File:** `tests/Unit/Handler/NotEmptyValidationHandlerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Validation\Handler;
+namespace Tests\Unit\Handler;
 
-use Domain\Validation\Handler\NotEmptyValidationHandler;
-use Domain\Validation\ValueObject\ValidationRequest;
+use Handler\NotEmptyValidationHandler;
+use ValueObject\ValidationRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -388,20 +388,20 @@ final class NotEmptyValidationHandlerTest extends TestCase
 
 ### ValidationChainTest
 
-**File:** `tests/Unit/Domain/Validation/Handler/ValidationChainTest.php`
+**File:** `tests/Unit/Handler/ValidationChainTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Validation\Handler;
+namespace Tests\Unit\Handler;
 
-use Domain\Validation\Handler\EmailValidationHandler;
-use Domain\Validation\Handler\MinLengthValidationHandler;
-use Domain\Validation\Handler\NotEmptyValidationHandler;
-use Domain\Validation\Handler\ValidationChainBuilder;
-use Domain\Validation\ValueObject\ValidationRequest;
+use Handler\EmailValidationHandler;
+use Handler\MinLengthValidationHandler;
+use Handler\NotEmptyValidationHandler;
+use Handler\ValidationChainBuilder;
+use ValueObject\ValidationRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -464,19 +464,19 @@ final class ValidationChainTest extends TestCase
 
 ### DiscountChainTest
 
-**File:** `tests/Unit/Domain/Pricing/Handler/DiscountChainTest.php`
+**File:** `tests/Unit/Handler/DiscountChainTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Pricing\Handler;
+namespace Tests\Unit\Handler;
 
-use Domain\Pricing\Handler\BulkDiscountHandler;
-use Domain\Pricing\Handler\VipDiscountHandler;
-use Domain\Pricing\ValueObject\DiscountRequest;
-use Domain\Pricing\ValueObject\Money;
+use Handler\BulkDiscountHandler;
+use Handler\VipDiscountHandler;
+use ValueObject\DiscountRequest;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -20,10 +20,12 @@ Generates PSR-3 compliant logger implementations following `Psr\Log\LoggerInterf
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| Logger Implementation | Concrete logger class | `src/Infrastructure/Logger/` |
-| LoggerAware Trait | For classes needing logger | `src/Infrastructure/Logger/` |
-| Null Logger | Testing/no-op logger | `src/Infrastructure/Logger/` |
-| Unit Tests | PHPUnit tests | `tests/Unit/Infrastructure/Logger/` |
+| Logger Implementation | Concrete logger class | `src/{architecture-path}/Logger/` |
+| LoggerAware Trait | For classes needing logger | `src/{architecture-path}/Logger/` |
+| Null Logger | Testing/no-op logger | `src/{architecture-path}/Logger/` |
+| Unit Tests | PHPUnit tests | `tests/Unit/{architecture-path}/Logger/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. PSR-3 logger adapters typically live with other observability infrastructure. Adjust to your project's layout.
 
 ## File Naming
 
@@ -41,7 +43,7 @@ Generates PSR-3 compliant logger implementations following `Psr\Log\LoggerInterf
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
@@ -174,7 +176,7 @@ final class FileLogger implements LoggerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use Psr\Log\LoggerInterface;
 use Stringable;
@@ -226,7 +228,7 @@ final readonly class NullLogger implements LoggerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use Psr\Log\LoggerInterface;
 
@@ -255,7 +257,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Logger;
 
-use App\Infrastructure\Logger\FileLogger;
+use Logger\FileLogger;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -338,7 +340,7 @@ final class FileLoggerTest extends TestCase
 ```php
 <?php
 
-use App\Infrastructure\Logger\FileLogger;
+use Logger\FileLogger;
 use Psr\Log\LogLevel;
 
 $logger = new FileLogger('/var/log/app.log', LogLevel::INFO);
@@ -367,9 +369,9 @@ $logger->info('User {user_id} performed {action}', [
 
 declare(strict_types=1);
 
-namespace App\Application\User\Handler;
+namespace Handler;
 
-use App\Infrastructure\Logger\LoggerAwareTrait;
+use Logger\LoggerAwareTrait;
 use Psr\Log\LoggerAwareInterface;
 
 final class CreateUserHandler implements LoggerAwareInterface

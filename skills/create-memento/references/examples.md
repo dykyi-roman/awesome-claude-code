@@ -4,14 +4,14 @@
 
 ### DocumentMemento
 
-**File:** `src/Domain/Document/Memento/DocumentMemento.php`
+**File:** `src/{architecture-path}/Memento/DocumentMemento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Document\Memento;
+namespace Memento;
 
 final readonly class DocumentMemento
 {
@@ -42,16 +42,16 @@ final readonly class DocumentMemento
 
 ### Document (Originator)
 
-**File:** `src/Domain/Document/Document.php`
+**File:** `src/{architecture-path}/Document.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Document;
+namespace Document;
 
-use Domain\Document\Memento\DocumentMemento;
+use Memento\DocumentMemento;
 
 final class Document
 {
@@ -105,16 +105,16 @@ final class Document
 
 ### DocumentHistory (Caretaker)
 
-**File:** `src/Application/Document/DocumentHistory.php`
+**File:** `src/{architecture-path}/DocumentHistory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Document;
+namespace Document;
 
-use Domain\Document\Memento\DocumentMemento;
+use Memento\DocumentMemento;
 
 final class DocumentHistory
 {
@@ -182,14 +182,14 @@ final class DocumentHistory
 
 ### OrderDraftMemento
 
-**File:** `src/Domain/Order/Memento/OrderDraftMemento.php`
+**File:** `src/{architecture-path}/Memento/OrderDraftMemento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Memento;
+namespace Memento;
 
 final readonly class OrderDraftMemento
 {
@@ -229,16 +229,16 @@ final readonly class OrderDraftMemento
 
 ### OrderDraft (Originator)
 
-**File:** `src/Domain/Order/OrderDraft.php`
+**File:** `src/{architecture-path}/OrderDraft.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order;
+namespace Order;
 
-use Domain\Order\Memento\OrderDraftMemento;
+use Memento\OrderDraftMemento;
 
 final class OrderDraft
 {
@@ -298,16 +298,16 @@ final class OrderDraft
 
 ### OrderDraftHistory (Caretaker with Limit)
 
-**File:** `src/Application/Order/OrderDraftHistory.php`
+**File:** `src/{architecture-path}/OrderDraftHistory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order;
+namespace Order;
 
-use Domain\Order\Memento\OrderDraftMemento;
+use Memento\OrderDraftMemento;
 
 final class OrderDraftHistory
 {
@@ -361,14 +361,14 @@ final class OrderDraftHistory
 
 ### FormStateMemento
 
-**File:** `src/Domain/Form/Memento/FormStateMemento.php`
+**File:** `src/{architecture-path}/Memento/FormStateMemento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Form\Memento;
+namespace Memento;
 
 final readonly class FormStateMemento
 {
@@ -408,16 +408,16 @@ final readonly class FormStateMemento
 
 ### MultiStepForm (Originator)
 
-**File:** `src/Domain/Form/MultiStepForm.php`
+**File:** `src/{architecture-path}/MultiStepForm.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Form;
+namespace Form;
 
-use Domain\Form\Memento\FormStateMemento;
+use Memento\FormStateMemento;
 
 final class MultiStepForm
 {
@@ -483,17 +483,17 @@ final class MultiStepForm
 
 ### DocumentHistoryTest
 
-**File:** `tests/Unit/Application/Document/DocumentHistoryTest.php`
+**File:** `tests/Unit/DocumentHistoryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Document;
+namespace Tests\Unit\Document;
 
-use Application\Document\DocumentHistory;
-use Domain\Document\Document;
+use Document\DocumentHistory;
+use Document\Document;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -586,17 +586,17 @@ final class DocumentHistoryTest extends TestCase
 
 ### OrderDraftMementoTest
 
-**File:** `tests/Unit/Domain/Order/Memento/OrderDraftMementoTest.php`
+**File:** `tests/Unit/Memento/OrderDraftMementoTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Memento;
+namespace Tests\Unit\Memento;
 
-use Domain\Order\Memento\OrderDraftMemento;
-use Domain\Order\OrderDraft;
+use Memento\OrderDraftMemento;
+use Order\OrderDraft;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

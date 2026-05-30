@@ -2,14 +2,14 @@
 
 ## Report Bridge
 
-**File:** `src/Domain/Report/ReportImplementorInterface.php`
+**File:** `src/{architecture-path}/ReportImplementorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Report;
+namespace Report;
 
 interface ReportImplementorInterface
 {
@@ -19,14 +19,14 @@ interface ReportImplementorInterface
 }
 ```
 
-**File:** `src/Domain/Report/AbstractReport.php`
+**File:** `src/{architecture-path}/AbstractReport.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Report;
+namespace Report;
 
 abstract readonly class AbstractReport
 {
@@ -38,14 +38,14 @@ abstract readonly class AbstractReport
 }
 ```
 
-**File:** `src/Domain/Report/SalesReport.php`
+**File:** `src/{architecture-path}/SalesReport.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Report;
+namespace Report;
 
 final readonly class SalesReport extends AbstractReport
 {
@@ -63,16 +63,16 @@ final readonly class SalesReport extends AbstractReport
 }
 ```
 
-**File:** `src/Infrastructure/Report/PdfReportImplementor.php`
+**File:** `src/{architecture-path}/PdfReportImplementor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Report;
+namespace Report;
 
-use Domain\Report\ReportImplementorInterface;
+use Report\ReportImplementorInterface;
 use Dompdf\Dompdf;
 
 final readonly class PdfReportImplementor implements ReportImplementorInterface
@@ -106,16 +106,16 @@ final readonly class PdfReportImplementor implements ReportImplementorInterface
 }
 ```
 
-**File:** `src/Infrastructure/Report/ExcelReportImplementor.php`
+**File:** `src/{architecture-path}/ExcelReportImplementor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Report;
+namespace Report;
 
-use Domain\Report\ReportImplementorInterface;
+use Report\ReportImplementorInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -151,18 +151,18 @@ final readonly class ExcelReportImplementor implements ReportImplementorInterfac
 
 ## Payment Bridge
 
-**File:** `src/Domain/Payment/PaymentImplementorInterface.php`
+**File:** `src/{architecture-path}/PaymentImplementorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Payment;
+namespace Payment;
 
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 
 interface PaymentImplementorInterface
 {
@@ -172,18 +172,18 @@ interface PaymentImplementorInterface
 }
 ```
 
-**File:** `src/Domain/Payment/AbstractPayment.php`
+**File:** `src/{architecture-path}/AbstractPayment.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Payment;
+namespace Payment;
 
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 
 abstract readonly class AbstractPayment
 {
@@ -197,18 +197,18 @@ abstract readonly class AbstractPayment
 }
 ```
 
-**File:** `src/Domain/Payment/CreditCardPayment.php`
+**File:** `src/{architecture-path}/CreditCardPayment.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Payment;
+namespace Payment;
 
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 
 final readonly class CreditCardPayment extends AbstractPayment
 {
@@ -238,17 +238,17 @@ final readonly class CreditCardPayment extends AbstractPayment
 
 ### SalesReportTest
 
-**File:** `tests/Unit/Domain/Report/SalesReportTest.php`
+**File:** `tests/Unit/SalesReportTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Report;
+namespace Tests\Unit\Report;
 
-use Domain\Report\ReportImplementorInterface;
-use Domain\Report\SalesReport;
+use Report\ReportImplementorInterface;
+use Report\SalesReport;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

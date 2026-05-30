@@ -23,7 +23,7 @@ Generates PSR-16 compliant simple cache implementations for basic caching needs.
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -145,7 +145,7 @@ final class ArrayCache implements CacheInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -246,7 +246,7 @@ final readonly class RedisCache implements CacheInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use Psr\SimpleCache\CacheException as PsrCacheException;
 use Psr\SimpleCache\InvalidArgumentException as PsrInvalidArgumentException;
@@ -265,7 +265,7 @@ final class InvalidArgumentException extends \InvalidArgumentException implement
 ```php
 <?php
 
-use App\Infrastructure\Cache\RedisCache;
+use Cache\RedisCache;
 
 $cache = new RedisCache($redis);
 

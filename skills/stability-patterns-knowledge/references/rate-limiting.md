@@ -37,7 +37,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 final class TokenBucketRateLimiter implements RateLimiterInterface
 {
@@ -87,7 +87,7 @@ final class TokenBucketRateLimiter implements RateLimiterInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 final class SlidingWindowRateLimiter implements RateLimiterInterface
 {
@@ -134,7 +134,7 @@ final class SlidingWindowRateLimiter implements RateLimiterInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 final class FixedWindowRateLimiter implements RateLimiterInterface
 {
@@ -213,7 +213,7 @@ final readonly class LeakyBucketRateLimiter implements RateLimiterInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 interface RateLimiterInterface
 {
@@ -238,9 +238,9 @@ final readonly class RateLimitResult
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
-use Infrastructure\Resilience\RateLimiter\RateLimiterInterface;
+use RateLimiter\RateLimiterInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -292,7 +292,7 @@ final readonly class RateLimitMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ServerRequestInterface;
 

@@ -2,14 +2,14 @@
 
 ## ConnectionRole Enum
 
-**File:** `src/Infrastructure/Database/ConnectionRole.php`
+**File:** `src/{architecture-path}/Database/ConnectionRole.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 enum ConnectionRole: string
 {
@@ -22,14 +22,14 @@ enum ConnectionRole: string
 
 ## ReadWriteConnectionInterface
 
-**File:** `src/Infrastructure/Database/ReadWriteConnectionInterface.php`
+**File:** `src/{architecture-path}/Database/ReadWriteConnectionInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 interface ReadWriteConnectionInterface
 {
@@ -59,14 +59,14 @@ interface ReadWriteConnectionInterface
 
 ## ConnectionConfig
 
-**File:** `src/Infrastructure/Database/ConnectionConfig.php`
+**File:** `src/{architecture-path}/Database/ConnectionConfig.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class ConnectionConfig
 {
@@ -101,14 +101,14 @@ final readonly class ConnectionConfig
 
 ## ReadWriteConnectionProxy
 
-**File:** `src/Infrastructure/Database/ReadWriteConnectionProxy.php`
+**File:** `src/{architecture-path}/Database/ReadWriteConnectionProxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final class ReadWriteConnectionProxy implements ReadWriteConnectionInterface
 {
@@ -246,14 +246,14 @@ final class ReadWriteConnectionProxy implements ReadWriteConnectionInterface
 
 ## ReplicaHealthChecker
 
-**File:** `src/Infrastructure/Database/ReplicaHealthChecker.php`
+**File:** `src/{architecture-path}/Database/ReplicaHealthChecker.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final class ReplicaHealthChecker
 {

@@ -2,14 +2,14 @@
 
 ## BulkheadInterface
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/BulkheadInterface.php`
+**File:** `src/{architecture-path}/Bulkhead/BulkheadInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 interface BulkheadInterface
 {
@@ -37,14 +37,14 @@ interface BulkheadInterface
 
 ## BulkheadConfig Value Object
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/BulkheadConfig.php`
+**File:** `src/{architecture-path}/Bulkhead/BulkheadConfig.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 final readonly class BulkheadConfig
 {
@@ -90,14 +90,14 @@ final readonly class BulkheadConfig
 
 ## BulkheadFullException
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/BulkheadFullException.php`
+**File:** `src/{architecture-path}/Bulkhead/BulkheadFullException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 final class BulkheadFullException extends \RuntimeException
 {
@@ -122,14 +122,14 @@ final class BulkheadFullException extends \RuntimeException
 
 ## SemaphoreBulkhead
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/SemaphoreBulkhead.php`
+**File:** `src/{architecture-path}/Bulkhead/SemaphoreBulkhead.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 use Psr\Log\LoggerInterface;
 
@@ -259,14 +259,14 @@ final class SemaphoreBulkhead implements BulkheadInterface
 
 ## BulkheadRegistry
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/BulkheadRegistry.php`
+**File:** `src/{architecture-path}/Bulkhead/BulkheadRegistry.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 use Psr\Log\LoggerInterface;
 
@@ -324,14 +324,14 @@ final class BulkheadRegistry
 
 ## DistributedSemaphoreBulkhead (Redis-based)
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/DistributedSemaphoreBulkhead.php`
+**File:** `src/{architecture-path}/Bulkhead/DistributedSemaphoreBulkhead.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 use Psr\Log\LoggerInterface;
 
@@ -470,14 +470,14 @@ final class DistributedSemaphoreBulkhead implements BulkheadInterface
 
 ## BulkheadDecorator Attribute
 
-**File:** `src/Infrastructure/Resilience/Bulkhead/BulkheadDecorator.php`
+**File:** `src/{architecture-path}/Bulkhead/BulkheadDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 final readonly class BulkheadDecorator

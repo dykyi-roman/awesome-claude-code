@@ -1,6 +1,6 @@
 # Quick Reference
 
-> Version: **v3.2.0**
+> Version: **v4.0.0**
 
 Component paths, formats, and best practices. Use this as a cheat sheet when creating or modifying components.
 
@@ -106,9 +106,9 @@ awesome-claude-code/
 │   │                               #   docker-performance-agent, docker-security-agent,
 │   │                               #   docker-debugger-agent, docker-production-agent
 │   └── ...
-├── skills/                         # 283 skills
+├── skills/                         # 291 skills
 │   ├── *-knowledge/                # 53 knowledge skills
-│   ├── check-*/                    # 71 analyzer skills
+│   ├── check-*/                    # 72 analyzer skills
 │   ├── find-*/                     # 8 bug detection skills
 │   ├── detect-*/                   # 8 detection skills
 │   ├── analyze-*/                  # 9 analysis skills
@@ -162,7 +162,7 @@ awesome-claude-code/
 | Optimizer Skills | 7 |
 | Template Skills | 10 |
 | Other Skills | 7 |
-| **Total Skills** | **283** |
+| **Total Skills** | **290** |
 
 ---
 

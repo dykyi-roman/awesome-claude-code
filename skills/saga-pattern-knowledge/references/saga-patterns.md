@@ -28,12 +28,12 @@ OrderService                 InventoryService              PaymentService
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
-use Domain\Inventory\Event\InventoryReserved;
-use Domain\Inventory\Event\InventoryReservationFailed;
-use Domain\Order\OrderRepositoryInterface;
-use Domain\Order\OrderStatus;
+use Event\InventoryReserved;
+use Event\InventoryReservationFailed;
+use Order\OrderRepositoryInterface;
+use Order\OrderStatus;
 
 final readonly class HandleInventoryReservationResult
 {
@@ -87,10 +87,10 @@ A central orchestrator manages the saga execution.
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga;
+namespace Saga;
 
-use Application\Shared\Saga\SagaOrchestrator;
-use Domain\Shared\Saga\SagaContext;
+use Saga\SagaOrchestrator;
+use Saga\SagaContext;
 
 final readonly class OrderSagaFactory
 {
@@ -127,11 +127,11 @@ final readonly class OrderSagaFactory
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaStepInterface;
-use Domain\Shared\Saga\StepResult;
+use Saga\SagaContext;
+use Saga\SagaStepInterface;
+use Saga\StepResult;
 
 final readonly class ReserveInventoryStep implements SagaStepInterface
 {
@@ -202,7 +202,7 @@ Use explicit state machine for saga lifecycle.
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 enum SagaState: string
 {
@@ -247,7 +247,7 @@ Execute independent steps concurrently.
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
 final class ParallelSagaStep implements SagaStepInterface
 {
@@ -353,9 +353,9 @@ CREATE TABLE saga_steps_log (
 
 declare(strict_types=1);
 
-namespace Infrastructure\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaState;
+use Saga\SagaState;
 
 final readonly class DoctrineSagaPersistence implements SagaPersistenceInterface
 {
@@ -409,7 +409,7 @@ Handle saga recovery after system restart.
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
 final readonly class SagaRecoveryService
 {

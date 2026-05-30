@@ -6,17 +6,13 @@
 
 ```
 my-service/
-├── src/
-│   ├── Domain/
-│   ├── Application/
-│   ├── Infrastructure/
-│   └── Presentation/
+├── src/                   # Source code (internal layout varies by architecture)
 ├── config/
 ├── tests/
 ├── composer.json
 ├── composer.lock
 ├── Dockerfile
-└── .env.example       # Template only, never real credentials
+└── .env.example           # Template only, never real credentials
 ```
 
 ### Monorepo Exception
@@ -78,7 +74,7 @@ RUN apk add --no-cache postgresql-dev \
 
 declare(strict_types=1);
 
-namespace Infrastructure\Config;
+namespace Config;
 
 // Preferred: $_ENV (populated by PHP-FPM env directives)
 $dbHost = $_ENV['DB_HOST'] ?? throw new \RuntimeException('DB_HOST not set');
@@ -266,7 +262,7 @@ while ($request = $worker->waitRequest()) {
 
 declare(strict_types=1);
 
-namespace Infrastructure\Worker;
+namespace Worker;
 
 final class SignalAwareConsumer
 {
@@ -329,7 +325,7 @@ process_control_timeout = 10
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
@@ -403,7 +399,7 @@ monolog:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

@@ -7,6 +7,8 @@ description: Generates Unit of Work pattern components for PHP 8.4. Creates tran
 
 Creates Unit of Work pattern infrastructure for transactional consistency across multiple aggregates.
 
+> Unit of Work is a persistence-coordination pattern (Fowler, *Patterns of Enterprise Application Architecture*). It maintains a list of objects affected by a business transaction and coordinates writing out their changes plus concurrency resolution. The pattern isn't bound to any specific layer — its interface and implementation live wherever your project coordinates persistence.
+
 ## When to Use
 
 | Scenario | Example |
@@ -20,7 +22,7 @@ Creates Unit of Work pattern infrastructure for transactional consistency across
 ## Component Characteristics
 
 ### UnitOfWorkInterface
-- Application layer port
+- Coordinates persistence across multiple aggregates
 - begin(), commit(), rollback() transaction methods
 - registerNew(), registerDirty(), registerDeleted() tracking methods
 - flush() to persist all tracked changes
@@ -41,7 +43,7 @@ Creates Unit of Work pattern infrastructure for transactional consistency across
 ### TransactionManagerInterface
 - Abstracts transaction lifecycle
 - Supports nested transactions (savepoints)
-- Domain layer contract
+- Implementation-agnostic abstraction over the underlying transactional resource
 
 ### DomainEventCollector
 - Collects events from all tracked aggregates
@@ -63,16 +65,16 @@ Determine:
 
 Create in this order:
 
-1. **Domain Layer** (`src/Domain/Shared/UnitOfWork/`)
+1. **Types & Contracts**
    - `EntityState.php` — State enum (New, Clean, Dirty, Deleted)
    - `TransactionManagerInterface.php` — Transaction contract
    - `DomainEventCollectorInterface.php` — Event collection contract
+   - `UnitOfWorkInterface.php` — Main UoW contract
 
-2. **Application Layer** (`src/Application/Shared/UnitOfWork/`)
-   - `UnitOfWorkInterface.php` — Main port
+2. **Coordination**
    - `AggregateTracker.php` — Identity map and change tracking
 
-3. **Infrastructure Layer** (`src/Infrastructure/Persistence/UnitOfWork/`)
+3. **Persistence Implementation**
    - `DoctrineUnitOfWork.php` — Doctrine-based implementation
    - `DoctrineTransactionManager.php` — Doctrine transaction manager
    - `DomainEventCollector.php` — Event collector with dispatcher
@@ -84,22 +86,24 @@ Create in this order:
 
 ### Step 3: Generate Context-Specific Integration
 
-For each context (e.g., Order):
+For each context (e.g., Order), generate a trait or base class:
+
 ```
-src/Application/{Context}/
-└── {Context}UnitOfWorkAware.php (trait or base class)
+{Context}UnitOfWorkAware.php
 ```
 
 ---
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Types | `src/Domain/Shared/UnitOfWork/` |
-| Application Port | `src/Application/Shared/UnitOfWork/` |
-| Infrastructure | `src/Infrastructure/Persistence/UnitOfWork/` |
-| Unit Tests | `tests/Unit/{Layer}/{Path}/` |
+| Component group | Path |
+|-----------------|------|
+| Types & Contracts | `src/{architecture-path}/UnitOfWork/` |
+| Coordination | `src/{architecture-path}/UnitOfWork/` |
+| Persistence Implementation | `src/{architecture-path}/UnitOfWork/` |
+| Unit Tests | `tests/Unit/{architecture-path}/UnitOfWork/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Unit of Work coordinates persistence — its contract typically lives alongside Repository contracts; the Doctrine implementation lives with other persistence adapters. Adjust to your project's layout.
 
 ---
 
@@ -196,11 +200,11 @@ try {
 
 ```yaml
 # Symfony services.yaml
-Application\Shared\UnitOfWork\UnitOfWorkInterface:
-    alias: Infrastructure\Persistence\UnitOfWork\DoctrineUnitOfWork
+UnitOfWork\UnitOfWorkInterface:
+    alias: UnitOfWork\DoctrineUnitOfWork
 
-Domain\Shared\UnitOfWork\TransactionManagerInterface:
-    alias: Infrastructure\Persistence\UnitOfWork\DoctrineTransactionManager
+UnitOfWork\TransactionManagerInterface:
+    alias: UnitOfWork\DoctrineTransactionManager
 ```
 
 ---

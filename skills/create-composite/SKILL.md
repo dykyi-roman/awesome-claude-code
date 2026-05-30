@@ -39,19 +39,19 @@ Creates Composite pattern infrastructure for treating individual objects and com
 
 ### Step 1: Generate Component Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the domain types that participate in the tree.
 
 1. `{Name}Interface.php` — Operations contract
 
 ### Step 2: Generate Leaf
 
-**Path:** `src/Domain/{BoundedContext}/`
+Co-located with the interface.
 
 1. `{Name}Leaf.php` — Individual object
 
 ### Step 3: Generate Composite
 
-**Path:** `src/Domain/{BoundedContext}/`
+Co-located with the interface.
 
 1. `{Name}Composite.php` — Container for children
 
@@ -65,10 +65,12 @@ Creates Composite pattern infrastructure for treating individual objects and com
 
 | Component | Path |
 |-----------|------|
-| Component Interface | `src/Domain/{BoundedContext}/` |
-| Leaf | `src/Domain/{BoundedContext}/` |
-| Composite | `src/Domain/{BoundedContext}/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/` |
+| Component Interface | `src/{architecture-path}/{Name}Interface.php` |
+| Leaf | `src/{architecture-path}/{Name}Leaf.php` |
+| Composite | `src/{architecture-path}/{Name}Composite.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Composite parts typically live alongside the domain types that participate in the tree. Adjust to your project's layout.
 
 ---
 

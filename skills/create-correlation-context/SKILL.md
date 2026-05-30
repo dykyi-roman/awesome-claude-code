@@ -17,19 +17,19 @@ Creates Correlation ID propagation infrastructure for distributed PHP applicatio
 
 ## Generated Components
 
-| Component | Layer | Path | Purpose |
-|-----------|-------|------|---------|
-| `CorrelationId` | Domain/Shared | `src/Domain/Shared/Correlation/CorrelationId.php` | UUID-based Value Object |
-| `CorrelationContext` | Domain/Shared | `src/Domain/Shared/Correlation/CorrelationContext.php` | Immutable context holder |
-| `CorrelationContextMiddleware` | Presentation | `src/Presentation/Middleware/CorrelationContextMiddleware.php` | PSR-15 middleware |
-| `CorrelationLogProcessor` | Infrastructure | `src/Infrastructure/Logging/CorrelationLogProcessor.php` | Monolog processor |
-| `CorrelationMessageStamp` | Infrastructure | `src/Infrastructure/Messaging/CorrelationMessageStamp.php` | Message bus stamp |
-| Unit tests | Tests | `tests/Unit/...` | Tests for all components |
+| Component | Role | Purpose |
+|-----------|------|---------|
+| `CorrelationId` | Value Object | UUID-based identity |
+| `CorrelationContext` | Context Holder | Immutable holder for correlation + causation IDs |
+| `CorrelationContextMiddleware` | HTTP Middleware | PSR-15 middleware that extracts/sets correlation headers |
+| `CorrelationLogProcessor` | Logging Adapter | Monolog processor that enriches log entries |
+| `CorrelationMessageStamp` | Messaging Adapter | Message bus stamp carrying correlation through async flows |
+| Unit tests | Tests | Tests for all components |
 
 ## Component Characteristics
 
 ### CorrelationId Value Object
-- Immutable, `final readonly` class in Domain layer
+- Immutable, `final readonly` class
 - UUID v4 based with factory method `generate()`
 - Constructor accepts existing string UUID
 - Implements `Stringable` and `JsonSerializable`
@@ -63,35 +63,35 @@ Creates Correlation ID propagation infrastructure for distributed PHP applicatio
 
 ## Generation Process
 
-### Step 1: Generate Domain Layer
+### Step 1: Generate Types
 
-**Path:** `src/Domain/Shared/Correlation/`
+Pure types with no infrastructure dependencies.
 
 1. `CorrelationId.php` -- UUID-based Value Object
 2. `CorrelationContext.php` -- Immutable context holder
 
-Use templates from `references/templates.md` (Domain section).
+Use templates from `references/templates.md` (Types section).
 
-### Step 2: Generate Presentation Layer
+### Step 2: Generate HTTP Middleware
 
-**Path:** `src/Presentation/Middleware/`
+Place alongside other HTTP middleware.
 
 1. `CorrelationContextMiddleware.php` -- PSR-15 middleware
 
-Use templates from `references/templates.md` (Presentation section).
+Use templates from `references/templates.md` (Middleware section).
 
-### Step 3: Generate Infrastructure Layer
+### Step 3: Generate Logging + Messaging Adapters
 
-**Path:** `src/Infrastructure/Logging/` and `src/Infrastructure/Messaging/`
+Place alongside other logging / messaging adapters.
 
 1. `CorrelationLogProcessor.php` -- Monolog processor
 2. `CorrelationMessageStamp.php` -- Message bus stamp
 
-Use templates from `references/templates.md` (Infrastructure section).
+Use templates from `references/templates.md` (Adapters section).
 
 ### Step 4: Generate Tests
 
-**Path:** `tests/Unit/Domain/Shared/Correlation/` and `tests/Unit/Presentation/Middleware/` and `tests/Unit/Infrastructure/`
+Mirror the production-code paths under `tests/Unit/`.
 
 1. `CorrelationIdTest.php`
 2. `CorrelationContextTest.php`
@@ -106,19 +106,14 @@ Use templates from `references/templates.md` (Tests section).
 
 | Component | Default Path |
 |-----------|--------------|
-| CorrelationId | `src/Domain/Shared/Correlation/CorrelationId.php` |
-| CorrelationContext | `src/Domain/Shared/Correlation/CorrelationContext.php` |
-| Middleware | `src/Presentation/Middleware/CorrelationContextMiddleware.php` |
-| Log Processor | `src/Infrastructure/Logging/CorrelationLogProcessor.php` |
-| Message Stamp | `src/Infrastructure/Messaging/CorrelationMessageStamp.php` |
-| Tests | `tests/Unit/{layer}/...Test.php` |
+| CorrelationId | `src/{architecture-path}/Correlation/CorrelationId.php` |
+| CorrelationContext | `src/{architecture-path}/Correlation/CorrelationContext.php` |
+| Middleware | `src/{architecture-path}/Middleware/CorrelationContextMiddleware.php` |
+| Log Processor | `src/{architecture-path}/Logging/CorrelationLogProcessor.php` |
+| Message Stamp | `src/{architecture-path}/Messaging/CorrelationMessageStamp.php` |
+| Tests | `tests/Unit/{architecture-path}/...Test.php` |
 
-Adapt paths to match existing project structure detected via:
-```
-Glob: src/Domain/**/*.php
-Glob: src/Presentation/**/*.php
-Glob: src/Infrastructure/**/*.php
-```
+> `{architecture-path}` represents your project's architecture-specific folders. Types live alongside other shared cross-cutting types; the middleware lives with other HTTP middleware; the log processor lives with other logging adapters; the message stamp lives with other messaging adapters. Adjust to your project's layout — detect existing structure with `Glob: src/**/*.php`.
 
 ---
 

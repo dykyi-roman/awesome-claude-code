@@ -176,7 +176,7 @@ log_errors_max_len = 4096
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Psr\Log\LoggerInterface;
 

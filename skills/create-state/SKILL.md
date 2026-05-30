@@ -47,26 +47,26 @@ Determine:
 
 ### Step 2: Generate State Components
 
-**Path:** `src/Domain/{BoundedContext}/State/`
+Place in a `State/` folder inside the bounded context.
 
 1. `{Name}StateInterface.php` — State contract with all actions
 2. `Abstract{Name}State.php` — Base class with default (invalid) implementations
 3. `{StateName}State.php` — Concrete state for each state (PendingState, PaidState, etc.)
 4. `{Name}StateFactory.php` — Factory for reconstitution from storage
 
-**Path:** `src/Domain/{BoundedContext}/Exception/`
+Place the exception in a sibling `Exception/` folder of the same bounded context.
 
 5. `InvalidStateTransitionException.php` — Exception for invalid transitions
 
 ### Step 3: Update Entity
 
-**Path:** `src/Domain/{BoundedContext}/Entity/`
+The entity lives in a sibling `Entity/` folder of the same bounded context.
 
 Update entity to use state pattern with delegation methods.
 
 ### Step 4: Generate Tests
 
-**Path:** `tests/Unit/Domain/{BoundedContext}/State/`
+Mirror the production-code path under `tests/Unit/`.
 
 1. `{StateName}StateTest.php` — Test each concrete state
 2. `{Entity}StateTransitionTest.php` — Test full state machine
@@ -77,12 +77,14 @@ Update entity to use state pattern with delegation methods.
 
 | Component | Path |
 |-----------|------|
-| State Interface | `src/Domain/{BoundedContext}/State/` |
-| Concrete States | `src/Domain/{BoundedContext}/State/` |
-| State Factory | `src/Domain/{BoundedContext}/State/` |
-| Entity with State | `src/Domain/{BoundedContext}/Entity/` |
-| Exception | `src/Domain/{BoundedContext}/Exception/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/State/` |
+| State Interface | `src/{architecture-path}/State/{Name}StateInterface.php` |
+| Concrete States | `src/{architecture-path}/State/{StateName}State.php` |
+| State Factory | `src/{architecture-path}/State/{Name}StateFactory.php` |
+| Entity with State | `src/{architecture-path}/Entity/{Name}.php` |
+| Exception | `src/{architecture-path}/Exception/InvalidStateTransitionException.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/State/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. State, Entity, and Exception live in sibling sub-folders of the same bounded context. Adjust to your project's layout.
 
 ---
 

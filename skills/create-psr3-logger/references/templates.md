@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
@@ -111,7 +111,7 @@ final class StreamLogger implements LoggerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
@@ -214,7 +214,7 @@ final class ArrayLogger implements LoggerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use Psr\Log\LoggerInterface;
 use Stringable;
@@ -285,7 +285,7 @@ final readonly class CompositeLogger implements LoggerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;

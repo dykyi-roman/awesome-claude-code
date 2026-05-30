@@ -39,7 +39,7 @@ Creates Object Pool pattern infrastructure for managing reusable expensive objec
 
 ### Step 1: Generate Core Pool Components
 
-**Path:** `src/Infrastructure/Pool/`
+Place alongside other resource-management infrastructure.
 
 1. `PoolInterface.php` — Generic pool contract with acquire/release
 2. `PoolConfig.php` — Configuration value object (min/max size, timeouts)
@@ -51,14 +51,14 @@ Creates Object Pool pattern infrastructure for managing reusable expensive objec
 
 ### Step 2: Generate Specialized Pool (if needed)
 
-**Path:** `src/Infrastructure/{Domain}/`
+Place alongside the resource type being pooled (DB connections, HTTP clients, etc.).
 
 1. `{Type}Pool.php` — Specialized pool (ConnectionPool, HttpClientPool)
 2. `Poolable{Type}.php` — Poolable implementation for specific resource
 
 ### Step 3: Generate Tests
 
-**Path:** `tests/Unit/Infrastructure/Pool/`
+Mirror the production-code path under `tests/Unit/`.
 
 1. `ObjectPoolTest.php` — Core pool functionality tests
 2. `{Type}PoolTest.php` — Specialized pool tests
@@ -69,10 +69,12 @@ Creates Object Pool pattern infrastructure for managing reusable expensive objec
 
 | Component | Path |
 |-----------|------|
-| Pool Interface | `src/Infrastructure/Pool/` |
-| Pool Implementation | `src/Infrastructure/Pool/` |
-| Specialized Pools | `src/Infrastructure/{Domain}/` |
-| Unit Tests | `tests/Unit/Infrastructure/Pool/` |
+| Pool Interface | `src/{architecture-path}/Pool/PoolInterface.php` |
+| Pool Implementation | `src/{architecture-path}/Pool/ObjectPool.php` |
+| Specialized Pools | `src/{architecture-path}/{Type}Pool.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Pool/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The generic pool lives with other resource-management infrastructure; specialized pools live alongside the resource type they pool (e.g. with persistence adapters for ConnectionPool, with HTTP clients for HttpClientPool). Adjust to your project's layout.
 
 ---
 

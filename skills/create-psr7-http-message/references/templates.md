@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -171,7 +171,7 @@ final readonly class Response implements ResponseInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
@@ -373,7 +373,7 @@ final class Stream implements StreamInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
@@ -552,7 +552,7 @@ final readonly class Uri implements UriInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -759,7 +759,7 @@ final readonly class Request implements RequestInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -1106,7 +1106,7 @@ final readonly class ServerRequest implements ServerRequestInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Message;
+namespace Http\Message;
 
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;

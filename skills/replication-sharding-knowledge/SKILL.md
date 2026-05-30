@@ -48,7 +48,7 @@ Route SELECT queries to replicas, INSERT/UPDATE/DELETE to primary.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final class ReadWriteConnection
 {
@@ -179,7 +179,7 @@ final class ReadWriteConnection
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final class StickyMasterConnection
 {
@@ -229,7 +229,7 @@ final class StickyMasterConnection
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class LagAwareRouter
 {
@@ -272,7 +272,7 @@ All queries inside a transaction must go to the primary to maintain ACID guarant
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final class TransactionAwareConnection
 {

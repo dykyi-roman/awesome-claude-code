@@ -2,14 +2,14 @@
 
 ## StoredEvent
 
-**File:** `src/Domain/{BoundedContext}/EventStore/StoredEvent.php`
+**File:** `src/{architecture-path}/EventStore/StoredEvent.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\EventStore;
+namespace EventStore;
 
 final readonly class StoredEvent
 {
@@ -72,14 +72,14 @@ final readonly class StoredEvent
 
 ## EventStreamInterface
 
-**File:** `src/Domain/{BoundedContext}/EventStore/EventStreamInterface.php`
+**File:** `src/{architecture-path}/EventStore/EventStreamInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\EventStore;
+namespace EventStore;
 
 interface EventStreamInterface extends \IteratorAggregate, \Countable
 {
@@ -93,14 +93,14 @@ interface EventStreamInterface extends \IteratorAggregate, \Countable
 
 ## EventStream
 
-**File:** `src/Domain/{BoundedContext}/EventStore/EventStream.php`
+**File:** `src/{architecture-path}/EventStore/EventStream.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\EventStore;
+namespace EventStore;
 
 final class EventStream implements EventStreamInterface
 {
@@ -180,14 +180,14 @@ final class EventStream implements EventStreamInterface
 
 ## EventStoreInterface
 
-**File:** `src/Domain/{BoundedContext}/EventStore/EventStoreInterface.php`
+**File:** `src/{architecture-path}/EventStore/EventStoreInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\EventStore;
+namespace EventStore;
 
 interface EventStoreInterface
 {
@@ -206,14 +206,14 @@ interface EventStoreInterface
 
 ## ConcurrencyException
 
-**File:** `src/Domain/{BoundedContext}/EventStore/ConcurrencyException.php`
+**File:** `src/{architecture-path}/EventStore/ConcurrencyException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\EventStore;
+namespace EventStore;
 
 final class ConcurrencyException extends \RuntimeException
 {
@@ -238,20 +238,20 @@ final class ConcurrencyException extends \RuntimeException
 
 ## DoctrineEventStore
 
-**File:** `src/Infrastructure/{BoundedContext}/EventStore/DoctrineEventStore.php`
+**File:** `src/{architecture-path}/EventStore/DoctrineEventStore.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\EventStore;
+namespace EventStore;
 
 use Doctrine\DBAL\Connection;
-use Domain\{BoundedContext}\EventStore\ConcurrencyException;
-use Domain\{BoundedContext}\EventStore\EventStoreInterface;
-use Domain\{BoundedContext}\EventStore\EventStream;
-use Domain\{BoundedContext}\EventStore\StoredEvent;
+use EventStore\ConcurrencyException;
+use EventStore\EventStoreInterface;
+use EventStore\EventStream;
+use EventStore\StoredEvent;
 
 final readonly class DoctrineEventStore implements EventStoreInterface
 {

@@ -91,8 +91,8 @@ return [
 
 declare(strict_types=1);
 
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Infrastructure\Persistence\ActiveRecordOrderRepository;
+use Repository\OrderRepositoryInterface;
+use Persistence\ActiveRecordOrderRepository;
 use Yiisoft\Definitions\Reference;
 
 return [
@@ -113,11 +113,11 @@ return [
 
 declare(strict_types=1);
 
-namespace Infrastructure\Provider;
+namespace Provider;
 
 use Yiisoft\Di\ServiceProviderInterface;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Infrastructure\Persistence\ActiveRecordOrderRepository;
+use Repository\OrderRepositoryInterface;
+use Persistence\ActiveRecordOrderRepository;
 
 final class OrderServiceProvider implements ServiceProviderInterface
 {

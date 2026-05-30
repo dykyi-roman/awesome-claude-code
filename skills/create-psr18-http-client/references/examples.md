@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\External;
+namespace External;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -54,9 +54,9 @@ final readonly class StripeClient
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Service;
+namespace Service;
 
-use App\Infrastructure\Http\Client\ApiClientBuilder;
+use Http\Client\ApiClientBuilder;
 
 final readonly class UserServiceClient
 {
@@ -104,7 +104,7 @@ final readonly class UserServiceClient
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Infrastructure;
+namespace Tests\Unit\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;

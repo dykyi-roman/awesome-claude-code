@@ -5,9 +5,9 @@
 ```php
 <?php
 
-use App\Infrastructure\Http\Message\Request;
-use App\Infrastructure\Http\Message\Stream;
-use App\Infrastructure\Http\Message\Uri;
+use Http\Message\Request;
+use Http\Message\Stream;
+use Http\Message\Uri;
 
 // Simple GET request
 $request = new Request('GET', 'https://api.example.com/users');
@@ -30,8 +30,8 @@ $request = new Request('GET', $uri);
 ```php
 <?php
 
-use App\Infrastructure\Http\Message\Response;
-use App\Infrastructure\Http\Message\Stream;
+use Http\Message\Response;
+use Http\Message\Stream;
 
 // Simple OK response
 $response = new Response(200);
@@ -56,7 +56,7 @@ $response = (new Response(302))
 ```php
 <?php
 
-use App\Infrastructure\Http\Message\ServerRequest;
+use Http\Message\ServerRequest;
 
 // From globals (in index.php)
 $request = ServerRequest::fromGlobals();
@@ -94,11 +94,11 @@ $userId = $request->getAttribute('user_id');
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Controller;
+namespace Controller;
 
-use App\Application\User\Query\GetUserQuery;
-use App\Infrastructure\Http\Message\Response;
-use App\Infrastructure\Http\Message\Stream;
+use Query\GetUserQuery;
+use Http\Message\Response;
+use Http\Message\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -146,7 +146,7 @@ final readonly class UserController
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -182,10 +182,10 @@ final readonly class JsonBodyParserMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace Tests\Functional;
 
-use App\Infrastructure\Http\Message\ServerRequest;
-use App\Infrastructure\Http\Message\Stream;
+use Http\Message\ServerRequest;
+use Http\Message\Stream;
 use PHPUnit\Framework\TestCase;
 
 final class UserControllerTest extends TestCase
@@ -219,10 +219,10 @@ final class UserControllerTest extends TestCase
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
-use App\Infrastructure\Http\Message\Response;
-use App\Infrastructure\Http\Message\Stream;
+use Http\Message\Response;
+use Http\Message\Stream;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class ResponseFactory

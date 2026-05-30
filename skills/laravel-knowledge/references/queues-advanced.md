@@ -22,7 +22,7 @@ Grep: "implements ShouldQueue" --glob "**/Jobs/**/*.php" --output_mode count
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Middleware;
+namespace Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Redis;
@@ -55,7 +55,7 @@ final readonly class RateLimitedMiddleware
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -96,7 +96,7 @@ final class ProcessOrderPayment implements ShouldQueue
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -156,7 +156,7 @@ php bin/artisan queue:flush            # Delete all failed jobs
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -214,7 +214,7 @@ Process multiple jobs as a batch with progress tracking and failure handling.
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -289,7 +289,7 @@ Prevent duplicate job processing.
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -363,10 +363,10 @@ stopwaitsecs=3600
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
-use App\Application\Order\Command\PlaceOrderCommand;
-use App\Application\Order\UseCase\PlaceOrderUseCase;
+use Command\PlaceOrderCommand;
+use UseCase\PlaceOrderUseCase;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -401,10 +401,10 @@ final class PlaceOrderJob implements ShouldQueue
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
-use App\Domain\Order\Event\OrderConfirmedEvent;
-use App\Shared\Domain\EventDispatcherInterface;
+use Event\OrderConfirmedEvent;
+use Domain\EventDispatcherInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;

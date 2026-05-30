@@ -209,7 +209,7 @@ final readonly class OrderProcessor
 declare(strict_types=1);
 
 // Port (abstraction in Domain/Application layer)
-namespace Domain\Port;
+namespace Port;
 
 interface PaymentGateway
 {
@@ -218,9 +218,9 @@ interface PaymentGateway
 }
 
 // Adapter (implementation in Infrastructure layer)
-namespace Infrastructure\Adapter;
+namespace Adapter;
 
-use Domain\Port\PaymentGateway;
+use Port\PaymentGateway;
 
 final readonly class StripePaymentGateway implements PaymentGateway
 {
@@ -349,7 +349,7 @@ final readonly class UserService
 declare(strict_types=1);
 
 // Domain defines the abstraction (Port)
-namespace Domain\Repository;
+namespace Repository;
 
 interface OrderRepository
 {
@@ -359,7 +359,7 @@ interface OrderRepository
 }
 
 // Domain service depends on abstraction
-namespace Domain\Service;
+namespace Service;
 
 final readonly class OrderDomainService
 {
@@ -382,9 +382,9 @@ final readonly class OrderDomainService
 }
 
 // Infrastructure provides implementation (Adapter)
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
-use Domain\Repository\OrderRepository;
+use Repository\OrderRepository;
 
 final readonly class DoctrineOrderRepository implements OrderRepository
 {

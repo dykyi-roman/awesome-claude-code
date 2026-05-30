@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v3.2.0**. Installed via:
+Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and architectural patterns. Current version: **v4.0.0**. Architecture-neutral by default — examples and templates work across Clean, Hexagonal, Layered, N-Tier, Package-by-Feature, and MVC; architecture-specific knowledge is opt-in via the `*-arch-knowledge` skills. Installed via:
 
 ```bash
 /plugin marketplace add dykyi-roman/awesome-claude-code
@@ -32,7 +32,7 @@ make release                # Run validate-claude, then print release instructio
 
 commands/          # 26 commands (was .claude/commands/) — user-invokable via /acc:*
 agents/            # 68 agents (was .claude/agents/) — invoked via Task tool with subagent_type
-skills/            # 283 skills (was .claude/skills/) — 53 knowledge, 107 analyzer, 99 generator, 7 optimizer, 10 template, 7 other
+skills/            # 291 skills (was .claude/skills/) — 54 knowledge, 108 analyzer, 105 generator, 7 optimizer, 10 template, 7 other
 
 hooks/
 └── hooks.json     # PHP syntax check hook

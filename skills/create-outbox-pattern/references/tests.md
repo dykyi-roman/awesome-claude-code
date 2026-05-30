@@ -2,16 +2,16 @@
 
 ## OutboxMessageTest
 
-**File:** `tests/Unit/Domain/Shared/Outbox/OutboxMessageTest.php`
+**File:** `tests/Unit/Outbox/OutboxMessageTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Outbox;
+namespace Tests\Unit\Outbox;
 
-use Domain\Shared\Outbox\OutboxMessage;
+use Outbox\OutboxMessage;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -110,20 +110,20 @@ final class OutboxMessageTest extends TestCase
 
 ## OutboxProcessorTest
 
-**File:** `tests/Unit/Application/Shared/Outbox/OutboxProcessorTest.php`
+**File:** `tests/Unit/Outbox/OutboxProcessorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Shared\Outbox;
+namespace Tests\Unit\Outbox;
 
-use Application\Shared\Outbox\OutboxProcessor;
-use Application\Shared\Port\Output\DeadLetterRepositoryInterface;
-use Application\Shared\Port\Output\MessagePublisherInterface;
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Outbox\OutboxProcessor;
+use Port\Output\DeadLetterRepositoryInterface;
+use Port\Output\MessagePublisherInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,8 @@
 # DDD Generation Examples
 
-## Domain Layer
+Example commands and the files each one produces. Path examples below use the `{architecture-path}` placeholder for the architecture-specific folder portion — the literal value depends on the project's chosen architecture (Clean / Hexagonal / Layered 3-tier / N-Tier / Package-by-Feature / MVC). See [`layer-architecture.md`](layer-architecture.md) for the per-architecture placement table.
+
+## Domain model components
 
 ### Entity
 ```bash
@@ -10,10 +12,10 @@
 
 Generates:
 ```
-src/Domain/Order/Entity/
+src/{architecture-path}/Order/Entity/
 ├── Order.php
 └── OrderId.php (Value Object)
-tests/Unit/Domain/Order/Entity/
+tests/Unit/{architecture-path}/Order/Entity/
 └── OrderTest.php
 ```
 
@@ -25,10 +27,10 @@ tests/Unit/Domain/Order/Entity/
 
 Generates:
 ```
-src/Domain/User/ValueObject/
+src/{architecture-path}/User/ValueObject/
 ├── Email.php
 └── Exception/InvalidEmailException.php
-tests/Unit/Domain/User/ValueObject/
+tests/Unit/{architecture-path}/User/ValueObject/
 └── EmailTest.php
 ```
 
@@ -40,14 +42,14 @@ tests/Unit/Domain/User/ValueObject/
 
 Generates:
 ```
-src/Domain/Order/Entity/
+src/{architecture-path}/Order/Entity/
 ├── Order.php (Aggregate Root)
 ├── OrderLine.php (Child Entity)
 ├── OrderId.php
 └── OrderStatus.php (Enum)
-src/Domain/Order/Event/
+src/{architecture-path}/Order/Event/
 └── OrderCreatedEvent.php
-tests/Unit/Domain/Order/Entity/
+tests/Unit/{architecture-path}/Order/Entity/
 ├── OrderTest.php
 └── OrderLineTest.php
 ```
@@ -60,9 +62,9 @@ tests/Unit/Domain/Order/Entity/
 
 Generates:
 ```
-src/Domain/Order/Event/
+src/{architecture-path}/Order/Event/
 └── OrderConfirmedEvent.php
-tests/Unit/Domain/Order/Event/
+tests/Unit/{architecture-path}/Order/Event/
 └── OrderConfirmedEventTest.php
 ```
 
@@ -72,15 +74,17 @@ tests/Unit/Domain/Order/Event/
 /acc:generate-ddd repo User -- Doctrine implementation
 ```
 
-Generates:
+Generates (folder placement of the concrete class varies by architecture — see [`layer-architecture.md`](layer-architecture.md)):
 ```
-src/Domain/Order/Repository/
+src/{architecture-path}/Order/Repository/
 └── OrderRepositoryInterface.php
-src/Infrastructure/Persistence/Doctrine/
+src/{architecture-path-for-persistence}/Doctrine/
 └── DoctrineOrderRepository.php
-tests/Unit/Domain/Order/Repository/
+tests/Unit/{architecture-path}/Order/Repository/
 └── InMemoryOrderRepository.php
 ```
+
+In Layered 3-tier (Domain-centric) the Doctrine class lands at `src/{architecture-path}/Order/Repository/Doctrine/`; in Clean / Hexagonal / N-Tier it lands under `src/Infrastructure/Persistence/{Doctrine}/`. The `{architecture-path-for-persistence}` placeholder reflects that variation.
 
 ### Domain Service
 ```bash
@@ -90,9 +94,9 @@ tests/Unit/Domain/Order/Repository/
 
 Generates:
 ```
-src/Domain/Payment/Service/
+src/{architecture-path}/Payment/Service/
 └── MoneyTransferService.php
-tests/Unit/Domain/Payment/Service/
+tests/Unit/{architecture-path}/Payment/Service/
 └── MoneyTransferServiceTest.php
 ```
 
@@ -104,9 +108,9 @@ tests/Unit/Domain/Payment/Service/
 
 Generates:
 ```
-src/Domain/Order/Factory/
+src/{architecture-path}/Order/Factory/
 └── OrderFactory.php
-tests/Unit/Domain/Order/Factory/
+tests/Unit/{architecture-path}/Order/Factory/
 └── OrderFactoryTest.php
 ```
 
@@ -118,13 +122,13 @@ tests/Unit/Domain/Order/Factory/
 
 Generates:
 ```
-src/Domain/Customer/Specification/
+src/{architecture-path}/Customer/Specification/
 └── IsActiveCustomerSpecification.php
-tests/Unit/Domain/Customer/Specification/
+tests/Unit/{architecture-path}/Customer/Specification/
 └── IsActiveCustomerSpecificationTest.php
 ```
 
-## Application Layer
+## Orchestration components
 
 ### Command
 ```bash
@@ -134,10 +138,10 @@ tests/Unit/Domain/Customer/Specification/
 
 Generates:
 ```
-src/Application/Order/Command/
+src/{architecture-path}/Order/Command/
 ├── CreateOrderCommand.php
 └── CreateOrderHandler.php
-tests/Unit/Application/Order/Command/
+tests/Unit/{architecture-path}/Order/Command/
 ├── CreateOrderCommandTest.php
 └── CreateOrderHandlerTest.php
 ```
@@ -150,10 +154,10 @@ tests/Unit/Application/Order/Command/
 
 Generates:
 ```
-src/Application/Order/Query/
+src/{architecture-path}/Order/Query/
 ├── GetOrderDetailsQuery.php
 └── GetOrderDetailsHandler.php
-tests/Unit/Application/Order/Query/
+tests/Unit/{architecture-path}/Order/Query/
 ├── GetOrderDetailsQueryTest.php
 └── GetOrderDetailsHandlerTest.php
 ```
@@ -166,9 +170,9 @@ tests/Unit/Application/Order/Query/
 
 Generates:
 ```
-src/Application/Payment/UseCase/
+src/{architecture-path}/Payment/UseCase/
 └── ProcessPaymentUseCase.php
-tests/Unit/Application/Payment/UseCase/
+tests/Unit/{architecture-path}/Payment/UseCase/
 └── ProcessPaymentUseCaseTest.php
 ```
 
@@ -180,13 +184,13 @@ tests/Unit/Application/Payment/UseCase/
 
 Generates:
 ```
-src/Application/Order/DTO/
+src/{architecture-path}/Order/DTO/
 └── OrderRequestDto.php
-tests/Unit/Application/Order/DTO/
+tests/Unit/{architecture-path}/Order/DTO/
 └── OrderRequestDtoTest.php
 ```
 
-## Integration Layer
+## Integration components
 
 ### Anti-Corruption Layer
 ```bash
@@ -196,11 +200,11 @@ tests/Unit/Application/Order/DTO/
 
 Generates:
 ```
-src/Infrastructure/ACL/Stripe/
+src/{architecture-path}/ACL/Stripe/
 ├── StripePaymentAdapter.php
 ├── StripePaymentTranslator.php
 └── StripePaymentFacade.php
-tests/Unit/Infrastructure/ACL/Stripe/
+tests/Unit/{architecture-path}/ACL/Stripe/
 └── StripePaymentAdapterTest.php
 ```
 
@@ -212,39 +216,44 @@ tests/Unit/Infrastructure/ACL/Stripe/
 Generated Entity: Order
 
 Files created:
-├── src/Domain/Order/Entity/
+├── src/{architecture-path}/Order/Entity/
 │   ├── Order.php
 │   └── OrderId.php
-├── src/Domain/Order/Exception/
+├── src/{architecture-path}/Order/Exception/
 │   └── InvalidOrderException.php
-└── tests/Unit/Domain/Order/Entity/
+└── tests/Unit/{architecture-path}/Order/Entity/
     └── OrderTest.php
 ```
 
-### File Structure by Layer
+### Pattern markers (sub-folders inside the architecture path)
+
+Independent of architecture, DDD components are named by their pattern marker. The placement of these sub-folders varies (per the [`layer-architecture.md`](layer-architecture.md) table) but the marker names are stable:
 
 ```
-Domain Layer:
-├── Entity/     → Entities, Aggregates, Child Entities
-├── ValueObject/ → Value Objects, IDs
-├── Repository/ → Repository Interfaces
-├── Service/    → Domain Services
-├── Factory/    → Domain Factories
-├── Specification/ → Business Rules
-├── Event/      → Domain Events
-├── Enum/       → Status, Type enums
-└── Exception/  → Domain Exceptions
+Domain-model markers:
+├── Entity/         → Entities, Aggregates, Child Entities
+├── ValueObject/    → Value Objects, IDs
+├── Repository/     → Repositories (the pattern; concrete class
+│                     placement varies by architecture)
+├── Service/        → Domain Services
+├── Factory/        → Domain Factories
+├── Specification/  → Business Rules
+├── Event/          → Domain Events
+├── Enum/           → Status, Type enums
+└── Exception/      → Domain Exceptions
 
-Application Layer:
-├── Command/    → Commands + Handlers
-├── Query/      → Queries + Handlers
-├── UseCase/    → Use Cases
-├── DTO/        → Data Transfer Objects
-└── ReadModel/  → Read Model Interfaces
+Orchestration markers:
+├── Command/        → Commands + Handlers
+├── Query/          → Queries + Handlers
+├── UseCase/        → Use Cases
+├── DTO/            → Data Transfer Objects
+├── Handler/        → Command / Query / Event Handlers
+└── ReadModel/      → Read Model abstractions
 
-Infrastructure Layer:
-├── Persistence/ → Repository Implementations
-└── ACL/         → Anti-Corruption Layers
+Integration markers:
+├── ACL/            → Anti-Corruption Layer adapters
+├── Port/           → External-service interfaces (esp. Hexagonal)
+└── Adapter/        → Concrete adapter classes
 ```
 
 ## Multiple Components

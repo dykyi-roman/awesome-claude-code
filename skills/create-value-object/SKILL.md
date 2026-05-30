@@ -22,9 +22,9 @@ Generate DDD-compliant Value Objects with validation, equality, and tests.
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\ValueObject;
+namespace ValueObject;
 
-use Domain\{BoundedContext}\Exception\Invalid{Name}Exception;
+use Exception\Invalid{Name}Exception;
 
 final readonly class {Name}
 {
@@ -53,10 +53,10 @@ final readonly class {Name}
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\{BoundedContext}\ValueObject;
+namespace Tests\Unit\ValueObject;
 
-use Domain\{BoundedContext}\ValueObject\{Name};
-use Domain\{BoundedContext}\Exception\Invalid{Name}Exception;
+use ValueObject\{Name};
+use Exception\Invalid{Name}Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -2,14 +2,14 @@
 
 ## CorrelationId Value Object
 
-**File:** `src/Infrastructure/Logging/CorrelationId.php`
+**File:** `src/{architecture-path}/Logging/CorrelationId.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 final readonly class CorrelationId
 {
@@ -53,14 +53,14 @@ final readonly class CorrelationId
 
 ## CorrelationIdHolder
 
-**File:** `src/Infrastructure/Logging/CorrelationIdHolder.php`
+**File:** `src/{architecture-path}/Logging/CorrelationIdHolder.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 final class CorrelationIdHolder
 {
@@ -96,16 +96,16 @@ final class CorrelationIdHolder
 
 ## CorrelationIdProcessor
 
-**File:** `src/Infrastructure/Logging/Processor/CorrelationIdProcessor.php`
+**File:** `src/{architecture-path}/Logging/Processor/CorrelationIdProcessor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging\Processor;
+namespace Logging\Processor;
 
-use Infrastructure\Logging\CorrelationIdHolder;
+use Logging\CorrelationIdHolder;
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
@@ -132,14 +132,14 @@ final readonly class CorrelationIdProcessor implements ProcessorInterface
 
 ## RequestContextProcessor
 
-**File:** `src/Infrastructure/Logging/Processor/RequestContextProcessor.php`
+**File:** `src/{architecture-path}/Logging/Processor/RequestContextProcessor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging\Processor;
+namespace Logging\Processor;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
@@ -183,14 +183,14 @@ final class RequestContextProcessor implements ProcessorInterface
 
 ## CorrelationIdMiddleware
 
-**File:** `src/Infrastructure/Logging/CorrelationIdMiddleware.php`
+**File:** `src/{architecture-path}/Logging/CorrelationIdMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

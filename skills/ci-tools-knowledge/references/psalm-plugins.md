@@ -588,7 +588,7 @@ psalm:
 | `psalm-plugin-symfony` | Symfony container, forms, routes type support | Symfony projects |
 | `psalm-plugin-laravel` | Facade resolution, model types, collection generics | Laravel projects |
 | `psalm-plugin-phpunit` | Assertion narrowing, mock types, data providers | All projects with PHPUnit |
-| `DomainLayerPurityPlugin` | Enforce DDD layer boundaries at analysis time | DDD/Clean Architecture projects |
+| `DomainLayerPurityPlugin` | Enforce DDD layer boundaries at analysis time | DDD projects |
 | `@psalm-immutable` | Mark entire class as immutable (no property writes) | Value Objects, DTOs |
 | `@psalm-readonly` | Mark property as read-only after construction | Entity properties |
 | `@psalm-pure` | Mark method as side-effect free (deterministic) | Value Object methods, factories |

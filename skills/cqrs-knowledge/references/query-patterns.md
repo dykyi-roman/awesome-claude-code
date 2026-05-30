@@ -25,9 +25,9 @@ A Query is an immutable object representing a request to read data without side 
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class GetOrderDetailsQuery
 {
@@ -44,10 +44,10 @@ final readonly class GetOrderDetailsQuery
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\Enum\OrderStatus;
+use ValueObject\CustomerId;
+use Enum\OrderStatus;
 
 final readonly class ListOrdersQuery
 {
@@ -76,7 +76,7 @@ final readonly class ListOrdersQuery
 
 declare(strict_types=1);
 
-namespace Application\Product\Query;
+namespace Query;
 
 final readonly class SearchProductsQuery
 {
@@ -140,11 +140,11 @@ Optimized data structure for queries, separate from write model.
 
 declare(strict_types=1);
 
-namespace Application\Order\ReadModel;
+namespace ReadModel;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\Enum\OrderStatus;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use Enum\OrderStatus;
 
 interface OrderReadModelInterface
 {
@@ -171,7 +171,7 @@ interface OrderReadModelInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
 final readonly class OrderDetailsDTO
 {
@@ -208,9 +208,9 @@ final readonly class OrderLineDTO
 
 declare(strict_types=1);
 
-namespace Infrastructure\ReadModel;
+namespace ReadModel;
 
-use Application\Order\ReadModel\OrderReadModelInterface;
+use ReadModel\OrderReadModelInterface;
 
 final readonly class DbalOrderReadModel implements OrderReadModelInterface
 {
@@ -269,7 +269,7 @@ final readonly class DbalOrderReadModel implements OrderReadModelInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
 final readonly class GetOrderDetailsHandler
 {
@@ -291,7 +291,7 @@ final readonly class GetOrderDetailsHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
 final readonly class GetOrderDetailsHandler
 {
@@ -319,7 +319,7 @@ final readonly class GetOrderDetailsHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
 final readonly class ListOrdersHandler
 {

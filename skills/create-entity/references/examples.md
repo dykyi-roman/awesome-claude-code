@@ -2,22 +2,22 @@
 
 ## Order Entity
 
-**File:** `src/Domain/Order/Entity/Order.php`
+**File:** `src/{architecture-path}/Entity/Order.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\Money;
-use Domain\Order\Enum\OrderStatus;
-use Domain\Order\Exception\CannotModifyConfirmedOrderException;
-use Domain\Order\Exception\CannotConfirmEmptyOrderException;
-use Domain\Order\Exception\InvalidStateTransitionException;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\Money;
+use Enum\OrderStatus;
+use Exception\CannotModifyConfirmedOrderException;
+use Exception\CannotConfirmEmptyOrderException;
+use Exception\InvalidStateTransitionException;
 
 final class Order
 {
@@ -147,21 +147,21 @@ final class Order
 
 ## User Entity
 
-**File:** `src/Domain/User/Entity/User.php`
+**File:** `src/{architecture-path}/Entity/User.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Entity;
+namespace Entity;
 
-use Domain\User\ValueObject\UserId;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\HashedPassword;
-use Domain\User\Enum\UserStatus;
-use Domain\User\Exception\UserAlreadyActivatedException;
-use Domain\User\Exception\UserDeactivatedException;
+use ValueObject\UserId;
+use ValueObject\Email;
+use ValueObject\HashedPassword;
+use Enum\UserStatus;
+use Exception\UserAlreadyActivatedException;
+use Exception\UserDeactivatedException;
 
 final class User
 {

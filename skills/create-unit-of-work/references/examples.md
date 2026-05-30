@@ -10,22 +10,22 @@ This example shows a UseCase that creates an Order and a Payment in a single tra
 
 ### CreateOrderUseCase
 
-**Path:** `src/Application/Order/UseCase/CreateOrder/CreateOrderUseCase.php`
+**Path:** `src/{architecture-path}/UseCase/CreateOrder/CreateOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase\CreateOrder;
+namespace UseCase\CreateOrder;
 
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
-use Domain\Order\Order;
-use Domain\Order\OrderId;
-use Domain\Order\CustomerId;
-use Domain\Payment\Payment;
-use Domain\Payment\PaymentId;
-use Domain\Payment\Money;
+use UnitOfWork\UnitOfWorkInterface;
+use Order\Order;
+use Order\OrderId;
+use Order\CustomerId;
+use Payment\Payment;
+use Payment\PaymentId;
+use Payment\Money;
 
 final readonly class CreateOrderUseCase
 {
@@ -69,14 +69,14 @@ final readonly class CreateOrderUseCase
 
 ### CreateOrderCommand
 
-**Path:** `src/Application/Order/UseCase/CreateOrder/CreateOrderCommand.php`
+**Path:** `src/{architecture-path}/UseCase/CreateOrder/CreateOrderCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase\CreateOrder;
+namespace UseCase\CreateOrder;
 
 final readonly class CreateOrderCommand
 {
@@ -99,20 +99,20 @@ This example shows how a repository uses Unit of Work for change tracking.
 
 ### OrderRepository
 
-**Path:** `src/Infrastructure/Persistence/Doctrine/Repository/DoctrineOrderRepository.php`
+**Path:** `src/{architecture-path}/Repository/DoctrineOrderRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
-use Domain\Order\Order;
-use Domain\Order\OrderId;
-use Domain\Order\OrderRepositoryInterface;
-use Domain\Shared\UnitOfWork\EntityState;
+use UnitOfWork\UnitOfWorkInterface;
+use Order\Order;
+use Order\OrderId;
+use Order\OrderRepositoryInterface;
+use UnitOfWork\EntityState;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
@@ -160,17 +160,17 @@ This example shows an Order aggregate that raises domain events.
 
 ### Order Aggregate
 
-**Path:** `src/Domain/Order/Order.php`
+**Path:** `src/{architecture-path}/Order/Order.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order;
+namespace Order;
 
-use Domain\Shared\Event\HasDomainEventsInterface;
-use Domain\Shared\Event\RaisesDomainEventsTrait;
+use Event\HasDomainEventsInterface;
+use Event\RaisesDomainEventsTrait;
 
 final class Order implements HasDomainEventsInterface
 {
@@ -243,14 +243,14 @@ final class Order implements HasDomainEventsInterface
 
 ### OrderCreatedEvent
 
-**Path:** `src/Domain/Order/Event/OrderCreatedEvent.php`
+**Path:** `src/{architecture-path}/Order/Event/OrderCreatedEvent.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderCreatedEvent
 {
@@ -277,36 +277,36 @@ services:
     autoconfigure: true
 
   # Transaction Manager
-  Domain\Shared\UnitOfWork\TransactionManagerInterface:
-    class: Infrastructure\Persistence\UnitOfWork\DoctrineTransactionManager
+  UnitOfWork\TransactionManagerInterface:
+    class: UnitOfWork\DoctrineTransactionManager
     arguments:
       $connection: '@doctrine.dbal.default_connection'
 
   # Event Collector
-  Domain\Shared\UnitOfWork\DomainEventCollectorInterface:
-    class: Infrastructure\Persistence\UnitOfWork\DomainEventCollector
+  UnitOfWork\DomainEventCollectorInterface:
+    class: UnitOfWork\DomainEventCollector
     arguments:
       $eventDispatcher: '@event_dispatcher'
 
   # Unit of Work
-  Application\Shared\UnitOfWork\UnitOfWorkInterface:
-    class: Infrastructure\Persistence\UnitOfWork\DoctrineUnitOfWork
+  UnitOfWork\UnitOfWorkInterface:
+    class: UnitOfWork\DoctrineUnitOfWork
     arguments:
       $entityManager: '@doctrine.orm.default_entity_manager'
-      $transactionManager: '@Domain\Shared\UnitOfWork\TransactionManagerInterface'
-      $eventCollector: '@Domain\Shared\UnitOfWork\DomainEventCollectorInterface'
+      $transactionManager: '@UnitOfWork\TransactionManagerInterface'
+      $eventCollector: '@UnitOfWork\DomainEventCollectorInterface'
 
   # Repositories
-  Domain\Order\OrderRepositoryInterface:
-    class: Infrastructure\Persistence\Doctrine\Repository\DoctrineOrderRepository
+  Order\OrderRepositoryInterface:
+    class: Repository\DoctrineOrderRepository
     arguments:
       $entityManager: '@doctrine.orm.default_entity_manager'
-      $unitOfWork: '@Application\Shared\UnitOfWork\UnitOfWorkInterface'
+      $unitOfWork: '@UnitOfWork\UnitOfWorkInterface'
 
   # Use Cases
-  Application\Order\UseCase\CreateOrder\CreateOrderUseCase:
+  UseCase\CreateOrder\CreateOrderUseCase:
     arguments:
-      $unitOfWork: '@Application\Shared\UnitOfWork\UnitOfWorkInterface'
+      $unitOfWork: '@UnitOfWork\UnitOfWorkInterface'
 ```
 
 ---
@@ -315,18 +315,18 @@ services:
 
 ### UpdateOrderUseCase
 
-**Path:** `src/Application/Order/UseCase/UpdateOrder/UpdateOrderUseCase.php`
+**Path:** `src/{architecture-path}/UseCase/UpdateOrder/UpdateOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase\UpdateOrder;
+namespace UseCase\UpdateOrder;
 
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
-use Domain\Order\OrderId;
-use Domain\Order\OrderRepositoryInterface;
+use UnitOfWork\UnitOfWorkInterface;
+use Order\OrderId;
+use Order\OrderRepositoryInterface;
 
 final readonly class UpdateOrderUseCase
 {
@@ -373,20 +373,20 @@ final readonly class UpdateOrderUseCase
 
 ### CreateOrderUseCaseTest
 
-**Path:** `tests/Unit/Application/Order/UseCase/CreateOrder/CreateOrderUseCaseTest.php`
+**Path:** `tests/Unit/UseCase/CreateOrder/CreateOrderUseCaseTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\UseCase\CreateOrder;
+namespace Tests\Unit\UseCase\CreateOrder;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrder\CreateOrderUseCase;
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
-use Domain\Order\Order;
-use Domain\Payment\Payment;
+use UseCase\CreateOrder\CreateOrderCommand;
+use UseCase\CreateOrder\CreateOrderUseCase;
+use UnitOfWork\UnitOfWorkInterface;
+use Order\Order;
+use Payment\Payment;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -455,20 +455,20 @@ final class CreateOrderUseCaseTest extends TestCase
 
 ### TransferMoneyUseCase
 
-**Path:** `src/Application/Wallet/UseCase/TransferMoney/TransferMoneyUseCase.php`
+**Path:** `src/{architecture-path}/UseCase/TransferMoney/TransferMoneyUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Wallet\UseCase\TransferMoney;
+namespace UseCase\TransferMoney;
 
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
-use Domain\Shared\UnitOfWork\TransactionManagerInterface;
-use Domain\Wallet\WalletId;
-use Domain\Wallet\WalletRepositoryInterface;
-use Domain\Wallet\Money;
+use UnitOfWork\UnitOfWorkInterface;
+use UnitOfWork\TransactionManagerInterface;
+use Wallet\WalletId;
+use Wallet\WalletRepositoryInterface;
+use Wallet\Money;
 
 final readonly class TransferMoneyUseCase
 {
@@ -521,18 +521,18 @@ final readonly class TransferMoneyUseCase
 
 ### CreateOrderIntegrationTest
 
-**Path:** `tests/Integration/Application/Order/UseCase/CreateOrderIntegrationTest.php`
+**Path:** `tests/Integration/UseCase/CreateOrderIntegrationTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Integration\Application\Order\UseCase;
+namespace Tests\Integration\UseCase;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrder\CreateOrderUseCase;
-use Application\Shared\UnitOfWork\UnitOfWorkInterface;
+use UseCase\CreateOrder\CreateOrderCommand;
+use UseCase\CreateOrder\CreateOrderUseCase;
+use UnitOfWork\UnitOfWorkInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -572,8 +572,8 @@ final class CreateOrderIntegrationTest extends KernelTestCase
 
         $this->entityManager->clear();
 
-        $order = $this->entityManager->find(\Domain\Order\Order::class, $orderId->toString());
-        $payment = $this->entityManager->getRepository(\Domain\Payment\Payment::class)
+        $order = $this->entityManager->find(\Order\Order::class, $orderId->toString());
+        $payment = $this->entityManager->getRepository(\Payment\Payment::class)
             ->findOneBy(['orderId' => $orderId->toString()]);
 
         self::assertNotNull($order);

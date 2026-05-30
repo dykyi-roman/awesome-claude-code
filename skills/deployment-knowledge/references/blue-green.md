@@ -334,9 +334,9 @@ kubectl -n "$NAMESPACE" get endpoints "$SERVICE_NAME"
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Action;
+namespace Action;
 
-use App\Infrastructure\HealthCheck\HealthCheckRunner;
+use HealthCheck\HealthCheckRunner;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -475,7 +475,7 @@ Phase 3: Switch reads            Phase 4: Drop old column
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Migration;
+namespace Migration;
 
 final readonly class BlueGreenMigrationValidator
 {

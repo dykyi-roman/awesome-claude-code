@@ -23,10 +23,10 @@ Generate ADR-compliant Action classes for HTTP endpoints.
 
 declare(strict_types=1);
 
-namespace Presentation\Api\{Context}\{Action};
+namespace Action\{Action};
 
-use Application\{Context}\UseCase\{Action}\{Action}Command;
-use Application\{Context}\UseCase\{Action}\{Action}Handler;
+use UseCase\{Action}\{Action}Command;
+use UseCase\{Action}\{Action}Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -62,16 +62,16 @@ final readonly class {Action}Action
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\{Context}\{Action};
+namespace Tests\Unit\Action\{Action};
 
-use Application\{Context}\UseCase\{Action}\{Action}Command;
-use Application\{Context}\UseCase\{Action}\{Action}Handler;
-use Application\{Context}\UseCase\{Action}\{Action}Result;
+use UseCase\{Action}\{Action}Command;
+use UseCase\{Action}\{Action}Handler;
+use UseCase\{Action}\{Action}Result;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\{Context}\{Action}\{Action}Action;
-use Presentation\Api\{Context}\{Action}\{Action}Responder;
+use Action\{Action}\{Action}Action;
+use Action\{Action}\{Action}Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -138,10 +138,10 @@ final class {Action}ActionTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\GetById;
+namespace Action\GetById;
 
-use Application\User\UseCase\GetUserById\GetUserByIdQuery;
-use Application\User\UseCase\GetUserById\GetUserByIdHandler;
+use UseCase\GetUserById\GetUserByIdQuery;
+use UseCase\GetUserById\GetUserByIdHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -172,10 +172,10 @@ final readonly class GetUserByIdAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\ListAll;
+namespace Action\ListAll;
 
-use Application\User\UseCase\ListUsers\ListUsersQuery;
-use Application\User\UseCase\ListUsers\ListUsersHandler;
+use UseCase\ListUsers\ListUsersQuery;
+use UseCase\ListUsers\ListUsersHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -211,10 +211,10 @@ final readonly class ListUsersAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Action\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserCommand;
-use Application\User\UseCase\CreateUser\CreateUserHandler;
+use UseCase\CreateUser\CreateUserCommand;
+use UseCase\CreateUser\CreateUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -249,10 +249,10 @@ final readonly class CreateUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Update;
+namespace Action\Update;
 
-use Application\User\UseCase\UpdateUser\UpdateUserCommand;
-use Application\User\UseCase\UpdateUser\UpdateUserHandler;
+use UseCase\UpdateUser\UpdateUserCommand;
+use UseCase\UpdateUser\UpdateUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -289,10 +289,10 @@ final readonly class UpdateUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Delete;
+namespace Action\Delete;
 
-use Application\User\UseCase\DeleteUser\DeleteUserCommand;
-use Application\User\UseCase\DeleteUser\DeleteUserHandler;
+use UseCase\DeleteUser\DeleteUserCommand;
+use UseCase\DeleteUser\DeleteUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -320,9 +320,12 @@ final readonly class DeleteUserAction
 
 | Component | Path |
 |-----------|------|
-| Action | `src/Presentation/Api/{Context}/{Action}/{Action}Action.php` |
-| Action Interface | `src/Presentation/Shared/Action/ActionInterface.php` |
-| Test | `tests/Unit/Presentation/Api/{Context}/{Action}/{Action}ActionTest.php` |
+| Action | `src/{architecture-path}/Action/{Action}/{Action}Action.php` |
+| Action Interface | `src/{architecture-path}/Action/ActionInterface.php` |
+| Test | `tests/Unit/{architecture-path}/Action/{Action}/{Action}ActionTest.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders
+> (e.g. `Presentation/Api/{Context}` in Layered, `{Context}/Api` in Package-by-Feature). Adjust to your project's layout.
 
 ## Generation Instructions
 

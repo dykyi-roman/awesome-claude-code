@@ -23,9 +23,9 @@ Generate ADR-compliant Responder classes for HTTP response building.
 
 declare(strict_types=1);
 
-namespace Presentation\Api\{Context}\{Action};
+namespace Api\{Context}\{Action};
 
-use Application\{Context}\UseCase\{Action}\{Action}Result;
+use UseCase\{Action}\{Action}Result;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -84,11 +84,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Presentation\Api\{Context}\{Action};
 
-use Application\{Context}\UseCase\{Action}\{Action}Result;
+use UseCase\{Action}\{Action}Result;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\{Context}\{Action}\{Action}Responder;
+use Api\{Context}\{Action}\{Action}Responder;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -158,9 +158,9 @@ final class {Action}ResponderTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace User\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserResult;
+use UseCase\CreateUser\CreateUserResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -224,9 +224,9 @@ final readonly class CreateUserResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\GetById;
+namespace User\GetById;
 
-use Application\User\UseCase\GetUserById\GetUserByIdResult;
+use UseCase\GetUserById\GetUserByIdResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -280,9 +280,9 @@ final readonly class GetUserByIdResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\ListAll;
+namespace User\ListAll;
 
-use Application\User\UseCase\ListUsers\ListUsersResult;
+use UseCase\ListUsers\ListUsersResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -337,9 +337,9 @@ final readonly class ListUsersResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Delete;
+namespace User\Delete;
 
-use Application\User\UseCase\DeleteUser\DeleteUserResult;
+use UseCase\DeleteUser\DeleteUserResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -412,10 +412,12 @@ final readonly class DeleteUserResponder
 
 | Component | Path |
 |-----------|------|
-| Responder | `src/Presentation/Api/{Context}/{Action}/{Action}Responder.php` |
-| Interface | `src/Presentation/Shared/Responder/ResponderInterface.php` |
-| Abstract | `src/Presentation/Shared/Responder/AbstractJsonResponder.php` |
-| Test | `tests/Unit/Presentation/Api/{Context}/{Action}/{Action}ResponderTest.php` |
+| Responder | `src/{architecture-path}/Responder/{Action}Responder.php` |
+| Interface | `src/{architecture-path}/Responder/ResponderInterface.php` |
+| Abstract | `src/{architecture-path}/Responder/AbstractJsonResponder.php` |
+| Test | `tests/Unit/{architecture-path}/Responder/{Action}ResponderTest.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders (e.g. `Presentation/Api/{Context}` in Layered, `{Context}/Api` in Package-by-Feature). Adjust to your project's layout.
 
 ## Generation Instructions
 

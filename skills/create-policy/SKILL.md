@@ -39,20 +39,20 @@ Creates Policy pattern infrastructure for encapsulating business rules and autho
 
 ### Step 1: Generate Shared Components
 
-**Path:** `src/Domain/Shared/Policy/`
+Place alongside other shared domain primitives.
 
 1. `PolicyResult.php` — Result value object with and/or composition
 2. `CompositionMode.php` — Enum for AllMustPass/AnyMustPass
 
 ### Step 2: Generate Policy Interface
 
-**Path:** `src/Domain/{BoundedContext}/Policy/`
+Place alongside the bounded context's domain code.
 
 1. `{Name}PolicyInterface.php` — Policy contract
 
 ### Step 3: Generate Concrete Policies
 
-**Path:** `src/Domain/{BoundedContext}/Policy/`
+Co-located with the interface.
 
 1. `{Rule1}Policy.php` — First rule implementation
 2. `{Rule2}Policy.php` — Second rule implementation
@@ -60,7 +60,7 @@ Creates Policy pattern infrastructure for encapsulating business rules and autho
 
 ### Step 4: Generate Exception
 
-**Path:** `src/Domain/Shared/Exception/`
+Place with other shared domain exceptions.
 
 1. `PolicyViolationException.php` — Exception with policy context
 
@@ -76,11 +76,13 @@ Creates Policy pattern infrastructure for encapsulating business rules and autho
 
 | Component | Path |
 |-----------|------|
-| Policy Interface | `src/Domain/{BoundedContext}/Policy/` |
-| Policy Implementation | `src/Domain/{BoundedContext}/Policy/` |
-| PolicyResult | `src/Domain/Shared/Policy/` |
-| Exception | `src/Domain/Shared/Exception/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Policy/` |
+| Policy Interface | `src/{architecture-path}/Policy/{Name}PolicyInterface.php` |
+| Policy Implementation | `src/{architecture-path}/Policy/{Rule}Policy.php` |
+| PolicyResult | `src/{architecture-path}/Policy/PolicyResult.php` |
+| Exception | `src/{architecture-path}/Exception/PolicyViolationException.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Policy/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The PolicyResult + composition types typically live with other shared domain primitives; per-context policies live with the bounded context's domain code. Adjust to your project's layout.
 
 ---
 

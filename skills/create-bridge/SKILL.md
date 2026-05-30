@@ -21,7 +21,7 @@ Creates Bridge pattern infrastructure for separating abstraction from implementa
 ### Abstraction
 - High-level interface
 - Uses implementor
-- Domain layer
+- Lives with the client-side domain code
 
 ### RefinedAbstraction
 - Extends abstraction
@@ -41,25 +41,25 @@ Creates Bridge pattern infrastructure for separating abstraction from implementa
 
 ### Step 1: Generate Implementor Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the client-side abstraction.
 
 1. `{Name}ImplementorInterface.php` — Low-level operations
 
 ### Step 2: Generate Abstraction
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the client-side code.
 
 1. `Abstract{Name}.php` — High-level interface
 
 ### Step 3: Generate RefinedAbstraction
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the abstraction.
 
 1. `{Type}{Name}.php` — Specialized abstractions
 
 ### Step 4: Generate ConcreteImplementors
 
-**Path:** `src/Infrastructure/{BoundedContext}/`
+Place at the integration boundary with the underlying platform/library.
 
 1. `{Platform}{Name}Implementor.php` — Platform implementations
 
@@ -73,11 +73,13 @@ Creates Bridge pattern infrastructure for separating abstraction from implementa
 
 | Component | Path |
 |-----------|------|
-| Abstraction | `src/Domain/{BoundedContext}/` |
-| RefinedAbstraction | `src/Domain/{BoundedContext}/` |
-| Implementor Interface | `src/Domain/{BoundedContext}/` |
-| ConcreteImplementor | `src/Infrastructure/{BoundedContext}/` |
-| Unit Tests | `tests/Unit/` |
+| Abstraction | `src/{architecture-path}/Abstract{Name}.php` |
+| RefinedAbstraction | `src/{architecture-path}/{Type}{Name}.php` |
+| Implementor Interface | `src/{architecture-path}/{Name}ImplementorInterface.php` |
+| ConcreteImplementor | `src/{architecture-path}/{Platform}{Name}Implementor.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The abstraction, refined abstraction, and implementor interface live with the client-side code; concrete implementors live at the integration boundary with other platform/library adapters. Adjust to your project's layout.
 
 ---
 

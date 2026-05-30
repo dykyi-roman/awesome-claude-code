@@ -81,7 +81,7 @@ Consumer 3: [Partition 4, Partition 5]
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Kafka;
+namespace Messaging\Kafka;
 
 final class KafkaConsumerWorker
 {
@@ -286,7 +286,7 @@ $consumerConf->set('isolation.level', 'read_committed');
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Kafka;
+namespace Messaging\Kafka;
 
 final readonly class KafkaConfigFactory
 {

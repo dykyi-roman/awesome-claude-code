@@ -97,7 +97,7 @@ graph TD
 |------|-------------|-------------|
 | Domain has no dependencies | No framework, no infrastructure imports | PHPStan rules, Deptrac |
 | Application depends on Domain only | Interfaces in Domain, implementations in Infrastructure | Deptrac config |
-| Infrastructure implements Domain | Repository interfaces defined in Domain | Interface compliance |
+| Infrastructure implements Domain | Repository abstractions defined alongside domain consumers | Interface compliance |
 | Presentation calls Application | Actions/Controllers call UseCases/Services | Architectural tests |
 
 ## Technology Stack

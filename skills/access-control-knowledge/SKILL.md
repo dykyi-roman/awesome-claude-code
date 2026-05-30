@@ -83,9 +83,7 @@ Quick reference for access control models, authorization patterns, and PHP imple
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class Role
 {
@@ -181,9 +179,7 @@ final readonly class Role
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class AbacPolicy
 {
@@ -297,9 +293,7 @@ Relationships are stored as tuples: `user:relation:object`
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Domain\Authorization;
+namespace Authorization;
 
 final readonly class TenantPermissionChecker
 {
@@ -336,9 +330,7 @@ final readonly class TenantPermissionChecker
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Infrastructure\Security\Voter;
+namespace Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -402,12 +394,10 @@ final class DocumentVoter extends Voter
 ```php
 <?php
 
-declare(strict_types=1);
+namespace Policies;
 
-namespace App\Policies;
-
-use App\Models\Document;
-use App\Models\User;
+use Model\Document;
+use Model\User;
 
 final class DocumentPolicy
 {

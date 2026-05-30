@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 68 agents, 283 skills, 21 hooks
+- 26 commands, 68 agents, 291 skills, 21 hooks
 - PHP 8.4+, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit
@@ -129,7 +129,7 @@
 └── plugin.json
 commands/        # 26 commands
 agents/          # 68 agents
-skills/          # 283 skills (knowledge + generators + analyzers)
+skills/          # 291 skills (knowledge + generators + analyzers)
 hooks/
 └── hooks.json   # PHP syntax check hook
 ```
@@ -172,4 +172,4 @@ hooks/
 
 ## Version
 
-v3.2.0 - System design skills (consistency, observability, access control, scalability, replication, cloud-native), observability-auditor agent
+v4.0.0 - Architecture-neutralized: skills, agents, and commands now use pattern-only namespaces (Entity\X, Controller\X, UseCase\Y\X, Cqrs\Handler\X) reusable across Clean, Hexagonal, Layered, N-Tier, Package-by-Feature, and MVC. DDD knowledge reframed away from Clean-Arch interpretation; antipatterns rewritten per actual DDD/Fowler. Architecture-specific skills (clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, microservices-knowledge) preserved intact.

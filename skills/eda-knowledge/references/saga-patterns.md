@@ -69,7 +69,7 @@ Central coordinator manages the workflow.
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class PlaceOrderUseCase
 {
@@ -109,7 +109,7 @@ final readonly class PlaceOrderUseCase
 
 declare(strict_types=1);
 
-namespace Application\Payment\EventHandler;
+namespace EventHandler;
 
 final readonly class ProcessPaymentOnOrderPlaced
 {
@@ -153,7 +153,7 @@ final readonly class ProcessPaymentOnOrderPlaced
 
 declare(strict_types=1);
 
-namespace Application\Shipping\EventHandler;
+namespace EventHandler;
 
 final readonly class CreateShipmentOnPaymentCompleted
 {
@@ -194,7 +194,7 @@ final readonly class CreateShipmentOnPaymentCompleted
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class CancelOrderOnPaymentFailed
 {
@@ -230,7 +230,7 @@ final readonly class CancelOrderOnPaymentFailed
 
 declare(strict_types=1);
 
-namespace Domain\Saga;
+namespace Saga;
 
 enum SagaStatus: string
 {
@@ -290,7 +290,7 @@ final class SagaState
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga;
+namespace Saga;
 
 final readonly class OrderSagaDefinition implements SagaDefinitionInterface
 {
@@ -330,7 +330,7 @@ final readonly class OrderSagaDefinition implements SagaDefinitionInterface
 
 declare(strict_types=1);
 
-namespace Application\Saga;
+namespace Saga;
 
 interface SagaStepInterface
 {
@@ -369,7 +369,7 @@ final readonly class StepResult
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
 final readonly class ProcessPaymentStep implements SagaStepInterface
 {
@@ -423,7 +423,7 @@ final readonly class RefundPaymentStep implements CompensationStepInterface
 
 declare(strict_types=1);
 
-namespace Application\Saga;
+namespace Saga;
 
 use Psr\Container\ContainerInterface;
 
@@ -521,7 +521,7 @@ final readonly class SagaOrchestrator
 
 declare(strict_types=1);
 
-namespace Application\Saga;
+namespace Saga;
 
 final readonly class AsyncSagaOrchestrator
 {
@@ -603,7 +603,7 @@ Alternative term for Saga Orchestrator with more complex routing logic.
 
 declare(strict_types=1);
 
-namespace Application\Order\ProcessManager;
+namespace ProcessManager;
 
 final class OrderFulfillmentProcessManager
 {

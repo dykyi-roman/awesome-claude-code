@@ -21,32 +21,32 @@ Generate CQRS-compliant Queries and Query Handlers with tests.
 
 ### Step 1: Generate Query
 
-**Path:** `src/Application/{BoundedContext}/Query/`
+Place in your project's CQRS Query folder.
 
 1. `{Name}Query.php` — Immutable query DTO with parameters
 
 ### Step 2: Generate Handler
 
-**Path:** `src/Application/{BoundedContext}/Handler/`
+Place in a sibling `Handler/` folder.
 
 1. `{Name}Handler.php` — Read model consumer
 
 ### Step 3: Generate DTOs
 
-**Path:** `src/Application/{BoundedContext}/DTO/`
+Place in a sibling `DTO/` folder.
 
 1. `{Name}DTO.php` — Result data structure
 2. `PaginatedResultDTO.php` — For list queries (optional)
 
 ### Step 4: Generate Read Model Interface
 
-**Path:** `src/Application/{BoundedContext}/ReadModel/`
+Place in a sibling `ReadModel/` folder — the read-side abstraction is a distinct concept from the handler that consumes it.
 
 1. `{Name}ReadModelInterface.php` — Query methods contract
 
 ### Step 5: Generate Tests
 
-**Path:** `tests/Unit/Application/{BoundedContext}/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -54,11 +54,13 @@ Generate CQRS-compliant Queries and Query Handlers with tests.
 
 | Component | Path |
 |-----------|------|
-| Query | `src/Application/{BoundedContext}/Query/` |
-| Handler | `src/Application/{BoundedContext}/Handler/` |
-| DTO | `src/Application/{BoundedContext}/DTO/` |
-| Read Model Interface | `src/Application/{BoundedContext}/ReadModel/` |
-| Unit Tests | `tests/Unit/Application/{BoundedContext}/` |
+| Query | `src/{architecture-path}/Query/{Name}Query.php` |
+| Handler | `src/{architecture-path}/Handler/{Name}Handler.php` |
+| DTO | `src/{architecture-path}/DTO/{Name}DTO.php` |
+| Read Model Interface | `src/{architecture-path}/ReadModel/{Name}ReadModelInterface.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. CQRS Queries and Handlers typically live wherever your project coordinates use cases. Adjust to your project's layout.
 
 ---
 

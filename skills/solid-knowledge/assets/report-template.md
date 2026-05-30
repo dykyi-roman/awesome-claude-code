@@ -211,7 +211,7 @@ Class approaching complexity threshold. Monitor for SRP violation.
 | God Class | `create-use-case`, `create-domain-service` |
 | Type Switch | `create-strategy` |
 | Interface Split | Manual refactoring |
-| Repository Interface | `create-repository` |
+| Repository (missing abstraction) | `create-repository` |
 | Domain Service | `create-domain-service` |
 | Value Object Extraction | `create-value-object` |
 

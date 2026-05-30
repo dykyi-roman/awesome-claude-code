@@ -2,14 +2,14 @@
 
 ## Generic Facade
 
-**File:** `src/Application/{BoundedContext}/Facade/{Name}Facade.php`
+**File:** `src/{architecture-path}/Facade/{Name}Facade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Facade;
+namespace Facade;
 
 final readonly class {Name}Facade
 {
@@ -34,22 +34,22 @@ final readonly class {Name}Facade
 
 ## Order Facade Template
 
-**File:** `src/Application/Order/Facade/OrderFacade.php`
+**File:** `src/{architecture-path}/Facade/OrderFacade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Facade;
+namespace Facade;
 
-use Domain\Inventory\Repository\InventoryRepositoryInterface;
-use Domain\Notification\NotificationServiceInterface;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\CreateOrderCommand;
-use Domain\Payment\PaymentServiceInterface;
-use Domain\Shipping\ShippingServiceInterface;
+use Repository\InventoryRepositoryInterface;
+use Notification\NotificationServiceInterface;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CreateOrderCommand;
+use Payment\PaymentServiceInterface;
+use Shipping\ShippingServiceInterface;
 
 final readonly class OrderFacade
 {
@@ -113,20 +113,20 @@ final readonly class OrderFacade
 
 ## Notification Facade Template
 
-**File:** `src/Application/Notification/Facade/NotificationFacade.php`
+**File:** `src/{architecture-path}/Facade/NotificationFacade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Notification\Facade;
+namespace Facade;
 
-use Domain\Notification\EmailServiceInterface;
-use Domain\Notification\PushNotificationServiceInterface;
-use Domain\Notification\SmsServiceInterface;
-use Domain\Notification\ValueObject\Message;
-use Domain\Notification\ValueObject\Recipient;
+use Notification\EmailServiceInterface;
+use Notification\PushNotificationServiceInterface;
+use Notification\SmsServiceInterface;
+use ValueObject\Message;
+use ValueObject\Recipient;
 
 final readonly class NotificationFacade
 {
@@ -175,22 +175,22 @@ final readonly class NotificationFacade
 
 ## Report Facade Template
 
-**File:** `src/Application/Report/Facade/ReportFacade.php`
+**File:** `src/{architecture-path}/Facade/ReportFacade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Report\Facade;
+namespace Facade;
 
-use Domain\Report\DataFetcherInterface;
-use Domain\Report\Enum\ReportFormat;
-use Domain\Report\ValueObject\ReportCriteria;
-use Infrastructure\Report\CsvGeneratorInterface;
-use Infrastructure\Report\ExcelGeneratorInterface;
-use Infrastructure\Report\PdfGeneratorInterface;
-use Infrastructure\Storage\StorageInterface;
+use Report\DataFetcherInterface;
+use Enum\ReportFormat;
+use ValueObject\ReportCriteria;
+use Report\CsvGeneratorInterface;
+use Report\ExcelGeneratorInterface;
+use Report\PdfGeneratorInterface;
+use Storage\StorageInterface;
 
 final readonly class ReportFacade
 {
@@ -235,21 +235,21 @@ final readonly class ReportFacade
 
 ## Export Facade Template
 
-**File:** `src/Application/Export/Facade/ExportFacade.php`
+**File:** `src/{architecture-path}/Facade/ExportFacade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Export\Facade;
+namespace Facade;
 
-use Domain\Export\DataTransformerInterface;
-use Domain\Export\Enum\ExportFormat;
-use Domain\Export\FormatterInterface;
-use Domain\Export\QueryBuilderInterface;
-use Domain\Export\ValueObject\ExportCriteria;
-use Infrastructure\Storage\StorageInterface;
+use Export\DataTransformerInterface;
+use Enum\ExportFormat;
+use Export\FormatterInterface;
+use Export\QueryBuilderInterface;
+use ValueObject\ExportCriteria;
+use Storage\StorageInterface;
 
 final readonly class ExportFacade
 {

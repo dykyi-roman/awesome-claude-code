@@ -2,14 +2,14 @@
 
 ## Subject Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}Interface.php`
+**File:** `src/{architecture-path}/{Name}Interface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}Interface
 {
@@ -21,16 +21,16 @@ interface {Name}Interface
 
 ## Lazy Loading Proxy
 
-**File:** `src/Infrastructure/{BoundedContext}/Proxy/Lazy{Name}Proxy.php`
+**File:** `src/{architecture-path}/Proxy/Lazy{Name}Proxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Proxy;
+namespace Proxy;
 
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\{Name}Interface;
 
 final class Lazy{Name}Proxy implements {Name}Interface
 {
@@ -60,16 +60,16 @@ final class Lazy{Name}Proxy implements {Name}Interface
 
 ## Caching Proxy
 
-**File:** `src/Infrastructure/{BoundedContext}/Proxy/Caching{Name}Proxy.php`
+**File:** `src/{architecture-path}/Proxy/Caching{Name}Proxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Proxy;
+namespace Proxy;
 
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\{Name}Interface;
 use Psr\Cache\CacheItemPoolInterface;
 
 final readonly class Caching{Name}Proxy implements {Name}Interface
@@ -110,18 +110,18 @@ final readonly class Caching{Name}Proxy implements {Name}Interface
 
 ## Access Control Proxy
 
-**File:** `src/Infrastructure/{BoundedContext}/Proxy/AccessControl{Name}Proxy.php`
+**File:** `src/{architecture-path}/Proxy/AccessControl{Name}Proxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Proxy;
+namespace Proxy;
 
-use Domain\{BoundedContext}\{Name}Interface;
-use Domain\Security\AuthorizationServiceInterface;
-use Domain\Security\Exception\AccessDeniedException;
+use {BoundedContext}\{Name}Interface;
+use Security\AuthorizationServiceInterface;
+use Exception\AccessDeniedException;
 
 final readonly class AccessControl{Name}Proxy implements {Name}Interface
 {
@@ -145,16 +145,16 @@ final readonly class AccessControl{Name}Proxy implements {Name}Interface
 
 ## Logging Proxy
 
-**File:** `src/Infrastructure/{BoundedContext}/Proxy/Logging{Name}Proxy.php`
+**File:** `src/{architecture-path}/Proxy/Logging{Name}Proxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Proxy;
+namespace Proxy;
 
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\{Name}Interface;
 use Psr\Log\LoggerInterface;
 
 final readonly class Logging{Name}Proxy implements {Name}Interface
@@ -194,19 +194,19 @@ final readonly class Logging{Name}Proxy implements {Name}Interface
 
 ## Repository Lazy Proxy
 
-**File:** `src/Infrastructure/User/Proxy/LazyUserRepositoryProxy.php`
+**File:** `src/{architecture-path}/Proxy/LazyUserRepositoryProxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\User\Proxy;
+namespace Proxy;
 
-use Domain\User\Entity\User;
-use Domain\User\Repository\UserRepositoryInterface;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\UserId;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\Email;
+use ValueObject\UserId;
 
 final class LazyUserRepositoryProxy implements UserRepositoryInterface
 {

@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Subscription\Service;
+namespace Service;
 
-use App\Domain\Subscription\Entity\Subscription;
-use App\Domain\Subscription\Event\SubscriptionExpiredEvent;
-use App\Domain\Subscription\Repository\SubscriptionRepositoryInterface;
+use Entity\Subscription;
+use Event\SubscriptionExpiredEvent;
+use Repository\SubscriptionRepositoryInterface;
 use Psr\Clock\ClockInterface;
 
 final readonly class SubscriptionExpirationService
@@ -65,11 +65,11 @@ final readonly class SubscriptionExpirationService
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Subscription;
+namespace Tests\Unit\Subscription;
 
-use App\Domain\Subscription\Entity\Subscription;
-use App\Domain\Subscription\Service\SubscriptionExpirationService;
-use App\Infrastructure\Clock\FrozenClock;
+use Entity\Subscription;
+use Service\SubscriptionExpirationService;
+use Clock\FrozenClock;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -136,7 +136,7 @@ final class SubscriptionExpirationServiceTest extends TestCase
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -214,7 +214,7 @@ final class CacheItem
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\RateLimiter;
+namespace RateLimiter;
 
 use Psr\Clock\ClockInterface;
 
@@ -282,7 +282,7 @@ final class SlidingWindowRateLimiter
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Scheduler;
+namespace Scheduler;
 
 use Psr\Clock\ClockInterface;
 
@@ -361,17 +361,17 @@ final class TaskScheduler
 // Symfony services.yaml
 services:
     Psr\Clock\ClockInterface:
-        class: App\Infrastructure\Clock\SystemClock
+        class: Clock\SystemClock
         arguments:
             $timezone: 'UTC'
 
-    App\Infrastructure\Clock\SystemClock:
+    Clock\SystemClock:
         arguments:
             $timezone: 'UTC'
 
     # For testing (override in test environment)
     # Psr\Clock\ClockInterface:
-    #     class: App\Infrastructure\Clock\FrozenClock
+    #     class: Clock\FrozenClock
     #     arguments:
     #         $frozenAt: !service { class: DateTimeImmutable, arguments: ['2024-01-15 10:00:00'] }
 ```
@@ -380,7 +380,7 @@ services:
 <?php
 
 // Laravel AppServiceProvider
-use App\Infrastructure\Clock\SystemClock;
+use Clock\SystemClock;
 use Psr\Clock\ClockInterface;
 
 public function register(): void

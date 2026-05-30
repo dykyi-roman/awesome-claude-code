@@ -33,12 +33,12 @@ Generate DDD-compliant Domain Services for business operations spanning multiple
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Service;
+namespace Service;
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\ValueObject\{ValueObjects};
-use Domain\{BoundedContext}\Repository\{RepositoryInterfaces};
-use Domain\{BoundedContext}\Exception\{DomainExceptions};
+use Entity\{Entity};
+use ValueObject\{ValueObjects};
+use Repository\{RepositoryInterfaces};
+use Exception\{DomainExceptions};
 
 final readonly class {Name}Service
 {
@@ -67,13 +67,13 @@ final readonly class {Name}Service
 
 declare(strict_types=1);
 
-namespace Domain\Banking\Service;
+namespace Service;
 
-use Domain\Banking\Entity\Account;
-use Domain\Banking\ValueObject\Money;
-use Domain\Banking\Repository\AccountRepositoryInterface;
-use Domain\Banking\Exception\InsufficientFundsException;
-use Domain\Banking\Exception\SameAccountTransferException;
+use Entity\Account;
+use ValueObject\Money;
+use Repository\AccountRepositoryInterface;
+use Exception\InsufficientFundsException;
+use Exception\SameAccountTransferException;
 
 final readonly class MoneyTransferService
 {
@@ -111,13 +111,13 @@ final readonly class MoneyTransferService
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Service;
+namespace Service;
 
-use Domain\Pricing\ValueObject\Money;
-use Domain\Pricing\ValueObject\Discount;
-use Domain\Pricing\ValueObject\TaxRate;
-use Domain\Order\Entity\Order;
-use Domain\Customer\Entity\Customer;
+use ValueObject\Money;
+use ValueObject\Discount;
+use ValueObject\TaxRate;
+use Entity\Order;
+use Entity\Customer;
 
 final readonly class PricingCalculatorService
 {
@@ -174,11 +174,11 @@ final readonly class PricingCalculatorService
 
 declare(strict_types=1);
 
-namespace Domain\User\Service;
+namespace Service;
 
-use Domain\User\ValueObject\Password;
-use Domain\User\ValueObject\PasswordStrength;
-use Domain\User\Exception\WeakPasswordException;
+use ValueObject\Password;
+use ValueObject\PasswordStrength;
+use Exception\WeakPasswordException;
 
 final readonly class PasswordPolicyService
 {
@@ -248,10 +248,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\{BoundedContext}\Service;
 
-use Domain\{BoundedContext}\Service\{Name}Service;
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\ValueObject\{ValueObject};
-use Domain\{BoundedContext}\Exception\{DomainException};
+use Service\{Name}Service;
+use Entity\{Entity};
+use ValueObject\{ValueObject};
+use Exception\{DomainException};
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -300,12 +300,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Banking\Service;
 
-use Domain\Banking\Service\MoneyTransferService;
-use Domain\Banking\Entity\Account;
-use Domain\Banking\ValueObject\AccountId;
-use Domain\Banking\ValueObject\Money;
-use Domain\Banking\Exception\InsufficientFundsException;
-use Domain\Banking\Exception\SameAccountTransferException;
+use Service\MoneyTransferService;
+use Entity\Account;
+use ValueObject\AccountId;
+use ValueObject\Money;
+use Exception\InsufficientFundsException;
+use Exception\SameAccountTransferException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -377,16 +377,18 @@ final class MoneyTransferServiceTest extends TestCase
 
 | Component | Path |
 |-----------|------|
-| Domain Service | `src/Domain/{BoundedContext}/Service/` |
-| Exceptions | `src/Domain/{BoundedContext}/Exception/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Service/` |
+| Domain Service | `src/{architecture-path}/Service/{ServiceName}.php` |
+| Exceptions | `src/{architecture-path}/Exception/{Condition}Exception.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Service/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Domain Services live alongside the domain code of the bounded context they belong to; their exceptions live in a sibling `Exception/` folder. Adjust to your project's layout.
 
 ## Anti-patterns to Avoid
 
 | Anti-pattern | Problem | Solution |
 |--------------|---------|----------|
 | Anemic Service | Just delegates to entities | Move logic to entities |
-| Infrastructure in Service | DB/HTTP calls | Use repository interfaces |
+| Infrastructure leaking in | DB/HTTP calls inside the service | Depend on repository abstractions; keep the service pure |
 | Stateful Service | Maintains internal state | Make stateless |
 | God Service | Too many responsibilities | Split into focused services |
 | Business Logic in Constructors | Complex setup | Keep constructors simple |

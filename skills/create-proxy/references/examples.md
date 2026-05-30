@@ -2,19 +2,19 @@
 
 ## Lazy Loading Repository Proxy
 
-**File:** `src/Infrastructure/User/Proxy/LazyUserRepositoryProxy.php`
+**File:** `src/{architecture-path}/Proxy/LazyUserRepositoryProxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\User\Proxy;
+namespace Proxy;
 
-use Domain\User\Entity\User;
-use Domain\User\Repository\UserRepositoryInterface;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\UserId;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\Email;
+use ValueObject\UserId;
 
 final class LazyUserRepositoryProxy implements UserRepositoryInterface
 {
@@ -59,18 +59,18 @@ final class LazyUserRepositoryProxy implements UserRepositoryInterface
 
 ## Caching Service Proxy
 
-**File:** `src/Infrastructure/Product/Proxy/CachingProductServiceProxy.php`
+**File:** `src/{architecture-path}/Proxy/CachingProductServiceProxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Product\Proxy;
+namespace Proxy;
 
-use Domain\Product\Entity\Product;
-use Domain\Product\Service\ProductServiceInterface;
-use Domain\Product\ValueObject\ProductId;
+use Entity\Product;
+use Service\ProductServiceInterface;
+use ValueObject\ProductId;
 use Psr\Cache\CacheItemPoolInterface;
 
 final readonly class CachingProductServiceProxy implements ProductServiceInterface
@@ -135,21 +135,21 @@ final readonly class CachingProductServiceProxy implements ProductServiceInterfa
 
 ## Access Control Proxy
 
-**File:** `src/Infrastructure/Order/Proxy/AccessControlOrderServiceProxy.php`
+**File:** `src/{architecture-path}/Proxy/AccessControlOrderServiceProxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\Proxy;
+namespace Proxy;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Service\OrderServiceInterface;
-use Domain\Order\ValueObject\CreateOrderCommand;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Security\AuthorizationServiceInterface;
-use Domain\Security\Exception\AccessDeniedException;
+use Entity\Order;
+use Service\OrderServiceInterface;
+use ValueObject\CreateOrderCommand;
+use ValueObject\OrderId;
+use Security\AuthorizationServiceInterface;
+use Exception\AccessDeniedException;
 
 final readonly class AccessControlOrderServiceProxy implements OrderServiceInterface
 {
@@ -197,20 +197,20 @@ final readonly class AccessControlOrderServiceProxy implements OrderServiceInter
 
 ## Logging Proxy
 
-**File:** `src/Infrastructure/Payment/Proxy/LoggingPaymentServiceProxy.php`
+**File:** `src/{architecture-path}/Proxy/LoggingPaymentServiceProxy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\Proxy;
+namespace Proxy;
 
-use Domain\Payment\PaymentServiceInterface;
-use Domain\Payment\PaymentStatus;
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use Payment\PaymentServiceInterface;
+use Payment\PaymentStatus;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 use Psr\Log\LoggerInterface;
 
 final readonly class LoggingPaymentServiceProxy implements PaymentServiceInterface
@@ -285,18 +285,18 @@ final readonly class LoggingPaymentServiceProxy implements PaymentServiceInterfa
 
 ### LazyUserRepositoryProxyTest
 
-**File:** `tests/Unit/Infrastructure/User/Proxy/LazyUserRepositoryProxyTest.php`
+**File:** `tests/Unit/Proxy/LazyUserRepositoryProxyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\User\Proxy;
+namespace Tests\Unit\Proxy;
 
-use Domain\User\Repository\UserRepositoryInterface;
-use Domain\User\ValueObject\UserId;
-use Infrastructure\User\Proxy\LazyUserRepositoryProxy;
+use Repository\UserRepositoryInterface;
+use ValueObject\UserId;
+use Proxy\LazyUserRepositoryProxy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -349,18 +349,18 @@ final class LazyUserRepositoryProxyTest extends TestCase
 
 ### CachingProductServiceProxyTest
 
-**File:** `tests/Unit/Infrastructure/Product/Proxy/CachingProductServiceProxyTest.php`
+**File:** `tests/Unit/Proxy/CachingProductServiceProxyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Product\Proxy;
+namespace Tests\Unit\Proxy;
 
-use Domain\Product\Service\ProductServiceInterface;
-use Domain\Product\ValueObject\ProductId;
-use Infrastructure\Product\Proxy\CachingProductServiceProxy;
+use Service\ProductServiceInterface;
+use ValueObject\ProductId;
+use Proxy\CachingProductServiceProxy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

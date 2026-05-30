@@ -11,11 +11,11 @@ Generates feature flag implementation for progressive deployments.
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/FeatureFlagServiceInterface.php
+// src/{architecture-path}/FeatureFlag/FeatureFlagServiceInterface.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 interface FeatureFlagServiceInterface
 {
@@ -50,11 +50,11 @@ interface FeatureFlagServiceInterface
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/FeatureConfig.php
+// src/{architecture-path}/FeatureFlag/FeatureConfig.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 final readonly class FeatureConfig
 {

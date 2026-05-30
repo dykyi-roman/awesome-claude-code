@@ -39,19 +39,19 @@ Creates Null Object pattern infrastructure for eliminating null checks.
 
 ### Step 1: Generate Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the related domain types.
 
 1. `{Name}Interface.php` — Interface with `isNull()` method
 
 ### Step 2: Generate Null Object
 
-**Path:** `src/Domain/{BoundedContext}/`
+Co-located with the interface.
 
 1. `Null{Name}.php` — Null implementation returning neutral values
 
 ### Step 3: Generate Real Implementation
 
-**Path:** `src/Domain/{BoundedContext}/`
+Co-located with the interface and the null variant.
 
 1. `{Name}.php` — Real implementation with business logic
 
@@ -65,10 +65,12 @@ Creates Null Object pattern infrastructure for eliminating null checks.
 
 | Component | Path |
 |-----------|------|
-| Interface | `src/Domain/{BoundedContext}/` |
-| Null Object | `src/Domain/{BoundedContext}/` |
-| Real Implementation | `src/Domain/{BoundedContext}/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/` |
+| Interface | `src/{architecture-path}/{Name}Interface.php` |
+| Null Object | `src/{architecture-path}/Null{Name}.php` |
+| Real Implementation | `src/{architecture-path}/{Name}.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The interface, null object, and real implementation typically live together alongside the related domain types. Adjust to your project's layout.
 
 ---
 

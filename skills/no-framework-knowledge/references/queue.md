@@ -51,7 +51,7 @@ return static function (): AmqpConnectionFactory {
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
 use Enqueue\AmqpBunny\AmqpConnectionFactory;
 use Interop\Queue\Message;
@@ -83,7 +83,7 @@ final readonly class EnqueueProducer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
 use Enqueue\AmqpBunny\AmqpConnectionFactory;
 use Interop\Queue\Message;
@@ -139,7 +139,7 @@ final readonly class EnqueueWorker
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\RabbitMQ;
+namespace Queue\RabbitMQ;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -178,7 +178,7 @@ final readonly class RabbitMQProducer
 
 declare(strict_types=1);
 
-namespace Application\Shared\Port;
+namespace Port;
 
 interface QueueInterface
 {
@@ -193,9 +193,9 @@ interface QueueInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
-use Application\Shared\Port\QueueInterface;
+use Port\QueueInterface;
 
 final readonly class EnqueueAdapter implements QueueInterface
 {
@@ -222,7 +222,7 @@ final readonly class EnqueueAdapter implements QueueInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 use Infrastructure\Queue\EnqueueProducer; // VIOLATION
 
@@ -243,10 +243,10 @@ final class Order
 declare(strict_types=1);
 
 // Infrastructure listener registered in config/events.php
-namespace Infrastructure\Listener;
+namespace Listener;
 
-use Application\Shared\Port\QueueInterface;
-use Domain\Order\Event\OrderConfirmed;
+use Port\QueueInterface;
+use Event\OrderConfirmed;
 
 final readonly class QueueOrderConfirmationNotification
 {
@@ -271,7 +271,7 @@ final readonly class QueueOrderConfirmationNotification
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -306,9 +306,9 @@ final readonly class JobDispatcher
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Handler;
+namespace Handler;
 
-use Application\Order\UseCase\SendOrderNotificationUseCase;
+use UseCase\SendOrderNotificationUseCase;
 
 final readonly class SendOrderConfirmationHandler
 {

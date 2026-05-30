@@ -2,17 +2,17 @@
 
 ## Visitor Interface
 
-**File:** `src/Domain/{BoundedContext}/Visitor/{Name}VisitorInterface.php`
+**File:** `src/{architecture-path}/Visitor/{Name}VisitorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Visitor;
+namespace Visitor;
 
-use Domain\{BoundedContext}\{Element1};
-use Domain\{BoundedContext}\{Element2};
+use {BoundedContext}\{Element1};
+use {BoundedContext}\{Element2};
 
 interface {Name}VisitorInterface
 {
@@ -26,17 +26,17 @@ interface {Name}VisitorInterface
 
 ## Concrete Visitor
 
-**File:** `src/Domain/{BoundedContext}/Visitor/{Operation}Visitor.php`
+**File:** `src/{architecture-path}/Visitor/{Operation}Visitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Visitor;
+namespace Visitor;
 
-use Domain\{BoundedContext}\{Element1};
-use Domain\{BoundedContext}\{Element2};
+use {BoundedContext}\{Element1};
+use {BoundedContext}\{Element2};
 
 final readonly class {Operation}Visitor implements {Name}VisitorInterface
 {
@@ -58,17 +58,17 @@ final readonly class {Operation}Visitor implements {Name}VisitorInterface
 
 ## Stateful Visitor (with accumulator)
 
-**File:** `src/Domain/{BoundedContext}/Visitor/{Operation}Visitor.php`
+**File:** `src/{architecture-path}/Visitor/{Operation}Visitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Visitor;
+namespace Visitor;
 
-use Domain\{BoundedContext}\{Element1};
-use Domain\{BoundedContext}\{Element2};
+use {BoundedContext}\{Element1};
+use {BoundedContext}\{Element2};
 
 final class {Operation}Visitor implements {Name}VisitorInterface
 {
@@ -104,16 +104,16 @@ final class {Operation}Visitor implements {Name}VisitorInterface
 
 ## Visitable Interface
 
-**File:** `src/Domain/{BoundedContext}/VisitableInterface.php`
+**File:** `src/{architecture-path}/VisitableInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
-use Domain\{BoundedContext}\Visitor\{Name}VisitorInterface;
+use Visitor\{Name}VisitorInterface;
 
 interface VisitableInterface
 {
@@ -125,16 +125,16 @@ interface VisitableInterface
 
 ## Visitable Element
 
-**File:** `src/Domain/{BoundedContext}/{Element}.php`
+**File:** `src/{architecture-path}/{Element}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
-use Domain\{BoundedContext}\Visitor\{Name}VisitorInterface;
+use Visitor\{Name}VisitorInterface;
 
 final readonly class {Element} implements VisitableInterface
 {
@@ -164,18 +164,18 @@ final readonly class {Element} implements VisitableInterface
 
 ## Order Item Visitor Interface
 
-**File:** `src/Domain/Order/Visitor/OrderItemVisitorInterface.php`
+**File:** `src/{architecture-path}/Visitor/OrderItemVisitorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 interface OrderItemVisitorInterface
 {
@@ -191,18 +191,18 @@ interface OrderItemVisitorInterface
 
 ## Price Calculator Visitor
 
-**File:** `src/Domain/Order/Visitor/PriceCalculatorVisitor.php`
+**File:** `src/{architecture-path}/Visitor/PriceCalculatorVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final readonly class PriceCalculatorVisitor implements OrderItemVisitorInterface
 {
@@ -227,18 +227,18 @@ final readonly class PriceCalculatorVisitor implements OrderItemVisitorInterface
 
 ## Tax Calculator Visitor
 
-**File:** `src/Domain/Order/Visitor/TaxCalculatorVisitor.php`
+**File:** `src/{architecture-path}/Visitor/TaxCalculatorVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final readonly class TaxCalculatorVisitor implements OrderItemVisitorInterface
 {
@@ -275,19 +275,19 @@ final readonly class TaxCalculatorVisitor implements OrderItemVisitorInterface
 
 ## Export Visitor
 
-**File:** `src/Application/Order/Visitor/JsonExportVisitor.php`
+**File:** `src/{architecture-path}/Visitor/JsonExportVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\Visitor\OrderItemVisitorInterface;
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use Visitor\OrderItemVisitorInterface;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final readonly class JsonExportVisitor implements OrderItemVisitorInterface
 {

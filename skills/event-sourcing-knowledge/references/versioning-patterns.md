@@ -45,7 +45,7 @@ Events have flexible schema, handle missing fields gracefully.
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore;
+namespace EventStore;
 
 interface UpcasterInterface
 {
@@ -72,7 +72,7 @@ interface UpcasterInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore\Upcaster;
+namespace EventStore\Upcaster;
 
 final readonly class OrderCreatedV1ToV2Upcaster implements UpcasterInterface
 {
@@ -106,7 +106,7 @@ final readonly class OrderCreatedV1ToV2Upcaster implements UpcasterInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore\Upcaster;
+namespace EventStore\Upcaster;
 
 final class ChainUpcaster
 {
@@ -156,7 +156,7 @@ final class ChainUpcaster
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore;
+namespace EventStore;
 
 final readonly class UpcastingEventSerializer
 {
@@ -353,7 +353,7 @@ Alternative to upcasting: handle missing/extra fields gracefully.
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderCreatedEvent
 {
@@ -389,7 +389,7 @@ Map event type names to classes (and handle renames).
 
 declare(strict_types=1);
 
-namespace Infrastructure\EventStore;
+namespace EventStore;
 
 final class EventTypeRegistry
 {

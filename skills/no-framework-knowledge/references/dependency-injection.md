@@ -255,7 +255,7 @@ echo "Container compiled successfully.\n";
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Psr\Container\ContainerInterface;
 
@@ -281,7 +281,7 @@ final readonly class CreateOrderUseCase
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class CreateOrderUseCase
 {

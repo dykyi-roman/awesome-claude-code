@@ -70,7 +70,7 @@ Quick reference for 12-Factor App principles with PHP-specific implementations a
 
 declare(strict_types=1);
 
-namespace Infrastructure\Config;
+namespace Config;
 
 final readonly class DatabaseConfig
 {
@@ -122,7 +122,7 @@ final readonly class DatabaseConfig
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class RedisCacheAdapter implements CacheInterface
 {
@@ -198,7 +198,7 @@ CMD ["php-fpm"]
 
 declare(strict_types=1);
 
-namespace Infrastructure\Worker;
+namespace Worker;
 
 final class GracefulWorker
 {
@@ -246,7 +246,7 @@ final class GracefulWorker
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -274,7 +274,7 @@ final readonly class LoggerFactory
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -334,7 +334,7 @@ final class MigrateCommand extends Command
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Action;
+namespace Action;
 
 final readonly class HealthAction
 {

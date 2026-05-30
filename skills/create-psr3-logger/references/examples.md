@@ -9,12 +9,12 @@
 
 declare(strict_types=1);
 
-namespace App\Application\User\Handler;
+namespace Handler;
 
-use App\Application\User\Command\CreateUserCommand;
-use App\Domain\User\Entity\User;
-use App\Domain\User\Event\UserCreated;
-use App\Domain\User\Repository\UserRepositoryInterface;
+use Command\CreateUserCommand;
+use Entity\User;
+use Event\UserCreated;
+use Repository\UserRepositoryInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 
@@ -67,10 +67,10 @@ final readonly class CreateUserHandler
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 use Psr\Log\LoggerInterface;
 
 final readonly class OrderProcessingService
@@ -112,7 +112,7 @@ final readonly class OrderProcessingService
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -168,11 +168,11 @@ final readonly class LoggingHttpClient implements ClientInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace Persistence;
 
-use App\Domain\User\Entity\User;
-use App\Domain\User\Repository\UserRepositoryInterface;
-use App\Domain\User\ValueObject\UserId;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\UserId;
 use Psr\Log\LoggerInterface;
 
 final readonly class LoggingUserRepository implements UserRepositoryInterface
@@ -224,11 +224,11 @@ final readonly class LoggingUserRepository implements UserRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\User;
+namespace Tests\Unit\User;
 
-use App\Application\User\Command\CreateUserCommand;
-use App\Application\User\Handler\CreateUserHandler;
-use App\Infrastructure\Logger\ArrayLogger;
+use Command\CreateUserCommand;
+use Handler\CreateUserHandler;
+use Logger\ArrayLogger;
 use PHPUnit\Framework\TestCase;
 
 final class CreateUserHandlerTest extends TestCase
@@ -267,7 +267,7 @@ final class CreateUserHandlerTest extends TestCase
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Logger;
+namespace Logger;
 
 use Psr\Log\LoggerInterface;
 use Stringable;

@@ -39,7 +39,7 @@ Grep: "DomainEvent|releaseEvents|recordedEvents" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\EventListener;
+namespace Order\Infrastructure\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -70,7 +70,7 @@ class AppEventSubscriber implements EventSubscriberInterface
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\EventListener;
+namespace Infrastructure\EventListener;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -141,7 +141,7 @@ REQUEST → CONTROLLER → CONTROLLER_ARGUMENTS → VIEW → RESPONSE → FINISH
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\EventListener;
+namespace Order\Infrastructure\EventListener;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -170,7 +170,7 @@ final readonly class OrderLimitListener
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\EventListener;
+namespace Infrastructure\EventListener;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -200,7 +200,7 @@ Domain defines its own `EventDispatcherInterface`; Symfony implements it.
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -219,7 +219,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain;
+namespace Domain;
 
 // Pure PHP interface — no framework dependency
 interface EventDispatcherInterface
@@ -233,9 +233,9 @@ interface EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Event;
+namespace Event;
 
-use App\Shared\Domain\DomainEvent;
+use Domain\DomainEvent;
 use App\Shared\Domain\EventDispatcherInterface as DomainEventDispatcher;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -262,7 +262,7 @@ PSR-14 `StoppableEventInterface` allows listeners to stop event propagation.
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\Event;
+namespace Event;
 
 use Psr\EventDispatcher\StoppableEventInterface;
 

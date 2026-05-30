@@ -23,7 +23,7 @@ Grep: "cache\\(" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Domain\Catalog\Service;
+namespace Service;
 
 use Illuminate\Support\Facades\Cache;
 
@@ -43,7 +43,7 @@ final readonly class ProductPriceService
 
 declare(strict_types=1);
 
-namespace App\Domain\Catalog\Service;
+namespace Service;
 
 // Domain port
 interface PriceCacheInterface
@@ -59,9 +59,9 @@ interface PriceCacheInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
-use App\Domain\Catalog\Service\PriceCacheInterface;
+use Service\PriceCacheInterface;
 use Illuminate\Cache\CacheManager;
 
 final readonly class LaravelPriceCache implements PriceCacheInterface
@@ -121,9 +121,9 @@ Grep: "withoutOverlapping" --glob "src/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 use Illuminate\Cache\CacheManager;
 
 final readonly class ConfirmOrderUseCase
@@ -183,7 +183,7 @@ Grep: "Http::|curl_|file_get_contents\\(" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Domain\Payment\Port;
+namespace Port;
 
 // Domain port
 interface PaymentGatewayInterface
@@ -198,14 +198,14 @@ interface PaymentGatewayInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Payment;
+namespace Payment;
 
-use App\Domain\Payment\Port\PaymentGatewayInterface;
-use App\Domain\Payment\ValueObject\CardToken;
-use App\Domain\Payment\ValueObject\Money;
-use App\Domain\Payment\ValueObject\PaymentId;
-use App\Domain\Payment\ValueObject\PaymentResult;
-use App\Domain\Payment\ValueObject\RefundResult;
+use Port\PaymentGatewayInterface;
+use ValueObject\CardToken;
+use ValueObject\Money;
+use ValueObject\PaymentId;
+use ValueObject\PaymentResult;
+use ValueObject\RefundResult;
 use Illuminate\Support\Facades\Http;
 
 final readonly class StripePaymentGateway implements PaymentGatewayInterface
@@ -371,9 +371,9 @@ Schedule::job(new CleanupExpiredOrdersJob())
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Console;
+namespace Console;
 
-use App\Application\Order\UseCase\CleanupExpiredOrdersUseCase;
+use UseCase\CleanupExpiredOrdersUseCase;
 
 final readonly class CleanupExpiredOrdersJob
 {

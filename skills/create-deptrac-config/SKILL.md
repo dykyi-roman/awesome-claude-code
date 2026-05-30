@@ -1,233 +1,73 @@
 ---
 name: create-deptrac-config
-description: Generates DEPTRAC configurations for PHP projects. Creates deptrac.yaml with DDD layer rules, bounded context separation, and dependency constraints.
+description: Generates DEPTRAC configurations for PHP projects. Creates deptrac.yaml with layer rules for the project's architecture (Clean, Hexagonal, Layered, N-Tier, Package-by-Feature, MVC), bounded-context separation, and dependency constraints.
 ---
 
 # DEPTRAC Configuration Generator
 
-Generates optimized DEPTRAC configurations for architectural dependency analysis.
+Generates [DEPTRAC](https://github.com/qossmic/deptrac) configurations for architectural dependency analysis. The deptrac config is architecture-specific by nature — its job is to enforce the dependency rules of a chosen architectural style. This skill ships a dedicated reference per supported architecture, each containing a complete drop-in `deptrac.yaml` plus architecture-specific notes and common violation fixes.
 
 ## Generated Files
 
 ```
-deptrac.yaml              # Main configuration
-deptrac-baseline.yaml     # Violation baseline (if needed)
+deptrac.yaml              # Main configuration with layers and ruleset
+deptrac-baseline.yaml     # Violation baseline (optional, generated on demand)
 ```
 
-## Configuration by Architecture
+## Supported Architectures
 
-### DDD Layered Architecture
+One reference file per architecture. Each file is self-contained: folder structure, full `deptrac.yaml`, architecture-specific notes, and common violation fixes.
 
-```yaml
-# deptrac.yaml
-deptrac:
-  paths:
-    - ./src
+| Architecture | Knowledge skill | Defining trait | Reference |
+|---|---|---|---|
+| **Clean Architecture** | `acc:clean-arch-knowledge` | Source code dependencies point INWARD only; Application does NOT depend on Infrastructure (uses Ports + DI) | [clean.md](references/clean.md) |
+| **Hexagonal (Ports & Adapters)** | `acc:hexagonal-knowledge` | Driving Ports under `Application/{Context}/Port/Input/`, Driven Ports under `Domain/{Context}/Port/Output/`, Adapters under `Infrastructure/Http/` and `Infrastructure/Persistence/` | [hexagonal.md](references/hexagonal.md) |
+| **Layered (3-tier Domain-centric)** | `acc:layer-arch-knowledge` | Domain owns its persistence implementations (Repository abstraction + Doctrine impl side-by-side under `Domain/{Context}/Repository/`); Infrastructure stays generic | [layered.md](references/layered.md) |
+| **N-Tier (4-tier Classical)** | `acc:n-tier-arch-knowledge` | Strict downward calls (Presentation → Application → Domain → Infrastructure); Repository interfaces in Domain, impls in Infrastructure | [n-tier.md](references/n-tier.md) |
+| **Package-by-Feature** | combinable wrapper | Top-level partitioning by bounded context (feature); the chosen architectural style (Clean / Layered / Hexagonal / N-Tier) is applied INSIDE each `src/{Feature}/` folder. Not a standalone architecture — it wraps another. | [package-by-feature.md](references/package-by-feature.md) |
+| **MVC** | — | Controllers call Models and choose Views; Models have no UI knowledge; Views render passively | [mvc.md](references/mvc.md) |
 
-  layers:
-    #############################################
-    # Domain Layer (innermost)
-    #############################################
-    - name: Domain
-      collectors:
-        - type: directory
-          value: src/Domain/.*
+## Operational add-ons
 
-    # Domain sublayers
-    - name: Domain.Entity
-      collectors:
-        - type: directory
-          value: src/Domain/.*/Entity/.*
-
-    - name: Domain.ValueObject
-      collectors:
-        - type: directory
-          value: src/Domain/.*/ValueObject/.*
-
-    - name: Domain.Event
-      collectors:
-        - type: directory
-          value: src/Domain/.*/Event/.*
-
-    - name: Domain.Repository
-      collectors:
-        - type: directory
-          value: src/Domain/.*/Repository/.*
-
-    - name: Domain.Service
-      collectors:
-        - type: directory
-          value: src/Domain/.*/Service/.*
-
-    #############################################
-    # Application Layer
-    #############################################
-    - name: Application
-      collectors:
-        - type: directory
-          value: src/Application/.*
-
-    - name: Application.UseCase
-      collectors:
-        - type: directory
-          value: src/Application/.*/UseCase/.*
-
-    - name: Application.Command
-      collectors:
-        - type: directory
-          value: src/Application/.*/Command/.*
-
-    - name: Application.Query
-      collectors:
-        - type: directory
-          value: src/Application/.*/Query/.*
-
-    - name: Application.DTO
-      collectors:
-        - type: directory
-          value: src/Application/.*/DTO/.*
-
-    #############################################
-    # Infrastructure Layer
-    #############################################
-    - name: Infrastructure
-      collectors:
-        - type: directory
-          value: src/Infrastructure/.*
-
-    - name: Infrastructure.Persistence
-      collectors:
-        - type: directory
-          value: src/Infrastructure/Persistence/.*
-
-    - name: Infrastructure.Messaging
-      collectors:
-        - type: directory
-          value: src/Infrastructure/Messaging/.*
-
-    - name: Infrastructure.External
-      collectors:
-        - type: directory
-          value: src/Infrastructure/External/.*
-
-    #############################################
-    # Presentation Layer (outermost)
-    #############################################
-    - name: Presentation
-      collectors:
-        - type: directory
-          value: src/(Api|Web|Console)/.*
-
-    - name: Presentation.Api
-      collectors:
-        - type: directory
-          value: src/Api/.*
-
-    - name: Presentation.Web
-      collectors:
-        - type: directory
-          value: src/Web/.*
-
-    - name: Presentation.Console
-      collectors:
-        - type: directory
-          value: src/Console/.*
-
-  #############################################
-  # Dependency Rules
-  #############################################
-  ruleset:
-    # Domain has NO dependencies (except language primitives)
-    Domain: []
-    Domain.Entity: []
-    Domain.ValueObject: []
-    Domain.Event: []
-    Domain.Repository: []  # Only interfaces
-    Domain.Service:
-      - Domain.Entity
-      - Domain.ValueObject
-      - Domain.Event
-      - Domain.Repository
-
-    # Application depends only on Domain
-    Application:
-      - Domain
-    Application.UseCase:
-      - Domain
-      - Application.DTO
-      - Application.Command
-      - Application.Query
-    Application.Command:
-      - Domain
-    Application.Query:
-      - Domain
-    Application.DTO:
-      - Domain.ValueObject  # Can use VOs for type safety
-
-    # Infrastructure implements Domain interfaces
-    Infrastructure:
-      - Domain
-      - Application
-    Infrastructure.Persistence:
-      - Domain.Entity
-      - Domain.Repository
-      - Domain.ValueObject
-    Infrastructure.Messaging:
-      - Domain.Event
-      - Application.Command
-    Infrastructure.External:
-      - Domain
-      - Application
-
-    # Presentation depends on Application
-    Presentation:
-      - Application
-      - Domain  # For DTOs, VOs in responses
-    Presentation.Api:
-      - Application.UseCase
-      - Application.DTO
-      - Domain.ValueObject
-    Presentation.Web:
-      - Application.UseCase
-      - Application.DTO
-    Presentation.Console:
-      - Application.UseCase
-      - Application.Command
-```
-
-See `references/examples.md` for: Bounded Context separation, Hexagonal Architecture, Advanced Collectors (class name, interface, attribute, combined), Baseline management, CI configuration (GitHub/GitLab), output formats, common violations and fixes.
+| Concern | Reference |
+|---|---|
+| **Bounded-context separation** (overlay on Clean / Hexagonal / Layered / N-Tier) | [bounded-contexts.md](references/bounded-contexts.md) |
+| **Advanced collectors, baseline management, CI integration, output formats** | [operations.md](references/operations.md) |
 
 ## Generation Instructions
 
-1. **Analyze project:**
-   - Identify architecture style (DDD, Hexagonal, etc.)
-   - Map directory structure
-   - Find bounded contexts
+1. **Detect or ask for the architecture style.** Read `composer.json` `autoload.psr-4` paths, scan top-level folders under `src/`, or ask the user. Match against the table above.
 
-2. **Define layers:**
-   - Start with main layers (Domain, Application, Infrastructure, Presentation)
-   - Add sublayers if needed
-   - Create bounded context layers if multi-context
+2. **Copy the matching reference's `deptrac.yaml`** as the starting point. Adjust:
+   - `paths:` block to your actual source folder(s)
+   - layer `value:` regexes to your folder naming (case, plural/singular)
+   - ruleset entries for any project-specific allowed exceptions
 
-3. **Define rules:**
-   - Domain depends on nothing
-   - Each layer depends only on inner layers
-   - Cross-context only via SharedKernel/Events
+3. **Multi-context projects** — choose between two layout styles:
+   - **Layer-first** (`src/Domain/Order/`, `src/Application/Order/`, ...): merge layers and ruleset from [bounded-contexts.md](references/bounded-contexts.md) with the architecture's config. Both rulesets must be satisfied.
+   - **Feature-first / Package-by-Feature** (`src/Order/Domain/`, `src/Order/Application/`, ...): use [package-by-feature.md](references/package-by-feature.md) — it shows PBF combined with each of the 4 inner architectures (Layered, Clean, Hexagonal, N-Tier).
 
-4. **Handle violations:**
-   - Generate baseline for existing violations
-   - Plan refactoring to remove violations
+4. **Generate a baseline** for legacy projects with existing violations:
+
+   ```bash
+   vendor/bin/deptrac analyse --baseline=deptrac-baseline.yaml
+   ```
+
+   Add `baseline: deptrac-baseline.yaml` to `deptrac.yaml`. See [operations.md → Baseline Management](references/operations.md#baseline-management).
+
+5. **Wire into CI.** See [operations.md → CI Configuration](references/operations.md#ci-configuration) for GitHub Actions and GitLab CI snippets.
 
 ## Usage
 
 Provide:
-- Project path
-- Architecture style (DDD/Hexagonal/Layered)
-- Bounded contexts (if any)
-- Current violations to baseline (optional)
+- Project path (or current directory)
+- Architecture style (one from the table above; ask if unclear — refuse to guess if the directory structure is ambiguous)
+- Bounded contexts list (if multi-context and architecture is not Package-by-Feature)
+- Whether to generate a baseline for existing violations
 
 The generator will:
-1. Analyze directory structure
-2. Create appropriate layers
-3. Define dependency rules
-4. Generate baseline if needed
+1. Pick the matching architecture reference
+2. Tailor the `paths:` and layer regexes to the project
+3. Add bounded-context layers if requested
+4. Optionally generate a baseline file
+5. Optionally emit the CI snippet

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Controller;
+namespace Controller;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -62,7 +62,7 @@ final readonly class UserController
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -115,9 +115,9 @@ final readonly class ApiClient
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace Tests\Functional;
 
-use App\Infrastructure\Http\Factory\HttpFactory;
+use Factory\HttpFactory;
 use PHPUnit\Framework\TestCase;
 
 final class UserControllerTest extends TestCase

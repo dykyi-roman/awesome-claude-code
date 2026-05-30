@@ -82,11 +82,11 @@ Glob: **/Domain/**/*Id.php
 ```
 Check for proper Value Objects (immutable, equality by value).
 
-**Repository Interfaces:**
+**Repositories:**
 ```
 Grep: "interface.*Repository" --glob "**/Domain/**/*.php"
 ```
-Repository interfaces MUST be in Domain.
+Confirm Repositories are abstracted (interface or abstract class) so Domain code depends on the contract, not a concrete persistence type. Placement of the abstraction varies by architectural style — flag concrete persistence types appearing directly inside Domain code.
 
 ### Phase 3: Application Layer Analysis
 
@@ -228,7 +228,7 @@ Load the report template from `acc:ddd-knowledge/assets/report-template.md` and 
 | Domain→Infra dependency | `use.*Infrastructure` in Domain | Breaks layer isolation | Refactor manually |
 | Framework in Domain | `use Doctrine\|Illuminate\|Symfony` in Domain | Couples to framework | Refactor manually |
 | Business logic in Repo | Complex methods in Repository impl | Logic in wrong layer | `acc:create-repository` |
-| No Repository interfaces | Missing interfaces in Domain | Cannot swap implementations | `acc:create-repository` |
+| No Repository abstraction | Concrete persistence type used directly from Domain code | Cannot swap implementations | `acc:create-repository` |
 
 ### Warnings (Antipatterns)
 

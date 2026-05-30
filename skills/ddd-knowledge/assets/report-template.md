@@ -138,7 +138,7 @@ Actual:
 |--------|--------|---------|
 | Rich Entities | {STATUS} | {DETAILS} |
 | Value Objects | {STATUS} | {DETAILS} |
-| Repository Interfaces | {STATUS} | {DETAILS} |
+| Repository pattern | {STATUS} | {DETAILS} |
 | Domain Events | {STATUS} | {DETAILS} |
 | Domain Services | {STATUS} | {DETAILS} |
 

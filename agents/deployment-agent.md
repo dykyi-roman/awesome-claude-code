@@ -41,7 +41,7 @@ grep -rE "health|ready|live" src/
 
 declare(strict_types=1);
 
-namespace App\Api\Action;
+namespace Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

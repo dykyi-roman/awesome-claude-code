@@ -22,7 +22,7 @@ Quick reference for PHP static analysis, code quality, and testing tools.
 | 6 | + Missing typehints | Strict typing |
 | 7 | + Union types strict | High strictness |
 | 8 | + No mixed, nullsafe | **Production recommended** |
-| 9 | + Maximum strictness | Clean Architecture |
+| 9 | + Maximum strictness | Strict-typed codebases |
 | max | Bleeding edge | Experimental only |
 
 ### Configuration Template

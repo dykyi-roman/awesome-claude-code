@@ -45,7 +45,7 @@ return $psr16Cache;
 
 declare(strict_types=1);
 
-namespace Domain\Order\Service;
+namespace Service;
 
 use Psr\SimpleCache\CacheInterface; // VIOLATION: PSR in Domain
 
@@ -63,10 +63,10 @@ final readonly class OrderPricingService
 
 declare(strict_types=1);
 
-namespace Domain\Order\Cache;
+namespace Cache;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\Money;
 
 interface OrderCacheInterface
 {
@@ -81,11 +81,11 @@ interface OrderCacheInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
-use Domain\Order\Cache\OrderCacheInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\ValueObject\Money;
+use Cache\OrderCacheInterface;
+use ValueObject\OrderId;
+use ValueObject\Money;
 use Psr\SimpleCache\CacheInterface;
 
 final readonly class PsrOrderCache implements OrderCacheInterface
@@ -156,7 +156,7 @@ $data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_O
 
 declare(strict_types=1);
 
-namespace Application\Payment;
+namespace Payment;
 
 use GuzzleHttp\Client; // VIOLATION
 
@@ -174,10 +174,10 @@ final readonly class ProcessPaymentUseCase
 
 declare(strict_types=1);
 
-namespace Domain\Payment;
+namespace Payment;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\Money;
 
 interface PaymentGatewayInterface
 {
@@ -190,12 +190,12 @@ interface PaymentGatewayInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment;
+namespace Payment;
 
-use Domain\Payment\PaymentGatewayInterface;
-use Domain\Payment\PaymentResult;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\ValueObject\Money;
+use Payment\PaymentGatewayInterface;
+use Payment\PaymentResult;
+use ValueObject\OrderId;
+use ValueObject\Money;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -253,10 +253,10 @@ composer require symfony/mailer
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\User\ValueObject\Email;
+use ValueObject\OrderId;
+use ValueObject\Email;
 
 interface NotificationSenderInterface
 {
@@ -269,10 +269,10 @@ interface NotificationSenderInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Notification;
+namespace Notification;
 
-use Domain\Notification\NotificationSenderInterface;
-use Domain\Order\ValueObject\OrderId;
+use Notification\NotificationSenderInterface;
+use ValueObject\OrderId;
 use Domain\User\ValueObject\Email as EmailVO;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -306,7 +306,7 @@ final readonly class SymfonyMailerNotificationSender implements NotificationSend
 
 declare(strict_types=1);
 
-namespace Infrastructure\RateLimiter;
+namespace RateLimiter;
 
 use Psr\SimpleCache\CacheInterface;
 
@@ -353,9 +353,9 @@ final readonly class TokenBucketRateLimiter
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
-use Infrastructure\RateLimiter\TokenBucketRateLimiter;
+use RateLimiter\TokenBucketRateLimiter;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -393,12 +393,12 @@ final readonly class RateLimitMiddleware implements MiddlewareInterface
 declare(strict_types=1);
 
 // config/container.php — infrastructure bindings
-use Domain\Order\Cache\OrderCacheInterface;
-use Domain\Payment\PaymentGatewayInterface;
-use Domain\Notification\NotificationSenderInterface;
-use Infrastructure\Cache\PsrOrderCache;
-use Infrastructure\Payment\GuzzlePaymentGateway;
-use Infrastructure\Notification\SymfonyMailerNotificationSender;
+use Cache\OrderCacheInterface;
+use Payment\PaymentGatewayInterface;
+use Notification\NotificationSenderInterface;
+use Cache\PsrOrderCache;
+use Payment\GuzzlePaymentGateway;
+use Notification\SymfonyMailerNotificationSender;
 
 $builder->addDefinitions([
     // Cache

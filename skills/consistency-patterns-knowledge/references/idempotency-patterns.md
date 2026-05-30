@@ -11,7 +11,7 @@ The client generates a unique key per operation attempt and sends it via HTTP he
 
 declare(strict_types=1);
 
-namespace Domain\ValueObject;
+namespace ValueObject;
 
 final readonly class IdempotencyKey
 {
@@ -60,7 +60,7 @@ For operations where context matters, compose the key from meaningful parts:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 final readonly class RedisDeduplicationStore implements DeduplicationStoreInterface
 {
@@ -117,7 +117,7 @@ For durability when Redis is not suitable:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 final readonly class DatabaseDeduplicationStore implements DeduplicationStoreInterface
 {
@@ -172,7 +172,7 @@ final readonly class DatabaseDeduplicationStore implements DeduplicationStoreInt
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -250,7 +250,7 @@ True exactly-once is achieved by combining idempotency with transactional outbox
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -300,7 +300,7 @@ final readonly class TransactionalOutboxPublisher
 
 declare(strict_types=1);
 
-namespace Application\UseCase;
+namespace UseCase;
 
 use Psr\Log\LoggerInterface;
 
@@ -340,7 +340,7 @@ final readonly class ProcessPaymentUseCase
 
 declare(strict_types=1);
 
-namespace Application\UseCase;
+namespace UseCase;
 
 final readonly class SendNotificationUseCase
 {

@@ -60,7 +60,7 @@ Grep: "use Yiisoft\\\\ActiveRecord" --glob "**/Application/**/*.php"
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 use Yiisoft\ActiveRecord\ActiveRecord; // VIOLATION: Yii in Domain
 
@@ -86,12 +86,12 @@ final class Order extends ActiveRecord
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
-use Domain\Order\Event\OrderConfirmed;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
+use Event\OrderConfirmed;
+use ValueObject\Money;
 
 final class Order
 {
@@ -143,7 +143,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\ActiveRecord;
+namespace Persistence\ActiveRecord;
 
 use Yiisoft\ActiveRecord\ActiveRecord;
 
@@ -161,11 +161,11 @@ final class OrderActiveRecord extends ActiveRecord
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\ActiveRecord;
+namespace Persistence\ActiveRecord;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 use Yiisoft\ActiveRecord\ActiveQuery;
 
 final readonly class ActiveRecordOrderRepository implements OrderRepositoryInterface
@@ -222,9 +222,9 @@ final readonly class ActiveRecordOrderRepository implements OrderRepositoryInter
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class OrderConfirmed
 {
@@ -261,7 +261,7 @@ return [
 
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
 final readonly class OrderId
 {
@@ -359,7 +359,7 @@ See `event-system.md` for PSR-14 details, CompositeProvider, and stoppable event
 | Step | Action | Verify |
 |------|--------|--------|
 | 1 | Create Domain entity (pure PHP) | No `use Yiisoft\` |
-| 2 | Extract repository interface to Domain | Interface in Domain namespace |
+| 2 | Define Repository pattern in Domain | Repository lives with the domain (folder placement varies by architecture) |
 | 3 | Create ActiveRecord model in Infrastructure | Extends `ActiveRecord` |
 | 4 | Implement repository with ActiveRecord | Maps AR to Domain entity |
 | 5 | Wire via DI config | `config/common/di/` binding |

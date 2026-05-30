@@ -95,7 +95,7 @@ Sticky sessions (workaround) → couples user to server → defeats horizontal s
 
 declare(strict_types=1);
 
-namespace Infrastructure\Session;
+namespace Session;
 
 final readonly class RedisSessionConfig
 {
@@ -127,7 +127,7 @@ final readonly class RedisSessionConfig
 
 declare(strict_types=1);
 
-namespace Infrastructure\Auth;
+namespace Auth;
 
 final readonly class JwtTokenFactory
 {
@@ -185,7 +185,7 @@ PHP creates a new database connection per request (shared-nothing). Without pool
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class ConnectionPoolConfig
 {
@@ -359,7 +359,7 @@ opcache.jit_buffer_size=128M
 
 declare(strict_types=1);
 
-namespace App\Config;
+namespace Config;
 
 // preload.php — Preload hot classes into OPcache at FPM startup
 // All preloaded classes are available without autoloading overhead

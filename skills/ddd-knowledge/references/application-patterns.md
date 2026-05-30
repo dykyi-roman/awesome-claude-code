@@ -1,6 +1,6 @@
 # Application Patterns
 
-Detailed patterns for Application layer implementation in PHP.
+Detailed patterns for orchestrating the domain — Use Cases, Query Handlers, DTOs, Ports, Event Handlers, Application Services. These cover the **orchestration** responsibility from [`layer-architecture.md`](layer-architecture.md). Physical placement varies by architecture (Layered 3-tier merges entry-points into Application; N-Tier keeps Presentation as a separate layer; PBF scopes everything per feature; MVC may not have a distinct Application layer at all).
 
 ## Use Case (Command Handler)
 
@@ -21,12 +21,12 @@ Single application operation that orchestrates domain objects.
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Application\Order\DTO\ConfirmOrderCommand;
-use Application\Order\DTO\OrderConfirmedResult;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\Exception\OrderNotFoundException;
+use DTO\ConfirmOrderCommand;
+use DTO\OrderConfirmedResult;
+use Repository\OrderRepositoryInterface;
+use Exception\OrderNotFoundException;
 
 final readonly class ConfirmOrderUseCase
 {
@@ -91,16 +91,21 @@ final readonly class ConfirmOrderUseCase
 
 ### Detection Patterns
 
+Suffix-based globs work across architectures:
+
 ```bash
-# Good - UseCase structure
-Glob: **/Application/**/*UseCase.php
-Glob: **/Application/**/*Handler.php
+# Use Cases and Handlers
+Glob: **/*UseCase.php
+Glob: **/*Handler.php
+Glob: **/UseCase/**/*.php
+Glob: **/Handler/**/*.php
 
-# Warning - Business logic in UseCase
-Grep: "if \(.*->get.*\(\) ===|switch \(.*->get" --glob "**/Application/**/*.php"
+# Anti-pattern: business logic inside a Use Case (if/switch on entity state)
+Grep: "if \(.*->get.*\(\) ===|switch \(.*->get" --glob "**/*UseCase.php"
+Grep: "if \(.*->get.*\(\) ===|switch \(.*->get" --glob "**/*Handler.php"
 
-# Warning - Direct property access
-Grep: "->status ===|->state ===" --glob "**/Application/**/*.php"
+# Anti-pattern: direct property access on entities inside orchestration
+Grep: "->status ===|->state ===" --glob "**/*UseCase.php"
 ```
 
 ## Query Handler (CQRS Read Side)
@@ -121,10 +126,10 @@ Read-only operation optimized for queries.
 
 declare(strict_types=1);
 
-namespace Application\Order\Query;
+namespace Query;
 
-use Application\Order\DTO\OrderListQuery;
-use Application\Order\DTO\OrderListItem;
+use DTO\OrderListQuery;
+use DTO\OrderListItem;
 
 final readonly class GetOrderListHandler
 {
@@ -167,9 +172,9 @@ Simple object for transferring data between layers.
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
-use Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class ConfirmOrderCommand
 {
@@ -195,7 +200,7 @@ final readonly class ConfirmOrderCommand
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
 final readonly class OrderConfirmedResult
 {
@@ -220,7 +225,7 @@ final readonly class OrderConfirmedResult
 
 | Aspect | DTO | Value Object |
 |--------|-----|--------------|
-| Location | Application | Domain |
+| Typical placement | orchestration code (Application / use-case / orchestration folder) | with the domain model (Domain / Model / wherever the model lives) |
 | Validation | Format only | Business rules |
 | Behavior | None | Domain methods |
 | Mutability | Immutable | Immutable |
@@ -229,17 +234,19 @@ final readonly class OrderConfirmedResult
 ### Detection Patterns
 
 ```bash
-# Good - DTOs exist
-Glob: **/Application/**/*DTO.php
-Glob: **/Application/**/*Command.php
-Glob: **/Application/**/*Query.php
-Glob: **/Application/**/*Result.php
+# DTOs by file or class-name suffix
+Glob: **/*DTO.php
+Glob: **/*Command.php
+Glob: **/*Query.php
+Glob: **/*Result.php
+Glob: **/DTO/**/*.php
 
-# Good - Readonly DTOs
-Grep: "final readonly class" --glob "**/Application/**/*DTO.php"
+# Readonly DTOs (immutability check)
+Grep: "final readonly class" --glob "**/*DTO.php"
+Grep: "final readonly class" --glob "**/DTO/**/*.php"
 
-# Bad - DTO with logic
-Grep: "public function [a-z]" --glob "**/Application/**/*DTO.php" | grep -v "fromArray\|toArray"
+# Anti-pattern: DTO with logic (allow fromArray/toArray mapping helpers)
+Grep: "public function [a-z]" --glob "**/*DTO.php" | grep -v "fromArray\|toArray"
 ```
 
 ## Application Service
@@ -260,7 +267,7 @@ Orchestrates multiple use cases or complex workflows.
 
 declare(strict_types=1);
 
-namespace Application\Checkout\Service;
+namespace Service;
 
 final readonly class CheckoutService
 {
@@ -296,13 +303,24 @@ final readonly class CheckoutService
 ## Port (Interface for External Services)
 
 ### Definition
-Interface for external service integration, defined in Application.
+Interface representing the application's need for an external capability — payment gateways, email senders, SMS clients, third-party search, etc. The concept is most explicit in **Hexagonal Architecture**, where Ports are a defining structural element; it is also used in **Clean Architecture** to enforce the Application → Infrastructure dependency inversion. In **Layered 3-tier (Domain-centric)** and **N-Tier (4-tier Classical)**, the same role is filled by ordinary interfaces declared where the consumer needs them.
 
 ### Characteristics
-- Abstracts external dependency
-- Defined in Application layer
-- Implemented in Infrastructure
-- Uses Application/Domain types
+- Abstracts an external dependency
+- Uses orchestration/domain types in its signature (no framework types)
+- Implemented by an adapter that lives wherever the architecture places external integrations
+
+### Placement varies by architecture
+
+| Architecture | Driving Port (input) | Driven Port (output) | Adapter |
+|---|---|---|---|
+| Clean | typically `Application/{Context}/Port/` (project-conventional) | typically `Application/{Context}/Port/` or `Domain/{Context}/Port/` | `Infrastructure/` |
+| Hexagonal | `Application/{Context}/Port/Input/` | `Domain/{Context}/Port/Output/` | `Infrastructure/{Http,Persistence,External}/` |
+| Layered (3-tier Domain-centric) | usually no separate Driving Port (entry-points call Use Cases directly inside Application/Http) | interface declared alongside its consumer in Domain | `Infrastructure/` (generic) |
+| N-Tier (4-tier Classical) | usually not separated as a Port | interface declared in Domain alongside consumer | `Infrastructure/External/` |
+| PBF | per inner architecture, scoped to `{Feature}/` | per inner architecture, scoped to `{Feature}/` | per inner architecture, scoped to `{Feature}/` |
+
+See [`layer-architecture.md`](layer-architecture.md) for the full architecture table.
 
 ### PHP 8.4 Implementation
 
@@ -311,10 +329,10 @@ Interface for external service integration, defined in Application.
 
 declare(strict_types=1);
 
-namespace Application\Payment\Port;
+namespace Port;
 
-use Application\Payment\DTO\PaymentRequest;
-use Application\Payment\DTO\PaymentResponse;
+use DTO\PaymentRequest;
+use DTO\PaymentResponse;
 
 interface PaymentGatewayInterface
 {
@@ -328,10 +346,11 @@ interface PaymentGatewayInterface
 
 | Aspect | Port | Repository |
 |--------|------|------------|
-| Defined in | Application | Domain |
-| Works with | DTOs | Domain objects |
-| Purpose | External services | Persistence |
-| Example | PaymentGateway | OrderRepository |
+| Typical placement | with the orchestration code that needs the external capability | with the domain model |
+| Works with | DTOs | Domain objects (aggregate roots) |
+| Purpose | External services (payment, email, search, etc.) | Aggregate persistence |
+| Example | `PaymentGatewayInterface` | `OrderRepository` |
+| Architecture role | Most explicit in Hexagonal; used implicitly in others | Universal across architectures |
 
 ## Event Handler (Application Events)
 
@@ -345,9 +364,9 @@ Reacts to domain events with application-level side effects.
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
-use Domain\Order\Event\OrderConfirmedEvent;
+use Event\OrderConfirmedEvent;
 
 final readonly class SendOrderConfirmationEmail
 {
@@ -372,10 +391,12 @@ final readonly class SendOrderConfirmationEmail
 }
 ```
 
-## Application Layer Structure
+## Example folder shape
+
+The example below shows a **Clean / N-Tier 4-tier**-style arrangement where the Application layer is the orchestration home and each bounded context owns its own UseCase / Query / DTO / EventHandler / Port subfolders. **Layered 3-tier (Domain-centric)** projects place orchestration directly under `Domain/{Context}/Handler/{UseCase}/` (since the Application layer in that architecture is reserved for entry-points). **PBF** projects wrap whichever inner shape is chosen inside `{Feature}/`. **MVC** typically has no Application layer — orchestration lives in the Controller.
 
 ```
-Application/
+Application/                      # Clean / N-Tier 4-tier shape
 ├── Order/
 │   ├── UseCase/
 │   │   ├── CreateOrderUseCase.php
@@ -402,19 +423,24 @@ Application/
 
 ## Validation Strategy
 
-### Input Validation (Presentation)
+DDD distinguishes three validation responsibilities. Where they physically run varies by architecture (Layered 3-tier and MVC merge entry-points with orchestration; Clean / Hexagonal / N-Tier keep them in separate layers).
+
+### Input format validation (entry-point responsibility)
 - Format validation
 - Required fields
 - Type coercion
+- Runs in: `Presentation/` (Clean / N-Tier), `Infrastructure/Http/` (Hexagonal), `Application/Http/` (Layered 3-tier), `Controller/` (MVC)
 
-### DTO Validation (Application)
+### DTO / cross-field validation (orchestration responsibility)
 - Cross-field validation
 - Format consistency
+- Runs in: orchestration code (Use Case, Application Service, Handler) regardless of folder
 
-### Business Validation (Domain)
+### Business validation (domain responsibility)
 - Business rules
 - Invariants
 - State transitions
+- Runs in: the entity / aggregate / domain service — wherever the domain model lives
 
 ```php
 // Presentation: format

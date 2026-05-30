@@ -27,7 +27,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\Storage\Redis;
@@ -57,7 +57,7 @@ final readonly class MetricsRegistryFactory
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\Counter;
@@ -113,7 +113,7 @@ final class HttpRedMetrics
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -156,7 +156,7 @@ final readonly class MetricsMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\Counter;
@@ -231,7 +231,7 @@ final class BusinessMetrics
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Action;
+namespace Action;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\RenderTextFormat;

@@ -73,8 +73,8 @@ We need an ORM for our DDD project that supports:
 - Event-driven lifecycle hooks
 - PHP 8.4 property promotion and readonly support
 
-The project follows Clean Architecture where Domain layer has
-no dependencies on infrastructure frameworks.
+The project isolates domain code from infrastructure framework
+dependencies to keep business rules portable and testable.
 
 ## Decision
 
@@ -85,8 +85,8 @@ We will use Doctrine ORM 3.x as our persistence layer because it:
 - Has mature migration tooling (doctrine/migrations)
 - Integrates with Symfony via doctrine-bundle
 
-Repository interfaces are defined in the Domain layer.
-Doctrine implementations reside in Infrastructure.
+Repositories are defined as interfaces alongside the domain code that uses them.
+Concrete Doctrine implementations live with other persistence adapters.
 
 ## Consequences
 

@@ -39,23 +39,23 @@ Creates Read Model infrastructure for CQRS read side with optimized query models
 
 ## Generation Process
 
-### Step 1: Generate Domain Read Model
+### Step 1: Generate Read Model + Repository Abstraction
 
-**Path:** `src/Domain/{BoundedContext}/ReadModel/`
+Place in a `ReadModel/` folder under the bounded context — these two are co-located.
 
 1. `{Name}ReadModel.php` — Immutable read model with fromArray/toArray
-2. `{Name}ReadModelRepositoryInterface.php` — Query-focused repository interface
+2. `{Name}ReadModelRepositoryInterface.php` — Query-focused repository abstraction
 
-### Step 2: Generate Application Projection
+### Step 2: Generate Projection
 
-**Path:** `src/Application/{BoundedContext}/Projection/`
+Place in a `Projection/` folder — typically wherever your project coordinates use cases / event handling (sibling to read-side query Handlers, separate from the ReadModel folder).
 
 1. `{Name}ProjectionInterface.php` — Projection contract
 2. `{Name}Projection.php` — Event handlers building read model
 
-### Step 3: Generate Infrastructure
+### Step 3: Generate Persistence Implementations
 
-**Path:** `src/Infrastructure/{BoundedContext}/`
+Two concrete classes in sibling sub-folders of the persistence area:
 
 1. `Projection/{Name}Store.php` — Store for insert/update/upsert
 2. `ReadModel/Doctrine{Name}Repository.php` — Repository implementation
@@ -71,13 +71,15 @@ Creates Read Model infrastructure for CQRS read side with optimized query models
 
 | Component | Path |
 |-----------|------|
-| Read Model | `src/Domain/{BoundedContext}/ReadModel/` |
-| Repository Interface | `src/Domain/{BoundedContext}/ReadModel/` |
-| Projection Interface | `src/Application/{BoundedContext}/Projection/` |
-| Projection | `src/Application/{BoundedContext}/Projection/` |
-| Store | `src/Infrastructure/{BoundedContext}/Projection/` |
-| Repository Impl | `src/Infrastructure/{BoundedContext}/ReadModel/` |
-| Unit Tests | `tests/Unit/` |
+| Read Model | `src/{architecture-path}/ReadModel/{Name}ReadModel.php` |
+| Repository (abstraction) | `src/{architecture-path}/ReadModel/{Name}ReadModelRepositoryInterface.php` |
+| Projection Interface | `src/{architecture-path}/Projection/{Name}ProjectionInterface.php` |
+| Projection | `src/{architecture-path}/Projection/{Name}Projection.php` |
+| Store | `src/{architecture-path}/Projection/{Name}Store.php` |
+| Repository Impl | `src/{architecture-path}/ReadModel/Doctrine{Name}Repository.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The Read Model + its repository abstraction typically live alongside domain code; projections live where your project coordinates event handling; the concrete store + Doctrine repository live with other persistence adapters. Adjust to your project's layout.
 
 ---
 
@@ -86,7 +88,7 @@ Creates Read Model infrastructure for CQRS read side with optimized query models
 | Component | Pattern | Example |
 |-----------|---------|---------|
 | Read Model | `{Name}ReadModel` | `OrderSummaryReadModel` |
-| Repository Interface | `{Name}ReadModelRepositoryInterface` | `OrderSummaryReadModelRepositoryInterface` |
+| Repository (abstraction) | `{Name}ReadModelRepositoryInterface` | `OrderSummaryReadModelRepositoryInterface` |
 | Projection Interface | `{Name}ProjectionInterface` | `OrderSummaryProjectionInterface` |
 | Projection | `{Name}Projection` | `OrderSummaryProjection` |
 | Store | `{Name}Store` | `OrderSummaryStore` |

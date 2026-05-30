@@ -13,9 +13,9 @@ Business facts within a bounded context.
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 final readonly class OrderPlaced implements DomainEvent
 {
@@ -55,9 +55,9 @@ Cross-bounded-context communication.
 
 declare(strict_types=1);
 
-namespace Application\Order\IntegrationEvent;
+namespace IntegrationEvent;
 
-use Application\Shared\IntegrationEvent;
+use Shared\IntegrationEvent;
 
 final readonly class OrderPlacedIntegrationEvent implements IntegrationEvent
 {
@@ -100,7 +100,7 @@ Infrastructure and operational events.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Event;
+namespace Event;
 
 final readonly class ServiceHealthChanged
 {
@@ -132,7 +132,7 @@ final readonly class CircuitBreakerOpened
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 interface DomainEvent
 {
@@ -150,7 +150,7 @@ interface DomainEvent
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 abstract readonly class BaseEvent implements DomainEvent
 {
@@ -193,7 +193,7 @@ abstract readonly class BaseEvent implements DomainEvent
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 final readonly class EventEnvelope
 {
@@ -246,7 +246,7 @@ final readonly class EventEnvelope
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class PlaceOrderUseCase
 {
@@ -284,7 +284,7 @@ Ensures events are published even if broker is unavailable.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Outbox;
+namespace Outbox;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -325,7 +325,7 @@ class OutboxMessage
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class PlaceOrderUseCase
 {
@@ -360,7 +360,7 @@ final readonly class PlaceOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Outbox;
+namespace Outbox;
 
 final readonly class OutboxProcessor
 {
@@ -408,7 +408,7 @@ final readonly class OutboxProcessor
 
 declare(strict_types=1);
 
-namespace Application\Shared\Port\Input;
+namespace Port\Input;
 
 interface EventHandlerInterface
 {
@@ -425,7 +425,7 @@ interface EventHandlerInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class UpdateInventoryOnOrderPlaced implements EventHandlerInterface
 {
@@ -462,7 +462,7 @@ final readonly class UpdateInventoryOnOrderPlaced implements EventHandlerInterfa
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class OrderNotificationHandler implements EventHandlerInterface
 {
@@ -519,7 +519,7 @@ final readonly class OrderNotificationHandler implements EventHandlerInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class IdempotentEventHandler implements EventHandlerInterface
 {
@@ -557,7 +557,7 @@ final readonly class IdempotentEventHandler implements EventHandlerInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderPlacedV2 implements DomainEvent
 {
@@ -588,7 +588,7 @@ final readonly class OrderPlacedV2 implements DomainEvent
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 final readonly class OrderPlacedUpcaster implements EventUpcasterInterface
 {
@@ -616,7 +616,7 @@ final readonly class OrderPlacedUpcaster implements EventUpcasterInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 final readonly class EventDispatcher implements EventDispatcherInterface
 {

@@ -64,7 +64,7 @@ final class Cache extends BaseConfig
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
 use CodeIgniter\Cache\CacheInterface; // VIOLATION
 
@@ -89,10 +89,10 @@ final readonly class OrderPricingService
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Cache;
+namespace Cache;
 
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Shared\ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\Money;
 
 interface OrderCacheInterface
 {
@@ -107,11 +107,11 @@ interface OrderCacheInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
-use App\Domain\Order\Cache\OrderCacheInterface;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Shared\ValueObject\Money;
+use Cache\OrderCacheInterface;
+use ValueObject\OrderId;
+use ValueObject\Money;
 use CodeIgniter\Cache\CacheInterface;
 
 final readonly class CIOrderCache implements OrderCacheInterface
@@ -199,7 +199,7 @@ $response = $client->get('orders/123');
 
 declare(strict_types=1);
 
-namespace App\Application\Payment;
+namespace Payment;
 
 use CodeIgniter\HTTP\CURLRequest; // VIOLATION
 
@@ -224,7 +224,7 @@ final readonly class ProcessPaymentUseCase
 
 declare(strict_types=1);
 
-namespace App\Domain\Payment;
+namespace Payment;
 
 interface PaymentGatewayInterface
 {
@@ -237,12 +237,12 @@ interface PaymentGatewayInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Payment;
+namespace Payment;
 
-use App\Domain\Payment\PaymentGatewayInterface;
-use App\Domain\Payment\PaymentResult;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Shared\ValueObject\Money;
+use Payment\PaymentGatewayInterface;
+use Payment\PaymentResult;
+use ValueObject\OrderId;
+use ValueObject\Money;
 use CodeIgniter\HTTP\CURLRequest;
 
 final readonly class CIPaymentGateway implements PaymentGatewayInterface
@@ -310,7 +310,7 @@ final class Email extends BaseConfig
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
 final readonly class OrderNotificationService
 {
@@ -331,7 +331,7 @@ final readonly class OrderNotificationService
 
 declare(strict_types=1);
 
-namespace App\Domain\Notification;
+namespace Notification;
 
 interface NotificationSenderInterface
 {
@@ -344,10 +344,10 @@ interface NotificationSenderInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Notification;
+namespace Notification;
 
-use App\Domain\Notification\NotificationSenderInterface;
-use App\Domain\Order\ValueObject\OrderId;
+use Notification\NotificationSenderInterface;
+use ValueObject\OrderId;
 use App\Domain\User\ValueObject\Email as EmailVO;
 
 final readonly class CIEmailNotificationSender implements NotificationSenderInterface

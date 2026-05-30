@@ -1,6 +1,6 @@
 ---
 name: create-phpstan-config
-description: Generates PHPStan configurations for PHP projects. Creates phpstan.neon with appropriate level, extensions, paths, baseline support, and DDD-specific rules.
+description: Generates PHPStan configurations for PHP projects. Creates phpstan.neon with appropriate level, extensions, paths, baseline support, and architecture-specific rules (DDD-Layered, Clean, Hexagonal, Layered, Package-by-Feature).
 ---
 
 # PHPStan Configuration Generator

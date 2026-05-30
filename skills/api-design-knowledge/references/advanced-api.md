@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pagination;
+namespace Pagination;
 
 final readonly class CursorPaginator
 {
@@ -100,7 +100,7 @@ final readonly class CursorPaginator
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pagination;
+namespace Pagination;
 
 /**
  * @template T
@@ -138,7 +138,7 @@ final readonly class CursorPage
 
 declare(strict_types=1);
 
-namespace Infrastructure\RateLimiting;
+namespace RateLimiting;
 
 final readonly class RedisTokenBucket
 {
@@ -196,7 +196,7 @@ final readonly class RedisTokenBucket
 
 declare(strict_types=1);
 
-namespace Infrastructure\RateLimiting;
+namespace RateLimiting;
 
 final readonly class RedisSlidingWindow
 {
@@ -250,7 +250,7 @@ final readonly class RedisSlidingWindow
 
 declare(strict_types=1);
 
-namespace Infrastructure\Grpc;
+namespace Grpc;
 
 final readonly class GrpcServiceClient
 {
@@ -322,7 +322,7 @@ query {
 
 declare(strict_types=1);
 
-namespace Infrastructure\GraphQL;
+namespace GraphQL;
 
 final class DataLoader
 {

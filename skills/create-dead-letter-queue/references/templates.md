@@ -1,17 +1,17 @@
 # Dead Letter Queue Templates
 
-## Domain Layer Components
+## Types
 
 ### FailureType Enum
 
-**File:** `src/Domain/Shared/DeadLetter/FailureType.php`
+**File:** `src/{architecture-path}/DeadLetter/FailureType.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\DeadLetter;
+namespace DeadLetter;
 
 enum FailureType: string
 {
@@ -39,14 +39,14 @@ enum FailureType: string
 
 ### DeadLetterMessage Entity
 
-**File:** `src/Domain/Shared/DeadLetter/DeadLetterMessage.php`
+**File:** `src/{architecture-path}/DeadLetter/DeadLetterMessage.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\DeadLetter;
+namespace DeadLetter;
 
 use Ramsey\Uuid\Uuid;
 
@@ -155,21 +155,21 @@ final class DeadLetterMessage
 
 ---
 
-## Application Layer Components
+## Coordination
 
 ### DeadLetterStoreInterface
 
-**File:** `src/Application/Shared/DeadLetter/DeadLetterStoreInterface.php`
+**File:** `src/{architecture-path}/DeadLetter/DeadLetterStoreInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\DeadLetter;
+namespace DeadLetter;
 
-use Domain\Shared\DeadLetter\DeadLetterMessage;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\DeadLetterMessage;
+use DeadLetter\FailureType;
 
 interface DeadLetterStoreInterface
 {
@@ -194,16 +194,16 @@ interface DeadLetterStoreInterface
 
 ### DeadLetterHandler
 
-**File:** `src/Application/Shared/DeadLetter/DeadLetterHandler.php`
+**File:** `src/{architecture-path}/DeadLetter/DeadLetterHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\DeadLetter;
+namespace DeadLetter;
 
-use Domain\Shared\DeadLetter\DeadLetterMessage;
+use DeadLetter\DeadLetterMessage;
 use Psr\Log\LoggerInterface;
 
 final readonly class DeadLetterHandler
@@ -248,16 +248,16 @@ final readonly class DeadLetterHandler
 
 ### RetryStrategy
 
-**File:** `src/Application/Shared/DeadLetter/RetryStrategy.php`
+**File:** `src/{architecture-path}/DeadLetter/RetryStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\DeadLetter;
+namespace DeadLetter;
 
-use Domain\Shared\DeadLetter\DeadLetterMessage;
+use DeadLetter\DeadLetterMessage;
 
 final readonly class RetryStrategy
 {
@@ -300,16 +300,16 @@ final readonly class RetryStrategy
 
 ### FailureClassifier
 
-**File:** `src/Application/Shared/DeadLetter/FailureClassifier.php`
+**File:** `src/{architecture-path}/DeadLetter/FailureClassifier.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\DeadLetter;
+namespace DeadLetter;
 
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\FailureType;
 
 final readonly class FailureClassifier
 {
@@ -359,14 +359,14 @@ final readonly class FailureClassifier
 
 ### ProcessingResult
 
-**File:** `src/Application/Shared/DeadLetter/ProcessingResult.php`
+**File:** `src/{architecture-path}/DeadLetter/ProcessingResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\DeadLetter;
+namespace DeadLetter;
 
 final readonly class ProcessingResult
 {
@@ -388,14 +388,14 @@ final readonly class ProcessingResult
 
 ### DlqProcessor
 
-**File:** `src/Application/Shared/DeadLetter/DlqProcessor.php`
+**File:** `src/{architecture-path}/DeadLetter/DlqProcessor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\DeadLetter;
+namespace DeadLetter;
 
 use Psr\Log\LoggerInterface;
 
@@ -466,22 +466,22 @@ final readonly class DlqProcessor
 
 ---
 
-## Infrastructure Layer
+## Persistence
 
 ### DatabaseDeadLetterStore
 
-**File:** `src/Infrastructure/DeadLetter/DatabaseDeadLetterStore.php`
+**File:** `src/{architecture-path}/DeadLetter/DatabaseDeadLetterStore.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\DeadLetter;
+namespace DeadLetter;
 
-use Application\Shared\DeadLetter\DeadLetterStoreInterface;
-use Domain\Shared\DeadLetter\DeadLetterMessage;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\DeadLetterStoreInterface;
+use DeadLetter\DeadLetterMessage;
+use DeadLetter\FailureType;
 
 final readonly class DatabaseDeadLetterStore implements DeadLetterStoreInterface
 {

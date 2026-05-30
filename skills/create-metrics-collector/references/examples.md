@@ -2,17 +2,17 @@
 
 ## Business Metrics in Use Case
 
-**File:** `src/Application/Order/CreateOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/CreateOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order;
+namespace Order;
 
-use Infrastructure\Metrics\Counter;
-use Infrastructure\Metrics\Histogram;
+use Metrics\Counter;
+use Metrics\Histogram;
 
 final readonly class CreateOrderUseCase
 {
@@ -43,16 +43,16 @@ final readonly class CreateOrderUseCase
 
 ## Connection Pool Gauge
 
-**File:** `src/Infrastructure/Database/MonitoredConnectionPool.php`
+**File:** `src/{architecture-path}/Database/MonitoredConnectionPool.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
-use Infrastructure\Metrics\Gauge;
+use Metrics\Gauge;
 
 final class MonitoredConnectionPool
 {
@@ -90,7 +90,7 @@ final class MonitoredConnectionPool
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\Storage\Redis;
@@ -121,10 +121,10 @@ final readonly class MetricsServiceFactory
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Metrics\MetricsMiddleware;
-use Infrastructure\Metrics\MetricsCollectorInterface;
+use Metrics\MetricsMiddleware;
+use Metrics\MetricsCollectorInterface;
 
 final readonly class MiddlewarePipeline
 {
@@ -143,16 +143,16 @@ final readonly class MiddlewarePipeline
 
 ### NullMetricsCollectorTest
 
-**File:** `tests/Unit/Infrastructure/Metrics/NullMetricsCollectorTest.php`
+**File:** `tests/Unit/NullMetricsCollectorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Metrics;
+namespace Tests\Unit\Metrics;
 
-use Infrastructure\Metrics\NullMetricsCollector;
+use Metrics\NullMetricsCollector;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -201,17 +201,17 @@ final class NullMetricsCollectorTest extends TestCase
 
 ### MetricsMiddlewareTest
 
-**File:** `tests/Unit/Infrastructure/Metrics/MetricsMiddlewareTest.php`
+**File:** `tests/Unit/MetricsMiddlewareTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Metrics;
+namespace Tests\Unit\Metrics;
 
-use Infrastructure\Metrics\MetricsCollectorInterface;
-use Infrastructure\Metrics\MetricsMiddleware;
+use Metrics\MetricsCollectorInterface;
+use Metrics\MetricsMiddleware;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -11,11 +11,11 @@ Real-world Action examples.
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Create;
+namespace Action\Create;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrder\CreateOrderHandler;
-use Application\Order\UseCase\CreateOrder\OrderItemDto;
+use UseCase\CreateOrder\CreateOrderCommand;
+use UseCase\CreateOrder\CreateOrderHandler;
+use UseCase\CreateOrder\OrderItemDto;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -61,10 +61,10 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Cancel;
+namespace Action\Cancel;
 
-use Application\Order\UseCase\CancelOrder\CancelOrderCommand;
-use Application\Order\UseCase\CancelOrder\CancelOrderHandler;
+use UseCase\CancelOrder\CancelOrderCommand;
+use UseCase\CancelOrder\CancelOrderHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -104,10 +104,10 @@ final readonly class CancelOrderAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Auth\Register;
+namespace Action\Register;
 
-use Application\Auth\UseCase\Register\RegisterCommand;
-use Application\Auth\UseCase\Register\RegisterHandler;
+use UseCase\Register\RegisterCommand;
+use UseCase\Register\RegisterHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -144,10 +144,10 @@ final readonly class RegisterAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Auth\Login;
+namespace Action\Login;
 
-use Application\Auth\UseCase\Login\LoginCommand;
-use Application\Auth\UseCase\Login\LoginHandler;
+use UseCase\Login\LoginCommand;
+use UseCase\Login\LoginHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -185,11 +185,11 @@ final readonly class LoginAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Product\Search;
+namespace Action\Search;
 
-use Application\Product\UseCase\SearchProducts\SearchProductsQuery;
-use Application\Product\UseCase\SearchProducts\SearchProductsHandler;
-use Application\Product\UseCase\SearchProducts\PriceRange;
+use UseCase\SearchProducts\SearchProductsQuery;
+use UseCase\SearchProducts\SearchProductsHandler;
+use UseCase\SearchProducts\PriceRange;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -238,10 +238,10 @@ final readonly class SearchProductsAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Webhook\Stripe;
+namespace Action\Stripe;
 
-use Application\Payment\UseCase\ProcessStripeWebhook\ProcessStripeWebhookCommand;
-use Application\Payment\UseCase\ProcessStripeWebhook\ProcessStripeWebhookHandler;
+use UseCase\ProcessStripeWebhook\ProcessStripeWebhookCommand;
+use UseCase\ProcessStripeWebhook\ProcessStripeWebhookHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -281,10 +281,10 @@ final readonly class StripeWebhookAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\BulkDelete;
+namespace Action\BulkDelete;
 
-use Application\User\UseCase\BulkDeleteUsers\BulkDeleteUsersCommand;
-use Application\User\UseCase\BulkDeleteUsers\BulkDeleteUsersHandler;
+use UseCase\BulkDeleteUsers\BulkDeleteUsersCommand;
+use UseCase\BulkDeleteUsers\BulkDeleteUsersHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -327,10 +327,10 @@ final readonly class BulkDeleteUsersAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Report\Export;
+namespace Action\Export;
 
-use Application\Report\UseCase\ExportReport\ExportReportQuery;
-use Application\Report\UseCase\ExportReport\ExportReportHandler;
+use UseCase\ExportReport\ExportReportQuery;
+use UseCase\ExportReport\ExportReportHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -368,18 +368,18 @@ final readonly class ExportReportAction
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\Order\Create;
+namespace Tests\Unit\Action\Create;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrder\CreateOrderHandler;
-use Application\Order\UseCase\CreateOrder\CreateOrderResult;
+use UseCase\CreateOrder\CreateOrderCommand;
+use UseCase\CreateOrder\CreateOrderHandler;
+use UseCase\CreateOrder\CreateOrderResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\Order\Create\CreateOrderAction;
-use Presentation\Api\Order\Create\CreateOrderResponder;
+use Action\Create\CreateOrderAction;
+use Action\Create\CreateOrderResponder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

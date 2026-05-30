@@ -4,17 +4,17 @@
 
 ### RabbitMQ Consumer with DLQ
 
-**File:** `src/Infrastructure/Messaging/RabbitMq/OrderCreatedConsumer.php`
+**File:** `src/{architecture-path}/Messaging/RabbitMq/OrderCreatedConsumer.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMq;
+namespace Messaging\RabbitMq;
 
-use Application\Order\UseCase\ProcessOrderCreated\ProcessOrderCreatedHandler;
-use Application\Shared\DeadLetter\DeadLetterHandler;
+use UseCase\ProcessOrderCreated\ProcessOrderCreatedHandler;
+use DeadLetter\DeadLetterHandler;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Log\LoggerInterface;
 
@@ -54,16 +54,16 @@ final readonly class OrderCreatedConsumer
 
 ### Retry DLQ Messages Command
 
-**File:** `src/Infrastructure/Console/RetryDeadLetterMessagesCommand.php`
+**File:** `src/{architecture-path}/Console/RetryDeadLetterMessagesCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Application\Shared\DeadLetter\DlqProcessor;
+use DeadLetter\DlqProcessor;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -125,16 +125,16 @@ final class RetryDeadLetterMessagesCommand extends Command
 
 ### Purge Resolved Messages Command
 
-**File:** `src/Infrastructure/Console/PurgeDeadLetterMessagesCommand.php`
+**File:** `src/{architecture-path}/Console/PurgeDeadLetterMessagesCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Application\Shared\DeadLetter\DeadLetterStoreInterface;
+use DeadLetter\DeadLetterStoreInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -178,17 +178,17 @@ final class PurgeDeadLetterMessagesCommand extends Command
 
 ### DLQ Dashboard Action
 
-**File:** `src/Presentation/Api/Admin/DlqStats/DlqStatsAction.php`
+**File:** `src/{architecture-path}/Action/DlqStatsAction.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Admin\DlqStats;
+namespace Api\Admin\DlqStats;
 
-use Application\Shared\DeadLetter\DeadLetterStoreInterface;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\DeadLetterStoreInterface;
+use DeadLetter\FailureType;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -222,22 +222,22 @@ final readonly class DlqStatsAction
 
 ```yaml
 services:
-  Application\Shared\DeadLetter\DeadLetterStoreInterface:
-    alias: Infrastructure\DeadLetter\DatabaseDeadLetterStore
+  DeadLetter\DeadLetterStoreInterface:
+    alias: DeadLetter\DatabaseDeadLetterStore
 
-  Application\Shared\DeadLetter\RetryStrategy:
+  DeadLetter\RetryStrategy:
     arguments:
       $maxAttempts: '%env(int:DLQ_MAX_RETRIES)%'
       $baseDelaySeconds: '%env(int:DLQ_BASE_DELAY_SECONDS)%'
       $multiplier: '%env(float:DLQ_BACKOFF_MULTIPLIER)%'
 
-  Application\Shared\DeadLetter\FailureClassifier:
+  DeadLetter\FailureClassifier:
     arguments:
       $customMapping:
-        App\Domain\Order\OrderNotFoundException: !php/const Domain\Shared\DeadLetter\FailureType::Permanent
-        App\Domain\Payment\PaymentDeclinedException: !php/const Domain\Shared\DeadLetter\FailureType::Permanent
+        Order\OrderNotFoundException: !php/const DeadLetter\FailureType::Permanent
+        Payment\PaymentDeclinedException: !php/const DeadLetter\FailureType::Permanent
 
-  Infrastructure\DeadLetter\DatabaseDeadLetterStore:
+  DeadLetter\DatabaseDeadLetterStore:
     arguments:
       $pdo: '@database_connection'
 ```
@@ -256,17 +256,17 @@ DLQ_BACKOFF_MULTIPLIER=2.0
 
 ### DeadLetterMessageTest
 
-**File:** `tests/Unit/Domain/Shared/DeadLetter/DeadLetterMessageTest.php`
+**File:** `tests/Unit/DeadLetter/DeadLetterMessageTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\DeadLetter;
+namespace Tests\Unit\DeadLetter;
 
-use Domain\Shared\DeadLetter\DeadLetterMessage;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\DeadLetterMessage;
+use DeadLetter\FailureType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -368,18 +368,18 @@ final class DeadLetterMessageTest extends TestCase
 
 ### RetryStrategyTest
 
-**File:** `tests/Unit/Application/Shared/DeadLetter/RetryStrategyTest.php`
+**File:** `tests/Unit/DeadLetter/RetryStrategyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Shared\DeadLetter;
+namespace Tests\Unit\DeadLetter;
 
-use Application\Shared\DeadLetter\RetryStrategy;
-use Domain\Shared\DeadLetter\DeadLetterMessage;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\RetryStrategy;
+use DeadLetter\DeadLetterMessage;
+use DeadLetter\FailureType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -461,17 +461,17 @@ final class RetryStrategyTest extends TestCase
 
 ### FailureClassifierTest
 
-**File:** `tests/Unit/Application/Shared/DeadLetter/FailureClassifierTest.php`
+**File:** `tests/Unit/DeadLetter/FailureClassifierTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Shared\DeadLetter;
+namespace Tests\Unit\DeadLetter;
 
-use Application\Shared\DeadLetter\FailureClassifier;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\FailureClassifier;
+use DeadLetter\FailureType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -524,20 +524,20 @@ final class FailureClassifierTest extends TestCase
 
 ### DlqProcessorTest
 
-**File:** `tests/Unit/Application/Shared/DeadLetter/DlqProcessorTest.php`
+**File:** `tests/Unit/DeadLetter/DlqProcessorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Shared\DeadLetter;
+namespace Tests\Unit\DeadLetter;
 
-use Application\Shared\DeadLetter\DeadLetterStoreInterface;
-use Application\Shared\DeadLetter\DlqProcessor;
-use Application\Shared\DeadLetter\RetryStrategy;
-use Domain\Shared\DeadLetter\DeadLetterMessage;
-use Domain\Shared\DeadLetter\FailureType;
+use DeadLetter\DeadLetterStoreInterface;
+use DeadLetter\DlqProcessor;
+use DeadLetter\RetryStrategy;
+use DeadLetter\DeadLetterMessage;
+use DeadLetter\FailureType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

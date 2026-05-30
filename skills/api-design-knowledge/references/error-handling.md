@@ -189,7 +189,7 @@ Maintain a central error catalog:
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Error;
+namespace Error;
 
 enum ErrorCode: string
 {
@@ -299,7 +299,7 @@ enum ErrorCode: string
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Error;
+namespace Error;
 
 final readonly class ProblemDetails
 {
@@ -339,9 +339,9 @@ final readonly class ProblemDetails
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Responder;
+namespace Responder;
 
-use Domain\Shared\Error\ProblemDetails;
+use Error\ProblemDetails;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -403,12 +403,12 @@ final readonly class ErrorResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Exception\DomainException;
-use Domain\Shared\Exception\EntityNotFoundException;
-use Domain\Shared\Exception\ValidationException;
-use Domain\Shared\Error\ProblemDetails;
+use Exception\DomainException;
+use Exception\EntityNotFoundException;
+use Exception\ValidationException;
+use Error\ProblemDetails;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

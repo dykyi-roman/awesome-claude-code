@@ -2,28 +2,28 @@
 
 ## Order Aggregate
 
-**File:** `src/Domain/Order/Entity/Order.php`
+**File:** `src/{architecture-path}/Entity/Order.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\Money;
-use Domain\Order\ValueObject\ProductId;
-use Domain\Order\Enum\OrderStatus;
-use Domain\Order\Event\OrderCreatedEvent;
-use Domain\Order\Event\OrderLineAddedEvent;
-use Domain\Order\Event\OrderConfirmedEvent;
-use Domain\Order\Event\OrderCancelledEvent;
-use Domain\Order\Exception\CannotModifyConfirmedOrderException;
-use Domain\Order\Exception\CannotConfirmEmptyOrderException;
-use Domain\Order\Exception\InvalidStateTransitionException;
-use Domain\Shared\Aggregate\AggregateRoot;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\Money;
+use ValueObject\ProductId;
+use Enum\OrderStatus;
+use Event\OrderCreatedEvent;
+use Event\OrderLineAddedEvent;
+use Event\OrderConfirmedEvent;
+use Event\OrderCancelledEvent;
+use Exception\CannotModifyConfirmedOrderException;
+use Exception\CannotConfirmEmptyOrderException;
+use Exception\InvalidStateTransitionException;
+use Aggregate\AggregateRoot;
 
 final class Order extends AggregateRoot
 {
@@ -182,17 +182,17 @@ final class Order extends AggregateRoot
 
 ## OrderLine (Child Entity)
 
-**File:** `src/Domain/Order/Entity/OrderLine.php`
+**File:** `src/{architecture-path}/Entity/OrderLine.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\ValueObject\ProductId;
-use Domain\Order\ValueObject\Money;
+use ValueObject\ProductId;
+use ValueObject\Money;
 
 final readonly class OrderLine
 {
@@ -216,25 +216,25 @@ final readonly class OrderLine
 
 ### OrderTest
 
-**File:** `tests/Unit/Domain/Order/Entity/OrderTest.php`
+**File:** `tests/Unit/Entity/OrderTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Entity;
+namespace Tests\Unit\Entity;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\ProductId;
-use Domain\Order\ValueObject\Money;
-use Domain\Order\Enum\OrderStatus;
-use Domain\Order\Event\OrderCreatedEvent;
-use Domain\Order\Event\OrderLineAddedEvent;
-use Domain\Order\Event\OrderConfirmedEvent;
-use Domain\Order\Exception\CannotConfirmEmptyOrderException;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\ProductId;
+use ValueObject\Money;
+use Enum\OrderStatus;
+use Event\OrderCreatedEvent;
+use Event\OrderLineAddedEvent;
+use Event\OrderConfirmedEvent;
+use Exception\CannotConfirmEmptyOrderException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

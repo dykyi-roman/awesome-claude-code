@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Presentation\Api\{BoundedContext}\Request;
+namespace Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -62,7 +62,7 @@ final readonly class {Name}Request
 
 declare(strict_types=1);
 
-namespace Presentation\Api\{BoundedContext}\Response;
+namespace Response;
 
 final readonly class {Name}Response implements \JsonSerializable
 {
@@ -117,7 +117,7 @@ final readonly class {Name}Response implements \JsonSerializable
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\DTO;
+namespace DTO;
 
 final readonly class {Name}DTO
 {
@@ -159,7 +159,7 @@ final readonly class {Name}DTO
 
 declare(strict_types=1);
 
-namespace Presentation\Api\{BoundedContext}\Response;
+namespace Response;
 
 final readonly class {Name}CollectionResponse implements \JsonSerializable
 {
@@ -220,7 +220,7 @@ final readonly class {Name}CollectionResponse implements \JsonSerializable
 
 declare(strict_types=1);
 
-namespace Infrastructure\ExternalApi\{Service}\DTO;
+namespace DTO;
 
 final readonly class {Service}Response
 {
@@ -270,9 +270,9 @@ final readonly class {Service}Response
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\{BoundedContext}\Request;
+namespace Tests\Unit\{BoundedContext}\Request;
 
-use Presentation\Api\{BoundedContext}\Request\{Name}Request;
+use Request\{Name}Request;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -337,10 +337,10 @@ final class {Name}RequestTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\{BoundedContext}\Response;
+namespace Tests\Unit\{BoundedContext}\Response;
 
-use Presentation\Api\{BoundedContext}\Response\{Name}Response;
-use Domain\{BoundedContext}\Entity\{Entity};
+use Response\{Name}Response;
+use Entity\{Entity};
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

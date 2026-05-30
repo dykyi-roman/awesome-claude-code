@@ -83,12 +83,12 @@ return static function (): EntityManager {
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 
 final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
 {
@@ -177,13 +177,13 @@ $orm = new ORM(
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Pdo\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderStatus;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\OrderStatus;
 
 final readonly class PdoOrderRepository implements OrderRepositoryInterface
 {
@@ -283,7 +283,7 @@ vendor/bin/doctrine-migrations status
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\ReadModel;
+namespace ReadModel;
 
 use Doctrine\DBAL\Connection;
 

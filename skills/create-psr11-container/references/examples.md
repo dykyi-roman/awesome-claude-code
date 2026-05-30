@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Container\AutowiringContainer;
+use Container\AutowiringContainer;
 
 $container = new AutowiringContainer();
 
@@ -34,27 +34,27 @@ $container->factory(
 
 $container->factory(
     \Psr\Log\LoggerInterface::class,
-    fn($c) => new \App\Infrastructure\Logger\FileLogger(
+    fn($c) => new \Logger\FileLogger(
         $c->get('config')['log_path'],
     ),
 );
 
 // Repositories
 $container->alias(
-    \App\Domain\User\Repository\UserRepositoryInterface::class,
-    \App\Infrastructure\Persistence\PdoUserRepository::class,
+    \Repository\UserRepositoryInterface::class,
+    \Repository\PdoUserRepository::class,
 );
 
 // Event Dispatcher
 $container->factory(
     \Psr\EventDispatcher\EventDispatcherInterface::class,
-    fn($c) => new \App\Infrastructure\Event\EventDispatcher(
-        $c->get(\App\Infrastructure\Event\ListenerProvider::class),
+    fn($c) => new \Event\EventDispatcher(
+        $c->get(\Event\ListenerProvider::class),
     ),
 );
 
 // Application runs
-$handler = $container->get(\App\Application\User\Handler\CreateUserHandler::class);
+$handler = $container->get(\Handler\CreateUserHandler::class);
 ```
 
 ## Testing with Container
@@ -64,10 +64,10 @@ $handler = $container->get(\App\Application\User\Handler\CreateUserHandler::clas
 
 declare(strict_types=1);
 
-namespace App\Tests;
+namespace Tests;
 
-use App\Infrastructure\Container\Container;
-use App\Infrastructure\Logger\NullLogger;
+use Container\Container;
+use Logger\NullLogger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -102,7 +102,7 @@ abstract class IntegrationTestCase extends TestCase
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -141,7 +141,7 @@ $response = $resolver->resolve(
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\MiddlewareInterface;

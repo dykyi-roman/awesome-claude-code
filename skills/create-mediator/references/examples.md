@@ -7,12 +7,12 @@
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Mediator;
+namespace Mediator;
 
-use App\Order\Application\Mediator\Colleague\InventoryColleague;
-use App\Order\Application\Mediator\Colleague\PaymentColleague;
-use App\Order\Application\Mediator\Colleague\ShippingColleague;
-use App\Order\Application\Mediator\Colleague\NotificationColleague;
+use Mediator\Colleague\InventoryColleague;
+use Mediator\Colleague\PaymentColleague;
+use Mediator\Colleague\ShippingColleague;
+use Mediator\Colleague\NotificationColleague;
 
 /**
  * Complete order processing mediator example.
@@ -116,7 +116,7 @@ final class OrderProcessingMediator implements OrderMediator
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Mediator\Colleague;
+namespace Mediator\Colleague;
 
 final class InventoryColleague extends AbstractColleague
 {
@@ -194,12 +194,12 @@ final class InventoryColleague extends AbstractColleague
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Bus;
+namespace Bus;
 
-use App\Shared\Application\Command\Command;
-use App\Shared\Application\Command\CommandBus;
-use App\Shared\Application\Command\CommandHandler;
-use App\Shared\Application\Middleware\CommandMiddleware;
+use Command\Command;
+use Command\CommandBus;
+use Command\CommandHandler;
+use Middleware\CommandMiddleware;
 
 /**
  * Command bus mediator with middleware support.
@@ -281,7 +281,7 @@ final readonly class LoggingMiddleware implements CommandMiddleware
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Event;
+namespace Event;
 
 /**
  * Event mediator supporting handler priorities.
@@ -357,11 +357,11 @@ declare(strict_types=1);
 
 namespace Tests\Order\Application\Mediator;
 
-use App\Order\Application\Mediator\OrderProcessingMediator;
-use App\Order\Application\Mediator\Colleague\InventoryColleague;
-use App\Order\Application\Mediator\Colleague\PaymentColleague;
-use App\Order\Application\Mediator\Colleague\ShippingColleague;
-use App\Order\Application\Mediator\Colleague\NotificationColleague;
+use Mediator\OrderProcessingMediator;
+use Mediator\Colleague\InventoryColleague;
+use Mediator\Colleague\PaymentColleague;
+use Mediator\Colleague\ShippingColleague;
+use Mediator\Colleague\NotificationColleague;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

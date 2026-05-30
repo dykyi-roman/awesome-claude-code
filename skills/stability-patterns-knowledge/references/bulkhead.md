@@ -39,7 +39,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 final class SemaphoreBulkhead implements BulkheadInterface
 {
@@ -111,7 +111,7 @@ final class SemaphoreBulkhead implements BulkheadInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 final readonly class BulkheadConfig
 {
@@ -153,7 +153,7 @@ final class BulkheadRejectedException extends \RuntimeException
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 use Psr\Log\LoggerInterface;
 
@@ -231,7 +231,7 @@ final class ConnectionPoolBulkhead
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 final class QueueBulkhead implements BulkheadInterface
 {
@@ -287,7 +287,7 @@ final class QueueBulkhead implements BulkheadInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Bulkhead;
+namespace Bulkhead;
 
 final class BulkheadRegistry
 {
@@ -399,10 +399,10 @@ The bulkhead is an Infrastructure wrapper. The Domain defines a port (interface)
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
-use Infrastructure\Resilience\Bulkhead\BulkheadInterface;
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreaker;
+use Bulkhead\BulkheadInterface;
+use CircuitBreaker\CircuitBreaker;
 
 final readonly class ResilientServiceClient
 {

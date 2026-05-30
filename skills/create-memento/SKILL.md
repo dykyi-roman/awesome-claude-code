@@ -42,25 +42,25 @@ Creates Memento pattern infrastructure for capturing and restoring object state 
 
 ### Step 1: Generate Memento
 
-**Path:** `src/Domain/{BoundedContext}/Memento/`
+Place alongside the originator whose state it snapshots.
 
 1. `{Name}Memento.php` — Immutable state snapshot
 
 ### Step 2: Generate Originator
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place with the existing domain types.
 
 1. `{Name}.php` — Object with createMemento() and restore() methods
 
 ### Step 3: Generate Caretaker
 
-**Path:** `src/Application/{BoundedContext}/`
+Place at the coordination layer that manages history.
 
 1. `{Name}History.php` — Manages memento stack for undo/redo
 
 ### Step 4: Generate Value Objects (Optional)
 
-**Path:** `src/Domain/{BoundedContext}/ValueObject/`
+Place with the project's other value objects.
 
 1. `{State}.php` — State representation value object
 
@@ -75,11 +75,13 @@ Creates Memento pattern infrastructure for capturing and restoring object state 
 
 | Component | Path |
 |-----------|------|
-| Memento | `src/Domain/{BoundedContext}/Memento/` |
-| Originator | `src/Domain/{BoundedContext}/` |
-| Caretaker | `src/Application/{BoundedContext}/` |
-| Value Objects | `src/Domain/{BoundedContext}/ValueObject/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/` |
+| Memento | `src/{architecture-path}/Memento/{Name}Memento.php` |
+| Originator | `src/{architecture-path}/{Name}.php` |
+| Caretaker | `src/{architecture-path}/{Name}History.php` |
+| Value Objects | `src/{architecture-path}/ValueObject/{State}.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Memento + Originator typically live alongside the domain code; the Caretaker lives at the coordination layer that manages history. Adjust to your project's layout.
 
 ---
 

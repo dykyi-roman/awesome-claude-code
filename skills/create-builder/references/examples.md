@@ -2,19 +2,19 @@
 
 ## Order Builder
 
-**File:** `src/Domain/Order/Builder/OrderBuilderInterface.php`
+**File:** `src/{architecture-path}/Builder/OrderBuilderInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Builder;
+namespace Builder;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\Address;
-use Domain\Order\ValueObject\OrderItem;
+use Entity\Order;
+use ValueObject\CustomerId;
+use ValueObject\Address;
+use ValueObject\OrderItem;
 
 interface OrderBuilderInterface
 {
@@ -36,20 +36,20 @@ interface OrderBuilderInterface
 }
 ```
 
-**File:** `src/Domain/Order/Builder/OrderBuilder.php`
+**File:** `src/{architecture-path}/Builder/OrderBuilder.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Builder;
+namespace Builder;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\Address;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderItem;
+use Entity\Order;
+use ValueObject\Address;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
+use ValueObject\OrderItem;
 
 final class OrderBuilder implements OrderBuilderInterface
 {
@@ -158,17 +158,17 @@ final class OrderBuilder implements OrderBuilderInterface
 
 ## Email Builder
 
-**File:** `src/Domain/Notification/Builder/EmailBuilder.php`
+**File:** `src/{architecture-path}/Builder/EmailBuilder.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification\Builder;
+namespace Builder;
 
-use Domain\Notification\ValueObject\Email;
-use Domain\Notification\ValueObject\EmailMessage;
+use ValueObject\Email;
+use ValueObject\EmailMessage;
 
 final class EmailBuilder
 {
@@ -284,17 +284,17 @@ final class EmailBuilder
 
 ## Director Example
 
-**File:** `src/Domain/Order/Builder/OrderDirector.php`
+**File:** `src/{architecture-path}/Builder/OrderDirector.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Builder;
+namespace Builder;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\CustomerId;
+use Entity\Order;
+use ValueObject\CustomerId;
 
 final readonly class OrderDirector
 {
@@ -363,21 +363,21 @@ final readonly class OrderDirector
 
 ### Order Builder Test
 
-**File:** `tests/Unit/Domain/Order/Builder/OrderBuilderTest.php`
+**File:** `tests/Unit/Builder/OrderBuilderTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Builder;
+namespace Tests\Unit\Builder;
 
-use Domain\Order\Builder\BuilderValidationException;
-use Domain\Order\Builder\OrderBuilder;
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\Address;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderItem;
+use Builder\BuilderValidationException;
+use Builder\OrderBuilder;
+use Entity\Order;
+use ValueObject\Address;
+use ValueObject\CustomerId;
+use ValueObject\OrderItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -510,17 +510,17 @@ final class OrderBuilderTest extends TestCase
 
 ### Email Builder Test
 
-**File:** `tests/Unit/Domain/Notification/Builder/EmailBuilderTest.php`
+**File:** `tests/Unit/Builder/EmailBuilderTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Notification\Builder;
+namespace Tests\Unit\Builder;
 
-use Domain\Notification\Builder\BuilderValidationException;
-use Domain\Notification\Builder\EmailBuilder;
+use Builder\BuilderValidationException;
+use Builder\EmailBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

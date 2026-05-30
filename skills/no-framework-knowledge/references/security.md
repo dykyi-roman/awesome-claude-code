@@ -19,7 +19,7 @@ composer require lcobucci/jwt
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Validation\RequiredConstraints;
@@ -97,9 +97,9 @@ return $config;
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Domain\User\ValueObject\UserId;
+use ValueObject\UserId;
 use Lcobucci\JWT\Configuration;
 
 final readonly class JwtTokenGenerator
@@ -133,9 +133,9 @@ final readonly class JwtTokenGenerator
 
 declare(strict_types=1);
 
-namespace Domain\User\Service;
+namespace Service;
 
-use Domain\User\ValueObject\UserId;
+use ValueObject\UserId;
 
 interface TokenGeneratorInterface
 {
@@ -152,7 +152,7 @@ interface TokenGeneratorInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -190,7 +190,7 @@ final readonly class RoleAuthorizationMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Service;
+namespace Service;
 
 final readonly class OrderService
 {
@@ -211,10 +211,10 @@ final readonly class OrderService
 
 declare(strict_types=1);
 
-namespace Domain\Order\Specification;
+namespace Specification;
 
-use Domain\Order\Entity\Order;
-use Domain\User\Entity\User;
+use Entity\Order;
+use Entity\User;
 
 final readonly class CanCancelOrderSpecification
 {
@@ -234,7 +234,7 @@ final readonly class CanCancelOrderSpecification
 
 declare(strict_types=1);
 
-namespace Domain\User\Service;
+namespace Service;
 
 interface PasswordHasherInterface
 {
@@ -250,9 +250,9 @@ interface PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Domain\User\Service\PasswordHasherInterface;
+use Service\PasswordHasherInterface;
 
 final readonly class NativePasswordHasher implements PasswordHasherInterface
 {
@@ -281,7 +281,7 @@ final readonly class NativePasswordHasher implements PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -323,7 +323,7 @@ final readonly class CsrfMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
 final class CsrfTokenManager
 {
@@ -349,7 +349,7 @@ final class CsrfTokenManager
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -379,10 +379,10 @@ final readonly class SecurityHeadersMiddleware implements MiddlewareInterface
 declare(strict_types=1);
 
 // config/container.php — security bindings
-use Domain\User\Service\PasswordHasherInterface;
-use Domain\User\Service\TokenGeneratorInterface;
-use Infrastructure\Security\NativePasswordHasher;
-use Infrastructure\Security\JwtTokenGenerator;
+use Service\PasswordHasherInterface;
+use Service\TokenGeneratorInterface;
+use Security\NativePasswordHasher;
+use Security\JwtTokenGenerator;
 
 $builder->addDefinitions([
     PasswordHasherInterface::class => DI\autowire(NativePasswordHasher::class),

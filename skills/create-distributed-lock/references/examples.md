@@ -2,17 +2,17 @@
 
 ## Order Processing with Lock
 
-**File:** `src/Application/Order/ProcessOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/ProcessOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order;
+namespace Order;
 
-use Infrastructure\Lock\LockException;
-use Infrastructure\Lock\LockFactory;
+use Lock\LockException;
+use Lock\LockFactory;
 
 final readonly class ProcessOrderUseCase
 {
@@ -42,17 +42,17 @@ final readonly class ProcessOrderUseCase
 
 ## Inventory Reservation with Lock
 
-**File:** `src/Application/Inventory/ReserveStockUseCase.php`
+**File:** `src/{architecture-path}/UseCase/ReserveStockUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Inventory;
+namespace Inventory;
 
-use Infrastructure\Lock\LockConfig;
-use Infrastructure\Lock\LockFactory;
+use Lock\LockConfig;
+use Lock\LockFactory;
 
 final readonly class ReserveStockUseCase
 {
@@ -94,17 +94,17 @@ final readonly class ReserveStockUseCase
 
 ## Singleton Cron Job
 
-**File:** `src/Infrastructure/Console/SingletonCommand.php`
+**File:** `src/{architecture-path}/Console/SingletonCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Infrastructure\Lock\LockConfig;
-use Infrastructure\Lock\LockInterface;
+use Lock\LockConfig;
+use Lock\LockInterface;
 
 final class SingletonCommand
 {
@@ -135,16 +135,16 @@ final class SingletonCommand
 
 ### LockConfigTest
 
-**File:** `tests/Unit/Infrastructure/Lock/LockConfigTest.php`
+**File:** `tests/Unit/LockConfigTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Lock;
+namespace Tests\Unit\Lock;
 
-use Infrastructure\Lock\LockConfig;
+use Lock\LockConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -221,17 +221,17 @@ final class LockConfigTest extends TestCase
 
 ### RedisLockAdapterTest
 
-**File:** `tests/Unit/Infrastructure/Lock/RedisLockAdapterTest.php`
+**File:** `tests/Unit/RedisLockAdapterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Lock;
+namespace Tests\Unit\Lock;
 
-use Infrastructure\Lock\LockConfig;
-use Infrastructure\Lock\RedisLockAdapter;
+use Lock\LockConfig;
+use Lock\RedisLockAdapter;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

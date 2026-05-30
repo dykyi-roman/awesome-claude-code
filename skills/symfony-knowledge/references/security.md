@@ -22,7 +22,7 @@ Grep: "PasswordAuthenticatedUserInterface" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\User\Domain\Entity;
+namespace Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 declare(strict_types=1);
 
-namespace App\User\Domain\Entity;
+namespace Entity;
 
 // Pure domain aggregate — no framework imports
 final class User
@@ -78,7 +78,7 @@ final class User
 
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Security;
+namespace Security;
 
 use App\User\Domain\Entity\User as DomainUser;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -135,7 +135,7 @@ Grep: "->isGranted\\(" --glob "**/Application/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Presentation\Api;
+namespace Api;
 
 final readonly class CancelOrderAction
 {
@@ -158,10 +158,10 @@ final readonly class CancelOrderAction
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Security;
+namespace Security;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Specification\CanCancelOrderSpecification;
+use Entity\Order;
+use Specification\CanCancelOrderSpecification;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -194,10 +194,10 @@ final class OrderCancelVoter extends Voter
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Specification;
+namespace Specification;
 
-use App\Order\Domain\Entity\Order;
-use App\User\Domain\Entity\User;
+use Entity\Order;
+use Entity\User;
 
 // Pure domain specification — no framework dependency
 final readonly class CanCancelOrderSpecification
@@ -263,7 +263,7 @@ Domain defines a port for password hashing; Infrastructure implements it via Sym
 
 declare(strict_types=1);
 
-namespace App\User\Application\UseCase;
+namespace UseCase;
 
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -282,7 +282,7 @@ final readonly class RegisterUserUseCase
 
 declare(strict_types=1);
 
-namespace App\User\Domain\Service;
+namespace Service;
 
 // Domain port — pure PHP interface
 interface PasswordHasherInterface
@@ -297,10 +297,10 @@ interface PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Security;
+namespace Security;
 
-use App\User\Domain\Service\PasswordHasherInterface;
-use App\User\Domain\ValueObject\HashedPassword;
+use Service\PasswordHasherInterface;
+use ValueObject\HashedPassword;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class SymfonyPasswordHasher implements PasswordHasherInterface
@@ -341,10 +341,10 @@ Listen to Symfony auth events in Infrastructure; dispatch domain events from lis
 
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Security;
+namespace Security;
 
-use App\User\Domain\Event\UserLoggedInEvent;
-use App\Shared\Domain\EventDispatcherInterface;
+use Event\UserLoggedInEvent;
+use Domain\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 

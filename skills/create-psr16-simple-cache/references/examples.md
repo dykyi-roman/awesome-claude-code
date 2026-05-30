@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace Persistence;
 
-use App\Domain\User\Entity\User;
-use App\Domain\User\Repository\UserRepositoryInterface;
-use App\Domain\User\ValueObject\UserId;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\UserId;
 use Psr\SimpleCache\CacheInterface;
 
 final readonly class CachedUserRepository implements UserRepositoryInterface
@@ -57,7 +57,7 @@ final readonly class CachedUserRepository implements UserRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Config;
+namespace Config;
 
 use Psr\SimpleCache\CacheInterface;
 
@@ -99,7 +99,7 @@ final readonly class CachedConfigLoader
 
 declare(strict_types=1);
 
-namespace App\Application\Query;
+namespace Query;
 
 use Psr\SimpleCache\CacheInterface;
 

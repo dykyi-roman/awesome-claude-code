@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class CacheAsideRepository implements ProductReadRepositoryInterface
 {
@@ -67,7 +67,7 @@ final readonly class CacheAsideRepository implements ProductReadRepositoryInterf
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class ReadThroughCache implements CacheInterface
 {
@@ -116,7 +116,7 @@ final readonly class ReadThroughCache implements CacheInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class WriteThroughRepository implements ProductRepositoryInterface
 {
@@ -160,7 +160,7 @@ final readonly class WriteThroughRepository implements ProductRepositoryInterfac
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final class WriteBehindBuffer
 {
@@ -215,7 +215,7 @@ final class WriteBehindBuffer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class CacheWarmer
 {
@@ -392,7 +392,7 @@ Required for: financial data, inventory counts, session data.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 use Psr\SimpleCache\CacheInterface;
 

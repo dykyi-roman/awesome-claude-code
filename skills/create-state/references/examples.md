@@ -4,16 +4,16 @@
 
 ### OrderStateInterface
 
-**File:** `src/Domain/Order/State/OrderStateInterface.php`
+**File:** `src/{architecture-path}/State/OrderStateInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 interface OrderStateInterface
 {
@@ -40,17 +40,17 @@ interface OrderStateInterface
 
 ### AbstractOrderState
 
-**File:** `src/Domain/Order/State/AbstractOrderState.php`
+**File:** `src/{architecture-path}/State/AbstractOrderState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Exception\InvalidStateTransitionException;
+use Entity\Order;
+use Exception\InvalidStateTransitionException;
 
 abstract readonly class AbstractOrderState implements OrderStateInterface
 {
@@ -93,16 +93,16 @@ abstract readonly class AbstractOrderState implements OrderStateInterface
 
 ### Concrete States
 
-**File:** `src/Domain/Order/State/PendingState.php`
+**File:** `src/{architecture-path}/State/PendingState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class PendingState extends AbstractOrderState
 {
@@ -132,16 +132,16 @@ final readonly class PendingState extends AbstractOrderState
 }
 ```
 
-**File:** `src/Domain/Order/State/ConfirmedState.php`
+**File:** `src/{architecture-path}/State/ConfirmedState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class ConfirmedState extends AbstractOrderState
 {
@@ -171,16 +171,16 @@ final readonly class ConfirmedState extends AbstractOrderState
 }
 ```
 
-**File:** `src/Domain/Order/State/PaidState.php`
+**File:** `src/{architecture-path}/State/PaidState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class PaidState extends AbstractOrderState
 {
@@ -210,16 +210,16 @@ final readonly class PaidState extends AbstractOrderState
 }
 ```
 
-**File:** `src/Domain/Order/State/ShippedState.php`
+**File:** `src/{architecture-path}/State/ShippedState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class ShippedState extends AbstractOrderState
 {
@@ -242,14 +242,14 @@ final readonly class ShippedState extends AbstractOrderState
 }
 ```
 
-**File:** `src/Domain/Order/State/DeliveredState.php`
+**File:** `src/{architecture-path}/State/DeliveredState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
 final readonly class DeliveredState extends AbstractOrderState
 {
@@ -265,14 +265,14 @@ final readonly class DeliveredState extends AbstractOrderState
 }
 ```
 
-**File:** `src/Domain/Order/State/CancelledState.php`
+**File:** `src/{architecture-path}/State/CancelledState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
 final readonly class CancelledState extends AbstractOrderState
 {
@@ -288,14 +288,14 @@ final readonly class CancelledState extends AbstractOrderState
 }
 ```
 
-**File:** `src/Domain/Order/State/RefundedState.php`
+**File:** `src/{architecture-path}/State/RefundedState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
 final readonly class RefundedState extends AbstractOrderState
 {
@@ -315,19 +315,19 @@ final readonly class RefundedState extends AbstractOrderState
 
 ## Order Entity with State
 
-**File:** `src/Domain/Order/Entity/Order.php`
+**File:** `src/{architecture-path}/Entity/Order.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\State\OrderStateInterface;
-use Domain\Order\State\PendingState;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\Event\DomainEventInterface;
+use State\OrderStateInterface;
+use State\PendingState;
+use ValueObject\OrderId;
+use Event\DomainEventInterface;
 
 final class Order
 {
@@ -429,14 +429,14 @@ final class Order
 
 ## State Factory
 
-**File:** `src/Domain/Order/State/OrderStateFactory.php`
+**File:** `src/{architecture-path}/State/OrderStateFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\State;
+namespace State;
 
 final class OrderStateFactory
 {
@@ -464,20 +464,20 @@ final class OrderStateFactory
 
 ### PendingStateTest
 
-**File:** `tests/Unit/Domain/Order/State/PendingStateTest.php`
+**File:** `tests/Unit/State/PendingStateTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\State;
+namespace Tests\Unit\State;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\State\CancelledState;
-use Domain\Order\State\ConfirmedState;
-use Domain\Order\State\PendingState;
-use Domain\Order\Exception\InvalidStateTransitionException;
+use Entity\Order;
+use State\CancelledState;
+use State\ConfirmedState;
+use State\PendingState;
+use Exception\InvalidStateTransitionException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -556,17 +556,17 @@ final class PendingStateTest extends TestCase
 
 ### OrderStateTransitionTest
 
-**File:** `tests/Unit/Domain/Order/Entity/OrderStateTransitionTest.php`
+**File:** `tests/Unit/Entity/OrderStateTransitionTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Entity;
+namespace Tests\Unit\Entity;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Exception\InvalidStateTransitionException;
+use Entity\Order;
+use Exception\InvalidStateTransitionException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

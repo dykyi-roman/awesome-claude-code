@@ -2,17 +2,17 @@
 
 ## Repository Using Connection Proxy
 
-**File:** `src/Infrastructure/Persistence/UserRepository.php`
+**File:** `src/{architecture-path}/Persistence/UserRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
-use Domain\User\UserRepositoryInterface;
-use Infrastructure\Database\ReadWriteConnectionInterface;
+use User\UserRepositoryInterface;
+use Database\ReadWriteConnectionInterface;
 
 final readonly class UserRepository implements UserRepositoryInterface
 {
@@ -61,16 +61,16 @@ final readonly class UserRepository implements UserRepositoryInterface
 
 ## Transactional Use Case
 
-**File:** `src/Application/Order/PlaceOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/PlaceOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order;
+namespace Order;
 
-use Infrastructure\Database\ReadWriteConnectionInterface;
+use Database\ReadWriteConnectionInterface;
 
 final readonly class PlaceOrderUseCase
 {
@@ -115,14 +115,14 @@ final readonly class PlaceOrderUseCase
 
 ## Connection Factory
 
-**File:** `src/Infrastructure/Database/ConnectionFactory.php`
+**File:** `src/{architecture-path}/Database/ConnectionFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class ConnectionFactory
 {
@@ -157,16 +157,16 @@ final readonly class ConnectionFactory
 
 ### ConnectionConfigTest
 
-**File:** `tests/Unit/Infrastructure/Database/ConnectionConfigTest.php`
+**File:** `tests/Unit/ConnectionConfigTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Database;
+namespace Tests\Unit\Database;
 
-use Infrastructure\Database\ConnectionConfig;
+use Database\ConnectionConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -215,18 +215,18 @@ final class ConnectionConfigTest extends TestCase
 
 ### ReadWriteConnectionProxyTest
 
-**File:** `tests/Unit/Infrastructure/Database/ReadWriteConnectionProxyTest.php`
+**File:** `tests/Unit/ReadWriteConnectionProxyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Database;
+namespace Tests\Unit\Database;
 
-use Infrastructure\Database\ConnectionConfig;
-use Infrastructure\Database\ReadWriteConnectionProxy;
-use Infrastructure\Database\ReplicaHealthChecker;
+use Database\ConnectionConfig;
+use Database\ReadWriteConnectionProxy;
+use Database\ReplicaHealthChecker;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

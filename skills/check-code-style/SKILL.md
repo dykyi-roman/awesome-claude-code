@@ -77,11 +77,11 @@ class User
 
 ```php
 // BAD: No blank line after namespace
-namespace App\Service;
+namespace Service;
 use App\Repository;
 
 // GOOD: Blank line after namespace
-namespace App\Service;
+namespace Service;
 
 use App\Repository;
 
@@ -123,15 +123,15 @@ $age = 25;
 
 ```php
 // BAD: Unordered use statements
-use App\Service\OrderService;
-use App\Entity\User;
+use Service\OrderService;
+use Entity\User;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\UserRepository;
+use Repository\UserRepository;
 
 // GOOD: Grouped and alphabetized
-use App\Entity\User;
-use App\Repository\UserRepository;
-use App\Service\OrderService;
+use Entity\User;
+use Repository\UserRepository;
+use Service\OrderService;
 use Symfony\Component\HttpFoundation\Request;
 ```
 

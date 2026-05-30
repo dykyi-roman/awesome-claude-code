@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Query;
+namespace Query;
 
 final readonly class {Name}Query
 {
@@ -28,11 +28,11 @@ final readonly class {Name}Query
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Handler;
+namespace Handler;
 
-use Application\{BoundedContext}\Query\{Name}Query;
-use Application\{BoundedContext}\DTO\{ResultDTO};
-use Application\{BoundedContext}\ReadModel\{ReadModelInterface};
+use Query\{Name}Query;
+use DTO\{ResultDTO};
+use ReadModel\{ReadModelInterface};
 
 final readonly class {Name}Handler
 {
@@ -56,7 +56,7 @@ final readonly class {Name}Handler
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\DTO;
+namespace DTO;
 
 final readonly class {Name}DTO
 {
@@ -89,7 +89,7 @@ final readonly class {Name}DTO
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\DTO;
+namespace DTO;
 
 final readonly class PaginatedResultDTO
 {
@@ -144,10 +144,10 @@ final readonly class PaginatedResultDTO
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\ReadModel;
+namespace ReadModel;
 
-use Application\{BoundedContext}\DTO\{DetailsDTO};
-use Application\{BoundedContext}\DTO\{ListItemDTO};
+use DTO\{DetailsDTO};
+use DTO\{ListItemDTO};
 
 interface {Name}ReadModelInterface
 {
@@ -180,9 +180,9 @@ interface {Name}ReadModelInterface
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\Query;
+namespace Tests\Unit\Query;
 
-use Application\{BoundedContext}\Query\{Name}Query;
+use Query\{Name}Query;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -236,13 +236,13 @@ final class {Name}QueryTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\Handler;
+namespace Tests\Unit\Handler;
 
-use Application\{BoundedContext}\Handler\{Name}Handler;
-use Application\{BoundedContext}\Query\{Name}Query;
-use Application\{BoundedContext}\DTO\{ResultDTO};
-use Application\{BoundedContext}\ReadModel\{ReadModelInterface};
-use Domain\{BoundedContext}\Exception\{NotFoundException};
+use Handler\{Name}Handler;
+use Query\{Name}Query;
+use DTO\{ResultDTO};
+use ReadModel\{ReadModelInterface};
+use Exception\{NotFoundException};
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -20,7 +20,7 @@ Creates unified message broker abstraction with adapter implementations for mult
 ## Component Characteristics
 
 ### MessageBrokerInterface
-- Domain layer port
+- Abstraction the application code depends on
 - publish(Message): void
 - consume(string queue, callable handler): void
 - acknowledge(Message): void
@@ -73,13 +73,13 @@ Determine:
 
 ### Step 2: Generate Core Components
 
-1. **Domain Layer** (`src/Domain/Shared/Messaging/`)
+1. **Types & Contracts**
    - `Message.php` — Immutable message value object
-   - `MessageBrokerInterface.php` — Broker port
+   - `MessageBrokerInterface.php` — Broker abstraction
    - `MessageSerializerInterface.php` — Serialization contract
    - `MessageId.php` — Message identity value object
 
-2. **Infrastructure Layer** (`src/Infrastructure/Messaging/`)
+2. **Broker Adapters**
    - `JsonMessageSerializer.php` — JSON serializer
    - `RabbitMq/RabbitMqAdapter.php` — RabbitMQ implementation
    - `Kafka/KafkaAdapter.php` — Kafka implementation
@@ -97,12 +97,14 @@ Determine:
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Types | `src/Domain/Shared/Messaging/` |
-| Infrastructure | `src/Infrastructure/Messaging/` |
-| Broker Adapters | `src/Infrastructure/Messaging/{Broker}/` |
-| Unit Tests | `tests/Unit/{Layer}/{Path}/` |
+| Component group | Path |
+|-----------------|------|
+| Types & Contracts | `src/{architecture-path}/Messaging/` |
+| Serializer + Factory | `src/{architecture-path}/Messaging/` |
+| Broker Adapters | `src/{architecture-path}/Messaging/{Broker}/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Messaging/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The broker abstraction typically lives with other shared messaging types; concrete broker adapters live at the integration boundary with each external broker. Adjust to your project's layout.
 
 ---
 

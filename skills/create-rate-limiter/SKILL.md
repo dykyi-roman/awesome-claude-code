@@ -39,7 +39,7 @@ Creates Rate Limiter pattern infrastructure for request throttling and API prote
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Resilience/RateLimiter/`
+Place alongside other resilience infrastructure.
 
 1. `RateLimiterInterface.php` — Common interface
 2. `RateLimitResult.php` — Result value object with headers
@@ -69,8 +69,10 @@ Choose based on use case:
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Resilience/RateLimiter/` |
-| Unit Tests | `tests/Unit/Infrastructure/Resilience/RateLimiter/` |
+| All Classes | `src/{architecture-path}/RateLimiter/` |
+| Unit Tests | `tests/Unit/{architecture-path}/RateLimiter/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Rate limiter typically lives alongside other resilience infrastructure (bulkhead, circuit breaker, timeout). Adjust to your project's layout.
 
 ---
 

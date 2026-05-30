@@ -22,32 +22,32 @@ Generate DDD-compliant Aggregates with root, domain events, and tests.
 
 ### Step 1: Generate Base AggregateRoot
 
-**Path:** `src/Domain/Shared/Aggregate/`
+Place alongside other shared domain primitives.
 
 1. `AggregateRoot.php` — Base class with event recording
 
 ### Step 2: Generate Aggregate Root Entity
 
-**Path:** `src/Domain/{BoundedContext}/Entity/`
+Place inside the bounded context's domain code.
 
 1. `{Name}.php` — Main aggregate root
 
 ### Step 3: Generate Child Entities (if needed)
 
-**Path:** `src/Domain/{BoundedContext}/Entity/`
+Co-located with the aggregate root in the same `Entity/` folder.
 
 1. `{ChildName}.php` — Child entity inside aggregate
 
 ### Step 4: Generate Domain Events
 
-**Path:** `src/Domain/{BoundedContext}/Event/`
+Place in a sibling `Event/` folder under the bounded context.
 
 1. `{Name}CreatedEvent.php`
 2. `{Name}{Action}Event.php` for each behavior
 
 ### Step 5: Generate Tests
 
-**Path:** `tests/Unit/Domain/{BoundedContext}/Entity/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -55,11 +55,13 @@ Generate DDD-compliant Aggregates with root, domain events, and tests.
 
 | Component | Path |
 |-----------|------|
-| Base AggregateRoot | `src/Domain/Shared/Aggregate/` |
-| Aggregate Entity | `src/Domain/{BoundedContext}/Entity/` |
-| Child Entities | `src/Domain/{BoundedContext}/Entity/` |
-| Domain Events | `src/Domain/{BoundedContext}/Event/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Entity/` |
+| Base AggregateRoot | `src/{architecture-path}/Aggregate/AggregateRoot.php` |
+| Aggregate Entity | `src/{architecture-path}/Entity/{Name}.php` |
+| Child Entities | `src/{architecture-path}/Entity/{ChildName}.php` |
+| Domain Events | `src/{architecture-path}/Event/{Name}CreatedEvent.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Entity/{Name}Test.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders (e.g. `Domain/Shared` and `Domain/{BoundedContext}` in DDD-Layered, `{BoundedContext}/Domain` in Package-by-Feature). Adjust to your project's layout.
 
 ---
 

@@ -29,7 +29,7 @@ Producer ──fast──▶ Buffer ──slow──▶ Consumer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
 final class BackpressureQueue
 {
@@ -88,7 +88,7 @@ Level 4: Maintenance Page       ← System unavailable
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
 enum DegradationLevel: int
 {
@@ -156,7 +156,7 @@ final class GracefulDegradationManager
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
 final readonly class AdaptiveRetry
 {
@@ -223,7 +223,7 @@ final readonly class AdaptiveRetry
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Chaos;
+namespace Chaos;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -284,7 +284,7 @@ final readonly class ChaosMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
 final readonly class CompositeHealthChecker
 {

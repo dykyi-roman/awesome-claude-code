@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Specification;
+namespace Specification;
 
 /**
  * @template T
@@ -45,7 +45,7 @@ interface SpecificationInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Specification;
+namespace Specification;
 
 /**
  * @template T
@@ -83,7 +83,7 @@ abstract class AbstractSpecification implements SpecificationInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Specification;
+namespace Specification;
 
 /**
  * @template T
@@ -111,7 +111,7 @@ final readonly class AndSpecification extends AbstractSpecification
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Specification;
+namespace Specification;
 
 /**
  * @template T
@@ -139,7 +139,7 @@ final readonly class OrSpecification extends AbstractSpecification
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Specification;
+namespace Specification;
 
 /**
  * @template T
@@ -167,10 +167,10 @@ final readonly class NotSpecification extends AbstractSpecification
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Specification;
+namespace Specification;
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\Shared\Specification\AbstractSpecification;
+use Entity\{Entity};
+use Specification\AbstractSpecification;
 
 /**
  * @extends AbstractSpecification<{Entity}>
@@ -196,17 +196,17 @@ final readonly class {Name}Specification extends AbstractSpecification
 
 ## Repository Integration
 
-### Repository Interface with Specification
+### Repository (abstraction) with Specification
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Shared\Specification\SpecificationInterface;
+use Entity\Order;
+use Specification\SpecificationInterface;
 
 interface OrderRepositoryInterface
 {
@@ -224,10 +224,10 @@ interface OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Shared\Specification\SpecificationInterface;
+use Repository\OrderRepositoryInterface;
+use Specification\SpecificationInterface;
 
 final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
 {
@@ -257,10 +257,10 @@ final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\{BoundedContext}\Specification;
+namespace Tests\Unit\Specification;
 
-use Domain\{BoundedContext}\Specification\{Name}Specification;
-use Domain\{BoundedContext}\Entity\{Entity};
+use Specification\{Name}Specification;
+use Entity\{Entity};
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\DataProvider;

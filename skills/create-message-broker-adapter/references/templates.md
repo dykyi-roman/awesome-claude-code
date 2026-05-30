@@ -4,7 +4,7 @@ Complete PHP 8.4 templates for all message broker adapter components.
 
 ---
 
-## Domain Layer
+## Types & Contracts
 
 ### MessageId.php
 
@@ -13,7 +13,7 @@ Complete PHP 8.4 templates for all message broker adapter components.
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Messaging;
+namespace Messaging;
 
 use Ramsey\Uuid\Uuid;
 
@@ -61,7 +61,7 @@ final readonly class MessageId implements \Stringable, \JsonSerializable
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Messaging;
+namespace Messaging;
 
 final readonly class Message
 {
@@ -141,7 +141,7 @@ final readonly class Message
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Messaging;
+namespace Messaging;
 
 interface MessageBrokerInterface
 {
@@ -162,7 +162,7 @@ interface MessageBrokerInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Messaging;
+namespace Messaging;
 
 interface MessageSerializerInterface
 {
@@ -174,7 +174,7 @@ interface MessageSerializerInterface
 
 ---
 
-## Infrastructure Layer
+## Broker Adapters
 
 ### JsonMessageSerializer.php
 
@@ -183,11 +183,11 @@ interface MessageSerializerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageId;
-use Domain\Shared\Messaging\MessageSerializerInterface;
+use Messaging\Message;
+use Messaging\MessageId;
+use Messaging\MessageSerializerInterface;
 
 final readonly class JsonMessageSerializer implements MessageSerializerInterface
 {
@@ -236,11 +236,11 @@ final readonly class JsonMessageSerializer implements MessageSerializerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMq;
+namespace Messaging\RabbitMq;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
-use Domain\Shared\Messaging\MessageId;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
+use Messaging\MessageId;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -378,11 +378,11 @@ final class RabbitMqAdapter implements MessageBrokerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Kafka;
+namespace Messaging\Kafka;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
-use Domain\Shared\Messaging\MessageId;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
+use Messaging\MessageId;
 use RdKafka\Conf;
 use RdKafka\KafkaConsumer;
 use RdKafka\Producer;
@@ -506,12 +506,12 @@ final class KafkaAdapter implements MessageBrokerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Sqs;
+namespace Messaging\Sqs;
 
 use Aws\Sqs\SqsClient;
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
-use Domain\Shared\Messaging\MessageId;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
+use Messaging\MessageId;
 
 final readonly class SqsAdapter implements MessageBrokerInterface
 {
@@ -642,10 +642,10 @@ final readonly class SqsAdapter implements MessageBrokerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\InMemory;
+namespace Messaging\InMemory;
 
-use Domain\Shared\Messaging\Message;
-use Domain\Shared\Messaging\MessageBrokerInterface;
+use Messaging\Message;
+use Messaging\MessageBrokerInterface;
 
 final class InMemoryAdapter implements MessageBrokerInterface
 {
@@ -716,14 +716,14 @@ final class InMemoryAdapter implements MessageBrokerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging;
+namespace Messaging;
 
 use Aws\Sqs\SqsClient;
-use Domain\Shared\Messaging\MessageBrokerInterface;
-use Infrastructure\Messaging\InMemory\InMemoryAdapter;
-use Infrastructure\Messaging\Kafka\KafkaAdapter;
-use Infrastructure\Messaging\RabbitMq\RabbitMqAdapter;
-use Infrastructure\Messaging\Sqs\SqsAdapter;
+use Messaging\MessageBrokerInterface;
+use Messaging\InMemory\InMemoryAdapter;
+use Messaging\Kafka\KafkaAdapter;
+use Messaging\RabbitMq\RabbitMqAdapter;
+use Messaging\Sqs\SqsAdapter;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 final readonly class MessageBrokerFactory

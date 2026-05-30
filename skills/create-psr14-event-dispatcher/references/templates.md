@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 
@@ -66,7 +66,7 @@ final class PriorityListenerProvider implements ListenerProviderInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -110,7 +110,7 @@ final readonly class EventMessage
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
@@ -157,7 +157,7 @@ final class ContainerListenerProvider implements ListenerProviderInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 
@@ -187,7 +187,7 @@ final readonly class AggregateListenerProvider implements ListenerProviderInterf
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
@@ -229,7 +229,7 @@ final readonly class LoggingEventDispatcher implements EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 interface EventSubscriberInterface
 {

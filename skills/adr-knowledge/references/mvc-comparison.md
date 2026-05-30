@@ -11,10 +11,10 @@ Detailed comparison between traditional MVC and Action-Domain-Responder patterns
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Controller;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use Entity\User;
+use Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,10 +106,10 @@ class UserController extends AbstractController
 // CreateUserAction.php
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Action\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserCommand;
-use Application\User\UseCase\CreateUser\CreateUserHandler;
+use UseCase\CreateUser\CreateUserCommand;
+use UseCase\CreateUser\CreateUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -142,10 +142,9 @@ final readonly class CreateUserAction
 // CreateUserResponder.php
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Responder\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\CreateUser\CreateUserResult;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class CreateUserResponder extends AbstractJsonResponder
@@ -175,7 +174,7 @@ final readonly class CreateUserResponder extends AbstractJsonResponder
 // CreateUserHandler.php (Application Layer)
 declare(strict_types=1);
 
-namespace Application\User\UseCase\CreateUser;
+namespace UseCase\CreateUser;
 
 final readonly class CreateUserHandler
 {

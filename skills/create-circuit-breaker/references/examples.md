@@ -2,16 +2,16 @@
 
 ## HTTP Client with Circuit Breaker
 
-**File:** `src/Infrastructure/Http/ResilientHttpClient.php`
+**File:** `src/{architecture-path}/Http/ResilientHttpClient.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreakerRegistry;
+use CircuitBreaker\CircuitBreakerRegistry;
 
 final readonly class ResilientHttpClient
 {
@@ -36,17 +36,17 @@ final readonly class ResilientHttpClient
 
 ## Payment Gateway with Circuit Breaker
 
-**File:** `src/Infrastructure/Payment/PaymentGatewayAdapter.php`
+**File:** `src/{architecture-path}/PaymentGatewayAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment;
+namespace Payment;
 
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreaker;
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreakerException;
+use CircuitBreaker\CircuitBreaker;
+use CircuitBreaker\CircuitBreakerException;
 
 final readonly class PaymentGatewayAdapter
 {
@@ -75,16 +75,16 @@ final readonly class PaymentGatewayAdapter
 
 ### CircuitStateTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/CircuitBreaker/CircuitStateTest.php`
+**File:** `tests/Unit/CircuitBreaker/CircuitStateTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\CircuitBreaker;
+namespace Tests\Unit\CircuitBreaker;
 
-use Infrastructure\Resilience\CircuitBreaker\CircuitState;
+use CircuitBreaker\CircuitState;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -132,19 +132,19 @@ final class CircuitStateTest extends TestCase
 
 ### CircuitBreakerTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/CircuitBreaker/CircuitBreakerTest.php`
+**File:** `tests/Unit/CircuitBreaker/CircuitBreakerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\CircuitBreaker;
+namespace Tests\Unit\CircuitBreaker;
 
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreaker;
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreakerConfig;
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreakerException;
-use Infrastructure\Resilience\CircuitBreaker\CircuitState;
+use CircuitBreaker\CircuitBreaker;
+use CircuitBreaker\CircuitBreakerConfig;
+use CircuitBreaker\CircuitBreakerException;
+use CircuitBreaker\CircuitState;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

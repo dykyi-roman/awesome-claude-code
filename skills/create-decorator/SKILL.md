@@ -39,19 +39,19 @@ Creates Decorator pattern infrastructure for dynamically adding behavior to obje
 
 ### Step 1: Generate Component Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the existing service the decorators wrap.
 
 1. `{Name}Interface.php` — Core operations contract
 
 ### Step 2: Generate Abstract Decorator
 
-**Path:** `src/Domain/{BoundedContext}/Decorator/`
+Place in a sibling `Decorator/` folder.
 
 1. `Abstract{Name}Decorator.php` — Base decorator with delegation
 
 ### Step 3: Generate Concrete Decorators
 
-**Path:** `src/Infrastructure/{BoundedContext}/Decorator/`
+Co-located with the abstract decorator in the same `Decorator/` folder (these typically pull in logging, caching, metrics, or transactional dependencies, so the folder lives near other infrastructure adapters).
 
 1. `Logging{Name}Decorator.php` — Logging behavior
 2. `Caching{Name}Decorator.php` — Caching behavior
@@ -60,7 +60,7 @@ Creates Decorator pattern infrastructure for dynamically adding behavior to obje
 
 ### Step 4: Generate Factory (Optional)
 
-**Path:** `src/Infrastructure/{BoundedContext}/`
+Place in the parent folder (one level up from `Decorator/`), wiring decorators around the real service.
 
 1. `{Name}Factory.php` — Stack decorators in correct order
 
@@ -74,11 +74,13 @@ Creates Decorator pattern infrastructure for dynamically adding behavior to obje
 
 | Component | Path |
 |-----------|------|
-| Interface | `src/Domain/{BoundedContext}/` |
-| Abstract Decorator | `src/Domain/{BoundedContext}/Decorator/` |
-| Infrastructure Decorators | `src/Infrastructure/{BoundedContext}/Decorator/` |
-| Factory | `src/Infrastructure/{BoundedContext}/` |
-| Unit Tests | `tests/Unit/Infrastructure/{BoundedContext}/Decorator/` |
+| Interface | `src/{architecture-path}/{Name}Interface.php` |
+| Abstract Decorator | `src/{architecture-path}/Decorator/Abstract{Name}Decorator.php` |
+| Concrete Decorators | `src/{architecture-path}/Decorator/{Feature}{Name}Decorator.php` |
+| Factory | `src/{architecture-path}/{Name}Factory.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Decorator/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The interface and abstract decorator typically live alongside the service they wrap; concrete decorators with infrastructure dependencies (logging, caching, transaction) live with other infrastructure adapters. Adjust to your project's layout.
 
 ---
 

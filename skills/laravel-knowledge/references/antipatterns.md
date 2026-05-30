@@ -69,7 +69,7 @@ class Order extends Model
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Eloquent\Model;
+namespace Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -120,7 +120,7 @@ Grep: "if.*->status|if.*->is_|switch.*->type" --glob "**/Controllers/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
@@ -171,11 +171,11 @@ class OrderController extends Controller
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Order;
+namespace Order;
 
-use App\Application\Order\UseCase\CreateOrderUseCase;
-use App\Http\Requests\Order\CreateOrderRequest;
-use App\Http\Resources\Order\OrderResource;
+use UseCase\CreateOrderUseCase;
+use Order\CreateOrderRequest;
+use Order\OrderResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -254,7 +254,7 @@ Grep: "(Cache|Log|Event|DB|Auth|Queue|Mail|Storage|Http)::" --glob "**/Applicati
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -389,9 +389,9 @@ class OrderPolicy
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Policy;
+namespace Policy;
 
-use App\Domain\Order\Specification\CanCancelOrderSpecification;
+use Specification\CanCancelOrderSpecification;
 
 final class OrderPolicy
 {
@@ -449,7 +449,7 @@ class ProcessPayment implements ShouldQueue
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Queue\Job;
+namespace Job;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Tests\Builder;
 
-use App\Domain\Order\Order;
-use App\Domain\Order\OrderId;
-use App\Domain\Order\OrderItem;
-use App\Domain\Order\OrderStatus;
-use App\Domain\Customer\CustomerId;
-use App\Domain\Shared\Money;
+use Order\4;
+use Order\4;
+use Order\4;
+use Order\4;
+use Customer\4;
+use Shared\4;
 use DateTimeImmutable;
 
 final class OrderBuilder
@@ -159,9 +159,9 @@ declare(strict_types=1);
 
 namespace Tests\Mother;
 
-use App\Domain\Order\Order;
-use App\Domain\Customer\CustomerId;
-use App\Domain\Shared\Money;
+use Order\4;
+use Customer\4;
+use Shared\4;
 use Tests\Builder\OrderBuilder;
 
 final class OrderMother
@@ -231,7 +231,7 @@ declare(strict_types=1);
 
 namespace Tests\Builder;
 
-use App\Domain\Shared\Money;
+use Shared\4;
 
 final class MoneyBuilder
 {

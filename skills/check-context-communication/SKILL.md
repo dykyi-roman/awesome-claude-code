@@ -13,7 +13,7 @@ Analyze PHP code for proper Bounded Context communication following DDD Context 
 
 ```php
 // CRITICAL: Order context directly uses User context internals
-namespace App\Order\Application;
+namespace Order\Application;
 
 use App\User\Domain\User;           // Cross-context import!
 use App\User\Domain\UserRepository;  // Cross-context import!
@@ -33,7 +33,7 @@ final readonly class CreateOrderUseCase
 }
 
 // CORRECT: Anti-Corruption Layer
-namespace App\Order\Infrastructure\ACL;
+namespace ACL;
 
 final readonly class UserProfileAdapter implements OrderContext\UserProfilePort
 {
@@ -56,7 +56,7 @@ final readonly class UserProfileAdapter implements OrderContext\UserProfilePort
 
 ```php
 // ANTIPATTERN: Too much shared between contexts
-namespace App\Shared\Domain;
+namespace Domain;
 
 class User { }         // Full entity in Shared — too much!
 class Order { }        // Full entity in Shared — too much!
@@ -65,7 +65,7 @@ class Currency { }     // OK — genuine shared concept
 class EventId { }      // OK — infrastructure concern
 
 // CORRECT: Minimal Shared Kernel
-namespace App\Shared\Domain;
+namespace Domain;
 
 // Only truly shared, stable concepts
 final readonly class Money { }
@@ -78,7 +78,7 @@ final readonly class AggregateId { }
 
 ```php
 // ANTIPATTERN: Synchronous call between contexts
-namespace App\Order\Application;
+namespace Order\Application;
 
 final readonly class CompleteOrderUseCase
 {
@@ -116,7 +116,7 @@ final readonly class CompleteOrderUseCase
 
 ```php
 // ANTIPATTERN: External API model used directly in domain
-namespace App\Order\Domain;
+namespace Order\Domain;
 
 use Stripe\PaymentIntent;  // External API model in domain!
 
@@ -133,7 +133,7 @@ final class Payment
 }
 
 // CORRECT: ACL translates external to domain
-namespace App\Order\Infrastructure\ACL;
+namespace ACL;
 
 final readonly class StripePaymentAdapter implements PaymentGateway
 {

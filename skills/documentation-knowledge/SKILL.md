@@ -154,7 +154,7 @@ Infrastructure diagram
 
 ```php
 // ✅ Good example
-use App\Service\PaymentService;
+use Service\PaymentService;
 
 $payment = new PaymentService($gateway);
 $result = $payment->charge(

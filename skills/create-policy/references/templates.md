@@ -2,14 +2,14 @@
 
 ## Policy Interface
 
-**File:** `src/Domain/{BoundedContext}/Policy/{Name}PolicyInterface.php`
+**File:** `src/{architecture-path}/Policy/{Name}PolicyInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Policy;
+namespace Policy;
 
 interface {Name}PolicyInterface
 {
@@ -23,14 +23,14 @@ interface {Name}PolicyInterface
 
 ## Policy Result
 
-**File:** `src/Domain/Shared/Policy/PolicyResult.php`
+**File:** `src/{architecture-path}/Policy/PolicyResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Policy;
+namespace Policy;
 
 final readonly class PolicyResult
 {
@@ -87,16 +87,16 @@ final readonly class PolicyResult
 
 ## Policy Implementation
 
-**File:** `src/Domain/{BoundedContext}/Policy/{Name}Policy.php`
+**File:** `src/{architecture-path}/Policy/{Name}Policy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Policy;
+namespace Policy;
 
-use Domain\Shared\Policy\PolicyResult;
+use Policy\PolicyResult;
 
 final readonly class {Name}Policy implements {Name}PolicyInterface
 {
@@ -123,16 +123,16 @@ final readonly class {Name}Policy implements {Name}PolicyInterface
 
 ## Composite Policy
 
-**File:** `src/Domain/{BoundedContext}/Policy/Composite{Name}Policy.php`
+**File:** `src/{architecture-path}/Policy/Composite{Name}Policy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Policy;
+namespace Policy;
 
-use Domain\Shared\Policy\PolicyResult;
+use Policy\PolicyResult;
 
 final readonly class Composite{Name}Policy implements {Name}PolicyInterface
 {
@@ -187,14 +187,14 @@ final readonly class Composite{Name}Policy implements {Name}PolicyInterface
 
 ## Composition Mode Enum
 
-**File:** `src/Domain/Shared/Policy/CompositionMode.php`
+**File:** `src/{architecture-path}/Policy/CompositionMode.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Policy;
+namespace Policy;
 
 enum CompositionMode: string
 {
@@ -207,14 +207,14 @@ enum CompositionMode: string
 
 ## Policy Violation Exception
 
-**File:** `src/Domain/Shared/Exception/PolicyViolationException.php`
+**File:** `src/{architecture-path}/Exception/PolicyViolationException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Exception;
+namespace Exception;
 
 final class PolicyViolationException extends \DomainException
 {

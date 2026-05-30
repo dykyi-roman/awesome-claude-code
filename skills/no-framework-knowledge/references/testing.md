@@ -82,9 +82,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Order\ValueObject;
 
-use Domain\Order\ValueObject\Money;
-use Domain\Order\ValueObject\Currency;
-use Domain\Order\Exception\InvalidMoneyException;
+use ValueObject\Money;
+use ValueObject\Currency;
+use Exception\InvalidMoneyException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -130,12 +130,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Order\UseCase;
 
-use Application\Order\Command\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrderUseCase;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\Event\EventDispatcherInterface;
+use Command\CreateOrderCommand;
+use UseCase\CreateOrderUseCase;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use Event\EventDispatcherInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -185,7 +185,7 @@ use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\Order\CreateOrderAction;
+use Order\CreateOrderAction;
 
 #[Group('functional')]
 #[CoversClass(CreateOrderAction::class)]
@@ -236,10 +236,10 @@ declare(strict_types=1);
 namespace Tests\Integration\Infrastructure\Persistence;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderId;
-use Infrastructure\Persistence\Doctrine\Repository\DoctrineOrderRepository;
+use Entity\Order;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
+use Repository\DoctrineOrderRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -298,10 +298,10 @@ declare(strict_types=1);
 
 namespace Tests\Stub;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 
 final class InMemoryOrderRepository implements OrderRepositoryInterface
 {

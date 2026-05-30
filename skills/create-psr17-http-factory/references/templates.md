@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Factory;
+namespace Factory;
 
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
@@ -71,7 +71,7 @@ final readonly class UriFactory implements UriFactoryInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Factory;
+namespace Factory;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -126,7 +126,7 @@ final readonly class JsonResponseFactory
 
 declare(strict_types=1);
 
-namespace App\Tests\Support;
+namespace Tests\Support;
 
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;

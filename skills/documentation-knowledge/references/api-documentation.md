@@ -88,7 +88,7 @@ components:
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Api\Order;
 
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -138,7 +138,7 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Api\Order;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -175,7 +175,7 @@ final readonly class OrderController
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Response;
+namespace Response;
 
 use OpenApi\Attributes as OA;
 

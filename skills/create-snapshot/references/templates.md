@@ -2,14 +2,14 @@
 
 ## Snapshot
 
-**File:** `src/Domain/{BC}/Snapshot/Snapshot.php`
+**File:** `src/{architecture-path}/Snapshot/Snapshot.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BC}\Snapshot;
+namespace Snapshot;
 
 final readonly class Snapshot
 {
@@ -71,14 +71,14 @@ final readonly class Snapshot
 
 ## SnapshotStoreInterface
 
-**File:** `src/Domain/{BC}/Snapshot/SnapshotStoreInterface.php`
+**File:** `src/{architecture-path}/Snapshot/SnapshotStoreInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BC}\Snapshot;
+namespace Snapshot;
 
 interface SnapshotStoreInterface
 {
@@ -94,14 +94,14 @@ interface SnapshotStoreInterface
 
 ## SnapshotStrategy
 
-**File:** `src/Application/{BC}/Snapshot/SnapshotStrategy.php`
+**File:** `src/{architecture-path}/Snapshot/SnapshotStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BC}\Snapshot;
+namespace Snapshot;
 
 final readonly class SnapshotStrategy
 {
@@ -124,19 +124,19 @@ final readonly class SnapshotStrategy
 
 ## AggregateSnapshotter
 
-**File:** `src/Application/{BC}/Snapshot/AggregateSnapshotter.php`
+**File:** `src/{architecture-path}/Snapshot/AggregateSnapshotter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BC}\Snapshot;
+namespace Snapshot;
 
-use Domain\{BC}\EventStore\EventStoreInterface;
-use Domain\{BC}\EventStore\EventStream;
-use Domain\{BC}\Snapshot\Snapshot;
-use Domain\{BC}\Snapshot\SnapshotStoreInterface;
+use EventStore\EventStoreInterface;
+use EventStore\EventStream;
+use Snapshot\Snapshot;
+use Snapshot\SnapshotStoreInterface;
 
 final readonly class AggregateSnapshotter
 {
@@ -189,18 +189,18 @@ final readonly class AggregateSnapshotter
 
 ## DoctrineSnapshotStore
 
-**File:** `src/Infrastructure/{BC}/Snapshot/DoctrineSnapshotStore.php`
+**File:** `src/{architecture-path}/Snapshot/DoctrineSnapshotStore.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BC}\Snapshot;
+namespace Snapshot;
 
 use Doctrine\DBAL\Connection;
-use Domain\{BC}\Snapshot\Snapshot;
-use Domain\{BC}\Snapshot\SnapshotStoreInterface;
+use Snapshot\Snapshot;
+use Snapshot\SnapshotStoreInterface;
 
 final readonly class DoctrineSnapshotStore implements SnapshotStoreInterface
 {

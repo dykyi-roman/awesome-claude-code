@@ -4,18 +4,18 @@
 
 ### Domain Port
 
-**File:** `src/Domain/Payment/Port/PaymentGatewayPortInterface.php`
+**File:** `src/{architecture-path}/Port/PaymentGatewayPortInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Payment\Port;
+namespace Port;
 
-use Domain\Payment\Entity\Payment;
-use Domain\Payment\ValueObject\PaymentId;
-use Domain\Payment\ValueObject\Money;
+use Entity\Payment;
+use ValueObject\PaymentId;
+use ValueObject\Money;
 
 interface PaymentGatewayPortInterface
 {
@@ -31,14 +31,14 @@ interface PaymentGatewayPortInterface
 
 ### External DTO (Stripe format)
 
-**File:** `src/Infrastructure/Payment/ACL/Stripe/DTO/StripeChargeDTO.php`
+**File:** `src/{architecture-path}/ACL/Stripe/DTO/StripeChargeDTO.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\ACL\Stripe\DTO;
+namespace DTO;
 
 final readonly class StripeChargeDTO
 {
@@ -101,21 +101,21 @@ final readonly class StripeChargeDTO
 
 ### Translator
 
-**File:** `src/Infrastructure/Payment/ACL/Stripe/StripeTranslator.php`
+**File:** `src/{architecture-path}/ACL/Stripe/StripeTranslator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\ACL\Stripe;
+namespace ACL\Stripe;
 
-use Domain\Payment\Entity\Payment;
-use Domain\Payment\ValueObject\Money;
-use Domain\Payment\ValueObject\PaymentId;
-use Domain\Payment\ValueObject\PaymentStatus;
-use Domain\Payment\ValueObject\CustomerId;
-use Infrastructure\Payment\ACL\Stripe\DTO\StripeChargeDTO;
+use Entity\Payment;
+use ValueObject\Money;
+use ValueObject\PaymentId;
+use ValueObject\PaymentStatus;
+use ValueObject\CustomerId;
+use DTO\StripeChargeDTO;
 
 final readonly class StripeTranslator
 {
@@ -172,18 +172,18 @@ final readonly class StripeTranslator
 
 ### Facade
 
-**File:** `src/Infrastructure/Payment/ACL/Stripe/StripeFacade.php`
+**File:** `src/{architecture-path}/ACL/Stripe/StripeFacade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\ACL\Stripe;
+namespace ACL\Stripe;
 
-use Infrastructure\Payment\ACL\Stripe\DTO\StripeChargeDTO;
-use Infrastructure\Payment\ACL\Stripe\DTO\StripeRefundDTO;
-use Infrastructure\Payment\ACL\Stripe\Exception\StripeConnectionException;
+use DTO\StripeChargeDTO;
+use DTO\StripeRefundDTO;
+use Exception\StripeConnectionException;
 use Stripe\StripeClient;
 use Stripe\Exception\ApiErrorException;
 
@@ -256,22 +256,22 @@ final readonly class StripeFacade
 
 ### Adapter
 
-**File:** `src/Infrastructure/Payment/ACL/Stripe/StripeAdapter.php`
+**File:** `src/{architecture-path}/ACL/Stripe/StripeAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\ACL\Stripe;
+namespace ACL\Stripe;
 
-use Domain\Payment\Entity\Payment;
-use Domain\Payment\Port\PaymentGatewayPortInterface;
-use Domain\Payment\ValueObject\Money;
-use Domain\Payment\ValueObject\PaymentId;
-use Domain\Payment\ValueObject\PaymentStatus;
-use Domain\Payment\Exception\PaymentException;
-use Infrastructure\Payment\ACL\Stripe\Exception\StripeConnectionException;
+use Entity\Payment;
+use Port\PaymentGatewayPortInterface;
+use ValueObject\Money;
+use ValueObject\PaymentId;
+use ValueObject\PaymentStatus;
+use Exception\PaymentException;
+use Exception\StripeConnectionException;
 
 final readonly class StripeAdapter implements PaymentGatewayPortInterface
 {
@@ -332,19 +332,19 @@ final readonly class StripeAdapter implements PaymentGatewayPortInterface
 
 ### TranslatorTest
 
-**File:** `tests/Unit/Infrastructure/Payment/ACL/Stripe/StripeTranslatorTest.php`
+**File:** `tests/Unit/ACL/Stripe/StripeTranslatorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Payment\ACL\Stripe;
+namespace Tests\Unit\ACL\Stripe;
 
-use Infrastructure\Payment\ACL\Stripe\StripeTranslator;
-use Infrastructure\Payment\ACL\Stripe\DTO\StripeChargeDTO;
-use Domain\Payment\Entity\Payment;
-use Domain\Payment\ValueObject\PaymentId;
+use ACL\Stripe\StripeTranslator;
+use DTO\StripeChargeDTO;
+use Entity\Payment;
+use ValueObject\PaymentId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -421,21 +421,21 @@ final class StripeTranslatorTest extends TestCase
 
 ### AdapterTest
 
-**File:** `tests/Unit/Infrastructure/Payment/ACL/Stripe/StripeAdapterTest.php`
+**File:** `tests/Unit/ACL/Stripe/StripeAdapterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Payment\ACL\Stripe;
+namespace Tests\Unit\ACL\Stripe;
 
-use Infrastructure\Payment\ACL\Stripe\StripeAdapter;
-use Infrastructure\Payment\ACL\Stripe\StripeFacade;
-use Infrastructure\Payment\ACL\Stripe\StripeTranslator;
-use Infrastructure\Payment\ACL\Stripe\DTO\StripeChargeDTO;
-use Domain\Payment\Entity\Payment;
-use Domain\Payment\ValueObject\PaymentId;
+use ACL\Stripe\StripeAdapter;
+use ACL\Stripe\StripeFacade;
+use ACL\Stripe\StripeTranslator;
+use DTO\StripeChargeDTO;
+use Entity\Payment;
+use ValueObject\PaymentId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

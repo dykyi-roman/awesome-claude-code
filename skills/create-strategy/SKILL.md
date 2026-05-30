@@ -39,13 +39,13 @@ Creates Strategy pattern infrastructure for interchangeable algorithm families.
 
 ### Step 1: Generate Strategy Interface
 
-**Path:** `src/Domain/{BoundedContext}/Strategy/`
+Place in a `Strategy/` folder inside the bounded context.
 
 1. `{Name}StrategyInterface.php` — Algorithm contract with supports method
 
 ### Step 2: Generate Concrete Strategies
 
-**Path:** `src/Domain/{BoundedContext}/Strategy/`
+Co-located with the interface in the same `Strategy/` folder.
 
 1. `{Variant1}{Name}Strategy.php` — First algorithm implementation
 2. `{Variant2}{Name}Strategy.php` — Second algorithm implementation
@@ -53,13 +53,13 @@ Creates Strategy pattern infrastructure for interchangeable algorithm families.
 
 ### Step 3: Generate Resolver
 
-**Path:** `src/Domain/{BoundedContext}/Strategy/`
+Co-located with the strategies.
 
 1. `{Name}StrategyResolver.php` — Strategy selection logic
 
 ### Step 4: Generate Service (Optional)
 
-**Path:** `src/Domain/{BoundedContext}/Strategy/`
+Co-located with the resolver.
 
 1. `{Name}Service.php` — Facade using resolver
 
@@ -74,10 +74,12 @@ Creates Strategy pattern infrastructure for interchangeable algorithm families.
 
 | Component | Path |
 |-----------|------|
-| Strategy Interface | `src/Domain/{BoundedContext}/Strategy/` |
-| Concrete Strategies | `src/Domain/{BoundedContext}/Strategy/` |
-| Resolver | `src/Domain/{BoundedContext}/Strategy/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Strategy/` |
+| Strategy Interface | `src/{architecture-path}/Strategy/{Name}StrategyInterface.php` |
+| Concrete Strategies | `src/{architecture-path}/Strategy/{Variant}{Name}Strategy.php` |
+| Resolver | `src/{architecture-path}/Strategy/{Name}StrategyResolver.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Strategy/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Strategy components typically live together in a `Strategy/` folder inside the bounded context. Adjust to your project's layout.
 
 ---
 

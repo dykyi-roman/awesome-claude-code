@@ -1,20 +1,20 @@
 # Repository Pattern Examples
 
-## Order Repository Interface
+## Order Repository (abstraction)
 
-**File:** `src/Domain/Order/Repository/OrderRepositoryInterface.php`
+**File:** `src/{architecture-path}/Repository/OrderRepositoryInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\Enum\OrderStatus;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use Enum\OrderStatus;
 
 interface OrderRepositoryInterface
 {
@@ -42,20 +42,20 @@ interface OrderRepositoryInterface
 
 ## Doctrine Order Repository
 
-**File:** `src/Infrastructure/Persistence/Doctrine/DoctrineOrderRepository.php`
+**File:** `src/{architecture-path}/Persistence/Doctrine/DoctrineOrderRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine;
+namespace Persistence\Doctrine;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\Enum\OrderStatus;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use Enum\OrderStatus;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
@@ -112,20 +112,20 @@ final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
 
 ---
 
-## User Repository Interface
+## User Repository (abstraction)
 
-**File:** `src/Domain/User/Repository/UserRepositoryInterface.php`
+**File:** `src/{architecture-path}/Repository/UserRepositoryInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Repository;
+namespace Repository;
 
-use Domain\User\Entity\User;
-use Domain\User\ValueObject\UserId;
-use Domain\User\ValueObject\Email;
+use Entity\User;
+use ValueObject\UserId;
+use ValueObject\Email;
 
 interface UserRepositoryInterface
 {
@@ -147,19 +147,19 @@ interface UserRepositoryInterface
 
 ## Doctrine User Repository
 
-**File:** `src/Infrastructure/Persistence/Doctrine/DoctrineUserRepository.php`
+**File:** `src/{architecture-path}/Persistence/Doctrine/DoctrineUserRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine;
+namespace Persistence\Doctrine;
 
-use Domain\User\Entity\User;
-use Domain\User\Repository\UserRepositoryInterface;
-use Domain\User\ValueObject\UserId;
-use Domain\User\ValueObject\Email;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\UserId;
+use ValueObject\Email;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class DoctrineUserRepository implements UserRepositoryInterface
@@ -229,11 +229,11 @@ declare(strict_types=1);
 
 namespace Tests\Infrastructure\Persistence;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\Enum\OrderStatus;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use Enum\OrderStatus;
 
 final class InMemoryOrderRepository implements OrderRepositoryInterface
 {
@@ -303,10 +303,10 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Infrastructure\Persistence;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Infrastructure\Persistence\Doctrine\DoctrineOrderRepository;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use Persistence\Doctrine\DoctrineOrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;

@@ -60,7 +60,7 @@ Files are loaded top-to-bottom; higher priority overrides lower:
 .claude/
 └── rules/
     ├── coding-standards.md    # PSR-12, strict types
-    ├── architecture.md        # DDD, Clean Architecture
+    ├── architecture.md        # DDD, layering patterns
     ├── testing.md             # Test conventions
     └── security.md            # Security guidelines
 ```

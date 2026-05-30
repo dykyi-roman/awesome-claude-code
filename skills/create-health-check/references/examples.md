@@ -9,11 +9,11 @@
 
 declare(strict_types=1);
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Infrastructure\Health\DatabaseHealthCheck;
-use Infrastructure\Health\HealthCheckRunner;
-use Infrastructure\Health\RabbitMqHealthCheck;
-use Infrastructure\Health\RedisHealthCheck;
+use Health\HealthCheckInterface;
+use Health\DatabaseHealthCheck;
+use Health\HealthCheckRunner;
+use Health\RabbitMqHealthCheck;
+use Health\RedisHealthCheck;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -55,17 +55,17 @@ return [
 
 ## Custom ElasticsearchHealthCheck
 
-**File:** `src/Infrastructure/Health/ElasticsearchHealthCheck.php`
+**File:** `src/{architecture-path}/Health/ElasticsearchHealthCheck.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Domain\Shared\Health\HealthCheckResult;
+use Health\HealthCheckInterface;
+use Health\HealthCheckResult;
 use Elastic\Elasticsearch\Client;
 
 final readonly class ElasticsearchHealthCheck implements HealthCheckInterface
@@ -109,17 +109,17 @@ final readonly class ElasticsearchHealthCheck implements HealthCheckInterface
 
 ### HealthCheckResultTest
 
-**File:** `tests/Unit/Domain/Shared/Health/HealthCheckResultTest.php`
+**File:** `tests/Unit/Health/HealthCheckResultTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Health;
+namespace Tests\Unit\Health;
 
-use Domain\Shared\Health\HealthCheckResult;
-use Domain\Shared\Health\HealthStatus;
+use Health\HealthCheckResult;
+use Health\HealthStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -193,19 +193,19 @@ final class HealthCheckResultTest extends TestCase
 
 ### HealthCheckRunnerTest
 
-**File:** `tests/Unit/Infrastructure/Health/HealthCheckRunnerTest.php`
+**File:** `tests/Unit/HealthCheckRunnerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Health;
+namespace Tests\Unit\Health;
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Domain\Shared\Health\HealthCheckResult;
-use Domain\Shared\Health\HealthStatus;
-use Infrastructure\Health\HealthCheckRunner;
+use Health\HealthCheckInterface;
+use Health\HealthCheckResult;
+use Health\HealthStatus;
+use Health\HealthCheckRunner;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -283,19 +283,19 @@ final class HealthCheckRunnerTest extends TestCase
 
 ### HealthCheckActionTest
 
-**File:** `tests/Unit/Presentation/Api/Action/HealthCheckActionTest.php`
+**File:** `tests/Unit/Action/HealthCheckActionTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\Action;
+namespace Tests\Unit\Action;
 
-use Domain\Shared\Health\HealthCheckResult;
-use Domain\Shared\Health\HealthStatus;
-use Infrastructure\Health\HealthCheckRunner;
-use Presentation\Api\Action\HealthCheckAction;
+use Health\HealthCheckResult;
+use Health\HealthStatus;
+use Health\HealthCheckRunner;
+use Action\HealthCheckAction;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

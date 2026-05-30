@@ -22,7 +22,7 @@ Quick reference for Symfony framework patterns, DDD integration, and PHP impleme
 - [ ] Controllers are invokable (single action per class)
 - [ ] Messenger handles commands and queries via separate buses
 - [ ] Value Objects use custom Doctrine types
-- [ ] Repository interfaces in Domain, implementations in Infrastructure
+- [ ] Repository pattern used for persistence access (folder placement varies by architectural style)
 - [ ] `services.yaml` binds interfaces to implementations
 - [ ] Domain events are dispatched, not Doctrine lifecycle events
 - [ ] Authorization uses Voters delegating to domain Specifications
@@ -30,7 +30,7 @@ Quick reference for Symfony framework patterns, DDD integration, and PHP impleme
 - [ ] Domain defines its own `EventDispatcherInterface` (not Symfony's)
 - [ ] Infrastructure components (Cache, HTTP Client) accessed via domain ports
 
-### Clean Architecture in Symfony
+### Layer Boundary Checks (Symfony)
 
 - [ ] No `use Symfony\` in Domain or Application layers
 - [ ] No `use Doctrine\` in Domain layer
@@ -64,10 +64,10 @@ Quick reference for Symfony framework patterns, DDD integration, and PHP impleme
 ```php
 <?php
 declare(strict_types=1);
-namespace App\Order\Presentation\Api;
+namespace Api;
 
-use App\Order\Application\Command\CreateOrderCommand;
-use App\Order\Application\UseCase\CreateOrderUseCase;
+use Command\CreateOrderCommand;
+use UseCase\CreateOrderUseCase;
 use Symfony\Component\HttpFoundation\{JsonResponse, Request, Response};
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -94,11 +94,11 @@ final readonly class CreateOrderAction
 ```php
 <?php
 declare(strict_types=1);
-namespace App\Order\Application\UseCase;
+namespace UseCase;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Shared\Domain\EventDispatcherInterface;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use Domain\EventDispatcherInterface;
 
 final readonly class CreateOrderUseCase
 {
@@ -126,10 +126,10 @@ final readonly class CreateOrderUseCase
 ```php
 <?php
 declare(strict_types=1);
-namespace App\Order\Application\Handler;
+namespace Handler;
 
-use App\Order\Application\Command\ConfirmOrderCommand;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
+use Command\ConfirmOrderCommand;
+use Repository\OrderRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler(bus: 'command.bus')]

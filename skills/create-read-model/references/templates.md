@@ -1,15 +1,15 @@
 # Read Model / Projection Templates
 
-## Read Model (Domain Layer)
+## Read Model
 
-**File:** `src/Domain/{BoundedContext}/ReadModel/{Name}ReadModel.php`
+**File:** `src/{architecture-path}/ReadModel/{Name}ReadModel.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\ReadModel;
+namespace ReadModel;
 
 final readonly class {Name}ReadModel
 {
@@ -44,16 +44,16 @@ final readonly class {Name}ReadModel
 
 ---
 
-## Read Model Repository Interface
+## Read Model Repository (abstraction)
 
-**File:** `src/Domain/{BoundedContext}/ReadModel/{Name}ReadModelRepositoryInterface.php`
+**File:** `src/{architecture-path}/ReadModel/{Name}ReadModelRepositoryInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\ReadModel;
+namespace ReadModel;
 
 interface {Name}ReadModelRepositoryInterface
 {
@@ -73,16 +73,16 @@ interface {Name}ReadModelRepositoryInterface
 
 ## Projection Interface
 
-**File:** `src/Application/{BoundedContext}/Projection/{Name}ProjectionInterface.php`
+**File:** `src/{architecture-path}/Projection/{Name}ProjectionInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
-use Domain\Shared\Event\DomainEventInterface;
+use Event\DomainEventInterface;
 
 interface {Name}ProjectionInterface
 {
@@ -99,18 +99,18 @@ interface {Name}ProjectionInterface
 
 ## Projection Implementation
 
-**File:** `src/Application/{BoundedContext}/Projection/{Name}Projection.php`
+**File:** `src/{architecture-path}/Projection/{Name}Projection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
-use Domain\{BoundedContext}\Event\{Events};
-use Domain\{BoundedContext}\ReadModel\{Name}ReadModel;
-use Domain\Shared\Event\DomainEventInterface;
+use Event\{Events};
+use ReadModel\{Name}ReadModel;
+use Event\DomainEventInterface;
 use Psr\Log\LoggerInterface;
 
 final class {Name}Projection implements {Name}ProjectionInterface
@@ -159,14 +159,14 @@ final class {Name}Projection implements {Name}ProjectionInterface
 
 ## Read Model Store
 
-**File:** `src/Infrastructure/{BoundedContext}/Projection/{Name}Store.php`
+**File:** `src/{architecture-path}/Projection/{Name}Store.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Projection;
+namespace Projection;
 
 use Doctrine\DBAL\Connection;
 

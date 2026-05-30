@@ -31,25 +31,25 @@ Generate Application-layer Use Cases that orchestrate domain operations.
 
 ### Step 1: Generate Use Case
 
-**Path:** `src/Application/{BoundedContext}/UseCase/`
+Place in a `UseCase/` folder wherever your project coordinates use cases.
 
 1. `{Name}UseCase.php` — Main orchestration class
 
 ### Step 2: Generate Input DTO
 
-**Path:** `src/Application/{BoundedContext}/DTO/`
+Place in a sibling `DTO/` folder.
 
 1. `{Name}Input.php` — Input data container
 
 ### Step 3: Generate Output DTO
 
-**Path:** `src/Application/{BoundedContext}/DTO/`
+Co-located with the Input DTO in the same `DTO/` folder.
 
 1. `{Name}Output.php` — Result data container
 
 ### Step 4: Generate Tests
 
-**Path:** `tests/Unit/Application/{BoundedContext}/UseCase/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -57,10 +57,12 @@ Generate Application-layer Use Cases that orchestrate domain operations.
 
 | Component | Path |
 |-----------|------|
-| Use Case | `src/Application/{BoundedContext}/UseCase/` |
-| Input DTO | `src/Application/{BoundedContext}/DTO/` |
-| Output DTO | `src/Application/{BoundedContext}/DTO/` |
-| Unit Tests | `tests/Unit/Application/{BoundedContext}/UseCase/` |
+| Use Case | `src/{architecture-path}/UseCase/{Name}UseCase.php` |
+| Input DTO | `src/{architecture-path}/DTO/{Name}Input.php` |
+| Output DTO | `src/{architecture-path}/DTO/{Name}Output.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/UseCase/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Use Cases typically live wherever your project coordinates application workflows (Application layer in Clean/Layered, the hexagon in Hexagonal, the feature folder in Package-by-Feature, the controllers in MVC). Adjust to your project's layout.
 
 ---
 

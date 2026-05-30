@@ -1,45 +1,45 @@
 ---
 name: create-repository
-description: Generates DDD Repository interfaces and implementation stubs for PHP 8.4. Creates domain interfaces in Domain layer, implementation in Infrastructure.
+description: Generates Repository abstraction and concrete implementation stubs for PHP 8.4. The Repository pattern from DDD provides a collection-like interface for retrieving and persisting aggregates. Placement of the abstraction vs concrete implementation varies by architecture.
 ---
 
 # Repository Generator
 
-Generate DDD-compliant Repository interfaces and implementation stubs.
+Generate Repository abstraction and concrete implementation stubs following DDD principles.
 
 ## Repository Characteristics
 
-- **Interface in Domain**: Contract defined in Domain layer
-- **Implementation in Infrastructure**: Doctrine/Eloquent/etc. implementation
-- **Works with Aggregates**: Not entities directly
+- **Abstraction + Concrete**: The pattern is usually split into an abstraction (interface) and one or more concrete implementations (Doctrine, Eloquent, In-Memory). The split enables Dependency Inversion.
+- **Works with Aggregates**: One Repository per aggregate root, not per entity
 - **Collection-like**: Find, save, remove operations
-- **No business logic**: Only persistence operations
+- **No business logic**: Only persistence operations; business filtering can live in query methods (e.g. `findShippableOrdersForToday()`)
+- **Placement varies**: Where the abstraction lives (alongside the domain that uses it, in a Port folder, in a feature folder) is an architectural choice — see File Placement below
 
 ---
 
 ## Generation Process
 
-### Step 1: Generate Interface
+### Step 1: Generate Abstraction
 
-**Path:** `src/Domain/{BoundedContext}/Repository/`
+Place alongside the aggregate root the repository serves (see File Placement note for per-architecture guidance).
 
-1. `{AggregateRoot}RepositoryInterface.php` — Domain contract
+1. `{AggregateRoot}RepositoryInterface.php` — Repository contract
 
-### Step 2: Generate Implementation
+### Step 2: Generate Concrete Implementation
 
-**Path:** `src/Infrastructure/Persistence/Doctrine/`
+Place at the persistence integration boundary with other ORM/database adapters.
 
 1. `Doctrine{AggregateRoot}Repository.php` — Doctrine implementation
 
 ### Step 3: Generate In-Memory Repository (Optional)
 
-**Path:** `tests/Infrastructure/Persistence/`
+Place under the tests tree alongside other test doubles.
 
 1. `InMemory{AggregateRoot}Repository.php` — For unit testing
 
 ### Step 4: Generate Integration Tests
 
-**Path:** `tests/Integration/Infrastructure/Persistence/`
+Mirror the production persistence path under `tests/Integration/`.
 
 ---
 
@@ -47,10 +47,12 @@ Generate DDD-compliant Repository interfaces and implementation stubs.
 
 | Component | Path |
 |-----------|------|
-| Interface | `src/Domain/{BoundedContext}/Repository/` |
-| Doctrine Impl | `src/Infrastructure/Persistence/Doctrine/` |
-| In-Memory | `tests/Infrastructure/Persistence/` |
-| Integration Tests | `tests/Integration/Infrastructure/Persistence/` |
+| Abstraction | `src/{architecture-path}/Repository/{AggregateRoot}RepositoryInterface.php` |
+| Doctrine Impl | `src/{architecture-path}/Persistence/Doctrine/Doctrine{AggregateRoot}Repository.php` |
+| In-Memory | `tests/{architecture-path}/Persistence/InMemory{AggregateRoot}Repository.php` |
+| Integration Tests | `tests/Integration/{architecture-path}/Persistence/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Repository placement varies by architecture: in Clean / Onion / DDD-Layered the abstraction is conventionally co-located with the aggregate it serves (often in a `Repository/` sub-folder of the bounded context) and the concrete is co-located with other persistence adapters; in Hexagonal it may live in a `Port/` folder; in Package-by-Feature both abstraction and concrete may live inside the feature folder; in MVC there is often just a single `Repositories/` folder without an abstraction split. Adjust to your project's layout.
 
 ---
 
@@ -144,10 +146,10 @@ final class InMemory{AggregateRoot}Repository implements {AggregateRoot}Reposito
 
 | Rule | Good | Bad |
 |------|------|-----|
-| Layer Placement | Interface in Domain | Interface in Infrastructure |
+| Dependency Direction | Client code depends on the abstraction, not on a concrete ORM class | Client code instantiates Doctrine repositories directly |
 | Aggregate Scope | Repository per aggregate root | Repository per entity |
-| Query Methods | Simple filters | Business logic in queries |
-| Identity | `nextIdentity()` method | External ID generation |
+| Query Methods | Simple filters; business-shaped finders (`findShippableOrdersForToday`) are acceptable | Business decisions / state changes inside repository methods |
+| Identity | `nextIdentity()` method | External ID generation scattered across callers |
 
 ---
 
@@ -157,7 +159,7 @@ final class InMemory{AggregateRoot}Repository implements {AggregateRoot}Reposito
 |--------------|---------|----------|
 | Entity Repository | Bypasses aggregate | Only aggregate roots |
 | Business Queries | Logic in repository | Use Specification pattern |
-| Infrastructure Leak | Domain depends on ORM | Interface in Domain |
+| ORM Leak | Client code depends on a concrete ORM class | Depend on the repository abstraction, not the concrete implementation |
 | Generic Repository | Too abstract | Specific per aggregate |
 | Missing nextIdentity | Can't generate IDs | Add to interface |
 

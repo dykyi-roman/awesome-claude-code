@@ -61,7 +61,7 @@ Examples:
 | Entity | Unit test (state, transitions, events) |
 | Aggregate | Unit test (invariants, consistency) |
 | Domain Service | Unit test with Fakes |
-| Repository Interface | — (impl tested separately) |
+| Repository | — (impl tested separately) |
 
 ### For Application Layer
 

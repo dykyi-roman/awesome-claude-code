@@ -2,14 +2,14 @@
 
 ## Pool Interface
 
-**File:** `src/Infrastructure/Pool/PoolInterface.php`
+**File:** `src/{architecture-path}/Pool/PoolInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 /**
  * @template T
@@ -41,14 +41,14 @@ interface PoolInterface
 
 ## Pool Configuration
 
-**File:** `src/Infrastructure/Pool/PoolConfig.php`
+**File:** `src/{architecture-path}/Pool/PoolConfig.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 final readonly class PoolConfig
 {
@@ -103,14 +103,14 @@ final readonly class PoolConfig
 
 ## Poolable Interface
 
-**File:** `src/Infrastructure/Pool/PoolableInterface.php`
+**File:** `src/{architecture-path}/Pool/PoolableInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 interface PoolableInterface
 {
@@ -126,14 +126,14 @@ interface PoolableInterface
 
 ## Pool Exceptions
 
-**File:** `src/Infrastructure/Pool/PoolExhaustedException.php`
+**File:** `src/{architecture-path}/Pool/PoolExhaustedException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 final class PoolExhaustedException extends \RuntimeException
 {
@@ -148,14 +148,14 @@ final class PoolExhaustedException extends \RuntimeException
 }
 ```
 
-**File:** `src/Infrastructure/Pool/InvalidPoolObjectException.php`
+**File:** `src/{architecture-path}/Pool/InvalidPoolObjectException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 final class InvalidPoolObjectException extends \RuntimeException
 {
@@ -170,14 +170,14 @@ final class InvalidPoolObjectException extends \RuntimeException
 
 ## Generic Object Pool
 
-**File:** `src/Infrastructure/Pool/ObjectPool.php`
+**File:** `src/{architecture-path}/Pool/ObjectPool.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 use Psr\Log\LoggerInterface;
 
@@ -386,14 +386,14 @@ final class ObjectPool implements PoolInterface
 
 ## Pooled Object Wrapper
 
-**File:** `src/Infrastructure/Pool/PooledObject.php`
+**File:** `src/{architecture-path}/Pool/PooledObject.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Pool;
+namespace Pool;
 
 /**
  * @template T

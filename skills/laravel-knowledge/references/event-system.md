@@ -49,7 +49,7 @@ final class OrderShippedEvent
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Event;
+namespace Event;
 
 // No Laravel dependency — pure domain event
 final readonly class OrderConfirmedEvent
@@ -70,9 +70,9 @@ Implement `ShouldQueue` to process listeners asynchronously.
 
 declare(strict_types=1);
 
-namespace App\Listeners\Order;
+namespace Order;
 
-use App\Domain\Order\Event\OrderConfirmedEvent;
+use Event\OrderConfirmedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class SendOrderConfirmationEmail implements ShouldQueue
@@ -132,7 +132,7 @@ class EventSubscriber
 
 declare(strict_types=1);
 
-namespace App\Listeners\Auth;
+namespace Auth;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
@@ -178,7 +178,7 @@ Domain defines its own `EventDispatcherInterface`; Laravel implements it.
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
 use Illuminate\Support\Facades\Event;
 
@@ -199,7 +199,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
 // Domain entity records events without dispatching
 final class Order
@@ -232,7 +232,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Domain\Shared;
+namespace Shared;
 
 // Domain port
 interface EventDispatcherInterface
@@ -247,9 +247,9 @@ interface EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
-use App\Domain\Shared\EventDispatcherInterface;
+use Shared\EventDispatcherInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 // Infrastructure adapter

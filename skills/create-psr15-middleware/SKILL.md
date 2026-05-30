@@ -20,9 +20,11 @@ Generates PSR-15 compliant HTTP middleware and request handlers for building mid
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| Middleware | MiddlewareInterface impl | `src/Infrastructure/Http/Middleware/` |
-| RequestHandler | Pipeline dispatcher | `src/Infrastructure/Http/` |
-| Unit Tests | PHPUnit tests | `tests/Unit/Infrastructure/Http/` |
+| Middleware | MiddlewareInterface impl | `src/{architecture-path}/Middleware/` |
+| RequestHandler | Pipeline dispatcher | `src/{architecture-path}/` |
+| Unit Tests | PHPUnit tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. PSR-15 middleware typically lives with other HTTP entry-point code. Adjust to your project's layout.
 
 ## Template: Middleware
 
@@ -31,7 +33,7 @@ Generates PSR-15 compliant HTTP middleware and request handlers for building mid
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -93,7 +95,7 @@ final readonly class AuthenticationMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -142,7 +144,7 @@ final class MiddlewarePipeline implements RequestHandlerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -170,7 +172,7 @@ final readonly class ControllerHandler implements RequestHandlerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -308,9 +310,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Http\Middleware;
 
-use App\Infrastructure\Http\Middleware\AuthenticationMiddleware;
-use App\Infrastructure\Http\Message\Response;
-use App\Infrastructure\Http\Message\ServerRequest;
+use Middleware\AuthenticationMiddleware;
+use Http\Message\Response;
+use Http\Message\ServerRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -366,8 +368,8 @@ final class AuthenticationMiddlewareTest extends TestCase
 ```php
 <?php
 
-use App\Infrastructure\Http\MiddlewarePipeline;
-use App\Infrastructure\Http\ControllerHandler;
+use Http\MiddlewarePipeline;
+use Http\ControllerHandler;
 
 // Build pipeline
 $pipeline = (new MiddlewarePipeline(new NotFoundHandler()))

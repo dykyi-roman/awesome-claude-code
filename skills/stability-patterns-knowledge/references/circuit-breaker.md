@@ -40,7 +40,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;

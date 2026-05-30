@@ -20,9 +20,11 @@ Generates PSR-11 compliant dependency injection container implementations.
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| Container | Container implementation | `src/Infrastructure/Container/` |
-| Exceptions | PSR-11 exceptions | `src/Infrastructure/Container/` |
-| Unit Tests | PHPUnit tests | `tests/Unit/Infrastructure/Container/` |
+| Container | Container implementation | `src/{architecture-path}/Container/` |
+| Exceptions | PSR-11 exceptions | `src/{architecture-path}/Container/` |
+| Unit Tests | PHPUnit tests | `tests/Unit/{architecture-path}/Container/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The container typically lives with other bootstrap/DI infrastructure. Adjust to your project's layout.
 
 ## Template: Simple Container
 
@@ -31,7 +33,7 @@ Generates PSR-11 compliant dependency injection container implementations.
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 use Closure;
 use Psr\Container\ContainerInterface;
@@ -83,7 +85,7 @@ final class Container implements ContainerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 use Closure;
 use Psr\Container\ContainerInterface;
@@ -213,7 +215,7 @@ final class AutowiringContainer implements ContainerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
@@ -237,8 +239,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Container;
 
-use App\Infrastructure\Container\AutowiringContainer;
-use App\Infrastructure\Container\NotFoundException;
+use Container\AutowiringContainer;
+use Container\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -314,7 +316,7 @@ class SimpleService
 ```php
 <?php
 
-use App\Infrastructure\Container\AutowiringContainer;
+use Container\AutowiringContainer;
 
 $container = new AutowiringContainer();
 

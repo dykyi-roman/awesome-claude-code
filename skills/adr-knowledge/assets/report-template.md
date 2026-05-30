@@ -67,20 +67,23 @@ Issues that should be addressed:
 ```
 
 ### Recommended Structure
+
+ADR organizes one HTTP endpoint into a co-located unit. Placement in the folder tree varies by architecture.
+
+Per-endpoint unit:
 ```
-src/
-├── Presentation/
-│   ├── Api/
-│   │   └── {Context}/
-│   │       └── {Action}/
-│   │           ├── {Action}Action.php
-│   │           ├── {Action}Responder.php
-│   │           └── {Action}Request.php
-│   └── Shared/
-│       ├── Action/
-│       │   └── ActionInterface.php
-│       └── Responder/
-│           └── ResponderInterface.php
+{ActionName}/
+├── {ActionName}Action.php
+├── {ActionName}Responder.php
+└── {ActionName}Request.php  (optional DTO)
+```
+
+Shared interfaces (separate location):
+```
+Action/
+└── ActionInterface.php
+Responder/
+└── ResponderInterface.php
 ```
 
 ## Component Analysis

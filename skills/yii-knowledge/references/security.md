@@ -24,7 +24,7 @@ Grep: "use Yiisoft\\User\\" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace Domain\User\Entity;
+namespace Entity;
 
 use Yiisoft\Auth\IdentityInterface; // VIOLATION: Yii auth in Domain
 
@@ -45,11 +45,11 @@ final class User implements IdentityInterface
 
 declare(strict_types=1);
 
-namespace Domain\User\Entity;
+namespace Entity;
 
-use Domain\User\ValueObject\UserId;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\HashedPassword;
+use ValueObject\UserId;
+use ValueObject\Email;
+use ValueObject\HashedPassword;
 
 // Pure domain aggregate — no framework imports
 final class User
@@ -76,9 +76,9 @@ final class User
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Domain\User\Entity\User;
+use Entity\User;
 use Yiisoft\Auth\IdentityInterface;
 
 // Infrastructure adapter — implements Yii interface, wraps Domain entity
@@ -107,10 +107,10 @@ Domain defines `UserRepositoryInterface`. Infrastructure implements `IdentityRep
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Domain\User\Repository\UserRepositoryInterface;
-use Domain\User\ValueObject\UserId;
+use Repository\UserRepositoryInterface;
+use ValueObject\UserId;
 use Yiisoft\Auth\IdentityInterface;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 
@@ -200,7 +200,7 @@ declare(strict_types=1);
 
 // config/common/di/auth.php
 
-use Infrastructure\Security\IdentityRepository;
+use Security\IdentityRepository;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 use Yiisoft\Auth\Method\HttpBearer;
 use Yiisoft\Auth\AuthenticationMethodInterface;
@@ -276,7 +276,7 @@ RBAC Rules should not contain business logic. Delegate to domain Specifications.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\Rbac;
+namespace Security\Rbac;
 
 use Yiisoft\Rbac\Item;
 use Yiisoft\Rbac\RuleContext;
@@ -306,9 +306,9 @@ final readonly class AuthorRule implements RuleInterface
 
 declare(strict_types=1);
 
-namespace Domain\Post\Specification;
+namespace Specification;
 
-use Domain\Post\Entity\Post;
+use Entity\Post;
 
 // Pure domain specification — no framework dependency
 final readonly class IsPostAuthorSpecification
@@ -325,9 +325,9 @@ final readonly class IsPostAuthorSpecification
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security\Rbac;
+namespace Security\Rbac;
 
-use Domain\Post\Specification\IsPostAuthorSpecification;
+use Specification\IsPostAuthorSpecification;
 use Yiisoft\Rbac\Item;
 use Yiisoft\Rbac\RuleContext;
 use Yiisoft\Rbac\RuleInterface;
@@ -355,7 +355,7 @@ final readonly class AuthorRule implements RuleInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Post;
+namespace Api\Post;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -402,9 +402,9 @@ Domain defines `PasswordHasherInterface`. Infrastructure implements it with `yii
 
 declare(strict_types=1);
 
-namespace Domain\User\Service;
+namespace Service;
 
-use Domain\User\ValueObject\HashedPassword;
+use ValueObject\HashedPassword;
 
 // Domain port — pure PHP interface
 interface PasswordHasherInterface
@@ -419,10 +419,10 @@ interface PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Domain\User\Service\PasswordHasherInterface;
-use Domain\User\ValueObject\HashedPassword;
+use Service\PasswordHasherInterface;
+use ValueObject\HashedPassword;
 use Yiisoft\Security\PasswordHasher as YiiPasswordHasherLib;
 
 // Infrastructure adapter — wraps Yii security package

@@ -2,14 +2,14 @@
 
 ## CircuitState Enum
 
-**File:** `src/Infrastructure/Resilience/CircuitBreaker/CircuitState.php`
+**File:** `src/{architecture-path}/CircuitBreaker/CircuitState.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 enum CircuitState: string
 {
@@ -47,14 +47,14 @@ enum CircuitState: string
 
 ## CircuitBreakerConfig
 
-**File:** `src/Infrastructure/Resilience/CircuitBreaker/CircuitBreakerConfig.php`
+**File:** `src/{architecture-path}/CircuitBreaker/CircuitBreakerConfig.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 final readonly class CircuitBreakerConfig
 {
@@ -104,14 +104,14 @@ final readonly class CircuitBreakerConfig
 
 ## CircuitBreakerException
 
-**File:** `src/Infrastructure/Resilience/CircuitBreaker/CircuitBreakerException.php`
+**File:** `src/{architecture-path}/CircuitBreaker/CircuitBreakerException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 final class CircuitBreakerException extends \RuntimeException
 {
@@ -135,14 +135,14 @@ final class CircuitBreakerException extends \RuntimeException
 
 ## CircuitBreaker
 
-**File:** `src/Infrastructure/Resilience/CircuitBreaker/CircuitBreaker.php`
+**File:** `src/{architecture-path}/CircuitBreaker/CircuitBreaker.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
@@ -288,14 +288,14 @@ final class CircuitBreaker
 
 ## CircuitBreakerFactory
 
-**File:** `src/Infrastructure/Resilience/CircuitBreaker/CircuitBreakerFactory.php`
+**File:** `src/{architecture-path}/CircuitBreaker/CircuitBreakerFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
@@ -330,14 +330,14 @@ final readonly class CircuitBreakerFactory
 
 ## CircuitBreakerRegistry
 
-**File:** `src/Infrastructure/Resilience/CircuitBreaker/CircuitBreakerRegistry.php`
+**File:** `src/{architecture-path}/CircuitBreaker/CircuitBreakerRegistry.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\CircuitBreaker;
+namespace CircuitBreaker;
 
 final class CircuitBreakerRegistry
 {

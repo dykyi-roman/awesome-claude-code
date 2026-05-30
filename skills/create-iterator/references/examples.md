@@ -4,16 +4,16 @@
 
 ### Order Entity
 
-**File:** `src/Domain/Order/Entity/Order.php`
+**File:** `src/{architecture-path}/Entity/Order.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Shared\ValueObject\Money;
+use ValueObject\Money;
 
 final readonly class Order
 {
@@ -54,16 +54,16 @@ final readonly class Order
 
 ### OrderCollection
 
-**File:** `src/Domain/Order/Collection/OrderCollection.php`
+**File:** `src/{architecture-path}/Collection/OrderCollection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Collection;
+namespace Collection;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class OrderCollection implements \IteratorAggregate, \Countable
 {
@@ -126,14 +126,14 @@ final readonly class OrderCollection implements \IteratorAggregate, \Countable
 
 ### User Entity
 
-**File:** `src/Domain/User/Entity/User.php`
+**File:** `src/{architecture-path}/Entity/User.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Entity;
+namespace Entity;
 
 final readonly class User
 {
@@ -164,18 +164,18 @@ final readonly class User
 
 ### UserCollection
 
-**File:** `src/Domain/User/Collection/UserCollection.php`
+**File:** `src/{architecture-path}/Collection/UserCollection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Collection;
+namespace Collection;
 
-use Domain\User\Entity\User;
-use Domain\User\Iterator\UserIterator;
-use Domain\User\Iterator\ActiveUserIterator;
+use Entity\User;
+use Iterator\UserIterator;
+use Iterator\ActiveUserIterator;
 
 final readonly class UserCollection implements \IteratorAggregate, \Countable
 {
@@ -231,16 +231,16 @@ final readonly class UserCollection implements \IteratorAggregate, \Countable
 
 ### ActiveUserIterator
 
-**File:** `src/Domain/User/Iterator/ActiveUserIterator.php`
+**File:** `src/{architecture-path}/Iterator/ActiveUserIterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Iterator;
+namespace Iterator;
 
-use Domain\User\Entity\User;
+use Entity\User;
 
 final class ActiveUserIterator implements \Iterator
 {
@@ -295,14 +295,14 @@ final class ActiveUserIterator implements \Iterator
 
 ### PaginatedResultIterator
 
-**File:** `src/Application/Iterator/PaginatedResultIterator.php`
+**File:** `src/{architecture-path}/Iterator/PaginatedResultIterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Iterator;
+namespace Iterator;
 
 final class PaginatedResultIterator implements \Iterator
 {
@@ -376,16 +376,16 @@ final class PaginatedResultIterator implements \Iterator
 
 ### Product Value Object
 
-**File:** `src/Domain/Product/ValueObject/Product.php`
+**File:** `src/{architecture-path}/ValueObject/Product.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Product\ValueObject;
+namespace ValueObject;
 
-use Domain\Shared\ValueObject\Money;
+use ValueObject\Money;
 
 final readonly class Product
 {
@@ -422,16 +422,16 @@ final readonly class Product
 
 ### ProductCollection
 
-**File:** `src/Domain/Product/Collection/ProductCollection.php`
+**File:** `src/{architecture-path}/Collection/ProductCollection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Product\Collection;
+namespace Collection;
 
-use Domain\Product\ValueObject\Product;
+use ValueObject\Product;
 
 final readonly class ProductCollection implements \IteratorAggregate, \Countable
 {
@@ -488,18 +488,18 @@ final readonly class ProductCollection implements \IteratorAggregate, \Countable
 
 ### OrderCollectionTest
 
-**File:** `tests/Unit/Domain/Order/Collection/OrderCollectionTest.php`
+**File:** `tests/Unit/Collection/OrderCollectionTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Collection;
+namespace Tests\Unit\Collection;
 
-use Domain\Order\Collection\OrderCollection;
-use Domain\Order\Entity\Order;
-use Domain\Shared\ValueObject\Money;
+use Collection\OrderCollection;
+use Entity\Order;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -574,17 +574,17 @@ final class OrderCollectionTest extends TestCase
 
 ### ActiveUserIteratorTest
 
-**File:** `tests/Unit/Domain/User/Iterator/ActiveUserIteratorTest.php`
+**File:** `tests/Unit/Iterator/ActiveUserIteratorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\User\Iterator;
+namespace Tests\Unit\Iterator;
 
-use Domain\User\Iterator\ActiveUserIterator;
-use Domain\User\Entity\User;
+use Iterator\ActiveUserIterator;
+use Entity\User;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

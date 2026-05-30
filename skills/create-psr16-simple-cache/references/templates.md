@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -137,7 +137,7 @@ final class FileCache implements CacheInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use Psr\SimpleCache\CacheInterface;
@@ -262,7 +262,7 @@ $cache = new ChainedCache([
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use Psr\SimpleCache\CacheInterface;

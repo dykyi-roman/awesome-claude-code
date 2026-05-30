@@ -43,25 +43,25 @@ Creates Snapshot infrastructure for optimizing event sourcing aggregate rebuilds
 
 ## Generation Process
 
-### Step 1: Generate Domain Components
+### Step 1: Generate Snapshot Types
 
-**Path:** `src/Domain/{BC}/Snapshot/`
+Pure data types that have no infrastructure dependencies.
 
 1. `Snapshot.php` — Immutable snapshot value object
-2. `SnapshotStoreInterface.php` — Repository interface for snapshot persistence
+2. `SnapshotStoreInterface.php` — Storage abstraction for snapshot persistence
 
-### Step 2: Generate Application Components
+### Step 2: Generate Snapshot Coordination
 
-**Path:** `src/Application/{BC}/Snapshot/`
+Strategy + service that orchestrate snapshot capture decisions.
 
 1. `SnapshotStrategy.php` — Configurable threshold strategy
-2. `AggregateSnapshotter.php` — Application service for snapshot operations
+2. `AggregateSnapshotter.php` — Coordinates snapshot operations
 
-### Step 3: Generate Infrastructure Components
+### Step 3: Generate Persistence
 
-**Path:** `src/Infrastructure/{BC}/Snapshot/`
+Concrete store implementation against the chosen storage backend.
 
-1. `DoctrineSnapshotStore.php` — Doctrine DBAL implementation of SnapshotStoreInterface
+1. `DoctrineSnapshotStore.php` — Doctrine DBAL implementation of `SnapshotStoreInterface`
 2. Database migration SQL for snapshots table
 
 ### Step 4: Generate Tests
@@ -76,10 +76,12 @@ Creates Snapshot infrastructure for optimizing event sourcing aggregate rebuilds
 
 | Component | Path |
 |-----------|------|
-| Snapshot, SnapshotStoreInterface | `src/Domain/{BC}/Snapshot/` |
-| SnapshotStrategy, AggregateSnapshotter | `src/Application/{BC}/Snapshot/` |
-| DoctrineSnapshotStore | `src/Infrastructure/{BC}/Snapshot/` |
-| Unit Tests | `tests/Unit/Domain/{BC}/Snapshot/`, `tests/Unit/Application/{BC}/Snapshot/` |
+| Snapshot, SnapshotStoreInterface | `src/{architecture-path}/Snapshot/` |
+| SnapshotStrategy, AggregateSnapshotter | `src/{architecture-path}/Snapshot/` |
+| DoctrineSnapshotStore | `src/{architecture-path}/Snapshot/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Snapshot/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The three groups (types, coordination, store) typically live in different areas — types alongside domain code, coordination near other use cases, store with other persistence adapters. Adjust to your project's layout.
 
 ---
 
@@ -199,7 +201,7 @@ CREATE TABLE snapshots (
 | Mutable Snapshots | State corruption, debugging nightmares | Make Snapshot immutable (final readonly) |
 | Missing Version | Cannot determine event replay start point | Always track version in snapshot |
 | No Cleanup | Unbounded storage growth | Implement retention policy, keep only latest |
-| Tight Coupling | Snapshot tied to infrastructure | Domain interface, infrastructure implementation |
+| Tight Coupling | Snapshot tied to infrastructure | Depend on the store interface, not the concrete implementation |
 | Skipping Validation | Invalid snapshots persisted | Validate version >= 1, non-empty state |
 
 ---

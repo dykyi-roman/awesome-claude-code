@@ -36,8 +36,8 @@
 
 | Check | Status | Location |
 |-------|--------|----------|
-| Repository interface in Domain | | |
-| Implementation in Infrastructure | | |
+| Outbox Repository abstracted via interface | | |
+| Concrete implementation present | | |
 | findUnprocessed method | | |
 | markAsProcessed method | | |
 | Batch processing support | | |

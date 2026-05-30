@@ -22,9 +22,9 @@ Generate DDD-compliant Domain Events with metadata and tests.
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Event;
+namespace Event;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 final readonly class {Name}Event implements DomainEvent
 {
@@ -52,7 +52,7 @@ final readonly class {Name}Event implements DomainEvent
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 final readonly class EventMetadata
 {
@@ -100,7 +100,7 @@ final readonly class EventMetadata
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 interface DomainEvent
 {
@@ -119,10 +119,10 @@ interface DomainEvent
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Shared\Event\DomainEvent;
-use Domain\Shared\Event\EventMetadata;
+use Event\DomainEvent;
+use Event\EventMetadata;
 
 final readonly class OrderCreatedEvent implements DomainEvent
 {
@@ -237,7 +237,7 @@ final readonly class OrderShippedEvent implements DomainEvent
 
 declare(strict_types=1);
 
-namespace Domain\User\Event;
+namespace Event;
 
 final readonly class UserRegisteredEvent implements DomainEvent
 {
@@ -310,8 +310,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Order\Event;
 
-use Domain\Order\Event\OrderCreatedEvent;
-use Domain\Shared\Event\EventMetadata;
+use Event\OrderCreatedEvent;
+use Event\EventMetadata;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

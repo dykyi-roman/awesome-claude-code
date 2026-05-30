@@ -341,14 +341,14 @@ final readonly class OrderService
 | SRP | Aggregates have single consistency boundary |
 | OCP | Domain Events enable extension without modification |
 | LSP | Value Objects are substitutable (same type = same behavior) |
-| ISP | Repository interfaces segregated (Reader/Writer) |
-| DIP | Domain depends on Repository interfaces, not implementations |
+| ISP | Repositories segregated by role (Reader/Writer) |
+| DIP | Domain depends on Repository abstractions, not concrete persistence |
 
 ## SOLID & Clean Architecture
 
 | Layer | SOLID Focus |
 |-------|-------------|
-| Domain | SRP (Entities), LSP (Value Objects), ISP (Repository interfaces) |
+| Domain | SRP (Entities), LSP (Value Objects), ISP (Repository abstractions) |
 | Application | SRP (Use Cases), DIP (Port interfaces) |
 | Infrastructure | OCP (Adapters), DIP (Implements ports) |
 | Presentation | SRP (Controllers), ISP (API contracts) |

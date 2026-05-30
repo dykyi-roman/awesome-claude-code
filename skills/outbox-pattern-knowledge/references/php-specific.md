@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Outbox;
+namespace Outbox;
 
 final readonly class OutboxMessage
 {
@@ -126,14 +126,14 @@ final readonly class OutboxMessage
 }
 ```
 
-#### OutboxRepository Interface
+#### OutboxRepository (abstraction)
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Outbox;
+namespace Outbox;
 
 interface OutboxRepositoryInterface
 {
@@ -171,7 +171,7 @@ interface OutboxRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Entity;
+namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -221,11 +221,11 @@ class OutboxMessageEntity
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
 use Doctrine\DBAL\Connection;
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 
 final readonly class DoctrineOutboxRepository implements OutboxRepositoryInterface
 {
@@ -358,10 +358,10 @@ final readonly class DoctrineOutboxRepository implements OutboxRepositoryInterfa
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class OutboxProcessor
@@ -460,7 +460,7 @@ final readonly class OutboxProcessor
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
 enum MessageResult
 {
@@ -475,7 +475,7 @@ enum MessageResult
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
 final readonly class ProcessingResult
 {
@@ -499,9 +499,9 @@ final readonly class ProcessingResult
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Application\Shared\Outbox\OutboxProcessor;
+use Outbox\OutboxProcessor;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -589,8 +589,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Shared\Outbox;
 
-use Application\Shared\Outbox\OutboxProcessor;
-use Domain\Shared\Outbox\OutboxMessage;
+use Outbox\OutboxProcessor;
+use Outbox\OutboxMessage;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

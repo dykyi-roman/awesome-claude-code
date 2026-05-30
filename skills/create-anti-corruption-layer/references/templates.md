@@ -2,17 +2,17 @@
 
 ## Domain Port (Interface)
 
-**File:** `src/Domain/{BoundedContext}/Port/{ExternalSystem}PortInterface.php`
+**File:** `src/{architecture-path}/Port/{ExternalSystem}PortInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Port;
+namespace Port;
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\ValueObject\{ValueObject};
+use Entity\{Entity};
+use ValueObject\{ValueObject};
 
 interface {ExternalSystem}PortInterface
 {
@@ -27,14 +27,14 @@ interface {ExternalSystem}PortInterface
 
 ## External DTO
 
-**File:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/DTO/{ExternalSystem}{Concept}DTO.php`
+**File:** `src/{architecture-path}/ACL/{ExternalSystem}/DTO/{ExternalSystem}{Concept}DTO.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\DTO;
+namespace DTO;
 
 /**
  * DTO matching external system's data structure.
@@ -75,18 +75,18 @@ final readonly class {ExternalSystem}{Concept}DTO
 
 ## Translator
 
-**File:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/{ExternalSystem}Translator.php`
+**File:** `src/{architecture-path}/ACL/{ExternalSystem}/{ExternalSystem}Translator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\ACL\{ExternalSystem};
+namespace ACL\{ExternalSystem};
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\ValueObject\{ValueObject};
-use Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\DTO\{ExternalSystem}{Concept}DTO;
+use Entity\{Entity};
+use ValueObject\{ValueObject};
+use DTO\{ExternalSystem}{Concept}DTO;
 
 final readonly class {ExternalSystem}Translator
 {
@@ -146,17 +146,17 @@ final readonly class {ExternalSystem}Translator
 
 ## Facade
 
-**File:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/{ExternalSystem}Facade.php`
+**File:** `src/{architecture-path}/ACL/{ExternalSystem}/{ExternalSystem}Facade.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\ACL\{ExternalSystem};
+namespace ACL\{ExternalSystem};
 
-use Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\DTO\{ExternalSystem}{Concept}DTO;
-use Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\Exception\{ExternalSystem}ConnectionException;
+use DTO\{ExternalSystem}{Concept}DTO;
+use Exception\{ExternalSystem}ConnectionException;
 
 final readonly class {ExternalSystem}Facade
 {
@@ -228,19 +228,19 @@ final readonly class {ExternalSystem}Facade
 
 ## Adapter (Implements Domain Port)
 
-**File:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/{ExternalSystem}Adapter.php`
+**File:** `src/{architecture-path}/ACL/{ExternalSystem}/{ExternalSystem}Adapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\ACL\{ExternalSystem};
+namespace ACL\{ExternalSystem};
 
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\Port\{ExternalSystem}PortInterface;
-use Domain\{BoundedContext}\ValueObject\{EntityId};
-use Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\Exception\{ExternalSystem}Exception;
+use Entity\{Entity};
+use Port\{ExternalSystem}PortInterface;
+use ValueObject\{EntityId};
+use Exception\{ExternalSystem}Exception;
 
 final readonly class {ExternalSystem}Adapter implements {ExternalSystem}PortInterface
 {
@@ -294,30 +294,30 @@ final readonly class {ExternalSystem}Adapter implements {ExternalSystem}PortInte
 
 ## Exceptions
 
-**File:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/Exception/{ExternalSystem}Exception.php`
+**File:** `src/{architecture-path}/ACL/{ExternalSystem}/Exception/{ExternalSystem}Exception.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\Exception;
+namespace Exception;
 
-use Domain\{BoundedContext}\Exception\{BoundedContext}Exception;
+use Exception\{BoundedContext}Exception;
 
 final class {ExternalSystem}Exception extends {BoundedContext}Exception
 {
 }
 ```
 
-**File:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/Exception/{ExternalSystem}ConnectionException.php`
+**File:** `src/{architecture-path}/ACL/{ExternalSystem}/Exception/{ExternalSystem}ConnectionException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\ACL\{ExternalSystem}\Exception;
+namespace Exception;
 
 final class {ExternalSystem}ConnectionException extends \RuntimeException
 {

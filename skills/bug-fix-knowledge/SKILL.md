@@ -5,7 +5,7 @@ description: Bug fix knowledge base. Provides bug categories, symptoms, fix patt
 
 # Bug Fix Knowledge Base
 
-Comprehensive knowledge for diagnosing and fixing bugs in PHP applications following DDD, CQRS, and Clean Architecture patterns.
+Comprehensive knowledge for diagnosing and fixing bugs in PHP applications.
 
 ## Bug Categories and Symptoms
 
@@ -346,7 +346,7 @@ Before applying a fix, verify:
 - Event handler not idempotent
 
 ### Infrastructure Layer Bugs
-- Repository returning detached entity
+- ORM returning detached entity (e.g. from a query)
 - Cache invalidation missing
 - Message not acknowledged
 - Connection not released

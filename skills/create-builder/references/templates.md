@@ -2,14 +2,14 @@
 
 ## Builder Interface
 
-**File:** `src/Domain/{BoundedContext}/Builder/{Name}BuilderInterface.php`
+**File:** `src/{architecture-path}/Builder/{Name}BuilderInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Builder;
+namespace Builder;
 
 interface {Name}BuilderInterface
 {
@@ -27,14 +27,14 @@ interface {Name}BuilderInterface
 
 ## Concrete Builder
 
-**File:** `src/Domain/{BoundedContext}/Builder/{Name}Builder.php`
+**File:** `src/{architecture-path}/Builder/{Name}Builder.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Builder;
+namespace Builder;
 
 final class {Name}Builder implements {Name}BuilderInterface
 {
@@ -90,14 +90,14 @@ final class {Name}Builder implements {Name}BuilderInterface
 
 ## BuilderValidationException
 
-**File:** `src/Domain/{BoundedContext}/Builder/BuilderValidationException.php`
+**File:** `src/{architecture-path}/Builder/BuilderValidationException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Builder;
+namespace Builder;
 
 final class BuilderValidationException extends \InvalidArgumentException
 {
@@ -116,14 +116,14 @@ final class BuilderValidationException extends \InvalidArgumentException
 
 ## Query Builder
 
-**File:** `src/Infrastructure/Query/QueryBuilderInterface.php`
+**File:** `src/{architecture-path}/Query/QueryBuilderInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Query;
+namespace Query;
 
 interface QueryBuilderInterface
 {
@@ -147,14 +147,14 @@ interface QueryBuilderInterface
 }
 ```
 
-**File:** `src/Infrastructure/Query/QueryBuilder.php`
+**File:** `src/{architecture-path}/Query/QueryBuilder.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Query;
+namespace Query;
 
 final class QueryBuilder implements QueryBuilderInterface
 {
@@ -272,14 +272,14 @@ final class QueryBuilder implements QueryBuilderInterface
 
 ## Director Template
 
-**File:** `src/Domain/{BoundedContext}/Builder/{Name}Director.php`
+**File:** `src/{architecture-path}/Builder/{Name}Director.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Builder;
+namespace Builder;
 
 final readonly class {Name}Director
 {

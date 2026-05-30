@@ -19,7 +19,7 @@ Grep: "INSERT|UPDATE|DELETE" --glob "**/Query/**/*.php"
 
 **Bad:**
 ```php
-namespace Application\Order\Query;
+namespace Query;
 
 final readonly class GetOrderDetailsHandler
 {
@@ -39,7 +39,7 @@ final readonly class GetOrderDetailsHandler
 
 **Good:**
 ```php
-namespace Application\Order\Query;
+namespace Query;
 
 final readonly class GetOrderDetailsHandler
 {
@@ -68,7 +68,7 @@ Grep: "return \$order;|return \$user;|return \$entity;" --glob "**/Command/**/*H
 
 **Bad:**
 ```php
-namespace Application\Order\Command;
+namespace Command;
 
 final readonly class CreateOrderHandler
 {
@@ -90,7 +90,7 @@ public function create(Request $request): JsonResponse
 
 **Good:**
 ```php
-namespace Application\Order\Command;
+namespace Command;
 
 final readonly class CreateOrderHandler
 {

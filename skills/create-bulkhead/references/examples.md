@@ -2,18 +2,18 @@
 
 ## External Service Isolation
 
-**File:** `src/Infrastructure/Payment/PaymentGatewayAdapter.php`
+**File:** `src/{architecture-path}/PaymentGatewayAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment;
+namespace Payment;
 
-use Infrastructure\Resilience\Bulkhead\BulkheadRegistry;
-use Infrastructure\Resilience\Bulkhead\BulkheadConfig;
-use Infrastructure\Resilience\Bulkhead\BulkheadFullException;
+use Bulkhead\BulkheadRegistry;
+use Bulkhead\BulkheadConfig;
+use Bulkhead\BulkheadFullException;
 
 final readonly class PaymentGatewayAdapter
 {
@@ -46,17 +46,17 @@ final readonly class PaymentGatewayAdapter
 
 ## Database Connection Pool
 
-**File:** `src/Infrastructure/Persistence/ConnectionPool.php`
+**File:** `src/{architecture-path}/Persistence/ConnectionPool.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
-use Infrastructure\Resilience\Bulkhead\SemaphoreBulkhead;
-use Infrastructure\Resilience\Bulkhead\BulkheadConfig;
+use Bulkhead\SemaphoreBulkhead;
+use Bulkhead\BulkheadConfig;
 
 final class ConnectionPool
 {
@@ -102,17 +102,17 @@ final class ConnectionPool
 
 ## Multiple Isolated Services
 
-**File:** `src/Application/Service/OrderService.php`
+**File:** `src/{architecture-path}/Service/OrderService.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Service;
 
-use Infrastructure\Resilience\Bulkhead\BulkheadRegistry;
-use Infrastructure\Resilience\Bulkhead\BulkheadConfig;
+use Bulkhead\BulkheadRegistry;
+use Bulkhead\BulkheadConfig;
 
 final readonly class OrderService
 {
@@ -153,18 +153,18 @@ final readonly class OrderService
 
 ### SemaphoreBulkheadTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/Bulkhead/SemaphoreBulkheadTest.php`
+**File:** `tests/Unit/Bulkhead/SemaphoreBulkheadTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\Bulkhead;
+namespace Tests\Unit\Bulkhead;
 
-use Infrastructure\Resilience\Bulkhead\BulkheadConfig;
-use Infrastructure\Resilience\Bulkhead\BulkheadFullException;
-use Infrastructure\Resilience\Bulkhead\SemaphoreBulkhead;
+use Bulkhead\BulkheadConfig;
+use Bulkhead\BulkheadFullException;
+use Bulkhead\SemaphoreBulkhead;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -280,16 +280,16 @@ final class SemaphoreBulkheadTest extends TestCase
 
 ### BulkheadConfigTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/Bulkhead/BulkheadConfigTest.php`
+**File:** `tests/Unit/Bulkhead/BulkheadConfigTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\Bulkhead;
+namespace Tests\Unit\Bulkhead;
 
-use Infrastructure\Resilience\Bulkhead\BulkheadConfig;
+use Bulkhead\BulkheadConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

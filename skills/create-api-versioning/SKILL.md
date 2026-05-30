@@ -45,16 +45,16 @@ Creates API Versioning infrastructure with multiple resolution strategies and de
 
 ## Generation Process
 
-### Step 1: Generate Domain Components
+### Step 1: Generate Types & Contract
 
-**Path:** `src/Domain/Shared/Api/`
+Pure types with no infrastructure dependencies.
 
 1. `ApiVersion.php` — Immutable version value object
 2. `VersionResolverInterface.php` — Version resolution contract
 
-### Step 2: Generate Presentation Components
+### Step 2: Generate Resolvers & Middleware
 
-**Path:** `src/Presentation/Middleware/`
+Place alongside other HTTP middleware / request-handling code.
 
 1. `UriPrefixVersionResolver.php` — URI path strategy
 2. `AcceptHeaderVersionResolver.php` — Content negotiation strategy
@@ -76,11 +76,13 @@ Creates API Versioning infrastructure with multiple resolution strategies and de
 
 | Component | Path |
 |-----------|------|
-| ApiVersion | `src/Domain/Shared/Api/` |
-| VersionResolverInterface | `src/Domain/Shared/Api/` |
-| Resolvers | `src/Presentation/Middleware/` |
-| Middleware | `src/Presentation/Middleware/` |
-| Unit Tests | `tests/Unit/` |
+| ApiVersion | `src/{architecture-path}/Api/ApiVersion.php` |
+| VersionResolverInterface | `src/{architecture-path}/Api/VersionResolverInterface.php` |
+| Resolvers | `src/{architecture-path}/Middleware/` |
+| Middleware | `src/{architecture-path}/Middleware/` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The version VO + resolver contract typically live alongside other shared API types; resolvers and middleware live with other HTTP-handling code. Adjust to your project's layout.
 
 ---
 

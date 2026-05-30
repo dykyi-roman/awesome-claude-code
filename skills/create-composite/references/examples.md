@@ -2,14 +2,14 @@
 
 ## Permission Composite
 
-**File:** `src/Domain/Permission/PermissionComposite.php`
+**File:** `src/{architecture-path}/PermissionComposite.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Permission;
+namespace Permission;
 
 final class PermissionComposite implements PermissionInterface
 {
@@ -42,14 +42,14 @@ final class PermissionComposite implements PermissionInterface
 }
 ```
 
-**File:** `src/Domain/Permission/Permission.php`
+**File:** `src/{architecture-path}/Permission.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Permission;
+namespace Permission;
 
 final readonly class Permission implements PermissionInterface
 {
@@ -74,16 +74,16 @@ final readonly class Permission implements PermissionInterface
 
 ## Price Rule Composite
 
-**File:** `src/Domain/Pricing/PriceRuleComposite.php`
+**File:** `src/{architecture-path}/PriceRuleComposite.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing;
+namespace Pricing;
 
-use Domain\Pricing\ValueObject\Price;
+use ValueObject\Price;
 
 final class PriceRuleComposite implements PriceRuleInterface
 {
@@ -107,16 +107,16 @@ final class PriceRuleComposite implements PriceRuleInterface
 }
 ```
 
-**File:** `src/Domain/Pricing/DiscountRule.php`
+**File:** `src/{architecture-path}/DiscountRule.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing;
+namespace Pricing;
 
-use Domain\Pricing\ValueObject\Price;
+use ValueObject\Price;
 
 final readonly class DiscountRule implements PriceRuleInterface
 {
@@ -136,14 +136,14 @@ final readonly class DiscountRule implements PriceRuleInterface
 
 ## File System Composite
 
-**File:** `src/Domain/FileSystem/Directory.php`
+**File:** `src/{architecture-path}/Directory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\FileSystem;
+namespace FileSystem;
 
 final class Directory implements FileSystemInterface
 {
@@ -181,14 +181,14 @@ final class Directory implements FileSystemInterface
 }
 ```
 
-**File:** `src/Domain/FileSystem/File.php`
+**File:** `src/{architecture-path}/File.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\FileSystem;
+namespace FileSystem;
 
 final readonly class File implements FileSystemInterface
 {
@@ -215,17 +215,17 @@ final readonly class File implements FileSystemInterface
 
 ### MenuCompositeTest
 
-**File:** `tests/Unit/Domain/Menu/MenuCompositeTest.php`
+**File:** `tests/Unit/MenuCompositeTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Menu;
+namespace Tests\Unit\Menu;
 
-use Domain\Menu\MenuComposite;
-use Domain\Menu\MenuItem;
+use Menu\MenuComposite;
+use Menu\MenuItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -268,17 +268,17 @@ final class MenuCompositeTest extends TestCase
 
 ### PermissionCompositeTest
 
-**File:** `tests/Unit/Domain/Permission/PermissionCompositeTest.php`
+**File:** `tests/Unit/PermissionCompositeTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Permission;
+namespace Tests\Unit\Permission;
 
-use Domain\Permission\Permission;
-use Domain\Permission\PermissionComposite;
+use Permission\Permission;
+use Permission\PermissionComposite;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

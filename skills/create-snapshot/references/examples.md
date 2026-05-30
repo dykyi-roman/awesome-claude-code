@@ -2,16 +2,16 @@
 
 ## OrderAggregate with Snapshot Support
 
-**File:** `src/Domain/Order/Order.php`
+**File:** `src/{architecture-path}/Order.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order;
+namespace Order;
 
-use Domain\Order\Snapshot\Snapshot;
+use Snapshot\Snapshot;
 
 final class Order
 {
@@ -92,18 +92,18 @@ final class Order
 
 ## Event Sourcing + Snapshot Integration
 
-**File:** `src/Application/Order/LoadOrderHandler.php`
+**File:** `src/{architecture-path}/LoadOrderHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order;
+namespace Order;
 
-use Application\Order\Snapshot\AggregateSnapshotter;
-use Domain\Order\EventStore\EventStoreInterface;
-use Domain\Order\Order;
+use Snapshot\AggregateSnapshotter;
+use EventStore\EventStoreInterface;
+use Order\Order;
 
 final readonly class LoadOrderHandler
 {
@@ -146,16 +146,16 @@ final readonly class LoadOrderHandler
 
 ### SnapshotTest
 
-**File:** `tests/Unit/Domain/{BC}/Snapshot/SnapshotTest.php`
+**File:** `tests/Unit/Snapshot/SnapshotTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Snapshot;
+namespace Tests\Unit\Snapshot;
 
-use Domain\Order\Snapshot\Snapshot;
+use Snapshot\Snapshot;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -231,16 +231,16 @@ final class SnapshotTest extends TestCase
 
 ### SnapshotStrategyTest
 
-**File:** `tests/Unit/Application/{BC}/Snapshot/SnapshotStrategyTest.php`
+**File:** `tests/Unit/Snapshot/SnapshotStrategyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Snapshot;
+namespace Tests\Unit\Snapshot;
 
-use Application\Order\Snapshot\SnapshotStrategy;
+use Snapshot\SnapshotStrategy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -293,21 +293,21 @@ final class SnapshotStrategyTest extends TestCase
 
 ### AggregateSnapshotterTest
 
-**File:** `tests/Unit/Application/{BC}/Snapshot/AggregateSnapshotterTest.php`
+**File:** `tests/Unit/Snapshot/AggregateSnapshotterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Snapshot;
+namespace Tests\Unit\Snapshot;
 
-use Application\Order\Snapshot\AggregateSnapshotter;
-use Application\Order\Snapshot\SnapshotStrategy;
-use Domain\Order\EventStore\EventStoreInterface;
-use Domain\Order\EventStore\EventStream;
-use Domain\Order\Snapshot\Snapshot;
-use Domain\Order\Snapshot\SnapshotStoreInterface;
+use Snapshot\AggregateSnapshotter;
+use Snapshot\SnapshotStrategy;
+use EventStore\EventStoreInterface;
+use EventStore\EventStream;
+use Snapshot\Snapshot;
+use Snapshot\SnapshotStoreInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\MockObject\MockObject;

@@ -123,7 +123,7 @@ Quick reference for resilience and fault tolerance patterns in PHP applications.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
 use Psr\Clock\ClockInterface;
 
@@ -178,7 +178,7 @@ final class CircuitBreaker
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
 final readonly class RetryExecutor
 {
@@ -217,7 +217,7 @@ final readonly class RetryExecutor
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience;
+namespace Resilience;
 
 final class TokenBucketRateLimiter
 {

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Resource;
+namespace Api\Resource;
 
 use JsonSerializable;
 use Psr\Link\LinkInterface;
@@ -95,9 +95,9 @@ abstract class HalResource implements JsonSerializable, LinkProviderInterface
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Resource;
+namespace Api\Resource;
 
-use App\Infrastructure\Http\Link\Link;
+use Http\Link\Link;
 
 final class UserCollectionResource extends HalResource
 {
@@ -146,7 +146,7 @@ final class UserCollectionResource extends HalResource
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Link;
+namespace Http\Link;
 
 use Psr\Link\LinkInterface;
 use Psr\Link\LinkProviderInterface;

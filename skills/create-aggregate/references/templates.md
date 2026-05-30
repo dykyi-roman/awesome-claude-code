@@ -7,12 +7,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Entity;
+namespace Entity;
 
-use Domain\{BoundedContext}\ValueObject\{Name}Id;
-use Domain\{BoundedContext}\Enum\{Name}Status;
-use Domain\{BoundedContext}\Event\{Events};
-use Domain\Shared\Aggregate\AggregateRoot;
+use ValueObject\{Name}Id;
+use Enum\{Name}Status;
+use Event\{Events};
+use Aggregate\AggregateRoot;
 
 final class {Name} extends AggregateRoot
 {
@@ -59,9 +59,9 @@ final class {Name} extends AggregateRoot
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Aggregate;
+namespace Aggregate;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 abstract class AggregateRoot
 {
@@ -99,9 +99,9 @@ abstract class AggregateRoot
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Entity;
+namespace Entity;
 
-use Domain\{BoundedContext}\ValueObject\{ValueObjects};
+use ValueObject\{ValueObjects};
 
 final readonly class {ChildName}
 {
@@ -124,11 +124,11 @@ final readonly class {ChildName}
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\{BoundedContext}\Entity;
+namespace Tests\Unit\Entity;
 
-use Domain\{BoundedContext}\Entity\{Name};
-use Domain\{BoundedContext}\ValueObject\{Name}Id;
-use Domain\{BoundedContext}\Event\{Name}CreatedEvent;
+use Entity\{Name};
+use ValueObject\{Name}Id;
+use Event\{Name}CreatedEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -25,7 +25,7 @@ A Message Bus routes messages (Commands/Queries) to their handlers, providing de
 
 declare(strict_types=1);
 
-namespace Application\Shared\Bus;
+namespace Bus;
 
 interface CommandBusInterface
 {
@@ -45,7 +45,7 @@ interface CommandBusInterface
 
 declare(strict_types=1);
 
-namespace Application\Shared\Bus;
+namespace Bus;
 
 interface QueryBusInterface
 {
@@ -65,9 +65,9 @@ interface QueryBusInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus;
+namespace Bus;
 
-use Application\Shared\Bus\CommandBusInterface;
+use Bus\CommandBusInterface;
 use Psr\Container\ContainerInterface;
 
 final readonly class SimpleCommandBus implements CommandBusInterface
@@ -100,9 +100,9 @@ final readonly class SimpleCommandBus implements CommandBusInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus;
+namespace Bus;
 
-use Application\Shared\Bus\QueryBusInterface;
+use Bus\QueryBusInterface;
 use Psr\Container\ContainerInterface;
 
 final readonly class SimpleQueryBus implements QueryBusInterface
@@ -137,7 +137,7 @@ final readonly class SimpleQueryBus implements QueryBusInterface
 
 declare(strict_types=1);
 
-namespace Application\Shared\Bus;
+namespace Bus;
 
 interface MiddlewareInterface
 {
@@ -152,7 +152,7 @@ interface MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus;
+namespace Bus;
 
 final class MiddlewareCommandBus implements CommandBusInterface
 {
@@ -205,7 +205,7 @@ final class MiddlewareCommandBus implements CommandBusInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus\Middleware;
+namespace Middleware;
 
 final readonly class TransactionMiddleware implements MiddlewareInterface
 {
@@ -229,7 +229,7 @@ final readonly class TransactionMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus\Middleware;
+namespace Middleware;
 
 use Psr\Log\LoggerInterface;
 
@@ -280,7 +280,7 @@ final readonly class LoggingMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus\Middleware;
+namespace Middleware;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -310,7 +310,7 @@ final readonly class ValidationMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus\Middleware;
+namespace Middleware;
 
 final readonly class AuthorizationMiddleware implements MiddlewareInterface
 {
@@ -368,7 +368,7 @@ framework:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Bus;
+namespace Bus;
 
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
@@ -419,12 +419,12 @@ final readonly class SymfonyQueryBus implements QueryBusInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Controller;
 
-use Application\Shared\Bus\CommandBusInterface;
-use Application\Shared\Bus\QueryBusInterface;
-use Application\Order\Command\CreateOrderCommand;
-use Application\Order\Query\GetOrderDetailsQuery;
+use Bus\CommandBusInterface;
+use Bus\QueryBusInterface;
+use Command\CreateOrderCommand;
+use Query\GetOrderDetailsQuery;
 
 final readonly class OrderController
 {
@@ -491,7 +491,7 @@ final readonly class OrderController
 
 ```php
 // BAD - Domain depends on bus
-namespace Domain\Order\Entity;
+namespace Entity;
 
 class Order
 {
@@ -506,7 +506,7 @@ class Order
 }
 
 // GOOD - Domain raises events, Application handles them
-namespace Domain\Order\Entity;
+namespace Entity;
 
 class Order
 {

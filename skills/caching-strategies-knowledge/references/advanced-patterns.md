@@ -11,7 +11,7 @@ When a cache key expires, only one process recomputes while others wait:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class StampedeSafeCache
 {
@@ -63,7 +63,7 @@ Recompute before TTL expires with increasing probability as expiry approaches:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class XFetchCache
 {
@@ -112,7 +112,7 @@ Serve stale data while asynchronously refreshing:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 use Psr\SimpleCache\CacheInterface;
 
@@ -168,7 +168,7 @@ final readonly class StaleWhileRevalidateCache
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class AccessPatternWarmer
 {
@@ -221,7 +221,7 @@ final readonly class AccessPatternWarmer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class WriteThroughWithRetry
 {
@@ -248,7 +248,7 @@ final readonly class WriteThroughWithRetry
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class PubSubCacheInvalidator
 {
@@ -309,7 +309,7 @@ computed:{operation}:{params_hash}     → report:monthly:abc123
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class VersionedCacheKey
 {

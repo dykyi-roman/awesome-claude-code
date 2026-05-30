@@ -65,7 +65,7 @@ class Order extends Model
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
 // Domain Entity: no Eloquent, no framework
 final class Order
@@ -104,7 +104,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Eloquent\Model;
+namespace Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -134,10 +134,10 @@ final class OrderModel extends Model
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Repository;
+namespace Repository;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 
 interface OrderRepositoryInterface
 {
@@ -154,13 +154,13 @@ interface OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Eloquent;
+namespace Persistence\Eloquent;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Infrastructure\Persistence\Eloquent\Model\OrderModel;
-use App\Infrastructure\Persistence\Eloquent\Mapper\OrderMapper;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use Model\OrderModel;
+use Persistence\Eloquent\Mapper\OrderMapper;
 
 final readonly class EloquentOrderRepository implements OrderRepositoryInterface
 {
@@ -201,13 +201,13 @@ final readonly class EloquentOrderRepository implements OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Eloquent\Mapper;
+namespace Persistence\Eloquent\Mapper;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\ValueObject\CustomerId;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Order\ValueObject\OrderStatus;
-use App\Infrastructure\Persistence\Eloquent\Model\OrderModel;
+use Entity\Order;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
+use Model\OrderModel;
 
 final readonly class OrderMapper
 {
@@ -241,7 +241,7 @@ final readonly class OrderMapper
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Event;
+namespace Event;
 
 // Pure domain event: no Laravel dependency
 final readonly class OrderConfirmedEvent
@@ -260,9 +260,9 @@ final readonly class OrderConfirmedEvent
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
-use App\Domain\Shared\EventDispatcherInterface;
+use Shared\EventDispatcherInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 final readonly class LaravelEventDispatcher implements EventDispatcherInterface

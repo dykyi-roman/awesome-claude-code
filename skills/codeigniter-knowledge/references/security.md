@@ -42,7 +42,7 @@ Grep: "HasAccessTokens|Authenticatable" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Entity;
+namespace Entity;
 
 use CodeIgniter\Shield\Entities\UserIdentity; // VIOLATION: Shield in Domain
 
@@ -61,11 +61,11 @@ final class User extends UserIdentity
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Entity;
+namespace Entity;
 
-use App\Domain\User\ValueObject\UserId;
-use App\Domain\User\ValueObject\Email;
-use App\Domain\User\ValueObject\UserRole;
+use ValueObject\UserId;
+use ValueObject\Email;
+use ValueObject\UserRole;
 
 // Pure domain aggregate -- no framework imports
 final class User
@@ -92,10 +92,10 @@ final class User
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Security;
+namespace Security;
 
-use App\Domain\User\Entity\User;
-use App\Domain\User\Repository\UserRepositoryInterface;
+use Entity\User;
+use Repository\UserRepositoryInterface;
 use CodeIgniter\Shield\Models\UserModel as ShieldUserModel;
 
 // Infrastructure adapter -- maps Shield identity to Domain User
@@ -168,9 +168,9 @@ Grep: "auth\\(\\)" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
-use App\Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class OrderService
 {
@@ -192,10 +192,10 @@ final readonly class OrderService
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Specification;
+namespace Specification;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\User\Entity\User;
+use Entity\Order;
+use Entity\User;
 
 // Pure domain specification -- no framework dependency
 final readonly class CanCancelOrderSpecification
@@ -232,7 +232,7 @@ declare(strict_types=1);
 
 namespace App\Filters;
 
-use App\Domain\Order\Specification\CanCancelOrderSpecification;
+use Specification\CanCancelOrderSpecification;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -345,7 +345,7 @@ Grep: "use CodeIgniter\\Shield\\Authentication\\Passwords" --glob "**/Applicatio
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Entity;
+namespace Entity;
 
 use CodeIgniter\Shield\Authentication\Passwords; // VIOLATION: Shield in Domain
 
@@ -366,9 +366,9 @@ final class User
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Service;
+namespace Service;
 
-use App\Domain\User\ValueObject\HashedPassword;
+use ValueObject\HashedPassword;
 
 // Domain port -- pure PHP interface
 interface PasswordHasherInterface
@@ -383,7 +383,7 @@ interface PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace App\Domain\User\ValueObject;
+namespace ValueObject;
 
 // Immutable value object for hashed passwords
 final readonly class HashedPassword
@@ -399,10 +399,10 @@ final readonly class HashedPassword
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Security;
+namespace Security;
 
-use App\Domain\User\Service\PasswordHasherInterface;
-use App\Domain\User\ValueObject\HashedPassword;
+use Service\PasswordHasherInterface;
+use ValueObject\HashedPassword;
 use CodeIgniter\Shield\Authentication\Passwords;
 
 // Infrastructure adapter -- wraps Shield Passwords
@@ -433,11 +433,11 @@ final readonly class ShieldPasswordHasher implements PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace App\Application\User\UseCase;
+namespace UseCase;
 
-use App\Domain\User\Repository\UserRepositoryInterface;
-use App\Domain\User\Service\PasswordHasherInterface;
-use App\Domain\User\ValueObject\UserId;
+use Repository\UserRepositoryInterface;
+use Service\PasswordHasherInterface;
+use ValueObject\UserId;
 
 final readonly class ChangePasswordUseCase
 {
@@ -560,7 +560,7 @@ declare(strict_types=1);
 // app/Config/Events.php
 namespace Config;
 
-use App\Infrastructure\Security\LoginEventHandler;
+use Security\LoginEventHandler;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Shield\Events as ShieldEvents;
 
@@ -572,10 +572,10 @@ Events::on('login', [LoginEventHandler::class, 'handle']);
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Security;
+namespace Security;
 
-use App\Domain\User\Event\UserLoggedInEvent;
-use App\Shared\Domain\EventDispatcherInterface;
+use Event\UserLoggedInEvent;
+use Domain\EventDispatcherInterface;
 use CodeIgniter\Shield\Entities\User as ShieldUser;
 
 // Infrastructure listener -- translates Shield event to domain event

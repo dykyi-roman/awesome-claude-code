@@ -28,7 +28,7 @@ Creates Timeout pattern infrastructure for execution time limits with fallback s
 - Named presets (fast, standard, slow)
 
 ### TimeoutInterface
-- Domain layer contract
+- Abstraction for time-limited execution
 - execute(callable operation, TimeoutConfig config): mixed
 - Single responsibility: enforce time limit
 
@@ -66,18 +66,18 @@ Determine:
 
 ### Step 2: Generate Core Components
 
-1. **Domain Layer** (`src/Domain/Shared/Timeout/`)
+1. **Types & Contract**
    - `TimeoutConfig.php` — Configuration value object
    - `TimeoutInterface.php` — Execution contract
    - `TimeoutException.php` — Timeout exceeded exception
 
-2. **Infrastructure Layer** (`src/Infrastructure/Resilience/Timeout/`)
+2. **Executor Implementations**
    - `SignalTimeoutExecutor.php` — pcntl_alarm based implementation
    - `StreamTimeoutExecutor.php` — stream_set_timeout based
    - `NullTimeoutExecutor.php` — No-op for testing
    - `TimeoutExecutorFactory.php` — Environment-aware factory
 
-3. **Presentation Layer** (`src/Presentation/Middleware/`)
+3. **HTTP Integration**
    - `TimeoutMiddleware.php` — PSR-15 HTTP middleware
 
 4. **Tests**
@@ -89,12 +89,14 @@ Determine:
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Types | `src/Domain/Shared/Timeout/` |
-| Infrastructure | `src/Infrastructure/Resilience/Timeout/` |
-| Middleware | `src/Presentation/Middleware/` |
-| Unit Tests | `tests/Unit/{Layer}/{Path}/` |
+| Component group | Path |
+|-----------------|------|
+| Types & Contract | `src/{architecture-path}/Timeout/` |
+| Executor Implementations | `src/{architecture-path}/Timeout/` |
+| HTTP Middleware | `src/{architecture-path}/Middleware/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Timeout/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The types/contract group typically lives alongside resilience-related shared code; executor implementations live with other infrastructure adapters; the middleware lives with other HTTP middleware. Adjust to your project's layout.
 
 ---
 

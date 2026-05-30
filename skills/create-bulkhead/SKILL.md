@@ -38,7 +38,7 @@ Creates Bulkhead pattern infrastructure for resource isolation and fault contain
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Resilience/Bulkhead/`
+Place alongside other resilience infrastructure.
 
 1. `BulkheadInterface.php` — Common interface
 2. `BulkheadConfig.php` — Configuration value object
@@ -66,8 +66,10 @@ Choose based on use case:
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Resilience/Bulkhead/` |
-| Unit Tests | `tests/Unit/Infrastructure/Resilience/Bulkhead/` |
+| All Classes | `src/{architecture-path}/Bulkhead/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Bulkhead/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Bulkhead is a resilience pattern that typically lives alongside other resilience infrastructure (circuit breaker, retry, timeout). Adjust to your project's layout.
 
 ---
 

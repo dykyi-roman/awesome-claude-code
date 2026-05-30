@@ -20,10 +20,10 @@ Detailed patterns for Laravel routing, controllers, middleware, validation, and 
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Order;
+namespace Order;
 
-use App\Application\Order\UseCase\ConfirmOrderUseCase;
-use App\Domain\Order\ValueObject\OrderId;
+use UseCase\ConfirmOrderUseCase;
+use ValueObject\OrderId;
 use Illuminate\Http\JsonResponse;
 
 final readonly class ConfirmOrderController
@@ -45,9 +45,9 @@ final readonly class ConfirmOrderController
 
 ```php
 // routes/api.php
-use App\Http\Controllers\Order\CreateOrderController;
-use App\Http\Controllers\Order\ConfirmOrderController;
-use App\Http\Controllers\Order\GetOrderController;
+use Order\CreateOrderController;
+use Order\ConfirmOrderController;
+use Order\GetOrderController;
 
 Route::prefix('orders')->group(function () {
     Route::post('/', CreateOrderController::class);
@@ -78,7 +78,7 @@ Grep: "public function " --glob "**/Controllers/**/*.php" --output_mode count
 
 declare(strict_types=1);
 
-namespace App\Http\Middleware;
+namespace Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -102,7 +102,7 @@ final readonly class EnsureJsonResponse
 
 declare(strict_types=1);
 
-namespace App\Http\Middleware;
+namespace Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -136,11 +136,11 @@ final readonly class CorrelationIdMiddleware
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Order;
+namespace Order;
 
-use App\Application\Order\Command\UpdateOrderCommand;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Shared\ValueObject\Money;
+use Command\UpdateOrderCommand;
+use ValueObject\OrderId;
+use ValueObject\Money;
 use Illuminate\Foundation\Http\FormRequest;
 
 final class UpdateOrderRequest extends FormRequest
@@ -196,7 +196,7 @@ Glob: **/Requests/**/*Request.php
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Order;
+namespace Order;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -231,7 +231,7 @@ final class OrderResource extends JsonResource
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Order;
+namespace Order;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -287,10 +287,10 @@ Route::bind('order', function (string $value) {
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Policy;
+namespace Policy;
 
-use App\Domain\Order\Entity\Order;
-use App\Infrastructure\Auth\UserModel;
+use Entity\Order;
+use Auth\UserModel;
 
 final class OrderPolicy
 {

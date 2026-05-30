@@ -2,21 +2,21 @@
 
 ## PayPal Payment Gateway Adapter
 
-**File:** `src/Infrastructure/Payment/Adapter/PayPalPaymentGatewayAdapter.php`
+**File:** `src/{architecture-path}/Adapter/PayPalPaymentGatewayAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\Adapter;
+namespace Adapter;
 
-use Domain\Payment\Exception\PaymentException;
-use Domain\Payment\PaymentGatewayInterface;
-use Domain\Payment\PaymentStatus;
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use Exception\PaymentException;
+use Payment\PaymentGatewayInterface;
+use Payment\PaymentStatus;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
@@ -110,20 +110,20 @@ final readonly class PayPalPaymentGatewayAdapter implements PaymentGatewayInterf
 
 ## Legacy User Repository Adapter
 
-**File:** `src/Infrastructure/User/Adapter/LegacyUserRepositoryAdapter.php`
+**File:** `src/{architecture-path}/Adapter/LegacyUserRepositoryAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\User\Adapter;
+namespace Adapter;
 
-use Domain\User\Entity\User;
-use Domain\User\Exception\UserNotFoundException;
-use Domain\User\Repository\UserRepositoryInterface;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\UserId;
+use Entity\User;
+use Exception\UserNotFoundException;
+use Repository\UserRepositoryInterface;
+use ValueObject\Email;
+use ValueObject\UserId;
 use Legacy\Database\UserModel;
 
 final readonly class LegacyUserRepositoryAdapter implements UserRepositoryInterface
@@ -190,19 +190,19 @@ final readonly class LegacyUserRepositoryAdapter implements UserRepositoryInterf
 
 ## Slack Messenger Adapter
 
-**File:** `src/Infrastructure/Notification/Adapter/SlackMessengerAdapter.php`
+**File:** `src/{architecture-path}/Adapter/SlackMessengerAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Notification\Adapter;
+namespace Adapter;
 
-use Domain\Notification\Exception\NotificationException;
-use Domain\Notification\MessengerInterface;
-use Domain\Notification\ValueObject\Channel;
-use Domain\Notification\ValueObject\Message;
+use Exception\NotificationException;
+use Notification\MessengerInterface;
+use ValueObject\Channel;
+use ValueObject\Message;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -269,17 +269,17 @@ final readonly class SlackMessengerAdapter implements MessengerInterface
 
 ## Redis Cache Adapter
 
-**File:** `src/Infrastructure/Cache/Adapter/RedisCacheAdapter.php`
+**File:** `src/{architecture-path}/Adapter/RedisCacheAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache\Adapter;
+namespace Adapter;
 
-use Domain\Cache\CacheInterface;
-use Domain\Cache\Exception\CacheException;
+use Cache\CacheInterface;
+use Exception\CacheException;
 use Redis;
 
 final readonly class RedisCacheAdapter implements CacheInterface
@@ -336,22 +336,22 @@ final readonly class RedisCacheAdapter implements CacheInterface
 
 ### StripePaymentGatewayAdapterTest
 
-**File:** `tests/Unit/Infrastructure/Payment/Adapter/StripePaymentGatewayAdapterTest.php`
+**File:** `tests/Unit/{architecture-path}/Adapter/StripePaymentGatewayAdapterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Payment\Adapter;
+namespace Tests\Unit\Adapter;
 
-use Domain\Payment\Exception\PaymentException;
-use Domain\Payment\PaymentStatus;
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\Currency;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
-use Infrastructure\Payment\Adapter\StripePaymentGatewayAdapter;
+use Exception\PaymentException;
+use Payment\PaymentStatus;
+use ValueObject\Amount;
+use ValueObject\Currency;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
+use Adapter\StripePaymentGatewayAdapter;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -470,20 +470,20 @@ final class StripePaymentGatewayAdapterTest extends TestCase
 
 ### LegacyUserRepositoryAdapterTest
 
-**File:** `tests/Unit/Infrastructure/User/Adapter/LegacyUserRepositoryAdapterTest.php`
+**File:** `tests/Unit/{architecture-path}/Adapter/LegacyUserRepositoryAdapterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\User\Adapter;
+namespace Tests\Unit\Adapter;
 
-use Domain\User\Entity\User;
-use Domain\User\Exception\UserNotFoundException;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\UserId;
-use Infrastructure\User\Adapter\LegacyUserRepositoryAdapter;
+use Entity\User;
+use Exception\UserNotFoundException;
+use ValueObject\Email;
+use ValueObject\UserId;
+use Adapter\LegacyUserRepositoryAdapter;
 use Legacy\Database\UserModel;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;

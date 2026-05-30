@@ -319,13 +319,10 @@ Grep: "new GenericResponder|use.*GenericResponder" --glob "**/*Action.php"
 
 ### 8. HTTP in Domain
 
-**Description:** Domain/Application layer has HTTP dependencies.
+**Description:** Domain layer has HTTP dependencies.
 
 **Detection:**
 ```bash
-# HTTP in Application layer
-Grep: "use Psr\\\\Http|use Symfony\\\\.*Request|use Symfony\\\\.*Response" --glob "**/Application/**/*.php"
-
 # HTTP in Domain layer
 Grep: "use Psr\\\\Http|Response|Request" --glob "**/Domain/**/*.php"
 ```
@@ -347,7 +344,7 @@ Grep: "use Psr\\\\Http|Response|Request" --glob "**/Domain/**/*.php"
 | Direct Domain Serialization | Warning | Entity in json_encode |
 | Missing Error Mapping | Warning | Generic 400/500 responses |
 | Shared Responder | Info | GenericResponder usage |
-| HTTP in Domain | Critical | PSR\\Http in Application/Domain |
+| HTTP in Domain | Critical | `Psr\Http` in `**/Domain/**` |
 
 ## Quick Fix Commands
 

@@ -15,9 +15,9 @@ Most common approach. A background process periodically queries the outbox table
 
 declare(strict_types=1);
 
-namespace Infrastructure\Outbox;
+namespace Outbox;
 
-use Application\Shared\Outbox\OutboxPublisher;
+use Outbox\OutboxPublisher;
 use Psr\Log\LoggerInterface;
 
 final readonly class OutboxPollingWorker
@@ -102,7 +102,7 @@ Uses PostgreSQL LISTEN/NOTIFY for immediate notification.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Outbox;
+namespace Outbox;
 
 final readonly class PostgresNotifyOutboxTrigger
 {
@@ -131,7 +131,7 @@ final readonly class PostgresNotifyOutboxTrigger
 
 declare(strict_types=1);
 
-namespace Infrastructure\Outbox;
+namespace Outbox;
 
 final readonly class PostgresListenWorker
 {
@@ -166,7 +166,7 @@ Events for the same aggregate must be processed in order.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Outbox;
+namespace Outbox;
 
 final readonly class OrderedOutboxProcessor
 {
@@ -218,7 +218,7 @@ For high-throughput scenarios, partition by aggregate ID.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Outbox;
+namespace Outbox;
 
 final readonly class PartitionedOutboxWorker
 {
@@ -299,7 +299,7 @@ WHERE processed_at < NOW() - INTERVAL '7 days';
 
 declare(strict_types=1);
 
-namespace Infrastructure\Outbox\Monitoring;
+namespace Monitoring;
 
 final readonly class OutboxMetrics
 {

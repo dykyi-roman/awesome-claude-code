@@ -53,7 +53,7 @@ $cache->set('config:app', $data);
 
 declare(strict_types=1);
 
-namespace Domain\Order\Service;
+namespace Service;
 
 use Psr\SimpleCache\CacheInterface; // VIOLATION: PSR package in Domain
 
@@ -77,10 +77,10 @@ final readonly class OrderService
 
 declare(strict_types=1);
 
-namespace Domain\Order\Port;
+namespace Port;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 
 interface OrderCacheInterface
 {
@@ -99,11 +99,11 @@ interface OrderCacheInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Port\OrderCacheInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Port\OrderCacheInterface;
+use ValueObject\OrderId;
 use Psr\SimpleCache\CacheInterface;
 
 final readonly class PsrOrderCache implements OrderCacheInterface
@@ -147,8 +147,8 @@ declare(strict_types=1);
 
 // config/common/di/cache.php
 
-use Domain\Order\Port\OrderCacheInterface;
-use Infrastructure\Cache\PsrOrderCache;
+use Port\OrderCacheInterface;
+use Cache\PsrOrderCache;
 use Psr\SimpleCache\CacheInterface;
 use Yiisoft\Cache\Cache;
 use Yiisoft\Cache\File\FileCache;
@@ -248,7 +248,7 @@ return [
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Yiisoft\RateLimiter\Policy\LimitCallback;
@@ -283,7 +283,7 @@ final readonly class UserRateLimitPolicy
 
 declare(strict_types=1);
 
-namespace Domain\Payment\Service;
+namespace Service;
 
 use GuzzleHttp\Client; // VIOLATION: infrastructure dependency in Domain
 
@@ -302,10 +302,10 @@ final readonly class PaymentService
 
 declare(strict_types=1);
 
-namespace Domain\Payment\Port;
+namespace Port;
 
-use Domain\Payment\ValueObject\Money;
-use Domain\Payment\ValueObject\PaymentResult;
+use ValueObject\Money;
+use ValueObject\PaymentResult;
 
 interface PaymentGatewayClientInterface
 {
@@ -320,11 +320,11 @@ interface PaymentGatewayClientInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Domain\Payment\Port\PaymentGatewayClientInterface;
-use Domain\Payment\ValueObject\Money;
-use Domain\Payment\ValueObject\PaymentResult;
+use Port\PaymentGatewayClientInterface;
+use ValueObject\Money;
+use ValueObject\PaymentResult;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -378,9 +378,9 @@ declare(strict_types=1);
 
 // config/common/di/http-client.php
 
-use Domain\Payment\Port\PaymentGatewayClientInterface;
+use Port\PaymentGatewayClientInterface;
 use GuzzleHttp\Client;
-use Infrastructure\Http\GuzzlePaymentGatewayClient;
+use Http\GuzzlePaymentGatewayClient;
 use Psr\Http\Client\ClientInterface;
 
 return [
@@ -421,7 +421,7 @@ return [
 
 declare(strict_types=1);
 
-namespace Domain\Order\Service;
+namespace Service;
 
 use Yiisoft\Mailer\MailerInterface; // VIOLATION: infrastructure dependency in Domain
 
@@ -440,10 +440,10 @@ final readonly class OrderNotificationService
 
 declare(strict_types=1);
 
-namespace Domain\Notification\Port;
+namespace Port;
 
-use Domain\Notification\ValueObject\EmailAddress;
-use Domain\Notification\ValueObject\NotificationMessage;
+use ValueObject\EmailAddress;
+use ValueObject\NotificationMessage;
 
 interface NotificationSenderInterface
 {
@@ -458,11 +458,11 @@ interface NotificationSenderInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Mail;
+namespace Mail;
 
-use Domain\Notification\Port\NotificationSenderInterface;
-use Domain\Notification\ValueObject\EmailAddress;
-use Domain\Notification\ValueObject\NotificationMessage;
+use Port\NotificationSenderInterface;
+use ValueObject\EmailAddress;
+use ValueObject\NotificationMessage;
 use Yiisoft\Mailer\MailerInterface;
 
 final readonly class YiiMailerAdapter implements NotificationSenderInterface
@@ -496,8 +496,8 @@ declare(strict_types=1);
 
 // config/common/di/mailer.php
 
-use Domain\Notification\Port\NotificationSenderInterface;
-use Infrastructure\Mail\YiiMailerAdapter;
+use Port\NotificationSenderInterface;
+use Mail\YiiMailerAdapter;
 use Yiisoft\Mailer\MailerInterface;
 use Yiisoft\Mailer\Symfony\Mailer;
 

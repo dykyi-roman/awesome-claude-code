@@ -42,26 +42,26 @@ Creates Transactional Outbox pattern infrastructure for reliable event publishin
 
 ## Generation Process
 
-### Step 1: Generate Domain Layer
+### Step 1: Generate Types
 
-**Path:** `src/Domain/Shared/Outbox/`
+Pure types — the message entity and the repository contract.
 
 1. `OutboxMessage.php` — Immutable message entity
 2. `OutboxRepositoryInterface.php` — Repository contract
 
-### Step 2: Generate Application Layer
+### Step 2: Generate Coordination
 
-**Path:** `src/Application/Shared/`
+Publisher abstraction, processing result types, processor service.
 
-1. `Port/Output/MessagePublisherInterface.php` — Publisher port
-2. `Port/Output/DeadLetterRepositoryInterface.php` — Dead letter port
+1. `Port/Output/MessagePublisherInterface.php` — Publisher abstraction
+2. `Port/Output/DeadLetterRepositoryInterface.php` — Dead-letter store abstraction
 3. `Outbox/ProcessingResult.php` — Result value object
 4. `Outbox/MessageResult.php` — Result enum
 5. `Outbox/OutboxProcessor.php` — Processing service
 
-### Step 3: Generate Infrastructure Layer
+### Step 3: Generate Persistence + Console
 
-**Path:** `src/Infrastructure/`
+Concrete repository implementation + the CLI worker that drains the outbox.
 
 1. `Persistence/Doctrine/Repository/DoctrineOutboxRepository.php`
 2. `Console/OutboxProcessCommand.php`
@@ -69,8 +69,10 @@ Creates Transactional Outbox pattern infrastructure for reliable event publishin
 
 ### Step 4: Generate Tests
 
-1. `tests/Unit/Domain/Shared/Outbox/OutboxMessageTest.php`
-2. `tests/Unit/Application/Shared/Outbox/OutboxProcessorTest.php`
+Mirror the production-code paths under `tests/Unit/`.
+
+1. `OutboxMessageTest.php`
+2. `OutboxProcessorTest.php`
 
 ---
 
@@ -109,14 +111,16 @@ Include metadata for tracing:
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Entity | `src/Domain/Shared/Outbox/` |
-| Domain Interface | `src/Domain/Shared/Outbox/` |
-| Application Service | `src/Application/Shared/Outbox/` |
-| Application Port | `src/Application/Shared/Port/Output/` |
-| Infrastructure Repo | `src/Infrastructure/Persistence/Doctrine/Repository/` |
-| Infrastructure Console | `src/Infrastructure/Console/` |
+| Component group | Path |
+|-----------------|------|
+| Message entity | `src/{architecture-path}/Outbox/OutboxMessage.php` |
+| Repository abstraction | `src/{architecture-path}/Outbox/OutboxRepositoryInterface.php` |
+| Processor + coordination | `src/{architecture-path}/Outbox/` |
+| Publisher abstraction | `src/{architecture-path}/Port/Output/` |
+| Doctrine implementation | `src/{architecture-path}/Persistence/Doctrine/Repository/DoctrineOutboxRepository.php` |
+| Console worker | `src/{architecture-path}/Console/OutboxProcessCommand.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The outbox message + repository abstraction typically live alongside domain code; the processor lives at the coordination layer; the Doctrine implementation lives with other persistence adapters; the console worker lives with other CLI commands. Adjust to your project's layout.
 | Unit Tests | `tests/Unit/{Layer}/{Path}/` |
 
 ---
@@ -126,7 +130,7 @@ Include metadata for tracing:
 | Component | Pattern | Example |
 |-----------|---------|---------|
 | Entity | `{Name}` | `OutboxMessage` |
-| Repository Interface | `{Name}RepositoryInterface` | `OutboxRepositoryInterface` |
+| Repository (abstraction) | `{Name}RepositoryInterface` | `OutboxRepositoryInterface` |
 | Repository Impl | `Doctrine{Name}Repository` | `DoctrineOutboxRepository` |
 | Service | `{Name}Processor` | `OutboxProcessor` |
 | Command | `{Name}Command` | `OutboxProcessCommand` |

@@ -1,17 +1,17 @@
 # Outbox Pattern Templates
 
-## Domain Layer Components
+## Types & Repository Abstraction
 
 ### OutboxMessage Entity
 
-**File:** `src/Domain/Shared/Outbox/OutboxMessage.php`
+**File:** `src/{architecture-path}/Outbox/OutboxMessage.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Outbox;
+namespace Outbox;
 
 final readonly class OutboxMessage
 {
@@ -108,14 +108,14 @@ final readonly class OutboxMessage
 
 ### OutboxRepositoryInterface
 
-**File:** `src/Domain/Shared/Outbox/OutboxRepositoryInterface.php`
+**File:** `src/{architecture-path}/Outbox/OutboxRepositoryInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Outbox;
+namespace Outbox;
 
 interface OutboxRepositoryInterface
 {
@@ -143,18 +143,18 @@ interface OutboxRepositoryInterface
 
 ---
 
-## Application Layer Components
+## Coordination
 
 ### MessagePublisherInterface
 
-**File:** `src/Application/Shared/Port/Output/MessagePublisherInterface.php`
+**File:** `src/{architecture-path}/Port/Output/MessagePublisherInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Port\Output;
+namespace Port\Output;
 
 interface MessagePublisherInterface
 {
@@ -170,16 +170,16 @@ interface MessagePublisherInterface
 
 ### DeadLetterRepositoryInterface
 
-**File:** `src/Application/Shared/Port/Output/DeadLetterRepositoryInterface.php`
+**File:** `src/{architecture-path}/Port/Output/DeadLetterRepositoryInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Port\Output;
+namespace Port\Output;
 
-use Domain\Shared\Outbox\OutboxMessage;
+use Outbox\OutboxMessage;
 
 interface DeadLetterRepositoryInterface
 {
@@ -191,14 +191,14 @@ interface DeadLetterRepositoryInterface
 
 ### ProcessingResult
 
-**File:** `src/Application/Shared/Outbox/ProcessingResult.php`
+**File:** `src/{architecture-path}/Outbox/ProcessingResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
 final readonly class ProcessingResult
 {
@@ -224,14 +224,14 @@ final readonly class ProcessingResult
 
 ### MessageResult Enum
 
-**File:** `src/Application/Shared/Outbox/MessageResult.php`
+**File:** `src/{architecture-path}/Outbox/MessageResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
 enum MessageResult
 {
@@ -245,19 +245,19 @@ enum MessageResult
 
 ### OutboxProcessor
 
-**File:** `src/Application/Shared/Outbox/OutboxProcessor.php`
+**File:** `src/{architecture-path}/Outbox/OutboxProcessor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
-use Application\Shared\Port\Output\DeadLetterRepositoryInterface;
-use Application\Shared\Port\Output\MessagePublisherInterface;
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Port\Output\DeadLetterRepositoryInterface;
+use Port\Output\MessagePublisherInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class OutboxProcessor
@@ -330,22 +330,22 @@ final readonly class OutboxProcessor
 
 ---
 
-## Infrastructure Layer
+## Persistence
 
 ### DoctrineOutboxRepository
 
-**File:** `src/Infrastructure/Persistence/Doctrine/Repository/DoctrineOutboxRepository.php`
+**File:** `src/{architecture-path}/Persistence/Doctrine/Repository/DoctrineOutboxRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
 use Doctrine\DBAL\Connection;
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 
 final readonly class DoctrineOutboxRepository implements OutboxRepositoryInterface
 {
@@ -461,16 +461,16 @@ final readonly class DoctrineOutboxRepository implements OutboxRepositoryInterfa
 
 ### Console Command
 
-**File:** `src/Infrastructure/Console/OutboxProcessCommand.php`
+**File:** `src/{architecture-path}/Console/OutboxProcessCommand.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Application\Shared\Outbox\OutboxProcessor;
+use Outbox\OutboxProcessor;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

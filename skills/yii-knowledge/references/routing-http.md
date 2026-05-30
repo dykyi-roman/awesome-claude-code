@@ -81,10 +81,10 @@ return [
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
-use Application\Order\UseCase\CreateOrderUseCase;
-use Application\Order\DTO\CreateOrderDTO;
+use UseCase\CreateOrderUseCase;
+use DTO\CreateOrderDTO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Yiisoft\Http\Status;
@@ -126,7 +126,7 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -231,7 +231,7 @@ final readonly class OrderAction
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -262,7 +262,7 @@ final readonly class JsonContentTypeMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -324,7 +324,7 @@ final readonly class BearerAuthMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\Length;

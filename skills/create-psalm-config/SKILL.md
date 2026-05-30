@@ -1,6 +1,6 @@
 ---
 name: create-psalm-config
-description: Generates Psalm configurations for PHP projects. Creates psalm.xml with appropriate error level, plugins, taint analysis, and DDD-specific settings.
+description: Generates Psalm configurations for PHP projects. Creates psalm.xml with appropriate error level, plugins, taint analysis, and architecture-specific settings (DDD-Layered, Clean, Hexagonal, Layered, Package-by-Feature).
 ---
 
 # Psalm Configuration Generator

@@ -45,7 +45,7 @@ Creates database connection proxy infrastructure for read/write splitting and re
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Database/`
+Place alongside other persistence adapters / database integration code.
 
 1. `ReadWriteConnectionInterface.php` — Connection contract
 2. `ConnectionConfig.php` — Configuration value object
@@ -53,13 +53,13 @@ Creates database connection proxy infrastructure for read/write splitting and re
 
 ### Step 2: Generate Proxy
 
-**Path:** `src/Infrastructure/Database/`
+Co-located with the core components in the same `Database/` folder.
 
 1. `ReadWriteConnectionProxy.php` — Query routing proxy
 
 ### Step 3: Generate Health Checker
 
-**Path:** `src/Infrastructure/Database/`
+Co-located with the proxy.
 
 1. `ReplicaHealthChecker.php` — Replica availability monitor
 
@@ -74,8 +74,10 @@ Creates database connection proxy infrastructure for read/write splitting and re
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Database/` |
-| Unit Tests | `tests/Unit/Infrastructure/Database/` |
+| All Classes | `src/{architecture-path}/Database/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Database/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The read/write proxy typically lives with other persistence / database integration code. Adjust to your project's layout.
 
 ---
 

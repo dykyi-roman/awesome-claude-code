@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -43,7 +43,7 @@ final readonly class JsonBodyParserMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -103,7 +103,7 @@ final readonly class RateLimitMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -158,7 +158,7 @@ final readonly class ContentNegotiationMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -209,7 +209,7 @@ final class SessionMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -251,7 +251,7 @@ $apiOnlyAuth = new ConditionalMiddleware(
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

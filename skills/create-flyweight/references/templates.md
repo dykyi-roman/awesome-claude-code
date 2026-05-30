@@ -2,14 +2,14 @@
 
 ## Flyweight Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}Interface.php`
+**File:** `src/{architecture-path}/{Name}Interface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}Interface
 {
@@ -21,14 +21,14 @@ interface {Name}Interface
 
 ## ConcreteFlyweight
 
-**File:** `src/Domain/{BoundedContext}/{Name}Flyweight.php`
+**File:** `src/{architecture-path}/{Name}Flyweight.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 final readonly class {Name}Flyweight implements {Name}Interface
 {
@@ -52,17 +52,17 @@ final readonly class {Name}Flyweight implements {Name}Interface
 
 ## FlyweightFactory
 
-**File:** `src/Domain/{BoundedContext}/Factory/{Name}FlyweightFactory.php`
+**File:** `src/{architecture-path}/Factory/{Name}FlyweightFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Factory;
+namespace Factory;
 
-use Domain\{BoundedContext}\{Name}Flyweight;
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\4;
+use {BoundedContext}\4;
 
 final class {Name}FlyweightFactory
 {
@@ -93,14 +93,14 @@ final class {Name}FlyweightFactory
 
 ## Currency Flyweight Example
 
-**File:** `src/Domain/Money/CurrencyInterface.php`
+**File:** `src/{architecture-path}/CurrencyInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Money;
+namespace Money;
 
 interface CurrencyInterface
 {
@@ -112,14 +112,14 @@ interface CurrencyInterface
 }
 ```
 
-**File:** `src/Domain/Money/CurrencyFlyweight.php`
+**File:** `src/{architecture-path}/CurrencyFlyweight.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Money;
+namespace Money;
 
 final readonly class CurrencyFlyweight implements CurrencyInterface
 {
@@ -151,17 +151,17 @@ final readonly class CurrencyFlyweight implements CurrencyInterface
 }
 ```
 
-**File:** `src/Domain/Money/Factory/CurrencyFlyweightFactory.php`
+**File:** `src/{architecture-path}/Factory/CurrencyFlyweightFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Money\Factory;
+namespace Factory;
 
-use Domain\Money\CurrencyFlyweight;
-use Domain\Money\CurrencyInterface;
+use Money\4;
+use Money\4;
 
 final class CurrencyFlyweightFactory
 {

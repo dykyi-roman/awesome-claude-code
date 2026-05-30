@@ -129,7 +129,7 @@ Events::on('order.cancellation_requested', static function (object $event): bool
 
 declare(strict_types=1);
 
-namespace App\Domain\Shared;
+namespace Shared;
 
 interface EventDispatcherInterface
 {
@@ -144,9 +144,9 @@ interface EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Event;
+namespace Event;
 
-use App\Domain\Order\ValueObject\OrderId;
+use ValueObject\OrderId;
 
 final readonly class OrderConfirmed
 {
@@ -165,7 +165,7 @@ final readonly class OrderConfirmed
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
 use CodeIgniter\Events\Events; // VIOLATION: CI4 in Domain
 
@@ -185,7 +185,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
 final class Order
 {
@@ -213,9 +213,9 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
-use App\Domain\Shared\EventDispatcherInterface;
+use Shared\EventDispatcherInterface;
 use CodeIgniter\Events\Events;
 
 final readonly class CIEventDispatcher implements EventDispatcherInterface
@@ -244,10 +244,10 @@ final readonly class CIEventDispatcher implements EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Application\Order;
+namespace Order;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Shared\EventDispatcherInterface;
+use Repository\OrderRepositoryInterface;
+use Shared\EventDispatcherInterface;
 
 final readonly class ConfirmOrderUseCase
 {
@@ -341,7 +341,7 @@ final class OrderConfirmationTest extends TestCase
 
 declare(strict_types=1);
 
-use App\Domain\Shared\EventDispatcherInterface;
+use Shared\EventDispatcherInterface;
 
 final class InMemoryEventDispatcher implements EventDispatcherInterface
 {

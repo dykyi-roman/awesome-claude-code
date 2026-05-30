@@ -21,7 +21,7 @@ Grep: "->call\(|->request\(" --glob "**/EventHandler/**/*.php"
 
 **Bad:**
 ```php
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class NotifyWarehouseOnOrderPlaced
 {
@@ -41,7 +41,7 @@ final readonly class NotifyWarehouseOnOrderPlaced
 
 **Good:**
 ```php
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class NotifyWarehouseOnOrderPlaced
 {
@@ -74,7 +74,7 @@ Grep: "public function __invoke|public function handle" --glob "**/EventHandler/
 
 **Bad:**
 ```php
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class ProcessPaymentOnOrderPlaced
 {
@@ -92,7 +92,7 @@ final readonly class ProcessPaymentOnOrderPlaced
 
 **Good:**
 ```php
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
 final readonly class ProcessPaymentOnOrderPlaced
 {
@@ -140,7 +140,7 @@ Grep: "class.*Event" --glob "**/Event/**/*.php" -A 20 | grep "public function __
 
 **Bad:**
 ```php
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderPlaced implements DomainEvent
 {
@@ -150,7 +150,7 @@ final readonly class OrderPlaced implements DomainEvent
 }
 
 // Consumer must fetch data
-namespace Application\Notification\EventHandler;
+namespace EventHandler;
 
 final readonly class SendOrderConfirmation
 {
@@ -170,7 +170,7 @@ final readonly class SendOrderConfirmation
 
 **Good:**
 ```php
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderPlaced implements DomainEvent
 {
@@ -186,7 +186,7 @@ final readonly class OrderPlaced implements DomainEvent
 }
 
 // Consumer is self-sufficient
-namespace Application\Notification\EventHandler;
+namespace EventHandler;
 
 final readonly class SendOrderConfirmation
 {
@@ -330,7 +330,7 @@ Grep: "->publish\(" --glob "**/Controller/**/*.php"
 
 **Bad:**
 ```php
-namespace Presentation\Api\Order;
+namespace Api\Order;
 
 final readonly class OrderController
 {
@@ -351,7 +351,7 @@ final readonly class OrderController
 
 **Good:**
 ```php
-namespace Presentation\Api\Order;
+namespace Api\Order;
 
 final readonly class OrderController
 {
@@ -367,7 +367,7 @@ final readonly class OrderController
 }
 
 // Events created in domain
-namespace Domain\Order\Entity;
+namespace Entity;
 
 final class Order
 {

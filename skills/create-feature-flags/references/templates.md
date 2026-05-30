@@ -4,11 +4,11 @@
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/InMemoryFeatureFlagService.php
+// src/{architecture-path}/FeatureFlag/InMemoryFeatureFlagService.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 final class InMemoryFeatureFlagService implements FeatureFlagServiceInterface
 {
@@ -147,11 +147,11 @@ features:
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/YamlFeatureConfigLoader.php
+// src/{architecture-path}/FeatureFlag/YamlFeatureConfigLoader.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -185,11 +185,11 @@ final class YamlFeatureConfigLoader
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/Attribute/RequiresFeature.php
+// src/{architecture-path}/FeatureFlag/Attribute/RequiresFeature.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag\Attribute;
+namespace FeatureFlag\Attribute;
 
 use Attribute;
 
@@ -207,13 +207,13 @@ final readonly class RequiresFeature
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/Middleware/FeatureFlagMiddleware.php
+// src/{architecture-path}/FeatureFlag/Middleware/FeatureFlagMiddleware.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag\Middleware;
+namespace Middleware;
 
-use App\Infrastructure\FeatureFlag\FeatureFlagServiceInterface;
+use FeatureFlag\FeatureFlagServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -262,13 +262,13 @@ final readonly class FeatureFlagMiddleware implements MiddlewareInterface
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/Twig/FeatureFlagExtension.php
+// src/{architecture-path}/FeatureFlag/Twig/FeatureFlagExtension.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag\Twig;
+namespace FeatureFlag\Twig;
 
-use App\Infrastructure\FeatureFlag\FeatureFlagServiceInterface;
+use FeatureFlag\FeatureFlagServiceInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -365,11 +365,11 @@ update:feature:
 
 ```php
 <?php
-// src/Infrastructure/FeatureFlag/RedisFeatureFlagService.php
+// src/{architecture-path}/FeatureFlag/RedisFeatureFlagService.php
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\FeatureFlag;
+namespace FeatureFlag;
 
 use Redis;
 

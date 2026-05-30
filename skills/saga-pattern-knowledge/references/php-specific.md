@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 enum SagaState: string
 {
@@ -51,7 +51,7 @@ enum SagaState: string
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final readonly class StepResult
 {
@@ -105,7 +105,7 @@ final readonly class StepResult
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 interface SagaStepInterface
 {
@@ -128,7 +128,7 @@ interface SagaStepInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final class SagaContext implements \JsonSerializable
 {
@@ -204,7 +204,7 @@ final class SagaContext implements \JsonSerializable
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Saga;
+namespace Saga;
 
 final readonly class SagaResult
 {
@@ -254,13 +254,13 @@ final readonly class SagaResult
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaResult;
-use Domain\Shared\Saga\SagaState;
-use Domain\Shared\Saga\SagaStepInterface;
-use Domain\Shared\Saga\StepResult;
+use Saga\SagaContext;
+use Saga\SagaResult;
+use Saga\SagaState;
+use Saga\SagaStepInterface;
+use Saga\StepResult;
 use Psr\Log\LoggerInterface;
 
 final class SagaOrchestrator
@@ -425,10 +425,10 @@ final class SagaOrchestrator
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaState;
+use Saga\SagaContext;
+use Saga\SagaState;
 
 interface SagaPersistenceInterface
 {
@@ -456,11 +456,11 @@ interface SagaPersistenceInterface
 
 declare(strict_types=1);
 
-namespace Application\Shared\Saga;
+namespace Saga;
 
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaStepInterface;
-use Domain\Shared\Saga\StepResult;
+use Saga\SagaContext;
+use Saga\SagaStepInterface;
+use Saga\StepResult;
 
 abstract readonly class AbstractSagaStep implements SagaStepInterface
 {
@@ -492,11 +492,11 @@ abstract readonly class AbstractSagaStep implements SagaStepInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
-use Application\Shared\Saga\AbstractSagaStep;
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\StepResult;
+use Saga\AbstractSagaStep;
+use Saga\SagaContext;
+use Saga\StepResult;
 
 final readonly class ReserveInventoryStep extends AbstractSagaStep
 {
@@ -557,11 +557,11 @@ final readonly class ReserveInventoryStep extends AbstractSagaStep
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga\Step;
+namespace Saga\Step;
 
-use Application\Shared\Saga\AbstractSagaStep;
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\StepResult;
+use Saga\AbstractSagaStep;
+use Saga\SagaContext;
+use Saga\StepResult;
 
 final readonly class ChargePaymentStep extends AbstractSagaStep
 {
@@ -631,14 +631,14 @@ final readonly class ChargePaymentStep extends AbstractSagaStep
 
 declare(strict_types=1);
 
-namespace Application\Order\Saga;
+namespace Saga;
 
-use Application\Order\Saga\Step\ChargePaymentStep;
-use Application\Order\Saga\Step\CreateShipmentStep;
-use Application\Order\Saga\Step\ReserveInventoryStep;
-use Application\Shared\Saga\SagaOrchestrator;
-use Application\Shared\Saga\SagaPersistenceInterface;
-use Domain\Shared\Saga\SagaContext;
+use Saga\Step\ChargePaymentStep;
+use Saga\Step\CreateShipmentStep;
+use Saga\Step\ReserveInventoryStep;
+use Saga\SagaOrchestrator;
+use Saga\SagaPersistenceInterface;
+use Saga\SagaContext;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -687,13 +687,13 @@ final readonly class OrderSagaFactory
 
 declare(strict_types=1);
 
-namespace Infrastructure\Saga;
+namespace Saga;
 
-use Application\Shared\Saga\SagaPersistenceInterface;
-use Application\Shared\Saga\SagaRecord;
+use Saga\SagaPersistenceInterface;
+use Saga\SagaRecord;
 use Doctrine\DBAL\Connection;
-use Domain\Shared\Saga\SagaContext;
-use Domain\Shared\Saga\SagaState;
+use Saga\SagaContext;
+use Saga\SagaState;
 
 final readonly class DoctrineSagaPersistence implements SagaPersistenceInterface
 {
@@ -791,8 +791,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Order\Saga;
 
-use Application\Order\Saga\Step\ReserveInventoryStep;
-use Domain\Shared\Saga\SagaContext;
+use Saga\Step\ReserveInventoryStep;
+use Saga\SagaContext;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

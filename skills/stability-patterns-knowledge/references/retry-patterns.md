@@ -43,7 +43,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 enum JitterType: string
 {
@@ -83,7 +83,7 @@ final readonly class JitterCalculator
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 use Psr\Log\LoggerInterface;
 

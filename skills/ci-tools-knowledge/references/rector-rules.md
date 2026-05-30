@@ -1,4 +1,4 @@
-# Rector Rules for DDD & Clean Architecture
+# Rector Rules for DDD
 
 Rector configuration, PHP upgrade sets, dead code removal, type declaration rules, and custom DDD-specific rules for PHP 8.4 projects.
 

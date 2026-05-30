@@ -2,19 +2,19 @@
 
 ## Order Event Store Usage
 
-**File:** `src/Infrastructure/Order/EventStore/OrderEventSourcedRepository.php`
+**File:** `src/{architecture-path}/EventStore/OrderEventSourcedRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\EventStore;
+namespace EventStore;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\EventStore\EventStoreInterface;
-use Domain\Order\EventStore\EventStream;
-use Domain\Order\EventStore\StoredEvent;
+use Entity\Order;
+use EventStore\EventStoreInterface;
+use EventStore\EventStream;
+use EventStore\StoredEvent;
 
 final readonly class OrderEventSourcedRepository
 {
@@ -87,16 +87,16 @@ foreach ($recentEvents as $event) {
 
 ### StoredEventTest
 
-**File:** `tests/Unit/Domain/Order/EventStore/StoredEventTest.php`
+**File:** `tests/Unit/EventStore/StoredEventTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\EventStore;
+namespace Tests\Unit\EventStore;
 
-use Domain\Order\EventStore\StoredEvent;
+use EventStore\StoredEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -187,17 +187,17 @@ final class StoredEventTest extends TestCase
 
 ### EventStreamTest
 
-**File:** `tests/Unit/Domain/Order/EventStore/EventStreamTest.php`
+**File:** `tests/Unit/EventStore/EventStreamTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\EventStore;
+namespace Tests\Unit\EventStore;
 
-use Domain\Order\EventStore\EventStream;
-use Domain\Order\EventStore\StoredEvent;
+use EventStore\EventStream;
+use EventStore\StoredEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -293,10 +293,10 @@ declare(strict_types=1);
 namespace Tests\Integration\Infrastructure\Order\EventStore;
 
 use Doctrine\DBAL\Connection;
-use Domain\Order\EventStore\ConcurrencyException;
-use Domain\Order\EventStore\EventStream;
-use Domain\Order\EventStore\StoredEvent;
-use Infrastructure\Order\EventStore\DoctrineEventStore;
+use EventStore\ConcurrencyException;
+use EventStore\EventStream;
+use EventStore\StoredEvent;
+use EventStore\DoctrineEventStore;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

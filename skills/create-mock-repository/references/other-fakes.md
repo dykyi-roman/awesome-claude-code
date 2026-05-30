@@ -60,8 +60,8 @@ declare(strict_types=1);
 
 namespace Tests\Fake;
 
-use App\Infrastructure\Email\MailerInterface;
-use App\Infrastructure\Email\EmailMessage;
+use Email\MailerInterface;
+use Email\EmailMessage;
 
 final class InMemoryMailer implements MailerInterface
 {

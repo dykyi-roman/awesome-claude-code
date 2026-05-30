@@ -217,7 +217,7 @@ end
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class RedisLuaExecutor
 {
@@ -275,7 +275,7 @@ final readonly class RedisLuaExecutor
 
 declare(strict_types=1);
 
-namespace Infrastructure\Monitoring;
+namespace Monitoring;
 
 final readonly class RedisCacheMetrics
 {
@@ -313,7 +313,7 @@ final readonly class RedisCacheMetrics
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class RedisConnectionFactory
 {

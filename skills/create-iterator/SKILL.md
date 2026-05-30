@@ -42,26 +42,26 @@ Creates Iterator pattern infrastructure for sequential access to collection elem
 
 ### Step 1: Generate Iterator Interface (Optional)
 
-**Path:** `src/Domain/{BoundedContext}/Iterator/`
+Place alongside the collection it iterates.
 
 1. `{Name}IteratorInterface.php` — Custom iterator contract (extends \Iterator)
 
 ### Step 2: Generate Concrete Iterator
 
-**Path:** `src/Domain/{BoundedContext}/Iterator/`
+Co-located with the interface.
 
 1. `{Name}Iterator.php` — Iterator implementation with traversal logic
 2. `Filtered{Name}Iterator.php` — Filtered variant (optional)
 
 ### Step 3: Generate Iterable Collection
 
-**Path:** `src/Domain/{BoundedContext}/Collection/`
+Place in a sibling `Collection/` folder (separate from `Iterator/` and the element type's folder).
 
 1. `{Name}Collection.php` — Collection implementing \IteratorAggregate
 
 ### Step 4: Generate Value Objects (Optional)
 
-**Path:** `src/Domain/{BoundedContext}/ValueObject/`
+Place with the project's other value objects.
 
 1. `{Element}.php` — Collection element type
 
@@ -76,11 +76,13 @@ Creates Iterator pattern infrastructure for sequential access to collection elem
 
 | Component | Path |
 |-----------|------|
-| Iterator Interface | `src/Domain/{BoundedContext}/Iterator/` |
-| Concrete Iterator | `src/Domain/{BoundedContext}/Iterator/` |
-| Collection | `src/Domain/{BoundedContext}/Collection/` |
-| Value Objects | `src/Domain/{BoundedContext}/ValueObject/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/` |
+| Iterator Interface | `src/{architecture-path}/Iterator/{Name}IteratorInterface.php` |
+| Concrete Iterator | `src/{architecture-path}/Iterator/{Name}Iterator.php` |
+| Collection | `src/{architecture-path}/Collection/{Name}Collection.php` |
+| Value Objects | `src/{architecture-path}/ValueObject/{Element}.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Iterators, collections, and the element types they hold typically live together alongside the domain code that uses them. Adjust to your project's layout.
 
 ---
 

@@ -381,7 +381,7 @@ final readonly class DefaultOrderingFacade implements OrderingFacade
 declare(strict_types=1);
 
 // Port (Domain interface)
-namespace Domain\Port;
+namespace Port;
 
 interface NotificationService
 {
@@ -389,9 +389,9 @@ interface NotificationService
 }
 
 // Adapter (Infrastructure implementation)
-namespace Infrastructure\Adapter;
+namespace Adapter;
 
-use Domain\Port\NotificationService;
+use Port\NotificationService;
 
 final readonly class EmailNotificationAdapter implements NotificationService
 {

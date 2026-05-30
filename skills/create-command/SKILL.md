@@ -21,19 +21,19 @@ Generate CQRS-compliant Commands and Command Handlers with tests.
 
 ### Step 1: Generate Command
 
-**Path:** `src/Application/{BoundedContext}/Command/`
+Place in your project's CQRS Command folder.
 
 1. `{Name}Command.php` — Immutable command DTO
 
 ### Step 2: Generate Handler
 
-**Path:** `src/Application/{BoundedContext}/Handler/`
+Place alongside the command (or in a sibling Handler folder).
 
 1. `{Name}Handler.php` — Command processor
 
 ### Step 3: Generate Tests
 
-**Path:** `tests/Unit/Application/{BoundedContext}/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -41,9 +41,11 @@ Generate CQRS-compliant Commands and Command Handlers with tests.
 
 | Component | Path |
 |-----------|------|
-| Command | `src/Application/{BoundedContext}/Command/` |
-| Handler | `src/Application/{BoundedContext}/Handler/` |
-| Unit Tests | `tests/Unit/Application/{BoundedContext}/` |
+| Command | `src/{architecture-path}/Command/{Name}Command.php` |
+| Handler | `src/{architecture-path}/Handler/{Name}Handler.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. CQRS Commands and Handlers typically live wherever your project coordinates use cases (Application layer in Clean/Layered, the hexagon in Hexagonal, the feature folder in Package-by-Feature). Adjust to your project's layout.
 
 ---
 

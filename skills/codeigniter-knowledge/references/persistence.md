@@ -183,7 +183,7 @@ php spark make:migration CreateOrdersTable
 
 declare(strict_types=1);
 
-namespace App\Database\Migrations;
+namespace Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\Forge;
@@ -260,7 +260,7 @@ php spark migrate:refresh      # Rollback all, then migrate
 
 declare(strict_types=1);
 
-namespace App\Database\Seeds;
+namespace Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
@@ -299,10 +299,10 @@ final class OrderSeeder extends Seeder
 
 declare(strict_types=1);
 
-namespace App\Domain\Product\Repository;
+namespace Repository;
 
-use App\Domain\Product\Entity\Product;
-use App\Domain\Product\ValueObject\ProductId;
+use Entity\Product;
+use ValueObject\ProductId;
 
 interface ProductRepositoryInterface
 {
@@ -324,11 +324,11 @@ interface ProductRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace Persistence;
 
-use App\Domain\Product\Entity\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
-use App\Domain\Product\ValueObject\ProductId;
+use Entity\Product;
+use Repository\ProductRepositoryInterface;
+use ValueObject\ProductId;
 use App\Models\ProductModel;
 
 final readonly class CIProductRepository implements ProductRepositoryInterface

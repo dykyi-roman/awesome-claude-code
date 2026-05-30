@@ -2,25 +2,25 @@
 
 ## Order Factory
 
-**File:** `src/Domain/Order/Factory/OrderFactory.php`
+**File:** `src/{architecture-path}/Factory/OrderFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Factory;
+namespace Factory;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Entity\OrderItem;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\Money;
-use Domain\Order\ValueObject\Address;
-use Domain\Order\Enum\OrderStatus;
-use Domain\Order\Exception\EmptyOrderException;
-use Domain\Order\Exception\InvalidOrderTotalException;
-use Domain\Cart\Entity\Cart;
+use Entity\Order;
+use Entity\OrderItem;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\Money;
+use ValueObject\Address;
+use Enum\OrderStatus;
+use Exception\EmptyOrderException;
+use Exception\InvalidOrderTotalException;
+use Entity\Cart;
 
 final class OrderFactory
 {
@@ -115,23 +115,23 @@ final class OrderFactory
 
 ## User Factory with Multiple Creation Paths
 
-**File:** `src/Domain/User/Factory/UserFactory.php`
+**File:** `src/{architecture-path}/Factory/UserFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Factory;
+namespace Factory;
 
-use Domain\User\Entity\User;
-use Domain\User\ValueObject\UserId;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\HashedPassword;
-use Domain\User\ValueObject\Name;
-use Domain\User\Enum\UserRole;
-use Domain\User\Enum\UserStatus;
-use Domain\User\Exception\InvalidEmailException;
+use Entity\User;
+use ValueObject\UserId;
+use ValueObject\Email;
+use ValueObject\HashedPassword;
+use ValueObject\Name;
+use Enum\UserRole;
+use Enum\UserStatus;
+use Exception\InvalidEmailException;
 
 final class UserFactory
 {
@@ -218,23 +218,23 @@ final class UserFactory
 
 ## Policy Factory (Instance Factory with Dependencies)
 
-**File:** `src/Domain/Insurance/Factory/PolicyFactory.php`
+**File:** `src/{architecture-path}/Factory/PolicyFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Insurance\Factory;
+namespace Factory;
 
-use Domain\Insurance\Entity\Policy;
-use Domain\Insurance\Entity\Coverage;
-use Domain\Insurance\ValueObject\PolicyId;
-use Domain\Insurance\ValueObject\CustomerId;
-use Domain\Insurance\ValueObject\Premium;
-use Domain\Insurance\Service\PremiumCalculatorService;
-use Domain\Insurance\Service\RiskAssessmentService;
-use Domain\Insurance\Exception\UnacceptableRiskException;
+use Entity\Policy;
+use Entity\Coverage;
+use ValueObject\PolicyId;
+use ValueObject\CustomerId;
+use ValueObject\Premium;
+use Service\PremiumCalculatorService;
+use Service\RiskAssessmentService;
+use Exception\UnacceptableRiskException;
 
 final readonly class PolicyFactory
 {
@@ -286,25 +286,25 @@ final readonly class PolicyFactory
 
 ### OrderFactoryTest
 
-**File:** `tests/Unit/Domain/Order/Factory/OrderFactoryTest.php`
+**File:** `tests/Unit/Factory/OrderFactoryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Factory;
+namespace Tests\Unit\Factory;
 
-use Domain\Order\Factory\OrderFactory;
-use Domain\Order\Entity\Order;
-use Domain\Order\Entity\OrderItem;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\Money;
-use Domain\Order\ValueObject\Address;
-use Domain\Order\ValueObject\ProductId;
-use Domain\Order\Enum\OrderStatus;
-use Domain\Order\Exception\EmptyOrderException;
+use Factory\OrderFactory;
+use Entity\Order;
+use Entity\OrderItem;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\Money;
+use ValueObject\Address;
+use ValueObject\ProductId;
+use Enum\OrderStatus;
+use Exception\EmptyOrderException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -429,22 +429,22 @@ final class OrderFactoryTest extends TestCase
 
 ### UserFactoryTest
 
-**File:** `tests/Unit/Domain/User/Factory/UserFactoryTest.php`
+**File:** `tests/Unit/Factory/UserFactoryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\User\Factory;
+namespace Tests\Unit\Factory;
 
-use Domain\User\Factory\UserFactory;
-use Domain\User\Entity\User;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\HashedPassword;
-use Domain\User\ValueObject\Name;
-use Domain\User\Enum\UserRole;
-use Domain\User\Enum\UserStatus;
+use Factory\UserFactory;
+use Entity\User;
+use ValueObject\Email;
+use ValueObject\HashedPassword;
+use ValueObject\Name;
+use Enum\UserRole;
+use Enum\UserStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

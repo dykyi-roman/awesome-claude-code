@@ -25,13 +25,13 @@ A Handler executes the logic for a single Command or Query. One handler per mess
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
-use Application\Order\Command\CreateOrderCommand;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\EventDispatcherInterface;
+use Command\CreateOrderCommand;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use EventDispatcherInterface;
 
 final readonly class CreateOrderHandler
 {
@@ -66,11 +66,11 @@ final readonly class CreateOrderHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
-use Application\Order\Query\GetOrderDetailsQuery;
-use Application\Order\DTO\OrderDetailsDTO;
-use Application\Order\ReadModel\OrderReadModelInterface;
+use Query\GetOrderDetailsQuery;
+use DTO\OrderDetailsDTO;
+use ReadModel\OrderReadModelInterface;
 
 final readonly class GetOrderDetailsHandler
 {
@@ -94,7 +94,7 @@ final readonly class GetOrderDetailsHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
 final readonly class ConfirmOrderHandler
 {
@@ -132,7 +132,7 @@ final readonly class ConfirmOrderHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
 final readonly class CancelOrderHandler
 {
@@ -173,7 +173,7 @@ final readonly class CancelOrderHandler
 
 declare(strict_types=1);
 
-namespace Application\Payment\Handler;
+namespace Handler;
 
 final readonly class ProcessPaymentHandler
 {
@@ -223,7 +223,7 @@ final readonly class ProcessPaymentHandler
 
 declare(strict_types=1);
 
-namespace Application\Email\Handler;
+namespace Handler;
 
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -259,7 +259,7 @@ final readonly class SendWelcomeEmailHandler
 
 declare(strict_types=1);
 
-namespace Application\Payment\Handler;
+namespace Handler;
 
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException;
@@ -291,7 +291,7 @@ final readonly class ProcessWebhookHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
 final readonly class ApplyDiscountHandler
 {
@@ -382,7 +382,7 @@ final readonly class ReserveStockOnOrderCreatedHandler
 
 declare(strict_types=1);
 
-namespace Application\Order\Handler;
+namespace Handler;
 
 final readonly class ConfirmOrderHandler
 {

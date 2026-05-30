@@ -1,6 +1,6 @@
 # Domain Patterns
 
-Detailed patterns for Domain layer implementation in PHP.
+Detailed patterns for the DDD domain model in PHP — entities, value objects, aggregates, repositories, domain services, events. These are conceptual patterns; their physical placement varies by architecture (see [`layer-architecture.md`](layer-architecture.md) for the per-architecture placement table).
 
 ## Entity
 
@@ -20,13 +20,13 @@ Object with unique identity that persists through time and state changes.
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
-use Domain\Order\ValueObject\OrderLine;
-use Domain\Order\Event\OrderConfirmedEvent;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
+use ValueObject\OrderLine;
+use Event\OrderConfirmedEvent;
+use ValueObject\Money;
 
 final class Order
 {
@@ -99,15 +99,18 @@ final class Order
 
 ### Detection Patterns
 
+Suffix-based globs work across architectures (Clean / Hexagonal / Layered 3-tier / N-Tier / PBF / MVC):
+
 ```bash
-# Good - Entity with behavior
-Grep: "public function [a-z]+\(" --glob "**/Domain/**/Entity/**/*.php" -A 3
+# Entities by file or class-name suffix
+Glob: **/*Entity.php
+Glob: **/Entity/**/*.php
 
-# Bad - Anemic entity (only getters/setters)
-Grep: "public function (get|set|is|has)[A-Z]" --glob "**/Domain/**/Entity/**/*.php"
+# Anti-pattern: anemic entity (only getters/setters, no behavior)
+Grep: "public function (get|set|is|has)[A-Z]" --glob "**/*Entity.php"
 
-# Check entity has ID
-Grep: "private readonly.*Id \$id" --glob "**/Domain/**/Entity/**/*.php"
+# Entity has an ID field
+Grep: "private readonly.*Id \\\$id" --glob "**/*Entity.php"
 ```
 
 ## Value Object
@@ -129,7 +132,7 @@ Immutable object defined by its attributes, not identity.
 
 declare(strict_types=1);
 
-namespace Domain\Shared\ValueObject;
+namespace ValueObject;
 
 final readonly class Email
 {
@@ -163,7 +166,7 @@ final readonly class Email
 
 declare(strict_types=1);
 
-namespace Domain\Shared\ValueObject;
+namespace ValueObject;
 
 final readonly class Money
 {
@@ -221,16 +224,19 @@ final readonly class Money
 ### Detection Patterns
 
 ```bash
-# Good - Value Objects exist
-Glob: **/Domain/**/ValueObject/**/*.php
-Glob: **/Domain/**/*Id.php
-Glob: **/Domain/**/*Email.php
+# Value Objects by file or folder suffix
+Glob: **/ValueObject/**/*.php
+Glob: **/*ValueObject.php
+Glob: **/*Id.php
+Glob: **/*Email.php
 
-# Good - Readonly class
-Grep: "final readonly class" --glob "**/Domain/**/ValueObject/**/*.php"
+# Immutable VO (final readonly)
+Grep: "final readonly class" --glob "**/ValueObject/**/*.php"
+Grep: "final readonly class" --glob "**/*ValueObject.php"
 
-# Bad - Mutable Value Object
-Grep: "public function set" --glob "**/Domain/**/ValueObject/**/*.php"
+# Anti-pattern: mutable Value Object
+Grep: "public function set" --glob "**/ValueObject/**/*.php"
+Grep: "public function set" --glob "**/*ValueObject.php"
 ```
 
 ## Aggregate
@@ -251,11 +257,11 @@ Cluster of entities and value objects with a root entity that ensures consistenc
 
 declare(strict_types=1);
 
-namespace Domain\Order\Aggregate;
+namespace Aggregate;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Entity\OrderLine;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Entity\OrderLine;
+use ValueObject\OrderId;
 
 // Order is the Aggregate Root
 // OrderLine is part of the aggregate, accessed only through Order
@@ -327,23 +333,43 @@ final class Order
 ### Detection Patterns
 
 ```bash
-# Warning - Aggregate holding entity reference
-Grep: "private readonly [A-Z][a-z]+[^I][^d] \$" --glob "**/Domain/**/Aggregate/**/*.php"
+# Aggregates by file or folder suffix
+Glob: **/Aggregate/**/*.php
+Glob: **/*Aggregate.php
+Glob: **/*AggregateRoot.php
 
-# Good - Reference by ID
-Grep: "private readonly.*Id \$" --glob "**/Domain/**/Aggregate/**/*.php"
+# Anti-pattern: Aggregate holding an entity reference instead of an ID
+Grep: "private readonly [A-Z][a-z]+[^I][^d] \\\$" --glob "**/Aggregate/**/*.php"
+
+# Good: references by ID Value Object
+Grep: "private readonly.*Id \\\$" --glob "**/Aggregate/**/*.php"
 ```
 
-## Repository Interface
+## Repository
 
 ### Definition
-Contract for aggregate persistence, defined in Domain.
+Collection-like abstraction for accessing aggregates. The Repository is a single domain pattern — DDD does not divide it into separate "interface" and "implementation" concepts. The abstraction and a concrete realization both exist; how they are split into PHP classes and where those classes live varies by architecture.
 
 ### Characteristics
-- Interface in Domain
-- Implementation in Infrastructure
-- Works with aggregates, not entities
-- Returns domain objects, not arrays
+- Abstraction (typically a PHP interface or abstract class)
+- Operates on aggregate roots, not on internal entities
+- Returns domain objects, not arrays or row data
+- Uses Value Objects for query parameters, not primitives
+- Query-side methods CAN encode business intent (`findShippableOrdersForToday()`)
+- Save-side methods do not contain business logic (no validation, calculation, or state change in `save()`)
+
+### Placement varies by architecture
+
+| Architecture | Abstraction lives | Concrete class lives |
+|---|---|---|
+| Clean | `Application/{Context}/Port/` or `Domain/{Context}/Repository/` (project choice) | `Infrastructure/{Persistence}/` |
+| Hexagonal | `Domain/{Context}/Port/Output/` (Driven Port) | `Infrastructure/Persistence/{Doctrine}/` (Driven Adapter) |
+| Layered (3-tier Domain-centric) | `Domain/{Context}/Repository/` | `Domain/{Context}/Repository/Doctrine/` — alongside the abstraction |
+| N-Tier (4-tier Classical) | `Domain/{Context}/Repository/` | `Infrastructure/Persistence/` |
+| Package-by-Feature | per inner architecture, scoped to `{Feature}/` | per inner architecture, scoped to `{Feature}/` |
+| MVC | folded into the Model or a sub-folder of Model | folded into the Model |
+
+See [`layer-architecture.md`](layer-architecture.md) for the full context.
 
 ### PHP 8.4 Implementation
 
@@ -352,11 +378,11 @@ Contract for aggregate persistence, defined in Domain.
 
 declare(strict_types=1);
 
-namespace Domain\Order\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
 
 interface OrderRepositoryInterface
 {
@@ -367,12 +393,15 @@ interface OrderRepositoryInterface
     public function delete(Order $order): void;
 
     /**
-     * @return array<Order>
+     * @return list<Order>
      */
     public function findByCustomer(CustomerId $customerId): array;
 
     /**
-     * @return array<Order>
+     * Query-side business intent — finding what the domain calls
+     * "active orders for a status" — is correct Repository content.
+     *
+     * @return list<Order>
      */
     public function findByStatus(OrderStatus $status, int $limit = 100): array;
 }
@@ -380,22 +409,44 @@ interface OrderRepositoryInterface
 
 ### Rules
 
-1. **Interface in Domain, implementation in Infrastructure**
-2. **Work with aggregate roots only**
-3. **Use Value Objects for queries, not primitives**
-4. **No query builder or SQL in interface**
+1. **Repository is an abstraction over a collection of aggregates** — code calling the Repository works against the contract, not a concrete implementation.
+2. **Operate on aggregate roots only** — don't expose child entities directly.
+3. **Use Value Objects for queries** — `findByStatus(OrderStatus $status)`, not `findByStatus(string $status)`.
+4. **No query builder or SQL types in the abstraction** — Doctrine `Criteria`, `QueryBuilder`, etc. belong in the concrete class.
+5. **No business logic in `save()`** — save persists; calculation/validation/state-change belongs on the aggregate.
+6. **Folder placement is architectural choice** — see the table above. Don't assert one placement as universally correct.
 
-### Detection Patterns
+### Detection patterns
+
+Use suffix-based matching so the checks work regardless of architecture:
 
 ```bash
-# Good - Interface in Domain
-Grep: "interface.*Repository" --glob "**/Domain/**/*.php"
+# Repository abstractions (any architecture)
+Glob: **/*RepositoryInterface.php
+Grep: "interface.*Repository" --glob "**/*.php"
 
-# Good - Implementation in Infrastructure
-Grep: "implements.*Repository" --glob "**/Infrastructure/**/*.php"
+# Repository concrete classes (any architecture; common suffix patterns)
+Glob: **/Doctrine/*Repository.php
+Glob: **/Persistence/**/*Repository.php
+Grep: "implements.*Repository" --glob "**/*.php"
 
-# Bad - Implementation in Domain
+# Anti-pattern: business logic inside a Repository class
+Grep: "private function calculate|private function validate" --glob "**/*Repository.php"
+
+# Anti-pattern: primitive query parameter where a Value Object exists
+Grep: "find.*\(string \\\$|find.*\(int \\\$" --glob "**/*Repository*.php"
+```
+
+Architecture-specific Repository-placement checks (only run the one matching the project's architecture):
+
+```bash
+# CLEAN / N-TIER projects: concrete Repository class found inside Domain
+# (in Layered 3-tier this is CORRECT — do NOT flag)
 Grep: "class.*Repository" --glob "**/Domain/**/*.php" | grep -v Interface
+
+# LAYERED 3-TIER projects: concrete Repository class found in Infrastructure
+# (in Clean/Hexagonal/N-Tier this is CORRECT — do NOT flag)
+Glob: **/Infrastructure/**/*Repository.php
 ```
 
 ## Domain Service
@@ -416,11 +467,11 @@ Stateless operation that doesn't naturally belong to an entity.
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Service;
+namespace Service;
 
-use Domain\Order\Entity\Order;
-use Domain\Customer\Entity\Customer;
-use Domain\Pricing\ValueObject\Discount;
+use Entity\Order;
+use Entity\Customer;
+use ValueObject\Discount;
 
 final readonly class PricingService
 {
@@ -467,10 +518,10 @@ Record of something that happened in the domain.
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\Money;
 
 final readonly class OrderConfirmedEvent
 {
@@ -485,10 +536,11 @@ final readonly class OrderConfirmedEvent
 ### Detection Patterns
 
 ```bash
-# Good - Events in Domain
-Glob: **/Domain/**/Event/**/*.php
-Glob: **/Domain/**/*Event.php
+# Domain Events by file or folder suffix
+Glob: **/Event/**/*.php
+Glob: **/*Event.php
 
-# Good - Immutable events
-Grep: "final readonly class.*Event" --glob "**/Domain/**/*.php"
+# Immutable events (final readonly)
+Grep: "final readonly class.*Event" --glob "**/*Event.php"
+Grep: "final readonly class.*Event" --glob "**/Event/**/*.php"
 ```

@@ -81,10 +81,10 @@ doctrine:
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Repository;
+namespace Repository;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 
 interface OrderRepositoryInterface
 {
@@ -106,12 +106,12 @@ interface OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Doctrine;
+namespace Order\Infrastructure\Doctrine;
 
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Order\Domain\ValueObject\CustomerId;
-use App\Order\Domain\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
@@ -174,10 +174,10 @@ Grep: "class.*Repository" --glob "**/Infrastructure/**/*.php" | grep -v "impleme
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Doctrine;
+namespace Order\Infrastructure\Doctrine;
 
-use App\Order\Application\DTO\OrderListDTO;
-use App\Order\Domain\Repository\OrderReadRepositoryInterface;
+use DTO\OrderListDTO;
+use Repository\OrderReadRepositoryInterface;
 use Doctrine\DBAL\Connection;
 
 final readonly class DbalOrderReadRepository implements OrderReadRepositoryInterface

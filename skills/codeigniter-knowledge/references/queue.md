@@ -226,7 +226,7 @@ Domain events should be dispatched synchronously. Infrastructure listeners decid
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
 final class Order
 {
@@ -248,7 +248,7 @@ final class Order
 declare(strict_types=1);
 
 // Domain: pure event
-namespace App\Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderConfirmed
 {

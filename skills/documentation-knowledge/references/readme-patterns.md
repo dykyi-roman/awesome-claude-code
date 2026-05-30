@@ -122,7 +122,7 @@ graph TD
         ENT[Entities]
         VO[Value Objects]
         EVT[Domain Events]
-        REPO_IF[Repository Interfaces]
+        REPO_IF[Repository abstractions]
     end
 
     subgraph "Infrastructure Layer"

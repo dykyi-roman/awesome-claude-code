@@ -31,7 +31,7 @@ You cover four areas:
 ### 3. Domain Concept Mapping
 - Entities, Value Objects, Aggregates
 - Domain Services and Events
-- Repository interfaces
+- Repositories
 - Ubiquitous Language glossary
 - Relationship mapping between concepts
 

@@ -2,14 +2,14 @@
 
 ## Abstract Template Class
 
-**File:** `src/Domain/{BoundedContext}/Template/Abstract{Name}Template.php`
+**File:** `src/{architecture-path}/Template/Abstract{Name}Template.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Template;
+namespace Template;
 
 abstract readonly class Abstract{Name}Template
 {
@@ -54,14 +54,14 @@ abstract readonly class Abstract{Name}Template
 
 ## Concrete Template Class
 
-**File:** `src/Domain/{BoundedContext}/Template/{Variant}{Name}Template.php`
+**File:** `src/{architecture-path}/Template/{Variant}{Name}Template.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Template;
+namespace Template;
 
 final readonly class {Variant}{Name}Template extends Abstract{Name}Template
 {
@@ -93,17 +93,17 @@ final readonly class {Variant}{Name}Template extends Abstract{Name}Template
 
 ## Abstract Data Importer Template
 
-**File:** `src/Domain/Import/Template/AbstractDataImporterTemplate.php`
+**File:** `src/{architecture-path}/Template/AbstractDataImporterTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Import\Template;
+namespace Template;
 
-use Domain\Import\ValueObject\ImportResult;
-use Domain\Import\Exception\ImportValidationException;
+use ValueObject\ImportResult;
+use Exception\ImportValidationException;
 
 abstract readonly class AbstractDataImporterTemplate
 {
@@ -174,17 +174,17 @@ abstract readonly class AbstractDataImporterTemplate
 
 ## Abstract Report Generator Template
 
-**File:** `src/Domain/Report/Template/AbstractReportGeneratorTemplate.php`
+**File:** `src/{architecture-path}/Template/AbstractReportGeneratorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Report\Template;
+namespace Template;
 
-use Domain\Report\ValueObject\ReportData;
-use Domain\Report\ValueObject\GeneratedReport;
+use ValueObject\ReportData;
+use ValueObject\GeneratedReport;
 
 abstract readonly class AbstractReportGeneratorTemplate
 {
@@ -251,17 +251,17 @@ abstract readonly class AbstractReportGeneratorTemplate
 
 ## Abstract Order Processor Template
 
-**File:** `src/Domain/Order/Template/AbstractOrderProcessorTemplate.php`
+**File:** `src/{architecture-path}/Template/AbstractOrderProcessorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Template;
+namespace Template;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\ProcessingResult;
+use Entity\Order;
+use ValueObject\ProcessingResult;
 
 abstract readonly class AbstractOrderProcessorTemplate
 {

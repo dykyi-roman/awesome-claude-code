@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Controller;
+namespace Controller;
 
-use App\Presentation\Api\Resource\UserCollectionResource;
-use App\Presentation\Api\Resource\UserResource;
+use Api\Resource\UserCollectionResource;
+use Api\Resource\UserResource;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -55,9 +55,9 @@ final readonly class UserController
 ```php
 <?php
 
-use App\Infrastructure\Http\Link\Link;
-use App\Infrastructure\Http\Link\LinkProvider;
-use App\Infrastructure\Http\Link\LinkSerializer;
+use Http\Link\Link;
+use Http\Link\LinkProvider;
+use Http\Link\LinkSerializer;
 
 $provider = (new LinkProvider())
     ->withLink((new Link('/api/users?page=2'))->withRel('next'))

@@ -42,13 +42,13 @@ Creates Visitor pattern infrastructure for operations on object structures witho
 
 ### Step 1: Generate Visitor Interface
 
-**Path:** `src/Domain/{BoundedContext}/Visitor/`
+Place in a `Visitor/` folder inside the bounded context.
 
 1. `{Name}VisitorInterface.php` — Visitor contract with visit methods
 
 ### Step 2: Generate Concrete Visitors
 
-**Path:** `src/Domain/{BoundedContext}/Visitor/` or `src/Application/{BoundedContext}/`
+Co-located with the interface when the operations are pure domain logic; place near the coordination layer when operations pull in application-level dependencies (export formats, external APIs).
 
 1. `{Operation1}Visitor.php` — First operation implementation
 2. `{Operation2}Visitor.php` — Second operation implementation
@@ -56,13 +56,13 @@ Creates Visitor pattern infrastructure for operations on object structures witho
 
 ### Step 3: Generate Visitable Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place at the bounded context root, alongside the element classes that will implement it.
 
 1. `VisitableInterface.php` — Element contract with accept() method
 
 ### Step 4: Update Existing Elements
 
-**Path:** `src/Domain/{BoundedContext}/`
+The element classes that implement `VisitableInterface` live alongside the interface.
 
 1. Add `implements VisitableInterface` to element classes
 2. Add `accept()` method to each element
@@ -78,11 +78,13 @@ Creates Visitor pattern infrastructure for operations on object structures witho
 
 | Component | Path |
 |-----------|------|
-| Visitor Interface | `src/Domain/{BoundedContext}/Visitor/` |
-| Concrete Visitors (Domain) | `src/Domain/{BoundedContext}/Visitor/` |
-| Concrete Visitors (Application) | `src/Application/{BoundedContext}/Visitor/` |
-| Visitable Interface | `src/Domain/{BoundedContext}/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Visitor/` |
+| Visitor Interface | `src/{architecture-path}/Visitor/{Name}VisitorInterface.php` |
+| Concrete Visitors (pure domain) | `src/{architecture-path}/Visitor/{Operation}Visitor.php` |
+| Concrete Visitors (app-level deps) | `src/{architecture-path}/Visitor/{Operation}Visitor.php` (or coordination layer) |
+| Visitable Interface | `src/{architecture-path}/VisitableInterface.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Visitor/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Visitor interface + pure-domain visitors live in a `Visitor/` sub-folder; visitors with application-level dependencies typically live near the coordination layer. Adjust to your project's layout.
 
 ---
 

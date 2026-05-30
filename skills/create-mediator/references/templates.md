@@ -7,12 +7,12 @@
 
 declare(strict_types=1);
 
-namespace App\{Context}\Application\Mediator;
+namespace Mediator;
 
-use App\{Context}\Application\Mediator\Colleague\ColleagueInterface;
-use App\{Context}\Application\Mediator\Colleague\{Colleague1};
-use App\{Context}\Application\Mediator\Colleague\{Colleague2};
-use App\{Context}\Application\Mediator\Colleague\{Colleague3};
+use Mediator\Colleague\ColleagueInterface;
+use Mediator\Colleague\{Colleague1};
+use Mediator\Colleague\{Colleague2};
+use Mediator\Colleague\{Colleague3};
 
 final class {Name}MediatorImpl implements {Name}Mediator
 {
@@ -109,7 +109,7 @@ final class {Name}MediatorImpl implements {Name}Mediator
 
 declare(strict_types=1);
 
-namespace App\{Context}\Application\Mediator\Colleague;
+namespace Mediator\Colleague;
 
 final class InventoryColleague extends AbstractColleague
 {
@@ -165,7 +165,7 @@ final class InventoryColleague extends AbstractColleague
 
 declare(strict_types=1);
 
-namespace App\Shared\Application\Bus;
+namespace Bus;
 
 interface CommandBus
 {
@@ -202,7 +202,7 @@ final class SyncCommandBus implements CommandBus
 
 declare(strict_types=1);
 
-namespace App\Shared\Application\Event;
+namespace Event;
 
 interface EventMediator
 {
@@ -244,7 +244,7 @@ final class SyncEventMediator implements EventMediator
 
 declare(strict_types=1);
 
-namespace App\Chat\Application\Mediator;
+namespace Mediator;
 
 final class ChatRoomMediator implements ChatMediator
 {
@@ -289,10 +289,10 @@ declare(strict_types=1);
 
 namespace Tests\{Context}\Application\Mediator;
 
-use App\{Context}\Application\Mediator\{Name}Mediator;
-use App\{Context}\Application\Mediator\{Name}MediatorImpl;
-use App\{Context}\Application\Mediator\Colleague\InventoryColleague;
-use App\{Context}\Application\Mediator\Colleague\PaymentColleague;
+use Mediator\{Name}Mediator;
+use Mediator\{Name}MediatorImpl;
+use Mediator\Colleague\InventoryColleague;
+use Mediator\Colleague\PaymentColleague;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -376,7 +376,7 @@ final class {Name}MediatorTest extends TestCase
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Form;
+namespace Form;
 
 /**
  * Mediator for form field interactions.
@@ -456,7 +456,7 @@ final class FormMediator implements FormMediatorInterface
 
 declare(strict_types=1);
 
-namespace App\Workflow\Application\Mediator;
+namespace Mediator;
 
 /**
  * Mediator for workflow step coordination.
@@ -548,7 +548,7 @@ final class WorkflowMediator implements WorkflowMediatorInterface
 
 declare(strict_types=1);
 
-namespace App\Notification\Application\Mediator;
+namespace Mediator;
 
 /**
  * Mediator for notification channel coordination.
@@ -647,7 +647,7 @@ final class NotificationHubMediator implements NotificationMediator
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Dialog;
+namespace Dialog;
 
 /**
  * Mediator for dialog component interactions.
@@ -717,7 +717,7 @@ final class DialogMediator implements DialogMediatorInterface
 
 declare(strict_types=1);
 
-namespace App\Game\Application\Mediator;
+namespace Mediator;
 
 /**
  * Mediator for game object interactions.

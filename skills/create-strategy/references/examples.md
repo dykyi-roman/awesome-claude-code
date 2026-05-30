@@ -4,17 +4,17 @@
 
 ### RegularPricingStrategy
 
-**File:** `src/Domain/Pricing/Strategy/RegularPricingStrategy.php`
+**File:** `src/{architecture-path}/Strategy/RegularPricingStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Strategy;
+namespace Strategy;
 
-use Domain\Pricing\ValueObject\Price;
-use Domain\Pricing\ValueObject\PricingContext;
+use ValueObject\Price;
+use ValueObject\PricingContext;
 
 final readonly class RegularPricingStrategy implements PricingStrategyInterface
 {
@@ -34,17 +34,17 @@ final readonly class RegularPricingStrategy implements PricingStrategyInterface
 
 ### BulkPricingStrategy
 
-**File:** `src/Domain/Pricing/Strategy/BulkPricingStrategy.php`
+**File:** `src/{architecture-path}/Strategy/BulkPricingStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Strategy;
+namespace Strategy;
 
-use Domain\Pricing\ValueObject\Price;
-use Domain\Pricing\ValueObject\PricingContext;
+use ValueObject\Price;
+use ValueObject\PricingContext;
 
 final readonly class BulkPricingStrategy implements PricingStrategyInterface
 {
@@ -69,17 +69,17 @@ final readonly class BulkPricingStrategy implements PricingStrategyInterface
 
 ### PromotionalPricingStrategy
 
-**File:** `src/Domain/Pricing/Strategy/PromotionalPricingStrategy.php`
+**File:** `src/{architecture-path}/Strategy/PromotionalPricingStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Strategy;
+namespace Strategy;
 
-use Domain\Pricing\ValueObject\Price;
-use Domain\Pricing\ValueObject\PricingContext;
+use ValueObject\Price;
+use ValueObject\PricingContext;
 
 final readonly class PromotionalPricingStrategy implements PricingStrategyInterface
 {
@@ -101,17 +101,17 @@ final readonly class PromotionalPricingStrategy implements PricingStrategyInterf
 
 ### PricingService
 
-**File:** `src/Domain/Pricing/Strategy/PricingService.php`
+**File:** `src/{architecture-path}/Strategy/PricingService.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Strategy;
+namespace Strategy;
 
-use Domain\Pricing\ValueObject\Price;
-use Domain\Pricing\ValueObject\PricingContext;
+use ValueObject\Price;
+use ValueObject\PricingContext;
 
 final readonly class PricingService
 {
@@ -134,18 +134,18 @@ final readonly class PricingService
 
 ### StandardShippingStrategy
 
-**File:** `src/Domain/Shipping/Strategy/StandardShippingStrategy.php`
+**File:** `src/{architecture-path}/Strategy/StandardShippingStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shipping\Strategy;
+namespace Strategy;
 
-use Domain\Shipping\ValueObject\ShippingCost;
-use Domain\Shipping\ValueObject\ShippingRequest;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\ShippingCost;
+use ValueObject\ShippingRequest;
+use ValueObject\Money;
 
 final readonly class StandardShippingStrategy implements ShippingCostStrategyInterface
 {
@@ -179,18 +179,18 @@ final readonly class StandardShippingStrategy implements ShippingCostStrategyInt
 
 ### ExpressShippingStrategy
 
-**File:** `src/Domain/Shipping/Strategy/ExpressShippingStrategy.php`
+**File:** `src/{architecture-path}/Strategy/ExpressShippingStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shipping\Strategy;
+namespace Strategy;
 
-use Domain\Shipping\ValueObject\ShippingCost;
-use Domain\Shipping\ValueObject\ShippingRequest;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\ShippingCost;
+use ValueObject\ShippingRequest;
+use ValueObject\Money;
 
 final readonly class ExpressShippingStrategy implements ShippingCostStrategyInterface
 {
@@ -224,18 +224,18 @@ final readonly class ExpressShippingStrategy implements ShippingCostStrategyInte
 
 ### FreeShippingStrategy
 
-**File:** `src/Domain/Shipping/Strategy/FreeShippingStrategy.php`
+**File:** `src/{architecture-path}/Strategy/FreeShippingStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shipping\Strategy;
+namespace Strategy;
 
-use Domain\Shipping\ValueObject\ShippingCost;
-use Domain\Shipping\ValueObject\ShippingRequest;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\ShippingCost;
+use ValueObject\ShippingRequest;
+use ValueObject\Money;
 
 final readonly class FreeShippingStrategy implements ShippingCostStrategyInterface
 {
@@ -267,18 +267,18 @@ final readonly class FreeShippingStrategy implements ShippingCostStrategyInterfa
 
 ### BulkPricingStrategyTest
 
-**File:** `tests/Unit/Domain/Pricing/Strategy/BulkPricingStrategyTest.php`
+**File:** `tests/Unit/Strategy/BulkPricingStrategyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Pricing\Strategy;
+namespace Tests\Unit\Strategy;
 
-use Domain\Pricing\Strategy\BulkPricingStrategy;
-use Domain\Pricing\ValueObject\Price;
-use Domain\Pricing\ValueObject\PricingContext;
+use Strategy\BulkPricingStrategy;
+use ValueObject\Price;
+use ValueObject\PricingContext;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -328,19 +328,19 @@ final class BulkPricingStrategyTest extends TestCase
 
 ### PricingStrategyResolverTest
 
-**File:** `tests/Unit/Domain/Pricing/Strategy/PricingStrategyResolverTest.php`
+**File:** `tests/Unit/Strategy/PricingStrategyResolverTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Pricing\Strategy;
+namespace Tests\Unit\Strategy;
 
-use Domain\Pricing\Strategy\BulkPricingStrategy;
-use Domain\Pricing\Strategy\PricingStrategyResolver;
-use Domain\Pricing\Strategy\RegularPricingStrategy;
-use Domain\Pricing\ValueObject\PricingContext;
+use Strategy\BulkPricingStrategy;
+use Strategy\PricingStrategyResolver;
+use Strategy\RegularPricingStrategy;
+use ValueObject\PricingContext;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -108,10 +108,9 @@ final class Money
 
 ### Attributes for Metadata
 
-Instead of annotations (but keep out of Domain).
+PHP 8 attributes replace older annotation-based metadata (Doctrine `@Entity` etc.). Whether your project puts mapping attributes directly on a domain class, on a separate mapping class, or in XML/YAML config is a project choice — there is no single rule.
 
 ```php
-// Infrastructure layer - mapping configuration
 #[Entity]
 #[Table(name: 'orders')]
 class OrderMapping
@@ -134,7 +133,7 @@ class OrderMapping
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 final class Order
 {
@@ -231,7 +230,7 @@ final class Order
 
 declare(strict_types=1);
 
-namespace Domain\Shared\ValueObject;
+namespace ValueObject;
 
 final readonly class Money
 {
@@ -315,7 +314,7 @@ final readonly class Money
 
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -359,7 +358,7 @@ final readonly class OrderId
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderConfirmedEvent
 {
@@ -371,19 +370,19 @@ final readonly class OrderConfirmedEvent
 }
 ```
 
-### Repository Interface Pattern
+### Repository Pattern
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
-use Domain\Customer\ValueObject\CustomerId;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
+use ValueObject\CustomerId;
 
 interface OrderRepositoryInterface
 {
@@ -419,7 +418,7 @@ interface OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Exception;
+namespace Exception;
 
 final class OrderCannotBeModifiedException extends DomainException
 {
@@ -453,11 +452,11 @@ final class InvalidOrderStateTransitionException extends DomainException
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine;
+namespace Repository\Doctrine;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
@@ -523,15 +522,19 @@ final readonly class DoctrineOrderRepository implements OrderRepositoryInterface
 
 ## Detection Patterns for PHP 8.4
 
+Use suffix-based globs by default — they work across architectures:
+
 ```bash
-# Good - Using readonly classes
-Grep: "final readonly class" --glob "**/Domain/**/*.php"
+# Good - Using readonly classes (target Value Objects / DTOs)
+Grep: "final readonly class" --glob "**/*ValueObject.php"
+Grep: "final readonly class" --glob "**/*DTO.php"
+Grep: "final readonly class" --glob "**/ValueObject/**/*.php"
 
-# Good - Using enums
-Grep: "^enum " --glob "**/Domain/**/*.php"
+# Good - Using enums (look anywhere)
+Grep: "^enum " --glob "**/*.php"
 
-# Good - Using constructor promotion
-Grep: "public function __construct\(" --glob "**/Domain/**/*.php" -A 5 | grep "private readonly\|public readonly"
+# Good - Using constructor promotion (Entity / Aggregate targets)
+Grep: "public function __construct\(" --glob "**/*Entity.php" -A 5 | grep "private readonly\|public readonly"
 
 # Good - declare(strict_types=1)
 Grep: "declare\(strict_types=1\)" --glob "**/*.php"
@@ -539,8 +542,10 @@ Grep: "declare\(strict_types=1\)" --glob "**/*.php"
 # Bad - Missing strict_types
 Bash: find . -name "*.php" -exec grep -L "declare(strict_types=1)" {} \;
 
-# Bad - Not using final
-Grep: "^class " --glob "**/Domain/**/*.php" | grep -v "final\|abstract"
+# Bad - Not using final on Entity / Aggregate / ValueObject classes
+Grep: "^class " --glob "**/*Entity.php" | grep -v "final\|abstract"
+Grep: "^class " --glob "**/*Aggregate.php" | grep -v "final\|abstract"
+Grep: "^class " --glob "**/*ValueObject.php" | grep -v "final\|abstract"
 ```
 
 ## Best Practices Checklist
@@ -556,11 +561,10 @@ Grep: "^class " --glob "**/Domain/**/*.php" | grep -v "final\|abstract"
 - [ ] `match` expressions instead of `switch`
 
 ### DDD Compliance
-- [ ] Domain has no framework imports
-- [ ] Entities have behavior methods
+- [ ] Entities have behavior methods, not just getters/setters
 - [ ] Value Objects are immutable
-- [ ] Repository interfaces in Domain
-- [ ] Repository implementations in Infrastructure
+- [ ] Repository pattern used for persistence access — placement of the concrete class varies by architecture (see [`layer-architecture.md`](layer-architecture.md))
+- [ ] Domain framework-isolation: **Clean / Hexagonal — required by the architecture**; **Layered 3-tier, N-Tier, MVC — project choice (check the project's coding standard)**
 - [ ] Exceptions are specific and informative
 - [ ] Events are immutable
 - [ ] Factories for complex creation

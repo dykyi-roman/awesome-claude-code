@@ -4,7 +4,7 @@ Complete implementation templates for all Timeout pattern components.
 
 ---
 
-## Domain Layer
+## Types & Contract
 
 ### TimeoutConfig.php
 
@@ -13,7 +13,7 @@ Complete implementation templates for all Timeout pattern components.
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Timeout;
+namespace Timeout;
 
 final readonly class TimeoutConfig
 {
@@ -89,7 +89,7 @@ final readonly class TimeoutConfig
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Timeout;
+namespace Timeout;
 
 interface TimeoutInterface
 {
@@ -114,7 +114,7 @@ interface TimeoutInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Timeout;
+namespace Timeout;
 
 final class TimeoutException extends \RuntimeException
 {
@@ -150,7 +150,7 @@ final class TimeoutException extends \RuntimeException
 
 ---
 
-## Infrastructure Layer
+## Executor Implementations
 
 ### SignalTimeoutExecutor.php
 
@@ -159,11 +159,11 @@ final class TimeoutException extends \RuntimeException
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Timeout;
+namespace Timeout;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutException;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutException;
+use Timeout\TimeoutInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class SignalTimeoutExecutor implements TimeoutInterface
@@ -249,10 +249,10 @@ final readonly class SignalTimeoutExecutor implements TimeoutInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Timeout;
+namespace Timeout;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutException;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutException;
 
 final readonly class StreamTimeoutExecutor
 {
@@ -309,10 +309,10 @@ final readonly class StreamTimeoutExecutor
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Timeout;
+namespace Timeout;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class NullTimeoutExecutor implements TimeoutInterface
@@ -342,9 +342,9 @@ final readonly class NullTimeoutExecutor implements TimeoutInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Timeout;
+namespace Timeout;
 
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class TimeoutExecutorFactory
@@ -367,7 +367,7 @@ final readonly class TimeoutExecutorFactory
 
 ---
 
-## Presentation Layer
+## HTTP Integration
 
 ### TimeoutMiddleware.php
 
@@ -376,10 +376,10 @@ final readonly class TimeoutExecutorFactory
 
 declare(strict_types=1);
 
-namespace Presentation\Middleware;
+namespace Middleware;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -417,18 +417,18 @@ final readonly class TimeoutMiddleware implements MiddlewareInterface
 
 ```yaml
 services:
-    Domain\Shared\Timeout\TimeoutInterface:
-        factory: ['@Infrastructure\Resilience\Timeout\TimeoutExecutorFactory', 'create']
+    Timeout\TimeoutInterface:
+        factory: ['@Timeout\TimeoutExecutorFactory', 'create']
 
-    Infrastructure\Resilience\Timeout\TimeoutExecutorFactory:
+    Timeout\TimeoutExecutorFactory:
         arguments:
             $logger: '@Psr\Log\LoggerInterface'
 
-    Infrastructure\Resilience\Timeout\StreamTimeoutExecutor: ~
+    Timeout\StreamTimeoutExecutor: ~
 
-    Presentation\Middleware\TimeoutMiddleware:
+    Middleware\TimeoutMiddleware:
         arguments:
-            $timeout: '@Domain\Shared\Timeout\TimeoutInterface'
+            $timeout: '@Timeout\TimeoutInterface'
             $defaultTimeoutSeconds: 30.0
         tags:
             - { name: 'middleware', priority: 100 }

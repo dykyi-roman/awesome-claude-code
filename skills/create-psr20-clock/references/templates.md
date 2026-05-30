@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -77,7 +77,7 @@ final class AdjustableClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -109,7 +109,7 @@ $clock = new CallbackClock(fn() => new DateTimeImmutable('2024-01-15'));
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use DateTimeZone;
@@ -148,7 +148,7 @@ final readonly class FixedOffsetClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -212,7 +212,7 @@ $third = $clock->now();  // 2024-01-01 00:10:00
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -247,7 +247,7 @@ final readonly class LoggingClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -311,7 +311,7 @@ final readonly class BusinessHoursClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use Psr\Clock\ClockInterface;
 use RuntimeException;

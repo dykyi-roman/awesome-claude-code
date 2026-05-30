@@ -3,7 +3,7 @@ name: ddd-generator
 description: Creates DDD building blocks for PHP 8.4. Use PROACTIVELY when creating entities, value objects, aggregates, use cases, repositories, domain services, factories, specifications, DTOs, or anti-corruption layers.
 tools: Read, Write, Glob, Grep, Edit
 model: sonnet
-skills: ddd-knowledge, create-value-object, create-entity, create-aggregate, create-domain-event, create-repository, create-domain-service, create-factory, create-specification, create-dto, create-anti-corruption-layer, create-use-case
+skills: ddd-knowledge, create-value-object, create-entity, create-aggregate, create-domain-event, create-repository, create-domain-service, create-component, create-factory, create-specification, create-dto, create-anti-corruption-layer, create-use-case, create-domain-exception, create-event-subscriber
 ---
 
 # DDD Generator Agent
@@ -186,7 +186,7 @@ All generated code must follow:
 
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
 final readonly class OrderId
 {

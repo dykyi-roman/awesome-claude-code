@@ -22,12 +22,14 @@ Generates Mediator pattern components for PHP 8.4 to coordinate complex interact
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| MediatorInterface | `src/Application/{Context}/Mediator/` | Defines mediation contract |
-| ConcreteMediator | `src/Application/{Context}/Mediator/` | Implements coordination logic |
-| ColleagueInterface | `src/Application/{Context}/Mediator/Colleague/` | Participant contract |
-| AbstractColleague | `src/Application/{Context}/Mediator/Colleague/` | Base with mediator access |
-| ConcreteColleagues | `src/Application/{Context}/Mediator/Colleague/` | Participating components |
-| Tests | `tests/{Context}/Application/Mediator/` | Unit tests |
+| MediatorInterface | `src/{architecture-path}/Mediator/` | Defines mediation contract |
+| ConcreteMediator | `src/{architecture-path}/Mediator/` | Implements coordination logic |
+| ColleagueInterface | `src/{architecture-path}/Mediator/Colleague/` | Participant contract |
+| AbstractColleague | `src/{architecture-path}/Mediator/Colleague/` | Base with mediator access |
+| ConcreteColleagues | `src/{architecture-path}/Mediator/Colleague/` | Participating components |
+| Tests | `tests/Unit/{architecture-path}/Mediator/` | Unit tests |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The mediator typically lives at the coordination layer that wires its colleagues together. Adjust to your project's layout.
 
 ## Input Requirements
 
@@ -43,9 +45,9 @@ Generates Mediator pattern components for PHP 8.4 to coordinate complex interact
 
 declare(strict_types=1);
 
-namespace App\{Context}\Application\Mediator;
+namespace Mediator;
 
-use App\{Context}\Application\Mediator\Colleague\ColleagueInterface;
+use Mediator\Colleague\ColleagueInterface;
 
 interface {Name}Mediator
 {
@@ -62,9 +64,9 @@ interface {Name}Mediator
 
 declare(strict_types=1);
 
-namespace App\{Context}\Application\Mediator\Colleague;
+namespace Mediator\Colleague;
 
-use App\{Context}\Application\Mediator\{Name}Mediator;
+use Mediator\{Name}Mediator;
 
 interface ColleagueInterface
 {
@@ -81,9 +83,9 @@ interface ColleagueInterface
 
 declare(strict_types=1);
 
-namespace App\{Context}\Application\Mediator\Colleague;
+namespace Mediator\Colleague;
 
-use App\{Context}\Application\Mediator\{Name}Mediator;
+use Mediator\{Name}Mediator;
 
 abstract class AbstractColleague implements ColleagueInterface
 {

@@ -40,7 +40,7 @@ Creates Circuit Breaker pattern infrastructure for resilience and fault toleranc
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Resilience/CircuitBreaker/`
+Place alongside other resilience infrastructure.
 
 1. `CircuitState.php` — Enum with state transitions
 2. `CircuitBreakerConfig.php` — Configuration value object
@@ -48,13 +48,13 @@ Creates Circuit Breaker pattern infrastructure for resilience and fault toleranc
 
 ### Step 2: Generate Circuit Breaker
 
-**Path:** `src/Infrastructure/Resilience/CircuitBreaker/`
+Co-located with the core components.
 
 1. `CircuitBreaker.php` — Main implementation with state management
 
 ### Step 3: Generate Factory and Registry
 
-**Path:** `src/Infrastructure/Resilience/CircuitBreaker/`
+Co-located with the breaker.
 
 1. `CircuitBreakerFactory.php` — Creates configured breakers
 2. `CircuitBreakerRegistry.php` — Per-service breaker management
@@ -70,8 +70,10 @@ Creates Circuit Breaker pattern infrastructure for resilience and fault toleranc
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Resilience/CircuitBreaker/` |
-| Unit Tests | `tests/Unit/Infrastructure/Resilience/CircuitBreaker/` |
+| All Classes | `src/{architecture-path}/CircuitBreaker/` |
+| Unit Tests | `tests/Unit/{architecture-path}/CircuitBreaker/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Circuit breaker is a resilience pattern that typically lives alongside other resilience infrastructure (bulkhead, retry, timeout). Adjust to your project's layout.
 
 ---
 

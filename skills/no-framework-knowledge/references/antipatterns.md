@@ -31,7 +31,7 @@ Grep: "ob_start|ob_get_clean|extract\(" --glob "**/src/**/*.php"
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
 // Custom ORM — hundreds of lines, fragile, untested
 final class CustomEntityManager
@@ -69,7 +69,7 @@ declare(strict_types=1);
 // Use Doctrine ORM standalone — battle-tested, well-documented
 // composer require doctrine/orm doctrine/migrations
 
-namespace Infrastructure\Persistence\Doctrine\Repository;
+namespace Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -236,7 +236,7 @@ Grep: "new Doctrine|new Redis|new PDO|new Guzzle" --glob "**/Application/**/*.ph
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Infrastructure\Persistence\Doctrine\Repository\DoctrineOrderRepository; // VIOLATION!
 use Infrastructure\Cache\RedisCache; // VIOLATION!
@@ -255,7 +255,7 @@ final readonly class GetOrderUseCase
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Domain\Order\Repository\OrderRepositoryInterface; // Domain interface
 use Application\Shared\Port\CacheInterface;            // Application port
@@ -321,7 +321,7 @@ Grep: "new [A-Z].*Repository\(|new [A-Z].*Service\(|new [A-Z].*Client\(" --glob 
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final class CreateOrderUseCase
 {
@@ -340,7 +340,7 @@ final class CreateOrderUseCase
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class CreateOrderUseCase
 {
@@ -428,7 +428,7 @@ Grep: "use Infrastructure\\\\Security" --glob "**/Domain/**/*.php"
 ```php
 declare(strict_types=1);
 
-namespace Domain\User\Service;
+namespace Service;
 
 use Lcobucci\JWT\Configuration; // VIOLATION: JWT library in Domain
 
@@ -454,7 +454,7 @@ final readonly class UserAuthService
 ```php
 declare(strict_types=1);
 
-namespace Domain\User\Port;
+namespace Port;
 
 // Domain port — no library dependencies
 interface TokenGeneratorInterface
@@ -466,9 +466,9 @@ interface TokenGeneratorInterface
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
-use Domain\User\Port\TokenGeneratorInterface;
+use Port\TokenGeneratorInterface;
 use Lcobucci\JWT\Configuration;
 
 // Infrastructure adapter — JWT library only here
@@ -517,7 +517,7 @@ Grep: "try.*catch" --glob "**/src/Infrastructure/**/Handler*.php" --output_mode 
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
 // VIOLATION: No retry, no error handling, no graceful shutdown
 final class SimpleWorker
@@ -538,7 +538,7 @@ final class SimpleWorker
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
 use Psr\Log\LoggerInterface;
 

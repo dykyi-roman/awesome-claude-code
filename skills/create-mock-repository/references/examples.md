@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Tests\Fake;
 
-use App\Domain\User\User;
-use App\Domain\User\UserId;
-use App\Domain\User\Email;
-use App\Domain\User\UserRepositoryInterface;
+use User\User;
+use User\UserId;
+use User\Email;
+use User\UserRepositoryInterface;
 
 final class InMemoryUserRepository implements UserRepositoryInterface
 {
@@ -78,11 +78,11 @@ declare(strict_types=1);
 
 namespace Tests\Fake;
 
-use App\Domain\Order\Order;
-use App\Domain\Order\OrderId;
-use App\Domain\Order\OrderStatus;
-use App\Domain\Order\OrderRepositoryInterface;
-use App\Domain\Customer\CustomerId;
+use Order\Order;
+use Order\OrderId;
+use Order\OrderStatus;
+use Order\OrderRepositoryInterface;
+use Customer\CustomerId;
 use DateTimeImmutable;
 
 final class InMemoryOrderRepository implements OrderRepositoryInterface
@@ -170,10 +170,10 @@ declare(strict_types=1);
 
 namespace Tests\Fake;
 
-use App\Domain\Product\Product;
-use App\Domain\Product\ProductId;
-use App\Domain\Product\ProductRepositoryInterface;
-use App\Domain\Shared\Specification\SpecificationInterface;
+use Product\Product;
+use Product\ProductId;
+use Product\ProductRepositoryInterface;
+use Specification\SpecificationInterface;
 
 final class InMemoryProductRepository implements ProductRepositoryInterface
 {

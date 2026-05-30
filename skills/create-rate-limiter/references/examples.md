@@ -7,9 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
-use Infrastructure\Resilience\RateLimiter\RateLimiterInterface;
+use RateLimiter\RateLimiterInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -67,10 +67,10 @@ final readonly class RateLimitMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Application\RateLimiting;
+namespace RateLimiting;
 
-use Infrastructure\Resilience\RateLimiter\TokenBucketRateLimiter;
-use Infrastructure\Resilience\RateLimiter\RateLimitExceededException;
+use RateLimiter\TokenBucketRateLimiter;
+use RateLimiter\RateLimitExceededException;
 
 final readonly class ApiRateLimiter
 {
@@ -100,17 +100,17 @@ final readonly class ApiRateLimiter
 
 ### TokenBucketRateLimiterTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/RateLimiter/TokenBucketRateLimiterTest.php`
+**File:** `tests/Unit/RateLimiter/TokenBucketRateLimiterTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\RateLimiter;
+namespace Tests\Unit\RateLimiter;
 
-use Infrastructure\Resilience\RateLimiter\TokenBucketRateLimiter;
-use Infrastructure\Resilience\RateLimiter\StorageInterface;
+use RateLimiter\TokenBucketRateLimiter;
+use RateLimiter\StorageInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -219,16 +219,16 @@ final class TokenBucketRateLimiterTest extends TestCase
 
 ### RateLimitResultTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/RateLimiter/RateLimitResultTest.php`
+**File:** `tests/Unit/RateLimiter/RateLimitResultTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\RateLimiter;
+namespace Tests\Unit\RateLimiter;
 
-use Infrastructure\Resilience\RateLimiter\RateLimitResult;
+use RateLimiter\RateLimitResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -11,7 +11,7 @@ Detailed patterns for Eloquent ORM, migrations, transactions, and database strat
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Eloquent\Model;
+namespace Model;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -127,9 +127,9 @@ return new class extends Migration
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\Eloquent;
+namespace Persistence\Eloquent;
 
-use App\Domain\Order\Entity\Order;
+use Entity\Order;
 use Illuminate\Support\Facades\DB;
 
 final readonly class EloquentOrderRepository implements OrderRepositoryInterface
@@ -162,11 +162,11 @@ final readonly class EloquentOrderRepository implements OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Payment\Repository\PaymentRepositoryInterface;
-use App\Infrastructure\Persistence\TransactionManagerInterface;
+use Repository\OrderRepositoryInterface;
+use Repository\PaymentRepositoryInterface;
+use Persistence\TransactionManagerInterface;
 
 final readonly class ProcessPaymentUseCase
 {
@@ -196,7 +196,7 @@ final readonly class ProcessPaymentUseCase
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace Persistence;
 
 interface TransactionManagerInterface
 {
@@ -226,10 +226,10 @@ interface TransactionManagerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\ReadModel;
+namespace ReadModel;
 
-use App\Application\Order\DTO\OrderDetailsDTO;
-use App\Application\Order\ReadModel\OrderReadModelInterface;
+use DTO\OrderDetailsDTO;
+use ReadModel\OrderReadModelInterface;
 use Illuminate\Database\ConnectionInterface;
 
 final readonly class DatabaseOrderReadModel implements OrderReadModelInterface
@@ -308,7 +308,7 @@ Grep: "->save\(\)|->delete\(\)|->find\(" --glob "**/Domain/**/*.php"
 # Repository implementations should be in Infrastructure
 Grep: "implements.*RepositoryInterface" --glob "**/Domain/**/*.php"
 
-# Good: Repository interfaces in Domain
+# Good: Repository pattern used (folder placement varies by architecture)
 Grep: "interface.*RepositoryInterface" --glob "**/Domain/**/*.php"
 ```
 
@@ -316,7 +316,7 @@ Grep: "interface.*RepositoryInterface" --glob "**/Domain/**/*.php"
 
 | Layer | Allowed | Forbidden |
 |-------|---------|-----------|
-| Domain | Repository interfaces, Entity classes | Eloquent, Query Builder, DB facade |
+| Domain | Repositories (the pattern), Entity classes | Eloquent, Query Builder, DB facade (in Clean/Onion only) |
 | Application | Uses repository interfaces | Direct Eloquent or DB calls |
 | Infrastructure | Eloquent models, Query Builder, DB facade | N/A |
 | Presentation | N/A (delegates to Application) | Any direct DB access |

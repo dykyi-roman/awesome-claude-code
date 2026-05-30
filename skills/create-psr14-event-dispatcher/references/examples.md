@@ -7,12 +7,12 @@
 
 declare(strict_types=1);
 
-namespace App\Application\User\Handler;
+namespace Handler;
 
-use App\Application\User\Command\CreateUserCommand;
-use App\Domain\User\Entity\User;
-use App\Domain\User\Repository\UserRepositoryInterface;
-use App\Domain\User\ValueObject\Email;
+use Command\CreateUserCommand;
+use Entity\User;
+use Repository\UserRepositoryInterface;
+use ValueObject\Email;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final readonly class CreateUserHandler
@@ -46,9 +46,9 @@ final readonly class CreateUserHandler
 
 declare(strict_types=1);
 
-namespace App\Application\User\Listener;
+namespace Listener;
 
-use App\Domain\User\Event\UserCreated;
+use Event\UserCreated;
 use Psr\Log\LoggerInterface;
 
 final readonly class LogUserCreationListener
@@ -108,7 +108,7 @@ final readonly class CreateUserProfileListener
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\Container\ContainerInterface;
 
@@ -152,13 +152,13 @@ final readonly class EventServiceProvider
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\User;
+namespace Tests\Unit\User;
 
-use App\Application\User\Command\CreateUserCommand;
-use App\Application\User\Handler\CreateUserHandler;
-use App\Domain\User\Event\UserCreated;
-use App\Infrastructure\Event\EventDispatcher;
-use App\Infrastructure\Event\ListenerProvider;
+use Command\CreateUserCommand;
+use Handler\CreateUserHandler;
+use Event\UserCreated;
+use Event\EventDispatcher;
+use Event\ListenerProvider;
 use PHPUnit\Framework\TestCase;
 
 final class CreateUserHandlerTest extends TestCase
@@ -192,11 +192,11 @@ final class CreateUserHandlerTest extends TestCase
 
 declare(strict_types=1);
 
-namespace App\Application\Order\Handler;
+namespace Handler;
 
-use App\Application\Order\Command\PlaceOrderCommand;
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Event\OrderPlaced;
+use Command\PlaceOrderCommand;
+use Entity\Order;
+use Event\OrderPlaced;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final readonly class PlaceOrderHandler

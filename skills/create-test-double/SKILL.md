@@ -99,8 +99,8 @@ declare(strict_types=1);
 
 namespace Tests\Stub;
 
-use App\Infrastructure\Http\HttpClientInterface;
-use App\Infrastructure\Http\HttpResponse;
+use Http\HttpClientInterface;
+use Http\HttpResponse;
 
 final class FixedHttpClientStub implements HttpClientInterface
 {
@@ -210,9 +210,9 @@ declare(strict_types=1);
 
 namespace Tests\Fake;
 
-use App\Domain\User\User;
-use App\Domain\User\UserId;
-use App\Domain\User\UserRepositoryInterface;
+use User\User;
+use User\UserId;
+use User\UserRepositoryInterface;
 
 final class InMemoryUserRepository implements UserRepositoryInterface
 {

@@ -20,10 +20,12 @@ Generates PSR-14 compliant event dispatcher for domain events and application ev
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| EventDispatcher | Dispatches events | `src/Infrastructure/Event/` |
-| ListenerProvider | Provides listeners | `src/Infrastructure/Event/` |
-| Stoppable Event | Base stoppable event | `src/Infrastructure/Event/` |
-| Unit Tests | PHPUnit tests | `tests/Unit/Infrastructure/Event/` |
+| EventDispatcher | Dispatches events | `src/{architecture-path}/Event/` |
+| ListenerProvider | Provides listeners | `src/{architecture-path}/Event/` |
+| Stoppable Event | Base stoppable event | `src/{architecture-path}/Event/` |
+| Unit Tests | PHPUnit tests | `tests/Unit/{architecture-path}/Event/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The PSR-14 dispatcher typically lives with other event-handling infrastructure. Adjust to your project's layout.
 
 ## Template: Event Dispatcher
 
@@ -32,7 +34,7 @@ Generates PSR-14 compliant event dispatcher for domain events and application ev
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
@@ -67,7 +69,7 @@ final readonly class EventDispatcher implements EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 
@@ -106,7 +108,7 @@ final class ListenerProvider implements ListenerProviderInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
 use Psr\EventDispatcher\StoppableEventInterface;
 
@@ -133,9 +135,9 @@ abstract class StoppableEvent implements StoppableEventInterface
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Event;
+namespace Event;
 
-use App\Domain\User\ValueObject\UserId;
+use ValueObject\UserId;
 use DateTimeImmutable;
 
 final readonly class UserCreated
@@ -156,9 +158,9 @@ final readonly class UserCreated
 
 declare(strict_types=1);
 
-namespace App\Application\User\Listener;
+namespace Listener;
 
-use App\Domain\User\Event\UserCreated;
+use Event\UserCreated;
 use Psr\Log\LoggerInterface;
 
 final readonly class SendWelcomeEmailListener
@@ -194,9 +196,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Event;
 
-use App\Infrastructure\Event\EventDispatcher;
-use App\Infrastructure\Event\ListenerProvider;
-use App\Infrastructure\Event\StoppableEvent;
+use Event\EventDispatcher;
+use Event\ListenerProvider;
+use Event\StoppableEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -264,8 +266,8 @@ final class TestStoppableEvent extends StoppableEvent {}
 ```php
 <?php
 
-use App\Infrastructure\Event\EventDispatcher;
-use App\Infrastructure\Event\ListenerProvider;
+use Event\EventDispatcher;
+use Event\ListenerProvider;
 
 // Setup
 $provider = new ListenerProvider();
@@ -294,11 +296,11 @@ $dispatcher->dispatch($event);
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Entity;
+namespace Entity;
 
-use App\Domain\User\Event\UserCreated;
-use App\Domain\User\ValueObject\Email;
-use App\Domain\User\ValueObject\UserId;
+use Event\UserCreated;
+use ValueObject\Email;
+use ValueObject\UserId;
 
 final class User
 {

@@ -34,7 +34,7 @@ Grep: "DB::|->where\\(|->count\\(" --glob "**/*Policy.php"
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Order;
+namespace Order;
 
 final readonly class CancelOrderController
 {
@@ -83,11 +83,11 @@ class OrderPolicy
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Policy;
+namespace Policy;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Specification\CanCancelOrderSpecification;
-use App\Infrastructure\Auth\UserModel;
+use Entity\Order;
+use Specification\CanCancelOrderSpecification;
+use Auth\UserModel;
 use Illuminate\Auth\Access\Response;
 
 final class OrderPolicy
@@ -125,9 +125,9 @@ final class OrderPolicy
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Specification;
+namespace Specification;
 
-use App\Domain\Order\Entity\Order;
+use Entity\Order;
 
 // Pure domain specification — no framework dependency
 final readonly class CanCancelOrderSpecification
@@ -150,7 +150,7 @@ final readonly class CanCancelOrderSpecification
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Provider;
+namespace Provider;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -210,7 +210,7 @@ class User extends Authenticatable
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Entity;
+namespace Entity;
 
 // Pure domain aggregate
 final class User
@@ -232,7 +232,7 @@ final class User
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Auth;
+namespace Auth;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -262,9 +262,9 @@ final class UserModel extends Authenticatable
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Service;
+namespace Service;
 
-use App\Domain\User\ValueObject\HashedPassword;
+use ValueObject\HashedPassword;
 
 // Domain port
 interface PasswordHasherInterface
@@ -279,10 +279,10 @@ interface PasswordHasherInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Auth;
+namespace Auth;
 
-use App\Domain\User\Service\PasswordHasherInterface;
-use App\Domain\User\ValueObject\HashedPassword;
+use Service\PasswordHasherInterface;
+use ValueObject\HashedPassword;
 use Illuminate\Hashing\HashManager;
 
 final readonly class LaravelPasswordHasher implements PasswordHasherInterface

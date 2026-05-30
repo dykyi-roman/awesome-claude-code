@@ -2,14 +2,14 @@
 
 ## Order Summary Read Model
 
-**File:** `src/Domain/Order/ReadModel/OrderSummaryReadModel.php`
+**File:** `src/{architecture-path}/ReadModel/OrderSummaryReadModel.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\ReadModel;
+namespace ReadModel;
 
 final readonly class OrderSummaryReadModel
 {
@@ -94,19 +94,19 @@ final readonly class OrderSummaryReadModel
 
 ## Order Summary Repository
 
-**File:** `src/Infrastructure/Order/ReadModel/DoctrineOrderSummaryRepository.php`
+**File:** `src/{architecture-path}/ReadModel/DoctrineOrderSummaryRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\ReadModel;
+namespace ReadModel;
 
 use Doctrine\DBAL\Connection;
-use Domain\Order\ReadModel\OrderSearchCriteria;
-use Domain\Order\ReadModel\OrderSummaryReadModel;
-use Domain\Order\ReadModel\OrderSummaryReadModelRepositoryInterface;
+use ReadModel\OrderSearchCriteria;
+use ReadModel\OrderSummaryReadModel;
+use ReadModel\OrderSummaryReadModelRepositoryInterface;
 
 final readonly class DoctrineOrderSummaryRepository implements OrderSummaryReadModelRepositoryInterface
 {
@@ -183,21 +183,21 @@ final readonly class DoctrineOrderSummaryRepository implements OrderSummaryReadM
 
 ## Order Summary Projection
 
-**File:** `src/Application/Order/Projection/OrderSummaryProjection.php`
+**File:** `src/{architecture-path}/Projection/OrderSummaryProjection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Projection;
+namespace Projection;
 
-use Domain\Order\Event\OrderCreated;
-use Domain\Order\Event\OrderPaid;
-use Domain\Order\Event\OrderShipped;
-use Domain\Order\Event\OrderDelivered;
-use Domain\Order\Event\OrderCancelled;
-use Domain\Shared\Event\DomainEventInterface;
+use Event\OrderCreated;
+use Event\OrderPaid;
+use Event\OrderShipped;
+use Event\OrderDelivered;
+use Event\OrderCancelled;
+use Event\DomainEventInterface;
 use Psr\Log\LoggerInterface;
 
 final class OrderSummaryProjection implements OrderSummaryProjectionInterface
@@ -275,16 +275,16 @@ final class OrderSummaryProjection implements OrderSummaryProjectionInterface
 
 ### Read Model Test
 
-**File:** `tests/Unit/Domain/Order/ReadModel/OrderSummaryReadModelTest.php`
+**File:** `tests/Unit/ReadModel/OrderSummaryReadModelTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\ReadModel;
+namespace Tests\Unit\ReadModel;
 
-use Domain\Order\ReadModel\OrderSummaryReadModel;
+use ReadModel\OrderSummaryReadModel;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -340,18 +340,18 @@ final class OrderSummaryReadModelTest extends TestCase
 
 ### Projection Test
 
-**File:** `tests/Unit/Application/Order/Projection/OrderSummaryProjectionTest.php`
+**File:** `tests/Unit/Projection/OrderSummaryProjectionTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\Projection;
+namespace Tests\Unit\Projection;
 
-use Application\Order\Projection\OrderSummaryProjection;
-use Domain\Order\Event\OrderCreated;
-use Infrastructure\Order\Projection\OrderSummaryStore;
+use Projection\OrderSummaryProjection;
+use Event\OrderCreated;
+use Projection\OrderSummaryStore;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

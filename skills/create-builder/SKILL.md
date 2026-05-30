@@ -48,7 +48,7 @@ Determine:
 
 ### Step 2: Generate Builder Components
 
-**Path:** `src/Domain/{BoundedContext}/Builder/`
+Place alongside the product class being built.
 
 1. `{Name}BuilderInterface.php` — Builder contract
 2. `{Name}Builder.php` — Concrete builder implementation
@@ -57,7 +57,7 @@ Determine:
 
 ### Step 3: Generate Tests
 
-**Path:** `tests/Unit/Domain/{BoundedContext}/Builder/`
+Mirror the production-code path under `tests/Unit/`.
 
 1. `{Name}BuilderTest.php` — Builder functionality tests
 
@@ -67,11 +67,13 @@ Determine:
 
 | Component | Path |
 |-----------|------|
-| Builder Interface | `src/Domain/{BoundedContext}/Builder/` |
-| Concrete Builder | `src/Domain/{BoundedContext}/Builder/` |
-| Director | `src/Domain/{BoundedContext}/Builder/` |
-| Exception | `src/Domain/{BoundedContext}/Builder/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Builder/` |
+| Builder Interface | `src/{architecture-path}/Builder/{Name}BuilderInterface.php` |
+| Concrete Builder | `src/{architecture-path}/Builder/{Name}Builder.php` |
+| Director | `src/{architecture-path}/Builder/{Name}Director.php` |
+| Exception | `src/{architecture-path}/Builder/BuilderValidationException.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Builder/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Builders typically live alongside the product class they build. Adjust to your project's layout.
 
 ---
 

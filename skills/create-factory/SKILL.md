@@ -12,7 +12,7 @@ Generate DDD-compliant Factories for complex domain object creation.
 - **Encapsulates Creation**: Hides complex instantiation logic
 - **Validates Input**: Ensures valid object creation
 - **Named Constructors**: Provides semantic creation methods
-- **Domain Layer**: Lives in Domain, no infrastructure dependencies
+- **Pure Domain Concern**: Has no infrastructure dependencies of its own
 - **Returns Valid Objects**: Never creates invalid domain objects
 - **Static or Instance**: Static for simple, instance for dependencies
 
@@ -37,7 +37,7 @@ Generate DDD-compliant Factories for complex domain object creation.
 
 ### Step 2: Generate Factory
 
-**Path:** `src/Domain/{BoundedContext}/Factory/`
+Place alongside the entity it constructs.
 
 1. `{Entity}Factory.php` — Main factory class
 
@@ -49,7 +49,7 @@ Generate DDD-compliant Factories for complex domain object creation.
 
 ### Step 4: Generate Tests
 
-**Path:** `tests/Unit/Domain/{BoundedContext}/Factory/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -57,8 +57,10 @@ Generate DDD-compliant Factories for complex domain object creation.
 
 | Component | Path |
 |-----------|------|
-| Factory | `src/Domain/{BoundedContext}/Factory/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/Factory/` |
+| Factory | `src/{architecture-path}/Factory/{Entity}Factory.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Factory/{Entity}FactoryTest.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Factories typically live alongside the entity they construct. Adjust to your project's layout.
 
 ---
 
@@ -127,7 +129,7 @@ final readonly class {Entity}Factory
 
 | Anti-pattern | Problem | Solution |
 |--------------|---------|----------|
-| Infrastructure in Factory | DB calls in factory | Keep pure domain logic |
+| Infrastructure leaking in | DB calls in factory | Keep factory pure; inject services that hide infrastructure |
 | No Validation | Creates invalid objects | Validate before creation |
 | Too Many Parameters | Hard to use | Use Value Objects, Builder |
 | Mutable Factory | Stateful creation | Make stateless or readonly |

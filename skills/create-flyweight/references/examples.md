@@ -2,14 +2,14 @@
 
 ## Currency Flyweight (Complete)
 
-**File:** `src/Domain/Money/CurrencyFlyweight.php`
+**File:** `src/{architecture-path}/CurrencyFlyweight.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Money;
+namespace Money;
 
 final readonly class CurrencyFlyweight implements CurrencyInterface
 {
@@ -52,14 +52,14 @@ final readonly class CurrencyFlyweight implements CurrencyInterface
 
 ## Icon Flyweight
 
-**File:** `src/Domain/UI/IconFlyweight.php`
+**File:** `src/{architecture-path}/IconFlyweight.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\UI;
+namespace UI;
 
 final readonly class IconFlyweight implements IconInterface
 {
@@ -92,17 +92,17 @@ final readonly class IconFlyweight implements IconInterface
 }
 ```
 
-**File:** `src/Domain/UI/Factory/IconFlyweightFactory.php`
+**File:** `src/{architecture-path}/Factory/IconFlyweightFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\UI\Factory;
+namespace Factory;
 
-use Domain\UI\IconFlyweight;
-use Domain\UI\IconInterface;
+use UI\IconFlyweight;
+use UI\IconInterface;
 
 final class IconFlyweightFactory
 {
@@ -128,14 +128,14 @@ final class IconFlyweightFactory
 
 ## Tax Rule Flyweight
 
-**File:** `src/Domain/Tax/TaxRuleFlyweight.php`
+**File:** `src/{architecture-path}/TaxRuleFlyweight.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Tax;
+namespace Tax;
 
 final readonly class TaxRuleFlyweight implements TaxRuleInterface
 {
@@ -169,17 +169,17 @@ final readonly class TaxRuleFlyweight implements TaxRuleInterface
 }
 ```
 
-**File:** `src/Domain/Tax/Factory/TaxRuleFlyweightFactory.php`
+**File:** `src/{architecture-path}/Factory/TaxRuleFlyweightFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Tax\Factory;
+namespace Factory;
 
-use Domain\Tax\TaxRuleFlyweight;
-use Domain\Tax\TaxRuleInterface;
+use Tax\TaxRuleFlyweight;
+use Tax\TaxRuleInterface;
 
 final class TaxRuleFlyweightFactory
 {
@@ -207,16 +207,16 @@ final class TaxRuleFlyweightFactory
 
 ### CurrencyFlyweightFactoryTest
 
-**File:** `tests/Unit/Domain/Money/Factory/CurrencyFlyweightFactoryTest.php`
+**File:** `tests/Unit/Factory/CurrencyFlyweightFactoryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Money\Factory;
+namespace Tests\Unit\Factory;
 
-use Domain\Money\Factory\CurrencyFlyweightFactory;
+use Factory\CurrencyFlyweightFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -268,16 +268,16 @@ final class CurrencyFlyweightFactoryTest extends TestCase
 
 ### IconFlyweightFactoryTest
 
-**File:** `tests/Unit/Domain/UI/Factory/IconFlyweightFactoryTest.php`
+**File:** `tests/Unit/Factory/IconFlyweightFactoryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\UI\Factory;
+namespace Tests\Unit\Factory;
 
-use Domain\UI\Factory\IconFlyweightFactory;
+use Factory\IconFlyweightFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -323,16 +323,16 @@ final class IconFlyweightFactoryTest extends TestCase
 
 ### TaxRuleFlyweightTest
 
-**File:** `tests/Unit/Domain/Tax/TaxRuleFlyweightTest.php`
+**File:** `tests/Unit/TaxRuleFlyweightTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Tax;
+namespace Tests\Unit\Tax;
 
-use Domain\Tax\TaxRuleFlyweight;
+use Tax\TaxRuleFlyweight;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

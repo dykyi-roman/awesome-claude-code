@@ -18,7 +18,7 @@ Grep: "class.*Event[^{]*\{" --glob "**/Event/**/*.php" | grep -v "readonly"
 
 **Bad:**
 ```php
-namespace Domain\Order\Event;
+namespace Event;
 
 class OrderCreatedEvent
 {
@@ -34,7 +34,7 @@ class OrderCreatedEvent
 
 **Good:**
 ```php
-namespace Domain\Order\Event;
+namespace Event;
 
 final readonly class OrderCreatedEvent
 {

@@ -2,14 +2,14 @@
 
 ## Strategy Interface
 
-**File:** `src/Domain/{BoundedContext}/Strategy/{Name}StrategyInterface.php`
+**File:** `src/{architecture-path}/Strategy/{Name}StrategyInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Strategy;
+namespace Strategy;
 
 interface {Name}StrategyInterface
 {
@@ -23,14 +23,14 @@ interface {Name}StrategyInterface
 
 ## Abstract Strategy (Optional)
 
-**File:** `src/Domain/{BoundedContext}/Strategy/Abstract{Name}Strategy.php`
+**File:** `src/{architecture-path}/Strategy/Abstract{Name}Strategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Strategy;
+namespace Strategy;
 
 abstract readonly class Abstract{Name}Strategy implements {Name}StrategyInterface
 {
@@ -50,14 +50,14 @@ abstract readonly class Abstract{Name}Strategy implements {Name}StrategyInterfac
 
 ## Concrete Strategy
 
-**File:** `src/Domain/{BoundedContext}/Strategy/{Variant}{Name}Strategy.php`
+**File:** `src/{architecture-path}/Strategy/{Variant}{Name}Strategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Strategy;
+namespace Strategy;
 
 final readonly class {Variant}{Name}Strategy implements {Name}StrategyInterface
 {
@@ -77,14 +77,14 @@ final readonly class {Variant}{Name}Strategy implements {Name}StrategyInterface
 
 ## Strategy Context
 
-**File:** `src/Domain/{BoundedContext}/Strategy/{Name}Context.php`
+**File:** `src/{architecture-path}/Strategy/{Name}Context.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Strategy;
+namespace Strategy;
 
 final class {Name}Context
 {
@@ -108,14 +108,14 @@ final class {Name}Context
 
 ## Strategy Resolver
 
-**File:** `src/Domain/{BoundedContext}/Strategy/{Name}StrategyResolver.php`
+**File:** `src/{architecture-path}/Strategy/{Name}StrategyResolver.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Strategy;
+namespace Strategy;
 
 final readonly class {Name}StrategyResolver
 {
@@ -144,17 +144,17 @@ final readonly class {Name}StrategyResolver
 
 ## Pricing Strategy Interface
 
-**File:** `src/Domain/Pricing/Strategy/PricingStrategyInterface.php`
+**File:** `src/{architecture-path}/Strategy/PricingStrategyInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Pricing\Strategy;
+namespace Strategy;
 
-use Domain\Pricing\ValueObject\Price;
-use Domain\Pricing\ValueObject\PricingContext;
+use ValueObject\Price;
+use ValueObject\PricingContext;
 
 interface PricingStrategyInterface
 {
@@ -168,17 +168,17 @@ interface PricingStrategyInterface
 
 ## Shipping Strategy Interface
 
-**File:** `src/Domain/Shipping/Strategy/ShippingCostStrategyInterface.php`
+**File:** `src/{architecture-path}/Strategy/ShippingCostStrategyInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shipping\Strategy;
+namespace Strategy;
 
-use Domain\Shipping\ValueObject\ShippingCost;
-use Domain\Shipping\ValueObject\ShippingRequest;
+use ValueObject\ShippingCost;
+use ValueObject\ShippingRequest;
 
 interface ShippingCostStrategyInterface
 {
@@ -194,17 +194,17 @@ interface ShippingCostStrategyInterface
 
 ## Tax Strategy Interface
 
-**File:** `src/Domain/Tax/Strategy/TaxStrategyInterface.php`
+**File:** `src/{architecture-path}/Strategy/TaxStrategyInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Tax\Strategy;
+namespace Strategy;
 
-use Domain\Tax\ValueObject\TaxCalculation;
-use Domain\Tax\ValueObject\TaxableItem;
+use ValueObject\TaxCalculation;
+use ValueObject\TaxableItem;
 
 interface TaxStrategyInterface
 {

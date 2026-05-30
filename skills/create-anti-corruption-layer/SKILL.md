@@ -50,40 +50,40 @@ YOUR BOUNDED CONTEXT
 
 ### Step 1: Generate Domain Port
 
-**Path:** `src/Domain/{BoundedContext}/Port/`
+Place alongside the bounded context's domain code.
 
-1. `{ExternalSystem}PortInterface.php` — Domain interface for external system
+1. `{ExternalSystem}PortInterface.php` — Interface the domain depends on
 
 ### Step 2: Generate External DTOs
 
-**Path:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/DTO/`
+Place inside the ACL boundary with other external-system integration code.
 
 1. `{ExternalSystem}{Concept}DTO.php` — DTOs matching external format
 
 ### Step 3: Generate Translator
 
-**Path:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/`
+Place inside the ACL boundary.
 
 1. `{ExternalSystem}Translator.php` — Domain ↔ External conversion
 
 ### Step 4: Generate Facade
 
-**Path:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/`
+Place inside the ACL boundary.
 
 1. `{ExternalSystem}Facade.php` — Simplified external system interface
 
 ### Step 5: Generate Adapter
 
-**Path:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/`
+Place inside the ACL boundary.
 
-1. `{ExternalSystem}Adapter.php` — Implements domain port
+1. `{ExternalSystem}Adapter.php` — Implements the domain port
 
 ### Step 6: Generate Exceptions
 
-**Path:** `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/Exception/`
+Place inside the ACL boundary.
 
-1. `{ExternalSystem}Exception.php` — Domain exception
-2. `{ExternalSystem}ConnectionException.php` — Infrastructure exception
+1. `{ExternalSystem}Exception.php` — Domain-facing exception
+2. `{ExternalSystem}ConnectionException.php` — Infrastructure-side exception
 
 ### Step 7: Generate Tests
 
@@ -96,13 +96,15 @@ YOUR BOUNDED CONTEXT
 
 | Component | Path |
 |-----------|------|
-| Domain Port | `src/Domain/{BoundedContext}/Port/{ExternalSystem}PortInterface.php` |
-| External DTO | `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/DTO/` |
-| Translator | `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/{ExternalSystem}Translator.php` |
-| Facade | `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/{ExternalSystem}Facade.php` |
-| Adapter | `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/{ExternalSystem}Adapter.php` |
-| Exceptions | `src/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/Exception/` |
-| Tests | `tests/Unit/Infrastructure/{BoundedContext}/ACL/{ExternalSystem}/` |
+| Domain Port | `src/{architecture-path}/Port/{ExternalSystem}PortInterface.php` |
+| External DTO | `src/{architecture-path}/ACL/{ExternalSystem}/DTO/` |
+| Translator | `src/{architecture-path}/ACL/{ExternalSystem}/{ExternalSystem}Translator.php` |
+| Facade | `src/{architecture-path}/ACL/{ExternalSystem}/{ExternalSystem}Facade.php` |
+| Adapter | `src/{architecture-path}/ACL/{ExternalSystem}/{ExternalSystem}Adapter.php` |
+| Exceptions | `src/{architecture-path}/ACL/{ExternalSystem}/Exception/` |
+| Tests | `tests/Unit/{architecture-path}/ACL/{ExternalSystem}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The domain Port typically lives alongside other domain abstractions; ACL components (DTO, Translator, Facade, Adapter, Exceptions) live together at the integration boundary with other external-system integrations. Adjust to your project's layout.
 
 ---
 
@@ -202,10 +204,10 @@ final readonly class StripeAdapter implements PaymentGatewayPortInterface
 
 ```yaml
 # services.yaml
-Domain\Payment\Port\PaymentGatewayPortInterface:
-    alias: Infrastructure\Payment\ACL\Stripe\StripeAdapter
+Port\PaymentGatewayPortInterface:
+    alias: ACL\Stripe\StripeAdapter
 
-Infrastructure\Payment\ACL\Stripe\StripeFacade:
+ACL\Stripe\StripeFacade:
     arguments:
         $client: '@stripe.client'
 ```

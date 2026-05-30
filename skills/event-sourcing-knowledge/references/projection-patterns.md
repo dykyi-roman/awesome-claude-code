@@ -27,9 +27,9 @@ A read model built by processing domain events. Projections transform the event 
 
 declare(strict_types=1);
 
-namespace Application\Projection;
+namespace Projection;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 interface ProjectionInterface
 {
@@ -62,11 +62,11 @@ interface ProjectionInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Projection;
+namespace Projection;
 
-use Domain\Order\Event\OrderCreatedEvent;
-use Domain\Order\Event\OrderConfirmedEvent;
-use Domain\Order\Event\OrderShippedEvent;
+use Event\OrderCreatedEvent;
+use Event\OrderConfirmedEvent;
+use Event\OrderShippedEvent;
 
 final class OrderListProjection implements ProjectionInterface
 {
@@ -140,7 +140,7 @@ final class OrderListProjection implements ProjectionInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Projection;
+namespace Projection;
 
 final class OrderListProjection implements ProjectionInterface
 {
@@ -189,7 +189,7 @@ final class OrderListProjection implements ProjectionInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Projection;
+namespace Projection;
 
 final class ProjectionRunner
 {
@@ -252,7 +252,7 @@ Projection that processes all historical events, then switches to live mode:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Projection;
+namespace Projection;
 
 final class CatchUpProjectionRunner
 {
@@ -316,7 +316,7 @@ Projection that combines events from multiple aggregate types:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Projection;
+namespace Projection;
 
 final class CustomerOrderSummaryProjection implements ProjectionInterface
 {
@@ -437,7 +437,7 @@ final class IdempotentProjection implements ProjectionInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\ReadModel;
+namespace ReadModel;
 
 interface OrderReadModelInterface
 {
@@ -464,7 +464,7 @@ interface OrderReadModelInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\ReadModel;
+namespace ReadModel;
 
 final readonly class DbalOrderReadModel implements OrderReadModelInterface
 {

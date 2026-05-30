@@ -2,19 +2,19 @@
 
 ## Logging Decorator
 
-**File:** `src/Infrastructure/Order/Decorator/LoggingOrderServiceDecorator.php`
+**File:** `src/{architecture-path}/Decorator/LoggingOrderServiceDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\Decorator;
+namespace Decorator;
 
-use Domain\Order\Decorator\AbstractOrderServiceDecorator;
-use Domain\Order\Entity\Order;
-use Domain\Order\Service\OrderServiceInterface;
-use Domain\Order\ValueObject\OrderId;
+use Decorator\AbstractOrderServiceDecorator;
+use Entity\Order;
+use Service\OrderServiceInterface;
+use ValueObject\OrderId;
 use Psr\Log\LoggerInterface;
 
 final readonly class LoggingOrderServiceDecorator extends AbstractOrderServiceDecorator
@@ -61,19 +61,19 @@ final readonly class LoggingOrderServiceDecorator extends AbstractOrderServiceDe
 
 ## Caching Decorator
 
-**File:** `src/Infrastructure/Order/Decorator/CachingOrderServiceDecorator.php`
+**File:** `src/{architecture-path}/Decorator/CachingOrderServiceDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\Decorator;
+namespace Decorator;
 
-use Domain\Order\Decorator\AbstractOrderServiceDecorator;
-use Domain\Order\Entity\Order;
-use Domain\Order\Service\OrderServiceInterface;
-use Domain\Order\ValueObject\OrderId;
+use Decorator\AbstractOrderServiceDecorator;
+use Entity\Order;
+use Service\OrderServiceInterface;
+use ValueObject\OrderId;
 use Psr\Cache\CacheItemPoolInterface;
 
 final readonly class CachingOrderServiceDecorator extends AbstractOrderServiceDecorator
@@ -122,20 +122,20 @@ final readonly class CachingOrderServiceDecorator extends AbstractOrderServiceDe
 
 ## Metrics Decorator
 
-**File:** `src/Infrastructure/Order/Decorator/MetricsOrderServiceDecorator.php`
+**File:** `src/{architecture-path}/Decorator/MetricsOrderServiceDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\Decorator;
+namespace Decorator;
 
-use Domain\Order\Decorator\AbstractOrderServiceDecorator;
-use Domain\Order\Entity\Order;
-use Domain\Order\Service\OrderServiceInterface;
-use Domain\Order\ValueObject\OrderId;
-use Infrastructure\Metrics\MetricsCollectorInterface;
+use Decorator\AbstractOrderServiceDecorator;
+use Entity\Order;
+use Service\OrderServiceInterface;
+use ValueObject\OrderId;
+use Metrics\MetricsCollectorInterface;
 
 final readonly class MetricsOrderServiceDecorator extends AbstractOrderServiceDecorator
 {
@@ -185,20 +185,20 @@ final readonly class MetricsOrderServiceDecorator extends AbstractOrderServiceDe
 
 ## Transaction Decorator
 
-**File:** `src/Infrastructure/Order/Decorator/TransactionalOrderServiceDecorator.php`
+**File:** `src/{architecture-path}/Decorator/TransactionalOrderServiceDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order\Decorator;
+namespace Decorator;
 
-use Domain\Order\Decorator\AbstractOrderServiceDecorator;
-use Domain\Order\Entity\Order;
-use Domain\Order\Service\OrderServiceInterface;
-use Domain\Order\ValueObject\OrderId;
-use Infrastructure\Persistence\TransactionInterface;
+use Decorator\AbstractOrderServiceDecorator;
+use Entity\Order;
+use Service\OrderServiceInterface;
+use ValueObject\OrderId;
+use Persistence\TransactionInterface;
 
 final readonly class TransactionalOrderServiceDecorator extends AbstractOrderServiceDecorator
 {
@@ -229,20 +229,20 @@ final readonly class TransactionalOrderServiceDecorator extends AbstractOrderSer
 
 ## Stacking Decorators
 
-**File:** `src/Infrastructure/Order/OrderServiceFactory.php`
+**File:** `src/{architecture-path}/OrderServiceFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Order;
+namespace Order;
 
-use Domain\Order\Service\OrderServiceInterface;
-use Infrastructure\Order\Decorator\CachingOrderServiceDecorator;
-use Infrastructure\Order\Decorator\LoggingOrderServiceDecorator;
-use Infrastructure\Order\Decorator\MetricsOrderServiceDecorator;
-use Infrastructure\Order\Decorator\TransactionalOrderServiceDecorator;
+use Service\OrderServiceInterface;
+use Decorator\CachingOrderServiceDecorator;
+use Decorator\LoggingOrderServiceDecorator;
+use Decorator\MetricsOrderServiceDecorator;
+use Decorator\TransactionalOrderServiceDecorator;
 
 final readonly class OrderServiceFactory
 {
@@ -272,17 +272,17 @@ final readonly class OrderServiceFactory
 
 ## Notifier Decorators
 
-**File:** `src/Domain/Notification/Decorator/SlackNotifierDecorator.php`
+**File:** `src/{architecture-path}/Decorator/SlackNotifierDecorator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification\Decorator;
+namespace Decorator;
 
-use Domain\Notification\Message;
-use Domain\Notification\NotifierInterface;
+use Notification\Message;
+use Notification\NotifierInterface;
 
 final readonly class SlackNotifierDecorator extends AbstractNotifierDecorator
 {
@@ -311,17 +311,17 @@ final readonly class SlackNotifierDecorator extends AbstractNotifierDecorator
 
 ### LoggingOrderServiceDecoratorTest
 
-**File:** `tests/Unit/Infrastructure/Order/Decorator/LoggingOrderServiceDecoratorTest.php`
+**File:** `tests/Unit/Decorator/LoggingOrderServiceDecoratorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Order\Decorator;
+namespace Tests\Unit\Decorator;
 
-use Domain\Order\Service\OrderServiceInterface;
-use Infrastructure\Order\Decorator\LoggingOrderServiceDecorator;
+use Service\OrderServiceInterface;
+use Decorator\LoggingOrderServiceDecorator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -360,17 +360,17 @@ final class LoggingOrderServiceDecoratorTest extends TestCase
 
 ### CachingOrderServiceDecoratorTest
 
-**File:** `tests/Unit/Infrastructure/Order/Decorator/CachingOrderServiceDecoratorTest.php`
+**File:** `tests/Unit/Decorator/CachingOrderServiceDecoratorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Order\Decorator;
+namespace Tests\Unit\Decorator;
 
-use Domain\Order\Service\OrderServiceInterface;
-use Infrastructure\Order\Decorator\CachingOrderServiceDecorator;
+use Service\OrderServiceInterface;
+use Decorator\CachingOrderServiceDecorator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

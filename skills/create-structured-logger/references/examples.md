@@ -2,17 +2,17 @@
 
 ## Logger Factory Setup
 
-**File:** `src/Infrastructure/Logging/LoggerFactory.php`
+**File:** `src/{architecture-path}/Logging/LoggerFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
-use Infrastructure\Logging\Processor\CorrelationIdProcessor;
-use Infrastructure\Logging\Processor\RequestContextProcessor;
+use Logging\Processor\CorrelationIdProcessor;
+use Logging\Processor\RequestContextProcessor;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -43,14 +43,14 @@ final readonly class LoggerFactory
 
 ## Service Using Structured Logger
 
-**File:** `src/Application/Order/CreateOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/CreateOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order;
+namespace Order;
 
 use Psr\Log\LoggerInterface;
 
@@ -90,10 +90,10 @@ final readonly class CreateOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Logging\CorrelationIdMiddleware;
-use Infrastructure\Logging\Processor\RequestContextProcessor;
+use Logging\CorrelationIdMiddleware;
+use Logging\Processor\RequestContextProcessor;
 
 final readonly class MiddlewarePipeline
 {
@@ -113,16 +113,16 @@ final readonly class MiddlewarePipeline
 
 ### CorrelationIdTest
 
-**File:** `tests/Unit/Infrastructure/Logging/CorrelationIdTest.php`
+**File:** `tests/Unit/CorrelationIdTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Logging;
+namespace Tests\Unit\Logging;
 
-use Infrastructure\Logging\CorrelationId;
+use Logging\CorrelationId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -176,18 +176,18 @@ final class CorrelationIdTest extends TestCase
 
 ### CorrelationIdProcessorTest
 
-**File:** `tests/Unit/Infrastructure/Logging/Processor/CorrelationIdProcessorTest.php`
+**File:** `tests/Unit/Processor/CorrelationIdProcessorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Logging\Processor;
+namespace Tests\Unit\Processor;
 
-use Infrastructure\Logging\CorrelationId;
-use Infrastructure\Logging\CorrelationIdHolder;
-use Infrastructure\Logging\Processor\CorrelationIdProcessor;
+use Logging\CorrelationId;
+use Logging\CorrelationIdHolder;
+use Logging\Processor\CorrelationIdProcessor;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -242,16 +242,16 @@ final class CorrelationIdProcessorTest extends TestCase
 
 ### CorrelationIdMiddlewareTest
 
-**File:** `tests/Unit/Infrastructure/Logging/CorrelationIdMiddlewareTest.php`
+**File:** `tests/Unit/CorrelationIdMiddlewareTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Logging;
+namespace Tests\Unit\Logging;
 
-use Infrastructure\Logging\CorrelationIdMiddleware;
+use Logging\CorrelationIdMiddleware;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

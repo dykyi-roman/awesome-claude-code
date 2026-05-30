@@ -42,12 +42,12 @@ app/
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Entity;
+namespace Entity;
 
-use App\Domain\Order\Event\OrderConfirmedEvent;
-use App\Domain\Order\ValueObject\Money;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Order\ValueObject\OrderStatus;
+use Event\OrderConfirmedEvent;
+use ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
 
 final class Order
 {
@@ -105,10 +105,10 @@ final class Order
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Repository;
+namespace Repository;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 
 interface OrderRepositoryInterface
 {
@@ -127,13 +127,13 @@ interface OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace Persistence;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Order\ValueObject\Money;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Order\ValueObject\OrderStatus;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
 use App\Models\OrderModel;
 
 final readonly class CIOrderRepository implements OrderRepositoryInterface
@@ -204,9 +204,9 @@ Events::on('order.confirmed', static function (object $event): void {
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Event;
+namespace Event;
 
-use App\Domain\Shared\EventDispatcherInterface;
+use Shared\EventDispatcherInterface;
 use CodeIgniter\Events\Events;
 
 final readonly class CIEventDispatcher implements EventDispatcherInterface
@@ -233,7 +233,7 @@ final readonly class CIEventDispatcher implements EventDispatcherInterface
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\ValueObject;
+namespace ValueObject;
 
 final readonly class OrderId
 {
@@ -262,7 +262,7 @@ final readonly class OrderId
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\ValueObject;
+namespace ValueObject;
 
 enum OrderStatus: string
 {
@@ -300,8 +300,8 @@ declare(strict_types=1);
 // app/Config/Services.php
 namespace Config;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Infrastructure\Persistence\CIOrderRepository;
+use Repository\OrderRepositoryInterface;
+use Persistence\CIOrderRepository;
 use App\Models\OrderModel;
 use CodeIgniter\Config\BaseService;
 

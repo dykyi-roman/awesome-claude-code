@@ -22,12 +22,12 @@ Creates Facade pattern infrastructure for providing simplified access to complex
 - Simple unified interface
 - Delegates to subsystem classes
 - No business logic, only orchestration
-- Lives in Application layer
+- Lives at the coordination layer that wires the subsystems together
 
 ### Subsystem Classes
 - Independent complex operations
 - Can be used directly or through facade
-- Domain or Infrastructure services
+- Domain services / infrastructure adapters / external clients
 
 ---
 
@@ -35,13 +35,13 @@ Creates Facade pattern infrastructure for providing simplified access to complex
 
 ### Step 1: Generate Facade
 
-**Path:** `src/Application/{BoundedContext}/Facade/`
+Place at the coordination layer that wires together the subsystems.
 
 1. `{Name}Facade.php` — Unified interface to subsystem
 
 ### Step 2: Identify Subsystem Classes (Existing)
 
-**Paths:** Domain or Infrastructure services
+These can be domain services, persistence adapters, or external API clients — wherever the related functionality lives in your project.
 
 1. Services, Repositories, External APIs
 2. Multiple components with related functionality
@@ -56,9 +56,11 @@ Creates Facade pattern infrastructure for providing simplified access to complex
 
 | Component | Path |
 |-----------|------|
-| Facade | `src/Application/{BoundedContext}/Facade/` |
-| Subsystem Classes | `src/Domain/` or `src/Infrastructure/` |
-| Unit Tests | `tests/Unit/Application/{BoundedContext}/Facade/` |
+| Facade | `src/{architecture-path}/Facade/{Name}Facade.php` |
+| Subsystem Classes | Wherever the related functionality already lives in your project |
+| Unit Tests | `tests/Unit/{architecture-path}/Facade/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The facade typically lives at the coordination layer (Application in Clean/Layered, the hexagon in Hexagonal, the feature folder in Package-by-Feature). Adjust to your project's layout.
 
 ---
 

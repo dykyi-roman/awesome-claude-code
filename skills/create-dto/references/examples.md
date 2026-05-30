@@ -2,14 +2,14 @@
 
 ## Order Request DTO
 
-**File:** `src/Presentation/Api/Order/Request/CreateOrderRequest.php`
+**File:** `src/{architecture-path}/Request/CreateOrderRequest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Request;
+namespace Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -55,14 +55,14 @@ final readonly class CreateOrderRequest
 
 ## OrderItemRequest
 
-**File:** `src/Presentation/Api/Order/Request/OrderItemRequest.php`
+**File:** `src/{architecture-path}/Request/OrderItemRequest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Request;
+namespace Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -98,16 +98,16 @@ final readonly class OrderItemRequest
 
 ## Order Response DTO
 
-**File:** `src/Presentation/Api/Order/Response/OrderResponse.php`
+**File:** `src/{architecture-path}/Response/OrderResponse.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Response;
+namespace Response;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class OrderResponse implements \JsonSerializable
 {
@@ -176,16 +176,16 @@ final readonly class OrderResponse implements \JsonSerializable
 
 ## User DTO (Application Layer)
 
-**File:** `src/Application/User/DTO/UserDTO.php`
+**File:** `src/{architecture-path}/DTO/UserDTO.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\User\DTO;
+namespace DTO;
 
-use Domain\User\Entity\User;
+use Entity\User;
 
 final readonly class UserDTO
 {
@@ -225,14 +225,14 @@ final readonly class UserDTO
 
 ## Payment Gateway Integration DTO
 
-**File:** `src/Infrastructure/ExternalApi/Payment/DTO/PaymentGatewayResponse.php`
+**File:** `src/{architecture-path}/DTO/PaymentGatewayResponse.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\ExternalApi\Payment\DTO;
+namespace DTO;
 
 final readonly class PaymentGatewayResponse
 {
@@ -277,18 +277,18 @@ final readonly class PaymentGatewayResponse
 
 ### CreateOrderRequestTest
 
-**File:** `tests/Unit/Presentation/Api/Order/Request/CreateOrderRequestTest.php`
+**File:** `tests/Unit/Order/Request/CreateOrderRequestTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\Order\Request;
+namespace Tests\Unit\Order\Request;
 
-use Presentation\Api\Order\Request\CreateOrderRequest;
-use Presentation\Api\Order\Request\OrderItemRequest;
-use Presentation\Api\Order\Request\AddressRequest;
+use Request\CreateOrderRequest;
+use Request\OrderItemRequest;
+use Request\AddressRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -345,17 +345,17 @@ final class CreateOrderRequestTest extends TestCase
 
 ### OrderResponseTest
 
-**File:** `tests/Unit/Presentation/Api/Order/Response/OrderResponseTest.php`
+**File:** `tests/Unit/Order/Response/OrderResponseTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\Order\Response;
+namespace Tests\Unit\Order\Response;
 
-use Presentation\Api\Order\Response\OrderResponse;
-use Presentation\Api\Order\Response\AddressResponse;
+use Response\OrderResponse;
+use Response\AddressResponse;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -427,22 +427,22 @@ final class OrderResponseTest extends TestCase
 
 ### UserDTOTest
 
-**File:** `tests/Unit/Application/User/DTO/UserDTOTest.php`
+**File:** `tests/Unit/DTO/UserDTOTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\User\DTO;
+namespace Tests\Unit\DTO;
 
-use Application\User\DTO\UserDTO;
-use Domain\User\Entity\User;
-use Domain\User\ValueObject\UserId;
-use Domain\User\ValueObject\Email;
-use Domain\User\ValueObject\Name;
-use Domain\User\Enum\UserRole;
-use Domain\User\Enum\UserStatus;
+use DTO\UserDTO;
+use Entity\User;
+use ValueObject\UserId;
+use ValueObject\Email;
+use ValueObject\Name;
+use Enum\UserRole;
+use Enum\UserStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

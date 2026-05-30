@@ -40,18 +40,18 @@ Creates Event Store infrastructure for event sourcing with aggregate history and
 
 ## Generation Process
 
-### Step 1: Generate Domain Components
+### Step 1: Generate Types & Contracts
 
-**Path:** `src/Domain/{BoundedContext}/EventStore/`
+Pure types with no infrastructure dependencies.
 
 1. `StoredEvent.php` — Immutable stored event value object
 2. `EventStreamInterface.php` — Event stream contract
 3. `EventStream.php` — Event stream implementation
 4. `EventStoreInterface.php` — Event store contract
 
-### Step 2: Generate Infrastructure
+### Step 2: Generate Persistence
 
-**Path:** `src/Infrastructure/{BoundedContext}/EventStore/`
+Concrete event store against the chosen storage backend.
 
 1. `DoctrineEventStore.php` — Doctrine DBAL implementation with optimistic locking
 2. Database migration SQL
@@ -68,12 +68,14 @@ Creates Event Store infrastructure for event sourcing with aggregate history and
 
 | Component | Path |
 |-----------|------|
-| StoredEvent | `src/Domain/{BoundedContext}/EventStore/` |
-| EventStream | `src/Domain/{BoundedContext}/EventStore/` |
-| EventStoreInterface | `src/Domain/{BoundedContext}/EventStore/` |
-| DoctrineEventStore | `src/Infrastructure/{BoundedContext}/EventStore/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/EventStore/` |
-| Integration Tests | `tests/Integration/Infrastructure/{BoundedContext}/EventStore/` |
+| StoredEvent | `src/{architecture-path}/EventStore/StoredEvent.php` |
+| EventStream | `src/{architecture-path}/EventStore/EventStream.php` |
+| EventStoreInterface | `src/{architecture-path}/EventStore/EventStoreInterface.php` |
+| DoctrineEventStore | `src/{architecture-path}/EventStore/DoctrineEventStore.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/EventStore/` |
+| Integration Tests | `tests/Integration/{architecture-path}/EventStore/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Types and contracts typically live alongside domain code; the concrete event store lives with other persistence adapters. Adjust to your project's layout.
 
 ---
 

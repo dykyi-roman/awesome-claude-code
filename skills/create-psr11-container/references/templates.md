@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 use Psr\Container\ContainerInterface;
 
@@ -44,16 +44,16 @@ final class CompiledContainer implements ContainerInterface
     }
 
     // Generated methods
-    private function createApp_Domain_User_Repository_UserRepositoryInterface(): object
+    private function createRepository_UserRepositoryInterface(): object
     {
-        return new \App\Infrastructure\Persistence\DoctrineUserRepository(
+        return new \Repository\DoctrineUserRepository(
             $this->get(\Doctrine\ORM\EntityManagerInterface::class),
         );
     }
 
     private function createPsr_Log_LoggerInterface(): object
     {
-        return new \App\Infrastructure\Logger\FileLogger('/var/log/app.log');
+        return new \Logger\FileLogger('/var/log/app.log');
     }
 }
 ```
@@ -65,7 +65,7 @@ final class CompiledContainer implements ContainerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 use Closure;
 use Psr\Container\ContainerInterface;
@@ -120,7 +120,7 @@ final class LazyContainer implements ContainerInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 interface ServiceProviderInterface
 {
@@ -176,7 +176,7 @@ foreach ($providers as $provider) {
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Container;
+namespace Container;
 
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;

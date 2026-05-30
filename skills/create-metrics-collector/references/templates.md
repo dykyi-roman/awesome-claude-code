@@ -2,14 +2,14 @@
 
 ## MetricsCollectorInterface
 
-**File:** `src/Infrastructure/Metrics/MetricsCollectorInterface.php`
+**File:** `src/{architecture-path}/Metrics/MetricsCollectorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 interface MetricsCollectorInterface
 {
@@ -40,14 +40,14 @@ interface MetricsCollectorInterface
 
 ## Counter
 
-**File:** `src/Infrastructure/Metrics/Counter.php`
+**File:** `src/{architecture-path}/Metrics/Counter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 final readonly class Counter
 {
@@ -81,14 +81,14 @@ final readonly class Counter
 
 ## Gauge
 
-**File:** `src/Infrastructure/Metrics/Gauge.php`
+**File:** `src/{architecture-path}/Metrics/Gauge.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 final readonly class Gauge
 {
@@ -122,14 +122,14 @@ final readonly class Gauge
 
 ## Histogram
 
-**File:** `src/Infrastructure/Metrics/Histogram.php`
+**File:** `src/{architecture-path}/Metrics/Histogram.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 final readonly class Histogram
 {
@@ -163,14 +163,14 @@ final readonly class Histogram
 
 ## PrometheusMetricsCollector
 
-**File:** `src/Infrastructure/Metrics/PrometheusMetricsCollector.php`
+**File:** `src/{architecture-path}/Metrics/PrometheusMetricsCollector.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Prometheus\CollectorRegistry;
 use Prometheus\RenderTextFormat;
@@ -233,14 +233,14 @@ final readonly class PrometheusMetricsCollector implements MetricsCollectorInter
 
 ## NullMetricsCollector
 
-**File:** `src/Infrastructure/Metrics/NullMetricsCollector.php`
+**File:** `src/{architecture-path}/Metrics/NullMetricsCollector.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 final readonly class NullMetricsCollector implements MetricsCollectorInterface
 {
@@ -262,14 +262,14 @@ final readonly class NullMetricsCollector implements MetricsCollectorInterface
 
 ## MetricsMiddleware
 
-**File:** `src/Infrastructure/Metrics/MetricsMiddleware.php`
+**File:** `src/{architecture-path}/Metrics/MetricsMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -328,14 +328,14 @@ final readonly class MetricsMiddleware implements MiddlewareInterface
 
 ## MetricsAction
 
-**File:** `src/Infrastructure/Metrics/MetricsAction.php`
+**File:** `src/{architecture-path}/Metrics/MetricsAction.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Metrics;
+namespace Metrics;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

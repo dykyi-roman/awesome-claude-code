@@ -4,17 +4,17 @@
 
 ### CsvDataImporterTemplate
 
-**File:** `src/Domain/Import/Template/CsvDataImporterTemplate.php`
+**File:** `src/{architecture-path}/Template/CsvDataImporterTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Import\Template;
+namespace Template;
 
-use Domain\Import\ValueObject\ImportResult;
-use Domain\Import\Exception\ImportValidationException;
+use ValueObject\ImportResult;
+use Exception\ImportValidationException;
 
 final readonly class CsvDataImporterTemplate extends AbstractDataImporterTemplate
 {
@@ -75,16 +75,16 @@ final readonly class CsvDataImporterTemplate extends AbstractDataImporterTemplat
 
 ### JsonDataImporterTemplate
 
-**File:** `src/Domain/Import/Template/JsonDataImporterTemplate.php`
+**File:** `src/{architecture-path}/Template/JsonDataImporterTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Import\Template;
+namespace Template;
 
-use Domain\Import\Exception\ImportValidationException;
+use Exception\ImportValidationException;
 
 final readonly class JsonDataImporterTemplate extends AbstractDataImporterTemplate
 {
@@ -128,16 +128,16 @@ final readonly class JsonDataImporterTemplate extends AbstractDataImporterTempla
 
 ### XmlDataImporterTemplate
 
-**File:** `src/Domain/Import/Template/XmlDataImporterTemplate.php`
+**File:** `src/{architecture-path}/Template/XmlDataImporterTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Import\Template;
+namespace Template;
 
-use Domain\Import\Exception\ImportValidationException;
+use Exception\ImportValidationException;
 
 final readonly class XmlDataImporterTemplate extends AbstractDataImporterTemplate
 {
@@ -193,17 +193,17 @@ final readonly class XmlDataImporterTemplate extends AbstractDataImporterTemplat
 
 ### PdfReportGeneratorTemplate
 
-**File:** `src/Application/Report/PdfReportGeneratorTemplate.php`
+**File:** `src/{architecture-path}/PdfReportGeneratorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Report;
+namespace Report;
 
-use Domain\Report\Template\AbstractReportGeneratorTemplate;
-use Domain\Report\ValueObject\ReportData;
+use Template\AbstractReportGeneratorTemplate;
+use ValueObject\ReportData;
 
 final readonly class PdfReportGeneratorTemplate extends AbstractReportGeneratorTemplate
 {
@@ -253,17 +253,17 @@ final readonly class PdfReportGeneratorTemplate extends AbstractReportGeneratorT
 
 ### ExcelReportGeneratorTemplate
 
-**File:** `src/Application/Report/ExcelReportGeneratorTemplate.php`
+**File:** `src/{architecture-path}/ExcelReportGeneratorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Report;
+namespace Report;
 
-use Domain\Report\Template\AbstractReportGeneratorTemplate;
-use Domain\Report\ValueObject\ReportData;
+use Template\AbstractReportGeneratorTemplate;
+use ValueObject\ReportData;
 
 final readonly class ExcelReportGeneratorTemplate extends AbstractReportGeneratorTemplate
 {
@@ -306,16 +306,16 @@ final readonly class ExcelReportGeneratorTemplate extends AbstractReportGenerato
 
 ### StandardOrderProcessorTemplate
 
-**File:** `src/Domain/Order/Template/StandardOrderProcessorTemplate.php`
+**File:** `src/{architecture-path}/Template/StandardOrderProcessorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Template;
+namespace Template;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class StandardOrderProcessorTemplate extends AbstractOrderProcessorTemplate
 {
@@ -352,16 +352,16 @@ final readonly class StandardOrderProcessorTemplate extends AbstractOrderProcess
 
 ### ExpressOrderProcessorTemplate
 
-**File:** `src/Domain/Order/Template/ExpressOrderProcessorTemplate.php`
+**File:** `src/{architecture-path}/Template/ExpressOrderProcessorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Template;
+namespace Template;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class ExpressOrderProcessorTemplate extends AbstractOrderProcessorTemplate
 {
@@ -407,16 +407,16 @@ final readonly class ExpressOrderProcessorTemplate extends AbstractOrderProcesso
 
 ### InternationalOrderProcessorTemplate
 
-**File:** `src/Domain/Order/Template/InternationalOrderProcessorTemplate.php`
+**File:** `src/{architecture-path}/Template/InternationalOrderProcessorTemplate.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Template;
+namespace Template;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class InternationalOrderProcessorTemplate extends AbstractOrderProcessorTemplate
 {
@@ -465,17 +465,17 @@ final readonly class InternationalOrderProcessorTemplate extends AbstractOrderPr
 
 ### CsvDataImporterTemplateTest
 
-**File:** `tests/Unit/Domain/Import/Template/CsvDataImporterTemplateTest.php`
+**File:** `tests/Unit/Template/CsvDataImporterTemplateTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Import\Template;
+namespace Tests\Unit\Template;
 
-use Domain\Import\Template\CsvDataImporterTemplate;
-use Domain\Import\Exception\ImportValidationException;
+use Template\CsvDataImporterTemplate;
+use Exception\ImportValidationException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -523,19 +523,19 @@ final class CsvDataImporterTemplateTest extends TestCase
 
 ### StandardOrderProcessorTemplateTest
 
-**File:** `tests/Unit/Domain/Order/Template/StandardOrderProcessorTemplateTest.php`
+**File:** `tests/Unit/Template/StandardOrderProcessorTemplateTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Template;
+namespace Tests\Unit\Template;
 
-use Domain\Order\Template\StandardOrderProcessorTemplate;
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderItem;
-use Domain\Shared\ValueObject\Money;
+use Template\StandardOrderProcessorTemplate;
+use Entity\Order;
+use ValueObject\OrderItem;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

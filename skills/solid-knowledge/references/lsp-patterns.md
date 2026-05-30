@@ -381,7 +381,7 @@ $email2 = Email::fromString('USER@EXAMPLE.COM');
 $email1->equals($email2); // true
 ```
 
-### Repository Interface Contracts
+### Repository Contracts (LSP)
 
 ```php
 <?php

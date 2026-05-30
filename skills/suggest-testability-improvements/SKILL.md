@@ -202,7 +202,7 @@ class UserService
     }
 }
 
-// AFTER: Repository interface
+// AFTER: Repository (abstraction) — depend on the contract, mock in tests
 interface UserRepositoryInterface
 {
     /** @return User[] */

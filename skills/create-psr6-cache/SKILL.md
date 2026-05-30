@@ -20,9 +20,11 @@ Generates PSR-6 compliant cache implementations following `Psr\Cache\CacheItemPo
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| CacheItemPool | Pool implementation | `src/Infrastructure/Cache/` |
-| CacheItem | Item implementation | `src/Infrastructure/Cache/` |
-| Unit Tests | PHPUnit tests | `tests/Unit/Infrastructure/Cache/` |
+| CacheItemPool | Pool implementation | `src/{architecture-path}/Cache/` |
+| CacheItem | Item implementation | `src/{architecture-path}/Cache/` |
+| Unit Tests | PHPUnit tests | `tests/Unit/{architecture-path}/Cache/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. PSR-6 cache adapters typically live with other infrastructure adapters. Adjust to your project's layout.
 
 ## Template: Cache Item
 
@@ -31,7 +33,7 @@ Generates PSR-6 compliant cache implementations following `Psr\Cache\CacheItemPo
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -129,7 +131,7 @@ final class CacheItem implements CacheItemInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Cache;
+namespace Cache;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
@@ -269,7 +271,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Cache;
 
-use App\Infrastructure\Cache\ArrayCachePool;
+use Cache\ArrayCachePool;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -355,7 +357,7 @@ final class ArrayCachePoolTest extends TestCase
 ```php
 <?php
 
-use App\Infrastructure\Cache\ArrayCachePool;
+use Cache\ArrayCachePool;
 
 $pool = new ArrayCachePool();
 

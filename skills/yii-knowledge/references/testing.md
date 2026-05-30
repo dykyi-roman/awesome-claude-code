@@ -44,12 +44,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Order\Entity;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderStatus;
-use Domain\Order\Exception\CannotConfirmOrderException;
-use Domain\Shared\ValueObject\Money;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\OrderStatus;
+use Exception\CannotConfirmOrderException;
+use ValueObject\Money;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -121,10 +121,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Order\UseCase;
 
-use Application\Order\UseCase\CreateOrderUseCase;
-use Application\Order\DTO\CreateOrderDTO;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
+use UseCase\CreateOrderUseCase;
+use DTO\CreateOrderDTO;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -213,10 +213,10 @@ declare(strict_types=1);
 
 namespace Tests\Support\Factory;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Shared\ValueObject\Money;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\Money;
 
 final class OrderFactory
 {
@@ -338,8 +338,8 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Persistence;
 
-use Domain\Order\ValueObject\OrderId;
-use Infrastructure\Persistence\ActiveRecord\ActiveRecordOrderRepository;
+use ValueObject\OrderId;
+use Persistence\ActiveRecord\ActiveRecordOrderRepository;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 use Yiisoft\Db\Connection\ConnectionInterface;
@@ -400,7 +400,7 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Middleware;
 
-use Infrastructure\Http\Middleware\BearerAuthMiddleware;
+use Middleware\BearerAuthMiddleware;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;

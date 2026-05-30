@@ -5,7 +5,7 @@ description: Yii framework knowledge base. Provides Yii3 modular architecture, D
 
 # Yii Knowledge Base
 
-Quick reference for Yii3 framework patterns and PHP implementation guidelines. Yii3 is a complete rewrite — modular, PSR-compliant, and designed for modern PHP 8.4+ applications with clean architecture support.
+Quick reference for Yii3 framework patterns and PHP implementation guidelines. Yii3 is a complete rewrite — modular, PSR-compliant, and designed for modern PHP 8.4+ applications.
 
 ## Core Principles
 
@@ -33,7 +33,7 @@ Yii3 is split into independent packages (`yiisoft/*`). Install only what you nee
 
 - [ ] Domain layer has zero `use Yiisoft\` imports
 - [ ] ActiveRecord used only in Infrastructure layer
-- [ ] Repository interfaces defined in Domain layer
+- [ ] Repository pattern used for persistence access (folder placement varies by architectural style)
 - [ ] Value Objects used instead of primitives in Domain
 - [ ] Actions/Controllers only map input and delegate to UseCases
 - [ ] DI container configured via providers, not service locator
@@ -42,7 +42,7 @@ Yii3 is split into independent packages (`yiisoft/*`). Install only what you nee
 - [ ] Queue handlers delegate to Application UseCases
 - [ ] Infrastructure components (Cache, HTTP Client) accessed via domain ports
 
-### Clean Architecture Checks
+### Layer Boundary Checks
 
 - [ ] No `Yiisoft\ActiveRecord` in Domain or Application layers
 - [ ] No HTTP concerns (`ServerRequestInterface`) in Application layer
@@ -58,7 +58,7 @@ Yii3 is split into independent packages (`yiisoft/*`). Install only what you nee
 | ActiveRecord in Domain | `use Yiisoft\ActiveRecord` in Domain layer | Critical |
 | Service Locator usage | `$container->get()` outside composition root | Critical |
 | Business logic in Action | if/switch on domain state in Controller/Action | Critical |
-| Framework in Domain | `use Yiisoft\` in Domain namespace | Warning |
+| Framework in Domain (Clean/Onion projects) | `use Yiisoft\` in Domain namespace | Critical in Clean/Onion; acceptable in Layered |
 | Fat middleware | Middleware doing business logic | Warning |
 | Missing input validation | Action without request validation | Warning |
 | IdentityInterface in Domain | `use Yiisoft\Auth` in Domain layer | Critical |
@@ -74,7 +74,7 @@ Yii3 is split into independent packages (`yiisoft/*`). Install only what you nee
 ```php
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
 final readonly class CreateOrderAction
 {
@@ -98,7 +98,7 @@ final readonly class CreateOrderAction
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 final readonly class CorrelationIdMiddleware implements MiddlewareInterface
 {
@@ -120,7 +120,7 @@ final readonly class CorrelationIdMiddleware implements MiddlewareInterface
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class CreateOrderUseCase
 {

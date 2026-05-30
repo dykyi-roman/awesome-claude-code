@@ -22,7 +22,7 @@ Grep: "public function __invoke" --glob "**/Presentation/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Controller;
 
 class OrderController
 {
@@ -40,10 +40,10 @@ class OrderController
 
 declare(strict_types=1);
 
-namespace App\Order\Presentation\Api;
+namespace Api;
 
-use App\Order\Application\Command\CreateOrderCommand;
-use App\Order\Application\UseCase\CreateOrderUseCase;
+use Command\CreateOrderCommand;
+use UseCase\CreateOrderUseCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,7 +84,7 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace App\Order\Presentation\Api;
+namespace Api;
 
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -140,7 +140,7 @@ EventSubscribers intercept the request lifecycle without modifying controllers.
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Symfony\EventSubscriber;
+namespace EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -183,10 +183,10 @@ final readonly class JsonRequestSubscriber implements EventSubscriberInterface
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Symfony\EventSubscriber;
+namespace EventSubscriber;
 
-use App\Shared\Domain\Exception\DomainException;
-use App\Shared\Domain\Exception\EntityNotFoundException;
+use Exception\DomainException;
+use Exception\EntityNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -244,7 +244,7 @@ Grep: "KernelEvents::" --glob "**/*Subscriber*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Presentation\Api\Request;
+namespace Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -285,9 +285,9 @@ final readonly class CreateOrderRequest
 
 declare(strict_types=1);
 
-namespace App\Order\Presentation\Api;
+namespace Api;
 
-use App\Order\Presentation\Api\Request\CreateOrderRequest;
+use Request\CreateOrderRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

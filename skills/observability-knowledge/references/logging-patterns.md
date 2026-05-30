@@ -48,7 +48,7 @@ Every log entry should be a single JSON line with consistent structure:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\RotatingFileHandler;
@@ -95,7 +95,7 @@ final readonly class LoggerFactory
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging\Processor;
+namespace Logging\Processor;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
@@ -124,7 +124,7 @@ final readonly class CorrelationIdProcessor implements ProcessorInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging\Processor;
+namespace Logging\Processor;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
@@ -164,7 +164,7 @@ final class RequestContextProcessor implements ProcessorInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging\Processor;
+namespace Logging\Processor;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
@@ -205,7 +205,7 @@ final class UserContextProcessor implements ProcessorInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -257,7 +257,7 @@ final readonly class CorrelationIdMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 use Monolog\Formatter\LogstashFormatter;
 use Monolog\Handler\SocketHandler;

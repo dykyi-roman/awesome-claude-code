@@ -47,24 +47,24 @@ Creates idempotency handling infrastructure for safe request deduplication.
 
 ## Generation Process
 
-### Step 1: Generate Core Components
+### Step 1: Generate Types
 
-**Path:** `src/Infrastructure/Idempotency/`
+Pure types and exception.
 
 1. `IdempotencyKey.php` — Value Object with UUID validation
 2. `IdempotencyException.php` — Duplicate request exception
 3. `StoredResponse.php` — Serializable response wrapper
 
-### Step 2: Generate Storage Layer
+### Step 2: Generate Storage
 
-**Path:** `src/Infrastructure/Idempotency/`
+Storage abstraction + Redis implementation.
 
 1. `IdempotencyStorageInterface.php` — Storage contract
 2. `RedisIdempotencyStorage.php` — Redis SETNX + TTL implementation
 
 ### Step 3: Generate Middleware
 
-**Path:** `src/Infrastructure/Idempotency/`
+Place alongside other HTTP middleware.
 
 1. `IdempotencyMiddleware.php` — PSR-15 middleware
 
@@ -79,8 +79,10 @@ Creates idempotency handling infrastructure for safe request deduplication.
 
 | Component | Path |
 |-----------|------|
-| All Classes | `src/Infrastructure/Idempotency/` |
-| Unit Tests | `tests/Unit/Infrastructure/Idempotency/` |
+| All Classes | `src/{architecture-path}/Idempotency/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Idempotency/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Idempotency middleware typically lives alongside other HTTP middleware and shared resilience infrastructure. Adjust to your project's layout.
 
 ---
 

@@ -54,7 +54,7 @@ Creates access control infrastructure for RBAC/ABAC authorization patterns.
 
 ### Step 1: Generate Core Components
 
-**Path:** `src/Infrastructure/Security/AccessControl/`
+Place alongside other security infrastructure.
 
 1. `Permission.php` — Permission enum
 2. `Role.php` — Role value object with hierarchy
@@ -62,7 +62,7 @@ Creates access control infrastructure for RBAC/ABAC authorization patterns.
 
 ### Step 2: Generate Voter System
 
-**Path:** `src/Infrastructure/Security/AccessControl/`
+Co-located with the core components in the same `AccessControl/` folder.
 
 1. `VoterInterface.php` — Voter contract with GRANT/DENY/ABSTAIN
 2. `Vote.php` — Vote result enum
@@ -71,7 +71,7 @@ Creates access control infrastructure for RBAC/ABAC authorization patterns.
 
 ### Step 3: Generate Concrete Voters
 
-**Path:** `src/Infrastructure/Security/AccessControl/Voter/`
+Place in a sibling `Voter/` sub-folder.
 
 1. `RoleVoter.php` — Role hierarchy voter
 2. `ResourceOwnerVoter.php` — Resource ownership voter
@@ -88,9 +88,11 @@ Creates access control infrastructure for RBAC/ABAC authorization patterns.
 
 | Component | Path |
 |-----------|------|
-| Core Classes | `src/Infrastructure/Security/AccessControl/` |
-| Voters | `src/Infrastructure/Security/AccessControl/Voter/` |
-| Unit Tests | `tests/Unit/Infrastructure/Security/AccessControl/` |
+| Core Classes | `src/{architecture-path}/AccessControl/` |
+| Voters | `src/{architecture-path}/AccessControl/Voter/` |
+| Unit Tests | `tests/Unit/{architecture-path}/AccessControl/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Access control typically lives with other security infrastructure (authenticators, middleware). Adjust to your project's layout.
 
 ---
 

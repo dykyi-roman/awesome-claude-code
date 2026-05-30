@@ -6,14 +6,14 @@ Advanced projection patterns for rebuilding read models from event stores.
 
 ### ProjectionRunnerInterface
 
-**File:** `src/Application/{BoundedContext}/Projection/ProjectionRunnerInterface.php`
+**File:** `src/{architecture-path}/Projection/ProjectionRunnerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
 interface ProjectionRunnerInterface
 {
@@ -29,16 +29,16 @@ interface ProjectionRunnerInterface
 
 ### ProjectionRunner
 
-**File:** `src/Application/{BoundedContext}/Projection/ProjectionRunner.php`
+**File:** `src/{architecture-path}/Projection/ProjectionRunner.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
-use Domain\{BoundedContext}\EventStore\EventStoreInterface;
+use EventStore\EventStoreInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class ProjectionRunner implements ProjectionRunnerInterface
@@ -108,14 +108,14 @@ final readonly class ProjectionRunner implements ProjectionRunnerInterface
 
 ### ProjectionVersion
 
-**File:** `src/Application/{BoundedContext}/Projection/ProjectionVersion.php`
+**File:** `src/{architecture-path}/Projection/ProjectionVersion.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
 final readonly class ProjectionVersion
 {
@@ -142,14 +142,14 @@ final readonly class ProjectionVersion
 
 ### VersionedProjectionInterface
 
-**File:** `src/Application/{BoundedContext}/Projection/VersionedProjectionInterface.php`
+**File:** `src/{architecture-path}/Projection/VersionedProjectionInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
 interface VersionedProjectionInterface extends ProjectionInterface
 {
@@ -165,14 +165,14 @@ interface VersionedProjectionInterface extends ProjectionInterface
 
 ### ProjectionCheckpoint
 
-**File:** `src/Application/{BoundedContext}/Projection/ProjectionCheckpoint.php`
+**File:** `src/{architecture-path}/Projection/ProjectionCheckpoint.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
 final readonly class ProjectionCheckpoint
 {
@@ -206,14 +206,14 @@ final readonly class ProjectionCheckpoint
 
 ### ProjectionCheckpointStore
 
-**File:** `src/Application/{BoundedContext}/Projection/ProjectionCheckpointStore.php`
+**File:** `src/{architecture-path}/Projection/ProjectionCheckpointStore.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Projection;
+namespace Projection;
 
 interface ProjectionCheckpointStore
 {
@@ -231,17 +231,17 @@ interface ProjectionCheckpointStore
 
 ### DoctrineProjectionCheckpointStore
 
-**File:** `src/Infrastructure/{BoundedContext}/Projection/DoctrineProjectionCheckpointStore.php`
+**File:** `src/{architecture-path}/Projection/DoctrineProjectionCheckpointStore.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Projection;
+namespace Projection;
 
-use Application\{BoundedContext}\Projection\ProjectionCheckpoint;
-use Application\{BoundedContext}\Projection\ProjectionCheckpointStore;
+use Projection\ProjectionCheckpoint;
+use Projection\ProjectionCheckpointStore;
 use Doctrine\DBAL\Connection;
 
 final readonly class DoctrineProjectionCheckpointStore implements ProjectionCheckpointStore
@@ -302,16 +302,16 @@ final readonly class DoctrineProjectionCheckpointStore implements ProjectionChec
 
 ### ProjectionWorker
 
-**File:** `src/Infrastructure/{BoundedContext}/Projection/ProjectionWorker.php`
+**File:** `src/{architecture-path}/Projection/ProjectionWorker.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Projection;
+namespace Projection;
 
-use Application\{BoundedContext}\Projection\ProjectionRunnerInterface;
+use Projection\ProjectionRunnerInterface;
 use Psr\Log\LoggerInterface;
 
 final class ProjectionWorker
@@ -372,21 +372,21 @@ CREATE TABLE projection_checkpoints (
 
 ### ProjectionRunnerTest
 
-**File:** `tests/Unit/Application/{BoundedContext}/Projection/ProjectionRunnerTest.php`
+**File:** `tests/Unit/Projection/ProjectionRunnerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\Projection;
+namespace Tests\Unit\Projection;
 
-use Application\{BoundedContext}\Projection\ProjectionCheckpoint;
-use Application\{BoundedContext}\Projection\ProjectionCheckpointStore;
-use Application\{BoundedContext}\Projection\ProjectionInterface;
-use Application\{BoundedContext}\Projection\ProjectionRunner;
-use Domain\{BoundedContext}\EventStore\EventStoreInterface;
-use Domain\{BoundedContext}\EventStore\EventStream;
+use Projection\ProjectionCheckpoint;
+use Projection\ProjectionCheckpointStore;
+use Projection\ProjectionInterface;
+use Projection\ProjectionRunner;
+use EventStore\EventStoreInterface;
+use EventStore\EventStream;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -461,16 +461,16 @@ final class ProjectionRunnerTest extends TestCase
 
 ### ProjectionCheckpointTest
 
-**File:** `tests/Unit/Application/{BoundedContext}/Projection/ProjectionCheckpointTest.php`
+**File:** `tests/Unit/Projection/ProjectionCheckpointTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\Projection;
+namespace Tests\Unit\Projection;
 
-use Application\{BoundedContext}\Projection\ProjectionCheckpoint;
+use Projection\ProjectionCheckpoint;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

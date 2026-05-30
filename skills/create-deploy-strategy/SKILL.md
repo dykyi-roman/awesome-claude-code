@@ -119,7 +119,7 @@ See `references/templates.md` for: Blue-Green GitLab CI, Canary GitHub Actions, 
 
 declare(strict_types=1);
 
-namespace App\Api\Action;
+namespace Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

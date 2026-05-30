@@ -28,7 +28,7 @@ doctrine:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
 use Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
 
@@ -79,7 +79,7 @@ final readonly class DoctrineReadWriteRepository
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 use Psr\Log\LoggerInterface;
 
@@ -258,7 +258,7 @@ return [
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase;
+namespace UseCase;
 
 use Illuminate\Support\Facades\DB;
 
@@ -295,7 +295,7 @@ final readonly class PlaceOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final class TransactionAwareDecorator implements ConnectionInterface
 {
@@ -374,7 +374,7 @@ final class TransactionAwareDecorator implements ConnectionInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 use Psr\Log\LoggerInterface;
 
@@ -428,7 +428,7 @@ final readonly class ReplicaLagMonitor
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class MysqlReplicaLagMonitor
 {
@@ -459,7 +459,7 @@ final readonly class MysqlReplicaLagMonitor
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 use Psr\Log\LoggerInterface;
 

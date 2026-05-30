@@ -89,9 +89,9 @@ Quick reference for Event-Driven Architecture (EDA) patterns and PHP implementat
 
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 final readonly class OrderPlaced implements DomainEvent
 {
@@ -137,9 +137,9 @@ final readonly class OrderPlaced implements DomainEvent
 
 declare(strict_types=1);
 
-namespace Application\Shared\Port\Output;
+namespace Port\Output;
 
-use Domain\Shared\Event\DomainEvent;
+use Event\DomainEvent;
 
 interface EventPublisherInterface
 {
@@ -157,10 +157,10 @@ interface EventPublisherInterface
 
 declare(strict_types=1);
 
-namespace Application\Order\EventHandler;
+namespace EventHandler;
 
-use Application\Shared\Port\Output\EventHandlerInterface;
-use Domain\Order\Event\OrderPlaced;
+use Port\Output\EventHandlerInterface;
+use Event\OrderPlaced;
 
 final readonly class SendOrderConfirmationEmail implements EventHandlerInterface
 {
@@ -197,10 +197,10 @@ final readonly class SendOrderConfirmationEmail implements EventHandlerInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
-use Application\Shared\Port\Output\EventPublisherInterface;
-use Domain\Shared\Event\DomainEvent;
+use Port\Output\EventPublisherInterface;
+use Event\DomainEvent;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 

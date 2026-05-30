@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Repository;
+namespace Repository;
 
-use Domain\{BoundedContext}\Entity\{AggregateRoot};
-use Domain\{BoundedContext}\ValueObject\{AggregateRoot}Id;
+use Entity\{AggregateRoot};
+use ValueObject\{AggregateRoot}Id;
 
 interface {AggregateRoot}RepositoryInterface
 {
@@ -35,11 +35,11 @@ interface {AggregateRoot}RepositoryInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Doctrine;
+namespace Persistence\Doctrine;
 
-use Domain\{BoundedContext}\Entity\{AggregateRoot};
-use Domain\{BoundedContext}\Repository\{AggregateRoot}RepositoryInterface;
-use Domain\{BoundedContext}\ValueObject\{AggregateRoot}Id;
+use Entity\{AggregateRoot};
+use Repository\{AggregateRoot}RepositoryInterface;
+use ValueObject\{AggregateRoot}Id;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class Doctrine{AggregateRoot}Repository implements {AggregateRoot}RepositoryInterface
@@ -85,9 +85,9 @@ declare(strict_types=1);
 
 namespace Tests\Infrastructure\Persistence;
 
-use Domain\{BoundedContext}\Entity\{AggregateRoot};
-use Domain\{BoundedContext}\Repository\{AggregateRoot}RepositoryInterface;
-use Domain\{BoundedContext}\ValueObject\{AggregateRoot}Id;
+use Entity\{AggregateRoot};
+use Repository\{AggregateRoot}RepositoryInterface;
+use ValueObject\{AggregateRoot}Id;
 
 final class InMemory{AggregateRoot}Repository implements {AggregateRoot}RepositoryInterface
 {
@@ -137,9 +137,9 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Infrastructure\Persistence;
 
-use Domain\{BoundedContext}\Entity\{AggregateRoot};
-use Domain\{BoundedContext}\ValueObject\{AggregateRoot}Id;
-use Infrastructure\Persistence\Doctrine\Doctrine{AggregateRoot}Repository;
+use Entity\{AggregateRoot};
+use ValueObject\{AggregateRoot}Id;
+use Persistence\Doctrine\Doctrine{AggregateRoot}Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;

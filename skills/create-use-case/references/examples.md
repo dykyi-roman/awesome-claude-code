@@ -2,23 +2,23 @@
 
 ## CreateOrder UseCase
 
-**File:** `src/Application/Order/UseCase/CreateOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/CreateOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Application\Order\DTO\CreateOrderInput;
-use Application\Order\DTO\OrderCreatedOutput;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\ProductId;
-use Domain\Order\ValueObject\Money;
-use Domain\Shared\EventDispatcherInterface;
-use Domain\Shared\TransactionManagerInterface;
+use DTO\CreateOrderInput;
+use DTO\OrderCreatedOutput;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\ProductId;
+use ValueObject\Money;
+use Shared\EventDispatcherInterface;
+use Shared\TransactionManagerInterface;
 
 final readonly class CreateOrderUseCase
 {
@@ -66,21 +66,21 @@ final readonly class CreateOrderUseCase
 
 ## ConfirmOrder UseCase
 
-**File:** `src/Application/Order/UseCase/ConfirmOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/ConfirmOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Application\Order\DTO\ConfirmOrderInput;
-use Application\Order\DTO\OrderConfirmedOutput;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\Exception\OrderNotFoundException;
-use Domain\Shared\EventDispatcherInterface;
-use Domain\Shared\TransactionManagerInterface;
+use DTO\ConfirmOrderInput;
+use DTO\OrderConfirmedOutput;
+use Repository\OrderRepositoryInterface;
+use Exception\OrderNotFoundException;
+use Shared\EventDispatcherInterface;
+use Shared\TransactionManagerInterface;
 
 final readonly class ConfirmOrderUseCase
 {
@@ -121,22 +121,22 @@ final readonly class ConfirmOrderUseCase
 
 ## ProcessPayment UseCase (with external service)
 
-**File:** `src/Application/Payment/UseCase/ProcessPaymentUseCase.php`
+**File:** `src/{architecture-path}/UseCase/ProcessPaymentUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Payment\UseCase;
+namespace UseCase;
 
-use Application\Payment\DTO\ProcessPaymentInput;
-use Application\Payment\DTO\PaymentProcessedOutput;
-use Application\Payment\Port\PaymentGatewayInterface;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\Exception\OrderNotFoundException;
-use Domain\Shared\EventDispatcherInterface;
-use Domain\Shared\TransactionManagerInterface;
+use DTO\ProcessPaymentInput;
+use DTO\PaymentProcessedOutput;
+use Port\PaymentGatewayInterface;
+use Repository\OrderRepositoryInterface;
+use Exception\OrderNotFoundException;
+use Shared\EventDispatcherInterface;
+use Shared\TransactionManagerInterface;
 
 final readonly class ProcessPaymentUseCase
 {
@@ -198,16 +198,16 @@ final readonly class ProcessPaymentUseCase
 
 ### CreateOrderInput
 
-**File:** `src/Application/Order/DTO/CreateOrderInput.php`
+**File:** `src/{architecture-path}/DTO/CreateOrderInput.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
-use Domain\Order\ValueObject\CustomerId;
+use ValueObject\CustomerId;
 
 final readonly class CreateOrderInput
 {
@@ -223,14 +223,14 @@ final readonly class CreateOrderInput
 
 ### OrderCreatedOutput
 
-**File:** `src/Application/Order/DTO/OrderCreatedOutput.php`
+**File:** `src/{architecture-path}/DTO/OrderCreatedOutput.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\DTO;
+namespace DTO;
 
 final readonly class OrderCreatedOutput
 {
@@ -259,24 +259,24 @@ final readonly class OrderCreatedOutput
 
 ### CreateOrderUseCaseTest
 
-**File:** `tests/Unit/Application/Order/UseCase/CreateOrderUseCaseTest.php`
+**File:** `tests/Unit/UseCase/CreateOrderUseCaseTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Order\UseCase;
+namespace Tests\Unit\UseCase;
 
-use Application\Order\UseCase\CreateOrderUseCase;
-use Application\Order\DTO\CreateOrderInput;
-use Application\Order\DTO\OrderCreatedOutput;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Shared\EventDispatcherInterface;
-use Domain\Shared\TransactionManagerInterface;
+use UseCase\CreateOrderUseCase;
+use DTO\CreateOrderInput;
+use DTO\OrderCreatedOutput;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
+use Shared\EventDispatcherInterface;
+use Shared\TransactionManagerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

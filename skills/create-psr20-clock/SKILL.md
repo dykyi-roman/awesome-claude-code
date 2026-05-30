@@ -23,7 +23,7 @@ Generates PSR-20 compliant clock implementations for time abstraction.
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 
@@ -40,7 +40,7 @@ interface ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -72,7 +72,7 @@ final readonly class SystemClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -113,7 +113,7 @@ final class FrozenClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateInterval;
 use DateTimeImmutable;
@@ -166,7 +166,7 @@ final readonly class OffsetClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Clock;
+namespace Clock;
 
 use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
@@ -203,11 +203,11 @@ final class MonotonicClock implements ClockInterface
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Infrastructure\Clock;
+namespace Clock;
 
-use App\Infrastructure\Clock\FrozenClock;
-use App\Infrastructure\Clock\OffsetClock;
-use App\Infrastructure\Clock\SystemClock;
+use Clock\4;
+use Clock\4;
+use Clock\4;
 use DateInterval;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -288,8 +288,8 @@ final class ClockTest extends TestCase
 ```php
 <?php
 
-use App\Infrastructure\Clock\FrozenClock;
-use App\Infrastructure\Clock\SystemClock;
+use Clock\4;
+use Clock\4;
 
 // Production: Use system clock
 $clock = new SystemClock('UTC');
@@ -325,12 +325,14 @@ final readonly class SubscriptionService
 
 | Component | Path |
 |-----------|------|
-| Clock Interface | `src/Infrastructure/Clock/ClockInterface.php` |
-| System Clock | `src/Infrastructure/Clock/SystemClock.php` |
-| Frozen Clock | `src/Infrastructure/Clock/FrozenClock.php` |
-| Offset Clock | `src/Infrastructure/Clock/OffsetClock.php` |
-| Monotonic Clock | `src/Infrastructure/Clock/MonotonicClock.php` |
-| Tests | `tests/Unit/Infrastructure/Clock/` |
+| Clock Interface | `src/{architecture-path}/Clock/ClockInterface.php` |
+| System Clock | `src/{architecture-path}/Clock/SystemClock.php` |
+| Frozen Clock | `src/{architecture-path}/Clock/FrozenClock.php` |
+| Offset Clock | `src/{architecture-path}/Clock/OffsetClock.php` |
+| Monotonic Clock | `src/{architecture-path}/Clock/MonotonicClock.php` |
+| Tests | `tests/Unit/{architecture-path}/Clock/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. PSR-20 clock adapters typically live with other infrastructure adapters. Adjust to your project's layout.
 
 ## Requirements
 

@@ -30,7 +30,7 @@ my-plugin/
 ```json
 {
   "name": "awesome-php-tools",
-  "description": "PHP development tools for DDD and Clean Architecture",
+  "description": "PHP development tools for DDD",
   "version": "2.0.0",
   "author": "Your Name",
   "homepage": "https://github.com/user/awesome-php-tools",

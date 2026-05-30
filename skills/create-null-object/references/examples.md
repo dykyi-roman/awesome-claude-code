@@ -2,19 +2,19 @@
 
 ## NullCustomer
 
-**File:** `src/Domain/Customer/CustomerInterface.php`
+**File:** `src/{architecture-path}/CustomerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Customer;
+namespace Customer;
 
-use Domain\Customer\ValueObject\CustomerId;
-use Domain\Customer\ValueObject\Email;
-use Domain\Customer\ValueObject\Name;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\CustomerId;
+use ValueObject\Email;
+use ValueObject\Name;
+use ValueObject\Money;
 
 interface CustomerInterface
 {
@@ -34,19 +34,19 @@ interface CustomerInterface
 }
 ```
 
-**File:** `src/Domain/Customer/NullCustomer.php`
+**File:** `src/{architecture-path}/NullCustomer.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Customer;
+namespace Customer;
 
-use Domain\Customer\ValueObject\CustomerId;
-use Domain\Customer\ValueObject\Email;
-use Domain\Customer\ValueObject\Name;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\CustomerId;
+use ValueObject\Email;
+use ValueObject\Name;
+use ValueObject\Money;
 
 final readonly class NullCustomer implements CustomerInterface
 {
@@ -87,19 +87,19 @@ final readonly class NullCustomer implements CustomerInterface
 }
 ```
 
-**File:** `src/Domain/Customer/Customer.php`
+**File:** `src/{architecture-path}/Customer.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Customer;
+namespace Customer;
 
-use Domain\Customer\ValueObject\CustomerId;
-use Domain\Customer\ValueObject\Email;
-use Domain\Customer\ValueObject\Name;
-use Domain\Shared\ValueObject\Money;
+use ValueObject\CustomerId;
+use ValueObject\Email;
+use ValueObject\Name;
+use ValueObject\Money;
 
 final readonly class Customer implements CustomerInterface
 {
@@ -153,14 +153,14 @@ final readonly class Customer implements CustomerInterface
 
 ## NullNotifier
 
-**File:** `src/Domain/Notification/NotifierInterface.php`
+**File:** `src/{architecture-path}/NotifierInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
 interface NotifierInterface
 {
@@ -172,14 +172,14 @@ interface NotifierInterface
 }
 ```
 
-**File:** `src/Domain/Notification/NullNotifier.php`
+**File:** `src/{architecture-path}/NullNotifier.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
 final readonly class NullNotifier implements NotifierInterface
 {
@@ -211,16 +211,16 @@ final readonly class NullNotifier implements NotifierInterface
 
 ## Repository Returning Null Object
 
-**File:** `src/Domain/Customer/CustomerRepositoryInterface.php`
+**File:** `src/{architecture-path}/CustomerRepositoryInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Customer;
+namespace Customer;
 
-use Domain\Customer\ValueObject\CustomerId;
+use ValueObject\CustomerId;
 
 interface CustomerRepositoryInterface
 {
@@ -230,20 +230,20 @@ interface CustomerRepositoryInterface
 }
 ```
 
-**File:** `src/Infrastructure/Customer/DoctrineCustomerRepository.php`
+**File:** `src/{architecture-path}/DoctrineCustomerRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Customer;
+namespace Customer;
 
-use Domain\Customer\Customer;
-use Domain\Customer\CustomerInterface;
-use Domain\Customer\CustomerRepositoryInterface;
-use Domain\Customer\NullCustomer;
-use Domain\Customer\ValueObject\CustomerId;
+use Customer\Customer;
+use Customer\CustomerInterface;
+use Customer\CustomerRepositoryInterface;
+use Customer\NullCustomer;
+use ValueObject\CustomerId;
 use Doctrine\DBAL\Connection;
 
 final readonly class DoctrineCustomerRepository implements CustomerRepositoryInterface
@@ -302,7 +302,7 @@ final readonly class DoctrineCustomerRepository implements CustomerRepositoryInt
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class CreateOrderUseCase
 {
@@ -336,17 +336,17 @@ final readonly class CreateOrderUseCase
 
 ### NullCustomerTest
 
-**File:** `tests/Unit/Domain/Customer/NullCustomerTest.php`
+**File:** `tests/Unit/NullCustomerTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Customer;
+namespace Tests\Unit\Customer;
 
-use Domain\Customer\NullCustomer;
-use Domain\Shared\ValueObject\Money;
+use Customer\NullCustomer;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -398,16 +398,16 @@ final class NullCustomerTest extends TestCase
 
 ### NullCacheTest
 
-**File:** `tests/Unit/Infrastructure/Cache/NullCacheTest.php`
+**File:** `tests/Unit/NullCacheTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Cache;
+namespace Tests\Unit\Cache;
 
-use Infrastructure\Cache\NullCache;
+use Cache\NullCache;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -469,17 +469,17 @@ final class NullCacheTest extends TestCase
 
 ### Repository with NullObject Test
 
-**File:** `tests/Unit/Infrastructure/Customer/DoctrineCustomerRepositoryTest.php`
+**File:** `tests/Unit/DoctrineCustomerRepositoryTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Customer;
+namespace Tests\Unit\Customer;
 
-use Domain\Customer\NullCustomer;
-use Infrastructure\Customer\DoctrineCustomerRepository;
+use Customer\NullCustomer;
+use Customer\DoctrineCustomerRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

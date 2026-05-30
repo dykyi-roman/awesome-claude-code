@@ -4,18 +4,18 @@
 
 ### OrderOwnershipPolicy
 
-**File:** `src/Domain/Order/Policy/OrderOwnershipPolicy.php`
+**File:** `src/{architecture-path}/Policy/OrderOwnershipPolicy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Policy;
+namespace Policy;
 
-use Domain\Order\Entity\Order;
-use Domain\Shared\Policy\PolicyResult;
-use Domain\User\Entity\User;
+use Entity\Order;
+use Policy\PolicyResult;
+use Entity\User;
 
 final readonly class OrderOwnershipPolicy implements OrderCancellationPolicyInterface
 {
@@ -47,18 +47,18 @@ final readonly class OrderOwnershipPolicy implements OrderCancellationPolicyInte
 
 ### OrderNotShippedPolicy
 
-**File:** `src/Domain/Order/Policy/OrderNotShippedPolicy.php`
+**File:** `src/{architecture-path}/Policy/OrderNotShippedPolicy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Policy;
+namespace Policy;
 
-use Domain\Order\Entity\Order;
-use Domain\Shared\Policy\PolicyResult;
-use Domain\User\Entity\User;
+use Entity\Order;
+use Policy\PolicyResult;
+use Entity\User;
 
 final readonly class OrderNotShippedPolicy implements OrderCancellationPolicyInterface
 {
@@ -86,18 +86,18 @@ final readonly class OrderNotShippedPolicy implements OrderCancellationPolicyInt
 
 ### OrderCancellationTimePolicy
 
-**File:** `src/Domain/Order/Policy/OrderCancellationTimePolicy.php`
+**File:** `src/{architecture-path}/Policy/OrderCancellationTimePolicy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Policy;
+namespace Policy;
 
-use Domain\Order\Entity\Order;
-use Domain\Shared\Policy\PolicyResult;
-use Domain\User\Entity\User;
+use Entity\Order;
+use Policy\PolicyResult;
+use Entity\User;
 use Psr\Clock\ClockInterface;
 
 final readonly class OrderCancellationTimePolicy implements OrderCancellationPolicyInterface
@@ -140,18 +140,18 @@ final readonly class OrderCancellationTimePolicy implements OrderCancellationPol
 
 ### Composite OrderCancellationPolicy
 
-**File:** `src/Domain/Order/Policy/OrderCancellationPolicy.php`
+**File:** `src/{architecture-path}/Policy/OrderCancellationPolicy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Policy;
+namespace Policy;
 
-use Domain\Order\Entity\Order;
-use Domain\Shared\Policy\PolicyResult;
-use Domain\User\Entity\User;
+use Entity\Order;
+use Policy\PolicyResult;
+use Entity\User;
 
 final readonly class OrderCancellationPolicy implements OrderCancellationPolicyInterface
 {
@@ -179,18 +179,18 @@ final readonly class OrderCancellationPolicy implements OrderCancellationPolicyI
 
 ## Using Policies in UseCase
 
-**File:** `src/Application/Order/UseCase/CancelOrderUseCase.php`
+**File:** `src/{architecture-path}/UseCase/CancelOrderUseCase.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Domain\Order\Policy\OrderCancellationPolicyInterface;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\User\Repository\UserRepositoryInterface;
+use Policy\OrderCancellationPolicyInterface;
+use Repository\OrderRepositoryInterface;
+use Repository\UserRepositoryInterface;
 
 final readonly class CancelOrderUseCase
 {
@@ -227,16 +227,16 @@ final readonly class CancelOrderUseCase
 
 ### OrderOwnershipPolicyTest
 
-**File:** `tests/Unit/Domain/Order/Policy/OrderOwnershipPolicyTest.php`
+**File:** `tests/Unit/Policy/OrderOwnershipPolicyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Policy;
+namespace Tests\Unit\Policy;
 
-use Domain\Order\Policy\OrderOwnershipPolicy;
+use Policy\OrderOwnershipPolicy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -288,16 +288,16 @@ final class OrderOwnershipPolicyTest extends TestCase
 
 ### PolicyResultTest
 
-**File:** `tests/Unit/Domain/Shared/Policy/PolicyResultTest.php`
+**File:** `tests/Unit/Policy/PolicyResultTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Policy;
+namespace Tests\Unit\Policy;
 
-use Domain\Shared\Policy\PolicyResult;
+use Policy\PolicyResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

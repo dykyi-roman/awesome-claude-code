@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Order;
 
-use App\Infrastructure\Persistence\Eloquent\Model\CustomerModel;
-use App\Infrastructure\Persistence\Eloquent\Model\OrderModel;
+use Model\CustomerModel;
+use Model\OrderModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -78,10 +78,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Order;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Exception\InvalidOrderStateException;
-use App\Domain\Order\ValueObject\CustomerId;
-use App\Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Exception\InvalidOrderStateException;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -131,8 +131,8 @@ final class OrderTest extends TestCase
 
 declare(strict_types=1);
 
-use App\Infrastructure\Persistence\Eloquent\Model\CustomerModel;
-use App\Infrastructure\Persistence\Eloquent\Model\OrderModel;
+use Model\CustomerModel;
+use Model\OrderModel;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
@@ -195,7 +195,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Infrastructure\Persistence\Eloquent\Model\OrderModel;
+use Model\OrderModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<OrderModel> */
@@ -257,7 +257,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Order;
 
-use App\Infrastructure\Persistence\Eloquent\Model\OrderModel;
+use Model\OrderModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -291,11 +291,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Order;
 
-use App\Application\Order\UseCase\CreateOrderUseCase;
-use App\Application\Order\Command\CreateOrderCommand;
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Order\ValueObject\CustomerId;
-use App\Domain\Order\ValueObject\OrderId;
+use UseCase\CreateOrderUseCase;
+use Command\CreateOrderCommand;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

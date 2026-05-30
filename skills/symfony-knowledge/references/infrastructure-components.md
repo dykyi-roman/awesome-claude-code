@@ -23,7 +23,7 @@ Grep: "CacheInterface" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Catalog\Domain\Service;
+namespace Service;
 
 use Symfony\Contracts\Cache\CacheInterface;
 
@@ -42,7 +42,7 @@ final readonly class ProductPriceCalculator
 
 declare(strict_types=1);
 
-namespace App\Catalog\Domain\Service;
+namespace Service;
 
 // Domain port — pure PHP
 interface PriceCacheInterface
@@ -58,10 +58,10 @@ interface PriceCacheInterface
 
 declare(strict_types=1);
 
-namespace App\Catalog\Infrastructure\Cache;
+namespace Cache;
 
-use App\Catalog\Domain\Service\PriceCacheInterface;
-use App\Catalog\Domain\ValueObject\Money;
+use Service\PriceCacheInterface;
+use ValueObject\Money;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -130,9 +130,9 @@ Grep: "lock:" --glob "**/config/packages/*.yaml"
 
 declare(strict_types=1);
 
-namespace App\Order\Application\UseCase;
+namespace UseCase;
 
-use App\Order\Domain\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 use Symfony\Component\Lock\LockFactory;
 
 final readonly class ConfirmOrderUseCase
@@ -211,7 +211,7 @@ framework:
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\RateLimiter;
+namespace RateLimiter;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -276,7 +276,7 @@ Grep: "HttpClient::create\\(\\)" --glob "src/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Payment\Domain\Port;
+namespace Port;
 
 // Domain port — no framework dependency
 interface PaymentGatewayInterface
@@ -291,14 +291,14 @@ interface PaymentGatewayInterface
 
 declare(strict_types=1);
 
-namespace App\Payment\Infrastructure\Gateway;
+namespace Payment\Infrastructure\Gateway;
 
-use App\Payment\Domain\Port\PaymentGatewayInterface;
-use App\Payment\Domain\ValueObject\CardToken;
-use App\Payment\Domain\ValueObject\Money;
-use App\Payment\Domain\ValueObject\PaymentId;
-use App\Payment\Domain\ValueObject\PaymentResult;
-use App\Payment\Domain\ValueObject\RefundResult;
+use Port\PaymentGatewayInterface;
+use ValueObject\CardToken;
+use ValueObject\Money;
+use ValueObject\PaymentId;
+use ValueObject\PaymentResult;
+use ValueObject\RefundResult;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class StripePaymentGateway implements PaymentGatewayInterface
@@ -375,9 +375,9 @@ Grep: "#\\[Groups|#\\[Ignore|#\\[SerializedName" --glob "src/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Serializer;
+namespace Infrastructure\Serializer;
 
-use App\Shared\Domain\ValueObject\Money;
+use ValueObject\Money;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class MoneyNormalizer implements NormalizerInterface
@@ -409,7 +409,7 @@ final class MoneyNormalizer implements NormalizerInterface
 
 declare(strict_types=1);
 
-namespace App\Order\Application\DTO;
+namespace DTO;
 
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\SerializedName;
@@ -450,9 +450,9 @@ Grep: "scheduler:" --glob "**/config/packages/*.yaml"
 
 declare(strict_types=1);
 
-namespace App\Report\Infrastructure\Scheduler;
+namespace Scheduler;
 
-use App\Report\Application\Command\GenerateDailyReportCommand;
+use Command\GenerateDailyReportCommand;
 use Symfony\Component\Scheduler\Attribute\AsSchedule;
 use Symfony\Component\Scheduler\RecurringMessage;
 use Symfony\Component\Scheduler\Schedule;

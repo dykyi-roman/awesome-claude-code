@@ -11,7 +11,7 @@ Doctrine ORM supports optimistic locking via `#[ORM\Version]` on an integer or d
 
 declare(strict_types=1);
 
-namespace Domain\Model;
+namespace Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -65,7 +65,7 @@ When using Doctrine, wrap flush calls and handle the version mismatch:
 
 declare(strict_types=1);
 
-namespace Application\UseCase;
+namespace UseCase;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -117,7 +117,7 @@ For non-ORM scenarios, implement CAS manually:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
 final readonly class CasRepository
 {
@@ -160,7 +160,7 @@ final readonly class CasRepository
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\DBAL\LockMode;
@@ -217,7 +217,7 @@ Rules to prevent deadlocks in pessimistic locking:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
 final readonly class DeadlockRetryExecutor
 {
@@ -254,7 +254,7 @@ The basic distributed lock pattern using Redis SET with NX (Not eXists) and PX (
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final readonly class RedisDistributedLock
 {
@@ -322,7 +322,7 @@ Redlock provides stronger guarantees across multiple Redis instances:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\Store\RedisStore;

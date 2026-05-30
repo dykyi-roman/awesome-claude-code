@@ -9,7 +9,7 @@ Detailed patterns and best practices for ADR Action classes.
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Action;
+namespace Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,7 +27,7 @@ interface ActionInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Action;
+namespace Action;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -60,10 +60,10 @@ abstract readonly class AbstractAction implements ActionInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\GetById;
+namespace Action\GetById;
 
-use Application\User\UseCase\GetUserById\GetUserByIdQuery;
-use Application\User\UseCase\GetUserById\GetUserByIdHandler;
+use UseCase\GetUserById\GetUserByIdQuery;
+use UseCase\GetUserById\GetUserByIdHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -94,10 +94,10 @@ final readonly class GetUserByIdAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Action\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserCommand;
-use Application\User\UseCase\CreateUser\CreateUserHandler;
+use UseCase\CreateUser\CreateUserCommand;
+use UseCase\CreateUser\CreateUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -132,10 +132,10 @@ final readonly class CreateUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Update;
+namespace Action\Update;
 
-use Application\User\UseCase\UpdateUser\UpdateUserCommand;
-use Application\User\UseCase\UpdateUser\UpdateUserHandler;
+use UseCase\UpdateUser\UpdateUserCommand;
+use UseCase\UpdateUser\UpdateUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -172,10 +172,10 @@ final readonly class UpdateUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Delete;
+namespace Action\Delete;
 
-use Application\User\UseCase\DeleteUser\DeleteUserCommand;
-use Application\User\UseCase\DeleteUser\DeleteUserHandler;
+use UseCase\DeleteUser\DeleteUserCommand;
+use UseCase\DeleteUser\DeleteUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -206,7 +206,7 @@ final readonly class DeleteUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Create;
+namespace Action\Create;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -237,10 +237,10 @@ final readonly class CreateOrderRequest
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Create;
+namespace Action\Create;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrder\CreateOrderHandler;
+use UseCase\CreateOrder\CreateOrderCommand;
+use UseCase\CreateOrder\CreateOrderHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -278,11 +278,10 @@ Validation should happen in Domain/Application layer, but input parsing can catc
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Action\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserCommand;
-use Application\User\UseCase\CreateUser\CreateUserHandler;
-use Presentation\Shared\Exception\InvalidRequestException;
+use UseCase\CreateUser\CreateUserCommand;
+use UseCase\CreateUser\CreateUserHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -323,10 +322,10 @@ final readonly class CreateUserAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Document\Upload;
+namespace Action\Upload;
 
-use Application\Document\UseCase\UploadDocument\UploadDocumentCommand;
-use Application\Document\UseCase\UploadDocument\UploadDocumentHandler;
+use UseCase\UploadDocument\UploadDocumentCommand;
+use UseCase\UploadDocument\UploadDocumentHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UploadedFileInterface;

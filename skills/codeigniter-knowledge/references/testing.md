@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\ValueObject\Money;
-use App\Domain\Order\ValueObject\OrderId;
-use App\Domain\Order\ValueObject\OrderStatus;
+use Entity\Order;
+use ValueObject\Money;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
 use CodeIgniter\Test\CIUnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -269,8 +269,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Shared\EventDispatcherInterface;
+use Repository\OrderRepositoryInterface;
+use Shared\EventDispatcherInterface;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\FeatureTestTrait;
 use Config\Services;
@@ -347,7 +347,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Controllers;
 
-use App\Controllers\Api\OrderController;
+use Api\OrderController;
 use CodeIgniter\Test\CIUnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;

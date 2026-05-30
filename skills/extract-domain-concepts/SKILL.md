@@ -85,7 +85,7 @@ Grep: "class.*Service" --glob "**/Domain/**/*.php"
 ### Repositories
 
 ```bash
-# Repository interfaces (Domain)
+# Repository abstractions (look inside Domain code regardless of physical placement)
 Grep: "interface.*Repository" --glob "**/Domain/**/*.php"
 
 # Repository methods

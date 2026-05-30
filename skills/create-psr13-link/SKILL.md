@@ -20,9 +20,11 @@ Generates PSR-13 compliant hypermedia link implementations for HATEOAS REST APIs
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| Link | LinkInterface impl | `src/Infrastructure/Http/Link/` |
-| LinkProvider | Provider impl | `src/Infrastructure/Http/Link/` |
-| Unit Tests | PHPUnit tests | `tests/Unit/Infrastructure/Http/Link/` |
+| Link | LinkInterface impl | `src/{architecture-path}/Link/` |
+| LinkProvider | Provider impl | `src/{architecture-path}/Link/` |
+| Unit Tests | PHPUnit tests | `tests/Unit/{architecture-path}/Link/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. PSR-13 Link components typically live with HTTP/hypermedia adapters. Adjust to your project's layout.
 
 ## Template: Link
 
@@ -31,7 +33,7 @@ Generates PSR-13 compliant hypermedia link implementations for HATEOAS REST APIs
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Link;
+namespace Http\Link;
 
 use Psr\Link\EvolvableLinkInterface;
 use Stringable;
@@ -111,7 +113,7 @@ final readonly class Link implements EvolvableLinkInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Link;
+namespace Http\Link;
 
 use Psr\Link\EvolvableLinkProviderInterface;
 use Psr\Link\LinkInterface;
@@ -162,11 +164,11 @@ final readonly class LinkProvider implements EvolvableLinkProviderInterface
 
 declare(strict_types=1);
 
-namespace App\Presentation\Api\Resource;
+namespace Api\Resource;
 
-use App\Domain\User\Entity\User;
-use App\Infrastructure\Http\Link\Link;
-use App\Infrastructure\Http\Link\LinkProvider;
+use Entity\User;
+use Http\Link\Link;
+use Http\Link\LinkProvider;
 use Psr\Link\LinkProviderInterface;
 
 final readonly class UserResource implements LinkProviderInterface
@@ -232,8 +234,8 @@ final readonly class UserResource implements LinkProviderInterface
 ```php
 <?php
 
-use App\Infrastructure\Http\Link\Link;
-use App\Infrastructure\Http\Link\LinkProvider;
+use Http\Link\Link;
+use Http\Link\LinkProvider;
 
 // Create links
 $selfLink = (new Link('/api/users/123'))

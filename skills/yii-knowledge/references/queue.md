@@ -22,7 +22,7 @@ yiisoft/yii-queue message handling, channels, push/consume/failure middleware pi
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Message;
+namespace Queue\Message;
 
 use Yiisoft\Queue\Message\Message;
 
@@ -34,10 +34,10 @@ $message = new Message('order.confirm', ['orderId' => $orderId->value]);
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Handler;
+namespace Handler;
 
-use Domain\Order\ValueObject\OrderId;
-use Application\Order\UseCase\ConfirmOrderUseCase;
+use ValueObject\OrderId;
+use UseCase\ConfirmOrderUseCase;
 use Yiisoft\Queue\Message\MessageInterface;
 
 final readonly class ConfirmOrderHandler
@@ -62,9 +62,9 @@ final readonly class ConfirmOrderHandler
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Listener;
+namespace Listener;
 
-use Domain\Order\Event\OrderCreated;
+use Event\OrderCreated;
 use Yiisoft\Queue\Message\Message;
 use Yiisoft\Queue\QueueInterface;
 
@@ -124,7 +124,7 @@ Modify messages before they enter the queue: add metadata, correlation IDs, time
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Middleware;
+namespace Middleware;
 
 use Yiisoft\Queue\Middleware\Push\PushMiddlewareInterface;
 use Yiisoft\Queue\Middleware\Push\PushRequest;
@@ -154,7 +154,7 @@ Wrap handler execution with logging, tracing, transaction management.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Middleware;
+namespace Middleware;
 
 use Psr\Log\LoggerInterface;
 use Yiisoft\Queue\Middleware\Consume\ConsumeMiddlewareInterface;
@@ -194,7 +194,7 @@ Retry with delay, send to dead letter queue, log and alert.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Middleware;
+namespace Middleware;
 
 use Yiisoft\Queue\Middleware\Failure\FailureMiddlewareInterface;
 use Yiisoft\Queue\Middleware\Failure\FailureHandlingRequest;
@@ -247,7 +247,7 @@ Domain events are pure PHP objects. Domain does NOT know about queues. Infrastru
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 use Yiisoft\Queue\QueueInterface;  // VIOLATION: Infrastructure in Domain
 
@@ -277,12 +277,12 @@ final class Order
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\Event\OrderConfirmed;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
-use Domain\Shared\Aggregate\AggregateRoot;
+use Event\OrderConfirmed;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
+use Aggregate\AggregateRoot;
 
 final class Order extends AggregateRoot
 {
@@ -308,9 +308,9 @@ final class Order extends AggregateRoot
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Listener;
+namespace Listener;
 
-use Domain\Order\Event\OrderConfirmed;
+use Event\OrderConfirmed;
 use Yiisoft\Queue\Message\Message;
 use Yiisoft\Queue\QueueInterface;
 
@@ -338,10 +338,10 @@ final readonly class OrderConfirmedQueueListener
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Handler;
+namespace Handler;
 
-use Application\Notification\UseCase\SendConfirmationEmailUseCase;
-use Domain\Order\ValueObject\OrderId;
+use UseCase\SendConfirmationEmailUseCase;
+use ValueObject\OrderId;
 use Yiisoft\Queue\Message\MessageInterface;
 
 final readonly class SendConfirmationEmailHandler

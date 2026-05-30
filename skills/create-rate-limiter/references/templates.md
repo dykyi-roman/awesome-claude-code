@@ -2,14 +2,14 @@
 
 ## RateLimiterInterface
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/RateLimiterInterface.php`
+**File:** `src/{architecture-path}/RateLimiter/RateLimiterInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 interface RateLimiterInterface
 {
@@ -27,14 +27,14 @@ interface RateLimiterInterface
 
 ## RateLimitResult Value Object
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/RateLimitResult.php`
+**File:** `src/{architecture-path}/RateLimiter/RateLimitResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 final readonly class RateLimitResult
 {
@@ -102,14 +102,14 @@ final readonly class RateLimitResult
 
 ## RateLimitExceededException
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/RateLimitExceededException.php`
+**File:** `src/{architecture-path}/RateLimiter/RateLimitExceededException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 final class RateLimitExceededException extends \RuntimeException
 {
@@ -129,14 +129,14 @@ final class RateLimitExceededException extends \RuntimeException
 
 ## TokenBucketRateLimiter
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/TokenBucketRateLimiter.php`
+**File:** `src/{architecture-path}/RateLimiter/TokenBucketRateLimiter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 use Psr\Clock\ClockInterface;
 
@@ -208,14 +208,14 @@ final class TokenBucketRateLimiter implements RateLimiterInterface
 
 ## SlidingWindowRateLimiter
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/SlidingWindowRateLimiter.php`
+**File:** `src/{architecture-path}/RateLimiter/SlidingWindowRateLimiter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 use Psr\Clock\ClockInterface;
 
@@ -268,14 +268,14 @@ final class SlidingWindowRateLimiter implements RateLimiterInterface
 
 ## FixedWindowRateLimiter
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/FixedWindowRateLimiter.php`
+**File:** `src/{architecture-path}/RateLimiter/FixedWindowRateLimiter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 use Psr\Clock\ClockInterface;
 
@@ -321,14 +321,14 @@ final class FixedWindowRateLimiter implements RateLimiterInterface
 
 ## StorageInterface
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/StorageInterface.php`
+**File:** `src/{architecture-path}/RateLimiter/StorageInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 interface StorageInterface
 {
@@ -346,14 +346,14 @@ interface StorageInterface
 
 ## RedisStorage Implementation
 
-**File:** `src/Infrastructure/Resilience/RateLimiter/RedisStorage.php`
+**File:** `src/{architecture-path}/RateLimiter/RedisStorage.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\RateLimiter;
+namespace RateLimiter;
 
 final readonly class RedisStorage implements StorageInterface
 {

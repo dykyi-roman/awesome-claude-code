@@ -9,7 +9,7 @@ Additional templates for Responder generation.
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Responder;
+namespace Responder;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -26,7 +26,7 @@ interface ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Responder;
+namespace Responder;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -120,10 +120,10 @@ abstract readonly class AbstractJsonResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace User\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\CreateUser\CreateUserResult;
+use Responder\AbstractJsonResponder;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class CreateUserResponder extends AbstractJsonResponder
@@ -172,11 +172,11 @@ final readonly class CreateUserResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Web\User\Show;
+namespace Show;
 
-use Application\User\UseCase\GetUserById\GetUserByIdResult;
-use Presentation\Shared\Responder\ResponderInterface;
-use Presentation\Shared\Template\TemplateRendererInterface;
+use UseCase\GetUserById\GetUserByIdResult;
+use Responder\ResponderInterface;
+use Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -233,10 +233,10 @@ final readonly class ShowUserResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Report\Export;
+namespace Report\Export;
 
-use Application\Report\UseCase\ExportReport\ExportReportResult;
-use Presentation\Shared\Responder\ResponderInterface;
+use UseCase\ExportReport\ExportReportResult;
+use Responder\ResponderInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -293,10 +293,10 @@ final readonly class ExportReportResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Event\Stream;
+namespace Event\Stream;
 
-use Application\Event\UseCase\StreamEvents\StreamEventsResult;
-use Presentation\Shared\Responder\ResponderInterface;
+use UseCase\StreamEvents\StreamEventsResult;
+use Responder\ResponderInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -331,9 +331,9 @@ final readonly class StreamEventsResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace User\Create;
 
-use Domain\User\Entity\User;
+use Entity\User;
 
 final readonly class CreateUserResponse
 {
@@ -374,14 +374,14 @@ final readonly class CreateUserResponse
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\User\Create;
+namespace Tests\Unit\User\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserResult;
+use UseCase\CreateUser\CreateUserResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\User\Create\CreateUserResponder;
+use User\Create\CreateUserResponder;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;

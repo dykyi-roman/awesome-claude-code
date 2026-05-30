@@ -50,9 +50,9 @@ declare(strict_types=1);
 
 // config/common/di/order.php
 
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Infrastructure\Persistence\ActiveRecord\ActiveRecordOrderRepository;
-use Application\Order\UseCase\CreateOrderUseCase;
+use Repository\OrderRepositoryInterface;
+use Persistence\ActiveRecord\ActiveRecordOrderRepository;
+use UseCase\CreateOrderUseCase;
 
 return [
     // Interface -> Implementation (auto-wired)
@@ -149,7 +149,7 @@ return [
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -204,7 +204,7 @@ $action = $injector->make(CreateOrderAction::class, [
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Psr\Container\ContainerInterface;
 
@@ -251,12 +251,12 @@ final readonly class CreateOrderUseCase
 
 declare(strict_types=1);
 
-namespace Infrastructure\Provider;
+namespace Provider;
 
 use Yiisoft\Di\ServiceProviderInterface;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Infrastructure\Persistence\ActiveRecord\ActiveRecordOrderRepository;
-use Application\Order\UseCase\CreateOrderUseCase;
+use Repository\OrderRepositoryInterface;
+use Persistence\ActiveRecord\ActiveRecordOrderRepository;
+use UseCase\CreateOrderUseCase;
 
 final class OrderServiceProvider implements ServiceProviderInterface
 {
@@ -282,7 +282,7 @@ final class OrderServiceProvider implements ServiceProviderInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Provider;
+namespace Provider;
 
 use Yiisoft\Di\ServiceProviderInterface;
 

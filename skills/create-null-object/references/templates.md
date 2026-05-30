@@ -2,14 +2,14 @@
 
 ## Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}Interface.php`
+**File:** `src/{architecture-path}/{Name}Interface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}Interface
 {
@@ -25,14 +25,14 @@ interface {Name}Interface
 
 ## Null Object Implementation
 
-**File:** `src/Domain/{BoundedContext}/Null{Name}.php`
+**File:** `src/{architecture-path}/Null{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 final readonly class Null{Name} implements {Name}Interface
 {
@@ -57,14 +57,14 @@ final readonly class Null{Name} implements {Name}Interface
 
 ## Real Implementation
 
-**File:** `src/Domain/{BoundedContext}/{Name}.php`
+**File:** `src/{architecture-path}/{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 final readonly class {Name} implements {Name}Interface
 {
@@ -93,14 +93,14 @@ final readonly class {Name} implements {Name}Interface
 
 ## NullLogger Template
 
-**File:** `src/Infrastructure/Logging/LoggerInterface.php`
+**File:** `src/{architecture-path}/Logging/LoggerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 interface LoggerInterface
 {
@@ -118,14 +118,14 @@ interface LoggerInterface
 }
 ```
 
-**File:** `src/Infrastructure/Logging/NullLogger.php`
+**File:** `src/{architecture-path}/Logging/NullLogger.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging;
+namespace Logging;
 
 final readonly class NullLogger implements LoggerInterface
 {
@@ -160,14 +160,14 @@ final readonly class NullLogger implements LoggerInterface
 
 ## NullCache Template
 
-**File:** `src/Infrastructure/Cache/CacheInterface.php`
+**File:** `src/{architecture-path}/Cache/CacheInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 interface CacheInterface
 {
@@ -185,14 +185,14 @@ interface CacheInterface
 }
 ```
 
-**File:** `src/Infrastructure/Cache/NullCache.php`
+**File:** `src/{architecture-path}/Cache/NullCache.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class NullCache implements CacheInterface
 {
@@ -229,14 +229,14 @@ final readonly class NullCache implements CacheInterface
 
 ## NullEventDispatcher Template
 
-**File:** `src/Domain/Event/EventDispatcherInterface.php`
+**File:** `src/{architecture-path}/Event/EventDispatcherInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Event;
+namespace Event;
 
 interface EventDispatcherInterface
 {
@@ -251,14 +251,14 @@ interface EventDispatcherInterface
 }
 ```
 
-**File:** `src/Domain/Event/NullEventDispatcher.php`
+**File:** `src/{architecture-path}/Event/NullEventDispatcher.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Event;
+namespace Event;
 
 final readonly class NullEventDispatcher implements EventDispatcherInterface
 {

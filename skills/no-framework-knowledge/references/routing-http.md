@@ -34,10 +34,10 @@ declare(strict_types=1);
 // config/routes.php
 
 use FastRoute\RouteCollector;
-use Presentation\Api\Order\CreateOrderAction;
-use Presentation\Api\Order\GetOrderAction;
-use Presentation\Api\Order\ListOrdersAction;
-use Presentation\Api\HealthCheck\HealthCheckAction;
+use Order\CreateOrderAction;
+use Order\GetOrderAction;
+use Order\ListOrdersAction;
+use HealthCheck\HealthCheckAction;
 
 return static function (RouteCollector $r): void {
     $r->addGroup('/api/v1', static function (RouteCollector $r): void {
@@ -68,7 +68,7 @@ if ($uri === '/orders') {
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -128,7 +128,7 @@ final readonly class Router implements RequestHandlerInterface
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -181,10 +181,10 @@ final class MiddlewarePipeline implements RequestHandlerInterface
 ```php
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
-use Application\Order\Command\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrderUseCase;
+use Command\CreateOrderCommand;
+use UseCase\CreateOrderUseCase;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -230,7 +230,7 @@ final readonly class CreateOrderAction implements RequestHandlerInterface
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Validation;
+namespace Http\Validation;
 
 final readonly class RequestValidator
 {
@@ -277,7 +277,7 @@ final readonly class RequestValidator
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

@@ -11,7 +11,7 @@ ActiveRecord (`yiisoft/active-record`), Cycle ORM alternative, Query Builder, Mi
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\ActiveRecord;
+namespace Persistence\ActiveRecord;
 
 use Yiisoft\ActiveRecord\ActiveRecord;
 
@@ -70,7 +70,7 @@ $order = (new ActiveQuery(OrderActiveRecord::class))
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Cycle;
+namespace Persistence\Cycle;
 
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Column;
@@ -103,12 +103,12 @@ final class OrderCycleEntity
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Cycle;
+namespace Persistence\Cycle;
 
 use Cycle\ORM\Select\Repository;
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 
 final readonly class CycleOrderRepository implements OrderRepositoryInterface
 {
@@ -146,7 +146,7 @@ final readonly class CycleOrderRepository implements OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Query;
+namespace Query;
 
 use Yiisoft\Db\Connection\ConnectionInterface;
 use Yiisoft\Db\Query\Query;
@@ -218,7 +218,7 @@ $this->db->createCommand()->batchInsert('{{%order_lines}}', [
 
 declare(strict_types=1);
 
-namespace Infrastructure\Migration;
+namespace Migration;
 
 use Yiisoft\Db\Migration\MigrationBuilder;
 use Yiisoft\Db\Migration\RevertibleMigrationInterface;
@@ -280,12 +280,12 @@ final class M20240101_CreateOrdersTable implements RevertibleMigrationInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderStatus;
+use Entity\Order;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\OrderStatus;
 
 interface OrderRepositoryInterface
 {
@@ -312,14 +312,14 @@ interface OrderRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\ActiveRecord;
+namespace Persistence\ActiveRecord;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\CustomerId;
-use Domain\Order\ValueObject\OrderStatus;
-use Domain\Order\Exception\OrderNotFoundException;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
+use ValueObject\CustomerId;
+use ValueObject\OrderStatus;
+use Exception\OrderNotFoundException;
 use Yiisoft\ActiveRecord\ActiveQuery;
 
 final readonly class ActiveRecordOrderRepository implements OrderRepositoryInterface

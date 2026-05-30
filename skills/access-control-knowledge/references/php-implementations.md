@@ -11,9 +11,7 @@ Symfony Voters implement `VoterInterface` and are registered as services. The `A
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Infrastructure\Security\Voter;
+namespace Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -131,9 +129,7 @@ final class ProjectVoter extends Voter
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Presentation\Api\Action;
+namespace Action;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -168,9 +164,7 @@ Gates are closure-based authorization checks, defined in `AuthServiceProvider`:
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace App\Providers;
+namespace Provider;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -205,12 +199,10 @@ Policies group authorization logic per model:
 ```php
 <?php
 
-declare(strict_types=1);
+namespace Policy;
 
-namespace App\Policies;
-
-use App\Models\Project;
-use App\Models\User;
+use Model\Project;
+use Model\User;
 
 final class ProjectPolicy
 {
@@ -335,9 +327,7 @@ m = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Infrastructure\Authorization;
+namespace Authorization;
 
 use Casbin\Enforcer;
 use Casbin\Model\Model;
@@ -422,9 +412,7 @@ final readonly class CasbinFactory
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Infrastructure\Authorization;
+namespace Authorization;
 
 use Psr\Log\LoggerInterface;
 
@@ -482,9 +470,7 @@ final class CachedPermissionChecker implements PermissionCheckerInterface
 ```php
 <?php
 
-declare(strict_types=1);
-
-namespace Application\EventHandler;
+namespace EventHandler;
 
 final readonly class InvalidatePermissionCacheHandler
 {

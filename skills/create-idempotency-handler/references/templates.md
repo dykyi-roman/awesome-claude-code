@@ -2,14 +2,14 @@
 
 ## IdempotencyKey Value Object
 
-**File:** `src/Infrastructure/Idempotency/IdempotencyKey.php`
+**File:** `src/{architecture-path}/Idempotency/IdempotencyKey.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 final readonly class IdempotencyKey
 {
@@ -46,14 +46,14 @@ final readonly class IdempotencyKey
 
 ## StoredResponse
 
-**File:** `src/Infrastructure/Idempotency/StoredResponse.php`
+**File:** `src/{architecture-path}/Idempotency/StoredResponse.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 final readonly class StoredResponse
 {
@@ -92,14 +92,14 @@ final readonly class StoredResponse
 
 ## IdempotencyException
 
-**File:** `src/Infrastructure/Idempotency/IdempotencyException.php`
+**File:** `src/{architecture-path}/Idempotency/IdempotencyException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 final class IdempotencyException extends \RuntimeException
 {
@@ -122,14 +122,14 @@ final class IdempotencyException extends \RuntimeException
 
 ## IdempotencyStorageInterface
 
-**File:** `src/Infrastructure/Idempotency/IdempotencyStorageInterface.php`
+**File:** `src/{architecture-path}/Idempotency/IdempotencyStorageInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 interface IdempotencyStorageInterface
 {
@@ -147,14 +147,14 @@ interface IdempotencyStorageInterface
 
 ## RedisIdempotencyStorage
 
-**File:** `src/Infrastructure/Idempotency/RedisIdempotencyStorage.php`
+**File:** `src/{architecture-path}/Idempotency/RedisIdempotencyStorage.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 final readonly class RedisIdempotencyStorage implements IdempotencyStorageInterface
 {
@@ -205,14 +205,14 @@ final readonly class RedisIdempotencyStorage implements IdempotencyStorageInterf
 
 ## IdempotencyMiddleware
 
-**File:** `src/Infrastructure/Idempotency/IdempotencyMiddleware.php`
+**File:** `src/{architecture-path}/Idempotency/IdempotencyMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

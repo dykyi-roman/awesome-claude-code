@@ -2,17 +2,17 @@
 
 ## HTTP Client with Retry
 
-**File:** `src/Infrastructure/Http/ResilientHttpClient.php`
+**File:** `src/{architecture-path}/Http/ResilientHttpClient.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
-use Infrastructure\Resilience\Retry\RetryExecutor;
-use Infrastructure\Resilience\Retry\RetryPolicy;
+use Retry\RetryExecutor;
+use Retry\RetryPolicy;
 
 final readonly class ResilientHttpClient
 {
@@ -47,18 +47,18 @@ final readonly class ResilientHttpClient
 
 ## Database Operations with Retry
 
-**File:** `src/Infrastructure/Persistence/ResilientRepository.php`
+**File:** `src/{architecture-path}/Persistence/ResilientRepository.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence;
+namespace Persistence;
 
-use Infrastructure\Resilience\Retry\RetryExecutor;
-use Infrastructure\Resilience\Retry\RetryPolicy;
-use Infrastructure\Resilience\Retry\RetryContext;
+use Retry\RetryExecutor;
+use Retry\RetryPolicy;
+use Retry\RetryContext;
 
 final readonly class ResilientRepository
 {
@@ -91,18 +91,18 @@ final readonly class ResilientRepository
 
 ## Message Consumer with Retry
 
-**File:** `src/Application/Messaging/MessageHandler.php`
+**File:** `src/{architecture-path}/Messaging/MessageHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Messaging;
+namespace Messaging;
 
-use Infrastructure\Resilience\Retry\RetryExecutor;
-use Infrastructure\Resilience\Retry\RetryPolicy;
-use Infrastructure\Resilience\Retry\RetryException;
+use Retry\RetryExecutor;
+use Retry\RetryPolicy;
+use Retry\RetryException;
 
 final readonly class MessageHandler
 {
@@ -138,17 +138,17 @@ final readonly class MessageHandler
 
 ### RetryPolicyTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/Retry/RetryPolicyTest.php`
+**File:** `tests/Unit/Retry/RetryPolicyTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\Retry;
+namespace Tests\Unit\Retry;
 
-use Infrastructure\Resilience\Retry\BackoffStrategy;
-use Infrastructure\Resilience\Retry\RetryPolicy;
+use Retry\BackoffStrategy;
+use Retry\RetryPolicy;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -222,20 +222,20 @@ final class RetryPolicyTest extends TestCase
 
 ### RetryExecutorTest
 
-**File:** `tests/Unit/Infrastructure/Resilience/Retry/RetryExecutorTest.php`
+**File:** `tests/Unit/Retry/RetryExecutorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\Retry;
+namespace Tests\Unit\Retry;
 
-use Infrastructure\Resilience\Retry\RetryContext;
-use Infrastructure\Resilience\Retry\RetryException;
-use Infrastructure\Resilience\Retry\RetryExecutor;
-use Infrastructure\Resilience\Retry\RetryPolicy;
-use Infrastructure\Resilience\Retry\SleepInterface;
+use Retry\RetryContext;
+use Retry\RetryException;
+use Retry\RetryExecutor;
+use Retry\RetryPolicy;
+use Retry\SleepInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

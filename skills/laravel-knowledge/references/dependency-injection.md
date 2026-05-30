@@ -33,10 +33,10 @@ Detailed patterns for Laravel Service Container, binding strategies, and avoidin
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Shared\EventDispatcherInterface;
+use Repository\OrderRepositoryInterface;
+use Shared\EventDispatcherInterface;
 
 // Laravel auto-resolves constructor dependencies if:
 // 1. Concrete class with type-hinted dependencies, OR
@@ -85,13 +85,13 @@ Grep: "\\$this->app->make\(" --glob "**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Provider;
+namespace Provider;
 
-use App\Domain\Shared\EventDispatcherInterface;
-use App\Infrastructure\Event\LaravelEventDispatcher;
-use App\Infrastructure\Event\NullEventDispatcher;
-use App\Application\Order\UseCase\CreateOrderUseCase;
-use App\Application\Import\UseCase\BulkImportUseCase;
+use Shared\EventDispatcherInterface;
+use Event\LaravelEventDispatcher;
+use Event\NullEventDispatcher;
+use UseCase\CreateOrderUseCase;
+use UseCase\BulkImportUseCase;
 use Illuminate\Support\ServiceProvider;
 
 final class EventServiceProvider extends ServiceProvider
@@ -133,7 +133,7 @@ $this->app->when(RateLimiterService::class)
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Provider;
+namespace Provider;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -205,10 +205,10 @@ Grep: "public array \\\$bindings|public array \\\$singletons" --glob "**/*Provid
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Provider;
+namespace Provider;
 
-use App\Domain\Reporting\ReportGeneratorInterface;
-use App\Infrastructure\Reporting\PdfReportGenerator;
+use Reporting\ReportGeneratorInterface;
+use Reporting\PdfReportGenerator;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -240,7 +240,7 @@ final class ReportingServiceProvider extends ServiceProvider implements Deferrab
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -264,10 +264,10 @@ final class ProcessOrderService
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
-use App\Domain\Shared\CacheInterface;
-use App\Domain\Shared\EventDispatcherInterface;
+use Shared\CacheInterface;
+use Shared\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class ProcessOrderUseCase

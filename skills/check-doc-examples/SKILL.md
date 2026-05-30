@@ -14,7 +14,7 @@ Analyze documentation for code examples that don't match the actual codebase.
 ```markdown
 <!-- DOC says: -->
 ```php
-use App\Service\OrderProcessor;
+use Service\OrderProcessor;
 $processor = new OrderProcessor();
 ```
 <!-- But actual class is App\Application\Order\ProcessOrderUseCase -->
@@ -41,7 +41,7 @@ use App\Models\User;  // Laravel-style
 ```
 <!-- But project uses DDD structure: -->
 ```php
-use App\UserManagement\Domain\Entity\User;
+use Entity\User;
 ```
 
 ### 4. Missing Required Parameters

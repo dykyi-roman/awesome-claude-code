@@ -38,19 +38,19 @@ Creates Flyweight pattern infrastructure for memory optimization through object 
 
 ### Step 1: Generate Flyweight Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the domain types the flyweight represents.
 
 1. `{Name}Interface.php` — Operations contract
 
 ### Step 2: Generate ConcreteFlyweight
 
-**Path:** `src/Domain/{BoundedContext}/`
+Co-located with the interface.
 
 1. `{Name}Flyweight.php` — Shared object
 
 ### Step 3: Generate FlyweightFactory
 
-**Path:** `src/Domain/{BoundedContext}/Factory/` or `src/Infrastructure/`
+Co-located with the flyweight (or with other factories if your project groups factories).
 
 1. `{Name}FlyweightFactory.php` — Manages flyweights
 
@@ -64,10 +64,12 @@ Creates Flyweight pattern infrastructure for memory optimization through object 
 
 | Component | Path |
 |-----------|------|
-| Flyweight Interface | `src/Domain/{BoundedContext}/` |
-| ConcreteFlyweight | `src/Domain/{BoundedContext}/` |
-| FlyweightFactory | `src/Domain/{BoundedContext}/Factory/` |
-| Unit Tests | `tests/Unit/Domain/{BoundedContext}/` |
+| Flyweight Interface | `src/{architecture-path}/{Name}Interface.php` |
+| ConcreteFlyweight | `src/{architecture-path}/{Name}Flyweight.php` |
+| FlyweightFactory | `src/{architecture-path}/Factory/{Name}FlyweightFactory.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Flyweight components typically live alongside the domain types they share. Adjust to your project's layout.
 
 ---
 

@@ -28,7 +28,7 @@ Grep: "->setStatus\\(" --glob "src/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 // VIOLATION: Manual state machine with string statuses
 class Order
@@ -104,7 +104,7 @@ Use PHP 8.4 enums instead of strings for compile-time safety.
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\ValueObject;
+namespace ValueObject;
 
 enum OrderStatus: string
 {
@@ -133,9 +133,9 @@ enum OrderStatus: string
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
-use App\Order\Domain\ValueObject\OrderStatus;
+use ValueObject\OrderStatus;
 
 final class Order
 {
@@ -176,7 +176,7 @@ Guards validate whether a transition is allowed. DDD approach: delegate to domai
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Workflow;
+namespace Workflow;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Workflow\Event\GuardEvent;
@@ -206,9 +206,9 @@ final class ShipGuardListener
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Workflow;
+namespace Workflow;
 
-use App\Order\Domain\Specification\CanShipOrderSpecification;
+use Specification\CanShipOrderSpecification;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Workflow\Event\GuardEvent;
 
@@ -251,10 +251,10 @@ announce       → Announce available transitions from new place
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Workflow;
+namespace Workflow;
 
-use App\Order\Domain\Event\OrderShippedEvent;
-use App\Shared\Domain\EventDispatcherInterface;
+use Event\OrderShippedEvent;
+use Domain\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Workflow\Event\CompletedEvent;
 
@@ -325,9 +325,9 @@ Complete Order lifecycle example with DDD integration:
 
 declare(strict_types=1);
 
-namespace App\Order\Application\UseCase;
+namespace UseCase;
 
-use App\Order\Domain\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 final readonly class ShipOrderUseCase
@@ -367,9 +367,9 @@ framework:
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Workflow;
+namespace Workflow;
 
-use App\Shared\Domain\EventStore\EventStoreInterface;
+use EventStore\EventStoreInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Workflow\Event\CompletedEvent;
 

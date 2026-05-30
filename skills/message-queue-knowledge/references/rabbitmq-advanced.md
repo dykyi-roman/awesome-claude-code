@@ -97,7 +97,7 @@ Producer (headers: {format: pdf, type: report})
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMQ;
+namespace Messaging\RabbitMQ;
 
 final readonly class ExchangeConfigurator
 {
@@ -286,7 +286,7 @@ rabbitmq:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Monitoring;
+namespace Monitoring;
 
 final readonly class RabbitMqHealthCheck implements HealthCheckInterface
 {

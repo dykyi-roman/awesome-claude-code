@@ -18,10 +18,10 @@ Detailed patterns for Laravel application architecture, Service Providers, Facad
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Provider;
+namespace Provider;
 
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Infrastructure\Persistence\Eloquent\EloquentOrderRepository;
+use Repository\OrderRepositoryInterface;
+use Persistence\Eloquent\EloquentOrderRepository;
 use Illuminate\Support\ServiceProvider;
 
 final class OrderServiceProvider extends ServiceProvider
@@ -91,9 +91,9 @@ Grep: "Facades\\" --glob "**/*.php" --output_mode count
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
-use Illuminate\Support\Facades\Cache; // CRITICAL: Framework in Domain
+use Illuminate\Support\Facades\Cache; // Critical in Clean/Onion; acceptable in Layered
 
 final readonly class OrderPricingService
 {
@@ -111,7 +111,7 @@ final readonly class OrderPricingService
 
 declare(strict_types=1);
 
-namespace App\Domain\Order\Service;
+namespace Service;
 
 final readonly class OrderPricingService
 {
@@ -205,7 +205,7 @@ src/
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Provider;
+namespace Provider;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -250,11 +250,11 @@ Grep: "use App\\Domain\\Customer" --glob "**/Domain/Order/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Order\Adapter;
+namespace Adapter;
 
-use App\Domain\Order\Port\CustomerInfoProviderInterface;
-use App\Domain\Order\ValueObject\CustomerInfo;
-use App\Domain\Customer\Repository\CustomerRepositoryInterface;
+use Port\CustomerInfoProviderInterface;
+use ValueObject\CustomerInfo;
+use Repository\CustomerRepositoryInterface;
 
 final readonly class CustomerInfoAdapter implements CustomerInfoProviderInterface
 {

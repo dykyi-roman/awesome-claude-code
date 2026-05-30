@@ -2,14 +2,14 @@
 
 ## Implementor Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}ImplementorInterface.php`
+**File:** `src/{architecture-path}/{Name}ImplementorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}ImplementorInterface
 {
@@ -21,14 +21,14 @@ interface {Name}ImplementorInterface
 
 ## Abstraction
 
-**File:** `src/Domain/{BoundedContext}/Abstract{Name}.php`
+**File:** `src/{architecture-path}/Abstract{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 abstract readonly class Abstract{Name}
 {
@@ -44,14 +44,14 @@ abstract readonly class Abstract{Name}
 
 ## RefinedAbstraction
 
-**File:** `src/Domain/{BoundedContext}/{Type}{Name}.php`
+**File:** `src/{architecture-path}/{Type}{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 final readonly class {Type}{Name} extends Abstract{Name}
 {
@@ -67,16 +67,16 @@ final readonly class {Type}{Name} extends Abstract{Name}
 
 ## ConcreteImplementor
 
-**File:** `src/Infrastructure/{BoundedContext}/{Platform}{Name}Implementor.php`
+**File:** `src/{architecture-path}/{Platform}{Name}Implementor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext};
+namespace {BoundedContext};
 
-use Domain\{BoundedContext}\{Name}ImplementorInterface;
+use {BoundedContext}\{Name}ImplementorInterface;
 
 final readonly class {Platform}{Name}Implementor implements {Name}ImplementorInterface
 {
@@ -91,16 +91,16 @@ final readonly class {Platform}{Name}Implementor implements {Name}ImplementorInt
 
 ## Notification Bridge Example
 
-**File:** `src/Domain/Notification/NotificationImplementorInterface.php`
+**File:** `src/{architecture-path}/NotificationImplementorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
-use Domain\Notification\ValueObject\Message;
+use ValueObject\Message;
 
 interface NotificationImplementorInterface
 {
@@ -108,16 +108,16 @@ interface NotificationImplementorInterface
 }
 ```
 
-**File:** `src/Domain/Notification/AbstractNotification.php`
+**File:** `src/{architecture-path}/AbstractNotification.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
-use Domain\Notification\ValueObject\Message;
+use ValueObject\Message;
 
 abstract readonly class AbstractNotification
 {
@@ -129,16 +129,16 @@ abstract readonly class AbstractNotification
 }
 ```
 
-**File:** `src/Domain/Notification/UrgentNotification.php`
+**File:** `src/{architecture-path}/UrgentNotification.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Notification;
+namespace Notification;
 
-use Domain\Notification\ValueObject\Message;
+use ValueObject\Message;
 
 final readonly class UrgentNotification extends AbstractNotification
 {
@@ -150,17 +150,17 @@ final readonly class UrgentNotification extends AbstractNotification
 }
 ```
 
-**File:** `src/Infrastructure/Notification/EmailNotificationImplementor.php`
+**File:** `src/{architecture-path}/EmailNotificationImplementor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Notification;
+namespace Notification;
 
-use Domain\Notification\NotificationImplementorInterface;
-use Domain\Notification\ValueObject\Message;
+use Notification\NotificationImplementorInterface;
+use ValueObject\Message;
 
 final readonly class EmailNotificationImplementor implements NotificationImplementorInterface
 {

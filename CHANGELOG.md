@@ -6,6 +6,76 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [4.0.0] - 2026-05-30
+
+### Changed (breaking — content)
+
+- **Architecture-neutralized skill content.** Layer-prefixed PHP namespaces (`App\Domain\…`, `Application\…`, `Infrastructure\…`, `Presentation\…`, plus Package-by-Feature `App\{Context}\Layer\…`) have been reduced to architecture-agnostic pattern-only form across ~310 files in `skills/`, `agents/`, `commands/`. Examples now show `namespace Entity;`, `namespace Repository;`, `namespace Controller;`, `namespace UseCase\PlaceOrder;`, `namespace Cqrs\Handler;`, etc.
+- **Class-name-based `use` reduction.** Same-project imports reduced to pattern-only form (e.g. `use UseCase\CreateOrder\CreateOrderCommand;`). Per Rule N2, load-bearing imports preserved (where the namespace marker disambiguates an otherwise ambiguous class name like `Command`/`Query`/`Handler`); redundant imports of self-categorizing classes (Repository, Service, Factory, Entity, Event, Exception, ValueObject, Action) dropped.
+- **DDD knowledge reframed** away from "Clean Architecture / Microsoft sample" interpretation. `skills/ddd-knowledge/SKILL.md` + `references/antipatterns.md` substantially rewritten:
+  - Lead with DDD's core ideas (ubiquitous language, bounded contexts, aggregate consistency, conceptual isolation) before layers.
+  - Drop "Evans" attribution; refer to "DDD" as methodology.
+  - Drop "Repository interface / Repository implementation" framing (Clean Arch vocabulary, not in the DDD book); refer to "the Repository pattern".
+  - Drop false universal "Domain has no external dependencies regardless of architecture" — qualify as Clean/Onion-only; note that Doctrine attributes and Collections in Domain are conventional in Layered styles.
+  - Replace Clean-Arch-misframed antipatterns (Domain → Infrastructure, Framework in Domain, Business Logic in Repository) with actual DDD/Fowler antipatterns: anemic domain model, primitive obsession, aggregate boundary leakage, setter-driven state changes, ubiquitous language drift, save-side mutation in Repository (explicit note that query-side business filtering IS correct DDD), Domain Service holding state, shared mutable state across bounded contexts.
+- **Repository placement framed as architectural choice.** Where the location of Repository code matters in audit/analysis content, it is now qualified per architectural style: Clean/Onion put Repository code in Infrastructure (driven by dependency inversion); Layered styles place it alongside the domain under `Domain/{Context}/Repository/{Doctrine}/` (driven by cohesion). Both are valid DDD.
+- **CQRS knowledge** reframed from "CQRS architecture" to "CQRS pattern".
+- **Detection patterns** (Glob/Grep) generalized where appropriate: layer-prefixed forms (`**/Application/**/*UseCase.php`) broadened to suffix-based (`**/*UseCase.php`, `**/*Handler.php`). Architecture-specific detection retains layer prefixes where the detection IS architecture-specific.
+
+### Added
+
+- `CORRECTION_PLAN.md` — rule set: vocabulary rules (V1–V3), code-style rules (N1–N3), prose rules (P3, P9), and Find/Replace recipes for manual reproduction.
+- `CORRECTION_LOG.md` — per-file/per-folder change table.
+
+### Preserved (intentionally architecture-specific)
+
+- `clean-arch-knowledge/`, `hexagonal-knowledge/`, `microservices-knowledge/`, `layer-arch-knowledge/`, `detect-architecture-pattern/`, `check-bounded-contexts/`, `check-leaky-abstractions/` — these document or detect specific architectures and intentionally keep opinionated layer-prefixed content.
+- Framework-knowledge references (`symfony-knowledge`, `laravel-knowledge`, `yii-knowledge`, `codeigniter-knowledge`, `no-framework-knowledge`) — framework-conventional paths preserved; only the universal "Repository interfaces in Domain, implementations in Infrastructure" framing was fixed.
+- `ci-tools-knowledge/references/{phpstan,psalm,rector}-rules.md` — layer-enforcement DSL examples preserved (those tools are purpose-built layer enforcers).
+- PSR-* skill mechanic illustrations (`psr-autoloading-knowledge`, `psr-coding-style-knowledge`, `psr-overview-knowledge`) — namespaces are the lesson topic; conventional forms preserved.
+- Anti-pattern code examples where the bias IS the lesson (e.g. `check-context-communication` cross-context imports demo).
+
+### Added (architecture + new pattern skills)
+
+- `skills/layer-arch-knowledge/` — new knowledge skill describing the 3-layer Domain-centric Layered Architecture (Application, Domain, Infrastructure) commonly used in modular-monolith Symfony / PHP projects. The defining trait: Repository implementations live inside the Domain context (under `Domain/{Context}/Repository/{Doctrine}/`) rather than in Infrastructure. Cross-references existing generator skills and documents the bounded-context structure. References folder includes Layered-specific patterns (`application-exception.md`, `doctrine-type.md`).
+- `skills/n-tier-arch-knowledge/` — renamed from the previous `layer-arch-knowledge` (which actually described classical N-Tier 4-layer style). History preserved via `git mv`. Frontmatter updated to clarify scope; describes Presentation → Application → Domain → Infrastructure with strict downward calls and Repository implementations in Infrastructure.
+
+New generator skills (de-opinionated — describe the pattern, not where it lives; folder placement varies by your project's architecture):
+
+- `skills/create-component/` — Component pattern: private internal services for rich business logic, scoped to one bounded context (Strategy + optional Composite combination used as an implementation detail). Wired into `acc:ddd-generator`.
+- `skills/create-domain-exception/` — Domain Exception classes with static factory methods, named per aggregate/concept (e.g. `OrderException::notFound(id)`), extending `\DomainException`. Wired into `acc:ddd-generator`.
+- `skills/create-event-subscriber/` — Event Subscriber classes (Symfony EventDispatcher, PSR-14, or framework-equivalent). Includes templates for kernel-exception, domain-event, and multi-event subscribers. Wired into `acc:ddd-generator`.
+- `skills/create-console-command/` — CLI Command classes that delegate to the command bus or a UseCase. Includes templates for command-bus-dispatching, direct-UseCase, and worker-loop variants. Wired into `acc:api-infrastructure-generator`.
+- `skills/create-response-transformer/` — Response Transformer classes that turn domain objects into arrays / DTOs for HTTP serialization. Universal pattern usable from any controller, action, or responder. Wired into `acc:api-infrastructure-generator`.
+- `skills/create-infrastructure-client/` — Generic Infrastructure Client classes for external services (HTTP APIs, SDKs, queues, storage). Includes interface + concrete + client-owned DTO + client-owned exception templates. Wired into `acc:api-infrastructure-generator`.
+
+Layered-specific references added under `skills/layer-arch-knowledge/references/`:
+
+- `application-exception.md` — Application-layer exception classes (`InvalidRequestException`, `AccessDeniedException`, `RateLimitExceededException`). Layered-specific because the naming "Application Exception" assumes an Application layer exists (which MVC and some other styles don't).
+- `doctrine-type.md` — Doctrine custom type pattern for mapping Value Objects to columns. Doctrine-specific; placement varies by architecture but mechanics are identical.
+
+Symfony-specific references added under `skills/symfony-knowledge/references/` (each focused on the named pattern, cross-referencing the broader `dependency-injection.md` / `security.md` where relevant):
+
+- `di-compiler-pass.md` — Custom CompilerPass for tagged-service registries, decorator wiring, and the per-context CompilerPass orchestrator pattern used in modular monoliths.
+- `di-configuration.md` — Per-context `ConfigurationInterface` + root Configuration orchestrator pattern; TreeBuilder cheat sheet.
+- `di-extension.md` — Per-context `ExtensionInterface` + root Extension orchestrator pattern; integration with `Configuration` for validated config.
+- `security-authenticator.md` — Custom Authenticator (JSON login, JWT/Bearer); Passport + Badges; firewall wiring.
+- `security-voter.md` — Voter pattern; DDD-aligned variant delegating to domain Specifications (`acc:create-specification`).
+- `validator-constraint.md` — Custom `Constraint` + `ConstraintValidator` pairs; property-level and class-level (cross-field) examples; when to validate in the constraint vs. in the domain.
+
+### Component counts
+
+- 26 commands, 68 agents, **291 skills** (was 283 in v3.2.0; +8 net = new `layer-arch-knowledge`, `create-component`, `create-domain-exception`, `create-event-subscriber`, `create-console-command`, `create-response-transformer`, `create-infrastructure-client`, `check-architecture-neutrality`; rename of old `layer-arch-knowledge` → `n-tier-arch-knowledge` is net-zero).
+- Skill categories: 54 knowledge (was 53; +1 layer-arch), 105 generator (was 99; +6), 108 analyzer (was 107; +1 check-architecture-neutrality), 7 optimizer, 10 template, 7 other.
+
+### Wiring updates
+
+- `agents/structural-auditor.md` — added `n-tier-arch-knowledge` alongside `layer-arch-knowledge` in `skills:` frontmatter.
+- `agents/architecture-generator.md` — added `layer-arch-knowledge` to `skills:` frontmatter.
+- `agents/ddd-generator.md` — added `create-component`, `create-domain-exception`, `create-event-subscriber` to `skills:` frontmatter.
+- `agents/api-infrastructure-generator.md` — added `create-response-transformer`, `create-infrastructure-client`, `create-console-command` to `skills:` frontmatter.
+
+---
 ## [3.2.0] - 2026-02-22
 
 ### Added
@@ -382,7 +452,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Project structure and Composer package setup
 
-[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/dykyi-roman/awesome-claude-code/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/dykyi-roman/awesome-claude-code/compare/v2.13.0...v3.0.0

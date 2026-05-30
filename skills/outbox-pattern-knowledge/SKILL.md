@@ -100,7 +100,7 @@ Quick reference for Transactional Outbox pattern and PHP implementation guidelin
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Outbox;
+namespace Outbox;
 
 final readonly class OutboxMessage
 {
@@ -153,14 +153,14 @@ final readonly class OutboxMessage
 }
 ```
 
-### OutboxRepository Interface (Domain)
+### OutboxRepository (abstraction)
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Outbox;
+namespace Outbox;
 
 interface OutboxRepositoryInterface
 {
@@ -187,10 +187,10 @@ interface OutboxRepositoryInterface
 
 declare(strict_types=1);
 
-namespace Application\Shared\Outbox;
+namespace Outbox;
 
-use Domain\Shared\Outbox\OutboxMessage;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
+use Outbox\OutboxMessage;
+use Outbox\OutboxRepositoryInterface;
 
 final readonly class OutboxPublisher
 {
@@ -244,11 +244,11 @@ final readonly class OutboxPublisher
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Domain\Order\OrderRepositoryInterface;
-use Domain\Shared\Outbox\OutboxRepositoryInterface;
-use Domain\Shared\Outbox\OutboxMessage;
+use Order\OrderRepositoryInterface;
+use Outbox\OutboxRepositoryInterface;
+use Outbox\OutboxMessage;
 
 final readonly class PlaceOrderUseCase
 {

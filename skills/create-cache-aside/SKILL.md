@@ -43,16 +43,16 @@ Creates Cache-Aside infrastructure with stampede protection and tag-based invali
 
 ## Generation Process
 
-### Step 1: Generate Domain Components
+### Step 1: Generate Contracts
 
-**Path:** `src/Domain/Shared/Cache/`
+Pure abstractions used by the caller.
 
 1. `CacheAsideInterface.php` — Cache-aside contract
 2. `CacheKeyGeneratorInterface.php` — Key generation contract
 
-### Step 2: Generate Infrastructure Components
+### Step 2: Generate Implementations
 
-**Path:** `src/Infrastructure/Cache/`
+Concrete executor + key generator + lock implementations.
 
 1. `CacheKeyGenerator.php` — Key builder with hashing
 2. `CacheAsideExecutor.php` — PSR-16 cache executor with locking
@@ -72,9 +72,11 @@ Creates Cache-Aside infrastructure with stampede protection and tag-based invali
 
 | Component | Path |
 |-----------|------|
-| Domain Interfaces | `src/Domain/Shared/Cache/` |
-| Infrastructure | `src/Infrastructure/Cache/` |
-| Unit Tests | `tests/Unit/Infrastructure/Cache/` |
+| Contracts | `src/{architecture-path}/Cache/` |
+| Implementations | `src/{architecture-path}/Cache/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Cache/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The contracts typically live alongside other shared cross-cutting abstractions; concrete implementations live with other infrastructure adapters. Adjust to your project's layout.
 
 ---
 

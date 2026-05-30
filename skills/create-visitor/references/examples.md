@@ -4,16 +4,16 @@
 
 ### Visitable Interface
 
-**File:** `src/Domain/Order/VisitableInterface.php`
+**File:** `src/{architecture-path}/VisitableInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order;
+namespace Order;
 
-use Domain\Order\Visitor\OrderItemVisitorInterface;
+use Visitor\OrderItemVisitorInterface;
 
 interface VisitableInterface
 {
@@ -25,18 +25,18 @@ interface VisitableInterface
 
 ### Product (Visitable Element)
 
-**File:** `src/Domain/Order/ValueObject/Product.php`
+**File:** `src/{architecture-path}/ValueObject/Product.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
-use Domain\Order\VisitableInterface;
-use Domain\Order\Visitor\OrderItemVisitorInterface;
-use Domain\Shared\ValueObject\Money;
+use Order\VisitableInterface;
+use Visitor\OrderItemVisitorInterface;
+use ValueObject\Money;
 
 final readonly class Product implements VisitableInterface
 {
@@ -78,18 +78,18 @@ final readonly class Product implements VisitableInterface
 
 ### Service (Visitable Element)
 
-**File:** `src/Domain/Order/ValueObject/Service.php`
+**File:** `src/{architecture-path}/ValueObject/Service.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
-use Domain\Order\VisitableInterface;
-use Domain\Order\Visitor\OrderItemVisitorInterface;
-use Domain\Shared\ValueObject\Money;
+use Order\VisitableInterface;
+use Visitor\OrderItemVisitorInterface;
+use ValueObject\Money;
 
 final readonly class Service implements VisitableInterface
 {
@@ -125,18 +125,18 @@ final readonly class Service implements VisitableInterface
 
 ### Discount (Visitable Element)
 
-**File:** `src/Domain/Order/ValueObject/Discount.php`
+**File:** `src/{architecture-path}/ValueObject/Discount.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
-use Domain\Order\VisitableInterface;
-use Domain\Order\Visitor\OrderItemVisitorInterface;
-use Domain\Shared\ValueObject\Money;
+use Order\VisitableInterface;
+use Visitor\OrderItemVisitorInterface;
+use ValueObject\Money;
 
 final readonly class Discount implements VisitableInterface
 {
@@ -166,18 +166,18 @@ final readonly class Discount implements VisitableInterface
 
 ### PriceCalculatorVisitor
 
-**File:** `src/Domain/Order/Visitor/PriceCalculatorVisitor.php`
+**File:** `src/{architecture-path}/Visitor/PriceCalculatorVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final class PriceCalculatorVisitor implements OrderItemVisitorInterface
 {
@@ -218,18 +218,18 @@ final class PriceCalculatorVisitor implements OrderItemVisitorInterface
 
 ### TaxCalculatorVisitor
 
-**File:** `src/Domain/Order/Visitor/TaxCalculatorVisitor.php`
+**File:** `src/{architecture-path}/Visitor/TaxCalculatorVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final class TaxCalculatorVisitor implements OrderItemVisitorInterface
 {
@@ -279,19 +279,19 @@ final class TaxCalculatorVisitor implements OrderItemVisitorInterface
 
 ### JsonExportVisitor
 
-**File:** `src/Application/Order/Visitor/JsonExportVisitor.php`
+**File:** `src/{architecture-path}/Visitor/JsonExportVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\Visitor\OrderItemVisitorInterface;
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use Visitor\OrderItemVisitorInterface;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final class JsonExportVisitor implements OrderItemVisitorInterface
 {
@@ -350,19 +350,19 @@ final class JsonExportVisitor implements OrderItemVisitorInterface
 
 ### XmlExportVisitor
 
-**File:** `src/Application/Order/Visitor/XmlExportVisitor.php`
+**File:** `src/{architecture-path}/Visitor/XmlExportVisitor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Order\Visitor;
+namespace Visitor;
 
-use Domain\Order\Visitor\OrderItemVisitorInterface;
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
+use Visitor\OrderItemVisitorInterface;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
 
 final class XmlExportVisitor implements OrderItemVisitorInterface
 {
@@ -440,20 +440,20 @@ final class XmlExportVisitor implements OrderItemVisitorInterface
 
 ### PriceCalculatorVisitorTest
 
-**File:** `tests/Unit/Domain/Order/Visitor/PriceCalculatorVisitorTest.php`
+**File:** `tests/Unit/Visitor/PriceCalculatorVisitorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Visitor;
+namespace Tests\Unit\Visitor;
 
-use Domain\Order\Visitor\PriceCalculatorVisitor;
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
-use Domain\Shared\ValueObject\Money;
+use Visitor\PriceCalculatorVisitor;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -539,20 +539,20 @@ final class PriceCalculatorVisitorTest extends TestCase
 
 ### TaxCalculatorVisitorTest
 
-**File:** `tests/Unit/Domain/Order/Visitor/TaxCalculatorVisitorTest.php`
+**File:** `tests/Unit/Visitor/TaxCalculatorVisitorTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Order\Visitor;
+namespace Tests\Unit\Visitor;
 
-use Domain\Order\Visitor\TaxCalculatorVisitor;
-use Domain\Order\ValueObject\Product;
-use Domain\Order\ValueObject\Service;
-use Domain\Order\ValueObject\Discount;
-use Domain\Shared\ValueObject\Money;
+use Visitor\TaxCalculatorVisitor;
+use ValueObject\Product;
+use ValueObject\Service;
+use ValueObject\Discount;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

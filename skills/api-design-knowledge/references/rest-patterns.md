@@ -177,7 +177,7 @@ Response:
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Response;
+namespace Response;
 
 final readonly class PaginatedResponse
 {
@@ -250,7 +250,7 @@ GET /orders?status=pending&sort=-created_at&page=1&per_page=25&fields=id,status,
 
 declare(strict_types=1);
 
-namespace Application\Query;
+namespace Query;
 
 final readonly class OrderFilter
 {
@@ -329,7 +329,7 @@ Cross-reference: `create-api-versioning` skill for code generation.
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Responder;
+namespace Responder;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;

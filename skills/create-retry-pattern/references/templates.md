@@ -2,14 +2,14 @@
 
 ## RetryPolicy
 
-**File:** `src/Infrastructure/Resilience/Retry/RetryPolicy.php`
+**File:** `src/{architecture-path}/Retry/RetryPolicy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 final readonly class RetryPolicy
 {
@@ -117,14 +117,14 @@ final readonly class RetryPolicy
 
 ## BackoffStrategy Enum
 
-**File:** `src/Infrastructure/Resilience/Retry/BackoffStrategy.php`
+**File:** `src/{architecture-path}/Retry/BackoffStrategy.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 enum BackoffStrategy: string
 {
@@ -138,14 +138,14 @@ enum BackoffStrategy: string
 
 ## RetryContext
 
-**File:** `src/Infrastructure/Resilience/Retry/RetryContext.php`
+**File:** `src/{architecture-path}/Retry/RetryContext.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 final readonly class RetryContext
 {
@@ -181,14 +181,14 @@ final readonly class RetryContext
 
 ## RetryException
 
-**File:** `src/Infrastructure/Resilience/Retry/RetryException.php`
+**File:** `src/{architecture-path}/Retry/RetryException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 final class RetryException extends \RuntimeException
 {
@@ -218,14 +218,14 @@ final class RetryException extends \RuntimeException
 
 ## RetryExecutor
 
-**File:** `src/Infrastructure/Resilience/Retry/RetryExecutor.php`
+**File:** `src/{architecture-path}/Retry/RetryExecutor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 use Psr\Log\LoggerInterface;
 
@@ -307,14 +307,14 @@ final readonly class RetryExecutor
 
 ## SleepInterface (for testing)
 
-**File:** `src/Infrastructure/Resilience/Retry/SleepInterface.php`
+**File:** `src/{architecture-path}/Retry/SleepInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 interface SleepInterface
 {
@@ -326,14 +326,14 @@ interface SleepInterface
 
 ## RetryableOperation Attribute
 
-**File:** `src/Infrastructure/Resilience/Retry/RetryableOperation.php`
+**File:** `src/{architecture-path}/Retry/RetryableOperation.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Resilience\Retry;
+namespace Retry;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 final readonly class RetryableOperation

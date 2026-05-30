@@ -11,11 +11,11 @@ Real-world examples for Timeout pattern implementation.
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment;
+namespace Payment;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutException;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutException;
+use Timeout\TimeoutInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -66,10 +66,10 @@ final readonly class ResilientHttpClient
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class QueryExecutor
@@ -118,11 +118,11 @@ final readonly class QueryExecutor
 
 declare(strict_types=1);
 
-namespace Infrastructure\Integration;
+namespace Integration;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutInterface;
-use Infrastructure\Resilience\CircuitBreaker\CircuitBreaker;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutInterface;
+use CircuitBreaker\CircuitBreaker;
 use Psr\Log\LoggerInterface;
 
 final readonly class ResilientApiClient
@@ -185,10 +185,10 @@ final readonly class ResilientApiClient
 
 declare(strict_types=1);
 
-namespace Infrastructure\File;
+namespace File;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Infrastructure\Resilience\Timeout\StreamTimeoutExecutor;
+use Timeout\TimeoutConfig;
+use Timeout\StreamTimeoutExecutor;
 use Psr\Log\LoggerInterface;
 
 final readonly class RemoteFileReader
@@ -232,11 +232,11 @@ final readonly class RemoteFileReader
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue;
+namespace Queue;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutException;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutException;
+use Timeout\TimeoutInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class MessageConsumer
@@ -280,11 +280,11 @@ final readonly class MessageConsumer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Monitoring;
+namespace Monitoring;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutException;
-use Domain\Shared\Timeout\TimeoutInterface;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutException;
+use Timeout\TimeoutInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class MonitoredTimeoutExecutor implements TimeoutInterface
@@ -347,9 +347,9 @@ final readonly class MonitoredTimeoutExecutor implements TimeoutInterface
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Timeout;
+namespace Tests\Unit\Timeout;
 
-use Domain\Shared\Timeout\TimeoutConfig;
+use Timeout\TimeoutConfig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -440,11 +440,11 @@ final class TimeoutConfigTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Resilience\Timeout;
+namespace Tests\Unit\Timeout;
 
-use Domain\Shared\Timeout\TimeoutConfig;
-use Domain\Shared\Timeout\TimeoutException;
-use Infrastructure\Resilience\Timeout\SignalTimeoutExecutor;
+use Timeout\TimeoutConfig;
+use Timeout\TimeoutException;
+use Timeout\SignalTimeoutExecutor;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -514,9 +514,9 @@ final class SignalTimeoutExecutorTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Timeout;
+namespace Tests\Unit\Timeout;
 
-use Domain\Shared\Timeout\TimeoutException;
+use Timeout\TimeoutException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

@@ -2,14 +2,14 @@
 
 ## Basic Memento
 
-**File:** `src/Domain/{BoundedContext}/Memento/{Name}Memento.php`
+**File:** `src/{architecture-path}/Memento/{Name}Memento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Memento;
+namespace Memento;
 
 final readonly class {Name}Memento
 {
@@ -34,16 +34,16 @@ final readonly class {Name}Memento
 
 ## Originator (Domain Object)
 
-**File:** `src/Domain/{BoundedContext}/{Name}.php`
+**File:** `src/{architecture-path}/{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
-use Domain\{BoundedContext}\Memento\{Name}Memento;
+use Memento\{Name}Memento;
 
 final class {Name}
 {
@@ -83,16 +83,16 @@ final class {Name}
 
 ## Caretaker (History Manager)
 
-**File:** `src/Application/{BoundedContext}/{Name}History.php`
+**File:** `src/{architecture-path}/{Name}History.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext};
+namespace {BoundedContext};
 
-use Domain\{BoundedContext}\Memento\{Name}Memento;
+use Memento\{Name}Memento;
 
 final class {Name}History
 {
@@ -153,16 +153,16 @@ final class {Name}History
 
 ## Limited History Caretaker
 
-**File:** `src/Application/{BoundedContext}/{Name}LimitedHistory.php`
+**File:** `src/{architecture-path}/{Name}LimitedHistory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext};
+namespace {BoundedContext};
 
-use Domain\{BoundedContext}\Memento\{Name}Memento;
+use Memento\{Name}Memento;
 
 final class {Name}LimitedHistory
 {
@@ -216,14 +216,14 @@ final class {Name}LimitedHistory
 
 ## Document Memento
 
-**File:** `src/Domain/Document/Memento/DocumentMemento.php`
+**File:** `src/{architecture-path}/Memento/DocumentMemento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Document\Memento;
+namespace Memento;
 
 final readonly class DocumentMemento
 {
@@ -248,16 +248,16 @@ final readonly class DocumentMemento
 
 ## Document (Originator)
 
-**File:** `src/Domain/Document/Document.php`
+**File:** `src/{architecture-path}/Document.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Document;
+namespace Document;
 
-use Domain\Document\Memento\DocumentMemento;
+use Memento\DocumentMemento;
 
 final class Document
 {
@@ -297,14 +297,14 @@ final class Document
 
 ## Order Draft Memento
 
-**File:** `src/Domain/Order/Memento/OrderDraftMemento.php`
+**File:** `src/{architecture-path}/Memento/OrderDraftMemento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Memento;
+namespace Memento;
 
 final readonly class OrderDraftMemento
 {
@@ -338,14 +338,14 @@ final readonly class OrderDraftMemento
 
 ## Form State Memento
 
-**File:** `src/Domain/Form/Memento/FormStateMemento.php`
+**File:** `src/{architecture-path}/Memento/FormStateMemento.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Form\Memento;
+namespace Memento;
 
 final readonly class FormStateMemento
 {

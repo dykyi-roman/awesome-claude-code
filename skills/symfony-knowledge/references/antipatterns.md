@@ -28,7 +28,7 @@ Grep: "->findBy|->findOneBy|->createQueryBuilder" --glob "**/Controller/**/*.php
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Controller;
 
 class OrderController
 {
@@ -68,10 +68,10 @@ class OrderController
 
 declare(strict_types=1);
 
-namespace App\Order\Presentation\Api;
+namespace Api;
 
-use App\Order\Application\Command\CreateOrderCommand;
-use App\Order\Application\UseCase\CreateOrderUseCase;
+use Command\CreateOrderCommand;
+use UseCase\CreateOrderUseCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,7 +124,7 @@ Grep: "implements.*JsonSerializable" --glob "**/Entity/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -151,7 +151,7 @@ class Order
 
 declare(strict_types=1);
 
-namespace App\Order\Application\DTO;
+namespace DTO;
 
 // Explicit DTO for API response — no ORM coupling
 final readonly class OrderResponseDTO
@@ -203,7 +203,7 @@ Grep: "extends ServiceEntityRepository" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -233,7 +233,7 @@ class Order
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 // Pure PHP — mapping lives in Infrastructure as XML
 final class Order
@@ -286,7 +286,7 @@ Grep: "static::getContainer" --glob "src/**/*.php" | grep -v "Test"
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace Service;
 
 use Psr\Container\ContainerInterface;
 
@@ -315,9 +315,9 @@ class OrderService
 
 declare(strict_types=1);
 
-namespace App\Order\Application\UseCase;
+namespace UseCase;
 
-use App\Order\Domain\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
 final readonly class ProcessOrderUseCase
@@ -363,7 +363,7 @@ Grep: "extends Controller|extends AbstractController" --glob "src/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Service;
+namespace Service;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
@@ -386,10 +386,10 @@ final readonly class OrderContextService
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Service;
+namespace Service;
 
-use App\Shared\Domain\Cache\CacheInterface;
-use App\Shared\Domain\Security\CurrentUserProviderInterface;
+use Cache\CacheInterface;
+use Security\CurrentUserProviderInterface;
 
 // Application service depends on domain interfaces, not framework
 final readonly class OrderContextService
@@ -439,7 +439,7 @@ Grep: "const STATUS_|const STATE_" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 // VIOLATION: Manual state machine with error-prone string matching
 class Order
@@ -462,9 +462,9 @@ class Order
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
-use App\Order\Domain\ValueObject\OrderStatus;
+use ValueObject\OrderStatus;
 
 // Domain entity with enum status; transitions managed by Workflow component
 final class Order
@@ -503,7 +503,7 @@ Grep: "PasswordAuthenticatedUserInterface" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\User\Domain\Entity;
+namespace Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -524,7 +524,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 declare(strict_types=1);
 
-namespace App\User\Domain\Entity;
+namespace Entity;
 
 // Pure domain aggregate — security adapter in Infrastructure
 final class User

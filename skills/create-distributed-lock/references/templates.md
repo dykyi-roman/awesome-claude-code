@@ -2,14 +2,14 @@
 
 ## LockInterface
 
-**File:** `src/Infrastructure/Lock/LockInterface.php`
+**File:** `src/{architecture-path}/Lock/LockInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 interface LockInterface
 {
@@ -42,14 +42,14 @@ interface LockInterface
 
 ## LockConfig
 
-**File:** `src/Infrastructure/Lock/LockConfig.php`
+**File:** `src/{architecture-path}/Lock/LockConfig.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final readonly class LockConfig
 {
@@ -93,14 +93,14 @@ final readonly class LockConfig
 
 ## LockException
 
-**File:** `src/Infrastructure/Lock/LockException.php`
+**File:** `src/{architecture-path}/Lock/LockException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final class LockException extends \RuntimeException
 {
@@ -129,14 +129,14 @@ final class LockException extends \RuntimeException
 
 ## RedisLockAdapter
 
-**File:** `src/Infrastructure/Lock/RedisLockAdapter.php`
+**File:** `src/{architecture-path}/Lock/RedisLockAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final class RedisLockAdapter implements LockInterface
 {
@@ -254,14 +254,14 @@ final class RedisLockAdapter implements LockInterface
 
 ## LockFactory
 
-**File:** `src/Infrastructure/Lock/LockFactory.php`
+**File:** `src/{architecture-path}/Lock/LockFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final readonly class LockFactory
 {
@@ -295,14 +295,14 @@ final readonly class LockFactory
 
 ## AcquiredLock (RAII wrapper)
 
-**File:** `src/Infrastructure/Lock/AcquiredLock.php`
+**File:** `src/{architecture-path}/Lock/AcquiredLock.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Lock;
+namespace Lock;
 
 final class AcquiredLock
 {

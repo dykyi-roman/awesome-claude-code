@@ -2,16 +2,16 @@
 
 ## Versioned Controller Routing
 
-**File:** `src/Presentation/Api/Action/GetOrdersAction.php`
+**File:** `src/{architecture-path}/Action/GetOrdersAction.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Action;
+namespace Action;
 
-use Domain\Shared\Api\ApiVersion;
+use Api\ApiVersion;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -53,13 +53,13 @@ declare(strict_types=1);
 
 // config/services.php
 
-use Domain\Shared\Api\ApiVersion;
-use Presentation\Middleware\AcceptHeaderVersionResolver;
-use Presentation\Middleware\CompositeVersionResolver;
-use Presentation\Middleware\DeprecationHeaderMiddleware;
-use Presentation\Middleware\QueryParamVersionResolver;
-use Presentation\Middleware\UriPrefixVersionResolver;
-use Presentation\Middleware\VersionMiddleware;
+use Api\ApiVersion;
+use Middleware\AcceptHeaderVersionResolver;
+use Middleware\CompositeVersionResolver;
+use Middleware\DeprecationHeaderMiddleware;
+use Middleware\QueryParamVersionResolver;
+use Middleware\UriPrefixVersionResolver;
+use Middleware\VersionMiddleware;
 
 return static function ($container): void {
     $resolver = new CompositeVersionResolver([
@@ -88,16 +88,16 @@ return static function ($container): void {
 
 ### ApiVersionTest
 
-**File:** `tests/Unit/Domain/Shared/Api/ApiVersionTest.php`
+**File:** `tests/Unit/Api/ApiVersionTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Api;
+namespace Tests\Unit\Api;
 
-use Domain\Shared\Api\ApiVersion;
+use Api\ApiVersion;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -200,16 +200,16 @@ final class ApiVersionTest extends TestCase
 
 ### UriPrefixVersionResolverTest
 
-**File:** `tests/Unit/Presentation/Middleware/UriPrefixVersionResolverTest.php`
+**File:** `tests/Unit/UriPrefixVersionResolverTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Middleware;
+namespace Tests\Unit\Middleware;
 
-use Presentation\Middleware\UriPrefixVersionResolver;
+use Middleware\UriPrefixVersionResolver;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -271,18 +271,18 @@ final class UriPrefixVersionResolverTest extends TestCase
 
 ### VersionMiddlewareTest
 
-**File:** `tests/Unit/Presentation/Middleware/VersionMiddlewareTest.php`
+**File:** `tests/Unit/VersionMiddlewareTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Middleware;
+namespace Tests\Unit\Middleware;
 
-use Domain\Shared\Api\ApiVersion;
-use Domain\Shared\Api\VersionResolverInterface;
-use Presentation\Middleware\VersionMiddleware;
+use Api\ApiVersion;
+use Api\VersionResolverInterface;
+use Middleware\VersionMiddleware;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

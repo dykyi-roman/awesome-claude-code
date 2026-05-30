@@ -2,14 +2,14 @@
 
 ## Basic Iterator
 
-**File:** `src/Domain/{BoundedContext}/Iterator/{Name}Iterator.php`
+**File:** `src/{architecture-path}/Iterator/{Name}Iterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Iterator;
+namespace Iterator;
 
 final class {Name}Iterator implements \Iterator
 {
@@ -53,14 +53,14 @@ final class {Name}Iterator implements \Iterator
 
 ## Filtered Iterator
 
-**File:** `src/Domain/{BoundedContext}/Iterator/Filtered{Name}Iterator.php`
+**File:** `src/{architecture-path}/Iterator/Filtered{Name}Iterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Iterator;
+namespace Iterator;
 
 final class Filtered{Name}Iterator implements \Iterator
 {
@@ -109,16 +109,16 @@ final class Filtered{Name}Iterator implements \Iterator
 
 ## Iterable Collection (IteratorAggregate)
 
-**File:** `src/Domain/{BoundedContext}/Collection/{Name}Collection.php`
+**File:** `src/{architecture-path}/Collection/{Name}Collection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Collection;
+namespace Collection;
 
-use Domain\{BoundedContext}\Iterator\{Name}Iterator;
+use Iterator\{Name}Iterator;
 
 final readonly class {Name}Collection implements \IteratorAggregate, \Countable
 {
@@ -158,16 +158,16 @@ final readonly class {Name}Collection implements \IteratorAggregate, \Countable
 
 ## Order Collection
 
-**File:** `src/Domain/Order/Collection/OrderCollection.php`
+**File:** `src/{architecture-path}/Collection/OrderCollection.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Collection;
+namespace Collection;
 
-use Domain\Order\Entity\Order;
+use Entity\Order;
 
 final readonly class OrderCollection implements \IteratorAggregate, \Countable
 {
@@ -217,14 +217,14 @@ final readonly class OrderCollection implements \IteratorAggregate, \Countable
 
 ## Paginated Iterator
 
-**File:** `src/Domain/{BoundedContext}/Iterator/PaginatedIterator.php`
+**File:** `src/{architecture-path}/Iterator/PaginatedIterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Iterator;
+namespace Iterator;
 
 final class PaginatedIterator implements \Iterator
 {
@@ -285,16 +285,16 @@ final class PaginatedIterator implements \Iterator
 
 ## User Iterator
 
-**File:** `src/Domain/User/Iterator/UserIterator.php`
+**File:** `src/{architecture-path}/Iterator/UserIterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Iterator;
+namespace Iterator;
 
-use Domain\User\Entity\User;
+use Entity\User;
 
 final class UserIterator implements \Iterator
 {
@@ -338,16 +338,16 @@ final class UserIterator implements \Iterator
 
 ## Active User Iterator (Filtered)
 
-**File:** `src/Domain/User/Iterator/ActiveUserIterator.php`
+**File:** `src/{architecture-path}/Iterator/ActiveUserIterator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\User\Iterator;
+namespace Iterator;
 
-use Domain\User\Entity\User;
+use Entity\User;
 
 final class ActiveUserIterator implements \Iterator
 {

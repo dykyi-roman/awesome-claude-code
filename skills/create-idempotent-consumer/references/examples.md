@@ -13,14 +13,14 @@ Real-world integration examples for Idempotent Consumer pattern.
 
 declare(strict_types=1);
 
-namespace Application\Payment\Handler;
+namespace Handler;
 
-use Application\Shared\Idempotency\IdempotencyStoreInterface;
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Domain\Payment\PaymentId;
-use Domain\Payment\PaymentRepositoryInterface;
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingStatus;
+use Idempotency\IdempotencyStoreInterface;
+use Idempotency\IdempotentConsumerMiddleware;
+use Payment\PaymentId;
+use Payment\PaymentRepositoryInterface;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingStatus;
 use Psr\Log\LoggerInterface;
 
 final readonly class PaymentMessageHandler
@@ -86,13 +86,13 @@ final readonly class PaymentMessageHandler
 
 declare(strict_types=1);
 
-namespace Application\Inventory\EventSubscriber;
+namespace EventSubscriber;
 
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Domain\Inventory\InventoryService;
-use Domain\Order\Event\OrderCreatedEvent;
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingStatus;
+use Idempotency\IdempotentConsumerMiddleware;
+use Inventory\InventoryService;
+use Event\OrderCreatedEvent;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingStatus;
 use Psr\Log\LoggerInterface;
 
 final readonly class OrderCreatedEventSubscriber
@@ -159,13 +159,13 @@ final readonly class OrderCreatedEventSubscriber
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Webhook\Stripe;
+namespace Webhook\Stripe;
 
-use Application\Payment\UseCase\ProcessStripeWebhook\ProcessStripeWebhookCommand;
-use Application\Payment\UseCase\ProcessStripeWebhook\ProcessStripeWebhookHandler;
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingStatus;
+use UseCase\ProcessStripeWebhook\ProcessStripeWebhookCommand;
+use UseCase\ProcessStripeWebhook\ProcessStripeWebhookHandler;
+use Idempotency\IdempotentConsumerMiddleware;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingStatus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -222,13 +222,13 @@ final readonly class StripeWebhookAction
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\RabbitMq\Consumer;
+namespace Messaging\RabbitMq\Consumer;
 
-use Application\Order\UseCase\ProcessOrder\ProcessOrderCommand;
-use Application\Order\UseCase\ProcessOrder\ProcessOrderHandler;
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingStatus;
+use UseCase\ProcessOrder\ProcessOrderCommand;
+use UseCase\ProcessOrder\ProcessOrderHandler;
+use Idempotency\IdempotentConsumerMiddleware;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingStatus;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Log\LoggerInterface;
 
@@ -304,12 +304,12 @@ final readonly class OrderMessageConsumer
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Symfony\Middleware;
+namespace Middleware;
 
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingStatus;
-use Infrastructure\Messaging\Symfony\Stamp\IdempotencyKeyStamp;
+use Idempotency\IdempotentConsumerMiddleware;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingStatus;
+use Messaging\Symfony\Stamp\IdempotencyKeyStamp;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
@@ -367,7 +367,7 @@ final readonly class IdempotentMessageMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Messaging\Symfony\Stamp;
+namespace Messaging\Symfony\Stamp;
 
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
@@ -402,37 +402,37 @@ services:
     autowire: true
     autoconfigure: true
 
-  # Domain
-  Domain\Shared\Idempotency\:
-    resource: '../src/Domain/Shared/Idempotency/*'
+  # Types
+  Idempotency\:
+    resource: '../src/{architecture-path}/Idempotency/*'
 
-  # Application
-  Application\Shared\Idempotency\IdempotencyStoreInterface:
-    alias: Infrastructure\Idempotency\DatabaseIdempotencyStore
+  # Store abstraction (aliased to a concrete implementation)
+  Idempotency\IdempotencyStoreInterface:
+    alias: Idempotency\DatabaseIdempotencyStore
     # Or use Redis:
-    # alias: Infrastructure\Idempotency\RedisIdempotencyStore
+    # alias: Idempotency\RedisIdempotencyStore
 
-  Application\Shared\Idempotency\IdempotentConsumerMiddleware:
+  Idempotency\IdempotentConsumerMiddleware:
     arguments:
-      $store: '@Application\Shared\Idempotency\IdempotencyStoreInterface'
+      $store: '@Idempotency\IdempotencyStoreInterface'
 
-  # Infrastructure - Database
-  Infrastructure\Idempotency\DatabaseIdempotencyStore:
+  # Database store
+  Idempotency\DatabaseIdempotencyStore:
     arguments:
       $connection: '@doctrine.dbal.default_connection'
 
-  # Infrastructure - Redis
-  Infrastructure\Idempotency\RedisIdempotencyStore:
+  # Redis store
+  Idempotency\RedisIdempotencyStore:
     arguments:
       $redis: '@snc_redis.default'
       $prefix: 'idempotency:'
 
   # Console
-  Infrastructure\Console\PurgeExpiredIdempotencyKeysCommand:
+  Console\PurgeExpiredIdempotencyKeysCommand:
     tags: ['console.command']
 
-  # Messaging
-  Infrastructure\Messaging\Symfony\Middleware\IdempotentMessageMiddleware:
+  # Messenger middleware
+  Middleware\IdempotentMessageMiddleware:
     tags:
       - { name: 'messenger.middleware', priority: 100 }
 ```
@@ -444,11 +444,11 @@ services:
 
 declare(strict_types=1);
 
-namespace App\Providers;
+namespace Providers;
 
-use Application\Shared\Idempotency\IdempotencyStoreInterface;
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Infrastructure\Idempotency\RedisIdempotencyStore;
+use Idempotency\IdempotencyStoreInterface;
+use Idempotency\IdempotentConsumerMiddleware;
+use Idempotency\RedisIdempotencyStore;
 use Illuminate\Support\ServiceProvider;
 
 final class IdempotencyServiceProvider extends ServiceProvider
@@ -469,7 +469,7 @@ final class IdempotencyServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Infrastructure\Console\PurgeExpiredIdempotencyKeysCommand::class,
+                \Console\PurgeExpiredIdempotencyKeysCommand::class,
             ]);
         }
     }
@@ -518,11 +518,11 @@ spec:
 
 declare(strict_types=1);
 
-namespace Tests\Integration\Application\Payment;
+namespace Tests\Integration\Payment;
 
-use Application\Payment\Handler\PaymentMessageHandler;
-use Application\Payment\Message\PaymentMessage;
-use Domain\Payment\PaymentRepositoryInterface;
+use Handler\PaymentMessageHandler;
+use Payment\Message\PaymentMessage;
+use Payment\PaymentRepositoryInterface;
 use Tests\Integration\IntegrationTestCase;
 
 final class PaymentIdempotencyTest extends IntegrationTestCase

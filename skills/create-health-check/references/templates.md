@@ -2,14 +2,14 @@
 
 ## HealthCheckInterface
 
-**File:** `src/Domain/Shared/Health/HealthCheckInterface.php`
+**File:** `src/{architecture-path}/Health/HealthCheckInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Health;
+namespace Health;
 
 interface HealthCheckInterface
 {
@@ -23,14 +23,14 @@ interface HealthCheckInterface
 
 ## HealthStatus Enum
 
-**File:** `src/Domain/Shared/Health/HealthStatus.php`
+**File:** `src/{architecture-path}/Health/HealthStatus.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Health;
+namespace Health;
 
 enum HealthStatus: string
 {
@@ -63,14 +63,14 @@ enum HealthStatus: string
 
 ## HealthCheckResult
 
-**File:** `src/Domain/Shared/Health/HealthCheckResult.php`
+**File:** `src/{architecture-path}/Health/HealthCheckResult.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Health;
+namespace Health;
 
 final readonly class HealthCheckResult
 {
@@ -132,17 +132,17 @@ final readonly class HealthCheckResult
 
 ## DatabaseHealthCheck
 
-**File:** `src/Infrastructure/Health/DatabaseHealthCheck.php`
+**File:** `src/{architecture-path}/Health/DatabaseHealthCheck.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Domain\Shared\Health\HealthCheckResult;
+use Health\HealthCheckInterface;
+use Health\HealthCheckResult;
 
 final readonly class DatabaseHealthCheck implements HealthCheckInterface
 {
@@ -177,17 +177,17 @@ final readonly class DatabaseHealthCheck implements HealthCheckInterface
 
 ## RedisHealthCheck
 
-**File:** `src/Infrastructure/Health/RedisHealthCheck.php`
+**File:** `src/{architecture-path}/Health/RedisHealthCheck.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Domain\Shared\Health\HealthCheckResult;
+use Health\HealthCheckInterface;
+use Health\HealthCheckResult;
 
 final readonly class RedisHealthCheck implements HealthCheckInterface
 {
@@ -222,17 +222,17 @@ final readonly class RedisHealthCheck implements HealthCheckInterface
 
 ## RabbitMqHealthCheck
 
-**File:** `src/Infrastructure/Health/RabbitMqHealthCheck.php`
+**File:** `src/{architecture-path}/Health/RabbitMqHealthCheck.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Domain\Shared\Health\HealthCheckResult;
+use Health\HealthCheckInterface;
+use Health\HealthCheckResult;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 final readonly class RabbitMqHealthCheck implements HealthCheckInterface
@@ -273,18 +273,18 @@ final readonly class RabbitMqHealthCheck implements HealthCheckInterface
 
 ## HealthCheckRunner
 
-**File:** `src/Infrastructure/Health/HealthCheckRunner.php`
+**File:** `src/{architecture-path}/Health/HealthCheckRunner.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Health;
+namespace Health;
 
-use Domain\Shared\Health\HealthCheckInterface;
-use Domain\Shared\Health\HealthCheckResult;
-use Domain\Shared\Health\HealthStatus;
+use Health\HealthCheckInterface;
+use Health\HealthCheckResult;
+use Health\HealthStatus;
 
 final readonly class HealthCheckRunner
 {
@@ -331,17 +331,17 @@ final readonly class HealthCheckRunner
 
 ## HealthCheckAction
 
-**File:** `src/Presentation/Api/Action/HealthCheckAction.php`
+**File:** `src/{architecture-path}/Action/HealthCheckAction.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Action;
+namespace Action;
 
-use Domain\Shared\Health\HealthStatus;
-use Infrastructure\Health\HealthCheckRunner;
+use Health\HealthStatus;
+use Health\HealthCheckRunner;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

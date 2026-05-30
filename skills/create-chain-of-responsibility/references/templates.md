@@ -2,14 +2,14 @@
 
 ## Handler Interface
 
-**File:** `src/Domain/{BoundedContext}/Handler/{Name}HandlerInterface.php`
+**File:** `src/{architecture-path}/Handler/{Name}HandlerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Handler;
+namespace Handler;
 
 interface {Name}HandlerInterface
 {
@@ -23,14 +23,14 @@ interface {Name}HandlerInterface
 
 ## Abstract Handler
 
-**File:** `src/Domain/{BoundedContext}/Handler/Abstract{Name}Handler.php`
+**File:** `src/{architecture-path}/Handler/Abstract{Name}Handler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Handler;
+namespace Handler;
 
 abstract class Abstract{Name}Handler implements {Name}HandlerInterface
 {
@@ -59,14 +59,14 @@ abstract class Abstract{Name}Handler implements {Name}HandlerInterface
 
 ## Concrete Handler
 
-**File:** `src/Domain/{BoundedContext}/Handler/{Name}Handler.php`
+**File:** `src/{architecture-path}/Handler/{Name}Handler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Handler;
+namespace Handler;
 
 final class {Name}Handler extends Abstract{Name}Handler
 {
@@ -100,14 +100,14 @@ final class {Name}Handler extends Abstract{Name}Handler
 
 ## Handler Chain Builder
 
-**File:** `src/Domain/{BoundedContext}/Handler/{Name}ChainBuilder.php`
+**File:** `src/{architecture-path}/Handler/{Name}ChainBuilder.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Handler;
+namespace Handler;
 
 final class {Name}ChainBuilder
 {
@@ -142,17 +142,17 @@ final class {Name}ChainBuilder
 
 ## Validation Handler Interface
 
-**File:** `src/Domain/Validation/Handler/ValidationHandlerInterface.php`
+**File:** `src/{architecture-path}/Handler/ValidationHandlerInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Validation\Handler;
+namespace Handler;
 
-use Domain\Validation\ValueObject\ValidationRequest;
-use Domain\Validation\ValueObject\ValidationResult;
+use ValueObject\ValidationRequest;
+use ValueObject\ValidationResult;
 
 interface ValidationHandlerInterface
 {
@@ -166,17 +166,17 @@ interface ValidationHandlerInterface
 
 ## Abstract Validation Handler
 
-**File:** `src/Domain/Validation/Handler/AbstractValidationHandler.php`
+**File:** `src/{architecture-path}/Handler/AbstractValidationHandler.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Validation\Handler;
+namespace Handler;
 
-use Domain\Validation\ValueObject\ValidationRequest;
-use Domain\Validation\ValueObject\ValidationResult;
+use ValueObject\ValidationRequest;
+use ValueObject\ValidationResult;
 
 abstract class AbstractValidationHandler implements ValidationHandlerInterface
 {
@@ -211,14 +211,14 @@ abstract class AbstractValidationHandler implements ValidationHandlerInterface
 
 ## Middleware-Style Pipeline
 
-**File:** `src/Application/Pipeline/PipelineInterface.php`
+**File:** `src/{architecture-path}/Pipeline/PipelineInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Pipeline;
+namespace Pipeline;
 
 interface PipelineInterface
 {
@@ -228,14 +228,14 @@ interface PipelineInterface
 }
 ```
 
-**File:** `src/Application/Pipeline/Pipeline.php`
+**File:** `src/{architecture-path}/Pipeline/Pipeline.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Pipeline;
+namespace Pipeline;
 
 final class Pipeline implements PipelineInterface
 {
@@ -263,14 +263,14 @@ final class Pipeline implements PipelineInterface
 }
 ```
 
-**File:** `src/Application/Pipeline/LoggingMiddleware.php`
+**File:** `src/{architecture-path}/Pipeline/LoggingMiddleware.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Application\Pipeline;
+namespace Pipeline;
 
 use Psr\Log\LoggerInterface;
 

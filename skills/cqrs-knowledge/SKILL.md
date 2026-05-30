@@ -1,11 +1,11 @@
 ---
 name: cqrs-knowledge
-description: CQRS architecture knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Command Query Responsibility Segregation audits.
+description: CQRS pattern knowledge base. Provides patterns, antipatterns, and PHP-specific guidelines for Command Query Responsibility Segregation audits.
 ---
 
 # CQRS Knowledge Base
 
-Quick reference for CQRS architecture patterns and PHP implementation guidelines.
+Quick reference for the CQRS pattern and PHP implementation guidelines.
 
 ## Core Principles
 

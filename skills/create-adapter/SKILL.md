@@ -19,19 +19,20 @@ Creates Adapter pattern infrastructure for converting incompatible interfaces in
 ## Component Characteristics
 
 ### Target Interface
-- Defines expected operations
-- Client code depends on this
-- Domain layer contract
+- Defines the operations the client code expects
+- Client code depends on this abstraction
+- Lives alongside the code that declares the need (placement varies by architecture)
 
 ### Adapter
-- Implements target interface
-- Wraps adaptee (existing class)
-- Translates calls between interfaces
+- Implements the target interface
+- Wraps the adaptee (existing class)
+- Translates calls between the two interfaces
+- Lives at the integration boundary with the external/legacy system
 
 ### Adaptee
 - Existing incompatible class
 - Legacy code or external library
-- Not modified by adapter
+- Not modified by the adapter
 
 ---
 
@@ -39,13 +40,13 @@ Creates Adapter pattern infrastructure for converting incompatible interfaces in
 
 ### Step 1: Generate Target Interface
 
-**Path:** `src/Domain/{BoundedContext}/`
+Place alongside the client code that declares the need.
 
 1. `{Name}Interface.php` — Expected interface contract
 
 ### Step 2: Generate Adapter
 
-**Path:** `src/Infrastructure/{BoundedContext}/Adapter/`
+Place at the integration boundary with the external/legacy system.
 
 1. `{Provider}{Name}Adapter.php` — Converts adaptee to target interface
 2. `{Legacy}{Name}Adapter.php` — Wraps legacy code
@@ -61,10 +62,13 @@ Creates Adapter pattern infrastructure for converting incompatible interfaces in
 
 | Component | Path |
 |-----------|------|
-| Target Interface | `src/Domain/{BoundedContext}/` |
-| Adapter | `src/Infrastructure/{BoundedContext}/Adapter/` |
+| Target Interface | `src/{architecture-path}/{Name}Interface.php` |
+| Adapter | `src/{architecture-path}/Adapter/{Provider}{Name}Adapter.php` |
 | Adaptee (existing) | External library or legacy code |
-| Unit Tests | `tests/Unit/Infrastructure/{BoundedContext}/Adapter/` |
+| Unit Tests | `tests/Unit/{architecture-path}/Adapter/{Provider}{Name}AdapterTest.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders.
+> Target interface placement varies — Domain (DDD/Layered), Application (Clean), Port folder (Hexagonal), or the feature folder (Package-by-Feature). Adapters typically live at the integration boundary alongside other external-system integrations.
 
 ---
 

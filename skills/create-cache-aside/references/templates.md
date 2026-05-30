@@ -2,14 +2,14 @@
 
 ## CacheAsideInterface
 
-**File:** `src/Domain/Shared/Cache/CacheAsideInterface.php`
+**File:** `src/{architecture-path}/Cache/CacheAsideInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Cache;
+namespace Cache;
 
 interface CacheAsideInterface
 {
@@ -30,14 +30,14 @@ interface CacheAsideInterface
 
 ## CacheKeyGeneratorInterface
 
-**File:** `src/Domain/Shared/Cache/CacheKeyGeneratorInterface.php`
+**File:** `src/{architecture-path}/Cache/CacheKeyGeneratorInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Cache;
+namespace Cache;
 
 interface CacheKeyGeneratorInterface
 {
@@ -51,16 +51,16 @@ interface CacheKeyGeneratorInterface
 
 ## CacheKeyGenerator
 
-**File:** `src/Infrastructure/Cache/CacheKeyGenerator.php`
+**File:** `src/{architecture-path}/Cache/CacheKeyGenerator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
-use Domain\Shared\Cache\CacheKeyGeneratorInterface;
+use Cache\CacheKeyGeneratorInterface;
 
 final readonly class CacheKeyGenerator implements CacheKeyGeneratorInterface
 {
@@ -94,14 +94,14 @@ final readonly class CacheKeyGenerator implements CacheKeyGeneratorInterface
 
 ## CacheLockInterface
 
-**File:** `src/Infrastructure/Cache/CacheLockInterface.php`
+**File:** `src/{architecture-path}/Cache/CacheLockInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 interface CacheLockInterface
 {
@@ -115,14 +115,14 @@ interface CacheLockInterface
 
 ## RedisCacheLock
 
-**File:** `src/Infrastructure/Cache/RedisCacheLock.php`
+**File:** `src/{architecture-path}/Cache/RedisCacheLock.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 final readonly class RedisCacheLock implements CacheLockInterface
 {
@@ -158,16 +158,16 @@ final readonly class RedisCacheLock implements CacheLockInterface
 
 ## CacheAsideExecutor
 
-**File:** `src/Infrastructure/Cache/CacheAsideExecutor.php`
+**File:** `src/{architecture-path}/Cache/CacheAsideExecutor.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
-use Domain\Shared\Cache\CacheAsideInterface;
+use Cache\CacheAsideInterface;
 use Psr\SimpleCache\CacheInterface;
 
 final readonly class CacheAsideExecutor implements CacheAsideInterface
@@ -253,14 +253,14 @@ final readonly class CacheAsideExecutor implements CacheAsideInterface
 
 ## CacheInvalidator
 
-**File:** `src/Infrastructure/Cache/CacheInvalidator.php`
+**File:** `src/{architecture-path}/Cache/CacheInvalidator.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Cache;
+namespace Cache;
 
 use Psr\SimpleCache\CacheInterface;
 

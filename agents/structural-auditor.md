@@ -3,7 +3,7 @@ name: structural-auditor
 description: Structural architecture auditor. Analyzes DDD, Clean Architecture, Hexagonal, Layered, Microservices, Cloud-Native patterns, bounded contexts, and 12-Factor compliance. Called by acc:architecture-auditor.
 tools: Read, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
-skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, microservices-knowledge, cloud-native-knowledge, check-bounded-contexts, check-12-factor-compliance, task-progress-knowledge
+skills: ddd-knowledge, clean-arch-knowledge, hexagonal-knowledge, layer-arch-knowledge, n-tier-arch-knowledge, microservices-knowledge, cloud-native-knowledge, check-bounded-contexts, check-12-factor-compliance, check-architecture-neutrality, task-progress-knowledge
 ---
 
 # Structural Architecture Auditor
@@ -200,7 +200,7 @@ Grep: "session.save_handler|session_start|\\$_SESSION" --glob "**/*.php"
 
 **Recommendations:**
 - Extract EmailAddress Value Object from User entity
-- Move OrderRepository interface to Domain layer
+- Abstract OrderRepository behind an interface (placement per project convention)
 
 ### Clean Architecture Compliance
 
@@ -212,7 +212,7 @@ If violations found, suggest using appropriate create-* skills:
 - Missing Value Object → acc:create-value-object
 - Anemic Entity → acc:create-entity (with behavior)
 - Missing Aggregate → acc:create-aggregate
-- Missing Repository Interface → acc:create-repository
+- Missing Repository → acc:create-repository
 - Missing Use Case → acc:create-use-case
 - Missing Domain Service → acc:create-domain-service
 - Missing Factory → acc:create-factory

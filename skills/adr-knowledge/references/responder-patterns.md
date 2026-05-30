@@ -9,7 +9,7 @@ Detailed patterns and best practices for ADR Responder classes.
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Responder;
+namespace Responder;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -26,7 +26,7 @@ interface ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Responder;
+namespace Responder;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -92,10 +92,9 @@ abstract readonly class AbstractJsonResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Responder\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\CreateUser\CreateUserResult;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class CreateUserResponder extends AbstractJsonResponder
@@ -127,10 +126,9 @@ final readonly class CreateUserResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\GetById;
+namespace Responder\GetById;
 
-use Application\User\UseCase\GetUserById\GetUserByIdResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\GetUserById\GetUserByIdResult;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class GetUserByIdResponder extends AbstractJsonResponder
@@ -162,10 +160,9 @@ final readonly class GetUserByIdResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\ListAll;
+namespace Responder\ListAll;
 
-use Application\User\UseCase\ListUsers\ListUsersResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\ListUsers\ListUsersResult;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class ListUsersResponder extends AbstractJsonResponder
@@ -208,10 +205,9 @@ final readonly class ListUsersResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Update;
+namespace Responder\Update;
 
-use Application\User\UseCase\UpdateUser\UpdateUserResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\UpdateUser\UpdateUserResult;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class UpdateUserResponder extends AbstractJsonResponder
@@ -247,10 +243,9 @@ final readonly class UpdateUserResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Delete;
+namespace Responder\Delete;
 
-use Application\User\UseCase\DeleteUser\DeleteUserResult;
-use Presentation\Shared\Responder\AbstractJsonResponder;
+use UseCase\DeleteUser\DeleteUserResult;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class DeleteUserResponder extends AbstractJsonResponder
@@ -279,10 +274,9 @@ final readonly class DeleteUserResponder extends AbstractJsonResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Web\User\Show;
+namespace Responder\Show;
 
-use Application\User\UseCase\GetUserById\GetUserByIdResult;
-use Presentation\Shared\Responder\ResponderInterface;
+use UseCase\GetUserById\GetUserByIdResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -339,9 +333,9 @@ final readonly class ShowUserResponder implements ResponderInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\GetById;
+namespace Responder\GetById;
 
-use Application\User\UseCase\GetUserById\GetUserByIdResult;
+use UseCase\GetUserById\GetUserByIdResult;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -408,7 +402,7 @@ final readonly class GetUserByIdResponder
 
 declare(strict_types=1);
 
-namespace Presentation\Api\User\Create;
+namespace Responder\Create;
 
 final readonly class CreateUserResponse
 {

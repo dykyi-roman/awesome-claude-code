@@ -21,7 +21,7 @@ Grep: "public function set[A-Z]" --glob "**/Domain/**/Entity/**/*.php"
 # Value Objects should be readonly
 Grep: "^final readonly class" --glob "**/Domain/**/ValueObject/**/*.php"
 
-# Repository interfaces must be in Domain
+# Repository pattern lives with the domain (folder placement varies by architecture)
 Grep: "interface.*RepositoryInterface" --glob "**/Domain/**/*.php"
 
 # Repository implementations must be in Infrastructure
@@ -38,9 +38,9 @@ Grep: "class.*Event" --glob "**/Domain/**/Event/**/*.php"
 ```php
 declare(strict_types=1);
 
-namespace Domain\Order\ValueObject;
+namespace ValueObject;
 
-use Domain\Order\Exception\InvalidMoneyException;
+use Exception\InvalidMoneyException;
 
 final readonly class Money
 {
@@ -97,14 +97,14 @@ class Money
 ```php
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\Event\OrderConfirmedEvent;
-use Domain\Order\Event\OrderLineAddedEvent;
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderLine;
-use Domain\Order\ValueObject\Money;
-use Domain\Order\Exception\InvalidStateTransitionException;
+use Event\OrderConfirmedEvent;
+use Event\OrderLineAddedEvent;
+use ValueObject\OrderId;
+use ValueObject\OrderLine;
+use ValueObject\Money;
+use Exception\InvalidStateTransitionException;
 
 final class Order
 {
@@ -176,7 +176,7 @@ final class Order
 ```php
 declare(strict_types=1);
 
-namespace Domain\Shared\Event;
+namespace Event;
 
 interface DomainEventInterface
 {
@@ -187,11 +187,11 @@ interface DomainEventInterface
 ```php
 declare(strict_types=1);
 
-namespace Domain\Order\Event;
+namespace Event;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\Money;
-use Domain\Shared\Event\DomainEventInterface;
+use ValueObject\OrderId;
+use ValueObject\Money;
+use Event\DomainEventInterface;
 
 final readonly class OrderConfirmedEvent implements DomainEventInterface
 {
@@ -216,10 +216,10 @@ final readonly class OrderConfirmedEvent implements DomainEventInterface
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\EventDispatcher;
+namespace EventDispatcher;
 
-use Domain\Shared\Event\DomainEventInterface;
-use Domain\Shared\Event\EventDispatcherInterface;
+use Event\DomainEventInterface;
+use Event\EventDispatcherInterface;
 
 final class InMemoryEventDispatcher implements EventDispatcherInterface
 {
@@ -242,15 +242,15 @@ final class InMemoryEventDispatcher implements EventDispatcherInterface
 }
 ```
 
-## Repository Interfaces (Domain)
+## Repository (Domain pattern)
 
 ```php
 declare(strict_types=1);
 
-namespace Domain\Order\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use ValueObject\OrderId;
 
 interface OrderRepositoryInterface
 {
@@ -270,9 +270,9 @@ interface OrderRepositoryInterface
 ```php
 declare(strict_types=1);
 
-namespace Domain\Shared\Entity;
+namespace Entity;
 
-use Domain\Shared\Event\DomainEventInterface;
+use Event\DomainEventInterface;
 
 abstract class AggregateRoot
 {
@@ -369,5 +369,5 @@ See `event-system.md` for PSR-14 setup, custom dispatcher, async processing, and
 | Anemic entity (only getters/setters) | Critical | Domain model quality |
 | Missing Value Objects for concepts | Warning | Encapsulation |
 | No Domain Events | Warning | Decoupling |
-| Repository interface in Infrastructure | Warning | Dependency direction |
+| Repository misplaced for the project's chosen style | Warning | Folder consistency (varies by architecture) |
 | Mutable Value Objects | Warning | Data integrity |

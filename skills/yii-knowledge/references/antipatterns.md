@@ -25,7 +25,7 @@ Grep: "extends \\\\yii\\\\base\\\\Component" --glob "**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Controller;
 
 use Yii;  // Yii2 global!
 
@@ -51,9 +51,9 @@ final class OrderController
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
-use Application\Order\UseCase\CreateOrderUseCase;
+use UseCase\CreateOrderUseCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -97,7 +97,7 @@ Grep: "ActiveQuery" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
 use Yiisoft\ActiveRecord\ActiveRecord;
 
@@ -122,10 +122,10 @@ final class Order extends ActiveRecord  // CRITICAL: AR in Domain
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Order\ValueObject\OrderId;
-use Domain\Order\ValueObject\OrderStatus;
+use ValueObject\OrderId;
+use ValueObject\OrderStatus;
 
 final class Order  // Pure domain, no framework
 {
@@ -164,7 +164,7 @@ Grep: "foreach.*calculate\|array_reduce" --glob "**/Presentation/**/*.php"
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -211,10 +211,10 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order;
+namespace Order;
 
-use Application\Order\UseCase\CreateOrderUseCase;
-use Application\Order\DTO\CreateOrderDTO;
+use UseCase\CreateOrderUseCase;
+use DTO\CreateOrderDTO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -264,7 +264,7 @@ Grep: "ContainerInterface" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Psr\Container\ContainerInterface;
 
@@ -289,9 +289,9 @@ final readonly class CreateOrderUseCase
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
-use Domain\Order\Repository\OrderRepositoryInterface;
+use Repository\OrderRepositoryInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final readonly class CreateOrderUseCase
@@ -327,7 +327,7 @@ Grep: "Yiisoft\\\\Cache\\\\|Yiisoft\\\\Log\\\\|Yiisoft\\\\Db\\\\" --glob "**/App
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Yiisoft\Cache\CacheInterface as YiiCache;       // Yii-specific
 use Yiisoft\Log\Logger as YiiLogger;                 // Yii-specific
@@ -349,7 +349,7 @@ final readonly class GetOrderUseCase
 
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 use Psr\SimpleCache\CacheInterface;     // PSR-16
 use Psr\Log\LoggerInterface;            // PSR-3
@@ -427,7 +427,7 @@ Grep: "use Yiisoft\\User\\" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace Domain\User\Entity;
+namespace Entity;
 
 use Yiisoft\Auth\IdentityInterface; // VIOLATION: Auth in Domain
 
@@ -443,10 +443,10 @@ final readonly class User implements IdentityInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Security;
+namespace Security;
 
 use Yiisoft\Auth\IdentityInterface;
-use Domain\User\Entity\User;
+use Entity\User;
 
 final readonly class SecurityIdentityAdapter implements IdentityInterface
 {
@@ -477,7 +477,7 @@ Grep: "RetryFailure\|maxRetries\|MAX_RETRIES" --glob "**/*.php" --output_mode co
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Handler;
+namespace Handler;
 
 use Yiisoft\Queue\Message\MessageInterface;
 
@@ -499,7 +499,7 @@ final readonly class ProcessPaymentHandler
 
 declare(strict_types=1);
 
-namespace Infrastructure\Queue\Handler;
+namespace Handler;
 
 use Psr\Log\LoggerInterface;
 use Yiisoft\Queue\Message\MessageInterface;

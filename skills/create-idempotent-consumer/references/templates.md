@@ -4,7 +4,7 @@ Complete PHP 8.4 templates for all Idempotent Consumer components.
 
 ---
 
-## Domain Layer
+## Types
 
 ### IdempotencyKey.php
 
@@ -13,7 +13,7 @@ Complete PHP 8.4 templates for all Idempotent Consumer components.
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Idempotency;
+namespace Idempotency;
 
 final readonly class IdempotencyKey implements \Stringable
 {
@@ -59,7 +59,7 @@ final readonly class IdempotencyKey implements \Stringable
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Idempotency;
+namespace Idempotency;
 
 enum ProcessingStatus: string
 {
@@ -76,7 +76,7 @@ enum ProcessingStatus: string
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Idempotency;
+namespace Idempotency;
 
 final readonly class ProcessingResult
 {
@@ -120,7 +120,7 @@ final readonly class ProcessingResult
 
 ---
 
-## Application Layer
+## Coordination
 
 ### IdempotencyStoreInterface.php
 
@@ -129,9 +129,9 @@ final readonly class ProcessingResult
 
 declare(strict_types=1);
 
-namespace Application\Shared\Idempotency;
+namespace Idempotency;
 
-use Domain\Shared\Idempotency\IdempotencyKey;
+use Idempotency\IdempotencyKey;
 
 interface IdempotencyStoreInterface
 {
@@ -150,10 +150,10 @@ interface IdempotencyStoreInterface
 
 declare(strict_types=1);
 
-namespace Application\Shared\Idempotency;
+namespace Idempotency;
 
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingResult;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingResult;
 
 final readonly class IdempotentConsumerMiddleware
 {
@@ -186,7 +186,7 @@ final readonly class IdempotentConsumerMiddleware
 
 ---
 
-## Infrastructure Layer
+## Persistence
 
 ### DatabaseIdempotencyStore.php
 
@@ -195,10 +195,10 @@ final readonly class IdempotentConsumerMiddleware
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
-use Application\Shared\Idempotency\IdempotencyStoreInterface;
-use Domain\Shared\Idempotency\IdempotencyKey;
+use Idempotency\IdempotencyStoreInterface;
+use Idempotency\IdempotencyKey;
 
 final readonly class DatabaseIdempotencyStore implements IdempotencyStoreInterface
 {
@@ -265,10 +265,10 @@ final readonly class DatabaseIdempotencyStore implements IdempotencyStoreInterfa
 
 declare(strict_types=1);
 
-namespace Infrastructure\Idempotency;
+namespace Idempotency;
 
-use Application\Shared\Idempotency\IdempotencyStoreInterface;
-use Domain\Shared\Idempotency\IdempotencyKey;
+use Idempotency\IdempotencyStoreInterface;
+use Idempotency\IdempotencyKey;
 
 final readonly class RedisIdempotencyStore implements IdempotencyStoreInterface
 {
@@ -320,7 +320,7 @@ final readonly class RedisIdempotencyStore implements IdempotencyStoreInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Persistence\Migration;
+namespace Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -366,9 +366,9 @@ final class Version20260214000001 extends AbstractMigration
 
 declare(strict_types=1);
 
-namespace Infrastructure\Console;
+namespace Console;
 
-use Infrastructure\Idempotency\DatabaseIdempotencyStore;
+use Idempotency\DatabaseIdempotencyStore;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -412,9 +412,9 @@ final class PurgeExpiredIdempotencyKeysCommand extends Command
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Idempotency;
+namespace Tests\Unit\Idempotency;
 
-use Domain\Shared\Idempotency\IdempotencyKey;
+use Idempotency\IdempotencyKey;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -488,10 +488,10 @@ final class IdempotencyKeyTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Idempotency;
+namespace Tests\Unit\Idempotency;
 
-use Domain\Shared\Idempotency\ProcessingResult;
-use Domain\Shared\Idempotency\ProcessingStatus;
+use Idempotency\ProcessingResult;
+use Idempotency\ProcessingStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -545,12 +545,12 @@ final class ProcessingResultTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Shared\Idempotency;
+namespace Tests\Unit\Idempotency;
 
-use Application\Shared\Idempotency\IdempotencyStoreInterface;
-use Application\Shared\Idempotency\IdempotentConsumerMiddleware;
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Domain\Shared\Idempotency\ProcessingStatus;
+use Idempotency\IdempotencyStoreInterface;
+use Idempotency\IdempotentConsumerMiddleware;
+use Idempotency\IdempotencyKey;
+use Idempotency\ProcessingStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -674,10 +674,10 @@ final class IdempotentConsumerMiddlewareTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Infrastructure\Idempotency;
+namespace Tests\Unit\Idempotency;
 
-use Domain\Shared\Idempotency\IdempotencyKey;
-use Infrastructure\Idempotency\DatabaseIdempotencyStore;
+use Idempotency\IdempotencyKey;
+use Idempotency\DatabaseIdempotencyStore;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

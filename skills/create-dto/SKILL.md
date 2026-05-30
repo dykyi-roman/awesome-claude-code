@@ -18,13 +18,13 @@ Generate DTOs for transferring data between layers, API boundaries, and external
 
 ## DTO Types
 
-| Type | Purpose | Location |
-|------|---------|----------|
-| Request DTO | API input validation | Presentation layer |
-| Response DTO | API output formatting | Presentation layer |
-| Command DTO | Use case input | Application layer |
-| Query Result DTO | Read model output | Application layer |
-| Integration DTO | External API data | Infrastructure layer |
+| Type | Purpose | Typical placement |
+|------|---------|-------------------|
+| Request DTO | API input validation | Alongside HTTP entry-point code |
+| Response DTO | API output formatting | Alongside HTTP entry-point code |
+| Command DTO | Use case input | Alongside the use case / command bus |
+| Query Result DTO | Read model output | Alongside the query handler / read model |
+| Integration DTO | External API data | Alongside the external-system integration code |
 
 ---
 
@@ -36,11 +36,7 @@ Determine the purpose and layer for the DTO.
 
 ### Step 2: Generate DTO Class
 
-**Path based on type:**
-- Request: `src/Presentation/Api/{Context}/Request/`
-- Response: `src/Presentation/Api/{Context}/Response/`
-- Application: `src/Application/{Context}/DTO/`
-- Integration: `src/Infrastructure/ExternalApi/{Service}/DTO/`
+Place based on type (see "DTO Types" table above for typical placement). In all cases, the DTO lives alongside the code that consumes/produces it.
 
 ### Step 3: Add Conversion Methods
 
@@ -50,7 +46,7 @@ Determine the purpose and layer for the DTO.
 
 ### Step 4: Generate Tests
 
-**Path:** `tests/Unit/{Layer}/{Context}/{Type}/`
+Mirror the production-code path under `tests/Unit/`.
 
 ---
 
@@ -58,11 +54,13 @@ Determine the purpose and layer for the DTO.
 
 | Type | Path |
 |------|------|
-| Request DTO | `src/Presentation/Api/{Context}/Request/` |
-| Response DTO | `src/Presentation/Api/{Context}/Response/` |
-| Application DTO | `src/Application/{Context}/DTO/` |
-| Integration DTO | `src/Infrastructure/ExternalApi/{Service}/DTO/` |
-| Unit Tests | `tests/Unit/{Layer}/{Context}/{Type}/` |
+| Request DTO | `src/{architecture-path}/Request/` |
+| Response DTO | `src/{architecture-path}/Response/` |
+| Application DTO | `src/{architecture-path}/DTO/` |
+| Integration DTO | `src/{architecture-path}/{Service}/DTO/` |
+| Unit Tests | `tests/Unit/{architecture-path}/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Each DTO type lives alongside the code that consumes or produces it — see the "DTO Types" table above. Adjust to your project's layout.
 
 ---
 

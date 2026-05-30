@@ -2,14 +2,14 @@
 
 ## Target Interface
 
-**File:** `src/Domain/{BoundedContext}/{Name}Interface.php`
+**File:** `src/{architecture-path}/{Name}Interface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext};
+namespace {BoundedContext};
 
 interface {Name}Interface
 {
@@ -21,16 +21,16 @@ interface {Name}Interface
 
 ## Adapter
 
-**File:** `src/Infrastructure/{BoundedContext}/Adapter/{Provider}{Name}Adapter.php`
+**File:** `src/{architecture-path}/Adapter/{Provider}{Name}Adapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\{BoundedContext}\Adapter;
+namespace Adapter;
 
-use Domain\{BoundedContext}\{Name}Interface;
+use {BoundedContext}\{Name}Interface;
 
 final readonly class {Provider}{Name}Adapter implements {Name}Interface
 {
@@ -55,18 +55,18 @@ final readonly class {Provider}{Name}Adapter implements {Name}Interface
 
 ## Payment Gateway Interface
 
-**File:** `src/Domain/Payment/PaymentGatewayInterface.php`
+**File:** `src/{architecture-path}/PaymentGatewayInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Payment;
+namespace Payment;
 
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 
 interface PaymentGatewayInterface
 {
@@ -82,21 +82,21 @@ interface PaymentGatewayInterface
 
 ## Stripe Adapter Template
 
-**File:** `src/Infrastructure/Payment/Adapter/StripePaymentGatewayAdapter.php`
+**File:** `src/{architecture-path}/Adapter/StripePaymentGatewayAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Payment\Adapter;
+namespace Adapter;
 
-use Domain\Payment\Exception\PaymentException;
-use Domain\Payment\PaymentGatewayInterface;
-use Domain\Payment\PaymentStatus;
-use Domain\Payment\ValueObject\Amount;
-use Domain\Payment\ValueObject\PaymentToken;
-use Domain\Payment\ValueObject\TransactionId;
+use Exception\PaymentException;
+use Payment\PaymentGatewayInterface;
+use Payment\PaymentStatus;
+use ValueObject\Amount;
+use ValueObject\PaymentToken;
+use ValueObject\TransactionId;
 use Stripe\StripeClient;
 
 final readonly class StripePaymentGatewayAdapter implements PaymentGatewayInterface
@@ -163,14 +163,14 @@ final readonly class StripePaymentGatewayAdapter implements PaymentGatewayInterf
 
 ## Storage Interface
 
-**File:** `src/Domain/Storage/StorageInterface.php`
+**File:** `src/{architecture-path}/StorageInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Storage;
+namespace Storage;
 
 interface StorageInterface
 {
@@ -188,18 +188,18 @@ interface StorageInterface
 
 ## AWS S3 Adapter Template
 
-**File:** `src/Infrastructure/Storage/Adapter/S3StorageAdapter.php`
+**File:** `src/{architecture-path}/Adapter/S3StorageAdapter.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Infrastructure\Storage\Adapter;
+namespace Adapter;
 
 use Aws\S3\S3Client;
-use Domain\Storage\Exception\StorageException;
-use Domain\Storage\StorageInterface;
+use Exception\StorageException;
+use Storage\StorageInterface;
 
 final readonly class S3StorageAdapter implements StorageInterface
 {

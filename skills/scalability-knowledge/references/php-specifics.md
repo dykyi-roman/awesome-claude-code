@@ -47,7 +47,7 @@ pm.status_listen = 127.0.0.1:9001
 
 declare(strict_types=1);
 
-namespace Infrastructure\Monitoring;
+namespace Monitoring;
 
 final readonly class FpmCapacityCalculator
 {
@@ -181,7 +181,7 @@ error_log(sprintf('Preloaded %d PHP files into OPcache', $count));
 
 declare(strict_types=1);
 
-namespace Infrastructure\Monitoring;
+namespace Monitoring;
 
 final readonly class OpcacheMonitor
 {
@@ -231,7 +231,7 @@ final readonly class OpcacheMonitor
 
 declare(strict_types=1);
 
-namespace App\Examples;
+namespace Examples;
 
 // VIOLATION: Writing to local filesystem (not shared across instances)
 file_put_contents('/tmp/cache/data.json', $jsonData);
@@ -265,7 +265,7 @@ $s3Client->putObject([
 
 declare(strict_types=1);
 
-namespace Infrastructure\Database;
+namespace Database;
 
 final readonly class PersistentConnectionFactory
 {

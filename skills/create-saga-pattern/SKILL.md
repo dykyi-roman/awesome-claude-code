@@ -59,7 +59,7 @@ Determine:
 
 Create in this order:
 
-1. **Domain Layer** (`src/Domain/Shared/Saga/`)
+1. **Types & Contracts** — pure types alongside other shared domain primitives
    - `SagaState.php` — State enum with transitions
    - `StepResult.php` — Step result value object
    - `SagaStepInterface.php` — Step contract
@@ -67,13 +67,13 @@ Create in this order:
    - `SagaResult.php` — Saga result
    - Exception classes
 
-2. **Application Layer** (`src/Application/Shared/Saga/`)
-   - `SagaPersistenceInterface.php` — Persistence port
+2. **Orchestration + Persistence Abstraction** — coordination code that runs the saga
+   - `SagaPersistenceInterface.php` — Persistence abstraction
    - `SagaRecord.php` — Persisted record
    - `AbstractSagaStep.php` — Base step class
    - `SagaOrchestrator.php` — Orchestrator
 
-3. **Infrastructure Layer**
+3. **Persistence Implementation** — concrete adapter against the chosen store
    - `DoctrineSagaPersistence.php` — Doctrine implementation
    - Database migration
 
@@ -83,15 +83,15 @@ Create in this order:
 
 ### Step 3: Generate Context-Specific Steps
 
-For each saga step (e.g., Order saga):
+For each saga (e.g., Order saga), generate per-context step classes and a factory under the bounded context's saga folder:
 
 ```
-src/Application/{Context}/Saga/Step/
+{Context}/Saga/Step/
 ├── ReserveInventoryStep.php
 ├── ChargePaymentStep.php
 └── CreateShipmentStep.php
 
-src/Application/{Context}/Saga/
+{Context}/Saga/
 └── {Context}SagaFactory.php
 ```
 
@@ -99,14 +99,16 @@ src/Application/{Context}/Saga/
 
 ## File Placement
 
-| Layer | Path |
-|-------|------|
-| Domain Types | `src/Domain/Shared/Saga/` |
-| Application Saga | `src/Application/Shared/Saga/` |
-| Context Steps | `src/Application/{Context}/Saga/Step/` |
-| Saga Factory | `src/Application/{Context}/Saga/` |
-| Infrastructure | `src/Infrastructure/Persistence/Doctrine/Repository/` |
-| Unit Tests | `tests/Unit/{Layer}/{Path}/` |
+| Component group | Path |
+|-----------------|------|
+| Types & Contracts | `src/{architecture-path}/Saga/` |
+| Orchestration + Persistence Abstraction | `src/{architecture-path}/Saga/` |
+| Context Steps | `src/{architecture-path}/{Context}/Saga/Step/` |
+| Saga Factory | `src/{architecture-path}/{Context}/Saga/` |
+| Doctrine Persistence | `src/{architecture-path}/Persistence/Doctrine/Repository/DoctrineSagaPersistence.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Saga/` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. Saga types and orchestration typically live alongside other coordination code; per-context steps live inside the bounded context that owns the saga; the Doctrine persistence implementation lives with other persistence adapters. Adjust to your project's layout.
 
 ---
 

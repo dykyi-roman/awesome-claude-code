@@ -23,7 +23,7 @@ Generates PSR-18 compliant HTTP client implementations for external API communic
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Client;
+namespace Http\Client;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -132,7 +132,7 @@ final readonly class CurlHttpClient implements ClientInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Client;
+namespace Http\Client;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\NetworkExceptionInterface;
@@ -185,7 +185,7 @@ final class RequestException extends \RuntimeException implements RequestExcepti
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Client;
+namespace Http\Client;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -239,9 +239,9 @@ final readonly class LoggingHttpClient implements ClientInterface
 ```php
 <?php
 
-use App\Infrastructure\Http\Client\CurlHttpClient;
-use App\Infrastructure\Http\Client\LoggingHttpClient;
-use App\Infrastructure\Http\Factory\HttpFactory;
+use Http\Client\CurlHttpClient;
+use Http\Client\LoggingHttpClient;
+use Factory\HttpFactory;
 
 $factory = new HttpFactory();
 $client = new LoggingHttpClient(

@@ -5,7 +5,7 @@ description: Framework-less PHP knowledge base. Provides pure PHP project archit
 
 # No-Framework PHP Knowledge Base
 
-Quick reference for building framework-free PHP applications using PSR standards, standalone Composer packages, and Clean Architecture. Covers everything needed to run a production-grade project without Symfony, Laravel, or any full-stack framework.
+Quick reference for building framework-free PHP applications using PSR standards and standalone Composer packages. Covers everything needed to run a production-grade project without Symfony, Laravel, or any full-stack framework. Applicable across architectural styles (Clean, Hexagonal, Layered, MVC).
 
 ## Core Principles
 
@@ -43,7 +43,7 @@ public/index.php (Front Controller) → Middleware Pipeline (PSR-15)
 - [ ] `declare(strict_types=1)` in every file
 - [ ] PSR-4 autoloading via Composer
 - [ ] Domain layer has zero external `use` statements (no Doctrine, no framework)
-- [ ] Repository interfaces in Domain, implementations in Infrastructure
+- [ ] Repository pattern used for persistence access (folder placement varies by architectural style)
 - [ ] DI container configured explicitly (PHP-DI or League)
 - [ ] PSR-7 request/response, PSR-15 middleware pipeline
 - [ ] Front controller in `public/index.php`
@@ -54,7 +54,7 @@ public/index.php (Front Controller) → Middleware Pipeline (PSR-15)
 - [ ] Infrastructure components (Cache, HTTP Client, Mailer) accessed via domain port interfaces
 - [ ] Domain EventDispatcherInterface port; Infrastructure provides PSR-14 or InMemory adapter
 
-### Clean Architecture Checks
+### Layer Boundary Checks
 
 - [ ] No `use Illuminate\\` or `use Symfony\\` in Domain or Application layers
 - [ ] No HTTP concepts in Application layer
@@ -87,7 +87,7 @@ public/index.php (Front Controller) → Middleware Pipeline (PSR-15)
 ```php
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
@@ -110,7 +110,7 @@ final readonly class CorsMiddleware implements MiddlewareInterface
 ```php
 declare(strict_types=1);
 
-namespace Application\Order\UseCase;
+namespace UseCase;
 
 final readonly class PlaceOrderUseCase
 {

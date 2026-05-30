@@ -9,7 +9,7 @@ Additional templates for Action generation.
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Action;
+namespace Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,7 +27,7 @@ interface ActionInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Shared\Action;
+namespace Action;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -63,7 +63,7 @@ abstract readonly class AbstractAction implements ActionInterface
 
 declare(strict_types=1);
 
-namespace Presentation\Api\{Context}\{Action};
+namespace Action\{Action};
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -92,10 +92,10 @@ final readonly class {Action}Request
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Order\Create;
+namespace Action\Create;
 
-use Application\Order\UseCase\CreateOrder\CreateOrderCommand;
-use Application\Order\UseCase\CreateOrder\CreateOrderHandler;
+use UseCase\CreateOrder\CreateOrderCommand;
+use UseCase\CreateOrder\CreateOrderHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -131,11 +131,11 @@ final readonly class CreateOrderAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Document\Upload;
+namespace Action\Upload;
 
-use Application\Document\UseCase\UploadDocument\UploadDocumentCommand;
-use Application\Document\UseCase\UploadDocument\UploadDocumentHandler;
-use Presentation\Shared\Exception\InvalidRequestException;
+use UseCase\UploadDocument\UploadDocumentCommand;
+use UseCase\UploadDocument\UploadDocumentHandler;
+use Exception\InvalidRequestException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UploadedFileInterface;
@@ -186,10 +186,10 @@ final readonly class UploadDocumentAction
 
 declare(strict_types=1);
 
-namespace Presentation\Api\Profile\Update;
+namespace Action\Update;
 
-use Application\User\UseCase\UpdateProfile\UpdateProfileCommand;
-use Application\User\UseCase\UpdateProfile\UpdateProfileHandler;
+use UseCase\UpdateProfile\UpdateProfileCommand;
+use UseCase\UpdateProfile\UpdateProfileHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -227,17 +227,17 @@ final readonly class UpdateProfileAction
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Presentation\Api\User\Create;
+namespace Tests\Unit\Action\Create;
 
-use Application\User\UseCase\CreateUser\CreateUserCommand;
-use Application\User\UseCase\CreateUser\CreateUserHandler;
-use Application\User\UseCase\CreateUser\CreateUserResult;
+use UseCase\CreateUser\CreateUserCommand;
+use UseCase\CreateUser\CreateUserHandler;
+use UseCase\CreateUser\CreateUserResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Presentation\Api\User\Create\CreateUserAction;
-use Presentation\Api\User\Create\CreateUserResponder;
+use Action\Create\CreateUserAction;
+use Action\Create\CreateUserResponder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -332,10 +332,10 @@ final class CreateUserActionTest extends TestCase
 ```yaml
 # config/services.yaml
 services:
-    Presentation\Api\User\Create\CreateUserAction:
+    Action\Create\CreateUserAction:
         arguments:
-            $handler: '@Application\User\UseCase\CreateUser\CreateUserHandler'
-            $responder: '@Presentation\Api\User\Create\CreateUserResponder'
+            $handler: '@UseCase\CreateUser\CreateUserHandler'
+            $responder: '@Action\Create\CreateUserResponder'
         tags: ['controller.service_arguments']
 ```
 
@@ -344,9 +344,9 @@ services:
 ```php
 <?php
 
-use Presentation\Api\User\Create\CreateUserAction;
-use Application\User\UseCase\CreateUser\CreateUserHandler;
-use Presentation\Api\User\Create\CreateUserResponder;
+use Action\Create\CreateUserAction;
+use UseCase\CreateUser\CreateUserHandler;
+use Action\Create\CreateUserResponder;
 
 return [
     CreateUserAction::class => function ($c) {
@@ -377,11 +377,11 @@ $app->delete('/users/{id}', DeleteUserAction::class);
 # config/routes.yaml
 create_user:
     path: /users
-    controller: Presentation\Api\User\Create\CreateUserAction
+    controller: Action\Create\CreateUserAction
     methods: POST
 
 get_user:
     path: /users/{id}
-    controller: Presentation\Api\User\GetById\GetUserByIdAction
+    controller: Action\GetById\GetUserByIdAction
     methods: GET
 ```

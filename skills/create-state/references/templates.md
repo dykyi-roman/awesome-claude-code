@@ -1,15 +1,15 @@
 # State Pattern Templates
 
-## State Interface (Domain Layer)
+## State Interface
 
-**File:** `src/Domain/{BoundedContext}/State/{Name}StateInterface.php`
+**File:** `src/{architecture-path}/State/{Name}StateInterface.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\State;
+namespace State;
 
 interface {Name}StateInterface
 {
@@ -30,14 +30,14 @@ interface {Name}StateInterface
 
 ## Abstract State
 
-**File:** `src/Domain/{BoundedContext}/State/Abstract{Name}State.php`
+**File:** `src/{architecture-path}/State/Abstract{Name}State.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\State;
+namespace State;
 
 abstract readonly class Abstract{Name}State implements {Name}StateInterface
 {
@@ -59,14 +59,14 @@ abstract readonly class Abstract{Name}State implements {Name}StateInterface
 
 ## Concrete State
 
-**File:** `src/Domain/{BoundedContext}/State/{StateName}State.php`
+**File:** `src/{architecture-path}/State/{StateName}State.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\State;
+namespace State;
 
 final readonly class {StateName}State extends Abstract{Name}State
 {
@@ -98,16 +98,16 @@ final readonly class {StateName}State extends Abstract{Name}State
 
 ## State Context
 
-**File:** `src/Domain/{BoundedContext}/Entity/{Name}.php`
+**File:** `src/{architecture-path}/Entity/{Name}.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Entity;
+namespace Entity;
 
-use Domain\{BoundedContext}\State\{Name}StateInterface;
+use State\{Name}StateInterface;
 
 final class {Name}
 {
@@ -166,14 +166,14 @@ final class {Name}
 
 ## InvalidStateTransitionException
 
-**File:** `src/Domain/{BoundedContext}/Exception/InvalidStateTransitionException.php`
+**File:** `src/{architecture-path}/Exception/InvalidStateTransitionException.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\Exception;
+namespace Exception;
 
 final class InvalidStateTransitionException extends \DomainException
 {
@@ -198,14 +198,14 @@ final class InvalidStateTransitionException extends \DomainException
 
 ## State Factory for Reconstitution
 
-**File:** `src/Domain/{BoundedContext}/State/{Name}StateFactory.php`
+**File:** `src/{architecture-path}/State/{Name}StateFactory.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\{BoundedContext}\State;
+namespace State;
 
 final class {Name}StateFactory
 {

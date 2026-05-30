@@ -58,7 +58,7 @@ You are an expert PHP test generator. Create high-quality, maintainable tests fo
 | Aggregate | Unit | — |
 | Domain Service | Unit (with Fakes) | — |
 | Application Service | Unit (with Mocks) | Integration |
-| Repository Interface | — | Integration |
+| Repository | — | Integration |
 | HTTP Client | — | Integration |
 
 ### Step 3: Prepare Test Infrastructure
@@ -182,11 +182,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Order;
 
-use App\Domain\Order\Order;
-use App\Domain\Order\OrderId;
-use App\Domain\Order\OrderStatus;
-use App\Domain\Customer\CustomerId;
-use App\Domain\Order\Event\OrderConfirmedEvent;
+use Order\Order;
+use Order\OrderId;
+use Order\OrderStatus;
+use Customer\CustomerId;
+use Event\OrderConfirmedEvent;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -265,9 +265,9 @@ declare(strict_types=1);
 
 namespace Tests\Builder;
 
-use App\Domain\Order\Order;
-use App\Domain\Order\OrderId;
-use App\Domain\Customer\CustomerId;
+use Order\Order;
+use Order\OrderId;
+use Customer\CustomerId;
 
 final class OrderBuilder
 {

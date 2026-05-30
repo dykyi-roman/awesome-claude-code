@@ -21,7 +21,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Telemetry;
+namespace Telemetry;
 
 use OpenTelemetry\API\Trace\TracerProviderInterface;
 use OpenTelemetry\Contrib\Otlp\SpanExporter;
@@ -74,7 +74,7 @@ final readonly class TracerProviderFactory
 
 declare(strict_types=1);
 
-namespace Infrastructure\Telemetry;
+namespace Telemetry;
 
 use OpenTelemetry\API\Trace\SpanKind;
 use OpenTelemetry\API\Trace\StatusCode;
@@ -167,7 +167,7 @@ final readonly class SpanHelper
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http;
+namespace Http;
 
 use OpenTelemetry\API\Trace\SpanKind;
 use OpenTelemetry\API\Trace\StatusCode;
@@ -235,7 +235,7 @@ final readonly class TracedHttpClient implements ClientInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Http\Middleware;
+namespace Middleware;
 
 use OpenTelemetry\API\Trace\SpanKind;
 use OpenTelemetry\API\Trace\StatusCode;
@@ -310,7 +310,7 @@ final readonly class TracingMiddleware implements MiddlewareInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Telemetry;
+namespace Telemetry;
 
 use OpenTelemetry\SDK\Trace\Sampler\TraceIdRatioBasedSampler;
 use OpenTelemetry\SDK\Trace\Sampler\ParentBased;
@@ -357,7 +357,7 @@ Link traces and logs by including trace context in log entries:
 
 declare(strict_types=1);
 
-namespace Infrastructure\Logging\Processor;
+namespace Logging\Processor;
 
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;

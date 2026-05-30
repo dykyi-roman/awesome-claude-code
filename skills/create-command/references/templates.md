@@ -7,9 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Command;
+namespace Command;
 
-use Domain\{BoundedContext}\ValueObject\{ValueObjects};
+use ValueObject\{ValueObjects};
 
 final readonly class {Name}Command
 {
@@ -37,11 +37,11 @@ final readonly class {Name}Command
 
 declare(strict_types=1);
 
-namespace Application\{BoundedContext}\Handler;
+namespace Handler;
 
-use Application\{BoundedContext}\Command\{Name}Command;
-use Domain\{BoundedContext}\Repository\{AggregateRoot}RepositoryInterface;
-use Domain\Shared\EventDispatcherInterface;
+use Command\{Name}Command;
+use Repository\{AggregateRoot}RepositoryInterface;
+use Shared\EventDispatcherInterface;
 
 final readonly class {Name}Handler
 {
@@ -121,10 +121,10 @@ public function __invoke(CreateCommand $command): AggregateId
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\Command;
+namespace Tests\Unit\Command;
 
-use Application\{BoundedContext}\Command\{Name}Command;
-use Domain\{BoundedContext}\ValueObject\{ValueObject};
+use Command\{Name}Command;
+use ValueObject\{ValueObject};
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -167,13 +167,13 @@ final class {Name}CommandTest extends TestCase
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\{BoundedContext}\Handler;
+namespace Tests\Unit\Handler;
 
-use Application\{BoundedContext}\Command\{Name}Command;
-use Application\{BoundedContext}\Handler\{Name}Handler;
-use Domain\{BoundedContext}\Entity\{Entity};
-use Domain\{BoundedContext}\Repository\{Entity}RepositoryInterface;
-use Domain\Shared\EventDispatcherInterface;
+use Command\{Name}Command;
+use Handler\{Name}Handler;
+use Entity\{Entity};
+use Repository\{Entity}RepositoryInterface;
+use Shared\EventDispatcherInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

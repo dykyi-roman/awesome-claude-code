@@ -3,7 +3,7 @@ name: architecture-generator
 description: Meta-generator for PHP 8.4 architecture components. Coordinates DDD and integration pattern generation. Use PROACTIVELY when creating bounded contexts, complex domain structures, or full-stack architecture components.
 tools: Read, Write, Glob, Grep, Edit, Task, TaskCreate, TaskUpdate
 model: opus
-skills: ddd-knowledge, cqrs-knowledge, clean-arch-knowledge, eda-knowledge, microservices-knowledge, outbox-pattern-knowledge, saga-pattern-knowledge, stability-patterns-knowledge, task-progress-knowledge
+skills: ddd-knowledge, cqrs-knowledge, clean-arch-knowledge, layer-arch-knowledge, eda-knowledge, microservices-knowledge, outbox-pattern-knowledge, saga-pattern-knowledge, stability-patterns-knowledge, task-progress-knowledge
 ---
 
 # Architecture Generator Agent
@@ -205,7 +205,7 @@ When generating, respect dependency order:
 4. Entities (depend on VOs, Enums)
 5. Aggregates (depend on Entities, VOs)
 6. Domain Events (depend on VOs)
-7. Repository Interfaces (depend on Aggregates)
+7. Repositories (depend on Aggregates)
 8. Specifications (depend on Entities)
 9. Domain Services (depend on Repositories, Entities)
 10. Factories (depend on Entities, VOs)

@@ -28,7 +28,7 @@ A cached state of an aggregate at a specific version, used to optimize loading p
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Snapshot;
+namespace Snapshot;
 
 interface SnapshotInterface
 {
@@ -51,7 +51,7 @@ interface SnapshotInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Snapshot;
+namespace Snapshot;
 
 final readonly class Snapshot implements SnapshotInterface
 {
@@ -97,7 +97,7 @@ final readonly class Snapshot implements SnapshotInterface
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Snapshot;
+namespace Snapshot;
 
 interface SnapshotStoreInterface
 {
@@ -125,11 +125,11 @@ interface SnapshotStoreInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Snapshot;
+namespace Snapshot;
 
-use Domain\Shared\Snapshot\SnapshotStoreInterface;
-use Domain\Shared\Snapshot\SnapshotInterface;
-use Domain\Shared\Snapshot\Snapshot;
+use Snapshot\SnapshotStoreInterface;
+use Snapshot\SnapshotInterface;
+use Snapshot\Snapshot;
 
 final readonly class PostgresSnapshotStore implements SnapshotStoreInterface
 {
@@ -221,7 +221,7 @@ CREATE INDEX idx_snapshots_aggregate ON snapshots(aggregate_id, aggregate_type);
 
 declare(strict_types=1);
 
-namespace Domain\Shared\Aggregate;
+namespace Aggregate;
 
 interface SnapshotableInterface
 {
@@ -249,10 +249,10 @@ interface SnapshotableInterface
 
 declare(strict_types=1);
 
-namespace Domain\Order\Entity;
+namespace Entity;
 
-use Domain\Shared\Aggregate\EventSourcedAggregate;
-use Domain\Shared\Aggregate\SnapshotableInterface;
+use Aggregate\EventSourcedAggregate;
+use Aggregate\SnapshotableInterface;
 
 final class Order extends EventSourcedAggregate implements SnapshotableInterface
 {
@@ -330,13 +330,13 @@ final class Order extends EventSourcedAggregate implements SnapshotableInterface
 
 declare(strict_types=1);
 
-namespace Infrastructure\Repository;
+namespace Repository;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\Repository\OrderRepositoryInterface;
-use Domain\Shared\EventStore\EventStoreInterface;
-use Domain\Shared\Snapshot\SnapshotStoreInterface;
-use Domain\Shared\Snapshot\Snapshot;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use EventStore\EventStoreInterface;
+use Snapshot\SnapshotStoreInterface;
+use Snapshot\Snapshot;
 
 final readonly class EventSourcedOrderRepository implements OrderRepositoryInterface
 {

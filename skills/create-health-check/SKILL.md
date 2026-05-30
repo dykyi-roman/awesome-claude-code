@@ -42,26 +42,26 @@ Creates Health Check infrastructure for monitoring application and dependency he
 
 ## Generation Process
 
-### Step 1: Generate Domain Components
+### Step 1: Generate Types & Contract
 
-**Path:** `src/Domain/Shared/Health/`
+Pure types with no infrastructure dependencies.
 
 1. `HealthCheckInterface.php` — Interface for health checks
 2. `HealthStatus.php` — Enum with Healthy/Degraded/Unhealthy states
 3. `HealthCheckResult.php` — Immutable result value object
 
-### Step 2: Generate Infrastructure Checkers
+### Step 2: Generate Concrete Checkers
 
-**Path:** `src/Infrastructure/Health/`
+Place at the integration boundary with the resources being checked.
 
 1. `DatabaseHealthCheck.php` — PDO connectivity check
 2. `RedisHealthCheck.php` — Redis connectivity check
 3. `RabbitMqHealthCheck.php` — RabbitMQ connectivity check
 4. `HealthCheckRunner.php` — Runs all checks and aggregates status
 
-### Step 3: Generate Presentation Endpoint
+### Step 3: Generate HTTP Endpoint
 
-**Path:** `src/Presentation/Api/Action/`
+Place alongside other HTTP entry points.
 
 1. `HealthCheckAction.php` — PSR-15 handler returning JSON response
 
@@ -77,12 +77,13 @@ Creates Health Check infrastructure for monitoring application and dependency he
 
 | Component | Path |
 |-----------|------|
-| Domain Interfaces & VOs | `src/Domain/Shared/Health/` |
-| Infrastructure Checkers | `src/Infrastructure/Health/` |
-| Presentation Action | `src/Presentation/Api/Action/` |
-| Unit Tests (Domain) | `tests/Unit/Domain/Shared/Health/` |
-| Unit Tests (Infra) | `tests/Unit/Infrastructure/Health/` |
-| Unit Tests (Presentation) | `tests/Unit/Presentation/Api/Action/` |
+| Types & Contract | `src/{architecture-path}/Health/` |
+| Concrete Checkers | `src/{architecture-path}/Health/` |
+| HTTP Action | `src/{architecture-path}/Action/HealthCheckAction.php` |
+| Unit Tests | `tests/Unit/{architecture-path}/Health/` |
+| Unit Tests (Action) | `tests/Unit/{architecture-path}/Action/HealthCheckActionTest.php` |
+
+> `{architecture-path}` represents your project's architecture-specific folders. The types & contract typically live alongside other shared cross-cutting types; concrete checkers live at the integration boundary with each resource; the HTTP action lives with other HTTP entry points. Adjust to your project's layout.
 
 ---
 

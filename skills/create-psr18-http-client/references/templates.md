@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Client;
+namespace Http\Client;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -82,7 +82,7 @@ final readonly class StreamHttpClient implements ClientInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Client;
+namespace Http\Client;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -146,7 +146,7 @@ final readonly class RetryHttpClient implements ClientInterface
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Http\Client;
+namespace Http\Client;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;

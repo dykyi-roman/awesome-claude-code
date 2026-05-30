@@ -29,7 +29,7 @@ Request → index.php → Bootstrap → Routing
 ### DDD-Compatible CI4 Project
 
 - [ ] Domain logic extracted from Models into Domain layer
-- [ ] Repository interfaces defined in Domain, implemented in Infrastructure
+- [ ] Repository pattern used for persistence access (folder placement varies by architectural style)
 - [ ] Value Objects used instead of primitive types for domain concepts
 - [ ] CI4 Models used only as persistence adapters
 - [ ] Services registered in Config\Services for dependency injection
@@ -40,14 +40,14 @@ Request → index.php → Bootstrap → Routing
 - [ ] Queue job handlers delegate to Application UseCases
 - [ ] Infrastructure components (Cache, HTTP Client, Email) accessed via domain ports
 
-### Clean Architecture Checks
+### Layer Boundary Checks
 
-- [ ] No `use CodeIgniter\...` in Domain layer
-- [ ] No direct database access outside Repository implementations
+- [ ] No `use CodeIgniter\...` in Domain layer (in projects that enforce this)
+- [ ] No direct database access outside Repository
 - [ ] Controllers delegate to Application Services / Use Cases
 - [ ] DTOs used for cross-layer data transfer
 - [ ] Config\Services wires interfaces to implementations
-- [ ] Entities are framework-free domain objects (not CI4 Entity)
+- [ ] Entities are framework-free domain objects in projects that enforce isolation (not required if your style permits CI4 Entity in domain)
 
 ## Common Violations Quick Reference
 
@@ -72,7 +72,7 @@ Request → index.php → Bootstrap → Routing
 ```php
 <?php
 declare(strict_types=1);
-namespace App\Controllers\Api;
+namespace Api;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;

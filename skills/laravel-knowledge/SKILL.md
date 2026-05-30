@@ -45,7 +45,7 @@ app/                            app/
 
 - [ ] Domain layer has zero Laravel imports
 - [ ] Eloquent Models live in Infrastructure, not Domain
-- [ ] Repository interfaces in Domain, Eloquent implementations in Infrastructure
+- [ ] Repository pattern used for persistence access (folder placement varies by architectural style)
 - [ ] Service Providers wire interfaces to implementations
 - [ ] Domain Events decoupled from Laravel Event system
 - [ ] Value Objects used instead of primitive types
@@ -55,7 +55,7 @@ app/                            app/
 - [ ] Domain defines its own `EventDispatcherInterface` (not Laravel `Event` facade)
 - [ ] Infrastructure components (Cache, HTTP Client) accessed via domain ports
 
-### Clean Architecture Checks
+### Layer Boundary Checks
 
 - [ ] No `use Illuminate\...` in Domain layer
 - [ ] No business logic in Controllers or Middleware
@@ -90,11 +90,11 @@ app/                            app/
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Order;
+namespace Order;
 
-use App\Application\Order\UseCase\CreateOrderUseCase;
-use App\Http\Requests\Order\CreateOrderRequest;
-use App\Http\Resources\Order\OrderResource;
+use UseCase\CreateOrderUseCase;
+use Order\CreateOrderRequest;
+use Order\OrderResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -122,10 +122,10 @@ final readonly class CreateOrderController
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Order;
+namespace Order;
 
-use App\Application\Order\Command\CreateOrderCommand;
-use App\Domain\Order\ValueObject\CustomerId;
+use Command\CreateOrderCommand;
+use ValueObject\CustomerId;
 use Illuminate\Foundation\Http\FormRequest;
 
 final class CreateOrderRequest extends FormRequest
@@ -158,11 +158,11 @@ final class CreateOrderRequest extends FormRequest
 
 declare(strict_types=1);
 
-namespace App\Application\Order\UseCase;
+namespace UseCase;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Repository\OrderRepositoryInterface;
-use App\Domain\Order\ValueObject\OrderId;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\OrderId;
 
 final readonly class CreateOrderUseCase
 {

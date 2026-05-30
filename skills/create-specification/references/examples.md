@@ -2,18 +2,18 @@
 
 ## Active Customer Specification
 
-**File:** `src/Domain/Customer/Specification/IsActiveCustomerSpecification.php`
+**File:** `src/{architecture-path}/Specification/IsActiveCustomerSpecification.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Customer\Specification;
+namespace Specification;
 
-use Domain\Customer\Entity\Customer;
-use Domain\Customer\Enum\CustomerStatus;
-use Domain\Shared\Specification\AbstractSpecification;
+use Entity\Customer;
+use Enum\CustomerStatus;
+use Specification\AbstractSpecification;
 
 /**
  * @extends AbstractSpecification<Customer>
@@ -37,18 +37,18 @@ final readonly class IsActiveCustomerSpecification extends AbstractSpecification
 
 ## Premium Product Specification
 
-**File:** `src/Domain/Product/Specification/IsPremiumProductSpecification.php`
+**File:** `src/{architecture-path}/Specification/IsPremiumProductSpecification.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Product\Specification;
+namespace Specification;
 
-use Domain\Product\Entity\Product;
-use Domain\Product\ValueObject\Money;
-use Domain\Shared\Specification\AbstractSpecification;
+use Entity\Product;
+use ValueObject\Money;
+use Specification\AbstractSpecification;
 
 /**
  * @extends AbstractSpecification<Product>
@@ -75,18 +75,18 @@ final readonly class IsPremiumProductSpecification extends AbstractSpecification
 
 ## Overdue Invoice Specification
 
-**File:** `src/Domain/Invoice/Specification/IsOverdueInvoiceSpecification.php`
+**File:** `src/{architecture-path}/Specification/IsOverdueInvoiceSpecification.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Invoice\Specification;
+namespace Specification;
 
-use Domain\Invoice\Entity\Invoice;
-use Domain\Invoice\Enum\InvoiceStatus;
-use Domain\Shared\Specification\AbstractSpecification;
+use Entity\Invoice;
+use Enum\InvoiceStatus;
+use Specification\AbstractSpecification;
 
 /**
  * @extends AbstractSpecification<Invoice>
@@ -118,20 +118,20 @@ final readonly class IsOverdueInvoiceSpecification extends AbstractSpecification
 
 ## Eligible For Discount Specification
 
-**File:** `src/Domain/Order/Specification/IsEligibleForDiscountSpecification.php`
+**File:** `src/{architecture-path}/Specification/IsEligibleForDiscountSpecification.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Domain\Order\Specification;
+namespace Specification;
 
-use Domain\Order\Entity\Order;
-use Domain\Order\ValueObject\Money;
-use Domain\Customer\Entity\Customer;
-use Domain\Customer\Enum\CustomerTier;
-use Domain\Shared\Specification\AbstractSpecification;
+use Entity\Order;
+use ValueObject\Money;
+use Entity\Customer;
+use Enum\CustomerTier;
+use Specification\AbstractSpecification;
 
 /**
  * @extends AbstractSpecification<Order>
@@ -193,21 +193,21 @@ if (!$eligibleForPromotion->isSatisfiedBy($customer)) {
 
 ### IsOverdueInvoiceSpecificationTest
 
-**File:** `tests/Unit/Domain/Invoice/Specification/IsOverdueInvoiceSpecificationTest.php`
+**File:** `tests/Unit/Specification/IsOverdueInvoiceSpecificationTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Invoice\Specification;
+namespace Tests\Unit\Specification;
 
-use Domain\Invoice\Specification\IsOverdueInvoiceSpecification;
-use Domain\Invoice\Entity\Invoice;
-use Domain\Invoice\Enum\InvoiceStatus;
-use Domain\Invoice\ValueObject\InvoiceId;
-use Domain\Customer\ValueObject\CustomerId;
-use Domain\Shared\ValueObject\Money;
+use Specification\IsOverdueInvoiceSpecification;
+use Entity\Invoice;
+use Enum\InvoiceStatus;
+use ValueObject\InvoiceId;
+use ValueObject\CustomerId;
+use ValueObject\Money;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -297,20 +297,20 @@ final class IsOverdueInvoiceSpecificationTest extends TestCase
 
 ### CompositeSpecificationTest
 
-**File:** `tests/Unit/Domain/Shared/Specification/CompositeSpecificationTest.php`
+**File:** `tests/Unit/Specification/CompositeSpecificationTest.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Shared\Specification;
+namespace Tests\Unit\Specification;
 
-use Domain\Shared\Specification\AndSpecification;
-use Domain\Shared\Specification\OrSpecification;
-use Domain\Shared\Specification\NotSpecification;
-use Domain\Customer\Specification\IsActiveCustomerSpecification;
-use Domain\Customer\Specification\HasPurchaseHistorySpecification;
+use Specification\AndSpecification;
+use Specification\OrSpecification;
+use Specification\NotSpecification;
+use Specification\IsActiveCustomerSpecification;
+use Specification\HasPurchaseHistorySpecification;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

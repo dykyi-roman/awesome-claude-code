@@ -27,7 +27,7 @@ Grep: "use.*Infrastructure\\\\" --glob "**/Domain/**/*.php"
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -51,7 +51,7 @@ class Order
 
 declare(strict_types=1);
 
-namespace App\Order\Domain\Entity;
+namespace Entity;
 
 final class Order
 {
@@ -113,7 +113,7 @@ framework:
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Command;
+namespace Command;
 
 final readonly class PlaceOrderCommand
 {
@@ -132,13 +132,13 @@ final readonly class PlaceOrderCommand
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Handler;
+namespace Handler;
 
-use App\Order\Application\Command\PlaceOrderCommand;
-use App\Order\Domain\Entity\Order;
-use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Order\Domain\ValueObject\CustomerId;
-use App\Order\Domain\ValueObject\OrderId;
+use Command\PlaceOrderCommand;
+use Entity\Order;
+use Repository\OrderRepositoryInterface;
+use ValueObject\CustomerId;
+use ValueObject\OrderId;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler(bus: 'command.bus')]
@@ -170,7 +170,7 @@ final readonly class PlaceOrderHandler
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Query;
+namespace Query;
 
 final readonly class GetOrderQuery
 {
@@ -187,11 +187,11 @@ final readonly class GetOrderQuery
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Handler;
+namespace Handler;
 
-use App\Order\Application\DTO\OrderDTO;
-use App\Order\Application\Query\GetOrderQuery;
-use App\Order\Domain\Repository\OrderReadRepositoryInterface;
+use DTO\OrderDTO;
+use Query\GetOrderQuery;
+use Repository\OrderReadRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler(bus: 'query.bus')]
@@ -235,7 +235,7 @@ Grep: "releaseEvents|domainEvents|recordedEvents" --glob "**/Domain/**/Entity/*.
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Doctrine;
+namespace Order\Infrastructure\Doctrine;
 
 use Doctrine\ORM\Event\PostPersistEventArgs;
 
@@ -259,9 +259,9 @@ final readonly class OrderListener
 
 declare(strict_types=1);
 
-namespace App\Order\Infrastructure\Messenger;
+namespace Order\Infrastructure\Messenger;
 
-use App\Order\Domain\Event\OrderConfirmedEvent;
+use Event\OrderConfirmedEvent;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
@@ -287,9 +287,9 @@ final readonly class SendOrderConfirmationOnOrderConfirmed
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Doctrine\Type;
+namespace Infrastructure\Doctrine\Type;
 
-use App\Order\Domain\ValueObject\OrderId;
+use ValueObject\OrderId;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 

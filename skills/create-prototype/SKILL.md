@@ -236,8 +236,8 @@ final readonly class Order
 ### Prototype Pattern: {Name}
 
 **Files Generated:**
-- `src/Domain/{Context}/{Name}.php` — Prototype with __clone
-- `src/Domain/{Context}/{Name}PrototypeRegistry.php` — Registry (if needed)
+- `src/{architecture-path}/{Name}.php` — Prototype with __clone
+- `src/{architecture-path}/{Name}PrototypeRegistry.php` — Registry (if needed)
 
 **Clone Strategy:**
 - Deep copy: [list mutable properties]
