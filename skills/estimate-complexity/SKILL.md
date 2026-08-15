@@ -89,16 +89,29 @@ function permute(array $arr): array {
 ### 4. Inefficient String Operations
 
 ```php
-// O(n²): String concatenation in loop
+// NOT quadratic: `.=` is amortised O(1) in PHP
 $result = '';
 foreach ($lines as $line) {
-    $result .= $line; // Creates new string each time
+    $result .= $line; // realloc in place while refcount === 1
 }
-// For n lines of m chars each: O(n*m*n) = O(n²*m)
+// Total: O(total output length). Do NOT report this as O(n²).
 
-// O(n): Array join
-$result = implode('', $lines);
+// O(n²): concatenation that COPIES on every iteration
+$result = '';
+foreach ($lines as $line) {
+    $result = $result . $line;      // same, still amortised O(1)
+    $log[] = $result;               // ← THIS is the problem: n snapshots of a
+                                    //   growing string → O(n²) memory and time
+}
+
+// O(n²): rebuilding a string through a function that returns a copy
+foreach ($lines as $line) {
+    $result = str_replace('a', 'b', $result . $line); // full re-scan each pass
+}
 ```
+
+**Rule:** `.=` alone is not a complexity smell. Flag it only when each intermediate
+value is retained, re-scanned, or passed through a string function every iteration.
 
 ### 5. Inefficient Array Operations
 
@@ -213,21 +226,26 @@ for ($i = 0; $i < $n; $i++) {
 ## Grep Patterns
 
 ```bash
-# Nested foreach
-Grep: "foreach.*\{[^}]*foreach" --glob "**/*.php"
+These are candidate-narrowing greps — then Read the hit to confirm. A zero result is NOT
+proof the code is clean; it usually means the construct spans lines the pattern did not cover.
 
-# in_array in loop
-Grep: "foreach.*in_array" --glob "**/*.php"
+```bash
+# Nested foreach — spans lines, so --multiline is required (no dotall: `.` must not eat newlines)
+Grep: "foreach[^\n]*\{[\s\S]{0,400}?foreach" --glob "**/*.php" --multiline
 
-# String concatenation in loop
-Grep: "foreach.*\.=" --glob "**/*.php"
+# in_array / array_search inside a loop body (two-pass: find the loop, then Read it)
+Grep: "in_array|array_search" --glob "**/*.php"
 
-# array_unshift in loop
-Grep: "foreach.*array_unshift" --glob "**/*.php"
+# array_merge / array_unshift in a loop — genuinely O(n²)
+Grep: "array_merge|array_unshift" --glob "**/*.php"
 
-# Recursive function
-Grep: "function\s+(\w+).*\{[^}]*\1\s*\(" --glob "**/*.php"
+# Recursive function — ripgrep's Rust regex has NO backreferences, so match the
+# declaration first and confirm self-recursion by reading the body
+Grep: "^\s*(public|private|protected|static|final|\s)*function\s+\w+" --glob "**/*.php"
 ```
+
+Not listed on purpose: `foreach.*\.=`. String concatenation in a loop is amortised O(1) —
+see section 4. Grepping for it only produces false positives.
 
 ## Severity Classification
 

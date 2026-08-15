@@ -62,8 +62,10 @@ $total = $price * $quantity; // May overflow
 // BUG: Negative result
 $remaining = $stock - $ordered; // May go negative
 
-// BUG: Division truncation
-$average = $total / $count; // Integer division loses precision
+// BUG: Division by zero
+$average = $total / $count; // DivisionByZeroError when $count === 0
+                            // (PHP's / does NOT truncate — it returns float;
+                            //  intdiv() is the truncating one)
 ```
 
 ### 5. String Length Issues

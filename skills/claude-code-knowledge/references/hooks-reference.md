@@ -99,32 +99,30 @@ Hooks from all scopes are merged and all run for matching events.
 
 **Common uses:** restore state, log compaction stats.
 
-### ToolError
+### PostToolUseFailure
 
-**When:** A tool execution fails with an error
+**When:** After a tool call fails
 **Matcher:** Tool name
-**Can block:** No
-**JSON input:** `{"tool_name": "Bash", "error": "Command failed with exit code 1", "session_id": "abc123"}`
+**Can block:** Yes (exit 2)
+**JSON input:** `{"session_id": "abc123", "hook_event_name": "PostToolUseFailure", "tool_name": "Bash", "cwd": "/path"}`
 
 **Common uses:** error reporting, auto-retry logic, alerting.
 
-### PreUserInput
+> There is no `ToolError` event. Registering a hook under that name is silently inert and
+> `claude plugin validate` rejects the plugin with `hooks.ToolError: Invalid key in record`.
 
-**When:** Before user message is processed
+### UserPromptSubmit
+
+**When:** Before Claude processes a submitted prompt
 **Matcher:** None
-**Can block:** No
-**JSON input:** `{"session_id": "abc123"}`
+**Can block:** Yes (exit 2 rejects the prompt)
+**JSON input:** `{"session_id": "abc123", "hook_event_name": "UserPromptSubmit", "prompt_id": "uuid", "cwd": "/path"}`
 
-**Common uses:** context preparation, state loading.
+**Common uses:** context preparation, prompt policy enforcement, state loading.
 
-### PostUserInput
+> There is no `PreUserInput` event — this is the real one.
 
-**When:** After user message is processed
-**Matcher:** None
-**Can block:** No
-**JSON input:** `{"session_id": "abc123"}`
-
-**Common uses:** logging, analytics.
+> There is no `PostUserInput` event either; use `Stop`, which fires when Claude finishes responding.
 
 ### SessionStart
 

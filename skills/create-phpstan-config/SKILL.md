@@ -7,6 +7,8 @@ description: Generates PHPStan configurations for PHP projects. Creates phpstan.
 
 Generates optimized PHPStan configurations for PHP 8.4+ projects.
 
+> All examples target **PHPStan 2.x**: `level` accepts `0`-`10` (`10` = max), and parameters removed in 2.0 (`checkMissingIterableValueType`, `checkGenericClassInNonGenericObjectType`, `checkExplicitMixed`, `checkImplicitMixed`) must never be generated — they abort the run.
+
 ## Generated Files
 
 ```
@@ -37,11 +39,9 @@ parameters:
         - tests/Fixtures/*
         - src/Infrastructure/Legacy/*
 
-    # Strict type checking
-    checkMissingIterableValueType: true
-    checkGenericClassInNonGenericObjectType: true
+    # Strict type checking (raise `level` for stricter checks: 9 = explicit mixed, 10 = implicit mixed)
     checkUninitializedProperties: true
-    checkImplicitMixed: true
+    treatPhpDocTypesAsCertain: true
     reportUnmatchedIgnoredErrors: true
 
     # Parallel processing
@@ -69,9 +69,9 @@ parameters:
         - src/Legacy/*
         - tests/Fixtures/*
 
-    # Gradually increase strictness
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+    # Gradually increase strictness: bump `level` one step at a time (0-10)
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
 
     # Type aliases for legacy code
     typeAliases:
@@ -99,11 +99,9 @@ parameters:
     excludePaths:
         - src/Infrastructure/Migrations/*
 
-    # Strict for Domain layer
-    checkMissingIterableValueType: true
-    checkGenericClassInNonGenericObjectType: true
+    # Strict for Domain layer (level 9 already forbids explicit mixed; use level 10 for implicit mixed)
     checkUninitializedProperties: true
-    checkImplicitMixed: true
+    treatPhpDocTypesAsCertain: true
 
     # Report all issues
     reportUnmatchedIgnoredErrors: true
@@ -119,15 +117,17 @@ parameters:
         repositoryClass: App\Infrastructure\Persistence\DoctrineRepository
         objectManagerLoader: tests/object-manager.php
 
-    # Ignore patterns
+    # Ignore patterns (entry is either a delimited regex string, or a map with `message`/`identifier`)
     ignoreErrors:
         # Doctrine entities
-        - '#Property .+ has no type specified#'
-          path: src/Infrastructure/Doctrine/Entity/*
+        -
+            message: '#Property .+ has no type specified#'
+            path: src/Infrastructure/Doctrine/Entity/*
 
         # Value Objects immutability
-        - '#Readonly property .+ is assigned outside of its declaring class#'
-          path: src/Domain/*/ValueObject/*
+        -
+            message: '#Readonly property .+ is assigned outside of its declaring class#'
+            path: src/Domain/*/ValueObject/*
 
     # Custom rules
     rules:
@@ -185,16 +185,19 @@ parameters:
         - '#Constructor of class .+ has an unused parameter#'
 
         # Doctrine entities
-        - '#Property .+ does not accept null#'
-          path: src/Infrastructure/Doctrine/Entity/*
+        -
+            message: '#Property .+ does not accept null#'
+            path: src/Infrastructure/Doctrine/Entity/*
 
         # Test doubles
-        - '#Call to an undefined method .+Mock::#'
-          path: tests/*
+        -
+            message: '#Call to an undefined method .+Mock::#'
+            path: tests/*
 
         # Dynamic properties in tests
-        - '#Access to an undefined property .+Test::\$#'
-          path: tests/*
+        -
+            message: '#Access to an undefined property .+Test::\$#'
+            path: tests/*
 
         # Factory methods
         - '#Method .+Factory::create\(\) should return .+ but returns#'
@@ -244,7 +247,7 @@ parameters:
 | 3-4 | Return types, dead code | Week 2-3 |
 | 5-6 | Argument types, type hints | Week 4-6 |
 | 7-8 | Union types, no mixed | Week 7-10 |
-| 9 | Maximum strictness | Ongoing |
+| 9-10 | Maximum strictness (10 is the highest level in PHPStan 2.x) | Ongoing |
 
 ## CI Configuration
 

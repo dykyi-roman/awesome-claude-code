@@ -130,7 +130,8 @@ Key status metrics to monitor:
 ; Logging to stdout/stderr
 error_log = /proc/self/fd/2
 access.log = /proc/self/fd/2
-clear_env = yes
+; Must be "no" in containers: workers inherit vars from docker run -e / compose environment
+clear_env = no
 catch_workers_output = yes
 decorate_workers_output = no
 ```
@@ -166,7 +167,7 @@ slowlog = /proc/self/fd/2
 pm.status_path = /status
 ping.path = /ping
 ping.response = pong
-clear_env = yes
+clear_env = no
 catch_workers_output = yes
 decorate_workers_output = no
 access.log = /proc/self/fd/2

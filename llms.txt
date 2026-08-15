@@ -4,7 +4,7 @@
 
 ## Quick Facts
 
-- 26 commands, 68 agents, 283 skills, 21 hooks
+- 26 commands, 68 agents, 283 skills, 1 installed hook (+21 copy-paste recipes in docs/hooks.md)
 - PHP 8.4+, PSR-12, readonly classes
 - DDD/CQRS/Hexagonal patterns
 - Testing, Documentation generation and audit

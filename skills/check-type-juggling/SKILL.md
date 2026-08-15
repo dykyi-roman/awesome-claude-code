@@ -7,14 +7,20 @@ description: Detects PHP type juggling vulnerabilities. Identifies loose compari
 
 Analyze PHP code for type juggling vulnerabilities exploiting PHP's loose comparison behavior.
 
+**PHP version baseline: 8.4.** PHP 8.0 changed number-to-string comparison
+([Saner string to number comparisons](https://wiki.php.net/rfc/string_to_number_comparison)):
+an int compared with a *non-numeric* string is now compared **as a string**, so `0 == 'admin'`
+is `false`. Do not report the pre-8.0 bypass. What survives is listed below — bools, numeric
+strings, `null`, and `false`-returning functions.
+
 ## Detection Patterns
 
 ### 1. Loose Comparison with User Input
 
 ```php
 // CRITICAL: Loose == comparison with user input
-if ($request->get('role') == 'admin') { } // '0' == 'admin' is false, but 0 == 'admin' is true!
-if ($token == $expectedToken) { }          // Type juggling bypass possible
+if ($request->get('role') == 'admin') { } // true == 'admin' is true — a JSON body can send a bool
+if ($id == '100') { }                     // '1e2' == '100' is true — both are numeric strings
 
 // CRITICAL: Password comparison
 if ($password == $storedHash) { }          // NEVER use == for security checks
@@ -30,13 +36,13 @@ if (hash_equals($expectedToken, $token)) { } // Timing-safe comparison
 // CRITICAL: in_array defaults to loose comparison
 $allowedRoles = ['admin', 'editor', 'viewer'];
 if (in_array($request->get('role'), $allowedRoles)) { }
-// in_array(0, ['admin', 'editor']) === true! (0 == 'admin' is true)
-// in_array(true, ['admin']) === true!
+// in_array(true, ['admin', 'editor']) === true!  — bool vs non-empty string
+// in_array(0, ['admin']) is false since PHP 8 — do not report that one
 
-// VULNERABLE: Checking allowed values
-$allowedStatuses = ['active', 'inactive'];
-if (in_array($input, $allowedStatuses)) { }
-// true matches any string!
+// VULNERABLE: numeric-string values still collide
+$allowedIds = ['100', '200'];
+if (in_array($input, $allowedIds)) { }
+// '1e2' == '100' is true → '1e2' and ' 100' both pass
 
 // CORRECT: Always use strict mode
 if (in_array($request->get('role'), $allowedRoles, true)) { }
@@ -46,15 +52,16 @@ if (in_array($request->get('role'), $allowedRoles, true)) { }
 
 ```php
 // VULNERABLE: Switch uses loose comparison
-switch ($request->get('action')) {
-    case 0:     // Matches any non-numeric string!
+switch ($request->get('id')) {
+    case 100:   // '1e2' and ' 100' both match — numeric-string coercion
         $this->deleteAll();
         break;
     case 'view':
         $this->view();
         break;
 }
-// Input 'view' matches case 0 first! (if 0 is before 'view')
+// Since PHP 8 a non-numeric string no longer matches `case 0`,
+// but numeric strings and bools still coerce into the wrong branch.
 
 // CORRECT: Use match (strict comparison)
 $result = match ($request->get('action')) {
@@ -67,9 +74,17 @@ $result = match ($request->get('action')) {
 ### 4. Hash Comparison Bypass
 
 ```php
-// CRITICAL: strcmp() returns 0 for array input
-if (strcmp($input, $expected) == 0) { }
-// strcmp([], 'password') returns NULL, and NULL == 0 is true!
+// CRITICAL: comparing a false-returning function with == instead of ===
+if (strpos($url, 'https://') == 0) { }
+// strpos() returns false when not found, and false == 0 is true →
+// every URL WITHOUT the prefix passes as "starts with https://"
+
+// CORRECT
+if (str_starts_with($url, 'https://')) { }
+
+// NOTE: strcmp() with an array argument throws TypeError since PHP 8 —
+// the old "strcmp() returns null" bypass no longer exists. Still use ===
+// on its result, because == hides an int|false mix-up on sibling functions.
 
 // CRITICAL: md5/sha1 magic hashes
 if (md5($input) == '0') { }
@@ -119,10 +134,11 @@ $config = [true => 'enabled', false => 'disabled'];
 ### 7. JSON Decode Type Juggling
 
 ```php
-// VULNERABLE: JSON sends integer where string expected
+// VULNERABLE: JSON sends a bool where a string is expected
 $data = json_decode($request->getContent(), true);
 if ($data['token'] == $validToken) { }
-// JSON: {"token": 0} → 0 == "any-string" is true!
+// JSON: {"token": true} → true == "any-non-empty-string" is true!
+// (JSON: {"token": 0} no longer matches a non-numeric string in PHP 8)
 
 // CORRECT: Validate type after decode
 $data = json_decode($request->getContent(), true);
@@ -139,11 +155,12 @@ if (hash_equals($validToken, $data['token'])) { }
 Grep: "\\\$.*==\s*['\"]|['\"].*==\s*\\\$" --glob "**/*.php"
 Grep: "==\s*true|==\s*false|==\s*null|==\s*0\b" --glob "**/*.php"
 
-# in_array without strict
-Grep: "in_array\([^)]+\)(?!.*true)" --glob "**/*.php"
+# in_array without strict — two-pass: ripgrep has no lookahead, so widen then confirm
+# 1) list every call site, 2) Read each hit and check for a third `true` argument
+Grep: "in_array\s*\(" --glob "**/*.php"
 
-# switch instead of match
-Grep: "switch\s*\(\\\$.*request\|switch\s*\(\\\$.*input\|switch\s*\(\\\$.*data" --glob "**/*.php"
+# switch instead of match (ripgrep uses `|`, never the BRE `\|`)
+Grep: "switch\s*\(\\\$(request|input|data)" --glob "**/*.php"
 
 # strcmp with loose comparison
 Grep: "strcmp\(.*==\s*0|strcmp\(.*!=\s*0" --glob "**/*.php"
@@ -151,8 +168,8 @@ Grep: "strcmp\(.*==\s*0|strcmp\(.*!=\s*0" --glob "**/*.php"
 # Hash comparison with ==
 Grep: "md5\(.*==|sha1\(.*==|hash\(.*==" --glob "**/*.php"
 
-# array_search without strict
-Grep: "array_search\([^)]+\)(?!.*true)" --glob "**/*.php"
+# array_search without strict — same two-pass approach as in_array
+Grep: "array_search\s*\(" --glob "**/*.php"
 ```
 
 ## Severity Classification
@@ -161,22 +178,33 @@ Grep: "array_search\([^)]+\)(?!.*true)" --glob "**/*.php"
 |---------|----------|
 | Token/hash comparison with == | 🔴 Critical |
 | Authentication check with == | 🔴 Critical |
-| in_array without strict on security check | 🔴 Critical |
+| `false`-returning function compared with == (e.g. `strpos(...) == 0`) | 🔴 Critical |
+| in_array without strict on security check | 🟠 Major |
 | JSON decode + loose comparison | 🟠 Major |
 | switch on user input (instead of match) | 🟠 Major |
 | in_array without strict (non-security) | 🟡 Minor |
 | General loose == usage | 🟡 Minor |
 
+**Do not report as Critical on PHP 8+:** a bare `in_array($string, $stringList)` where every element
+is a *non-numeric* string. The pre-8.0 `0 == 'admin'` bypass is gone; the residual risk is a bool or
+numeric-string input, which is Major, not Critical. Confirm the input can actually be a bool or a
+numeric string before escalating.
+
 ## PHP Type Juggling Reference
+
+Verified against PHP 8.4. The first row is the one that changed in 8.0 — everything below it still holds.
 
 | Comparison | Result | Why |
 |-----------|--------|-----|
-| `0 == 'admin'` | `true` | String cast to int = 0 |
-| `0 == null` | `true` | Both falsy |
-| `'' == null` | `true` | Both falsy |
-| `'0e1' == '0e2'` | `true` | Both = 0 (scientific notation) |
-| `true == 'anything'` | `true` | Non-empty string is truthy |
-| `[] == false` | `true` | Empty array is falsy |
+| `0 == 'admin'` | `false` | **PHP 8+:** int is compared as a string against a non-numeric string |
+| `'1e2' == '100'` | `true` | Both are numeric strings → compared numerically |
+| `' 1' == '1'` | `true` | Leading whitespace is allowed in a numeric string |
+| `0 == null` | `true` | `null` casts to `0` |
+| `'' == null` | `true` | `null` casts to `''` |
+| `'0e1' == '0e2'` | `true` | Both numeric strings evaluate to 0 (magic-hash bypass) |
+| `true == 'anything'` | `true` | Non-empty string casts to `true` |
+| `[] == false` | `true` | Empty array casts to `false` |
+| `false == 0` | `true` | The `strpos()`/`strstr()` false-return trap |
 
 ## Output Format
 

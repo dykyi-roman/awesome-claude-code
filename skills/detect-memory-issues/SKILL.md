@@ -100,28 +100,36 @@ foreach ($employees as $emp) {
 // Entire object graph in memory
 ```
 
-### 5. String Concatenation in Loop
+### 5. Accumulating the Whole Output in Memory
 
 ```php
-// MEMORY HOG: String grows each iteration
+// MEMORY HOG: peak memory holds the ENTIRE output at once
 $output = '';
 foreach ($lines as $line) {
-    $output .= $line . "\n"; // Creates new string each time
+    $output .= $line . "\n"; // `.=` reallocs in place — the cost is peak
+                             // memory (O(total length)), NOT a copy per pass
 }
 
-// FIXED: Use array and implode
+// NOT a fix for memory: an array of n strings costs MORE than the concatenated
+// string (each element carries zval + hashtable overhead). Only use implode()
+// when you need the parts anyway.
 $parts = [];
 foreach ($lines as $line) {
     $parts[] = $line;
 }
 $output = implode("\n", $parts);
 
-// BETTER: Use stream
+// FIXED: stream it out — peak memory becomes O(1) per line
 $handle = fopen('output.txt', 'w');
 foreach ($lines as $line) {
     fwrite($handle, $line . "\n");
 }
+fclose($handle);
 ```
+
+**Rule:** the defect here is *retaining* the whole payload, not the `.=` operator.
+Report it only when the accumulated value is never streamed or flushed, and its
+size scales with untrusted or unbounded input.
 
 ### 6. Image/Binary Processing
 

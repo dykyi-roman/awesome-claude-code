@@ -17,7 +17,7 @@ use Domain\Order\Service\OrderServiceInterface;
 use Domain\Order\ValueObject\OrderId;
 use Psr\Log\LoggerInterface;
 
-final readonly class LoggingOrderServiceDecorator extends AbstractOrderServiceDecorator
+final class LoggingOrderServiceDecorator extends AbstractOrderServiceDecorator
 {
     public function __construct(
         OrderServiceInterface $wrapped,
@@ -76,7 +76,7 @@ use Domain\Order\Service\OrderServiceInterface;
 use Domain\Order\ValueObject\OrderId;
 use Psr\Cache\CacheItemPoolInterface;
 
-final readonly class CachingOrderServiceDecorator extends AbstractOrderServiceDecorator
+final class CachingOrderServiceDecorator extends AbstractOrderServiceDecorator
 {
     private const CACHE_TTL = 3600;
     private const CACHE_PREFIX = 'order:';
@@ -137,7 +137,7 @@ use Domain\Order\Service\OrderServiceInterface;
 use Domain\Order\ValueObject\OrderId;
 use Infrastructure\Metrics\MetricsCollectorInterface;
 
-final readonly class MetricsOrderServiceDecorator extends AbstractOrderServiceDecorator
+final class MetricsOrderServiceDecorator extends AbstractOrderServiceDecorator
 {
     public function __construct(
         OrderServiceInterface $wrapped,
@@ -200,7 +200,7 @@ use Domain\Order\Service\OrderServiceInterface;
 use Domain\Order\ValueObject\OrderId;
 use Infrastructure\Persistence\TransactionInterface;
 
-final readonly class TransactionalOrderServiceDecorator extends AbstractOrderServiceDecorator
+final class TransactionalOrderServiceDecorator extends AbstractOrderServiceDecorator
 {
     public function __construct(
         OrderServiceInterface $wrapped,
@@ -284,7 +284,7 @@ namespace Domain\Notification\Decorator;
 use Domain\Notification\Message;
 use Domain\Notification\NotifierInterface;
 
-final readonly class SlackNotifierDecorator extends AbstractNotifierDecorator
+final class SlackNotifierDecorator extends AbstractNotifierDecorator
 {
     public function __construct(
         NotifierInterface $wrapped,

@@ -1,0 +1,80 @@
+name: Validate plugin
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    name: Structure and regressions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # The real gate. Catches what `claude plugin validate` provably does not:
+      # bad model values, empty descriptions, broken skills: refs, name/filename
+      # mismatches, orphaned skills, invented hook events, banned regressions.
+      - name: Structural and regression checks
+        run: python3 scripts/validate.py
+
+      # Grep-pattern debt (lookaround / backrefs / BRE alternation) is still warnings-only.
+      # Flip to a hard failure once the stage-5 audit lands.
+      - name: Grep-pattern debt (informational)
+        continue-on-error: true
+        run: python3 scripts/validate.py --strict --only grep
+
+  manifests:
+    name: Official CLI validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate manifests and components
+        run: |
+          set -e
+          for target in . skills agents commands; do
+            echo "── $target"
+            claude plugin validate "$target" --strict
+          done
+
+      # Deliberately not --strict: the only warning is that the repo-root CLAUDE.md is not
+      # shipped to plugin users, which is intended — it is the contributor guide for this repo.
+      - name: Validate plugin manifest
+        run: claude plugin validate .claude-plugin/plugin.json
+
+  evals:
+    name: Behavioural evals
+    runs-on: ubuntu-latest
+    # `claude plugin eval` is early access and needs an authenticated account, so this job is
+    # opt-in rather than a required check. Enable it once the feature is available to this repo.
+    if: ${{ vars.RUN_EVALS == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Smoke evals
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: claude plugin eval . --tag smoke --runs 1 --threshold 0.8 --no-publish

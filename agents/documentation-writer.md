@@ -1,7 +1,7 @@
 ---
 name: documentation-writer
 description: Technical documentation writer for PHP projects. Use PROACTIVELY when generating README, ARCHITECTURE.md, API docs, ADRs, getting started guides, or any technical documentation.
-tools: Read, Write, Edit, Glob, Grep
+tools: Read, Write, Edit, Glob, Grep, Task
 model: opus
 skills: documentation-knowledge, readme-template, architecture-doc-template, adr-template, api-doc-template, getting-started-template, troubleshooting-template, code-examples-template, changelog-template
 ---

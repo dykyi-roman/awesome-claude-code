@@ -55,8 +55,9 @@ if ($request->get('admin') == true) { } // '1', 'true', 1 all pass
 // VULNERABLE: Array injection
 $where['id'] = $_GET['id']; // Could be array: ?id[]=1&id[]=2
 
-// VULNERABLE: Type juggling
-if ($_POST['password'] == 0) { } // 'password123' == 0 is true!
+// VULNERABLE: Type juggling (PHP 8.4 baseline)
+if ($_POST['password'] == 0) { } // '0', '0.0', ' 0' and null all pass;
+                                 // 'password123' == 0 is FALSE since PHP 8
 ```
 
 ### 4. Length/Format Validation Gaps

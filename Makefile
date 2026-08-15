@@ -1,4 +1,5 @@
-.PHONY: help list-commands list-skills list-agents validate-claude validate-plugin changelog release
+.PHONY: help list-commands list-skills list-agents validate-claude validate-strict \
+        token-budget eval eval-smoke test changelog release
 
 .DEFAULT_GOAL := help
 
@@ -64,42 +65,37 @@ list-agents: ## List all available agents
 	fi
 	@echo ""
 
-validate-claude: ## Validate plugin structure
+validate-claude: ## Validate plugin structure and content (real gate)
 	@echo ""
-	@echo "$(CYAN)Validating plugin structure...$(RESET)"
+	@echo "$(CYAN)Structural + regression validation$(RESET)"
+	@python3 scripts/validate.py
+	@echo "$(CYAN)Official CLI validation$(RESET)"
+	@for t in . skills agents commands; do \
+		printf "  %-10s " "$$t"; \
+		claude plugin validate "$$t" --strict 2>&1 | tail -1; \
+	done
 	@echo ""
-	@if [ ! -d ".claude-plugin" ]; then \
-		echo "  $(YELLOW)Warning: .claude-plugin directory not found$(RESET)"; \
-		exit 1; \
-	fi; \
-	echo "  $(GREEN)✓$(RESET) .claude-plugin/ exists"; \
-	for file in marketplace.json plugin.json; do \
-		if [ -f ".claude-plugin/$$file" ]; then \
-			echo "  $(GREEN)✓$(RESET) .claude-plugin/$$file"; \
-		else \
-			echo "  $(YELLOW)✗$(RESET) .claude-plugin/$$file missing"; \
-		fi; \
-	done; \
-	for dir in commands skills agents; do \
-		if [ -d "$$dir" ]; then \
-			count=$$(find "$$dir" -name "*.md" -type f | wc -l | tr -d ' '); \
-			echo "  $(GREEN)✓$(RESET) $$dir/ ($$count files)"; \
-		else \
-			echo "  $(YELLOW)○$(RESET) $$dir/ not found"; \
-		fi; \
-	done; \
-	echo ""; \
-	echo "$(CYAN)Checking markdown syntax...$(RESET)"; \
-	for dir in commands agents; do \
-		find $$dir -name "*.md" -type f | while read file; do \
-			if head -1 "$$file" | grep -q "^#\|^---"; then \
-				echo "  $(GREEN)✓$(RESET) $$file"; \
-			else \
-				echo "  $(YELLOW)?$(RESET) $$file (no header found)"; \
-			fi; \
-		done; \
-	done; \
-	echo ""
+	@echo "  $(YELLOW)note:$(RESET) .claude-plugin/plugin.json is validated without --strict on purpose —"
+	@echo "  it warns that the root CLAUDE.md is not shipped to users, which is intended here."
+	@claude plugin validate .claude-plugin/plugin.json 2>&1 | tail -1
+	@echo ""
+
+validate-strict: ## Validate and fail on warnings too (grep-pattern debt included)
+	@python3 scripts/validate.py --strict
+
+token-budget: ## Show the always-on context cost the plugin adds to every session
+	@echo ""
+	@claude plugin details acc 2>/dev/null | grep -E "Always-on|Component inventory" || \
+		echo "  $(YELLOW)plugin 'acc' is not installed — run /plugin install acc@awesome-claude-code$(RESET)"
+	@echo ""
+
+eval-smoke: ## Fast behavioural check for PRs (subset, 1 run per case)
+	@claude plugin eval . --tag smoke --runs 1 --threshold 0.8
+
+eval: ## Full behavioural regression suite
+	@claude plugin eval . --runs 3 --json evals/results/latest.json
+
+test: validate-claude ## Alias: run every check that works offline
 
 # =============================================================================
 # Release

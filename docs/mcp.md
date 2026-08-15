@@ -12,7 +12,33 @@ Model Context Protocol allows Claude Code to connect to external servers that pr
 
 ## Configuration
 
-MCP servers are configured in `.claude/settings.json`:
+> **`.claude/settings.json` is not read for MCP.** Putting an `mcpServers` key there is ignored
+> silently — no error, no server, nothing to debug. Use one of the files below.
+
+| Scope | File | Applies to |
+|-------|------|-----------|
+| Project (committed) | `.mcp.json` in the repo root | everyone working on this project |
+| User | `~/.claude.json` | all your projects |
+| Shipped with a plugin | `mcpServers` in `.claude-plugin/plugin.json`, or a `.mcp.json` at the plugin root | whoever enables the plugin |
+
+Inside a plugin, paths must go through `${CLAUDE_PLUGIN_ROOT}` — the plugin's install directory is
+not the user's working directory:
+
+```json
+{
+  "mcpServers": {
+    "db-tools": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/servers/db",
+      "args": ["--config", "${CLAUDE_PLUGIN_ROOT}/config.json"]
+    }
+  }
+}
+```
+
+Verify with `claude plugin validate <path> --strict`, which accepts `mcpServers` in `plugin.json`
+and warns on any misspelled field (`Unknown field '...'. Claude Code ignores it at load time.`).
+
+The examples below all use the `.mcp.json` schema:
 
 ```json
 {

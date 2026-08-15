@@ -16,7 +16,7 @@ Analyze PHP code for logic errors that cause incorrect behavior.
 if ($status = 'active') { } // Should be ===
 
 // BUG: Wrong comparison type
-if ($count == '0') { } // '0' is truthy in string comparison
+if ($count == '0') { } // 0, 0.0, '', null and false all match — use === '0'
 
 // BUG: Yoda condition error
 if ('active' = $status) { } // Assignment error
@@ -91,7 +91,10 @@ if ($status === 'active' && $status !== 'inactive') { } // Second part redundant
 ```php
 // BUG: Ignoring important return
 array_push($items, $new); // Returns count, not array
-$string->trim(); // String is immutable, returns new string
+$result = trim($string);  // trim() returns a new string; calling it without
+                          // assigning discards the result
+                          // (note: $string->trim() is a fatal error — PHP strings
+                          //  are not objects and have no methods)
 ```
 
 ## Grep Patterns

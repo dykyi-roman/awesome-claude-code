@@ -7,6 +7,8 @@ description: Generates Psalm configurations for PHP projects. Creates psalm.xml 
 
 Generates optimized Psalm configurations for PHP 8.4+ projects.
 
+Targets Psalm 6.x (`vimeo/psalm: ^6.0`) — `errorLevel` is an attribute of the root `<psalm>` element and only one `<projectFiles>` element is allowed.
+
 ## Generated Files
 
 ```
@@ -97,17 +99,6 @@ psalm-baseline.xml        # Error baseline (if needed)
         </ignoreFiles>
     </projectFiles>
 
-    <!-- Domain layer - strictest -->
-    <projectFiles>
-        <directory name="src/Domain">
-            <errorLevel type="error">
-                <MixedAssignment/>
-                <MixedMethodCall/>
-                <MixedArgument/>
-            </errorLevel>
-        </directory>
-    </projectFiles>
-
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
@@ -115,6 +106,13 @@ psalm-baseline.xml        # Error baseline (if needed)
     </plugins>
 
     <issueHandlers>
+        <!-- Domain layer - strictest -->
+        <MixedAssignment>
+            <errorLevel type="error">
+                <directory name="src/Domain"/>
+            </errorLevel>
+        </MixedAssignment>
+
         <!-- Doctrine entities -->
         <PropertyNotSetInConstructor>
             <errorLevel type="suppress">
@@ -250,23 +248,25 @@ psalm-baseline.xml        # Error baseline (if needed)
 
 ## Taint Analysis Configuration
 
+Taint analysis is enabled by the `--taint-analysis` CLI flag, not by a config attribute.
+Superglobals (`$_GET`, `$_POST`, ...) are built-in sources; custom sources are marked in code
+with `@psalm-taint-source input`. Only the sink severities are configurable in `psalm.xml`:
+
 ```xml
 <?xml version="1.0"?>
 <psalm
     errorLevel="2"
-    runTaintAnalysis="true"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
-    <!-- Taint sources -->
-    <taintAnalysis>
-        <taintSource name="$_GET"/>
-        <taintSource name="$_POST"/>
-        <taintSource name="$_REQUEST"/>
-        <taintSource name="$_COOKIE"/>
-
-        <!-- Custom sources -->
-        <taintSource name="Request::input"/>
-        <taintSource name="Request::query"/>
-    </taintAnalysis>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
 
     <!-- Taint sinks -->
     <issueHandlers>
@@ -299,7 +299,7 @@ vendor/bin/psalm
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.x">
+<files psalm-version="6.x">
   <file src="src/SomeClass.php">
     <MixedAssignment>
       <code>$variable</code>

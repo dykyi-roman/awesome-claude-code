@@ -60,7 +60,7 @@ namespace Domain\{BoundedContext}\Decorator;
 
 use Domain\{BoundedContext}\{Name}Interface;
 
-final readonly class {Feature}{Name}Decorator extends Abstract{Name}Decorator
+final class {Feature}{Name}Decorator extends Abstract{Name}Decorator
 {
     public function __construct(
         {Name}Interface $wrapped,

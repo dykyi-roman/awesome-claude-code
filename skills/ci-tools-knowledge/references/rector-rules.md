@@ -2,6 +2,8 @@
 
 Rector configuration, PHP upgrade sets, dead code removal, type declaration rules, and custom DDD-specific rules for PHP 8.4 projects.
 
+Targets Rector 2.x (`rector/rector: ^2.0`) — configs use the `RectorConfig::configure()` builder only.
+
 ## Detection Patterns
 
 ```bash
@@ -34,8 +36,6 @@ ls -la rector-diff.txt 2>/dev/null
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\SetList;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
@@ -59,20 +59,14 @@ return RectorConfig::configure()
         ],
     ])
     ->withPhpSets(php84: true)
-    ->withSets([
-        SetList::CODE_QUALITY,
-        SetList::DEAD_CODE,
-        SetList::TYPE_DECLARATION,
-        SetList::PRIVATIZATION,
-        SetList::EARLY_RETURN,
-        SetList::NAMING,
-        PHPUnitSetList::PHPUNIT_100,
-    ])
+    // PHPUnit version sets picked from composer.json
+    ->withComposerBased(phpunit: true)
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
         typeDeclarations: true,
         privatization: true,
+        naming: true,
         earlyReturn: true,
     )
     ->withRules([
@@ -543,6 +537,7 @@ namespace App\Rector\Rules;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
+use PhpParser\NodeVisitor;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -585,7 +580,7 @@ final class ForbidInfrastructureInDomainRector extends AbstractRector
         return [Use_::class];
     }
 
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): int|Node|null
     {
         if (!$node instanceof Use_) {
             return null;
@@ -602,8 +597,7 @@ final class ForbidInfrastructureInDomainRector extends AbstractRector
 
             foreach (self::FORBIDDEN_NAMESPACES as $forbidden) {
                 if (str_starts_with($name, $forbidden)) {
-                    $this->removeNode($node);
-                    return null;
+                    return NodeVisitor::REMOVE_NODE;
                 }
             }
         }
@@ -620,6 +614,7 @@ Register custom rule:
 // rector.php
 
 use App\Rector\Rules\ForbidInfrastructureInDomainRector;
+use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withRules([

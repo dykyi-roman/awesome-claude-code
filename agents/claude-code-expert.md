@@ -99,19 +99,24 @@ Use !`command` for dynamic context injection.
       }]
     }],
     "PostToolUse": [...],
+    "PostToolUseFailure": [...],
+    "UserPromptSubmit": [...],
     "Notification": [...],
     "Stop": [...],
+    "SubagentStart": [...],
     "SubagentStop": [...],
     "PreCompact": [...],
     "PostCompact": [...],
-    "ToolError": [...],
-    "PreUserInput": [...],
-    "PostUserInput": [...],
     "SessionStart": [...],
     "SessionEnd": [...]
   }
 }
 ```
+
+Event names are validated: an unknown one makes `claude plugin validate` fail with
+`hooks.<Name>: Invalid key in record`, and the hook silently never fires at runtime.
+`ToolError`, `PreUserInput` and `PostUserInput` do **not** exist — use `PostToolUseFailure`,
+`UserPromptSubmit` and `Stop`. The full verified list is in the `claude-code-knowledge` skill.
 
 **Hook types:** command (shell), prompt (LLM evaluation), agent (subagent).
 

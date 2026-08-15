@@ -83,8 +83,9 @@ COPY --from=deps --chown=app:app /app /app
 
 USER app
 
+# Uses php only — curl/wget/fcgi are absent from the slim image
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD php-fpm-healthcheck || exit 1
+    CMD php -r 'exit(@fsockopen("127.0.0.1", 9000) ? 0 : 1);'
 
 EXPOSE 9000
 CMD ["php-fpm"]
@@ -96,7 +97,7 @@ CMD ["php-fpm"]
 # Dockerfile.ci
 FROM php:8.4-cli-alpine
 
-RUN apk add --no-cache git unzip libzip-dev icu-dev \
+RUN apk add --no-cache git unzip libzip-dev icu-dev $PHPIZE_DEPS \
     && docker-php-ext-install zip intl pdo_mysql
 
 # Coverage driver

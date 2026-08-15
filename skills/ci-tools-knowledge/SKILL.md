@@ -28,7 +28,7 @@ Quick reference for PHP static analysis, code quality, and testing tools.
 ### Configuration Template
 
 ```neon
-# phpstan.neon
+# phpstan.neon — targets PHPStan 2.x (level 0-10, 10 = max)
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
@@ -47,10 +47,10 @@ parameters:
     # PHP version
     phpVersion: 80400
 
-    # Strict rules
-    checkMissingIterableValueType: true
-    checkGenericClassInNonGenericObjectType: true
+    # Strict rules (iterable/generics checks come from `level` in 2.x, not from parameters)
     checkUninitializedProperties: true
+    treatPhpDocTypesAsCertain: true
+    reportUnmatchedIgnoredErrors: true
 
     # Custom rules
     ignoreErrors:

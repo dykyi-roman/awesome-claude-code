@@ -75,7 +75,7 @@ cat composer.json | jq '."require-dev"."phpunit/phpunit"'
 
     <coverage>
         <report>
-            <clover outputFile="coverage.xml"/>
+            <cobertura outputFile="coverage.xml"/>
             <html outputDirectory="coverage"/>
         </report>
     </coverage>
@@ -95,22 +95,30 @@ cat composer.json | jq '."require-dev"."phpunit/phpunit"'
 <!-- In phpunit.xml -->
 <coverage>
     <report>
-        <clover outputFile="coverage.xml"/>
+        <cobertura outputFile="coverage.xml"/>
+        <!-- Only if some tool needs Clover — separate file, different attributes -->
+        <clover outputFile="coverage-clover.xml"/>
     </report>
 </coverage>
 ```
 
+CLI equivalent: `vendor/bin/phpunit --coverage-cobertura=coverage.xml`
+
 **CI enforcement:**
 ```yaml
-# GitHub Actions
+# GitHub Actions — reads Cobertura line-rate (portable, no GNU grep -oP)
 - name: Check coverage
   run: |
-    COVERAGE=$(grep -oP 'line-rate="\K[0-9.]+' coverage.xml | head -1)
-    COVERAGE_PCT=$(echo "$COVERAGE * 100" | bc)
+    COVERAGE_PCT=$(php -r '$c = simplexml_load_file("coverage.xml"); printf("%.2f", (float) $c["line-rate"] * 100);')
     if (( $(echo "$COVERAGE_PCT < 80" | bc -l) )); then
       echo "Coverage $COVERAGE_PCT% is below 80%"
       exit 1
     fi
+```
+
+If the gate must read the Clover file instead, parse Clover's own attributes:
+```bash
+COVERAGE_PCT=$(php -r '$m = simplexml_load_file("coverage-clover.xml")->project->metrics; $s = (float) $m["statements"]; printf("%.2f", $s > 0 ? (float) $m["coveredstatements"] / $s * 100 : 0);')
 ```
 
 ### Phase 4: Test Suite Organization

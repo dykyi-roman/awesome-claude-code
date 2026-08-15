@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v3.2.0**. Installed via:
+Claude Code marketplace plugin providing extensions for PHP development with DDD, CQRS, and Clean Architecture patterns. Current version: **v3.3.0**. Installed via:
 
 ```bash
 /plugin marketplace add dykyi-roman/awesome-claude-code
@@ -35,7 +35,13 @@ agents/            # 68 agents (was .claude/agents/) — invoked via Task tool w
 skills/            # 283 skills (was .claude/skills/) — 53 knowledge, 107 analyzer, 99 generator, 7 optimizer, 10 template, 7 other
 
 hooks/
-└── hooks.json     # PHP syntax check hook
+└── hooks.json     # PHP syntax check hook (the only hook shipped; docs/hooks.md holds 21 recipes)
+
+scripts/
+└── validate.py    # the real gate — run by `make validate-claude` (NOT part of plugin)
+
+evals/             # behavioural regression cases for `claude plugin eval` (NOT part of plugin)
+.github/workflows/ # CI (NOT part of plugin)
 
 .claude/
 ├── settings.json  # Project settings (NOT part of plugin)
@@ -44,6 +50,18 @@ hooks/
 docs/              # commands.md, agents.md, skills.md, hooks.md, component-flow.md, mcp.md, quick-reference.md
 llms.txt           # LLM-readable project summary (sync counts with other docs)
 ```
+
+### Validation
+
+`make validate-claude` runs `scripts/validate.py` and then the official CLI. The two are
+complementary — measured on this repo, `claude plugin validate --strict` does **not** catch an
+invalid `model:`, an empty `description`, a broken `skills:` reference, or a `name` that does not
+match the filename. `scripts/validate.py` does, and it fails the build, so `make release` can no
+longer print "All checks passed!" over a broken component.
+
+Grep-pattern problems (lookaround, backreferences, BRE `\|` — none of which ripgrep executes) are
+currently reported as **warnings**: 123 pre-existing occurrences are scheduled for the grep audit.
+Turn them into errors in `check_grep_patterns_executable` once that work lands.
 
 ### Execution Flow
 

@@ -146,7 +146,7 @@ final readonly class TimeoutConfig
 {
     public function __construct(
         public float $durationSeconds,
-        public ?callable $fallback = null,
+        public ?\Closure $fallback = null, // `callable` is not a valid property type — store a Closure
         public bool $shouldRetry = false,
         public string $operationName = 'unknown',
     ) {}
@@ -155,6 +155,9 @@ final readonly class TimeoutConfig
     public static function standard(): self; // 10 seconds
     public static function slow(): self; // 30 seconds
     public static function of(float $seconds): self;
+
+    /** Accepts any callable at the boundary, stores it as a Closure via `$fallback(...)` */
+    public function withFallback(callable $fallback): self;
 }
 ```
 

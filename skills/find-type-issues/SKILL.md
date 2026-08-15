@@ -29,7 +29,8 @@ if ($string) { } // '0' is falsy, but non-empty
 
 ```php
 // BUG: == instead of ===
-if ($status == 0) { } // 'active' == 0 is true!
+if ($status == 0) { } // null, '', '0' and false all pass;
+                      // 'active' == 0 is FALSE since PHP 8
 
 // BUG: in_array without strict
 if (in_array($value, $array)) { } // Type coercion
@@ -105,13 +106,21 @@ $mixed = [1, 'two', new User()]; // Hard to type
 ### 7. Numeric String Issues
 
 ```php
-// BUG: Numeric string comparison
+// NOT a bug: two numeric strings are compared NUMERICALLY
 $a = '10';
 $b = '9';
-if ($a > $b) { } // String comparison: '1' < '9', so false!
+if ($a > $b) { } // true — '10' and '9' are numeric strings, so 10 > 9
 
-// FIXED:
-if ((int) $a > (int) $b) { }
+// REAL BUG: one side is not a numeric string → string comparison
+$version = '10';
+if ($version > 'v9') { } // false — falls back to byte-wise comparison
+
+// REAL BUG: version-like strings never compare numerically
+if ('1.10' > '1.9') { } // false — '1.10' as a number is 1.1
+
+// FIXED: compare with an explicit, intended semantics
+if ((int) $a > (int) $b) { }          // numeric intent
+if (version_compare('1.10', '1.9', '>')) { } // version intent
 ```
 
 ### 8. JSON Type Issues

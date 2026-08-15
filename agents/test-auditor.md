@@ -1,7 +1,7 @@
 ---
 name: test-auditor
 description: Test quality auditor for PHP projects. Analyzes coverage gaps, test smells, naming conventions, isolation. Use PROACTIVELY for test audit, test quality review, or when improving test suites.
-tools: Read, Bash, Grep, Glob, TaskCreate, TaskUpdate
+tools: Read, Bash, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
 skills: testing-knowledge, analyze-test-coverage, detect-test-smells, task-progress-knowledge
 ---

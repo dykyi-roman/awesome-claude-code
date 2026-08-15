@@ -96,6 +96,14 @@ Creates Decorator pattern infrastructure for dynamically adding behavior to obje
 
 ## Quick Template Reference
 
+**Why the base is not a `readonly class`.** `readonly` on a class is inherited-mandatory: every
+subclass must also be readonly, and a readonly class cannot hold mutable state. That would forbid
+the stateful decorators listed under *Common Decorators* below — Retry needs an attempt counter,
+CircuitBreaker needs open/closed state. So the immutability is applied to the injected
+`$wrapped` property instead, which is where it actually matters. Do not "fix" this by promoting
+`readonly` to the class: `final readonly class X extends Abstract…Decorator` is a fatal error while
+the base is not readonly, and making the base readonly breaks Retry and CircuitBreaker.
+
 ### Abstract Decorator
 
 ```php
@@ -115,7 +123,7 @@ abstract class Abstract{Name}Decorator implements {Name}Interface
 ### Concrete Decorator
 
 ```php
-final readonly class {Feature}{Name}Decorator extends Abstract{Name}Decorator
+final class {Feature}{Name}Decorator extends Abstract{Name}Decorator
 {
     public function __construct(
         {Name}Interface $wrapped,

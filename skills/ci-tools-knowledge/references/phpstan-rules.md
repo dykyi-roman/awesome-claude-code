@@ -7,8 +7,8 @@ Custom PHPStan rules, extensions, and configuration patterns for PHP 8.4 project
 | Level | When to Use | Migration Path |
 |-------|-------------|----------------|
 | 0-3 | Legacy projects, initial adoption | Generate baseline, fix incrementally |
-| 4-5 | Active development, moderate strictness | Enable `checkMissingIterableValueType` |
-| 6-7 | Strict typing projects | Enable generics checking |
+| 4-5 | Active development, moderate strictness | Raise `level` one step at a time (0-10), rebaseline each step |
+| 6-7 | Strict typing projects | Generics/iterable value types are checked by the level itself |
 | 8 | **Production DDD projects** | Recommended target for Clean Architecture |
 | 9 | Maximum strictness | All union types fully resolved |
 | max | Bleeding edge (unstable rules) | Only for CI experimentation, not blocking |
@@ -49,7 +49,7 @@ grep -rn "phpstan-strict-rules\|phpstan-deprecation-rules\|phpstan-phpunit\|phps
 ### Full DDD Configuration (phpstan.neon)
 
 ```neon
-# phpstan.neon
+# phpstan.neon — targets PHPStan 2.x (level 0-10, 10 = max)
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
@@ -69,9 +69,7 @@ parameters:
         - tests/Fixtures/*
         - src/Kernel.php
 
-    # Strict type checking
-    checkMissingIterableValueType: true
-    checkGenericClassInNonGenericObjectType: true
+    # Strict type checking (stricter iterable/generics/mixed checks come from `level` in 2.x)
     checkUninitializedProperties: true
     checkTooWideReturnTypesInProtectedAndPublicMethods: true
     reportUnmatchedIgnoredErrors: true
@@ -484,7 +482,7 @@ phpstan:
 | `phpstan-phpunit` | PHPUnit assertion type narrowing | Extension |
 | `phpstan-doctrine` | Doctrine entity and DQL type support | Extension |
 | `phpstan-symfony` | Symfony container and config type support | Extension |
-| `checkMissingIterableValueType` | Require generic types on arrays/iterables | Level 6+ |
-| `checkGenericClassInNonGenericObjectType` | Require generic type parameters | Level 7+ |
+| `treatPhpDocTypesAsCertain` | Trust PHPDoc types when narrowing (default `true`) | Any |
+| `reportUnmatchedIgnoredErrors` | Fail on stale `ignoreErrors`/baseline entries (default `true`) | Any |
 | `checkUninitializedProperties` | Detect uninitialized class properties | Level 8+ |
 | `checkTooWideReturnTypesInProtectedAndPublicMethods` | Flag overly broad return types | Level 9 |

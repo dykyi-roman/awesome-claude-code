@@ -58,7 +58,7 @@ description: Required. When to use. "PROACTIVELY" for auto-invoke.
 tools: Optional. All by default. Comma-separated.
 disallowedTools: Optional. Denylist complement to tools.
 model: Optional. opus | sonnet | haiku | inherit
-permissionMode: Optional. default | acceptEdits | plan | dontAsk | delegate | bypassPermissions
+permissionMode: Optional. default | plan | acceptEdits | auto | dontAsk | bypassPermissions | delegate
 skills: Optional. Auto-load skills (comma-separated inline list).
 hooks: Optional. Lifecycle hooks scoped to this agent.
 memory: Optional. user | project | local — CLAUDE.md scope to load.
@@ -131,22 +131,33 @@ skill-name/
 
 **Path:** `.claude/settings.json` (or agent/skill frontmatter `hooks:` field)
 
-### Hook Events (12)
+### Hook Events
 
-| Event | When | Matcher | Can Block |
-|-------|------|---------|-----------|
-| `PreToolUse` | Before tool execution | Tool name | Yes |
-| `PostToolUse` | After tool execution | Tool name | No |
-| `Notification` | On notification | — | No |
-| `Stop` | Agent stops | — | No |
-| `SubagentStop` | Subagent completes | Agent name | No |
-| `PreCompact` | Before context compaction | — | No |
-| `PostCompact` | After context compaction | — | No |
-| `ToolError` | Tool execution error | Tool name | No |
-| `PreUserInput` | Before user message processed | — | No |
-| `PostUserInput` | After user message processed | — | No |
-| `SessionStart` | Session begins | — | No |
-| `SessionEnd` | Session ends | — | No |
+Verified against Claude Code 2.1.233 with `claude plugin validate` — an unknown event name is
+rejected as `hooks.<Name>: Invalid key in record`, so this list is checked, not remembered.
+
+| Group | Events (matcher support noted where applicable) |
+|-------|---------------------------------------------|
+| Tool execution | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `PostToolBatch`, `PermissionRequest`, `PermissionDenied` — all take a tool-name matcher |
+| Turn lifecycle | `UserPromptSubmit`, `UserPromptExpansion`, `Stop`, `StopFailure` |
+| Agents & tasks | `SubagentStart`, `SubagentStop`, `TeammateIdle`, `TaskCreated`, `TaskCompleted` |
+| Session | `SessionStart`, `SessionEnd`, `Setup` |
+| Context | `PreCompact`, `PostCompact`, `Notification`, `MessageDisplay` |
+| Environment | `FileChanged`, `CwdChanged`, `DirectoryAdded`, `ConfigChange`, `InstructionsLoaded`, `WorktreeCreate`, `WorktreeRemove` |
+| MCP | `Elicitation`, `ElicitationResult` |
+
+Blocking is done with **exit code 2** (exit 1 is a non-blocking error). `PreToolUse` may also
+return JSON with `permissionDecision: "deny"`. See `references/hooks-reference.md` for per-event
+payloads and blocking semantics.
+
+**Never generate these — they do not exist.** A hook registered under an invented name silently
+never fires, and `claude plugin validate` rejects the plugin with `Invalid key in record`:
+
+| Invented name | Use instead |
+|---|---|
+| `ToolError` | `PostToolUseFailure` |
+| `PreUserInput` | `UserPromptSubmit` |
+| `PostUserInput` | `Stop` |
 
 ### Hook Types (3)
 
@@ -248,17 +259,24 @@ For full reference see [references/memory-and-rules.md](references/memory-and-ru
 }
 ```
 
-**Plugin structure:**
+**Plugin structure.** Only the manifests live inside `.claude-plugin/`; every component directory
+sits at the plugin root, next to it — not inside it:
+
 ```
-.claude-plugin/
-├── plugin.json         # manifest (required)
-├── commands/           # namespaced as /plugin:command
-├── agents/             # available as subagent_type
-├── skills/             # namespaced as /plugin:skill
-├── hooks/hooks.json    # plugin-scoped hooks
-├── .mcp.json           # MCP server config
-└── .lsp.json           # LSP server config
+my-plugin/                  # plugin root
+├── .claude-plugin/
+│   ├── plugin.json         # manifest (required)
+│   └── marketplace.json    # only when this repo is also a marketplace
+├── commands/               # namespaced as /plugin:command
+├── agents/                 # available as subagent_type "plugin:agent"
+├── skills/<name>/SKILL.md  # namespaced as /plugin:skill
+├── hooks/hooks.json        # plugin-scoped hooks
+├── .mcp.json               # MCP servers (or an "mcpServers" key in plugin.json)
+└── .lsp.json               # LSP server config
 ```
+
+Putting `commands/` or `skills/` inside `.claude-plugin/` makes them invisible — the loader looks
+for them at the plugin root.
 
 **Namespaced invocation:** `/plugin-name:skill-name`
 

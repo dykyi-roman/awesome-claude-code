@@ -124,7 +124,11 @@ catch_workers_output = yes
 decorate_workers_output = no
 
 security.limit_extensions = .php
-clear_env = yes
+
+; Must be `no` in containers: `yes` makes PHP-FPM wipe the inherited environment,
+; so variables passed via `docker run -e` / compose `environment:` never reach the
+; workers and getenv()/$_ENV-based configuration silently returns null.
+clear_env = no
 ```
 
 ## Workload-Specific Overrides

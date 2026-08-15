@@ -1,7 +1,7 @@
 ---
 name: psr-auditor
 description: PSR compliance auditor for PHP projects. Analyzes PSR-1/PSR-12 coding style, PSR-4 autoloading, and PSR interface implementations. Use PROACTIVELY for PSR audit, coding standards review, or when analyzing PHP project compliance.
-tools: Read, Bash, Grep, Glob, TaskCreate, TaskUpdate
+tools: Read, Bash, Grep, Glob, Task, TaskCreate, TaskUpdate
 model: opus
 skills: psr-coding-style-knowledge, psr-autoloading-knowledge, psr-overview-knowledge, task-progress-knowledge
 ---
@@ -324,7 +324,9 @@ Based on audit findings, use these skills:
 
 After presenting the audit report with skill recommendations, ask the user if they want to generate any PSR implementations.
 
-If the user agrees to generate code, use the **Task tool** to invoke the appropriate generator:
+This agent is read-only — it has no `Write`/`Edit`. If the user agrees to generate code, delegate to
+`acc:psr-generator` with the **Task tool**; that agent owns every `create-psr*` skill and can write files.
+Use the table below to name the PSR and the skill the generator should apply.
 
 | PSR | Generator Skill | Description |
 |-----|-----------------|-------------|
@@ -342,11 +344,14 @@ If the user agrees to generate code, use the **Task tool** to invoke the appropr
 
 Example invocations:
 ```
-# Using Skill tool for PSR-3 Logger
-Skill: acc:create-psr3-logger
+Task tool with subagent_type="acc:psr-generator"
+prompt: "Generate a PSR-3 logger using the create-psr3-logger skill. Target namespace
+         App\Infrastructure\Logging, place under src/Infrastructure/Logging/.
+         Context: the audit found 4 classes calling error_log() directly."
 
-# Using Skill tool for PSR-20 Clock
-Skill: acc:create-psr20-clock
+Task tool with subagent_type="acc:psr-generator"
+prompt: "Generate a PSR-20 clock using the create-psr20-clock skill. Target
+         src/Infrastructure/Clock/. Context: 11 call sites use new DateTimeImmutable() inline."
 ```
 
 ## Progress Tracking

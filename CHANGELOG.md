@@ -6,6 +6,72 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [3.3.0] - 2026-08-15
+
+Content-correctness release. No component was renamed, removed or added to the public surface —
+counts stay at 26 commands / 68 agents / 283 skills. What changed is that the plugin stopped
+teaching things that are false, and gained a quality gate that can actually fail.
+
+### Added
+- `scripts/validate.py` — the real validation gate. Checks what `claude plugin validate --strict`
+  was measured *not* to catch: invalid `model` values, empty `description`, broken `skills:`
+  references, `name`/filename mismatches, orphaned skills, over-15-skill agents, oversized
+  SKILL.md, invented hook events, unexecutable Grep patterns, readonly-inheritance fatals,
+  dangling `references/` links, and a list of banned regressions
+- `evals/` — 6 behavioural regression cases for `claude plugin eval`, each anchored to a defect
+  that actually shipped: `php8-comparison-semantics`, `readonly-inheritance`, `phpstan-config-valid`,
+  `hook-events-real`, `no-false-critical`, `delegation-fires`
+- `.github/workflows/validate.yml` — CI (the repository previously had none)
+- `make` targets: `validate-strict`, `token-budget`, `eval`, `eval-smoke`, `test`
+
+### Fixed
+- **PHP 8 comparison semantics.** `check-type-juggling`, `check-input-validation`,
+  `find-type-issues`, `find-logic-errors`, `find-boundary-issues` claimed `0 == 'admin'` is true;
+  PHP 8.0 reversed this. Replaced with bypasses that are real on PHP 8 (bool from JSON,
+  numeric-string coercion, the `strpos(...) == 0` false-return trap)
+- **`'10' > '9'` was documented as false** in `find-type-issues` — it is true; two numeric strings
+  compare numerically. Replaced with the real trap (`'1.10' > '1.9'`, `version_compare`)
+- **O(n²) myth.** `estimate-complexity`, `detect-memory-issues`, `detect-unnecessary-loops` called
+  `.=` in a loop and `strlen()` in a loop condition quadratic. Both are wrong: `.=` is amortised
+  O(1) and `strlen()` is O(1). Genuine quadratics (`array_merge`/`array_unshift` in a loop) kept
+- **Readonly inheritance fatal.** `create-decorator` and `create-specification` emitted
+  `final readonly class X extends AbstractY` where the base was not readonly — a guaranteed
+  `Fatal error` on PHP 8.2+. Specifications now use a readonly base; decorators keep a plain base
+  with a readonly `$wrapped` property, so stateful decorators (Retry, CircuitBreaker) stay possible
+- **PHPStan 2.x.** `create-phpstan-config` and `ci-tools-knowledge` generated
+  `checkMissingIterableValueType` and `checkGenericClassInNonGenericObjectType`, removed in 2.0 —
+  the config aborted on first run
+- **Invented hook events.** `ToolError`, `PreUserInput`, `PostUserInput` do not exist; a hook
+  registered under them silently never fires. Replaced with `PostToolUseFailure`,
+  `UserPromptSubmit`, `Stop`. `UserPromptSubmit` previously appeared zero times in the repository.
+  The event table is now the full verified list of 31 events (`PostCompact` *is* real and was kept)
+- **Plugin layout documentation** in `claude-code-knowledge` showed `commands/` and `skills/` inside
+  `.claude-plugin/`, where the loader does not look for them
+- **MCP configuration.** `docs/mcp.md` taught putting `mcpServers` in `.claude/settings.json`,
+  which is silently ignored. Now documents `.mcp.json`, `~/.claude.json` and `mcpServers` in
+  `plugin.json`
+- **Coverage gate** in `test-pipeline-agent` emitted Clover but parsed the Cobertura `line-rate`
+  attribute, so the threshold never evaluated; also replaced GNU-only `grep -oP`
+- **`clear_env = yes`** in `optimize-docker-php-fpm` and `create-docker-php-config` — in a container
+  this wipes the inherited environment, so `-e` / compose `environment:` never reach the workers
+- `create-prototype` emitted `implements \Cloneable`, an interface that does not exist in PHP
+- `create-timeout` typed a property as `?callable`, which PHP forbids
+- `psr-auditor`, `test-auditor`, `documentation-writer` instructed Task delegation without `Task`
+  in `tools:`. `psr-auditor` additionally pointed at skills it cannot execute (it is read-only) —
+  now delegates to `acc:psr-generator`
+- `hooks/hooks.json` broke on multi-file edits and on machines without PHP; now loops over
+  `$CLAUDE_FILE_PATHS`, exits cleanly when `php` is absent, and returns exit 2 on a syntax error
+- Invalid `psalm.xml` and legacy-style `rector.php` in the corresponding generator skills
+
+### Changed
+- `make validate-claude` replaced: it previously only checked that directories existed and that
+  files began with `#` or `---`, and `make release` printed "All checks passed!" unconditionally.
+  A broken `model:` now fails the build
+- README and `llms.txt` no longer advertise "21 hooks" as an installed feature — the plugin ships
+  one hook; the other 21 are copy-paste recipes in `docs/hooks.md`, which already said so
+- `permissionMode` value lists corrected (`auto` was missing)
+
+---
 ## [3.2.0] - 2026-02-22
 
 ### Added

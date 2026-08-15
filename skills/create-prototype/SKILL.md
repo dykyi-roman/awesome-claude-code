@@ -22,7 +22,8 @@ declare(strict_types=1);
 
 namespace {Namespace}\Domain\{Context};
 
-final class {Name} implements \Cloneable
+// Cloning is opted into via the __clone() magic method — PHP has no Cloneable interface
+final class {Name}
 {
     public function __construct(
         private readonly {IdType} $id,
@@ -163,6 +164,8 @@ final class {Name}
     /** @var list<{ChildType}> */
     private array $children;
 
+    private ?{IdType} $pendingId = null;
+
     public function __construct(
         private readonly {IdType} $id,
         private {ConfigType} $config,
@@ -173,6 +176,12 @@ final class {Name}
 
     public function __clone(): void
     {
+        // PHP 8.3+: __clone() may reassign a readonly property of the object being cloned
+        if ($this->pendingId !== null) {
+            $this->id = $this->pendingId;
+            $this->pendingId = null;
+        }
+
         // Deep clone config object
         $this->config = clone $this->config;
 
@@ -185,11 +194,13 @@ final class {Name}
 
     public function duplicate({IdType} $newId): self
     {
-        $clone = clone $this;
-        // Use reflection for readonly property if needed
-        $ref = new \ReflectionProperty($clone, 'id');
-        $ref->setValue($clone, $newId);
-        return $clone;
+        $this->pendingId = $newId;
+
+        try {
+            return clone $this;
+        } finally {
+            $this->pendingId = null;
+        }
     }
 }
 ```

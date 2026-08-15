@@ -120,7 +120,10 @@ Depending on the choice, ask:
 - What tasks does it solve?
 - What tools are needed? Any tools to disallow (`disallowedTools`)?
 - Which model (sonnet/haiku/opus/inherit)?
-- Permission mode (default/acceptEdits/plan/dontAsk/delegate)?
+- Permission mode? Settings-level values: `default`, `plan`, `acceptEdits`, `auto`, `dontAsk`,
+  `bypassPermissions`. (`delegate` — inherit the parent agent's permissions — is used for
+  sub-subagents; see `claude-code-knowledge`. Note that `claude plugin validate` does **not**
+  check this field's value, so a typo here fails silently at runtime.)
 - Should it load specific CLAUDE.md scope (`memory` field)?
 - Does it need scoped hooks (`hooks` field)?
 - Is it a coordinator (orchestrates other agents)?
@@ -140,7 +143,14 @@ Depending on the choice, ask:
 - Invocation control: user-only, Claude-only, or both?
 
 **For hook:**
-- Which event? (12 available: PreToolUse, PostToolUse, Notification, Stop, SubagentStop, PreCompact, PostCompact, ToolError, PreUserInput, PostUserInput, SessionStart, SessionEnd)
+- Which event? Common ones: `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `UserPromptSubmit`,
+  `Stop`, `SubagentStart`, `SubagentStop`, `PreCompact`, `PostCompact`, `Notification`,
+  `SessionStart`, `SessionEnd`. Also available: `PostToolBatch`, `PermissionRequest`,
+  `PermissionDenied`, `UserPromptExpansion`, `StopFailure`, `Setup`, `TeammateIdle`,
+  `TaskCreated`, `TaskCompleted`, `MessageDisplay`, `FileChanged`, `CwdChanged`,
+  `DirectoryAdded`, `ConfigChange`, `InstructionsLoaded`, `WorktreeCreate`, `WorktreeRemove`,
+  `Elicitation`, `ElicitationResult`.
+  Never offer `ToolError`, `PreUserInput` or `PostUserInput` — they do not exist.
 - Which hook type? (command/prompt/agent)
 - Matcher pattern (tool name, regex, `|` OR)?
 - What should execute?
@@ -220,7 +230,8 @@ Check the created file:
 - File path is correct
 - Description is specific and useful
 - New fields used correctly (disallowedTools, hooks, memory, context, agent, model)
-- For hooks: event name is valid (12 events), type is valid (3 types)
+- For hooks: event name is real — verify with `claude plugin validate <path> --strict`, which
+  rejects an unknown one as `hooks.<Name>: Invalid key in record`; type is valid (3 types)
 - For rules: paths use valid glob patterns
 - For plugins: manifest has required fields
 

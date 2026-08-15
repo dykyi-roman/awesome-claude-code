@@ -159,15 +159,21 @@ $found = $collection->first(fn($u) => $u->getId() === $targetId);
 ### 7. Counting in Loop
 
 ```php
-// SLOW: strlen in loop condition
+// MINOR: strlen() re-evaluated each iteration
 for ($i = 0; $i < strlen($string); $i++) {
-    // strlen called each iteration
+    // strlen() is O(1) in PHP (the length is stored), so this is n cheap calls,
+    // NOT a change of complexity class. Worth hoisting, but it is a Minor finding.
 }
 
-// FAST: Cache length
+// FASTER: hoist the call
 $len = strlen($string);
 for ($i = 0; $i < $len; $i++) {
     // ...
+}
+
+// MAJOR: a genuinely expensive call in the condition
+for ($i = 0; $i < $repository->countAll(); $i++) {
+    // n database round trips — this one really is a Major finding
 }
 
 // SLOW: count() in loop
@@ -220,7 +226,8 @@ Grep: "foreach.*array_merge" --glob "**/*.php"
 | Nested loop search | O(n*m) | O(n+m) with index |
 | Multiple passes | O(3n) | O(n) single pass |
 | In-loop flush | n DB round trips | 1 round trip |
-| strlen in condition | O(n²) | O(n) |
+| Query/count in condition | n DB round trips | 1 round trip |
+| strlen/count in condition | n cheap O(1) calls | 1 call (Minor — same complexity class) |
 
 ## Severity Classification
 

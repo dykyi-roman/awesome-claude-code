@@ -6,6 +6,7 @@
 [![DDD](https://img.shields.io/badge/DDD-Ready-green?style=flat-square)](https://en.wikipedia.org/wiki/Domain-driven_design)
 [![CQRS](https://img.shields.io/badge/CQRS-Ready-orange?style=flat-square)](https://martinfowler.com/bliki/CQRS.html)
 [![License](https://img.shields.io/github/license/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code/blob/master/LICENSE)
+[![Total Downloads](https://img.shields.io/packagist/dt/dykyi-roman/awesome-claude-code.svg?style=flat-square)](https://packagist.org/packages/dykyi-roman/awesome-claude-code)
 [![GitHub Stars](https://img.shields.io/github/stars/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 [![Last Commit](https://img.shields.io/github/last-commit/dykyi-roman/awesome-claude-code?style=flat-square)](https://github.com/dykyi-roman/awesome-claude-code)
 
@@ -159,7 +160,9 @@ Generates:
 
 ### Developer Safeguards
 
-**21 hooks** protecting code quality in real-time:
+The plugin installs **one** hook — a `php -l` syntax check on Write/Edit. On top of that,
+[docs/hooks.md](docs/hooks.md) is a library of **21 ready-to-copy hook recipes** you paste into your
+own `.claude/settings.json`:
 
 - DDD guards: readonly classes, immutable Value Objects, aggregate protection
 - Security: no debug output, no hardcoded paths, no global state
@@ -268,7 +271,7 @@ See [Component Flow](docs/component-flow.md) for the complete dependency graph.
 | [Commands](docs/commands.md)               | 26 slash commands with examples               |
 | [Agents](docs/agents.md)                   | 68 specialized subagents                      |
 | [Skills](docs/skills.md)                   | 283 skills (knowledge, generators, analyzers) |
-| [Hooks](docs/hooks.md)                     | 21 PHP/DDD hooks                              |
+| [Hooks](docs/hooks.md)                     | 1 installed + 21 copy-paste recipes           |
 | [Component Flow](docs/component-flow.md)   | Architecture and dependency graph             |
 | [MCP](docs/mcp.md)                         | MCP server configuration                      |
 | [Quick Reference](docs/quick-reference.md) | Paths, formats, best practices                |

@@ -7,6 +7,8 @@ description: Generates Rector configurations for PHP projects. Creates rector.ph
 
 Generates optimized Rector configurations for automated PHP refactoring.
 
+Targets Rector 2.x (`rector/rector: ^2.0`) — always the `RectorConfig::configure()` builder, never the legacy `return static function (RectorConfig $rectorConfig): void {}` closure with `->import()`/`->sets()`.
+
 ## Generated Files
 
 ```
@@ -53,27 +55,20 @@ return RectorConfig::configure()
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\SetList;
 
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/src',
     ])
     ->withPhpSets(php84: true)
-    ->withSets([
-        SetList::CODE_QUALITY,
-        SetList::CODING_STYLE,
-        SetList::DEAD_CODE,
-        SetList::EARLY_RETURN,
-        SetList::PRIVATIZATION,
-        SetList::TYPE_DECLARATION,
-        SetList::INSTANCEOF,
-    ])
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
+        codingStyle: true,
         typeDeclarations: true,
         privatization: true,
+        naming: true,
+        instanceOf: true,
         earlyReturn: true,
         strictBooleans: true,
     );
@@ -88,18 +83,15 @@ return RectorConfig::configure()
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/tests',
     ])
     ->withPhpSets(php84: true)
-    ->withSets([
-        PHPUnitSetList::PHPUNIT_100,
-        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
-        PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
-    ])
+    // Picks the PHPUnit version sets matching composer.json (PHPUnit 10/11/12)
+    ->withComposerBased(phpunit: true)
+    ->withAttributesSets(phpunit: true)
     ->withPreparedSets(
         phpunitCodeQuality: true,
     );
@@ -114,8 +106,6 @@ return RectorConfig::configure()
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Symfony\Set\SymfonySetList;
-use Rector\Doctrine\Set\DoctrineSetList;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -123,16 +113,13 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withPhpSets(php84: true)
-    ->withSets([
-        // Symfony 7.x
-        SymfonySetList::SYMFONY_70,
-        SymfonySetList::SYMFONY_CODE_QUALITY,
-        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-
-        // Doctrine
-        DoctrineSetList::DOCTRINE_ORM_30,
-        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-    ])
+    // Picks Symfony/Doctrine version sets matching composer.json
+    ->withComposerBased(symfony: true, doctrine: true)
+    ->withAttributesSets(symfony: true, doctrine: true)
+    ->withPreparedSets(
+        symfonyCodeQuality: true,
+        doctrineCodeQuality: true,
+    )
     ->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml');
 ```
 
@@ -145,7 +132,6 @@ return RectorConfig::configure()
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\SetList;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictNativeCallRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictScalarReturnExprRector;
@@ -178,14 +164,7 @@ return RectorConfig::configure()
     ->withRules([
         ReturnTypeFromStrictNativeCallRector::class,
         ReturnTypeFromStrictScalarReturnExprRector::class,
-    ])
-    // Configure individual rules
-    ->withConfiguredRule(
-        \Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class,
-        [
-            // Custom naming rules
-        ]
-    );
+    ]);
 ```
 
 ## Available Set Lists
@@ -241,7 +220,7 @@ SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES
 // Doctrine
 use Rector\Doctrine\Set\DoctrineSetList;
 DoctrineSetList::DOCTRINE_ORM_29
-DoctrineSetList::DOCTRINE_ORM_30
+DoctrineSetList::DOCTRINE_CODE_QUALITY
 DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES
 
 // PHPUnit

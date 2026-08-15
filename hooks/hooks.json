@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "file=$(echo \"$CLAUDE_FILE_PATHS\"); if [[ \"$file\" == *.php ]]; then php -l \"$file\"; fi"
+            "command": "command -v php >/dev/null 2>&1 || exit 0; status=0; for f in $CLAUDE_FILE_PATHS; do case \"$f\" in *.php) php -l \"$f\" >/dev/null 2>&1 || { php -l \"$f\" 1>&2; status=2; };; esac; done; exit $status"
           }
         ]
       }

@@ -51,7 +51,7 @@ namespace Domain\Shared\Specification;
  * @template T
  * @implements SpecificationInterface<T>
  */
-abstract class AbstractSpecification implements SpecificationInterface
+abstract readonly class AbstractSpecification implements SpecificationInterface
 {
     abstract public function isSatisfiedBy(mixed $candidate): bool;
 
